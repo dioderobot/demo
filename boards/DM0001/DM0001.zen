@@ -1,5 +1,5 @@
 """
-CS0001
+DM0001
 """
 
 load("@stdlib/interfaces.zen", "Ground", "I2c", "Power")
@@ -49,8 +49,8 @@ for i in range(4):
     MountingHole(name = "M" + str(i), diameter = "M2")
 
 Layout(
-    name = "CS0001",
-    path = "layout/CS0001",
+    name = "DM0001",
+    path = "layout/DM0001",
 )
 
 # pcb:sch PowerLed x=673.1000 y=-114.3000 rot=0
