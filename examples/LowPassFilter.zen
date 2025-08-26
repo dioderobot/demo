@@ -1,0 +1,96 @@
+"""
+4th Order Lowpass Filter - Cascaded RC stages
+Configurable cutoff frequency: 10Hz to 500kHz
+Each stage: fc = 1/(2*pi*R*C)
+Uses standard component values for reliable performance
+"""
+
+load("@stdlib/interfaces.zen", "Ground", "Power")
+load("@stdlib/properties.zen", "Layout")
+
+# Types
+CutoffFrequency = enum("10Hz", "50Hz", "100Hz", "500Hz", "1kHz", "2kHz", "5kHz", "10kHz", "20kHz", "50kHz", "100kHz", "200kHz", "500kHz")
+
+# Config
+config_frequency = config("config_frequency", CutoffFrequency, default = "20kHz")
+
+# IOs
+io_IN = io("io_IN", Net)
+io_gnd = io("io_gnd", Ground)
+io_OUT = io("io_OUT", Net)
+
+# Internal Nets
+STAGE1_OUT = Net("STAGE1_OUT")
+STAGE2_OUT = Net("STAGE2_OUT")
+STAGE3_OUT = Net("STAGE3_OUT")
+
+# Functions
+def compute_values(frequency: CutoffFrequency) -> (str, str):
+    """
+    Returns (R, C) values for a given cutoff frequency.
+    All stages use the same R, C for simplicity.
+    """
+
+    # Standard values for 4-stage RC lowpass
+    # fc = 1/(2*pi*R*C), choosing standard component values
+    values = {
+        "10Hz": ("16kohm", "1uF"),
+        "50Hz": ("3.3kohm", "1uF"),
+        "100Hz": ("1.6kohm", "1uF"),
+        "500Hz": ("330ohm", "1uF"),
+        "1kHz": ("1.6kohm", "100nF"),
+        "2kHz": ("820ohm", "100nF"),
+        "5kHz": ("330ohm", "100nF"),
+        "10kHz": ("1.6kohm", "10nF"),
+        "20kHz": ("820ohm", "10nF"),
+        "50kHz": ("330ohm", "10nF"),
+        "100kHz": ("1.6kohm", "1nF"),
+        "200kHz": ("820ohm", "1nF"),
+        "500kHz": ("330ohm", "1nF"),
+    }
+
+    # Return values if frequency is valid, else default to 10kHz
+    return values.get(frequency.value, values["10kHz"])
+
+# Variables
+R1, C1 = compute_values(config_frequency)
+R2, C2 = compute_values(config_frequency)
+R3, C3 = compute_values(config_frequency)
+R4, C4 = compute_values(config_frequency)
+
+# Components
+Resistor = Module("@stdlib/generics/Resistor.zen")
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+
+# Schematics
+# Stage 1: R1-C1
+Resistor(name = "R1", package = "0402", value = R1, P1 = io_IN, P2 = STAGE1_OUT)
+Capacitor(name = "C1", package = "0402", value = C1, P1 = STAGE1_OUT, P2 = io_gnd.NET)
+
+# Stage 2: R2-C2
+Resistor(name = "R2", package = "0402", value = R2, P1 = STAGE1_OUT, P2 = STAGE2_OUT)
+Capacitor(name = "C2", package = "0402", value = C2, P1 = STAGE2_OUT, P2 = io_gnd.NET)
+
+# Stage 3: R3-C3
+Resistor(name = "R3", package = "0402", value = R3, P1 = STAGE2_OUT, P2 = STAGE3_OUT)
+Capacitor(name = "C3", package = "0402", value = C3, P1 = STAGE3_OUT, P2 = io_gnd.NET)
+
+# Stage 4: R4-C4
+Resistor(name = "R4", package = "0402", value = R4, P1 = STAGE3_OUT, P2 = io_OUT)
+Capacitor(name = "C4", package = "0402", value = C4, P1 = io_OUT, P2 = io_gnd.NET)
+
+# Layout
+Layout(
+    name = "Filter",
+    path = "build/preview/Filter",
+)
+
+# pcb:sch C1.C x=245.3800 y=-255.0000 rot=0
+# pcb:sch C2.C x=372.3800 y=-255.0000 rot=0
+# pcb:sch C3.C x=499.3800 y=-255.0000 rot=0
+# pcb:sch C4.C x=613.6800 y=-255.0000 rot=0
+# pcb:sch R1.R x=179.3400 y=-343.9000 rot=270
+# pcb:sch R2.R x=319.0400 y=-343.9000 rot=270
+# pcb:sch R3.R x=446.0400 y=-343.9000 rot=270
+# pcb:sch R4.R x=573.0400 y=-343.9000 rot=270
+# pcb:sch io_gnd_GND.1 x=621.3000 y=-128.0000 rot=0

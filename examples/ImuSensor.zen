@@ -1,0 +1,55 @@
+"""
+IMU module with power indicator LED based on MPU-9250.
+"""
+
+load("@stdlib/interfaces.zen", "Ground", "I2c", "NotConnected", "Power")
+load("@stdlib/properties.zen", "Layout")
+
+# Config
+config_add_i2c_pullups = config("config_add_i2c_pullups", bool, default = False)
+
+# IOs
+io_vcc = io("io_vcc", Power)
+io_gnd = io("io_gnd", Ground)
+io_i2c = io("io_i2c", I2c)
+io_INT = io("io_INT", Net)
+
+# Components
+PowerLed = Module("PowerLed.zen")
+Mpu9250 = Module("@github/diodeinc/kicad/Sensor_Motion/MPU-9250.zen")
+
+# Schematics
+Mpu9250(
+    name = "MPU9250",
+    VDD = io_vcc.NET,
+    VDDIO = io_vcc.NET,
+    GND = io_gnd.NET,
+    I2C = io_i2c,
+    INT = io_INT,
+    AUX_DA = NotConnected(),
+    AUX_CL = NotConnected(),
+    FSYNC = NotConnected(),
+    add_i2c_pullups = config_add_i2c_pullups,
+    properties = {
+        "collapse": True,
+    },
+)
+
+PowerLed(
+    name = "LED",
+    io_vcc = io_vcc,
+    io_gnd = io_gnd,
+)
+
+Layout(
+    name = "PowerLed",
+    path = "build/preview/PowerLed",
+)
+
+
+# pcb:sch LED.C1.C x=804.1800 y=75.2000 rot=0
+# pcb:sch LED.L1.LED x=888.0000 y=19.3200 rot=270
+# pcb:sch LED.R1.R x=903.2400 y=100.6000 rot=0
+# pcb:sch MPU9250 x=533.4000 y=25.4000 rot=0
+# pcb:sch io_gnd_GND.1 x=595.9000 y=291.1000 rot=0
+# pcb:sch io_vcc_VCC.1 x=410.4800 y=-64.5000 rot=0

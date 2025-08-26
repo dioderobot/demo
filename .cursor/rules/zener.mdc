@@ -1,0 +1,16 @@
+---
+globs: *.zen
+alwaysApply: false
+---
+<guide>
+- `.zen` files use a Starlark-based language to define electronic components, modules, and boards as code.
+- **Do not edit files in `components/`**: These are auto-generated using `pcb search <PART_NUMBER>`.
+- **Create and edit reusable modules in `modules/`**: Modules combine components and logic. Use the format `name.zen`.
+- **Boards go in `boards/`**: These instantiate modules for real-world use.
+- Use the `mcp` server to run `pcb` commands and generate docs.
+- Always use the `search` tool to add new components; never write component definitions by hand.
+- Organize files:
+    - `components/`: auto-generated, unmodified
+    - `modules/`: user-authored logic
+    - `boards/`: end-use designs
+</guide>

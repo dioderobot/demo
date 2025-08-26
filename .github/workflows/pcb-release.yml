@@ -1,0 +1,10 @@
+name: PCB Releases
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  releases:
+    uses: diodeinc/pcb-action/.github/workflows/pcb-release.yml@v1
+

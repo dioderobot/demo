@@ -1,0 +1,65 @@
+"""
+CS0001
+"""
+
+load("@stdlib/interfaces.zen", "Ground", "I2c", "Power")
+load("@stdlib/properties.zen", "Layout")
+
+# IOs
+vcc = Power("vcc")
+i2c = I2c("i2c")
+gnd = Ground("gnd")
+SENSOR_OUT = Net("SENSOR_OUT")
+MCU_IN = Net("MCU_IN")
+
+# Components
+LowPassFilter = Module("//examples/LowPassFilter.zen")
+PowerLed = Module("//examples/PowerLed.zen")
+Imu = Module("//examples/ImuSensor.zen")
+MountingHole = Module("@stdlib/generics/MountingHole.zen")
+
+Imu(
+    name = "Imu",
+    io_vcc = vcc,
+    io_i2c = i2c,
+    io_gnd = gnd,
+    io_INT = SENSOR_OUT,
+    properties = {
+        "collapse": "true",
+    },
+)
+
+LowPassFilter(
+    name = "LowPassFilter",
+    io_IN = SENSOR_OUT,
+    io_OUT = MCU_IN,
+    io_gnd = gnd,
+    properties = {
+        "collapse": "true",
+    },
+)
+
+PowerLed(
+    name = "PowerLed",
+    io_vcc = vcc,
+    io_gnd = gnd,
+)
+
+for i in range(4):
+    MountingHole(name = "M" + str(i), diameter = "M2")
+
+Layout(
+    name = "CS0001",
+    path = "layout/CS0001",
+)
+
+# pcb:sch PowerLed x=673.1000 y=-114.3000 rot=0
+
+# pcb:sch Imu x=-228.6000 y=-88.9000 rot=0
+# pcb:sch LowPassFilter x=254.0000 y=-63.5000 rot=0
+# pcb:sch PowerLed.C1.C x=626.3800 y=-89.9000 rot=0
+# pcb:sch PowerLed.L1.LED x=710.2000 y=-145.7800 rot=180
+# pcb:sch PowerLed.R1.R x=814.3400 y=-89.9000 rot=0
+# pcb:sch gnd_GND.1 x=202.2000 y=49.8000 rot=0
+# pcb:sch gnd_GND.2 x=-331.2000 y=24.4000 rot=0
+# pcb:sch vcc_VCC.1 x=-326.1200 y=-166.1000 rot=0
