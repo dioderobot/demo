@@ -1,0 +1,36 @@
+"""TCAN330DCNT Component"""
+
+# Pins
+Pins = struct(
+    CANH = io("CANH", Net),
+    CANL = io("CANL", Net),
+    GND = io("GND", Net),
+    RXD = io("RXD", Net),
+    S = io("S", Net),
+    SHDN = io("SHDN", Net),
+    TXD = io("TXD", Net),
+    VCC = io("VCC", Net)
+)
+
+# Component
+Component(
+    name = "TCAN330DCNT",
+    symbol = Symbol(library = "TCAN330DCNT.kicad_sym"),
+    footprint = File("SOT65P280X145-8N.kicad_mod"),
+    pins = {
+        "CANH": Pins.CANH,
+        "CANL": Pins.CANL,
+        "GND": Pins.GND,
+        "RXD": Pins.RXD,
+        "S": Pins.S,
+        "SHDN": Pins.SHDN,
+        "TXD": Pins.TXD,
+        "VCC": Pins.VCC
+    },
+    properties = {
+        "value": "TCAN330DCNT",
+        "mpn": "TCAN330DCNT"
+    }
+)
+
+add_property("layout_path", "build/preview")

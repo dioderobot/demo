@@ -1,65 +1,536 @@
-"""
-DM0001
-"""
+# ============================================================================
+# ZenDrive Motor Controller
+# Author: Nasheed Ur Rehman
+# ============================================================================
 
-load("@stdlib/interfaces.zen", "Ground", "I2c", "Power")
+# ----------------------------------------------------------------------------
+# Libraries & Dependencies
+# ----------------------------------------------------------------------------
+
+load("@stdlib/config.zen", "config_properties", "config_unit")
+load("@stdlib/interfaces.zen", "CanTtl", "I2c", "Power", "Spi", "Swd", "Uart", "Usb2")
 load("@stdlib/properties.zen", "Layout")
+load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "Resistance", "Voltage")
 
-# IOs
-vcc = Power("vcc")
-i2c = I2c("i2c")
-gnd = Ground("gnd")
-SENSOR_OUT = Net("SENSOR_OUT")
-MCU_IN = Net("MCU_IN")
+# ----------------------------------------------------------------------------
+# Component Modules
+# ----------------------------------------------------------------------------
 
+Mcu = Module("//reference/STM32G431C8T6/STM32G431C8T6.zen")
+Buck = Module("//reference/L7986TR/L7986TR.zen")
+Ldo = Module("//reference/LDFPVR/LDFPVR.zen")
+HallEncoder = Module("src/HallEncoder.zen")
+PhaseDriver = Module("src/PhaseDriver.zen")
+CanInterface = Module("src/Can.zen")
+ShuntSense = Module("src/ShuntSense.zen")
+PowerCaps = Module("src/PowerCaps.zen")
+Resistor = Module("@stdlib/generics/Resistor.zen")
+SchottkyDiode = Module("@stdlib/generics/Diode.zen")
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+Thermistor = Module("@stdlib/generics/Thermistor.zen")
+Led = Module("@stdlib/generics/Led.zen")
+PwmHeader = Module("//components/SM05BMSRSSMTB/SM05BMSRSSMTB.zen")
+TagConnect = Module("@stdlib/kicad/TagConnect.zen")
+
+# ----------------------------------------------------------------------------
+# Configuration Parameters
+# ----------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------
+# Global Power Interfaces
+# ----------------------------------------------------------------------------
+
+VPLUS = io("VPLUS", Net, default = Net("VPLUS", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+V10V = io("V10V", Net, default = Net("V10V", symbol = Symbol("@kicad-symbols/power.kicad_sym:+10V")))
+V5V = io("V5V", Net, default = Net("V5V", symbol = Symbol("@kicad-symbols/power.kicad_sym:+5V")))
+V3V3 = io("V3V3", Net, default = Net("V3V3", symbol = Symbol("@kicad-symbols/power.kicad_sym:+3V3")))
+GND = io("GND", Net, default = Net("GND", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+
+# ----------------------------------------------------------------------------
+# Global Communication Interfaces
+# ----------------------------------------------------------------------------
+
+Usb = io("USB", Usb2)
+Spi = io("SPI", Spi)
+I2c = io("I2C", I2c)
+Swd = io("SWD", Swd)
+Can = io("CAN", CanTtl)
+Uart2 = io("UART2", Uart)
+
+# ----------------------------------------------------------------------------
+# Global IO Nets
+# ----------------------------------------------------------------------------
+
+# Motor Outputs
+PHASE_A = io("PHASE_A", Net)
+PHASE_B = io("PHASE_B", Net)
+PHASE_C = io("PHASE_C", Net)
+
+# Communication Interfaces
+CAN_RX = Can.RX  # CAN Receive (PA11)
+CAN_TX = Can.TX  # CAN Transmit (PB9)
+SWDIO = Swd.SWDIO  # SWD Data I/O (PA13)
+SWCLK = Swd.SWCLK  # SWD Clock (PA14)
+UART2_TX = Uart2.TX  # UART2 Transmit (PB3)
+UART2_RX = Uart2.RX  # UART2 Receive (PB4)
+
+# Unassigned pins
+PB5 = io("PB5", Net)
+PB10 = io("PB10", Net)
+nRST = io("nRST", Net)
+
+# ----------------------------------------------------------------------------
+# Local Nets
+# ----------------------------------------------------------------------------
+
+# Timer/PWM Signals
+TIM1_CH1 = Net("TIM1_CH1")
+TIM1_CH2 = Net("TIM1_CH2")
+TIM1_CH3 = Net("TIM1_CH3")
+TIM1_CH1N = Net("TIM1_CH1N")
+TIM1_CH2N = Net("TIM1_CH2N")
+TIM1_CH3N = Net("TIM1_CH3N")
+
+# BEMF Sensing
+BEMF1 = Net("BEMF1")
+BEMF2 = Net("BEMF2")
+BEMF3 = Net("BEMF3")
+GPIO_BEMF = Net("GPIO_BEMF")
+
+# Current Feedback OpAmp Signals
+CURR_FDBK1_OPAMP_PLUS = Net("CURR_FDBK1_OPAMP+")
+CURR_FDBK1_OPAMP_MINUS = GND
+OP1_OUT = Net("OP1_OUT")
+CURR_FDBK2_OPAMP_PLUS = Net("CURR_FDBK2_OPAMP+")
+CURR_FDBK2_OPAMP_MINUS = GND
+OP2_OUT = Net("OP2_OUT")
+CURR_FDBK3_OPAMP_PLUS = Net("CURR_FDBK3_OPAMP+")
+CURR_FDBK3_OPAMP_MINUS = GND
+OP3_OUT = Net("OP3_OUT")
+
+# Other Signals
+VBUS = Net("VBUS")
+STATUS = Net("STATUS")
+TEMP_FEEDBACK = Net("TEMP_FEEDBACK")
+
+# Hall Encoder Signals
+A_PLUS_H1_OUT = Net("A_PLUS_H1")
+B_PLUS_H2_OUT = Net("B_PLUS_H2")
+Z_PLUS_H3_OUT = Net("Z_PLUS_H3")
+
+# Shunt Voltage
+VSHUNTP_A = Net("VSHUNTP_A")
+VSHUNTP_B = Net("VSHUNTP_B")
+VSHUNTP_C = Net("VSHUNTP_C")
+
+# CAN Interface
+CAN_TERM = Net("CAN_TERM")
+CAN_SHDN = Net("CAN_SHDN")
+
+R_STATUS_LED = Net("R_STATUS_LED")
+R_POWER_LED = Net("R_POWER_LED")
+
+PWM = Net("PWM")
+NC_PWM_MP1 = Net("NC_PWM_MP1")
+NC_PWM_MP2 = Net("NC_PWM_MP2")
+
+# ----------------------------------------------------------------------------
 # Components
-LowPassFilter = Module("//examples/LowPassFilter.zen")
-PowerLed = Module("//examples/PowerLed.zen")
-Imu = Module("//examples/ImuSensor.zen")
-MountingHole = Module("@stdlib/generics/MountingHole.zen")
+# ----------------------------------------------------------------------------
 
-Imu(
-    name = "Imu",
-    io_vcc = vcc,
-    io_i2c = i2c,
-    io_gnd = gnd,
-    io_INT = SENSOR_OUT,
+# Power Rails
+
+Buck(
+    name = "Buck",
+    VIN_BUCK = VPLUS,
+    VOUT_BUCK = V10V,
+    GND = GND,
     properties = {
         "collapse": "true",
     },
 )
 
-LowPassFilter(
-    name = "LowPassFilter",
-    io_IN = SENSOR_OUT,
-    io_OUT = MCU_IN,
-    io_gnd = gnd,
+Ldo(
+    name = "Ldo_5V",
+    VIN_LDO = V10V,
+    VOUT_LDO = V5V,
+    GND = GND,
+    fb_resistor_top = "52.3kohms",
+    fb_resistor_bottom = "10kohms",
     properties = {
         "collapse": "true",
     },
 )
 
-PowerLed(
-    name = "PowerLed",
-    io_vcc = vcc,
-    io_gnd = gnd,
+Ldo(
+    name = "Ldo_3V3",
+    VIN_LDO = V5V,
+    VOUT_LDO = V3V3,
+    GND = GND,
+    fb_resistor_top = "30.9kohms",
+    fb_resistor_bottom = "10kohms",
+    properties = {
+        "collapse": "true",
+    },
 )
 
-for i in range(4):
-    MountingHole(name = "M" + str(i), diameter = "M2")
+# Power Caps
 
-Layout(
-    name = "DM0001",
-    path = "layout/DM0001",
+PowerCaps(
+    name = "PowerCaps",
+    VPLUS = VPLUS,
+    GND = GND,
+    properties = {
+        "collapse": "true",
+    },
 )
 
-# pcb:sch PowerLed x=673.1000 y=-114.3000 rot=0
+# MCU
 
-# pcb:sch Imu x=-228.6000 y=-88.9000 rot=0
-# pcb:sch LowPassFilter x=254.0000 y=-63.5000 rot=0
-# pcb:sch PowerLed.C1.C x=626.3800 y=-89.9000 rot=0
-# pcb:sch PowerLed.L1.LED x=710.2000 y=-145.7800 rot=180
-# pcb:sch PowerLed.R1.R x=814.3400 y=-89.9000 rot=0
-# pcb:sch gnd_GND.1 x=202.2000 y=49.8000 rot=0
-# pcb:sch gnd_GND.2 x=-331.2000 y=24.4000 rot=0
-# pcb:sch vcc_VCC.1 x=-326.1200 y=-166.1000 rot=0
+Mcu(
+    name = "STM32G431C8T6",
+    V3V3 = V3V3,
+    GND = GND,
+    PA0 = VBUS,  # VBUS sensing
+    PA1 = CURR_FDBK1_OPAMP_PLUS,  # Current feedback 1 OpAmp+
+    PA2 = OP1_OUT,  # OpAmp 1 output
+    PA3 = CURR_FDBK1_OPAMP_MINUS,  # Current feedback 1 OpAmp-
+    PA4 = BEMF1,  # BEMF phase 1
+    PA5 = CURR_FDBK2_OPAMP_MINUS,  # Current feedback 2 OpAmp-
+    PA6 = OP2_OUT,  # OpAmp 2 output
+    PA7 = CURR_FDBK2_OPAMP_PLUS,  # Current feedback 2 OpAmp+
+    PA8 = TIM1_CH1,  # Timer1 Channel 1
+    PA9 = TIM1_CH2,  # Timer1 Channel 2
+    PA10 = TIM1_CH3,  # Timer1 Channel 3
+    PA11 = CAN_RX,  # CAN Receive
+    PA12 = TIM1_CH2N,  # Timer1 Channel 2N
+    PA13 = SWDIO,  # SWD Data
+    PA14 = SWCLK,  # SWD Clock
+    PA15 = PWM,
+    PB0 = CURR_FDBK3_OPAMP_PLUS,  # Current feedback 3 OpAmp+
+    PB1 = OP3_OUT,  # OpAmp 3 output
+    PB2 = CURR_FDBK3_OPAMP_MINUS,  # Current feedback 3 OpAmp-
+    PB3 = UART2_TX,  # UART2 Transmit
+    PB4 = UART2_RX,  # UART2 Receive
+    PB5 = GPIO_BEMF,  # GPIO for BEMF
+    PB6 = A_PLUS_H1_OUT,  # Hall A / Encoder A
+    PB7 = B_PLUS_H2_OUT,  # Hall B / Encoder B
+    PB8_BOOT0 = Z_PLUS_H3_OUT,  # Hall C / Encoder Z (shares with BOOT0)
+    PB9 = CAN_TX,  # CAN Transmit
+    PB10 = PB10,  # Unassigned
+    PB11 = BEMF3,  # BEMF phase 3
+    PB12 = BEMF2,  # BEMF phase 2 (ADC capable)
+    PB13 = CAN_SHDN,  # CAN Shutdown (remapped from PC11)
+    PB14 = TEMP_FEEDBACK,  # Temperature feedback
+    PB15 = TIM1_CH3N,  # Timer1 Channel 3N
+    PC13 = TIM1_CH1N,  # Timer1 Channel 1N
+    PC14_OSC32_IN = CAN_TERM,  # CAN Termination
+    PC15_OSC32_OUT = STATUS,  # Status signal
+    nRST = nRST,
+    properties = {
+        "collapse": "true",
+    },
+)
+
+# Hall Encoder
+
+HallEncoder(
+    name = "HallEncoder",
+    V5V = V5V,
+    V3V3 = V3V3,
+    GND = GND,
+    A_PLUS_H1_OUT = A_PLUS_H1_OUT,
+    B_PLUS_H2_OUT = B_PLUS_H2_OUT,
+    Z_PLUS_H3_OUT = Z_PLUS_H3_OUT,
+    properties = {
+        "collapse": "true",
+    },
+)
+
+# CAN
+CanInterface(
+    name = "Can_Interface",
+    V5V = V5V,
+    V3V3 = V3V3,
+    GND = GND,
+    CAN_RX = CAN_RX,
+    CAN_TX = CAN_TX,
+    CAN_TERM = CAN_TERM,  # CAN Termination Resistor
+    CAN_SHDN = CAN_SHDN,  # CAN Shutdown
+    properties = {
+        "collapse": "true",
+    },
+)
+
+# Phase Drivers
+
+# Phase A Driver
+PhaseDriver(
+    name = "PhaseDriverA",
+    VPLUS = VPLUS,
+    VCC = V10V,
+    V3V3 = V3V3,
+    GND = GND,
+    TIM_CHN = TIM1_CH1N,
+    TIM_CHP = TIM1_CH1,
+    PHASEOUT = PHASE_A,
+    VSHUNTP = VSHUNTP_A,
+    GPIO_BEMF = GPIO_BEMF,
+    BEMF = BEMF1,
+    properties = {
+        "collapse": "true",
+    },
+)
+
+# Phase B Driver
+PhaseDriver(
+    name = "PhaseDriverB",
+    VPLUS = VPLUS,
+    VCC = V10V,
+    V3V3 = V3V3,
+    GND = GND,
+    TIM_CHN = TIM1_CH2N,
+    TIM_CHP = TIM1_CH2,
+    PHASEOUT = PHASE_B,
+    VSHUNTP = VSHUNTP_B,
+    GPIO_BEMF = GPIO_BEMF,
+    BEMF = BEMF2,
+    properties = {
+        "collapse": "true",
+    },
+)
+
+# Phase C Driver
+PhaseDriver(
+    name = "PhaseDriverC",
+    VPLUS = VPLUS,
+    VCC = V10V,
+    V3V3 = V3V3,
+    GND = GND,
+    TIM_CHN = TIM1_CH3N,
+    TIM_CHP = TIM1_CH3,
+    PHASEOUT = PHASE_C,
+    VSHUNTP = VSHUNTP_C,
+    GPIO_BEMF = GPIO_BEMF,
+    BEMF = BEMF3,
+    properties = {
+        "collapse": "true",
+    },
+)
+
+# Shunt Sense
+
+ShuntSense(
+    name = "ShuntSense",
+    V3V3 = V3V3,
+    GND = GND,
+    VSHUNTP_A = VSHUNTP_A,
+    VSHUNTP_B = VSHUNTP_B,
+    VSHUNTP_C = VSHUNTP_C,
+    CURR_FDBK1_OPAMP_PLUS = CURR_FDBK1_OPAMP_PLUS,
+    CURR_FDBK1_OPAMP_MINUS = CURR_FDBK1_OPAMP_MINUS,
+    CURR_FDBK2_OPAMP_PLUS = CURR_FDBK2_OPAMP_PLUS,
+    CURR_FDBK2_OPAMP_MINUS = CURR_FDBK2_OPAMP_MINUS,
+    CURR_FDBK3_OPAMP_PLUS = CURR_FDBK3_OPAMP_PLUS,
+    CURR_FDBK3_OPAMP_MINUS = CURR_FDBK3_OPAMP_MINUS,
+    properties = {
+        "collapse": "true",
+    },
+)
+
+# TagConnect for SWD debugging
+
+TagConnect(
+    name = "TagConnect",
+    tag_type = "TC2030-IDC-NL-2x03",  # 6-pin Tag-Connect for SWD
+    P1 = V3V3,  # VCC
+    P2 = SWDIO,  # SWDIO
+    P3 = nRST,  # Reset
+    P4 = SWCLK,  # SWCLK
+    P5 = GND,  # GND
+    P6 = GND,  # SWO (not used, tied to GND)
+)
+
+# PWM Header
+
+PwmHeader(
+    name = "PwmHeader",
+    MP1 = NC_PWM_MP1,
+    MP2 = NC_PWM_MP2,
+    P1 = V5V,
+    P2 = UART2_TX,
+    P3 = UART2_RX,
+    P4 = PWM,
+    P5 = GND,
+    properties = {
+        "collapse": "true",
+    },
+)
+
+# VBUS Sense
+
+Resistor(
+    name = "R_VBUS_Sense_Top",
+    value = "169kohms 1%",
+    package = "0402",
+    P1 = VPLUS,
+    P2 = VBUS,
+)
+
+Resistor(
+    name = "R_VBUS_Sense_Bottom",
+    value = "18kohms 1%",
+    package = "0402",
+    P1 = VBUS,
+    P2 = GND,
+)
+
+SchottkyDiode(
+    name = "D_VBUS_Sense",
+    variant = "Schottky",
+    package = "SOD-523",
+    mpn = "BAT30KFILM",
+    i_r = "300mA",
+    v_r = "30V",
+    A = VBUS,
+    K = V3V3,
+)
+
+Capacitor(
+    name = "C_VBUS_Sense",
+    value = "100nF",
+    dielectric = "X7R",
+    voltage = "16V",
+    package = "0402",
+    P1 = VBUS,
+    P2 = GND,
+)
+
+# Temperature Sense
+
+Thermistor(
+    name = "Thermistor",
+    value = "10kohms 1%",
+    package = "0402",
+    temperature_coefficient = "NTC",
+    mpn = "NTCG103JF103FT1",
+    P1 = V3V3,
+    P2 = TEMP_FEEDBACK,
+)
+
+Resistor(
+    name = "R_TEMP_FEEDBACK",
+    value = "4.7kohms 1%",
+    package = "0402",
+    P1 = TEMP_FEEDBACK,
+    P2 = GND,
+)
+
+Capacitor(
+    name = "C_TEMP_FEEDBACK",
+    value = "10nF 1%",
+    package = "0402",
+    voltage = "10V",
+    dielectric = "X7R",
+    P1 = TEMP_FEEDBACK,
+    P2 = GND,
+)
+
+# Status & Power LED
+
+Resistor(
+    name = "R_STATUS_LED",
+    value = "1kohms 1%",
+    package = "0402",
+    P1 = STATUS,
+    P2 = R_STATUS_LED,
+)
+
+Led(
+    name = "Status_LED",
+    color = "red",
+    package = "0402",
+    A = R_STATUS_LED,
+    K = GND,
+)
+
+Resistor(
+    name = "R_POWER_LED",
+    value = "1kohms 1%",
+    package = "0402",
+    P1 = V3V3,
+    P2 = R_POWER_LED,
+)
+
+Led(
+    name = "Power_LED",
+    color = "green",
+    package = "0402",
+    A = R_POWER_LED,
+    K = GND,
+)
+
+Layout("DM0001", "layout/")
+
+# ============================================================================
+# PCB Schematic
+# ============================================================================
+
+# pcb:sch Buck x=368.3000 y=12.7000 rot=0
+# pcb:sch C_TEMP_FEEDBACK.C x=1439.1800 y=722.9000 rot=0
+# pcb:sch C_VBUS_Sense.C x=1515.3800 y=367.3000 rot=0
+# pcb:sch Can_Interface x=1384.3000 y=-12.7000 rot=0
+# pcb:sch D_VBUS_Sense.D x=1497.6000 y=278.4000 rot=90
+# pcb:sch HallEncoder x=342.9000 y=406.4000 rot=0
+# pcb:sch Ldo_3V3 x=381.0000 y=241.3000 rot=0
+# pcb:sch Ldo_5V x=381.0000 y=127.0000 rot=0
+# pcb:sch PhaseDriverA x=1892.3000 y=-12.7000 rot=0
+# pcb:sch PhaseDriverB x=1892.3000 y=177.8000 rot=0
+# pcb:sch PhaseDriverC x=1892.3000 y=368.3000 rot=0
+# pcb:sch PowerCaps x=393.7000 y=-76.2000 rot=0
+# pcb:sch Power_LED.LED x=1205.5000 y=743.2200 rot=270
+# pcb:sch PwmHeader x=2362.2000 y=-12.7000 rot=0
+# pcb:sch R_POWER_LED.R x=1220.7400 y=621.3000 rot=0
+# pcb:sch R_STATUS_LED.R x=1119.1400 y=595.9000 rot=0
+# pcb:sch R_TEMP_FEEDBACK.R x=1347.7400 y=722.9000 rot=0
+# pcb:sch R_VBUS_Sense_Bottom.R x=1411.2400 y=367.3000 rot=0
+# pcb:sch R_VBUS_Sense_Top.R x=1411.2400 y=253.0000 rot=0
+# pcb:sch STM32G431C8T6 x=787.4000 y=-12.7000 rot=0
+# pcb:sch ShuntSense x=1727.2000 y=571.5000 rot=0
+# pcb:sch Status_LED.LED x=1103.9000 y=743.2200 rot=270
+# pcb:sch TagConnect.TAG_CONNECT x=2348.5000 y=227.6000 rot=0
+# pcb:sch Thermistor.TH x=1326.1500 y=608.6000 rot=0
+# pcb:sch GND.1 x=570.5000 y=303.8000 rot=0
+# pcb:sch GND.2 x=303.8000 y=519.7000 rot=0
+# pcb:sch GND.3 x=1294.4000 y=87.9000 rot=0
+# pcb:sch GND.4 x=1675.4000 y=494.3000 rot=0
+# pcb:sch GND.5 x=1611.9000 y=646.7000 rot=0
+# pcb:sch GND.6 x=2589.8000 y=748.3000 rot=0
+# pcb:sch GND.7 x=608.6000 y=303.8000 rot=0
+# pcb:sch GND.8 x=621.3000 y=659.4000 rot=0
+# pcb:sch GND.9 x=1408.7000 y=468.9000 rot=0
+# pcb:sch GND.10 x=1345.2000 y=824.5000 rot=0
+# pcb:sch GND.11 x=2475.5000 y=138.7000 rot=0
+# pcb:sch GND.12 x=2399.3000 y=341.9000 rot=0
+# pcb:sch V10V.1 x=245.3800 y=24.4000 rot=0
+# pcb:sch V10V.2 x=1769.3800 y=-13.7000 rot=0
+# pcb:sch V10V.3 x=1769.3800 y=176.8000 rot=0
+# pcb:sch V10V.4 x=1769.3800 y=367.3000 rot=0
+# pcb:sch V3V3.1 x=245.3800 y=214.9000 rot=0
+# pcb:sch V3V3.2 x=702.5800 y=-26.4000 rot=0
+# pcb:sch V3V3.3 x=1299.4800 y=-26.4000 rot=0
+# pcb:sch V3V3.4 x=1718.5800 y=11.7000 rot=0
+# pcb:sch V3V3.5 x=1718.5800 y=202.2000 rot=0
+# pcb:sch V3V3.6 x=1718.5800 y=392.7000 rot=0
+# pcb:sch V3V3.7 x=1616.9800 y=557.8000 rot=0
+# pcb:sch V3V3.8 x=1528.0800 y=189.5000 rot=0
+# pcb:sch V3V3.9 x=1350.2800 y=557.8000 rot=0
+# pcb:sch V3V3.10 x=2315.4800 y=189.5000 rot=0
+# pcb:sch V5V.1 x=245.3800 y=126.0000 rot=0
+# pcb:sch V5V.2 x=1362.9800 y=-51.8000 rot=0
+# pcb:sch V5V.3 x=2315.4800 y=-51.8000 rot=0
+# pcb:sch VPLUS.1 x=308.8800 y=-89.9000 rot=0
+# pcb:sch VPLUS.2 x=1820.1800 y=-39.1000 rot=0
+# pcb:sch VPLUS.3 x=1820.1800 y=151.4000 rot=0
+# pcb:sch VPLUS.4 x=1820.1800 y=341.9000 rot=0
+# pcb:sch VPLUS.5 x=1413.7800 y=189.5000 rot=0

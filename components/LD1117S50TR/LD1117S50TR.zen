@@ -1,0 +1,28 @@
+"""LD1117S50TR Component"""
+
+# Pins
+Pins = struct(
+    GND = io("GND", Net),
+    VIN = io("VIN", Net),
+    VOUT_1 = io("VOUT_1", Net),
+    VOUT_2 = io("VOUT_2", Net)
+)
+
+# Component
+Component(
+    name = "LD1117S50TR",
+    symbol = Symbol(library = "LD1117S50TR.kicad_sym"),
+    footprint = File("SOT230P700X190-4N.kicad_mod"),
+    pins = {
+        "GND": Pins.GND,
+        "VIN": Pins.VIN,
+        "VOUT_1": Pins.VOUT_1,
+        "VOUT_2": Pins.VOUT_2
+    },
+    properties = {
+        "value": "LD1117S50TR",
+        "mpn": "LD1117S50TR"
+    }
+)
+
+add_property("layout_path", "build/preview")

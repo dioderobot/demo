@@ -1,0 +1,36 @@
+"""L6387ED Component"""
+
+# Pins
+Pins = struct(
+    GND = io("GND", Net),
+    HIN = io("HIN", Net),
+    HVG = io("HVG", Net),
+    LIN = io("LIN", Net),
+    LVG = io("LVG", Net),
+    OUT = io("OUT", Net),
+    VBOOT = io("VBOOT", Net),
+    VCC = io("VCC", Net)
+)
+
+# Component
+Component(
+    name = "L6387ED",
+    symbol = Symbol(library = "L6387ED.kicad_sym"),
+    footprint = File("SOIC127P600X175-8N.kicad_mod"),
+    pins = {
+        "GND": Pins.GND,
+        "HIN": Pins.HIN,
+        "HVG": Pins.HVG,
+        "LIN": Pins.LIN,
+        "LVG": Pins.LVG,
+        "OUT": Pins.OUT,
+        "VBOOT": Pins.VBOOT,
+        "VCC": Pins.VCC
+    },
+    properties = {
+        "value": "L6387ED",
+        "mpn": "L6387ED"
+    }
+)
+
+add_property("layout_path", "build/preview")

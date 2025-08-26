@@ -1,0 +1,86 @@
+# ============================================================================
+# LD1117S50TR 5V LDO Regulator Reference Design
+# Author: Nasheed Ur Rehman
+# Datasheet: <link>
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# Libraries & Dependencies
+# ----------------------------------------------------------------------------
+
+load("@stdlib/units.zen", "Voltage", "Current", "Capacitance", "Inductance", "Frequency", "Resistance")
+load("@stdlib/config.zen", "config_unit", "config_properties")
+load("@stdlib/interfaces.zen", "Power")
+
+# ----------------------------------------------------------------------------
+# Component Modules
+# ----------------------------------------------------------------------------
+
+Ldo = Module("../../components/LD1117S50TR/LD1117S50TR.zen")
+Resistor = Module("@stdlib/generics/Resistor.zen")
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+
+# ----------------------------------------------------------------------------
+# Configuration Parameters
+# ----------------------------------------------------------------------------
+
+# Capacitor voltage ratings
+input_cap_voltage = config("input_cap_voltage", str, default="16V")
+output_cap_voltage = config("output_cap_voltage", str, default="16V")
+
+# Capacitor values
+input_cap_value = config("input_cap_value", str, default="100nF")
+output_cap_value = config("output_cap_value", str, default="10uF")
+
+# ----------------------------------------------------------------------------
+# Global Power Interfaces
+# ----------------------------------------------------------------------------
+
+VIN_LDO = io("VIN_LDO", Net, default = Net("VIN_LDO", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+VOUT_LDO = io("VOUT_LDO", Net, default = Net("VOUT_LDO", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+GND = io("GND", Net, default = Net("GND", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+
+# ============================================================================
+# Components
+# ============================================================================
+
+Ldo(
+    name = "LD1117S50TR",
+    GND = GND,
+    VIN = VIN_LDO,
+    VOUT_1 = VOUT_LDO,
+    VOUT_2 = VOUT_LDO
+)
+
+# Input Capacitor
+Capacitor(
+    name = "C_VIN_LDO",
+    value = input_cap_value,
+    voltage = input_cap_voltage,
+    package = "0402",
+    P1 = VIN_LDO,
+    P2 = GND
+)
+
+# Output Capacitor  
+Capacitor(
+    name = "C_VOUT_LDO",
+    value = output_cap_value,
+    voltage = output_cap_voltage,
+    package = "0402",
+    P1 = VOUT_LDO,
+    P2 = GND
+)
+
+add_property("datasheet", "//components/LD1117S50TR/LD1117S50TR.pdf")
+
+# ----------------------------------------------------------------------------
+# PCB Schematic
+# ----------------------------------------------------------------------------
+
+# pcb:sch C_VIN_LDO.C x=956.5800 y=-89.9000 rot=0
+# pcb:sch C_VOUT_LDO.C x=1578.8800 y=-77.2000 rot=0
+# pcb:sch LD1117S50TR.LD1117S50TR x=1167.4000 y=-128.0000 rot=0
+# pcb:sch GND.1 x=1116.6000 y=49.8000 rot=0
+# pcb:sch VIN_LDO.1 x=1070.8800 y=-216.9000 rot=0
+# pcb:sch VOUT_LDO.1 x=1591.5800 y=-216.9000 rot=0

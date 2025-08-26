@@ -1,0 +1,24 @@
+"""0435.250KRS Component"""
+
+# Pins
+Pins = struct(
+    P1 = io("P1", Net),
+    P2 = io("P2", Net)
+)
+
+# Component
+Component(
+    name = "0435.250KRS",
+    symbol = Symbol(library = "C1972550.kicad_sym"),
+    footprint = File("F0402.kicad_mod"),
+    pins = {
+        "1": Pins.P1,
+        "2": Pins.P2
+    },
+    properties = {
+        "value": "0435.250KRS",
+        "mpn": "0435.250KRS"
+    }
+)
+
+add_property("layout_path", "build/preview")

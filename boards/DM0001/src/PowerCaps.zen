@@ -1,0 +1,82 @@
+# ============================================================================
+# ZenDrive Power Caps
+# Author: Nasheed Ur Rehman
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# Libraries & Dependencies
+# ----------------------------------------------------------------------------
+
+load("@stdlib/units.zen", "Voltage", "Current", "Capacitance", "Inductance", "Frequency", "Resistance")
+load("@stdlib/config.zen", "config_unit", "config_properties")
+load("@stdlib/interfaces.zen", "Power")
+
+# ----------------------------------------------------------------------------
+# Component Modules
+# ----------------------------------------------------------------------------
+
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+SMM4F26A = Module("//components/SMM4F26AMTR/SMM4F26AMTR.zen")
+
+# ----------------------------------------------------------------------------
+# Configuration Parameters
+# ----------------------------------------------------------------------------
+
+no_of_power_caps = config("no_of_power_caps", int, default=11)
+capacitor_value = config("capacitor_value", str, default="22uF")
+capacitor_voltage = config("capacitor_voltage", str, default="35V")
+capacitor_dielectric = config("capacitor_dielectric", str, default="X5R")
+capacitor_package = config("capacitor_package", str, default="0805")
+
+# ----------------------------------------------------------------------------
+# Global Power Interfaces
+# ----------------------------------------------------------------------------
+
+VPLUS = io("VPLUS", Net, default = Net("VPLUS", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+GND = io("GND", Net, default = Net("GND", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+
+# ----------------------------------------------------------------------------
+# Power Caps
+# ----------------------------------------------------------------------------
+
+for i in range(1, no_of_power_caps):
+    Capacitor(
+        name = f"C_VPLUS_{i}",
+        value = capacitor_value,
+        package = capacitor_package,
+        voltage = capacitor_voltage,
+        dielectric = capacitor_dielectric,
+        P1 = VPLUS,
+        P2 = GND,
+    )
+
+SMM4F26A(
+    name = "SMM4F26A",
+    A = GND,
+    K_1 = VPLUS,
+    K_2 = VPLUS,
+)
+
+
+# ----------------------------------------------------------------------------
+# PCB Schematics
+# ----------------------------------------------------------------------------
+
+
+# pcb:sch C_VPLUS_1.C x=194.5800 y=-255.0000 rot=0
+# pcb:sch C_VPLUS_10.C x=1680.4800 y=-255.0000 rot=0
+# pcb:sch C_VPLUS_11.C x=1858.2800 y=-255.0000 rot=0
+# pcb:sch C_VPLUS_12.C x=2023.3800 y=-255.0000 rot=0
+# pcb:sch C_VPLUS_13.C x=2188.4800 y=-255.0000 rot=0
+# pcb:sch C_VPLUS_14.C x=2353.5800 y=-255.0000 rot=0
+# pcb:sch C_VPLUS_2.C x=359.6800 y=-255.0000 rot=0
+# pcb:sch C_VPLUS_3.C x=524.7800 y=-255.0000 rot=0
+# pcb:sch C_VPLUS_4.C x=689.8800 y=-255.0000 rot=0
+# pcb:sch C_VPLUS_5.C x=854.9800 y=-255.0000 rot=0
+# pcb:sch C_VPLUS_6.C x=1020.0800 y=-255.0000 rot=0
+# pcb:sch C_VPLUS_7.C x=1185.1800 y=-255.0000 rot=0
+# pcb:sch C_VPLUS_8.C x=1350.2800 y=-255.0000 rot=0
+# pcb:sch C_VPLUS_9.C x=1515.3800 y=-255.0000 rot=0
+# pcb:sch SMM4F26A.SMM4F26A-TR x=138.7000 y=-216.9000 rot=180
+# pcb:sch GND.1 x=202.2000 y=-153.4000 rot=0
+# pcb:sch VPLUS.1 x=207.2800 y=-318.5000 rot=0

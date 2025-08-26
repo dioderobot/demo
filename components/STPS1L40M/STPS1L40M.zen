@@ -1,0 +1,26 @@
+"""STPS1L40M Component"""
+
+# Pins
+Pins = struct(
+    A = io("A", Net),
+    K_1 = io("K_1", Net),
+    K_2 = io("K_2", Net)
+)
+
+# Component
+Component(
+    name = "STPS1L40M",
+    symbol = Symbol(library = "STPS1L40M.kicad_sym"),
+    footprint = File("STPS1L40M.kicad_mod"),
+    pins = {
+        "A": Pins.A,
+        "K_1": Pins.K_1,
+        "K_2": Pins.K_2
+    },
+    properties = {
+        "value": "STPS1L40M",
+        "mpn": "STPS1L40M"
+    }
+)
+
+add_property("layout_path", "build/preview")

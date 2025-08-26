@@ -1,0 +1,26 @@
+"""CSTNE8M00GH5C000R0 Component"""
+
+# Pins
+Pins = struct(
+    GND = io("GND", Net),
+    INPUT = io("INPUT", Net),
+    OUTPUT = io("OUTPUT", Net)
+)
+
+# Component
+Component(
+    name = "CSTNE8M00GH5C000R0",
+    symbol = Symbol(library = "CSTNE8M00GH5C000R0.kicad_sym"),
+    footprint = File("CSTNE12M0GH5L000R0.kicad_mod"),
+    pins = {
+        "GND": Pins.GND,
+        "INPUT": Pins.INPUT,
+        "OUTPUT": Pins.OUTPUT
+    },
+    properties = {
+        "value": "CSTNE8M00GH5C000R0",
+        "mpn": "CSTNE8M00GH5C000R0"
+    }
+)
+
+add_property("layout_path", "build/preview")

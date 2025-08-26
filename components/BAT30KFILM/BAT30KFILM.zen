@@ -1,0 +1,24 @@
+"""BAT30KFILM Component"""
+
+# Pins
+Pins = struct(
+    A = io("A", Net),
+    K = io("K", Net)
+)
+
+# Component
+Component(
+    name = "BAT30KFILM",
+    symbol = Symbol(library = "BAT30KFILM.kicad_sym"),
+    footprint = File("SODFL1608X70N.kicad_mod"),
+    pins = {
+        "A": Pins.A,
+        "K": Pins.K
+    },
+    properties = {
+        "value": "BAT30KFILM",
+        "mpn": "BAT30KFILM"
+    }
+)
+
+add_property("layout_path", "build/preview")

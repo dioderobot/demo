@@ -1,0 +1,77 @@
+# ============================================================================
+# FSA5157L6X Analog Switch Reference Design
+# Author: Nasheed Ur Rehman
+# Datasheet: <link>
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# Libraries & Dependencies
+# ----------------------------------------------------------------------------
+
+load("@stdlib/units.zen", "Voltage", "Current", "Capacitance", "Inductance", "Frequency", "Resistance")
+load("@stdlib/config.zen", "config_unit", "config_properties")
+load("@stdlib/interfaces.zen", "Power", "CanTtl", "Can")
+
+# ----------------------------------------------------------------------------
+# Component Modules
+# ----------------------------------------------------------------------------
+
+FSA5157L6X = Module("../../components/FSA5157L6X/FSA5157L6X.zen")
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+
+# ----------------------------------------------------------------------------
+# Configuration Parameters
+# ----------------------------------------------------------------------------
+
+# Capacitor voltage ratings
+decoupling_cap_voltage = config("decoupling_cap_voltage", str, default="16V")
+
+# Capacitor values
+decoupling_cap_value = config("decoupling_cap_value", str, default="100nF")
+
+# ----------------------------------------------------------------------------
+# Global Power Interfaces
+# ----------------------------------------------------------------------------
+
+VCC = io("VCC", Net, default = Net("VCC", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+GND = io("GND", Net, default = Net("GND", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+
+# ----------------------------------------------------------------------------
+# Global IO Nets
+# ----------------------------------------------------------------------------
+
+A = io("A", Net)
+S = io("S", Net)
+B0 = io("B0", Net)
+B1 = io("B1", Net)
+
+# ----------------------------------------------------------------------------
+# Components
+# ----------------------------------------------------------------------------
+
+FSA5157L6X(
+    name = "FSA5157L6X",
+    VCC = VCC,
+    GND = GND,
+    A = A,
+    S = S,
+    B0 = B0,
+    B1 = B1
+)
+
+Capacitor(
+    name = "C_VCC",
+    value = decoupling_cap_value,
+    voltage = decoupling_cap_voltage,
+    dielectric = "X7R",
+    package = "0402",
+    P1 = VCC,
+    P2 = GND
+)
+
+add_property("datasheet", "//components/FSA5157L6X/FSA5157L6X.pdf")
+
+# pcb:sch C_VCC.C x=308.8800 y=214.9000 rot=0
+# pcb:sch FSA5157L6X.FSA5157L6X x=481.6000 y=151.4000 rot=0
+# pcb:sch GND.1 x=595.9000 y=341.9000 rot=0
+# pcb:sch VCC.1 x=321.5800 y=151.4000 rot=0

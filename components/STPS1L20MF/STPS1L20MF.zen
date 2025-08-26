@@ -1,0 +1,26 @@
+"""STPS1L20MF Component"""
+
+# Pins
+Pins = struct(
+    A = io("A", Net),
+    K_1 = io("K_1", Net),
+    K_2 = io("K_2", Net)
+)
+
+# Component
+Component(
+    name = "STPS1L20MF",
+    symbol = Symbol(library = "STPS1L20MF.kicad_sym"),
+    footprint = File("STPS1L20MF.kicad_mod"),
+    pins = {
+        "A": Pins.A,
+        "K_1": Pins.K_1,
+        "K_2": Pins.K_2
+    },
+    properties = {
+        "value": "STPS1L20MF",
+        "mpn": "STPS1L20MF"
+    }
+)
+
+add_property("layout_path", "build/preview")

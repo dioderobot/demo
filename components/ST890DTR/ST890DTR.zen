@@ -1,0 +1,38 @@
+"""ST890DTR Component"""
+
+# Pins
+Pins = struct(
+    EP = io("EP", Net),
+    GND = io("GND", Net),
+    IN_1 = io("IN_1", Net),
+    IN_2 = io("IN_2", Net),
+    OUT_1 = io("OUT_1", Net),
+    OUT_2 = io("OUT_2", Net),
+    SET = io("SET", Net),
+    n_FAULT = io("n_FAULT", Net),
+    n_ON = io("n_ON", Net)
+)
+
+# Component
+Component(
+    name = "ST890DTR",
+    symbol = Symbol(library = "ST890DTR.kicad_sym"),
+    footprint = File("SON65P300X300X90-9N.kicad_mod"),
+    pins = {
+        "EP": Pins.EP,
+        "GND": Pins.GND,
+        "IN_1": Pins.IN_1,
+        "IN_2": Pins.IN_2,
+        "OUT_1": Pins.OUT_1,
+        "OUT_2": Pins.OUT_2,
+        "SET": Pins.SET,
+        "~{FAULT}": Pins.n_FAULT,
+        "~{ON}": Pins.n_ON
+    },
+    properties = {
+        "value": "ST890DTR",
+        "mpn": "ST890DTR"
+    }
+)
+
+add_property("layout_path", "build/preview")

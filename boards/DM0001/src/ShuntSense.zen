@@ -1,0 +1,150 @@
+# ============================================================================
+# Shunt Sensing Circuit
+# Author: Nasheed Ur Rehman
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# Libraries & Dependencies
+# ----------------------------------------------------------------------------
+
+load("@stdlib/units.zen", "Voltage", "Current", "Capacitance", "Inductance", "Frequency", "Resistance")
+load("@stdlib/config.zen", "config_unit", "config_properties")
+load("@stdlib/interfaces.zen", "Power")
+
+# ----------------------------------------------------------------------------
+# Component Modules
+# ----------------------------------------------------------------------------
+
+Resistor = Module("@stdlib/generics/Resistor.zen")
+
+# ----------------------------------------------------------------------------
+# Global Power Interfaces
+# ---------------------------------------------------------------------------
+
+V3V3 = io("V3V3", Net, default = Net("V3V3", symbol = Symbol("@kicad-symbols/power.kicad_sym:+3V3")))
+GND = io("GND", Net, default = Net("GND", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+
+# ----------------------------------------------------------------------------
+# Global IO Nets
+# ---------------------------------------------------------------------------
+
+# Shunt Voltage
+VSHUNTP_A = io("VSHUNTP_A", Net)
+VSHUNTP_B = io("VSHUNTP_B", Net)
+VSHUNTP_C = io("VSHUNTP_C", Net)
+
+CURR_FDBK1_OPAMP_PLUS = io("CURR_FDBK1_OPAMP_PLUS", Net)
+CURR_FDBK2_OPAMP_PLUS = io("CURR_FDBK2_OPAMP_PLUS", Net)
+CURR_FDBK3_OPAMP_PLUS = io("CURR_FDBK3_OPAMP_PLUS", Net)
+
+CURR_FDBK1_OPAMP_MINUS = io("CURR_FDBK1_OPAMP_MINUS", Net)
+CURR_FDBK2_OPAMP_MINUS = io("CURR_FDBK2_OPAMP_MINUS", Net)
+CURR_FDBK3_OPAMP_MINUS = io("CURR_FDBK3_OPAMP_MINUS", Net)
+
+CURR_FDBK1_OPAMP_MINUS = GND
+CURR_FDBK2_OPAMP_MINUS = GND
+CURR_FDBK3_OPAMP_MINUS = GND
+
+# ----------------------------------------------------------------------------
+# Local Nets
+# ----------------------------------------------------------------------------
+
+
+## ----------------------------------------------------------------------------
+# Component
+# ----------------------------------------------------------------------------
+
+# Phase A
+
+Resistor(
+    name = "R_Divider_Top_A",
+    value = "22kohms 1%",
+    package = "0402",
+    P1 = V3V3,
+    P2 = CURR_FDBK1_OPAMP_PLUS,
+)
+
+Resistor(
+    name = "R_Divider_Bottom_A",
+    value = "2.2kohms 1%",
+    package = "0402",
+    P1 = CURR_FDBK1_OPAMP_PLUS,
+    P2 = GND,
+)
+
+Resistor(
+    name = "R_Feedback_A",
+    value = "1.5kohms 1%",
+    package = "0402",
+    P1 = CURR_FDBK1_OPAMP_PLUS,
+    P2 = VSHUNTP_A,
+)
+
+# Phase B
+
+
+Resistor(
+    name = "R_Divider_Top_B",
+    value = "22kohms 1%",
+    package = "0402",
+    P1 = V3V3,
+    P2 = CURR_FDBK2_OPAMP_PLUS,
+)
+
+Resistor(
+    name = "R_Divider_Bottom_B",
+    value = "2.2kohms 1%",
+    package = "0402",
+    P1 = CURR_FDBK2_OPAMP_PLUS,
+    P2 = GND,
+)   
+
+Resistor(
+    name = "R_Feedback_B",
+    value = "1.5kohms 1%",
+    package = "0402",
+    P1 = CURR_FDBK2_OPAMP_PLUS,
+    P2 = VSHUNTP_B,
+)
+
+# Phase C   
+
+Resistor(
+    name = "R_Divider_Top_C",
+    value = "22kohms 1%",
+    package = "0402",
+    P1 = V3V3,
+    P2 = CURR_FDBK3_OPAMP_PLUS,
+)
+
+Resistor(   
+    name = "R_Divider_Bottom_C",
+    value = "2.2kohms 1%",
+    package = "0402",
+    P1 = CURR_FDBK3_OPAMP_PLUS,
+    P2 = GND,
+)
+
+Resistor(
+    name = "R_Feedback_C",
+    value = "1.5kohms 1%",
+    package = "0402",
+    P1 = CURR_FDBK3_OPAMP_PLUS,
+    P2 = VSHUNTP_C,
+)
+
+# ============================================================================
+# PCB Schematic
+# ============================================================================
+
+# pcb:sch R_Divider_Bottom_A.R x=-112.7600 y=126.0000 rot=0
+# pcb:sch R_Divider_Bottom_B.R x=-11.1600 y=126.0000 rot=0
+# pcb:sch R_Divider_Bottom_C.R x=90.4400 y=126.0000 rot=0
+# pcb:sch R_Divider_Top_A.R x=-112.7600 y=-115.3000 rot=0
+# pcb:sch R_Divider_Top_B.R x=-11.1600 y=-115.3000 rot=0
+# pcb:sch R_Divider_Top_C.R x=90.4400 y=-115.3000 rot=0
+# pcb:sch R_Feedback_A.R x=204.7400 y=-51.8000 rot=270
+# pcb:sch R_Feedback_B.R x=204.7400 y=11.7000 rot=270
+# pcb:sch R_Feedback_C.R x=204.7400 y=75.2000 rot=270
+# pcb:sch GND.1 x=-13.7000 y=291.1000 rot=0
+# pcb:sch V3V3.1 x=-8.6200 y=-191.5000 rot=0

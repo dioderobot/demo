@@ -1,0 +1,24 @@
+"""LPS4018-333MRC Component"""
+
+# Pins
+Pins = struct(
+    P1 = io("P1", Net),
+    P2 = io("P2", Net)
+)
+
+# Component
+Component(
+    name = "LPS4018-333MRC",
+    symbol = Symbol(library = "C17306753.kicad_sym"),
+    footprint = File("IND-SMD_L3.9-W3.9.kicad_mod"),
+    pins = {
+        "1": Pins.P1,
+        "2": Pins.P2
+    },
+    properties = {
+        "value": "LPS4018-333MRC",
+        "mpn": "LPS4018-333MRC"
+    }
+)
+
+add_property("layout_path", "build/preview")

@@ -1,0 +1,32 @@
+"""BM04B-SRSS-TB_LF__SN__P_ Component"""
+
+# Pins
+Pins = struct(
+    MP1 = io("MP1", Net),
+    MP2 = io("MP2", Net),
+    P1 = io("P1", Net),
+    P2 = io("P2", Net),
+    P3 = io("P3", Net),
+    P4 = io("P4", Net)
+)
+
+# Component
+Component(
+    name = "BM04B-SRSS-TB_LF__SN__P_",
+    symbol = Symbol(library = "BM04B-SRSS-TB_LF__SN__P_.kicad_sym"),
+    footprint = File("BM04BSRSSTBLFSNP.kicad_mod"),
+    pins = {
+        "MP1": Pins.MP1,
+        "MP2": Pins.MP2,
+        "1": Pins.P1,
+        "2": Pins.P2,
+        "3": Pins.P3,
+        "4": Pins.P4
+    },
+    properties = {
+        "value": "BM04B-SRSS-TB_LF__SN__P_",
+        "mpn": "BM04B-SRSS-TB_LF__SN__P_"
+    }
+)
+
+add_property("layout_path", "build/preview")

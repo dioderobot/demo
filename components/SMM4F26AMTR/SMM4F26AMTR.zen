@@ -1,0 +1,26 @@
+"""SMM4F26A-TR Component"""
+
+# Pins
+Pins = struct(
+    A = io("A", Net),
+    K_1 = io("K_1", Net),
+    K_2 = io("K_2", Net)
+)
+
+# Component
+Component(
+    name = "SMM4F26A-TR",
+    symbol = Symbol(library = "SMM4F26A-TR.kicad_sym"),
+    footprint = File("SMM4F15ATR.kicad_mod"),
+    pins = {
+        "A": Pins.A,
+        "K_1": Pins.K_1,
+        "K_2": Pins.K_2
+    },
+    properties = {
+        "value": "SMM4F26A-TR",
+        "mpn": "SMM4F26A-TR"
+    }
+)
+
+add_property("layout_path", "build/preview")

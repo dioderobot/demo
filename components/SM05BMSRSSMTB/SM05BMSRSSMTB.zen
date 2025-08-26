@@ -1,0 +1,35 @@
+"""SM05B-SRSS-TB Component"""
+
+# Pins
+Pins = struct(
+    P1 = io("P1", Net),
+    P2 = io("P2", Net),
+    P3 = io("P3", Net),
+    P4 = io("P4", Net),
+    P5 = io("P5", Net),
+    MP1 = io("MP1", Net),
+    MP2 = io("MP2", Net),
+
+)
+
+# Component
+Component(
+    name = "SM05B-SRSS-TB",
+    symbol = Symbol(library = "SM05B-SRSS-TB.kicad_sym"),
+    footprint = File("SM05BSRSSTB.kicad_mod"),
+    pins = {
+        "MP1": Pins.MP1,
+        "MP2": Pins.MP2,
+        "1": Pins.P1,
+        "2": Pins.P2,
+        "3": Pins.P3,
+        "4": Pins.P4,
+        "5": Pins.P5
+    },
+    properties = {
+        "value": "SM05B-SRSS-TB",
+        "mpn": "SM05B-SRSS-TB"
+    }
+)
+
+add_property("layout_path", "build/preview")

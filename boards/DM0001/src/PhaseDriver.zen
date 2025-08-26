@@ -1,0 +1,254 @@
+# ============================================================================
+# Phase Driver with BackEMF Detection
+# Author: Nasheed Ur Rehman
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# Libraries & Dependencies
+# ----------------------------------------------------------------------------
+
+load("@stdlib/properties.zen", "Layout")
+load("@stdlib/units.zen", "Voltage", "Current", "Capacitance", "Inductance", "Frequency", "Resistance")
+load("@stdlib/config.zen", "config_unit", "config_properties")
+load("@stdlib/interfaces.zen", "Power")
+
+# ----------------------------------------------------------------------------
+# Component Modules
+# ----------------------------------------------------------------------------
+
+GateDriver = Module("//reference/L6387ED/L6387ED.zen")
+Nfet = Module("//components/STL180N6F7/STL180N6F7.zen")
+Resistor = Module("@stdlib/generics/Resistor.zen")
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+SchottkyDiode = Module("@stdlib/generics/Diode.zen")
+
+# ----------------------------------------------------------------------------
+# Configuration Parameters
+# ----------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------
+# Global Power Interfaces
+# ---------------------------------------------------------------------------
+
+VPLUS = io("VPLUS", Net, default = Net("VPLUS", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+VCC = io("VCC", Net, default = Net("VCC", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+V3V3 = io("V3V3", Net, default = Net("V3V3", symbol = Symbol("@kicad-symbols/power.kicad_sym:+3V3")))
+GND = io("GND", Net, default = Net("GND", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+
+# ----------------------------------------------------------------------------
+# Global IO Nets
+# ---------------------------------------------------------------------------
+
+TIM_CHN = io("TIM_CHN", Net)
+TIM_CHP = io("TIM_CHP", Net)
+PHASEOUT = io("PHASEOUT", Net)
+VSHUNTP = io("VSHUNTP", Net)
+GPIO_BEMF = io("GPIO_BEMF", Net)
+BEMF = io("BEMF", Net)
+
+# ----------------------------------------------------------------------------
+# Local Nets
+# ---------------------------------------------------------------------------
+
+HVG = Net("HVG")  # Gate driver high-side output
+LVG = Net("LVG")  # Gate driver low-side output
+HI_GATE = Net("HI_GATE")  # High-side FET gate (after resistor)
+LO_GATE = Net("LO_GATE")  # Low-side FET gate (after resistor)
+RC_NODE = Net("RC_NODE")  # RC snubber connection node
+D_BEMF = Net("D_BEMF")  # Back EMF detection diode cathode
+
+# ============================================================================
+# Components
+# ============================================================================
+
+# Gate driver reference module
+GateDriver(
+    name = "U1",
+    VCC = VCC,
+    GND = GND,
+    HIN = TIM_CHP,
+    LIN = TIM_CHN,
+    HVG = HVG,
+    LVG = LVG,
+    OUT = PHASEOUT,
+    decoupling_cap_voltage = "16V",
+    boot_cap_voltage = "25V",
+    decoupling_cap_value = "470nF",
+    boot_cap_value = "1uF",
+    properties = {
+        "collapse" : "true"
+    }
+)
+
+Nfet(
+    name = "Hi_Fet",
+    G = HI_GATE,
+    # Connect all drain pins to VPLUS
+    D_1 = VPLUS,
+    D_2 = VPLUS,
+    D_3 = VPLUS,
+    D_4 = VPLUS,
+    D_5 = VPLUS,
+    # Connect all source pins to PHASEOUT
+    S_1 = PHASEOUT,
+    S_2 = PHASEOUT,
+    S_3 = PHASEOUT,
+    properties = {
+        "collapse" : "true"
+    }
+)
+
+Nfet(
+    name = "Lo_Fet",
+    G = LO_GATE,
+    # Connect all drain pins to PHASEOUT
+    D_1 = PHASEOUT,
+    D_2 = PHASEOUT,
+    D_3 = PHASEOUT,
+    D_4 = PHASEOUT,
+    D_5 = PHASEOUT,
+    # Connect all source pins to GND
+    S_1 = VSHUNTP,
+    S_2 = VSHUNTP,
+    S_3 = VSHUNTP,
+    properties = {
+        "collapse" : "true"
+    }
+
+)
+
+# Shunt resistor
+Resistor(
+    name = "R_SHUNT",
+    value = "0.003ohm 1%",
+    package = "2512",
+    P1 = VSHUNTP,
+    P2 = GND,
+    properties = {
+        "power": "4W",
+    }
+
+)
+
+Resistor(
+    name = "R_Gate_Hi",
+    value = "33ohms",
+    package = "0603",
+    P1 = HVG,
+    P2 = HI_GATE,
+)
+
+Resistor(
+    name = "R_Gate_Hi_PD",
+    value = "10kohms",
+    package = "0402",
+    P1 = HI_GATE,
+    P2 = PHASEOUT,
+)
+
+
+Resistor(
+    name = "R_Gate_Lo",
+    value = "33ohms",
+    package = "0603",
+    P1 = LVG,
+    P2 = LO_GATE,
+)
+
+Resistor(
+    name = "R_Gate_Lo_PD",
+    value = "10kohms",
+    package = "0402",
+    P1 = LO_GATE,
+    P2 = VSHUNTP,
+)
+
+Resistor(
+    name = "R_Phase",
+    value = "1ohm",
+    package = "0805",
+    P1 = PHASEOUT,
+    P2 = RC_NODE,
+)
+
+Capacitor(
+    name = "C_Phase",
+    value = "1nF",
+    package = "0603",
+    voltage = "100V",
+    P1 = RC_NODE,
+    P2 = GND,
+)
+
+# ============================================================================
+# BackEMF Detection Components
+# ============================================================================
+
+SchottkyDiode(
+    name = "D_BEMF",
+    variant = "Schottky",
+    package = "SOD-523",
+    mpn = "BAT30KFILM",
+    i_r = "300mA",
+    v_r = "30V",
+    A = D_BEMF,
+    K = GPIO_BEMF
+)
+
+Resistor(
+    name = "R_BEMF",
+    value = "2.2kohms",
+    package = "0402",
+    P1 = D_BEMF,
+    P2 = BEMF
+)
+
+SchottkyDiode(
+    name = "D_BEMF_CLAMP",
+    variant = "Schottky",
+    package = "SOD-523",
+    mpn = "BAT30KFILM",
+    i_r = "300mA",
+    v_r = "30V",
+    A = BEMF,
+    K = V3V3
+)
+
+Resistor(
+    name = "R_OUT",
+    value = "10kohms",
+    package = "0603",
+    P1 = PHASEOUT,
+    P2 = BEMF
+)
+
+Layout("layout", "layout/PhaseDriver_Long") 
+
+# ============================================================================
+# PCB Schematic
+# ============================================================================
+
+
+# pcb:sch Hi_Fet.FET.STL180N6F7 x=164.1000 y=-64.5000 rot=0
+# pcb:sch Q2.FET.STL180N6F7 x=608.6000 y=-1.0000 rot=0
+# pcb:sch Q2.STL180N6F7 x=1484.9000 y=-64.5000 rot=0
+# pcb:sch Lo_Fet.STL180N6F7 x=1218.2000 y=100.6000 rot=0
+# pcb:sch C_Phase.C x=969.2800 y=672.1000 rot=0
+# pcb:sch D_BEMF.D x=697.5000 y=392.7000 rot=90
+# pcb:sch D_BEMF_CLAMP.D x=557.8000 y=392.7000 rot=90
+# pcb:sch Hi_Fet x=876.3000 y=190.5000 rot=0
+# pcb:sch Lo_Fet x=1003.3000 y=381.0000 rot=0
+# pcb:sch R_BEMF.R x=725.4400 y=456.2000 rot=0
+# pcb:sch R_Gate_Hi.R x=903.2400 y=87.9000 rot=270
+# pcb:sch R_Gate_Hi_PD.R x=1030.2400 y=227.6000 rot=0
+# pcb:sch R_Gate_Lo.R x=1055.6400 y=113.3000 rot=270
+# pcb:sch R_Gate_Lo_PD.R x=1157.2400 y=418.1000 rot=0
+# pcb:sch R_OUT.R x=852.4400 y=507.0000 rot=90
+# pcb:sch R_Phase.R x=979.4400 y=570.5000 rot=0
+# pcb:sch R_SHUNT.R x=1106.4400 y=570.5000 rot=0
+# pcb:sch U1 x=698.5000 y=101.6000 rot=0
+# pcb:sch GND.1 x=1103.9000 y=773.7000 rot=0
+# pcb:sch GND.2 x=583.2000 y=202.2000 rot=0
+# pcb:sch V3V3.1 x=588.2800 y=303.8000 rot=0
+# pcb:sch VCC.1 x=588.2800 y=49.8000 rot=0
+# pcb:sch VPLUS.1 x=842.2800 y=49.8000 rot=0

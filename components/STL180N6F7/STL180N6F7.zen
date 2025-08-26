@@ -1,0 +1,38 @@
+"""STL180N6F7 Component"""
+
+# Pins
+Pins = struct(
+    D_1 = io("D_1", Net),
+    D_2 = io("D_2", Net),
+    D_3 = io("D_3", Net),
+    D_4 = io("D_4", Net),
+    D_5 = io("D_5", Net),
+    G = io("G", Net),
+    S_1 = io("S_1", Net),
+    S_2 = io("S_2", Net),
+    S_3 = io("S_3", Net)
+)
+
+# Component
+Component(
+    name = "STL180N6F7",
+    symbol = Symbol(library = "STL180N6F7.kicad_sym"),
+    footprint = File("STL140N6F7.kicad_mod"),
+    pins = {
+        "D_1": Pins.D_1,
+        "D_2": Pins.D_2,
+        "D_3": Pins.D_3,
+        "D_4": Pins.D_4,
+        "D_5": Pins.D_5,
+        "G": Pins.G,
+        "S_1": Pins.S_1,
+        "S_2": Pins.S_2,
+        "S_3": Pins.S_3
+    },
+    properties = {
+        "value": "STL180N6F7",
+        "mpn": "STL180N6F7"
+    }
+)
+
+add_property("layout_path", "build/preview")

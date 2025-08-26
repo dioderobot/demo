@@ -1,0 +1,34 @@
+"""LD39050PU33R Component"""
+
+# Pins
+Pins = struct(
+    EN = io("EN", Net),
+    GND = io("GND", Net),
+    NC = io("NC", Net),
+    PAD = io("PAD", Net),
+    PG = io("PG", Net),
+    VIN = io("VIN", Net),
+    VOUT = io("VOUT", Net)
+)
+
+# Component
+Component(
+    name = "LD39050PU33R",
+    symbol = Symbol(library = "LD39050PU33R.kicad_sym"),
+    footprint = File("SON95P300X300X100-7N-D.kicad_mod"),
+    pins = {
+        "EN": Pins.EN,
+        "GND": Pins.GND,
+        "NC": Pins.NC,
+        "PAD": Pins.PAD,
+        "PG": Pins.PG,
+        "VIN": Pins.VIN,
+        "VOUT": Pins.VOUT
+    },
+    properties = {
+        "value": "LD39050PU33R",
+        "mpn": "LD39050PU33R"
+    }
+)
+
+add_property("layout_path", "build/preview")

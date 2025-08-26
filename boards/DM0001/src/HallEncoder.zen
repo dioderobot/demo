@@ -1,0 +1,209 @@
+# ============================================================================
+# Hall Encoder
+# Author: Nasheed Ur Rehman
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# Libraries & Dependencies
+# ----------------------------------------------------------------------------
+
+load("@stdlib/properties.zen", "Layout")
+load("@stdlib/units.zen", "Voltage", "Current", "Capacitance", "Inductance", "Frequency", "Resistance")
+load("@stdlib/config.zen", "config_unit", "config_properties")
+load("@stdlib/interfaces.zen", "Power")
+
+# ----------------------------------------------------------------------------
+# Component Modules
+# ----------------------------------------------------------------------------
+
+JstHeader = Module("//components/BM05BMSRSSMTB/BM05BMSRSSMTB.zen")
+SchottkyDiode = Module("@stdlib/generics/Diode.zen")
+Resistor = Module("@stdlib/generics/Resistor.zen")
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+
+# ----------------------------------------------------------------------------
+# Global Power Interfaces
+# ---------------------------------------------------------------------------
+
+V5V = io("V5V", Net, default = Net("V5V", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+V3V3 = io("V3V3", Net, default = Net("V3V3", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+GND = io("GND", Net, default = Net("GND", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+
+# ----------------------------------------------------------------------------
+# Global IO Nets
+# ----------------------------------------------------------------------------
+
+# To MCU
+A_PLUS_H1_OUT = io("A_PLUS_H1_OUT", Net)
+B_PLUS_H2_OUT = io("B_PLUS_H2_OUT", Net)
+Z_PLUS_H3_OUT = io("Z_PLUS_H3_OUT", Net)
+
+# ----------------------------------------------------------------------------
+# Local Nets
+# ----------------------------------------------------------------------------
+
+# From JST Header
+A_PLUS_H1_IN = Net("A_PLUS_H1_IN")
+B_PLUS_H2_IN = Net("B_PLUS_H2_IN")
+Z_PLUS_H3_IN = Net("Z_PLUS_H3_IN")
+
+MP1 = Net("MP1")
+MP2 = Net("MP2")
+
+# ============================================================================
+# Components
+# ============================================================================
+
+JstHeader(
+    name = "JST_H1",
+    MP1 = MP1,
+    MP2 = MP2,
+    P1 = A_PLUS_H1_IN,
+    P2 = B_PLUS_H2_IN,
+    P3 = Z_PLUS_H3_IN,
+    P4 = V5V,
+    P5 = GND
+)
+
+SchottkyDiode(
+    name = "D_A_PLUS_H1",
+    variant = "Schottky",
+    package = "SOD-523",
+    mpn = "BAT30KFILM",
+    i_r = "300mA",
+    v_r = "30V",
+    A = A_PLUS_H1_OUT,
+    K = V3V3
+)
+
+SchottkyDiode(
+    name = "D_B_PLUS_H2",
+    variant = "Schottky",
+    package = "SOD-523",
+    mpn = "BAT30KFILM",
+    i_r = "300mA",
+    v_r = "30V",
+    A = B_PLUS_H2_OUT,
+    K = V3V3
+)
+
+SchottkyDiode(
+    name = "D_Z_PLUS_H3",
+    variant = "Schottky",
+    package = "SOD-523",
+    mpn = "BAT30KFILM",
+    i_r = "300mA",
+    v_r = "30V",
+    A = Z_PLUS_H3_OUT,
+    K = V3V3
+)
+
+Capacitor(
+    name = "C_V5V",
+    value = "100nF",
+    voltage = "16V",
+    package = "0402",
+    dielectric = "X7R",
+    P1 = V5V,
+    P2 = GND
+)
+
+Resistor(
+    name = "R_H1_A_PLUS",
+    value = "10kohms",
+    package = "0402",
+    P1 = V3V3,
+    P2 = A_PLUS_H1_OUT
+)
+
+Resistor(
+    name = "R_H2_B_PLUS",
+    value = "10kohms",
+    package = "0402",
+    P1 = V3V3,
+    P2 = B_PLUS_H2_OUT
+)
+
+Resistor(
+    name = "R_H3_Z_PLUS",
+    value = "10kohms",
+    package = "0402",
+    P1 = V3V3,
+    P2 = Z_PLUS_H3_OUT
+)
+
+Capacitor(
+    name = "C_H1_A_PLUS",
+    value = "10pF",
+    package = "0402",
+    voltage = "10V",
+    P1 = A_PLUS_H1_OUT,
+    P2 = GND
+)
+
+Capacitor(
+    name = "C_H2_B_PLUS",
+    value = "10pF",
+    package = "0402",
+    voltage = "10V",
+    P1 = B_PLUS_H2_OUT,
+    P2 = GND
+)
+
+Capacitor(
+    name = "C_H3_Z_PLUS",
+    value = "10pF",
+    package = "0402",
+    voltage = "10V",
+    P1 = Z_PLUS_H3_OUT,
+    P2 = GND
+)
+
+Resistor(
+    name = "R_H1_A_PLUS_IN",
+    value = "10kohms",
+    package = "0402",
+    P1 = A_PLUS_H1_IN,
+    P2 = A_PLUS_H1_OUT
+)
+
+Resistor(
+    name = "R_H2_B_PLUS_IN",
+    value = "10kohms",
+    package = "0402",
+    P1 = B_PLUS_H2_IN,
+    P2 = B_PLUS_H2_OUT
+)
+
+Resistor(
+    name = "R_H3_Z_PLUS_IN",
+    value = "10kohms",
+    package = "0402",
+    P1 = Z_PLUS_H3_IN,
+    P2 = Z_PLUS_H3_OUT
+)
+
+Layout("layout", "layout/HallEncoder") 
+
+# ============================================================================
+# PCB Schematic
+# ============================================================================
+
+# pcb:sch JST_H1.SM05B-SRSS-TB x=11.7000 y=-305.8000 rot=0
+# pcb:sch C_H1_A_PLUS.C x=981.9800 y=-191.5000 rot=0
+# pcb:sch C_H2_B_PLUS.C x=766.0800 y=-191.5000 rot=0
+# pcb:sch C_H3_Z_PLUS.C x=537.4800 y=-191.5000 rot=0
+# pcb:sch C_V5V.C x=372.3800 y=-191.5000 rot=0
+# pcb:sch D_A_PLUS_H1.D x=1053.1000 y=-305.8000 rot=90
+# pcb:sch D_B_PLUS_H2.D x=837.2000 y=-305.8000 rot=90
+# pcb:sch D_Z_PLUS_H3.D x=621.3000 y=-305.8000 rot=90
+# pcb:sch JST_H1.BM05B-SRSS-TB x=11.7000 y=-318.5000 rot=0
+# pcb:sch R_H1_A_PLUS.R x=992.1400 y=-331.2000 rot=0
+# pcb:sch R_H1_A_PLUS_IN.R x=1119.1400 y=-26.4000 rot=90
+# pcb:sch R_H2_B_PLUS.R x=776.2400 y=-331.2000 rot=0
+# pcb:sch R_H2_B_PLUS_IN.R x=890.5400 y=-26.4000 rot=90
+# pcb:sch R_H3_Z_PLUS.R x=547.6400 y=-331.2000 rot=0
+# pcb:sch R_H3_Z_PLUS_IN.R x=636.5400 y=-26.4000 rot=90
+# pcb:sch GND.1 x=380.0000 y=-89.9000 rot=0
+# pcb:sch V3V3.1 x=994.6800 y=-432.8000 rot=0
+# pcb:sch V5V.1 x=385.0800 y=-255.0000 rot=0

@@ -1,0 +1,139 @@
+# ============================================================================
+# L6387ED Hi & Lo-Side Driver Reference Design
+# Author: Nasheed Ur Rehman
+# Datasheet: <link>
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# Libraries & Dependencies
+# ----------------------------------------------------------------------------
+
+load("@stdlib/units.zen", "Voltage", "Current", "Capacitance", "Inductance", "Frequency", "Resistance")
+load("@stdlib/config.zen", "config_unit", "config_properties")
+load("@stdlib/interfaces.zen", "Power")
+
+# ----------------------------------------------------------------------------
+# Component Modules
+# ----------------------------------------------------------------------------
+
+L6387ED = Module("../../components/L6387ED/L6387ED.zen")
+SchottkyDiode = Module("@stdlib/generics/Diode.zen")
+Resistor = Module("@stdlib/generics/Resistor.zen")
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+
+# ----------------------------------------------------------------------------
+# Configuration Parameters
+# ----------------------------------------------------------------------------
+
+# Capacitor voltage ratings
+decoupling_cap_voltage = config("decoupling_cap_voltage", str, default="16V")
+boot_cap_voltage = config("boot_cap_voltage", str, default="25V")
+
+# Capacitor values
+decoupling_cap_value = config("decoupling_cap_value", str, default="470nF")
+boot_cap_value = config("boot_cap_value", str, default="1uF")
+
+# ----------------------------------------------------------------------------
+# Global Power Interfaces
+# ---------------------------------------------------------------------------
+
+VCC= io("VCC", Net, default = Net("VCC", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+GND = io("GND", Net, default = Net("GND", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+
+# ----------------------------------------------------------------------------
+# Global IO Nets
+# ---------------------------------------------------------------------------
+
+LIN = io("LIN", Net)
+HIN = io("HIN", Net)
+HVG = io("HVG", Net)
+LVG = io("LVG", Net)
+OUT = io("OUT", Net)
+
+
+# ----------------------------------------------------------------------------
+# Local Nets
+# ---------------------------------------------------------------------------
+
+BOOT = Net("BOOT")
+
+# ============================================================================
+# Components
+# ============================================================================
+
+L6387ED(
+    name = "U1",
+    GND = GND,
+    HIN = HIN,
+    HVG = HVG,
+    LIN = LIN,
+    LVG = LVG,
+    OUT = OUT,
+    VBOOT = BOOT,
+    VCC = VCC
+)
+
+# Bootstrap capacitor
+Capacitor(
+    name = "C_BOOT",
+    value = boot_cap_value,
+    voltage = boot_cap_voltage,
+    package = "0603",
+    P1 = BOOT,
+    P2 = OUT
+)
+
+# Decoupling capacitor for VCC
+Capacitor(
+    name = "C_VCC",
+    value = decoupling_cap_value,
+    voltage = decoupling_cap_voltage,
+    package = "0603",
+    P1 = VCC,
+    P2 = GND
+)
+
+Capacitor(
+    name = "C_HIN",
+    value = "100pF",
+    voltage = "10V",
+    package = "0402",
+    P1 = HIN,
+    P2 = GND
+)
+
+Capacitor(
+    name = "C_LIN",
+    value = "100pF",
+    voltage = "10V",
+    package = "0402",
+    P1 = LIN,
+    P2 = GND
+)
+
+
+# Bootstrap diode
+SchottkyDiode(
+    name = "D_BOOT",
+    variant = "Schottky",
+    package = "SOD-123",
+    mpn = "STPS0560Z",
+    i_r = "0.5A",
+    v_r = "60V",
+    A = VCC,
+    K = BOOT
+)
+
+
+add_property("datasheet", "//components/L6387ED/L6387ED.pdf")
+
+
+
+# pcb:sch C_BOOT.C x=1655.0800 y=-204.2000 rot=270
+# pcb:sch C_HIN.C x=1134.3800 y=-13.7000 rot=0
+# pcb:sch C_LIN.C x=1020.0800 y=-51.8000 rot=0
+# pcb:sch C_VCC.C x=1248.6800 y=24.4000 rot=0
+# pcb:sch D_BOOT.D x=1421.4000 y=-178.8000 rot=180
+# pcb:sch U1.L6387ED x=1319.8000 y=-89.9000 rot=0
+# pcb:sch GND.1 x=1256.3000 y=164.1000 rot=0
+# pcb:sch VCC.1 x=1261.3800 y=-204.2000 rot=0

@@ -1,0 +1,288 @@
+# ============================================================================
+# STM32G431C8T6 Reference Design
+# Author: Nasheed Ur Rehman
+# Datasheet: <link>
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# Libraries & Dependencies
+# ----------------------------------------------------------------------------
+
+load("@stdlib/units.zen", "Voltage", "Current", "Capacitance", "Inductance", "Frequency", "Resistance")
+load("@stdlib/config.zen", "config_unit", "config_properties")
+load("@stdlib/interfaces.zen", "Power", "Spi", "I2c", "Usb2", "Swd")
+
+# ----------------------------------------------------------------------------
+# Component Modules
+# ----------------------------------------------------------------------------
+
+MCU = Module("../../components/STM32G431C8T6/STM32G431C8T6.zen")
+Resistor = Module("@stdlib/generics/Resistor.zen")
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+Crystal = Module("@stdlib/generics/Crystal.zen")
+Oscillator = Module("../../components/CSTNE8M00GH5C000R0/CSTNE8M00GH5C000R0.zen")
+Inductor = Module("@stdlib/generics/Inductor.zen")
+FerriteBead = Module("@stdlib/generics/FerriteBead.zen")
+
+# ----------------------------------------------------------------------------
+# Configuration Parameters
+# ----------------------------------------------------------------------------
+
+osc_freq = config_unit("crystal_frequency", Frequency, default="8MHz")
+osc_load = config_unit("crystal_load", Capacitance, default="12.5pF")
+osc_series_resistance = config_unit("crystal_series_resistance", Resistance, default="100ohms")
+
+# ----------------------------------------------------------------------------
+# Global Power Interfaces
+# ----------------------------------------------------------------------------
+
+V3V3 = io("V3V3", Net, default = Net("V3V3", symbol = Symbol("@kicad-symbols/power.kicad_sym:+3V3")))
+GND = io("GND", Net, default = Net("GND", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+
+# ----------------------------------------------------------------------------
+# Global IO Nets
+# ----------------------------------------------------------------------------
+
+PA0 = io("PA0", Net)
+PA1 = io("PA1", Net)
+PA2 = io("PA2", Net)
+PA3 = io("PA3", Net)
+PA4 = io("PA4", Net)
+PA5 = io("PA5", Net)
+PA6 = io("PA6", Net)
+PA7 = io("PA7", Net)
+PA8 = io("PA8", Net)
+PA9 = io("PA9", Net)
+PA10 = io("PA10", Net)
+PA11 = io("PA11", Net)
+PA12 = io("PA12", Net)
+PA13 = io("PA13", Net)
+PA14 = io("PA14", Net)
+PA15 = io("PA15", Net)
+
+PB0 = io("PB0", Net)
+PB1 = io("PB1", Net)
+PB2 = io("PB2", Net)
+PB3 = io("PB3", Net)
+PB4 = io("PB4", Net)
+PB5 = io("PB5", Net)
+PB6 = io("PB6", Net)
+PB7 = io("PB7", Net)
+PB8_BOOT0 = io("PB8_BOOT0", Net)
+PB9 = io("PB9", Net)
+PB10 = io("PB10", Net)
+PB11 = io("PB11", Net)
+PB12 = io("PB12", Net)
+PB13 = io("PB13", Net)
+PB14 = io("PB14", Net)
+PB15 = io("PB15", Net)
+
+# Note: STM32G431C8T6 doesn't have PC4, PC6, PC10, PC11 pins (only in CBU6 package)
+PC13 = io("PC13", Net)
+PC14_OSC32_IN = io("PC14_OSC32_IN", Net)
+PC15_OSC32_OUT = io("PC15_OSC32_OUT", Net)
+
+nRST = io("nRST", Net)
+
+# ----------------------------------------------------------------------------
+# Local Nets
+# ----------------------------------------------------------------------------
+
+VDDA = Net("VDDA")
+VREFP = Net("VREFP")
+
+XIN = Net("XIN")
+XOUT = Net("XOUT")
+R_XIN = Net("R_XIN")
+
+# ============================================================================
+# Components
+# ============================================================================
+
+MCU(
+    name = "U1",
+    PA0 = PA0,
+    PA1 = PA1,
+    PA2 = PA2,
+    PA3 = PA3,
+    PA4 = PA4,
+    PA5 = PA5,
+    PA6 = PA6,
+    PA7 = PA7,
+    PA8 = PA8,
+    PA9 = PA9,
+    PA10 = PA10,
+    PA11 = PA11,
+    PA12 = PA12,
+    PA13 = PA13,
+    PA14 = PA14,
+    PA15 = PA15,
+    PB0 = PB0,
+    PB1 = PB1,
+    PB2 = PB2,
+    PB3 = PB3,
+    PB4 = PB4,
+    PB5 = PB5,
+    PB6 = PB6,
+    PB7 = PB7,
+    PB8MBOOT0 = PB8_BOOT0,
+    PB9 = PB9,
+    PB10 = PB10,
+    PB11 = PB11,
+    PB12 = PB12,
+    PB13 = PB13,
+    PB14 = PB14,
+    PB15 = PB15,
+    PC13 = PC13,
+    PC14_M_OSC32_IN = PC14_OSC32_IN,
+    PC15_M_OSC32_OUT = PC15_OSC32_OUT,
+    PF0_M_OSC_IN = R_XIN,
+    PF1_M_OSC_OUT = XOUT,
+    PG10_M_NRST = nRST,
+    VBAT = V3V3,
+    VDDA = VDDA,
+    VDD_1 = V3V3,
+    VDD_2 = V3V3,
+    VDD_3 = V3V3,
+    VREFP = VDDA,
+    VSS_1 = GND,
+    VSS_2 = GND,
+    VSS_3 = GND,
+    VSSA = GND
+)
+
+# Decoupling Capacitors
+
+Capacitor(
+    name = "C_VDD1",
+    package = "0402",
+    value = "100nF",
+    voltage = "16V",
+    dielectric = "X7R",
+    P1 = V3V3,
+    P2 = GND
+)
+
+
+Capacitor(
+    name = "C_VDD2",
+    value = "100nF",
+    package = "0402",
+    voltage = "16V",
+    dielectric = "X7R",
+    P1 = V3V3,
+    P2 = GND
+    )
+
+Capacitor(
+    name = "C_VDD3",
+    value = "4.7uF",
+    package = "0603",
+    voltage = "10V",
+    dielectric = "X5R",
+    P1 = V3V3,
+    P2 = GND
+    )
+
+Capacitor(
+    name = "C_VDD4",
+    value = "100nF",
+    package = "0402",
+    voltage = "16V",
+    dielectric = "X7R",
+    P1 = V3V3,
+    P2 = GND
+    )
+
+# Reset Capacitor
+
+Capacitor(
+    name = "C_nRST",
+    value = "100nF",
+    package = "0402",
+    voltage = "16V",
+    dielectric = "X7R",
+    P1 = nRST,
+    P2 = GND
+    )
+
+# Crystal Oscillator Circuit
+    
+Oscillator(
+    name = "Y_HSE",
+    GND = GND,
+    INPUT = XIN,
+    OUTPUT = XOUT,
+)
+Resistor(
+    name = "R_HSE",
+    value = "220ohms",
+    package = "0402",
+    P1 = XIN,
+    P2 = R_XIN
+    )
+
+# VDDA Filter Circuit
+
+Capacitor(
+    name = "C_VDDA",
+    value = "1uF",
+    package = "0402",
+    voltage = "25V",
+    dielectric = "X5R",
+    P1 = VDDA,
+    P2 = GND
+    )
+
+Capacitor(
+    name = "C_VDDA2",
+    value = "10nF",
+    package = "0402",
+    voltage = "16V",
+    dielectric = "X7R",
+    P1 = VDDA,
+    P2 = GND
+    )
+
+FerriteBead(
+    name = "FB_VDDA",
+    resistance = "600ohms",
+    frequency = "100MHz",
+    package = "0402",
+    P1 = V3V3,
+    P2 = VDDA
+    )
+# ============================================================================
+# Module Properties
+# ============================================================================
+
+add_property("datasheet", "../../components/STM32G431C8T6/STM32G431C8T6.pdf")
+
+# ============================================================================
+# PCB Schematic
+# ============================================================================
+
+# pcb:sch C_HSE1.C x=943.8800 y=214.9000 rot=0
+# pcb:sch C_HSE2.C x=1134.3800 y=214.9000 rot=0
+# pcb:sch yhse2.CSTNE8M00GH5C000R0 x=761.0000 y=735.6000 rot=0
+# pcb:sch Y_HSE.Y x=1002.3000 y=126.0000 rot=0
+# pcb:sch Y_HSE2.CSTNE8M00GH5C000R0 x=2627.9000 y=202.2000 rot=180
+# pcb:sch C_VDD1.C x=1324.8800 y=-293.1000 rot=0
+# pcb:sch C_VDD2.C x=1997.9800 y=100.6000 rot=0
+# pcb:sch C_VDD3.C x=2163.0800 y=100.6000 rot=0
+# pcb:sch C_VDD4.C x=1870.9800 y=659.4000 rot=0
+# pcb:sch C_VDDA.C x=1578.8800 y=659.4000 rot=0
+# pcb:sch C_VDDA2.C x=1667.7800 y=659.4000 rot=0
+# pcb:sch C_nRST.C x=1223.2800 y=214.9000 rot=0
+# pcb:sch FB_VDDA.FB x=1762.0140 y=595.9000 rot=90
+# pcb:sch R_HSE.R x=1157.2400 y=113.3000 rot=270
+# pcb:sch U1.STM32G431C8T6 x=1345.2000 y=-178.8000 rot=0
+# pcb:sch Y_HSE.CSTNE8M00GH5C000R0 x=1053.1000 y=176.8000 rot=180
+# pcb:sch GND.1 x=1230.9000 y=329.2000 rot=0
+# pcb:sch GND.2 x=1332.5000 y=-178.8000 rot=0
+# pcb:sch GND.3 x=1586.5000 y=773.7000 rot=0
+# pcb:sch GND.4 x=2005.6000 y=227.6000 rot=0
+# pcb:sch GND.5 x=1065.8000 y=176.8000 rot=270
+# pcb:sch V3V3.1 x=2175.7800 y=11.7000 rot=0
+# pcb:sch V3V3.2 x=1921.7800 y=595.9000 rot=0
+# pcb:sch V3V3.3 x=1337.5800 y=-356.6000 rot=0

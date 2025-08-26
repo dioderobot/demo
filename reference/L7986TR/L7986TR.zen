@@ -1,0 +1,245 @@
+# ============================================================================
+# L7986TR Buck Converter Reference Design
+# Author: Nasheed Ur Rehman
+# Datasheet: <link>
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# Libraries & Dependencies
+# ----------------------------------------------------------------------------
+
+load("@stdlib/units.zen", "Voltage", "Current", "Capacitance", "Inductance", "Frequency", "Resistance")
+load("@stdlib/config.zen", "config_unit", "config_properties")
+load("@stdlib/interfaces.zen", "Power")
+
+# ----------------------------------------------------------------------------
+# Component Modules
+# ----------------------------------------------------------------------------
+
+Buck = Module("../../components/L7986TR/L7986TR.zen")
+SchottkyDiode = Module("../../components/STPS1L40M/STPS1L40M.zen")
+Schottky = Module("@stdlib/generics/Diode.zen")
+Resistor = Module("@stdlib/generics/Resistor.zen")
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+Crystal = Module("@stdlib/generics/Crystal.zen")
+Inductor = Module("../../components/LPS4018M333MRC/LPS4018M333MRC.zen")
+FerriteBead = Module("@stdlib/generics/FerriteBead.zen")
+
+
+# ----------------------------------------------------------------------------
+# Configuration Parameters
+# ----------------------------------------------------------------------------
+
+# Capacitor voltage ratings
+input_cap_voltage = config("input_cap_voltage", str, default="50V")
+output_cap_voltage = config("output_cap_voltage", str, default="25V")
+
+# Feedback resistors
+fb_resistor_top = config("fb_resistor_top", str, default="4.7kohms")
+fb_resistor_bottom = config("fb_resistor_bottom", str, default="300ohms")
+
+# ----------------------------------------------------------------------------
+# Global Power Interfaces
+# ---------------------------------------------------------------------------
+
+VIN_BUCK = io("VIN_BUCK", Net, default = Net("VIN_BUCK", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+VOUT_BUCK = io("VOUT_BUCK", Net, default = Net("VOUT_BUCK", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+GND = io("GND", Net, default = Net("GND", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+
+
+# ----------------------------------------------------------------------------
+# Local Nets
+# ----------------------------------------------------------------------------
+
+COMP = Net("COMP")
+FB = Net("FB")
+FSW = Net("FSW")
+OUT = Net("OUT")
+SYNCH = Net("NC_SYNC")
+R_SMALL_SIGNAL = Net("R_SMALL_SIGNAL")
+R_SMALL_SIGNAL_2 = Net("R_SMALL_SIGNAL_2")
+
+# ----------------------------------------------------------------------------
+# Component Instance
+# ----------------------------------------------------------------------------
+
+
+Buck(
+    name = "L7986TR",
+    VCC_1 = VIN_BUCK,
+    VCC_2 = VIN_BUCK,
+    OUT_1 = OUT,
+    OUT_2 = OUT,
+    FB = FB,
+    COMP = COMP,
+    EN = VIN_BUCK,
+    FSW = FSW,
+    SYNCH = SYNCH,
+    GND = GND,
+    EP = GND,
+
+)
+
+
+Inductor(
+    name = "L_BUCK",
+    P1 = OUT,
+    P2 = VOUT_BUCK,
+)
+
+Resistor(
+    name = "R_FSW",
+    package = "0402",
+    value = "34.8kohms",
+    P1 = FSW,
+    P2 = GND,
+)
+
+SchottkyDiode(
+    name = "D1",
+    A = GND,
+    K_1 = OUT,
+    K_2 = OUT,
+    properties = {
+        "collapse": "true",
+    },
+)
+
+# Schottky(
+#     name = "D2",
+#     variant = "Schottky",
+#     package = "SOD-123",
+#     mpn = "1N5819HW-7-F",
+#     A = GND,
+#     K = OUT,
+#     i_f = "1A",
+#     v_r = "40V",
+# )
+
+# Input Capacitor
+
+Capacitor(
+    name = "CINPUT1",
+    package = "1206",
+    value = "10uF",
+    voltage = "50V",
+    dielectric = "X7R",
+    P1 = VIN_BUCK,
+    P2 = GND,
+)
+
+Capacitor(
+    name = "CINPUT2",
+    package = "0603",
+    value = "220nF",
+    voltage = "50V",
+    dielectric = "X7R",
+    P1 = VIN_BUCK,
+    P2 = GND,
+)
+
+# Output Capacitor
+
+Capacitor(
+    name = "COUT1",
+    package = "1206",
+    value = "22uF",
+    voltage = output_cap_voltage,
+    P1 = VOUT_BUCK,
+    P2 = GND,
+)
+
+# Feedback Resistor
+
+Resistor(
+    name = "R_FB1",
+    package = "0402",
+    value = fb_resistor_top,
+    P1 = VOUT_BUCK,
+    P2 = FB,
+)  
+
+Resistor(
+    name = "R_FB2",
+    package = "0402",
+    value = fb_resistor_bottom,
+    P1 = FB,
+    P2 = GND,
+)  
+
+# Comp Resistor
+
+Capacitor(
+    name = "C_COMP",
+    package = "0402",
+    value = "27pF",
+    voltage = "25V",
+    P1 = COMP,
+    P2 = FB,
+)
+
+# Small Signal
+
+Resistor(
+    name = "R_SMALL_SIGNAL",
+    package = "0402",
+    value = "8.2kohms",
+    P1 = FB,
+    P2 = R_SMALL_SIGNAL,
+)
+
+Capacitor(
+    name = "C_SMALL_SIGNAL",
+    package = "0402",
+    value = "4.7nF",
+    voltage = "16V",
+    P1 = R_SMALL_SIGNAL,
+    P2 = COMP,
+)
+
+
+Capacitor(
+    name = "C_SMALL_SIGNAL_2",
+    package = "0402",
+    value = "3.9nF",
+    voltage = "16V",
+    P1 = VOUT_BUCK,
+    P2 = R_SMALL_SIGNAL_2,
+)
+
+Resistor(
+    name = "R_SMALL_SIGNAL_2",
+    package = "0402",
+    value = "62ohms",
+    P1 = R_SMALL_SIGNAL_2,
+    P2 = FB,
+)
+
+add_property("datasheet", "//components/L7986TR/L7986TR.pdf")
+
+# ----------------------------------------------------------------------------
+# PCB Schematic
+# ----------------------------------------------------------------------------
+
+# pcb:sch D1.STPS1L40M x=-547.1000 y=87.9000 rot=180
+
+# pcb:sch D2.D x=-1.0000 y=189.5000 rot=90
+# pcb:sch CINPUT1.C x=969.2800 y=151.4000 rot=0
+# pcb:sch CINPUT2.C x=829.5800 y=151.4000 rot=0
+# pcb:sch COUT1.C x=-186.4200 y=164.1000 rot=0
+# pcb:sch C_COMP.C x=334.2800 y=405.4000 rot=270
+# pcb:sch C_SMALL_SIGNAL.C x=219.9800 y=494.3000 rot=90
+# pcb:sch C_SMALL_SIGNAL_2.C x=766.0800 y=87.9000 rot=0
+# pcb:sch D1 x=38.1000 y=203.2000 rot=0
+# pcb:sch L7986TR.L7986TR x=202.2000 y=49.8000 rot=0
+# pcb:sch L_BUCK.LPS4018-333MRC x=-115.3000 y=90.4704 rot=180
+# pcb:sch R_FB1.R x=636.5400 y=87.9000 rot=0
+# pcb:sch R_FB2.R x=636.5400 y=202.2000 rot=0
+# pcb:sch R_FSW.R x=560.3400 y=202.2000 rot=0
+# pcb:sch R_SMALL_SIGNAL.R x=471.4400 y=494.3000 rot=90
+# pcb:sch R_SMALL_SIGNAL_2.R x=712.7400 y=138.7000 rot=90
+# pcb:sch GND.1 x=341.9000 y=329.2000 rot=0
+# pcb:sch VIN_BUCK.1 x=842.2800 y=-1.0000 rot=0
+# pcb:sch VIN_BUCK.2 x=92.9800 y=-1.0000 rot=0
+# pcb:sch VOUT_BUCK.1 x=-173.7200 y=-1.0000 rot=0
+# pcb:sch VOUT_BUCK.2 x=639.0800 y=-1.0000 rot=0

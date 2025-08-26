@@ -1,0 +1,34 @@
+"""LDFPVR Component"""
+
+# Pins
+Pins = struct(
+    ADJ_NC = io("ADJ_NC", Net),
+    EN = io("EN", Net),
+    GND_1 = io("GND_1", Net),
+    GND_2 = io("GND_2", Net),
+    PG = io("PG", Net),
+    VIN = io("VIN", Net),
+    VOUT = io("VOUT", Net)
+)
+
+# Component
+Component(
+    name = "LDFPVR",
+    symbol = Symbol(library = "LDFPVR.kicad_sym"),
+    footprint = File("SON65P200X200X100-7N-D.kicad_mod"),
+    pins = {
+        "ADJ/NC": Pins.ADJ_NC,
+        "EN": Pins.EN,
+        "GND_1": Pins.GND_1,
+        "GND_2": Pins.GND_2,
+        "PG": Pins.PG,
+        "VIN": Pins.VIN,
+        "VOUT": Pins.VOUT
+    },
+    properties = {
+        "value": "LDFPVR",
+        "mpn": "LDFPVR"
+    }
+)
+
+add_property("layout_path", "build/preview")

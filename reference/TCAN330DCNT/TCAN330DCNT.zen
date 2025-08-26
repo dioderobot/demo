@@ -1,0 +1,84 @@
+# ============================================================================
+# TCAN330DCNT CAN Transceiver Reference Design
+# Author: Nasheed Ur Rehman
+# Datasheet: <link>
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# Libraries & Dependencies
+# ----------------------------------------------------------------------------
+
+load("@stdlib/units.zen", "Voltage", "Current", "Capacitance", "Inductance", "Frequency", "Resistance")
+load("@stdlib/config.zen", "config_unit", "config_properties")
+load("@stdlib/interfaces.zen", "Power")
+
+# ----------------------------------------------------------------------------
+# Component Modules
+# ----------------------------------------------------------------------------
+
+TCAN330DCNT = Module("../../components/TCAN330DCNT/TCAN330DCNT.zen")
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+
+# ----------------------------------------------------------------------------
+# Configuration Parameters
+# ----------------------------------------------------------------------------
+
+# Capacitor voltage ratings
+decoupling_cap_voltage = config("decoupling_cap_voltage", str, default="16V")
+
+# Capacitor values
+decoupling_cap_value = config("decoupling_cap_value", str, default="100nF")
+
+# ----------------------------------------------------------------------------
+# Global Power Interfaces
+# ----------------------------------------------------------------------------
+
+VCC = io("VCC", Net, default = Net("VCC", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+GND = io("GND", Net, default = Net("GND", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+
+# ----------------------------------------------------------------------------
+# Global IO Nets
+# ----------------------------------------------------------------------------
+
+CAN_RX = io("CAN_RX", Net)
+CAN_TX = io("CAN_TX", Net)
+CAN_H = io("CAN_H", Net)
+CAN_L = io("CAN_L", Net)
+SHDN = io("SHDN", Net)
+
+# ============================================================================
+# Components
+# ============================================================================
+
+TCAN330DCNT(
+    name = "TCAN330DCNT",
+    VCC = VCC,
+    GND = GND,
+    CANH = CAN_H,
+    CANL = CAN_L,
+    SHDN = SHDN,
+    RXD = CAN_RX,
+    TXD = CAN_TX,
+    S = GND,
+)
+
+Capacitor(
+    name = "C_VCC",
+    value = decoupling_cap_value,
+    voltage = decoupling_cap_voltage,
+    package = "0402",
+    dielectric = "X7R",
+    P1 = VCC,
+    P2 = GND
+)
+
+# ============================================================================
+# PCB Schematic
+# ============================================================================
+
+
+
+# pcb:sch C_VCC.C x=385.0800 y=87.9000 rot=0
+# pcb:sch TCAN330DCNT.TCAN330DCNT x=634.0000 y=-1.0000 rot=0
+# pcb:sch GND.1 x=773.7000 y=202.2000 rot=0
+# pcb:sch VCC.1 x=397.7800 y=37.1000 rot=0

@@ -1,0 +1,32 @@
+"""FSA5157L6X Component"""
+
+# Pins
+Pins = struct(
+    A = io("A", Net),
+    B0 = io("B0", Net),
+    B1 = io("B1", Net),
+    GND = io("GND", Net),
+    S = io("S", Net),
+    VCC = io("VCC", Net)
+)
+
+# Component
+Component(
+    name = "FSA5157L6X",
+    symbol = Symbol(library = "FSA5157L6X.kicad_sym"),
+    footprint = File("FSA5157L6X.kicad_mod"),
+    pins = {
+        "A": Pins.A,
+        "B0": Pins.B0,
+        "B1": Pins.B1,
+        "GND": Pins.GND,
+        "S": Pins.S,
+        "VCC": Pins.VCC
+    },
+    properties = {
+        "value": "FSA5157L6X",
+        "mpn": "FSA5157L6X"
+    }
+)
+
+add_property("layout_path", "build/preview")

@@ -1,0 +1,32 @@
+"""AS11P2TLRQ Component"""
+
+# Pins
+Pins = struct(
+    D = io("D", Net),
+    GND = io("GND", Net),
+    S1 = io("S1", Net),
+    S2 = io("S2", Net),
+    SEL = io("SEL", Net),
+    VCC = io("VCC", Net)
+)
+
+# Component
+Component(
+    name = "AS11P2TLRQ",
+    symbol = Symbol(library = "AS11P2TLRQ.kicad_sym"),
+    footprint = File("AS11P2TLRQ.kicad_mod"),
+    pins = {
+        "D": Pins.D,
+        "GND": Pins.GND,
+        "S1": Pins.S1,
+        "S2": Pins.S2,
+        "SEL": Pins.SEL,
+        "VCC": Pins.VCC
+    },
+    properties = {
+        "value": "AS11P2TLRQ",
+        "mpn": "AS11P2TLRQ"
+    }
+)
+
+add_property("layout_path", "build/preview")

@@ -1,0 +1,116 @@
+# ============================================================================
+# LDFPVR Adjustable LDO Regulator Reference Design
+# Author: Nasheed Ur Rehman
+# Datasheet: <link>
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# Libraries & Dependencies
+# ----------------------------------------------------------------------------
+
+load("@stdlib/units.zen", "Voltage", "Current", "Capacitance", "Inductance", "Frequency", "Resistance")
+load("@stdlib/config.zen", "config_unit", "config_properties")
+load("@stdlib/interfaces.zen", "Power")
+
+# ----------------------------------------------------------------------------
+# Component Modules
+# ----------------------------------------------------------------------------
+
+Ldo = Module("../../components/LDFPVR/LDFPVR.zen")
+Resistor = Module("@stdlib/generics/Resistor.zen")
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+
+# ----------------------------------------------------------------------------
+# Configuration Parameters
+# ----------------------------------------------------------------------------
+
+# Capacitor voltage ratings
+input_cap_voltage = config("input_cap_voltage", str, default="25V")
+output_cap_voltage = config("output_cap_voltage", str, default="10V")
+
+# Feedback resistors
+fb_resistor_top = config("fb_resistor_top", str, default="52.3kohms")  
+fb_resistor_bottom = config("fb_resistor_bottom", str, default="10kohms")
+
+# ----------------------------------------------------------------------------
+# Global Power Interfaces
+# ----------------------------------------------------------------------------
+
+VIN_LDO = io("VIN_LDO", Net, default = Net("VIN_LDO", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+VOUT_LDO = io("VOUT_LDO", Net, default = Net("VOUT_LDO", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+GND = io("GND", Net, default = Net("GND", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+
+# ----------------------------------------------------------------------------
+# Local Nets
+# ----------------------------------------------------------------------------
+
+ADJ_NC = Net("ADJ_NC")
+EN = Net("EN")
+NC_PG = Net("NC_PG")
+
+# ============================================================================
+# Components
+# ============================================================================
+
+Ldo(
+    name = "LDFPVR",
+    ADJ_NC = ADJ_NC,
+    EN = VIN_LDO,
+    GND_1 = GND,
+    GND_2 = GND,
+    PG = NC_PG,
+    VIN = VIN_LDO,
+    VOUT = VOUT_LDO
+)
+
+# Input Capacitor
+Capacitor(
+    name = "C_VIN_LDO",
+    value = "1uF",
+    voltage = input_cap_voltage,
+    package = "0402",
+    P1 = VIN_LDO,
+    P2 = GND
+)
+
+# Output Capacitor  
+Capacitor(
+    name = "C_VOUT_LDO",
+    value = "2.2uF",
+    voltage = output_cap_voltage,
+    package = "0402",
+    P1 = VOUT_LDO,
+    P2 = GND
+)
+
+Resistor(
+    name = "R_FB_TOP",
+    value = fb_resistor_top,
+    package = "0402",
+    P1 = VOUT_LDO,
+    P2 = ADJ_NC
+)
+
+Resistor(
+    name = "R_FB_BOTTOM", 
+    value = fb_resistor_bottom,
+    package = "0402",
+    P1 = ADJ_NC,
+    P2 = GND
+)
+
+
+add_property("datasheet", "//components/LDFPVR/LDFPVR.pdf")
+
+# ----------------------------------------------------------------------------
+# PCB Schematic
+# ----------------------------------------------------------------------------
+
+# pcb:sch C_VIN_LDO.C x=664.4800 y=113.3000 rot=0
+# pcb:sch C_VOUT_LDO.C x=-46.7200 y=100.6000 rot=0
+# pcb:sch LDFPVR.LDFPVR x=202.2000 y=-1.0000 rot=0
+# pcb:sch R_FB_BOTTOM.R x=77.7400 y=164.1000 rot=0
+# pcb:sch R_FB_TOP.R x=77.7400 y=37.1000 rot=0
+# pcb:sch GND.1 x=367.3000 y=278.4000 rot=0
+# pcb:sch VIN_LDO.1 x=677.1800 y=-51.8000 rot=0
+# pcb:sch VOUT_LDO.1 x=-34.0200 y=-51.8000 rot=0

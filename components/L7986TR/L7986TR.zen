@@ -1,0 +1,42 @@
+"""L7986TR Component"""
+
+# Pins
+Pins = struct(
+    COMP = io("COMP", Net),
+    EN = io("EN", Net),
+    EP = io("EP", Net),
+    FB = io("FB", Net),
+    FSW = io("FSW", Net),
+    GND = io("GND", Net),
+    OUT_1 = io("OUT_1", Net),
+    OUT_2 = io("OUT_2", Net),
+    SYNCH = io("SYNCH", Net),
+    VCC_1 = io("VCC_1", Net),
+    VCC_2 = io("VCC_2", Net)
+)
+
+# Component
+Component(
+    name = "L7986TR",
+    symbol = Symbol(library = "L7986TR.kicad_sym"),
+    footprint = File("SON50P300X300X100-11N-D.kicad_mod"),
+    pins = {
+        "COMP": Pins.COMP,
+        "EN": Pins.EN,
+        "EP": Pins.EP,
+        "FB": Pins.FB,
+        "FSW": Pins.FSW,
+        "GND": Pins.GND,
+        "OUT_1": Pins.OUT_1,
+        "OUT_2": Pins.OUT_2,
+        "SYNCH": Pins.SYNCH,
+        "VCC_1": Pins.VCC_1,
+        "VCC_2": Pins.VCC_2
+    },
+    properties = {
+        "value": "L7986TR",
+        "mpn": "L7986TR"
+    }
+)
+
+add_property("layout_path", "build/preview")
