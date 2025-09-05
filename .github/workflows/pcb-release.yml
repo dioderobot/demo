@@ -6,5 +6,8 @@ on:
 
 jobs:
   releases:
-    uses: diodeinc/pcb-action/.github/workflows/pcb-release.yml@v1
+    permissions:
+      contents: read
+      id-token: write
+    uses: diodeinc/pcb-action/.github/workflows/pcb-release.yml@v2
 
