@@ -1,13 +1,83 @@
-name: PCB Releases
+name: PCB Release
 
 on:
   workflow_dispatch:
   push:
 
-jobs:
-  releases:
-    permissions:
-      contents: read
-      id-token: write
-    uses: diodeinc/pcb-action/.github/workflows/pcb-release.yml@v2
+permissions:
+  contents: read
+  id-token: write
 
+jobs:
+  detect:
+    name: Detect boards
+    runs-on: ubuntu-latest
+    outputs:
+      boards: ${{ steps.detect.outputs.boards }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Install pcb
+        uses: diodeinc/pcb-action/setup@v2
+        with:
+          version: "v0.2.0-prerelease.8"
+
+      - name: Detect boards
+        id: detect
+        uses: diodeinc/pcb-action/detect@v2
+
+  release:
+    name: Release ${{ matrix.board }}
+    needs: detect
+    runs-on: ubuntu-latest
+    container:
+      image: kicad/kicad:9.0.3
+      options: --user root
+    strategy:
+      fail-fast: false
+      matrix:
+        board: ${{ fromJSON(needs.detect.outputs.boards) }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Install dependencies
+        run: apt-get update && apt-get install -y curl jq git python3 python3-venv python-is-python3
+
+      - name: Fix git permissions
+        run: git config --global --add safe.directory $GITHUB_WORKSPACE
+
+      - name: Install pcb
+        uses: diodeinc/pcb-action/setup@v2
+        with:
+          version: "v0.2.0-prerelease.8"
+
+      - name: Run pcb release
+        id: release
+        shell: bash
+        run: |
+          short_sha=$(git rev-parse --short HEAD)
+          archive_path="${{ matrix.board }}-$short_sha.zip"
+          pcb release -b ${{ matrix.board }} --output-dir . --output-name $archive_path
+          echo "archive_path=$archive_path" >> "$GITHUB_OUTPUT"
+          echo "short_sha=$short_sha" >> "$GITHUB_OUTPUT"
+
+      - name: Sign
+        uses: sigstore/gh-action-sigstore-python@v3.0.0
+        with:
+          inputs: ${{ steps.release.outputs.archive_path }}
+
+      - name: Upload release archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: pcb-release-${{ matrix.board }}-${{ steps.release.outputs.short_sha }}
+          path: ${{ steps.release.outputs.archive_path }}
+          retention-days: 30
+
+      - name: Upload cosign bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.release.outputs.archive_path }}.sigstore.json
+          path: ${{ steps.release.outputs.archive_path }}.sigstore.json
+          retention-days: 30
