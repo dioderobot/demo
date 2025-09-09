@@ -83,6 +83,7 @@ jobs:
           retention-days: 30
 
       - name: Create release
+        if: startsWith(github.ref, 'refs/tags/')
         shell: bash
         env:
           API_URL: https://api.diode.computer/api/releases/upload
