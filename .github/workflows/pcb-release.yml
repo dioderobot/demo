@@ -81,3 +81,13 @@ jobs:
           name: ${{ steps.release.outputs.archive_path }}.sigstore.json
           path: ${{ steps.release.outputs.archive_path }}.sigstore.json
           retention-days: 30
+
+      - name: Create release
+        shell: bash
+        env:
+          API_URL: https://api.diode.computer/api/releases/upload
+        run: |
+          set -euo pipefail
+          curl -sSf -X POST "$API_URL" \
+            -F "artifact=@${{ steps.release.outputs.archive_path }};type=application/zip" \
+            -F "bundle=@${{ steps.release.outputs.archive_path }}.sigstore.json;type=application/json"
