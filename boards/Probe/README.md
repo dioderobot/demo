@@ -1,0 +1,20 @@
+# Diode Probe (RP2040 CMSIS-DAP)
+
+A minimal USB-to-target debug probe based on the RP2040, implementing a CMSIS-DAP style SWD/UART interface with on-board power regulation and status LEDs.
+
+## Overview
+- MCU: RP2040 dual-core M0+
+- SWD to target, USB Device to host
+- Target UART bridge
+
+## Interfaces
+- USB2 Device to host PC
+- SWD to target (SWDIO, SWCLK, optional nRESET)
+- UART to target (TX/RX)
+
+## Build
+From this directory:
+
+```bash
+pcb build
+```

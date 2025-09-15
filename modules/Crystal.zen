@@ -1,0 +1,51 @@
+"""
+Passive Crystal Module with Load Capacitors
+For passive crystals that connect to microcontroller oscillator inputs (LSE, etc.)
+
+Includes crystal + both load capacitors for complete oscillator circuit.
+"""
+
+load("@stdlib/config.zen", "config_properties", "config_unit")
+load("@stdlib/interfaces.zen", "Ground", "OscPair")
+load("@stdlib/units.zen", "Frequency", "Capacitance", "unit")
+load("@stdlib/utils.zen", "format_value")
+
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+CrystalComponent = Module("@stdlib/generics/Crystal.zen")
+
+# Required
+frequency = config_unit("frequency", Frequency, default = "32.768kHz")
+
+# I/O interfaces
+GND = io("GND", Ground)
+osc = io("osc", OscPair)
+
+# Crystal specifications for common microcontroller frequencies
+# Keys are frequency values in Hz (not strings)
+_crystal_specs = {
+    32768.0: {  # 32.768kHz RTC crystal
+        "mpn": "ECS-.327-12.5-12R-TR",  # 32.768kHz, 12.5pF load
+        "load_cap": "12.5pF",           # Load capacitor value
+        "package": "2012_2Pin",         # Small package for RTC
+    },
+}
+
+freq_hz = frequency.value
+if freq_hz not in _crystal_specs:
+    supported_freqs = [format_value(unit(str(f) + "Hz", Frequency)) for f in _crystal_specs.keys()]
+    error("Unsupported crystal frequency: %s. Supported: %s" % (format_value(frequency), supported_freqs))
+
+spec = _crystal_specs[freq_hz]
+
+# Crystal component
+CrystalComponent(
+    name = "Y",
+    package = CrystalComponent.Package(spec["package"]),
+    XIN = osc.XIN,
+    XOUT = osc.XOUT,
+    mpn = spec["mpn"]
+)
+
+# Load capacitors (both sides to ground)
+Capacitor(name = "C_L1", package = "0402", value = spec["load_cap"], P1 = osc.XIN, P2 = GND)
+Capacitor(name = "C_L2", package = "0402", value = spec["load_cap"], P1 = osc.XOUT, P2 = GND)
