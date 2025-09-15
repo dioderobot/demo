@@ -4,6 +4,9 @@ on:
   workflow_dispatch:
   push:
 
+env:
+  PCB_VERSION: "v0.2.0-prerelease.9"
+
 permissions:
   contents: read
   id-token: write
@@ -21,7 +24,7 @@ jobs:
       - name: Install pcb
         uses: diodeinc/pcb-action/setup@v2
         with:
-          version: "v0.2.0-prerelease.8"
+          version: ${{ env.PCB_VERSION }}
 
       - name: Detect boards
         id: detect
@@ -51,7 +54,7 @@ jobs:
       - name: Install pcb
         uses: diodeinc/pcb-action/setup@v2
         with:
-          version: "v0.2.0-prerelease.8"
+          version: ${{ env.PCB_VERSION }}
 
       - name: Run pcb release
         id: release
