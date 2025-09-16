@@ -1,0 +1,15 @@
+"""General utilities for Zen."""
+
+def format_value(*args):
+    strings = []
+    for arg in args:
+        if hasattr(arg, "__str__"):
+            strings.append(arg.__str__(arg))
+        elif hasattr(arg, "value"):
+            strings.append(str(arg.value))
+        elif type(arg) == "list":
+            # Format lists as comma-separated values instead of JSON-like brackets
+            strings.append(", ".join([str(item) for item in arg]))
+        elif arg != None:
+            strings.append(str(arg))
+    return " ".join(strings)
