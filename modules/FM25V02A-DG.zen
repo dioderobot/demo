@@ -1,0 +1,92 @@
+load("@stdlib/config.zen", "config_properties")
+load("@stdlib/interfaces.zen", "Spi", "Power", "Ground", "Gpio")
+Resistor = Module("@stdlib/generics/Resistor.zen")
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+
+# -----------------------------------------------------------------------------
+# FM25V02A-DG - 256-Kbit (32K × 8) Serial (SPI) F-RAM
+#
+# Features:
+# - 256-Kbit ferroelectric RAM (F-RAM) logically organized as 32K × 8
+# - High-endurance 100 trillion (10^14) read/writes
+# - 151-year data retention
+# - NoDelay™ writes - immediate write at bus speed
+# - Very fast SPI interface up to 40MHz
+# - Supports SPI mode 0 (0,0) and mode 3 (1,1)
+# - Low power: 2.5mA active, 150µA standby, 8µA sleep
+# - Supply voltage: 2.0V to 3.6V
+# - Operating temperature: -40°C to +85°C
+# - 8-DFN (4x4.5mm) package with exposed pad
+#
+# Pin mapping (8-DFN):
+# 1 - CS (Chip Select, active low)
+# 2 - SO (Serial Output)
+# 3 - WP (Write Protect, active low)
+# 4 - VSS (Ground)
+# 5 - SI (Serial Input)
+# 6 - SCK (Serial Clock)
+# 7 - HOLD (Hold, active low)
+# 8 - VDD (Power Supply)
+# EP - Exposed Pad (not connected to die)
+# -----------------------------------------------------------------------------
+
+# Properties
+properties = config_properties({
+    "description": "256-Kbit (32K × 8) Serial (SPI) F-RAM",
+    "manufacturer": "Infineon Technologies",
+    "memory_size": "256Kbit (32K × 8)",
+    "interface": "SPI up to 40MHz",
+    "endurance": "100 trillion read/writes",
+    "data_retention": "151 years",
+    "supply_voltage": "2.0V to 3.6V",
+    "operating_temperature": "-40°C to +85°C",
+    "package": "8-DFN (4x4.5mm)",
+    "datasheet": "https://www.infineon.com/dgdl/Infineon-FM25V02A_256_Kbit_(32K_8)_Serial_(SPI)_F-RAM-DataSheet-v10_00-EN.pdf"
+})
+
+# -----------------------------------------------------------------------------
+# IO ports
+# -----------------------------------------------------------------------------
+
+# SPI interface
+spi = io("spi", Spi)       # SPI bus (CS, SCK, MISO/SO, MOSI/SI)
+
+# Power connections
+vdd = io("vdd", Power)     # Power supply (2.0V to 3.6V)
+vss = io("vss", Ground)    # Ground
+
+# Control signals
+wp_n = io("wp_n", Gpio, default = Gpio("wp_n"), optional = True)       # Write protect (active low) - tie to VDD if not used
+hold_n = io("hold_n", Gpio, default = Gpio("hold_n"), optional = True) # Hold (active low) - has weak internal pullup
+
+# -----------------------------------------------------------------------------
+# Component definition
+# -----------------------------------------------------------------------------
+
+Component(
+    name = "U",
+    symbol = Symbol(library = "@kicad-symbols/Memory_NVRAM.kicad_sym", name = "MR20H40"),
+    footprint = File("../components/fm25v02a-dg/eda/SON95P450X400X80-9N.kicad_mod"),
+    prefix = "U",
+    mpn = "FM25V02A-DG",
+    properties = properties,
+    pins = {
+        "~{CS}": spi.CS,      # 1 - Chip Select (active low)
+        "SO": spi.MISO,       # 2 - Serial Output (MISO)
+        "~{WP}": wp_n.NET,    # 3 - Write Protect (active low)
+        "VSS": vss.NET,       # 4 - Ground
+        "SI": spi.MOSI,       # 5 - Serial Input (MOSI)
+        "SCK": spi.CLK,       # 6 - Serial Clock
+        "~{HOLD}": hold_n.NET,# 7 - Hold (active low)
+        "VDD": vdd.NET,       # 8 - Power Supply
+        "PAD": vss.NET,       # 9 - Pad
+    }
+)
+
+# Power supply decoupling
+Capacitor(name="C1", value="100nF", package="0402", voltage="16V", dielectric="X7R", P1=vdd, P2=vss)
+
+# Pull-up resistors for control signals
+Resistor(name="R1", value="10kOhm", package="0402", P1=vdd, P2=wp_n)    # WP pull-up (disable write protection by default)
+Resistor(name="R2", value="10kOhm", package="0402", P1=vdd, P2=hold_n)  # HOLD pull-up (noise immunity, even though internal pullup exists)
+Resistor(name="R3", value="10kOhm", package="0402", P1=vdd, P2=spi.CS)      # CS pull-up (keep deasserted by default)

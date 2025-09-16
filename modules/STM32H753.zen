@@ -1,0 +1,551 @@
+"""
+STM32H753IIK6 Microcontroller Module
+Generic STM32H753 with complete peripheral interface exposure
+
+This module provides comprehensive STM32H753 peripheral access. Included supporting
+circuitry:
+- Power decoupling capacitors for all VDD pins (100nF, 0402)
+- VCAP capacitors for core voltage regulator (2.2µF, 0402)  
+- HSE/LSE oscillator circuits with proper connections
+- BOOT0 pull-down and reset pull-up networks
+- Test points for debug and system signals
+
+SPECIFICATIONS:
+- Part: STM32H753IIK6 (UFBGA-201, 10x10mm, 0.65mm pitch)
+- Core: ARM Cortex-M7 @ 480MHz
+- Flash: 2MB, RAM: 1MB
+- HSE: 16MHz active oscillator input
+- LSE: 32.768kHz crystal for RTC
+- All UART/USART, SPI, I2C, CAN, USB, Ethernet peripherals exposed
+"""
+
+load("@stdlib/interfaces.zen", "Analog", "CanTtl", "Ground", "I2c", "OscPair", "Power", "Spi", "Uart", "Usart", "Usb2", "Gpio", "Sdio", "Swd", "Pwm", "Rmii", "NotConnected")
+load("@stdlib/config.zen", "config_properties")
+
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+Resistor = Module("@stdlib/generics/Resistor.zen")
+FerriteBead = Module("@stdlib/generics/FerriteBead.zen")
+
+
+add_property("layout_path", "build/STM32H753")
+
+# Component modules
+Oscillator = Module("./Oscillator.zen")
+Crystal = Module("./Crystal.zen")
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+Resistor = Module("@stdlib/generics/Resistor.zen")
+TestPoint = Module("@stdlib/generics/TestPoint.zen")
+
+# ============================================================================
+# POWER INTERFACES
+# ============================================================================
+vdd_3v3 = io("vdd_3v3", Power)  # 3.3V main supply
+vbat = io("vbat", Power)        # Backup battery (coin cell)
+gnd = io("gnd", Ground)         # Ground reference
+
+# Internal power nets (derived from vdd_3v3)
+vdda_filtered = Net("VDDA_FILTERED")  # VDDA after ferrite bead filtering
+
+# ============================================================================
+# CLOCK CIRCUITS (HSE + LSE with supporting components)
+# ============================================================================
+# Generate the nets first
+hse_out = Net("HSE_16M")          # 16MHz oscillator output
+lse_pair = OscPair("LSE_32K")     # 32.768kHz crystal pins
+
+# 16MHz HSE active oscillator (for main system clock)
+Oscillator(
+    name = "U_HSE",
+    frequency = "16MHz",
+    tcxo = False,
+    VCC = vdd_3v3,
+    GND = gnd,
+    OUT = hse_out,
+    EN = vdd_3v3.NET  # Always enabled
+)
+
+# 32.768kHz LSE passive crystal (for RTC)
+Crystal(
+    name = "Y_LSE",
+    frequency = "32.768kHz",
+    GND = gnd,
+    osc = lse_pair
+)
+
+# ============================================================================
+# SPI BUS INTERFACES
+# ============================================================================
+spi1 = io("spi1", Spi)          # SPI1 bus
+spi2 = io("spi2", Spi)          # SPI2 bus
+spi3 = io("spi3", Spi)          # SPI3 bus
+spi5 = io("spi5", Spi)          # SPI5 bus
+spi6 = io("spi6", Spi)          # SPI6 bus
+
+# ============================================================================
+# I2C BUS INTERFACES
+# ============================================================================
+i2c1 = io("i2c1", I2c)          # I2C1 bus
+i2c2 = io("i2c2", I2c)          # I2C2 bus
+i2c3 = io("i2c3", I2c)          # I2C3 bus
+i2c4 = io("i2c4", I2c)          # I2C4 bus
+
+# ============================================================================
+# SERIAL COMMUNICATION INTERFACES
+# ============================================================================
+usart1 = io("usart1", Usart)     # USART1
+usart2 = io("usart2", Usart)     # USART2 (with flow control)
+usart3 = io("usart3", Usart)     # USART3
+uart4 = io("uart4", Uart)        # UART4
+usart5 = io("usart5", Usart)     # UART5 block, with RTS/CTS
+usart6 = io("usart6", Usart)     # USART6
+usart7 = io("usart7", Usart)     # UART7 block, with RTS/CTS
+uart8 = io("uart8", Uart)        # UART8
+fdcan1 = io("fdcan1", CanTtl)   # CAN-FD 1
+fdcan2 = io("fdcan2", CanTtl)   # CAN-FD 2
+
+# ============================================================================
+# USB AND STORAGE
+# ============================================================================
+usb_fs = io("usb_fs", Usb2)     # USB Full-Speed (connector)
+sdmmc2 = io("sdmmc2", Sdio)     # MicroSD card (SDMMC2 per v6X reference)
+
+# ============================================================================
+# ETHERNET RMII INTERFACE (for carrier board)
+# ============================================================================
+eth_rmii = io("eth_rmii", Rmii)         # RMII Ethernet interface
+eth_mdio = io("eth_mdio", Gpio)         # Management data I/O (separate from RMII)
+eth_mdc = io("eth_mdc", Gpio)           # Management data clock (separate from RMII)
+
+# ============================================================================
+# POWER CONTROL AND MONITORING
+# ============================================================================
+# Power rail control
+power_5v_periph_en = io("power_5v_periph_en", Gpio)    # 5V peripherals enable (active low)
+power_5v_periph_oc = io("power_5v_periph_oc", Gpio)    # 5V peripherals overcurrent (active low)
+power_5v_hipower_en = io("power_5v_hipower_en", Gpio)  # 5V high-power enable (active low)
+power_5v_hipower_oc = io("power_5v_hipower_oc", Gpio)  # 5V high-power overcurrent (active low)
+eth_power_en = io("eth_power_en", Gpio)                # Ethernet PHY power enable
+
+# Power monitoring (ADC channels)
+usb_vbus_sense = io("usb_vbus_sense", Analog) # USB VBUS voltage detection
+
+# Additional ADC channels
+adc_ch1 = io("adc_ch1", Analog)        # ADC1_INP16 - General purpose ADC input
+adc_ch2 = io("adc_ch2", Analog)        # ADC12_INP18 - General purpose ADC input
+adc_ch3 = io("adc_ch3", Analog)        # ADC12_INP9 - General purpose ADC input
+adc_ch4 = io("adc_ch4", Analog)        # ADC12_INP5 - General purpose ADC input
+adc_6v6 = io("adc_6v6", Analog)        # ADC3_IN12 - Scaled 6V6
+adc_3v3 = io("adc_3v3", Analog)        # ADC3_IN13 - Scaled 3V3
+adc_ch7 = io("adc_ch7", Analog)        # ADC1_INP6 - General purpose ADC input
+hw_version = io("hw_version", Analog)   # ADC3_INP14 - Hardware version detection
+hw_revision = io("hw_revision", Analog) # ADC3_INP15 - Hardware revision detection
+
+# ============================================================================
+# PWM OUTPUT CHANNELS
+# ============================================================================
+pwm_ch = []
+for i in range(8):
+    pwm_ch.append(io("pwm_ch%d" % (i + 1), Pwm))  # PWM_CH1-8 (generic PWM outputs)
+
+# Additional PWM/Timer interfaces
+pwm_cap1 = io("pwm_cap1", Gpio, optional = True)  # Timer capture input
+
+# Note: SPI chip selects are now included in the SPI interface CS field
+
+# ============================================================================
+# GENERAL PURPOSE I/O AND CONTROL SIGNALS
+# ============================================================================
+# Status and control outputs
+armed_signal = io("armed_signal", Gpio)    # Armed status output (active low)
+sd_card_en = io("sd_card_en", Gpio)        # SD card enable
+reset_in = io("reset_in", Gpio)            # External reset input
+spektrum_en = io("spektrum_en", Gpio)      # Spektrum receiver enable
+
+# Status LEDs
+led_red = io("led_red", Gpio)              # Red status LED (active low)
+led_green = io("led_green", Gpio)          # Green status LED (active low)  
+led_blue = io("led_blue", Gpio)            # Blue status LED (active low)
+
+# User interface
+buzzer = io("buzzer", Gpio)                # Buzzer/tone output
+safety_btn = io("safety_btn", Gpio)        # Safety button input
+safety_led = io("safety_led", Gpio)        # Safety LED output (active low)
+
+# System control
+hw_ver_drive = io("hw_ver_drive", Gpio)    # Hardware version detection
+spi_ext_reset = io("spi_ext_reset", Gpio)  # External SPI device reset
+sync_signal = io("sync_signal", Gpio)      # Synchronization signal output (PE9 per PX4)
+heater_ctrl = io("heater_ctrl", Gpio)      # Heater control output (PB10 per PX4)
+
+# Additional IO per PX4 mapping
+nfc_gpio = io("nfc_gpio", Gpio)            # NFC GPIO (PC0 per PX4)
+
+# Sensor domain enable pins (PX4 FMUv6X compatible)
+sensor_1_en = io("sensor_1_en", Gpio)                    # Sensor domain 1 enable (PI11)
+sensor_2_en = io("sensor_2_en", Gpio)                    # Sensor domain 2 enable (PF4)
+sensor_3_en = io("sensor_3_en", Gpio)                    # Sensor domain 3 enable (PE7)
+sensor_4_en = io("sensor_4_en", Gpio)                    # Sensor domain 4 enable (PG8)
+
+# IMU data ready signals (PX4 FMUv6X mapping)
+imu1_drdy = io("imu1_drdy", Gpio)                      # IMU1 data ready (PF2)
+imu2_drdy = io("imu2_drdy", Gpio)                      # IMU2 data ready (PA10)
+imu3_drdy = io("imu3_drdy", Gpio)                      # IMU3 data ready (PI7)
+bmp388_drdy = io("bmp388_drdy", Gpio)                  # BMP388 barometer data ready (PG5)
+
+# General purpose GPIOs
+gpio_pc0 = io("gpio_pc0", Gpio)                          # General purpose GPIO (PC0)
+spare_gpio_1 = io("spare_gpio_1", Gpio, optional = True)  # Spare GPIO
+spare_gpio_2 = io("spare_gpio_2", Gpio, optional = True)  # Spare GPIO
+
+# Power good signals (X1 connector)
+power_in_a = io("power_in_a", Gpio, optional = True)     # nPOWER_IN_A (PG1)
+power_in_b = io("power_in_b", Gpio, optional = True)     # nPOWER_IN_B (PG2)
+power_in_c = io("power_in_c", Gpio, optional = True)     # nPOWER_IN_C (PG3)
+
+# Additional GPIO pins for FMU-v6X X2 connector
+spi6_cs2 = io("spi6_cs2", Gpio)           # SPI6 additional chip select (PA15)
+spi6_drdy1 = io("spi6_drdy1", Gpio)       # SPI6 data ready 1 (PD11)
+spi6_drdy2 = io("spi6_drdy2", Gpio)       # SPI6 data ready 2 (PD12)
+
+# Debug interfaces
+swd = io("swd", Swd)                                      # SWD programming/debug
+
+# ============================================================================
+# INTERNAL NETS
+# ============================================================================
+vcap = Net("VCAP")                 # Core voltage regulator capacitors
+
+# ============================================================================
+# PIN MAPPING (functional pins only - unused pins auto-assigned NotConnected)
+# ============================================================================
+functional_pins = {
+    # -------------------------------------------------------------------------
+    # CLOCK PINS
+    # -------------------------------------------------------------------------
+    "PH0": hse_out,           # HSE input from active oscillator (16MHz)
+    # PH1 not connected when using active HSE oscillator
+    "PC14": lse_pair.XIN,     # LSE crystal input (32.768kHz)
+    "PC15": lse_pair.XOUT,    # LSE crystal output
+    
+    # -------------------------------------------------------------------------
+    # SPI BUSES (per board.h and spi.cpp)
+    # -------------------------------------------------------------------------
+    # SPI1 - Sensors1 (ICM-20649)
+    "PA5": spi1.CLK,     # SPI1_SCK
+    "PG9": spi1.MISO,    # SPI1_MISO
+    "PB5": spi1.MOSI,    # SPI1_MOSI
+    "PI9": spi1.CS,      # SPI1_CS
+    
+    # SPI2 - Sensors2 (ICM-42688P)
+    "PI1": spi2.CLK,     # SPI2_SCK
+    "PI2": spi2.MISO,    # SPI2_MISO
+    "PI3": spi2.MOSI,    # SPI2_MOSI
+    "PH5": spi2.CS,      # SPI2_CS
+    
+    # SPI3 - Sensors3 (BMI088)
+    "PC10": spi3.CLK,    # SPI3_SCK
+    "PC11": spi3.MISO,   # SPI3_MISO
+    "PB2": spi3.MOSI,    # SPI3_MOSI
+    "PI8": spi3.CS,      # SPI3_CS
+    
+    # SPI5 - FRAM
+    "PF7": spi5.CLK,     # SPI5_SCK
+    "PH7": spi5.MISO,    # SPI5_MISO
+    "PF11": spi5.MOSI,   # SPI5_MOSI
+    "PG7": spi5.CS,      # SPI5_CS
+    
+    # SPI6 - External1 
+    "PB3": spi6.CLK,     # SPI6_SCK
+    "PA6": spi6.MISO,    # SPI6_MISO (NOTE: FMU-v6X spec shows PG12, but conflicts with ETH_TXD1)
+    "PG14": spi6.MOSI,   # SPI6_MOSI
+    "PI10": spi6.CS,     # SPI6_CS
+    
+    # -------------------------------------------------------------------------
+    # I2C BUSES (per board.h)
+    # -------------------------------------------------------------------------
+    "PB8": i2c1.SCL,     # I2C1_SCL
+    "PB9": i2c1.SDA,     # I2C1_SDA
+    "PF1": i2c2.SCL,     # I2C2_SCL  
+    "PF0": i2c2.SDA,     # I2C2_SDA
+    "PA8": i2c3.SCL,     # I2C3_SCL
+    "PH8": i2c3.SDA,     # I2C3_SDA
+    "PF14": i2c4.SCL,    # I2C4_SCL
+    "PF15": i2c4.SDA,    # I2C4_SDA
+    
+    # -------------------------------------------------------------------------
+    # SERIAL COMMUNICATION (all UART/USART peripherals per board.h)
+    # -------------------------------------------------------------------------
+    # USART1 - PB6 (TX), PB7 (RX) 
+    "PB6": usart1.TX,    # USART1_TX
+    "PB7": usart1.RX,    # USART1_RX
+    
+    # USART2 - PD5 (TX), PA3 (RX), PD4 (RTS), PD3 (CTS)
+    "PD5": usart2.TX,    # USART2_TX  
+    "PA3": usart2.RX,    # USART2_RX
+    "PD4": usart2.RTS,   # USART2_RTS
+    "PD3": usart2.CTS,   # USART2_CTS
+    
+    # USART3 - PD8 (TX), PD9 (RX)
+    "PD8": usart3.TX,    # USART3_TX
+    "PD9": usart3.RX,    # USART3_RX
+    
+    # UART4 - PH13 (TX), PH14 (RX) 
+    "PH13": uart4.TX,    # UART4_TX
+    "PH14": uart4.RX,    # UART4_RX
+    
+    # UART5 - PC12 (TX), PD2 (RX), PC8 (RTS), PC9 (CTS)
+    "PC12": usart5.TX,    # UART5_TX
+    "PD2": usart5.RX,     # UART5_RX
+    "PC8": usart5.RTS,    # UART5_RTS  
+    "PC9": usart5.CTS,    # UART5_CTS
+    
+    # USART6 - PC6 (TX), PC7 (RX)
+    "PC6": usart6.TX,    # USART6_TX
+    "PC7": usart6.RX,    # USART6_RX
+    
+    # UART7 - PE8 (TX), PF6 (RX), PF8 (RTS), PE10 (CTS)
+    "PE8": usart7.TX,     # UART7_TX
+    "PF6": usart7.RX,     # UART7_RX
+    "PF8": usart7.RTS,    # UART7_RTS
+    "PE10": usart7.CTS,   # UART7_CTS
+    
+    # UART8 - PE1 (TX), PE0 (RX)
+    "PE1": uart8.TX,     # UART8_TX
+    "PE0": uart8.RX,     # UART8_RX
+    
+    # CAN-FD interfaces
+    "PD1": fdcan1.TX,    # FDCAN1_TX
+    "PD0": fdcan1.RX,    # FDCAN1_RX
+    "PB13": fdcan2.TX,   # FDCAN2_TX
+    "PB12": fdcan2.RX,   # FDCAN2_RX
+    
+    # -------------------------------------------------------------------------
+    # USB INTERFACE (per board.h)
+    # -------------------------------------------------------------------------
+    "PA12": usb_fs.DP,   # USB_FS_DP
+    "PA11": usb_fs.DM,   # USB_FS_DM
+    
+    # -------------------------------------------------------------------------
+    # SDMMC INTERFACE (per board.h)
+    # -------------------------------------------------------------------------
+    "PD6": sdmmc2.CLK,    # SDMMC2_CLK
+    "PD7": sdmmc2.CMD,    # SDMMC2_CMD
+    "PB14": sdmmc2.DAT0,  # SDMMC2_D0
+    "PB15": sdmmc2.DAT1,  # SDMMC2_D1
+    "PG11": sdmmc2.DAT2,  # SDMMC2_D2
+    "PB4": sdmmc2.DAT3,   # SDMMC2_D3
+    
+    # -------------------------------------------------------------------------
+    # ETHERNET RMII INTERFACE (per board.h)
+    # -------------------------------------------------------------------------
+    "PA1": eth_rmii.REF_CLK, # ETH_REF_CLK
+    "PA2": eth_mdio.NET,     # ETH_MDIO (management interface)
+    "PC1": eth_mdc.NET,      # ETH_MDC (management interface)
+    "PG13": eth_rmii.TXD0,   # ETH_TXD0
+    "PG12": eth_rmii.TXD1,   # ETH_TXD1
+    "PB11": eth_rmii.TX_EN,  # ETH_TX_EN
+    "PA7": eth_rmii.CRS_DV,  # ETH_CRS_DV
+    "PC4": eth_rmii.RXD0,    # ETH_RXD0
+    "PC5": eth_rmii.RXD1,    # ETH_RXD1
+    
+    # -------------------------------------------------------------------------
+    # POWER CONTROL SIGNALS
+    # -------------------------------------------------------------------------
+    "PG4": power_5v_periph_en.NET,  # 5V peripherals enable (active low)
+    "PE15": power_5v_periph_oc.NET, # 5V peripherals overcurrent (active low)
+    "PG10": power_5v_hipower_en.NET, # 5V high-power enable (active low)
+    "PG15": eth_power_en.NET,       # Ethernet PHY power enable
+    
+    # -------------------------------------------------------------------------
+    # ANALOG INPUTS (ADC channels)
+    # -------------------------------------------------------------------------
+    "PA0": adc_ch1.NET,           # ADC1_INP16 - General purpose ADC input
+    "PA4": adc_ch2.NET,           # ADC12_INP18 - General purpose ADC input  
+    "PA9": usb_vbus_sense.NET,    # USB VBUS voltage detection
+    "PB0": adc_ch3.NET,           # ADC12_INP9 - General purpose ADC input
+    "PB1": adc_ch4.NET,           # ADC12_INP5 - General purpose ADC input
+    "PC0": nfc_gpio.NET,          # NFC GPIO per PX4
+    "PC2_C": adc_6v6.NET,         # ADC3_IN12 - Scaled 6V6
+    "PC3_C": adc_3v3.NET,         # ADC3_IN13 - Scaled 3V3
+    "PF12": adc_ch7.NET,          # ADC1_INP6 - General purpose ADC input
+    "PH3": hw_version.NET,        # ADC3_INP14 - Hardware version detection
+    "PH4": hw_revision.NET,       # ADC3_INP15 - Hardware revision detection
+    
+    # -------------------------------------------------------------------------
+    # PWM OUTPUTS (corrected per PX4 timer_config.cpp)
+    # -------------------------------------------------------------------------
+    "PI0": pwm_ch[0].NET,     # PWM_CH1 (TIM5_CH4)
+    "PH12": pwm_ch[1].NET,    # PWM_CH2 (TIM5_CH3)
+    "PH11": pwm_ch[2].NET,    # PWM_CH3 (TIM5_CH2)
+    "PH10": pwm_ch[3].NET,    # PWM_CH4 (TIM5_CH1)
+    "PD13": pwm_ch[4].NET,    # PWM_CH5 (TIM4_CH2)
+    "PD14": pwm_ch[5].NET,    # PWM_CH6 (TIM4_CH3)
+    "PH6": pwm_ch[6].NET,     # PWM_CH7 (TIM12_CH1)
+    "PH9": pwm_ch[7].NET,     # PWM_CH8 (TIM12_CH2)
+    "PE11": pwm_cap1.NET,     # Timer capture input (TIM1_CH2)
+    
+    # -------------------------------------------------------------------------
+    # GENERAL PURPOSE I/O PINS
+    # -------------------------------------------------------------------------
+    "PE3": led_red.NET,       # Red status LED (active low)
+    "PE4": led_green.NET,     # Green status LED (active low)
+    "PE5": led_blue.NET,      # Blue status LED (active low)
+    "PE6": armed_signal.NET,  # Armed status output (active low)
+    "PF5": safety_btn.NET,    # Safety button input
+    "PF9": buzzer.NET,        # Buzzer/tone output
+    "PF10": spi_ext_reset.NET, # External SPI device reset
+    "PF13": power_5v_hipower_oc.NET, # 5V high-power overcurrent (active low)
+    "PG0": hw_ver_drive.NET,  # Hardware version detection
+    "PG1": power_in_a.NET,    # Power good A (nPOWER_IN_A)
+    "PG2": power_in_b.NET,    # Power good B (nPOWER_IN_B)
+    "PG3": power_in_c.NET,    # Power good C (nPOWER_IN_C)
+    "PG6": spare_gpio_1.NET,  # Spare GPIO 1
+    "PG8": sensor_4_en.NET,   # Sensor domain 4 enable (GPIO_VDD_3V3_SENSORS4_EN)
+    "PI11": sensor_1_en.NET,  # Sensor domain 1 enable (SPI1 power)
+    "PF4": sensor_2_en.NET,   # Sensor domain 2 enable (SPI2 power) 
+    "PE7": sensor_3_en.NET,   # Sensor domain 3 enable (SPI3 power)
+    "PF2": imu1_drdy.NET,     # IMU1 data ready (SPI1)
+    "PA10": imu2_drdy.NET,    # IMU2 data ready (SPI2)
+    "PI7": imu3_drdy.NET,     # IMU3 data ready (SPI3)
+    "PG5": bmp388_drdy.NET,   # BMP388 barometer data ready (I2C2)
+    "PD10": safety_led.NET,   # Safety LED output (active low)
+    "PD15": spare_gpio_2.NET, # Spare GPIO 2
+    "PB10": heater_ctrl.NET,  # Heater control output
+    "PE9": sync_signal.NET,   # Synchronization signal output
+    "PC13": sd_card_en.NET,   # SD card enable
+    "PH2": spektrum_en.NET,   # Spektrum receiver enable
+    
+    # Additional GPIO pins for FMU-v6X X2 connector
+    "PA15": spi6_cs2.NET,     # SPI6 additional chip select (PA15)
+    "PD11": spi6_drdy1.NET,   # SPI6 data ready 1 (PD11)
+    "PD12": spi6_drdy2.NET,   # SPI6 data ready 2 (PD12)
+    
+    # -------------------------------------------------------------------------
+    # SYSTEM CONTROL PINS
+    # -------------------------------------------------------------------------
+    "BOOT0": Net("BOOT0"),    # Boot mode select (needs pull-down)
+    "NRST": reset_in.NET,     # Reset input (needs RC circuit)
+    "PDR_ON": Net("PDR_ON"),  # Power-down reset (needs RC to VDD)
+    
+    # -------------------------------------------------------------------------
+    # DEBUG INTERFACES
+    # -------------------------------------------------------------------------
+    "PA13": swd.SWDIO,        # SWD data
+    "PA14": swd.SWCLK,        # SWD clock
+    
+    # -------------------------------------------------------------------------
+    # POWER PINS
+    # -------------------------------------------------------------------------
+    "VDD": vdd_3v3.NET,       # Core supply (3.3V in internal LDO mode)
+    "VSS": gnd.NET,           # Ground
+    "VCAP": vcap,             # Core regulator capacitors (internal LDO output)
+    "VDDA": vdda_filtered,    # Analog supply (filtered 3.3V)
+    "VSSA": gnd.NET,          # Analog ground
+    "VBAT": vbat.NET,         # Backup battery
+    "VDD33_USB": vdd_3v3.NET, # USB 3.3V supply
+    "VREF+": vdda_filtered,   # ADC reference positive
+    "VREF-": gnd.NET,         # ADC reference negative (if present)
+}
+
+# Complete list of all pins in STM32H753IIK6 UFBGA-201 package
+all_pins = [
+    # GPIO pins (A-I ports)
+    "PA0", "PA1", "PA2", "PA3", "PA4", "PA5", "PA6", "PA7", "PA8", "PA9", "PA10", "PA11", "PA12", "PA13", "PA14", "PA15",
+    "PB0", "PB1", "PB2", "PB3", "PB4", "PB5", "PB6", "PB7", "PB8", "PB9", "PB10", "PB11", "PB12", "PB13", "PB14", "PB15",
+    "PC0", "PC1", "PC2_C", "PC3_C", "PC4", "PC5", "PC6", "PC7", "PC8", "PC9", "PC10", "PC11", "PC12", "PC13", "PC14", "PC15",
+    "PD0", "PD1", "PD2", "PD3", "PD4", "PD5", "PD6", "PD7", "PD8", "PD9", "PD10", "PD11", "PD12", "PD13", "PD14", "PD15",
+    "PE0", "PE1", "PE2", "PE3", "PE4", "PE5", "PE6", "PE7", "PE8", "PE9", "PE10", "PE11", "PE12", "PE13", "PE14", "PE15",
+    "PF0", "PF1", "PF2", "PF3", "PF4", "PF5", "PF6", "PF7", "PF8", "PF9", "PF10", "PF11", "PF12", "PF13", "PF14", "PF15",
+    "PG0", "PG1", "PG2", "PG3", "PG4", "PG5", "PG6", "PG7", "PG8", "PG9", "PG10", "PG11", "PG12", "PG13", "PG14", "PG15",
+    "PH0", "PH1", "PH2", "PH3", "PH4", "PH5", "PH6", "PH7", "PH8", "PH9", "PH10", "PH11", "PH12", "PH13", "PH14", "PH15",
+    "PI0", "PI1", "PI2", "PI3", "PI4", "PI5", "PI6", "PI7", "PI8", "PI9", "PI10", "PI11",
+    # Special pins
+    "BOOT0", "NRST", "PDR_ON",
+    # Power pins
+    "VDD", "VSS", "VCAP", "VDDA", "VSSA", "VBAT", "VDD33_USB", "VREF+", "VREF-"
+]
+
+# Build final pins dictionary: functional pins + NotConnected for unused pins
+pins = {}
+pins.update(functional_pins)
+for pin in all_pins:
+    if pin not in pins:
+        pins[pin] = NotConnected()
+
+Component(
+    name = "MCU",
+    symbol = Symbol(library = "@kicad-symbols/MCU_ST_STM32H7.kicad_sym", name = "STM32H753IIKx"),
+    footprint = File("../components/stm32h753/eda/UFBGA-201_10x10mm_Layout15x15_P0.65mm.kicad_mod"),
+    mpn = "STM32H753IIK6",
+    pins = pins,
+    properties = config_properties({
+        "manufacturer": "STMicroelectronics",
+        "package": "UFBGA-201",
+        "core": "ARM Cortex-M7",
+        "frequency": "480MHz",
+        "flash": "2MB",
+        "ram": "1MB",
+    }),
+)
+
+# ============================================================================
+# SUPPORTING PASSIVE COMPONENTS
+# ============================================================================
+
+# VDD Core Supply Decoupling Capacitors (100nF, 0402)  
+# In internal LDO mode, VDD pins are connected to 3.3V supply
+for i in range(6):  # Typical number of VDD pins in UFBGA-201
+    Capacitor(name = "C_VDD_%d" % (i + 1), package = "0402", value = "100nF", P1 = vdd_3v3, P2 = gnd)
+
+# VDDA Analog Supply with Ferrite Bead Filtering
+# Ferrite bead for analog supply noise filtering (BLM18PG121SN1D or similar)
+FerriteBead(
+    name = "FB_VDDA",
+    resistance = "120Ohm",
+    frequency = "100MHz", 
+    package = "0603",
+    current = "500mA",
+    P1 = vdd_3v3,
+    P2 = vdda_filtered
+)
+
+# VDDA Decoupling Capacitors
+Capacitor(name = "C_VDDA", package = "0402", value = "1uF", P1 = vdda_filtered, P2 = gnd)
+
+# VDD_3V3 Main Supply Decoupling Capacitors (100nF, 0402)
+for i in range(4):  # Multiple 3.3V supply pins
+    Capacitor(name = "C_VDD_3V3_%d" % (i + 1), package = "0402", value = "100nF", P1 = vdd_3v3, P2 = gnd)
+
+# USB 3.3V Supply Decoupling Capacitor
+Capacitor(name = "C_USB_VDD", package = "0402", value = "100nF", P1 = vdd_3v3, P2 = gnd)
+
+# VCAP Capacitors for Core Voltage Regulator (2.2µF, 0402)
+# STM32H753 requires 2 VCAP capacitors for internal LDO
+Capacitor(name = "C_VCAP_1", package = "0402", value = "2.2uF", voltage = "6.3V", P1 = vcap, P2 = gnd)
+Capacitor(name = "C_VCAP_2", package = "0402", value = "2.2uF", voltage = "6.3V", P1 = vcap, P2 = gnd)
+
+# VBAT Supply Decoupling Capacitor (for RTC backup)
+Capacitor(name = "C_VBAT", package = "0402", value = "100nF", P1 = vbat, P2 = gnd)
+
+# ============================================================================
+# BOOT AND RESET CIRCUITS
+# ============================================================================
+
+# BOOT0 Pull-down Resistor (10kΩ, ensures normal boot from flash)
+Resistor(name = "R_BOOT0_PD", package = "0402", value = "10kOhm", P1 = Net("BOOT0"), P2 = gnd)
+
+# NRST Reset Circuit (10kΩ pull-up, PDR_ON handles power-on reset)
+Resistor(name = "R_NRST_PU", package = "0402", value = "10kOhm", P1 = reset_in, P2 = vdd_3v3)
+
+# PDR_ON Power-down Reset Circuit (10kΩ pull-up to VDD core)
+Resistor(name = "R_PDR_ON_PU", package = "0402", value = "10kOhm", P1 = Net("PDR_ON"), P2 = vdd_3v3)
+
+# ============================================================================
+# DEBUG TEST POINTS
+# ============================================================================
+
+# Debug and System Control Test Points (1.5mm diameter)
+TestPoint(name = "TP_SWDIO", variant = "Pad_D1.5mm", P1 = swd.SWDIO)
+TestPoint(name = "TP_SWCLK", variant = "Pad_D1.5mm", P1 = swd.SWCLK)
+TestPoint(name = "TP_NRST", variant = "Pad_D1.5mm", P1 = reset_in)
+TestPoint(name = "TP_BOOT0", variant = "Pad_D1.5mm", P1 = Net("BOOT0"))

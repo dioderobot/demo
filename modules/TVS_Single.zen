@@ -1,0 +1,86 @@
+"""
+Single TVS Diode Module
+Unidirectional transient voltage suppressor
+"""
+
+load("@stdlib/config.zen", "config_properties")
+
+# -----------------------------------------------------------------------------
+# Component parameters
+# -----------------------------------------------------------------------------
+
+# Package and voltage options
+Package = enum("SOD523", "SOD323", "SOD882")
+Voltage = enum("3.3V", "5V", "12V", "24V")
+
+# Configuration
+voltage = config("voltage", Voltage, default=Voltage("5V"))
+package = config("package", Package, default=Package("SOD523"))
+
+# Part selection database
+TVS_PARTS = {
+    (Voltage("5V"), Package("SOD523")): {
+        "mpn": "PESD5V0X1UB,135",
+        "manufacturer": "Nexperia", 
+        "vr": "5V",
+        "vc": "8V",
+        "description": "TVS Diode 5V 8V Clamp SOD-523"
+    },
+    # Add more combinations as needed
+}
+
+# Select part based on voltage and package
+part_key = (voltage, package)
+if part_key not in TVS_PARTS:
+    error("No TVS part available for %s voltage in %s package" % (voltage, package))
+
+part_info = TVS_PARTS[part_key]
+
+properties = config_properties({
+    "voltage": voltage,
+    "package": package,
+    "mpn": part_info["mpn"],
+    "manufacturer": part_info["manufacturer"],
+    "clamping_voltage": part_info["vc"],
+    "description": part_info["description"],
+    "type": "TVS Diode",
+})
+
+# -----------------------------------------------------------------------------
+# IO ports
+# -----------------------------------------------------------------------------
+
+K = io("K", Net)  # Cathode (protected side)
+A = io("A", Net)  # Anode (ground side)
+
+# -----------------------------------------------------------------------------
+# Helper functions
+# -----------------------------------------------------------------------------
+
+def _footprint(package):
+    footprint_map = {
+        Package("SOD882"): "@kicad-footprints/Diode_SMD.pretty/D_SOD-882.kicad_mod",
+        Package("SOD523"): "@kicad-footprints/Diode_SMD.pretty/D_SOD-523.kicad_mod", 
+        Package("SOD323"): "@kicad-footprints/Diode_SMD.pretty/D_SOD-323.kicad_mod",
+    }
+    return footprint_map[package]
+
+# -----------------------------------------------------------------------------
+# Component definition
+# -----------------------------------------------------------------------------
+
+Component(
+    name = "TVS",
+    symbol = Symbol(library = "@kicad-symbols/Device.kicad_sym", name = "D_TVS_Small"),
+    footprint = File(_footprint(package)),
+    prefix = "D",
+    pin_defs = {
+        "K": "1",
+        "A": "2",
+    },
+    pins = {
+        "K": K,
+        "A": A,
+    },
+    properties = properties,
+)

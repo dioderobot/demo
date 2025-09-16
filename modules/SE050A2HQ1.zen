@@ -1,0 +1,99 @@
+load("@stdlib/interfaces.zen", "I2c", "Power", "Ground", "Gpio", "NotConnected")
+load("@stdlib/config.zen", "config_properties")
+Resistor = Module("@stdlib/generics/Resistor.zen")
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+
+add_property("layout_path", "build/SE050A2HQ1")
+
+# SE050A2HQ1 IoT Secure Element
+# Uses default I2C address 0x48
+
+# I/O interfaces
+I2C_HOST = io("I2C_HOST", I2c)    # I2C target interface (connects to host)
+VCC = io("VCC", Power)            # 1.62V - 3.6V supply
+VIN = io("VIN", Power)            # I2C pad supply (1.62V - 3.6V)
+GND = io("GND", Ground)           # Ground
+ENA = io("ENA", Gpio)             # Deep power-down enable (high = normal, low = deep power-down)
+
+# Optional interfaces (not commonly used)
+I2C_CONTROLLER = io("I2C_CONTROLLER", I2c)  # I2C controller interface (optional)
+RST_N = io("RST_N", Gpio)         # ISO7816 reset (optional, for ISO7816 interface)
+
+Component(
+    name = "U",
+    footprint = File("../components/se050a2hq1/eda/HX2QFN20_SOT1969-1_NXP.kicad_mod"),
+    mpn = "SE050A2HQ1/Z01SHZ",
+    properties = config_properties({
+        "Type": "IoT Secure Element",
+        "Interface": "I2C",
+        "Supply Voltage": "1.62V - 3.6V",
+        "Package": "HX2QFN20",
+        "Temperature Range": "-25°C to 85°C"
+    }),
+    pin_defs = {
+        "ISO_14443_LB": "1",
+        "n.c._2": "2",
+        "ISO_7816_IO1": "3",
+        "n.c._4": "4",
+        "n.c._5": "5",
+        "n.c._6": "6",
+        "n.c._7": "7",
+        "n.c._8": "8",
+        "I2C_SDA": "9",
+        "I2C_SCL": "10",
+        "ENA": "11",
+        "VIN": "12",
+        "ISO_7816_CLK": "13",
+        "ISO_7816_RST_N": "14",
+        "VOUT": "15",
+        "ISO_7816_IO2": "16",
+        "ISO_14443_LA": "17",
+        "VCC": "18",
+        "VSS": "19",
+        "n.c._20": "20",
+        "EP": "21"
+    },
+    pins = {
+        # Main I2C interface (target mode)
+        "I2C_SDA": I2C_HOST.SDA,
+        "I2C_SCL": I2C_HOST.SCL,
+        
+        # Power supply
+        "VIN": VIN.NET,    # I2C pad supply
+        "VCC": VCC.NET,    # Logic supply
+        "VSS": GND.NET,    # Ground
+        "EP": GND.NET,     # Exposed pad to ground for thermal
+        
+        # Control
+        "ENA": ENA.NET,    # Deep power-down enable
+        
+        # Optional I2C controller interface
+        "ISO_7816_IO1": I2C_CONTROLLER.SDA,  # Can be used as I2C controller SDA
+        "ISO_7816_IO2": I2C_CONTROLLER.SCL,  # Can be used as I2C controller SCL
+        
+        # Optional ISO7816/reset
+        "ISO_7816_RST_N": RST_N.NET,
+        
+        # Connect unused pins appropriately
+        "VOUT": VCC.NET,              # Connect to VCC for normal operation
+        "ISO_14443_LA": GND.NET,      # Antenna pins - connect to ground if not used
+        "ISO_14443_LB": GND.NET,      # Antenna pins - connect to ground if not used
+        "ISO_7816_CLK": VCC.NET,      # ISO7816 clock - connect to VCC if not used
+        
+        # No-connect pins
+        "n.c._2": NotConnected("NC2"),
+        "n.c._4": NotConnected("NC4"),
+        "n.c._5": NotConnected("NC5"),
+        "n.c._6": NotConnected("NC6"),
+        "n.c._7": NotConnected("NC7"),
+        "n.c._8": NotConnected("NC8"),
+        "n.c._20": NotConnected("NC20")
+    }
+)
+
+# Decoupling capacitors for power supplies
+Capacitor(name="C1", value="100nF", package="0402", voltage="16V", dielectric="X7R", P1=VCC, P2=GND)
+Capacitor(name="C2", value="100nF", package="0402", voltage="16V", dielectric="X7R", P1=VIN, P2=GND)
+
+# ENA pull-up resistor to keep device enabled by default
+Resistor(name="R1", value="10kOhm", package="0402", P1=VCC, P2=ENA)

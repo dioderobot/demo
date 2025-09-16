@@ -1,0 +1,77 @@
+load("@stdlib/interfaces.zen", "I2c", "Power", "Ground", "Gpio")
+load("@stdlib/config.zen", "config_properties")
+
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+Resistor = Module("@stdlib/generics/Resistor.zen")
+
+# ICP-20100 Precision Barometric Pressure and Temperature Sensor
+# 10-LGA (2x2mm)
+# Voltage - Supply: 3.3V ± 10% (VDD), 3.3V ± 10% (VDDIO)
+# Interface: I2C, I3C, SPI
+# Temperature: -40°C ~ 85°C
+# Pressure: 30kPa ~ 110kPa (4.35-15.95 PSI) Absolute
+# NOTE: Product status is "Not For New Designs" - consider alternatives
+
+# I2C address configuration (ADO pin sets LSB)
+# ADO=0: 0x63, ADO=1: 0x64
+address = config("address", int, default=0x63)
+
+# Validate address
+if address not in [0x63, 0x64]:
+    error("Invalid I2C address: " + str(address) + ". ICP-20100 addresses must be 0x63 or 0x64")
+
+# Extract ADO pin state from address
+ado_high = address == 0x64
+
+# I/O ports
+VCC = io("VCC", Power)           # Power supply (3.3V ± 10% for both VDD and VDDIO)
+GND = io("GND", Ground)          # Ground
+I2C = io("I2C", I2c)             # I2C interface
+
+# Interrupt pin (defaults to grounded if not connected)
+INT = io("INT", Gpio, default=Gpio("INT_NC"), optional=True)            # Interrupt output pin
+
+# Connect default INT to ground if not overridden
+if INT.NET.name == "INT_NC":
+    # Create a resistor to ground for the default case
+    Resistor(name="R_INT_PD", value="10kOhm", package="0402", P1=INT, P2=GND)
+
+# Main component
+Component(
+    name="U",
+    footprint=File("../components/icp-20100/eda/PQFN50P200X200X85-10N.kicad_mod"),
+    pin_defs = {
+        "CSB": "1",      # SPI Chip Select (tie high for I2C)
+        "SCL": "2",      # I2C Clock
+        "VSS": "3",      # Ground
+        "SDA": "4",      # I2C Data
+        "VDD": "5",      # Power Supply Voltage
+        "SDO": "6",      # ADO pin for I2C address
+        "INT": "7",      # Interrupt Output
+        "RESV1": "8",    # Reserved - connect to ground
+        "RESV2": "9",    # Reserved - connect to ground  
+        "VDDIO": "10"    # IO Power Supply
+    },
+    pins={
+        "CSB": VCC.NET,             # Tie high for I2C mode
+        "SCL": I2C.SCL,             # I2C Clock
+        "VSS": GND.NET,             # Ground
+        "SDA": I2C.SDA,             # I2C Data
+        "VDD": VCC.NET,             # Analog supply
+        "SDO": VCC.NET if ado_high else GND.NET,  # ADO pin based on address
+        "INT": INT.NET,             # Interrupt (grounded by default if not connected)
+        "RESV1": GND.NET,           # Reserved - ground
+        "RESV2": GND.NET,           # Reserved - ground
+        "VDDIO": VCC.NET            # Digital supply
+    },
+    properties=config_properties({
+        "package": "10-LGA (2x2)",
+        "mpn": "ICP-20100"
+    })
+)
+
+# Power supply decoupling capacitors
+# VCC supply (both analog VDD and digital VDDIO, 3.3V typ)
+# Separate caps for each power pin for better high-frequency decoupling
+Capacitor(name="C1", value="100nF", package="0402", voltage="6.3V", dielectric="X7R", P1=VCC, P2=GND)
+Capacitor(name="C2", value="100nF", package="0402", voltage="6.3V", dielectric="X7R", P1=VCC, P2=GND)
