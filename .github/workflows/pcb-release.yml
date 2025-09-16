@@ -35,7 +35,7 @@ jobs:
     needs: detect
     runs-on: ubuntu-latest
     container:
-      image: kicad/kicad:9.0.3
+      image: kicad/kicad:9.0.3-full
       options: --user root
     strategy:
       fail-fast: false
