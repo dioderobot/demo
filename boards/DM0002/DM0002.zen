@@ -1,7 +1,7 @@
 load("@stdlib/interfaces.zen", "Analog", "Gpio", "Ground", "Power", "Swd", "Uart", "Usb2")
 
 # Layout preview
-add_property("layout_path", "build/Probe")
+add_property("layout_path", "layout")
 
 # TODO: Hardware improvements
 # - Add polyfuse on VBUS (0.75A): Protects USB host if target shorts 3.3V rail
