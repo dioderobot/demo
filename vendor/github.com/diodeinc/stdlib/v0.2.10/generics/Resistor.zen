@@ -1,4 +1,3 @@
-load("./SolderJumper.zen", "pin_defs")
 load("../config.zen", "config_properties", "config_unit")
 load("../units.zen", "Resistance", "Voltage")
 load("../utils.zen", "format_value")
@@ -7,8 +6,7 @@ load("../utils.zen", "format_value")
 # Component types
 # -----------------------------------------------------------------------------
 
-Package = enum("0201", "0402", "0603", "0805")
-TemperatureCoefficient = enum("NTC", "PTC", "Unspecified")
+Package = enum("0201", "0402", "0603", "0805", "1206", "1210", "2010", "2512")
 Mount = enum("SMD")
 
 # -----------------------------------------------------------------------------
@@ -22,7 +20,6 @@ value = config_unit("value", Resistance)
 # Optional
 mount = config("mount", Mount, default = Mount("SMD"), optional = True)
 voltage = config_unit("voltage", Voltage, optional = True)
-temperature_coefficient = config("temperature_coefficient", TemperatureCoefficient, default = TemperatureCoefficient("Unspecified"), optional = True)
 use_us_symbol = config("use_us_symbol", bool, default = False, optional = True)
 
 # Properties – combined and normalized
@@ -31,7 +28,7 @@ properties = config_properties({
     "package": package,
     "resistance": value,
     "voltage": voltage,
-    "type": "thermistor",
+    "type": "resistor",
 })
 
 # -----------------------------------------------------------------------------
@@ -45,18 +42,11 @@ P2 = io("P2", Net)
 # Helper functions
 # -----------------------------------------------------------------------------
 
-def _symbol(mount: Mount, package: Package, temperature_coefficient: TemperatureCoefficient, use_us_symbol: bool):
-    name = ""
-
-    if temperature_coefficient == TemperatureCoefficient("PTC"):
-        name = "Thermistor_PTC"
-    elif temperature_coefficient == TemperatureCoefficient("NTC"):
-        name = "Thermistor_NTC"
-    else:
-        name = "Thermistor"
-
+def _symbol(mount: Mount, package: Package, use_us_symbol: bool):
     if use_us_symbol:
-        name = name + "_US"
+        name = "R_US"
+    else:   
+        name = "R"
 
     return {
         "library": "@kicad-symbols/Device.kicad_sym",
@@ -69,6 +59,10 @@ def _footprint(mount: Mount, package: Package):
         Package("0402"): "@kicad-footprints/Resistor_SMD.pretty/R_0402_1005Metric.kicad_mod",
         Package("0603"): "@kicad-footprints/Resistor_SMD.pretty/R_0603_1608Metric.kicad_mod",
         Package("0805"): "@kicad-footprints/Resistor_SMD.pretty/R_0805_2012Metric.kicad_mod",
+        Package("1206"): "@kicad-footprints/Resistor_SMD.pretty/R_1206_3216Metric.kicad_mod",
+        Package("1210"): "@kicad-footprints/Resistor_SMD.pretty/R_1210_3225Metric.kicad_mod",
+        Package("2010"): "@kicad-footprints/Resistor_SMD.pretty/R_2010_5025Metric.kicad_mod",
+        Package("2512"): "@kicad-footprints/Resistor_SMD.pretty/R_2512_6332Metric.kicad_mod",
     }
 
     if package not in kicad_footprints:
@@ -81,10 +75,10 @@ def _footprint(mount: Mount, package: Package):
 # -----------------------------------------------------------------------------
 
 Component(
-    name = "TH",
-    symbol = Symbol(**_symbol(mount, package, temperature_coefficient, use_us_symbol)),
+    name = "R",
+    symbol = Symbol(**_symbol(mount, package, use_us_symbol)),
     footprint = File(_footprint(mount, package)),
-    prefix = "TH",
+    prefix = "R",
     pin_defs = {
         "P1": "1",
         "P2": "2",
@@ -94,4 +88,5 @@ Component(
         "P2": P2,
     },
     properties = properties,
+    type = "resistor",
 )
