@@ -22,12 +22,6 @@ Led(name = "L1", color = "green", package = "0402", A = io_vcc.NET, K = L)
 Resistor(name = "R1", package = "0402", value = "1kohm", P1 = L, P2 = io_gnd.NET)
 Capacitor(name = "C1", package = "0402", value = "100nF", P1 = io_vcc.NET, P2 = io_gnd.NET)
 
-# Layout
-Layout(
-    name = "PowerLed",
-    path = "build/preview/PowerLed",
-)
-
 # pcb:sch C1.C x=499.3800 y=-13.7000 rot=0
 # pcb:sch L1.LED x=354.6000 y=-69.5800 rot=270
 # pcb:sch R1.R x=369.8400 y=11.7000 rot=0

@@ -8,7 +8,7 @@ Pins = struct(
 
 # Component
 Component(
-    name = "0435.250KRS",
+    name = "0435_250KRS",
     symbol = Symbol(library = "C1972550.kicad_sym"),
     footprint = File("F0402.kicad_mod"),
     pins = {
@@ -20,5 +20,3 @@ Component(
         "mpn": "0435.250KRS"
     }
 )
-
-add_property("layout_path", "build/preview")

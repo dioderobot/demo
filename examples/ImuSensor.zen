@@ -41,12 +41,6 @@ PowerLed(
     io_gnd = io_gnd,
 )
 
-Layout(
-    name = "PowerLed",
-    path = "build/preview/PowerLed",
-)
-
-
 # pcb:sch LED.C1.C x=804.1800 y=75.2000 rot=0
 # pcb:sch LED.L1.LED x=888.0000 y=19.3200 rot=270
 # pcb:sch LED.R1.R x=903.2400 y=100.6000 rot=0

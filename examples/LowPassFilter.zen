@@ -79,12 +79,6 @@ Capacitor(name = "C3", package = "0402", value = C3, P1 = STAGE3_OUT, P2 = io_gn
 Resistor(name = "R4", package = "0402", value = R4, P1 = STAGE3_OUT, P2 = io_OUT)
 Capacitor(name = "C4", package = "0402", value = C4, P1 = io_OUT, P2 = io_gnd.NET)
 
-# Layout
-Layout(
-    name = "Filter",
-    path = "build/preview/Filter",
-)
-
 # pcb:sch C1.C x=245.3800 y=-255.0000 rot=0
 # pcb:sch C2.C x=372.3800 y=-255.0000 rot=0
 # pcb:sch C3.C x=499.3800 y=-255.0000 rot=0
