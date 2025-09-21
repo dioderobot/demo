@@ -12,6 +12,25 @@ permissions:
   id-token: write
 
 jobs:
+  build:
+    name: Build
+    strategy:
+      fail-fast: false
+      matrix:
+        pcb-version: [HEAD, latest]
+    continue-on-error: ${{ matrix.pcb-version == 'HEAD' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install pcb
+        uses: diodeinc/pcb-action/setup@v2
+        with:
+          version: ${{ matrix.pcb-version }}
+      - name: Build .zen files
+        run: |
+          pcb build $(find boards -name "*.zen" -type f) -Dwarnings --offline
+
   detect:
     name: Detect boards
     runs-on: ubuntu-latest
