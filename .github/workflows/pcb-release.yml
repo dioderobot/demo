@@ -5,7 +5,7 @@ on:
   push:
 
 env:
-  PCB_VERSION: "v0.2.0-prerelease.12"
+  PCB_VERSION: "v0.2.0"
 
 permissions:
   contents: read
@@ -19,7 +19,7 @@ jobs:
       matrix:
         pcb-version: [HEAD, latest]
     continue-on-error: ${{ matrix.pcb-version == 'HEAD' }}
-    runs-on: ubuntu-latest
+    runs-on: ubicloud-standard-30-ubuntu-2404
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -29,11 +29,11 @@ jobs:
           version: ${{ matrix.pcb-version }}
       - name: Build .zen files
         run: |
-          pcb build $(find boards -name "*.zen" -type f) -Dwarnings --offline
+          pcb build boards -Dwarnings --offline
 
   detect:
     name: Detect boards
-    runs-on: ubuntu-latest
+    runs-on: ubicloud-standard-30-ubuntu-2404
     outputs:
       boards: ${{ steps.detect.outputs.boards }}
     steps:
@@ -52,7 +52,7 @@ jobs:
   release:
     name: Release ${{ matrix.board }}
     needs: detect
-    runs-on: ubuntu-latest
+    runs-on: ubicloud-standard-30-ubuntu-2404
     container:
       image: kicad/kicad:9.0.3-full
       options: --user root
