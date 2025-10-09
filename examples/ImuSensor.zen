@@ -16,7 +16,7 @@ io_INT = io("io_INT", Net)
 
 # Components
 PowerLed = Module("PowerLed.zen")
-Mpu9250 = Module("@github/diodeinc/kicad/Sensor_Motion/MPU-9250.zen")
+Mpu9250 = Module("@github/diodeinc/kicad:v0.0.1/Sensor_Motion/MPU-9250.zen")
 
 # Schematics
 Mpu9250(
