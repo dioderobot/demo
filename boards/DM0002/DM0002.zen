@@ -1,7 +1,11 @@
 load("@stdlib/interfaces.zen", "Analog", "Gpio", "Ground", "Power", "Swd", "Uart", "Usb2")
+load("@stdlib/board_config.zen", "Board")
 
-# Layout preview
-add_property("layout_path", "layout")
+Board(
+    name = "DM0002",
+    layers = 4,
+    layout_path = "layout",
+)
 
 # TODO: Hardware improvements
 # - Add polyfuse on VBUS (0.75A): Protects USB host if target shorts 3.3V rail
