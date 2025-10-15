@@ -44,8 +44,8 @@ pins = {
     "SWCLK": swd.SWCLK,
     "SWD": swd.SWDIO,
     "TESTEN": gnd.NET,
-    "USB_DM": usb_internal.DM,
-    "USB_DP": usb_internal.DP,
+    "USB_DM": usb_internal.D.N,
+    "USB_DP": usb_internal.D.P,
     "USB_VDD": vdd_3v3.NET,
     "VREG_IN": vdd_3v3.NET,
     "VREG_VOUT": vdd_1v1.NET,
@@ -95,8 +95,8 @@ Resistor(name = "R_RUN_PU", package = "0402", value = "10kohm", P1 = vdd_3v3, P2
 Capacitor(name = "C_RUN_POR", package = "0402", value = "100nF", P1 = run, P2 = gnd)
 
 # USB series resistors (27R as per Pi Pico reference design)
-Resistor(name = "R_USB_DP", package = "0402", value = "27ohm", P1 = usb_internal.DP, P2 = usb.DP)
-Resistor(name = "R_USB_DM", package = "0402", value = "27ohm", P1 = usb_internal.DM, P2 = usb.DM)
+Resistor(name = "R_USB_DP", package = "0402", value = "27ohm", P1 = usb_internal.D.P, P2 = usb.D.P)
+Resistor(name = "R_USB_DM", package = "0402", value = "27ohm", P1 = usb_internal.D.N, P2 = usb.D.N)
 
 # BOOTSEL button
 Button(name = "SW_BOOTSEL", P1 = qspi.CS, P2 = gnd)

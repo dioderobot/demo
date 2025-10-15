@@ -39,8 +39,8 @@ Component(
     prefix = "J",
     pins = {
         "VBUS": vbus_raw,
-        "D+": usb.DP,
-        "D-": usb.DM,
+        "D+": usb.D.P,
+        "D-": usb.D.N,
         "CC1": cc1,
         "CC2": cc2,
         "GND": gnd.NET,
@@ -103,4 +103,4 @@ elif mode == UsbCMode("host"):
     Resistor(name = "R_CC2", package = "0402", value = rp_value, P1 = vbus, P2 = cc2)
 
 # ESD protection
-TPD4E05U06(name = "TVS", GND = gnd, D1P = usb.DP, D1M = usb.DM, D2P = cc1, D2M = cc2)
+TPD4E05U06(name = "TVS", GND = gnd, D1P = usb.D.P, D1M = usb.D.N, D2P = cc1, D2M = cc2)
