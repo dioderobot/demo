@@ -287,9 +287,9 @@ Component(
         "Pin_b23": gnd.NET,             # 73 - GND
         "Pin_b24": gnd.NET,             # 74 - GND
         "Pin_b25": swd.SWDIO,           # 75 - FMU_SWDIO (PA13/SWDIO)
-        "Pin_b26": usb.DP,              # 76 - USB_D_P (PA12/USB_FS_DP)
+        "Pin_b26": usb.D.P,             # 76 - USB_D_P (PA12/USB_FS_DP)
         "Pin_b27": swd.SWCLK,           # 77 - FMU_SWCLK (PA14/SWCLK)
-        "Pin_b28": usb.DM,              # 78 - USB_D_N (PA11/USB_FS_DN)
+        "Pin_b28": usb.D.N,             # 78 - USB_D_N (PA11/USB_FS_DN)
         "Pin_b29": gnd.NET,             # 79 - GND
         "Pin_b30": vbus_sense.NET,      # 80 - VBUS_SENSE (PA9/ADC12_IN18)
         "Pin_b31": hipower_5v_en.NET,   # 81 - VDD_5V_HIPOWER_nEN (PF12)

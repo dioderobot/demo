@@ -1,0 +1,108 @@
+load("../config.zen", "config_properties", "config_unit")
+load("../units.zen", "Capacitance", "Resistance", "Temperature", "Voltage")
+load("../utils.zen", "format_value")
+
+# -----------------------------------------------------------------------------
+# Component types
+# -----------------------------------------------------------------------------
+
+Package = enum("01005", "0201", "0402", "0603", "0805", "1206", "1210", "1812", "1825", "2220", "2225", "3640")
+Mount = enum("SMD")
+Dielectric = enum("C0G", "NP0", "X5R", "X7R", "X7S", "X7T", "Y5V", "Z5U")
+
+# -----------------------------------------------------------------------------
+# Component parameters
+# -----------------------------------------------------------------------------
+
+# Required
+package = config("package", Package, default=Package("0603"))
+value = config_unit("value", Capacitance)
+
+# Optional
+mount = config("mount", Mount, default=Mount("SMD"), optional=True)
+voltage = config_unit("voltage", Voltage, optional=True)
+dielectric = config("dielectric", Dielectric, optional=True)
+esr = config_unit("esr", Resistance, optional=True)
+t_max = config_unit("t_max", Temperature, optional=True)
+t_min = config_unit("t_min", Temperature, optional=True)
+
+# Properties
+properties = config_properties(
+    {
+        "value": format_value(value, voltage, dielectric, esr),
+        "package": package,
+        "capacitance": value,
+        "voltage": voltage,
+        "dielectric": dielectric,
+        "esr": esr,
+        "type": "capacitor",
+    }
+)
+
+# -----------------------------------------------------------------------------
+# IO ports
+# -----------------------------------------------------------------------------
+
+P1 = io("P1", Net)
+P2 = io("P2", Net)
+
+# -----------------------------------------------------------------------------
+# Helper functions
+# -----------------------------------------------------------------------------
+
+
+def _symbol(mount: Mount, package: Package):
+    return {
+        "library": "@kicad-symbols/Device.kicad_sym",
+        "name": "C",
+    }
+
+
+def _footprint(mount: Mount, package: Package):
+    kicad_footprints = {
+        (Mount("SMD"), Package("01005")): "@kicad-footprints/Capacitor_SMD.pretty/C_01005_0402Metric.kicad_mod",
+        (Mount("SMD"), Package("0201")): "@kicad-footprints/Capacitor_SMD.pretty/C_0201_0603Metric.kicad_mod",
+        (Mount("SMD"), Package("0402")): "@kicad-footprints/Capacitor_SMD.pretty/C_0402_1005Metric.kicad_mod",
+        (Mount("SMD"), Package("0603")): "@kicad-footprints/Capacitor_SMD.pretty/C_0603_1608Metric.kicad_mod",
+        (Mount("SMD"), Package("0805")): "@kicad-footprints/Capacitor_SMD.pretty/C_0805_2012Metric.kicad_mod",
+        (Mount("SMD"), Package("1206")): "@kicad-footprints/Capacitor_SMD.pretty/C_1206_3216Metric.kicad_mod",
+        (Mount("SMD"), Package("1210")): "@kicad-footprints/Capacitor_SMD.pretty/C_1210_3225Metric.kicad_mod",
+        (Mount("SMD"), Package("1812")): "@kicad-footprints/Capacitor_SMD.pretty/C_1812_4532Metric.kicad_mod",
+        (Mount("SMD"), Package("1825")): "@kicad-footprints/Capacitor_SMD.pretty/C_1825_4564Metric.kicad_mod",
+        (Mount("SMD"), Package("2220")): "@kicad-footprints/Capacitor_SMD.pretty/C_2220_5750Metric.kicad_mod",
+        (Mount("SMD"), Package("2225")): "@kicad-footprints/Capacitor_SMD.pretty/C_2225_5664Metric.kicad_mod",
+        (Mount("SMD"), Package("3640")): "@kicad-footprints/Capacitor_SMD.pretty/C_3640_9110Metric.kicad_mod",
+    }
+
+    if (mount, package) not in kicad_footprints:
+        error("Invalid footprint: " + str(mount) + " " + str(package))
+
+    return kicad_footprints[(mount, package)]
+
+
+# -----------------------------------------------------------------------------
+# Component definition
+# -----------------------------------------------------------------------------
+
+Component(
+    name="C",
+    prefix="C",
+    symbol=Symbol(**_symbol(mount, package)),
+    footprint=File(_footprint(mount, package)),
+    properties=properties,
+    type="capacitor",
+    pin_defs={
+        "P1": "1",
+        "P2": "2",
+    },
+    pins={
+        "P1": P1,
+        "P2": P2,
+    },
+    spice_model=SpiceModel(
+        "//simulation/Capacitor.lib",
+        "C",
+        nets=[P1, P2],
+        args={"CVAL": str(value.value)},
+    ),
+)

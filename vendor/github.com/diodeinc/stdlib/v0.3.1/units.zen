@@ -1,0 +1,32 @@
+# Pure units
+PI = 3.14159265358979323846
+
+# Toleranced units
+Time = builtin.Time
+Current = builtin.Current
+Voltage = builtin.Voltage
+Capacitance = builtin.Capacitance
+Resistance = builtin.Resistance
+Impedance = builtin.Resistance
+Inductance = builtin.Inductance
+Frequency = builtin.Frequency
+Temperature = builtin.Temperature
+Charge = builtin.Charge
+Power = builtin.Power
+Energy = builtin.Energy
+MagneticFlux = builtin.MagneticFlux
+Conductance = builtin.Conductance
+
+VoltageRange = builtin.physical_range("V")
+CurrentRange = builtin.physical_range("A")
+ResistanceRange = builtin.physical_range("Ohm")
+CapacitanceRange = builtin.physical_range("F")
+InductanceRange = builtin.physical_range("H")
+FrequencyRange = builtin.physical_range("Hz")
+TemperatureRange = builtin.physical_range("K")
+TimeRange = builtin.physical_range("s")
+PowerRange = builtin.physical_range("W")
+
+
+def unit(spec, type):
+    return type(spec)
