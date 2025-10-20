@@ -11,6 +11,7 @@ load("@stdlib/config.zen", "config_properties", "config_unit")
 load("@stdlib/interfaces.zen", "CanTtl", "I2c", "Power", "Spi", "Swd", "Uart", "Usb2")
 load("@stdlib/properties.zen", "Layout")
 load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "Resistance", "Voltage")
+load("@stdlib/board_config.zen", "Board")
 
 # ----------------------------------------------------------------------------
 # Component Modules
@@ -470,7 +471,11 @@ Led(
     K = GND,
 )
 
-Layout("DM0001", "layout/")
+Board(
+    name = "DM0001",
+    layout_path = "layout",
+    layers = 6,
+)
 
 # ============================================================================
 # PCB Schematic
