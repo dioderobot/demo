@@ -7,6 +7,11 @@
 		(legacy_teardrops no)
 	)
 	(paper "A4")
+	(title_block
+		(title "${PCB_NAME}")
+		(date "${CURRENT_DATE}")
+		(rev "${PCB_VERSION}")
+	)
 	(layers
 		(0 "F.Cu" signal)
 		(2 "B.Cu" signal)
@@ -87,6 +92,8 @@
 	(net 7 "GND")
 	(net 8 "A_PLUS_H1_OUT")
 	(net 9 "Z_PLUS_H3_IN")
+	(net 10 "MP2")
+	(net 11 "MP1")
 	(footprint "R_0402_1005Metric:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "11ab4f37-76b6-4d1b-b0cb-1c9f68830b56")
@@ -130,7 +137,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -147,55 +154,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "65124da1-229f-4559-86c6-eb4fe3b9b8db")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/nasheed-x/Library/Caches/pcb/gitlab/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "6555ad53-195c-43eb-add2-c5c58ab77175")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "R"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "24d2589c-1b12-4eda-9ec9-8920f1ceaf1d")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "__symbol_value" "(symbol\n  \"R\"\n  (pin_numbers\n    (hide yes)\n  )\n  (pin_names\n    (offset 0)\n  )\n  (exclude_from_sim no)\n  (in_bom yes)\n  (on_board yes)\n  (property\n    \"Reference\"\n    \"R\"\n    (at 2.032 0 90)\n    (effects\n      (font (size 1.27 1.27))\n    )\n  )\n  (property\n    \"Value\"\n    \"R\"\n    (at 0 0 90)\n    (effects\n      (font (size 1.27 1.27))\n    )\n  )\n  (property\n    \"Footprint\"\n    \"\"\n    (at -1.778 0 90)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Datasheet\"\n    \"~\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Description\"\n    \"Resistor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_keywords\"\n    \"R res resistor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_fp_filters\"\n    \"R_*\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (symbol\n    \"R_0_1\"\n    (rectangle\n      (start\n        -1.016\n        -2.54\n      )\n      (end\n        1.016\n        2.54\n      )\n      (stroke\n        (width 0.254)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n  )\n  (symbol\n    \"R_1_1\"\n    (pin\n      passive\n      line\n      (at 0 3.81 270)\n      (length 1.27)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"1\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 0 -3.81 90)\n      (length 1.27)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"2\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n  )\n  (embedded_fonts no)\n)"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "eb271cb8-7b9b-4ab2-a0d7-b48c7b0db450")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Resistance" "10k"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "801dff55-2609-43b3-a72a-84a5b58869c4")
+			(uuid "a0783207-6012-4da9-869c-83d51189df84")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -207,7 +166,43 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "1ea1c454-fb73-4589-82b4-3d6aa8b55564")
+			(uuid "7c98f32f-b1d2-4c34-a94e-841e288dfad8")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Resistance" "10k"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d121ebf5-5b88-4b43-9200-5687a4daaa21")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "symbol_name" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "01d444b9-0f43-4cac-9923-02811f73cf71")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "symbol_path" "/Users/davide/src/diodeinc/customers/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "fb140593-da68-4e84-9f0e-c7c4c16318d2")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -219,7 +214,31 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "3d3e91c2-e867-454c-a379-1ac19b7e7c7f")
+			(uuid "59229e3b-7555-4b34-8f18-4c92a2dce73a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1b7e2332-1b6d-444c-913b-0bf33bcb388b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "type" "resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5ce58fca-a4ed-40b8-a995-38c956cc24e5")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -412,7 +431,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -429,55 +448,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "e22ef3e8-e9b2-42af-9d75-9e871b914fa1")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Resistance" "10k"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "30a06abd-f0dd-47c5-b8ee-04a2c9d62245")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/nasheed-x/Library/Caches/pcb/gitlab/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "61cfd1b3-afc9-43a9-9864-19f6598dc9ba")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "R"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "ef357cb5-58cd-4f72-a743-0d9627d2253a")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "__symbol_value" "(symbol\n  \"R\"\n  (pin_numbers\n    (hide yes)\n  )\n  (pin_names\n    (offset 0)\n  )\n  (exclude_from_sim no)\n  (in_bom yes)\n  (on_board yes)\n  (property\n    \"Reference\"\n    \"R\"\n    (at 2.032 0 90)\n    (effects\n      (font (size 1.27 1.27))\n    )\n  )\n  (property\n    \"Value\"\n    \"R\"\n    (at 0 0 90)\n    (effects\n      (font (size 1.27 1.27))\n    )\n  )\n  (property\n    \"Footprint\"\n    \"\"\n    (at -1.778 0 90)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Datasheet\"\n    \"~\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Description\"\n    \"Resistor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_keywords\"\n    \"R res resistor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_fp_filters\"\n    \"R_*\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (symbol\n    \"R_0_1\"\n    (rectangle\n      (start\n        -1.016\n        -2.54\n      )\n      (end\n        1.016\n        2.54\n      )\n      (stroke\n        (width 0.254)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n  )\n  (symbol\n    \"R_1_1\"\n    (pin\n      passive\n      line\n      (at 0 3.81 270)\n      (length 1.27)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"1\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 0 -3.81 90)\n      (length 1.27)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"2\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n  )\n  (embedded_fonts no)\n)"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "e1f9edf7-8d6d-4a66-b51c-15d70b25b882")
+			(uuid "2851890c-ef8e-44d3-a35c-d8ed54626d36")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -489,7 +460,43 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "64fa16b1-82c1-42c0-ba57-02ff7603980f")
+			(uuid "83db85c4-109b-4944-b804-83d171c99da1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "978aaa8d-cc64-4594-901f-387a67e17d14")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "819ad2a1-f0e8-4bc3-bc10-9305850982c5")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "symbol_path" "/Users/davide/src/diodeinc/customers/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "455caec2-e0c3-4092-9f88-05c35270bc5e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -501,7 +508,31 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "3ab0b5b7-9f22-4bea-b470-e76310ed68f2")
+			(uuid "7ab80cab-8858-4e02-9b7f-6cab6604a12f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "type" "resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "9f7ef987-eb3c-4dd1-bffd-a0722745e86c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Resistance" "10k"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "956093eb-003c-45b8-8fd3-365872022233")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -669,7 +700,7 @@
 				)
 			)
 		)
-		(property "Value" "100nF 16V"
+		(property "Value" "100nF 16V X7R"
 			(at 0 1.16 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -694,7 +725,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -711,7 +742,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "570bc2fe-a606-40be-bdb1-eda981815f60")
+			(uuid "68c8fe32-7e3a-47b8-a03d-a6f8800e4769")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -719,59 +750,11 @@
 				)
 			)
 		)
-		(property "Voltage" "16V"
+		(property "Dielectric" "X7R"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "ee4782af-a4b2-474e-8624-ae354be4c1ca")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "__symbol_value" "(symbol\n  \"C\"\n  (pin_numbers\n    (hide yes)\n  )\n  (pin_names\n    (offset 0.254)\n  )\n  (exclude_from_sim no)\n  (in_bom yes)\n  (on_board yes)\n  (property\n    \"Reference\"\n    \"C\"\n    (at 0.635 2.54 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left)\n    )\n  )\n  (property\n    \"Value\"\n    \"C\"\n    (at 0.635 -2.54 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left)\n    )\n  )\n  (property\n    \"Footprint\"\n    \"\"\n    (at 0.9652 -3.81 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Datasheet\"\n    \"~\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Description\"\n    \"Unpolarized capacitor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_keywords\"\n    \"cap capacitor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_fp_filters\"\n    \"C_*\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (symbol\n    \"C_0_1\"\n    (polyline\n      (pts\n        (xy -2.032 0.762)\n        (xy 2.032 0.762)\n      )\n      (stroke\n        (width 0.508)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n    (polyline\n      (pts\n        (xy -2.032 -0.762)\n        (xy 2.032 -0.762)\n      )\n      (stroke\n        (width 0.508)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n  )\n  (symbol\n    \"C_1_1\"\n    (pin\n      passive\n      line\n      (at 0 3.81 270)\n      (length 2.794)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"1\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 0 -3.81 90)\n      (length 2.794)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"2\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n  )\n  (embedded_fonts no)\n)"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "e740070f-b84c-4226-959b-41f6cd8c4497")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Capacitance" "100nF"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "3a1c4180-b354-4e00-a1c2-9aa0bc9597f2")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Package" "0402"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "12eea039-e257-4ea3-850a-79bd0a737925")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/nasheed-x/Library/Caches/pcb/gitlab/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "1263e9e6-df46-4d30-83d1-8126ed079469")
+			(uuid "e5c5ee28-1bd0-4d3a-a64b-1567ef3aff1c")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -783,7 +766,55 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "b606e7a9-fb3c-4006-8169-8107387434d9")
+			(uuid "00657191-50a7-4477-af14-16eaf3a935bc")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "16V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3c5070a8-c42e-4bb5-a617-532f21128be3")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "9b0efd2a-4732-4c26-bc7c-ed8423f374ac")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "symbol_path" "/Users/davide/src/diodeinc/customers/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "fba7fdcb-418f-4d93-814e-5b98d92c22b5")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "0887c31a-40b4-437f-ba44-f4b4bc4415a3")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -795,7 +826,31 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "02b08b9c-b850-4d15-a207-13cb2f1819bb")
+			(uuid "cba04b9a-f4a2-4c05-8d33-2a00c5deaf87")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Capacitance" "100nF"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "6eee1842-4a62-4347-b75e-0040699f64d4")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "type" "capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "33bbc44e-0779-4528-b550-a8b5b461b69b")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -988,7 +1043,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1005,7 +1060,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "97acaf95-ad3e-479f-8440-95e4f147bdb0")
+			(uuid "83091768-8ab1-4451-bfaa-1d7b93782731")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1017,7 +1072,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "3c24372a-6af2-494b-995d-e5395437c713")
+			(uuid "327e765f-8c67-42ce-b458-0a9cf144c9fc")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1025,11 +1080,11 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/nasheed-x/Library/Caches/pcb/gitlab/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+		(property "Type" "resistor"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "00e5603b-8380-43b7-b796-b3d64daafe49")
+			(uuid "3a017174-6437-4e8a-815e-c7534dd424de")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1037,23 +1092,11 @@
 				)
 			)
 		)
-		(property "__symbol_value" "(symbol\n  \"R\"\n  (pin_numbers\n    (hide yes)\n  )\n  (pin_names\n    (offset 0)\n  )\n  (exclude_from_sim no)\n  (in_bom yes)\n  (on_board yes)\n  (property\n    \"Reference\"\n    \"R\"\n    (at 2.032 0 90)\n    (effects\n      (font (size 1.27 1.27))\n    )\n  )\n  (property\n    \"Value\"\n    \"R\"\n    (at 0 0 90)\n    (effects\n      (font (size 1.27 1.27))\n    )\n  )\n  (property\n    \"Footprint\"\n    \"\"\n    (at -1.778 0 90)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Datasheet\"\n    \"~\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Description\"\n    \"Resistor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_keywords\"\n    \"R res resistor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_fp_filters\"\n    \"R_*\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (symbol\n    \"R_0_1\"\n    (rectangle\n      (start\n        -1.016\n        -2.54\n      )\n      (end\n        1.016\n        2.54\n      )\n      (stroke\n        (width 0.254)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n  )\n  (symbol\n    \"R_1_1\"\n    (pin\n      passive\n      line\n      (at 0 3.81 270)\n      (length 1.27)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"1\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 0 -3.81 90)\n      (length 1.27)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"2\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n  )\n  (embedded_fonts no)\n)"
+		(property "type" "resistor"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "ae348081-ab91-4afd-848d-0b69aac805a9")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "R"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "55654581-9007-4c47-9c83-0921a0e77fe2")
+			(uuid "ce418a15-f390-4480-9b8a-d4feb379313f")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1065,7 +1108,19 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "c280d900-7646-48ab-b5cf-9fbce78ebe55")
+			(uuid "c9e25284-f084-4d6b-a703-d6566c818f92")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ea039c96-6085-42fc-bce7-d410bff1eb3d")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1077,7 +1132,19 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "7b72849e-dd1c-4464-b1d5-4982e028a34c")
+			(uuid "0147fbae-bdd0-473e-829a-24f82824a920")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "symbol_path" "/Users/davide/src/diodeinc/customers/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "05d6fc3c-0267-4d32-8dde-0ef35d76a76e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1270,7 +1337,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Schottky diode"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1287,7 +1354,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "fb7880e3-cb48-4d7d-ab7a-9067240196e3")
+			(uuid "79b39e50-0ee5-4a6e-a09b-62accdbfd14d")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1295,83 +1362,11 @@
 				)
 			)
 		)
-		(property "Mpn" "BAT30KFILM"
+		(property "symbol_path" "/Users/davide/src/diodeinc/customers/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "a77c1de7-9e60-43d1-8b8d-95382173e345")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "V_r" "30V"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "35dbbf45-9f9d-4524-89fd-a3df406cf067")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "__symbol_value" "(symbol\n  \"D_Schottky\"\n  (pin_numbers\n    (hide yes)\n  )\n  (pin_names\n    (offset 1.016)\n    (hide yes)\n  )\n  (exclude_from_sim no)\n  (in_bom yes)\n  (on_board yes)\n  (property\n    \"Reference\"\n    \"D\"\n    (at 0 2.54 0)\n    (effects\n      (font (size 1.27 1.27))\n    )\n  )\n  (property\n    \"Value\"\n    \"D_Schottky\"\n    (at 0 -2.54 0)\n    (effects\n      (font (size 1.27 1.27))\n    )\n  )\n  (property\n    \"Footprint\"\n    \"\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Datasheet\"\n    \"~\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Description\"\n    \"Schottky diode\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_keywords\"\n    \"diode Schottky\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_fp_filters\"\n    \"TO-???* *_Diode_* *SingleDiode* D_*\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (symbol\n    \"D_Schottky_0_1\"\n    (polyline\n      (pts\n        (xy -1.905 0.635)\n        (xy -1.905 1.27)\n        (xy -1.27 1.27)\n        (xy -1.27 -1.27)\n        (xy -0.635 -1.27)\n        (xy -0.635 -0.635)\n      )\n      (stroke\n        (width 0.254)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n    (polyline\n      (pts\n        (xy 1.27 1.27)\n        (xy 1.27 -1.27)\n        (xy -1.27 0)\n        (xy 1.27 1.27)\n      )\n      (stroke\n        (width 0.254)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n    (polyline\n      (pts\n        (xy 1.27 0)\n        (xy -1.27 0)\n      )\n      (stroke\n        (width 0)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n  )\n  (symbol\n    \"D_Schottky_1_1\"\n    (pin\n      passive\n      line\n      (at -3.81 0 0)\n      (length 2.54)\n      (name\n        \"K\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"1\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 3.81 0 180)\n      (length 2.54)\n      (name\n        \"A\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"2\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n  )\n  (embedded_fonts no)\n)"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "100ff4a9-04d3-433d-ae1a-c9b0c60fb120")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "D_Schottky"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "0ed950cc-569f-475f-962f-718347146d95")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Variant" "Schottky"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "14ba8751-3c36-42af-8dcf-6c656c54be0d")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Package" "SOD-523"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "25d7cbc1-55d0-4921-b4a6-6d9f57f16070")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "I_r" "300mA"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "54adafef-97ab-4a35-859b-b9e1c76e079e")
+			(uuid "586647a9-67c9-41c7-915b-7829347a443b")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1383,7 +1378,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "91634253-7354-4ec5-9007-3269be1a9948")
+			(uuid "4b7307b8-099c-48fe-899b-68ccf4307330")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1391,11 +1386,95 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/nasheed-x/Library/Caches/pcb/gitlab/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+		(property "Variant" "Schottky"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "ab6ad740-053b-44a4-b992-a5be69f9326e")
+			(uuid "5923d74a-ad9d-41e8-ad14-c740efa1baf8")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "I_r" "300mA"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "eb70d638-983b-45a5-ad8c-3e2d9b1ceb32")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "symbol_name" "D_Schottky"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "41a18635-07f6-47f0-8bbd-d9c6a2bf08ec")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "diode"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "add7b71f-e59c-4afc-844b-8cbed363ca51")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "BAT30KFILM"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5a6f64f2-5b3f-4561-adda-79d4485ce661")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "SOD-523"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "6fe90578-6800-4ed3-a368-3a5e30c00604")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "type" "diode"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f275cdc0-35cb-446f-9236-88682420410b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "V_r" "30V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1a981ddd-fd2c-4b97-9628-7f4e45c2f616")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1658,7 +1737,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1675,55 +1754,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "2975539b-c38e-4d12-a5d1-1fd8d8733b56")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/nasheed-x/Library/Caches/pcb/gitlab/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "99531373-d731-45ad-a9a5-38806ae921b5")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Package" "0402"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "4e95da31-1d6c-4ed4-937e-61990348c677")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "R"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "9b189027-8d15-4773-9519-eea27d8b3134")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "R"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "7b196f6d-2586-4d23-a458-e4a3786e80df")
+			(uuid "12ad08a7-c267-4f3f-abee-b19c3fc54c42")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1735,7 +1766,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "b5581fe1-7d5f-4886-8b49-0966150980aa")
+			(uuid "a3933695-09c2-447c-a082-0ccca85ac210")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1743,11 +1774,71 @@
 				)
 			)
 		)
-		(property "__symbol_value" "(symbol\n  \"R\"\n  (pin_numbers\n    (hide yes)\n  )\n  (pin_names\n    (offset 0)\n  )\n  (exclude_from_sim no)\n  (in_bom yes)\n  (on_board yes)\n  (property\n    \"Reference\"\n    \"R\"\n    (at 2.032 0 90)\n    (effects\n      (font (size 1.27 1.27))\n    )\n  )\n  (property\n    \"Value\"\n    \"R\"\n    (at 0 0 90)\n    (effects\n      (font (size 1.27 1.27))\n    )\n  )\n  (property\n    \"Footprint\"\n    \"\"\n    (at -1.778 0 90)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Datasheet\"\n    \"~\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Description\"\n    \"Resistor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_keywords\"\n    \"R res resistor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_fp_filters\"\n    \"R_*\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (symbol\n    \"R_0_1\"\n    (rectangle\n      (start\n        -1.016\n        -2.54\n      )\n      (end\n        1.016\n        2.54\n      )\n      (stroke\n        (width 0.254)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n  )\n  (symbol\n    \"R_1_1\"\n    (pin\n      passive\n      line\n      (at 0 3.81 270)\n      (length 1.27)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"1\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 0 -3.81 90)\n      (length 1.27)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"2\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n  )\n  (embedded_fonts no)\n)"
+		(property "type" "resistor"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "ccb9a589-b657-4e8b-bbce-6efc7fa35b0b")
+			(uuid "31f0107a-a08b-4a9f-9bbc-d1ebdb242739")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "76e166d7-f350-48ea-8fc4-968b46db6b76")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "7b483730-0fd3-40db-9fb0-36a7921c45c7")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "symbol_path" "/Users/davide/src/diodeinc/customers/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "65c7688c-636d-4b7a-bd48-3e6565a3af85")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "symbol_name" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "596d1f5f-99a7-4fa3-902b-55a11670a582")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5dce5d63-c85b-49bc-bcf1-6ba16a039335")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1903,7 +1994,7 @@
 		(at 162.875 103.75 90)
 		(descr "BM05B-SRSS-TB-3")
 		(tags "Connector")
-		(property "Reference" "U1"
+		(property "Reference" "J1"
 			(at 0 -0.45 90)
 			(layer "F.SilkS")
 			(uuid "e569b4ab-81d0-4aef-8f44-c58379e33bd1")
@@ -1926,7 +2017,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "http://media.digikey.com/pdf/Data%20Sheets/JST%20PDFs/SR%20Connector.pdf"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -1938,7 +2029,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Connector Header Surface Mount 5 position 0.039\" (1.00mm)"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -1951,10 +2042,10 @@
 			)
 		)
 		(property "Path" "JST_H1.BM05B-SRSS-TB"
-			(at 0 0 90)
+			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "e9b1d9d4-e8d6-40e6-a044-c9f9741c642f")
+			(uuid "5d98bc24-80d1-4afc-a603-086f655271f7")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1963,46 +2054,10 @@
 			)
 		)
 		(property "symbol_name" "BM05B-SRSS-TB"
-			(at 0 0 90)
+			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "aecb2fb7-5003-4fa6-9d8f-60cdea2ef6f8")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "__symbol_value" "(symbol\n  \"BM05B-SRSS-TB\"\n  (exclude_from_sim no)\n  (in_bom yes)\n  (on_board yes)\n  (property\n    \"Reference\"\n    \"J\"\n    (at 19.05 7.62 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n    )\n  )\n  (property\n    \"Value\"\n    \"BM05B-SRSS-TB\"\n    (at 19.05 5.08 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n    )\n  )\n  (property\n    \"Footprint\"\n    \"BM05BSRSSTB\"\n    (at 19.05 -94.92 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n      (hide yes)\n    )\n  )\n  (property\n    \"Datasheet\"\n    \"http://media.digikey.com/pdf/Data%20Sheets/JST%20PDFs/SR%20Connector.pdf\"\n    (at 19.05 -194.92 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n      (hide yes)\n    )\n  )\n  (property\n    \"Description\"\n    \"Connector Header Surface Mount 5 position 0.039\\\" (1.00mm)\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Height\"\n    \"4.25\"\n    (at 19.05 -394.92 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n      (hide yes)\n    )\n  )\n  (property\n    \"Manufacturer_Name\"\n    \"JST (JAPAN SOLDERLESS TERMINALS)\"\n    (at 19.05 -494.92 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n      (hide yes)\n    )\n  )\n  (property\n    \"Manufacturer_Part_Number\"\n    \"BM05B-SRSS-TB\"\n    (at 19.05 -594.92 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n      (hide yes)\n    )\n  )\n  (property\n    \"Mouser Part Number\"\n    \"\"\n    (at 19.05 -694.92 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n      (hide yes)\n    )\n  )\n  (property\n    \"Mouser Price/Stock\"\n    \"\"\n    (at 19.05 -794.92 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n      (hide yes)\n    )\n  )\n  (property\n    \"Arrow Part Number\"\n    \"\"\n    (at 19.05 -894.92 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n      (hide yes)\n    )\n  )\n  (property\n    \"Arrow Price/Stock\"\n    \"\"\n    (at 19.05 -994.92 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n      (hide yes)\n    )\n  )\n  (symbol\n    \"BM05B-SRSS-TB_1_1\"\n    (rectangle\n      (start\n        5.08\n        2.54\n      )\n      (end\n        17.78\n        -12.7\n      )\n      (stroke\n        (width 0.254)\n        (type default)\n      )\n      (fill\n        (type background)\n      )\n    )\n    (pin\n      passive\n      line\n      (at 0 0 0)\n      (length 5.08)\n      (name\n        \"MP1\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"MP1\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 0 -2.54 0)\n      (length 5.08)\n      (name\n        \"MP2\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"MP2\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 22.86 0 180)\n      (length 5.08)\n      (name\n        \"1\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"1\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 22.86 -2.54 180)\n      (length 5.08)\n      (name\n        \"2\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"2\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 22.86 -5.08 180)\n      (length 5.08)\n      (name\n        \"3\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"3\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 22.86 -7.62 180)\n      (length 5.08)\n      (name\n        \"4\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"4\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 22.86 -10.16 180)\n      (length 5.08)\n      (name\n        \"5\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"5\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n  )\n  (embedded_fonts no)\n)"
-			(at 0 0 90)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "e3e921ad-7618-4f2e-82bf-70eb7953842e")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/nasheed-x/Documents/GitHub/ZenDrive/components/BM05BMSRSSMTB/BM05B-SRSS-TB.kicad_sym"
-			(at 0 0 90)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "2a9fac89-13b3-42c8-8af5-5272890ce38e")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "U"
-			(at 0 0 90)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "327a9001-e6fc-433f-a8e8-8c263134c1e9")
+			(uuid "8bb2d5ff-6aba-4e27-8a4c-29a373580fe1")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2011,10 +2066,46 @@
 			)
 		)
 		(property "mpn" "BM05B-SRSS-TB"
-			(at 0 0 90)
+			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "ff1165ec-3dd9-4243-a1ca-3877a57787f1")
+			(uuid "cf30723d-0dc6-475b-8b11-1dc6620f9af7")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "prefix" "J"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "34319856-3713-4594-91f1-dcf1b6ae3782")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "symbol_path" "/Users/davide/src/diodeinc/customers/demo/components/BM05BMSRSSMTB/BM05B-SRSS-TB.kicad_sym"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "023f5c1b-2d2a-4527-ba02-1b7c75d9b4a3")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "manufacturer" "JST (JAPAN SOLDERLESS TERMINALS)"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "627b1ae9-89cc-4ecd-b087-6d25bffe676a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2246,14 +2337,14 @@
 			(at -3.3 0.75 90)
 			(size 1.2 1.8)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 7 "GND")
+			(net 11 "MP1")
 			(uuid "9add6bd5-a8c9-4a94-826f-e8ead4ea1a0c")
 		)
 		(pad "MP2" smd rect
 			(at 3.3 0.75 90)
 			(size 1.2 1.8)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 7 "GND")
+			(net 10 "MP2")
 			(uuid "c3031248-6c02-45f4-9e52-4c8bbc098346")
 		)
 		(embedded_fonts no)
@@ -2319,7 +2410,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Schottky diode"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -2336,79 +2427,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "50399dc5-5d4a-471e-9414-e70abc76bd3c")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "D_Schottky"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "8f1a4375-71ff-409f-a0a5-02937cfe0847")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/nasheed-x/Library/Caches/pcb/gitlab/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "79e753ea-551a-4503-9315-a195eb6765be")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "I_r" "300mA"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "4ea243f6-4f62-43af-ae19-df92d7d6f481")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Package" "SOD-523"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "422bb963-90cf-48aa-a237-d59d472cc197")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "__symbol_value" "(symbol\n  \"D_Schottky\"\n  (pin_numbers\n    (hide yes)\n  )\n  (pin_names\n    (offset 1.016)\n    (hide yes)\n  )\n  (exclude_from_sim no)\n  (in_bom yes)\n  (on_board yes)\n  (property\n    \"Reference\"\n    \"D\"\n    (at 0 2.54 0)\n    (effects\n      (font (size 1.27 1.27))\n    )\n  )\n  (property\n    \"Value\"\n    \"D_Schottky\"\n    (at 0 -2.54 0)\n    (effects\n      (font (size 1.27 1.27))\n    )\n  )\n  (property\n    \"Footprint\"\n    \"\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Datasheet\"\n    \"~\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Description\"\n    \"Schottky diode\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_keywords\"\n    \"diode Schottky\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_fp_filters\"\n    \"TO-???* *_Diode_* *SingleDiode* D_*\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (symbol\n    \"D_Schottky_0_1\"\n    (polyline\n      (pts\n        (xy -1.905 0.635)\n        (xy -1.905 1.27)\n        (xy -1.27 1.27)\n        (xy -1.27 -1.27)\n        (xy -0.635 -1.27)\n        (xy -0.635 -0.635)\n      )\n      (stroke\n        (width 0.254)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n    (polyline\n      (pts\n        (xy 1.27 1.27)\n        (xy 1.27 -1.27)\n        (xy -1.27 0)\n        (xy 1.27 1.27)\n      )\n      (stroke\n        (width 0.254)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n    (polyline\n      (pts\n        (xy 1.27 0)\n        (xy -1.27 0)\n      )\n      (stroke\n        (width 0)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n  )\n  (symbol\n    \"D_Schottky_1_1\"\n    (pin\n      passive\n      line\n      (at -3.81 0 0)\n      (length 2.54)\n      (name\n        \"K\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"1\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 3.81 0 180)\n      (length 2.54)\n      (name\n        \"A\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"2\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n  )\n  (embedded_fonts no)\n)"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "55384826-67fd-4ae3-951e-f88076da03bf")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "V_r" "30V"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "c7ac1481-289d-4dc4-b9dd-4336d797cac5")
+			(uuid "668b3898-8739-4a00-bf20-98f873de5e3f")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2420,7 +2439,19 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "47b080b1-d131-4287-89bc-694f3763b710")
+			(uuid "4f11d365-b022-4141-8f5a-d70c87937f35")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "SOD-523"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3b570a3b-0d1c-48d1-9124-f9dff8cb08cd")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2432,7 +2463,79 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "9ef430f7-d0d0-4ee7-ae49-3da46b0d7357")
+			(uuid "0890082b-cd29-4b9b-b9dd-3874b40c97fb")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "I_r" "300mA"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c2778028-a70d-4a04-a184-9b09bdf6b60f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "type" "diode"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "23299229-259d-45b2-8eff-52ed50efcaa4")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "diode"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "7a20da49-5a3e-4dec-b0b3-040740962dcb")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "symbol_name" "D_Schottky"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "6fe0caae-8367-4a3e-9101-ef9b287906f8")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "V_r" "30V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b3cc1145-cd58-440c-b8c1-4a3fa6114486")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "symbol_path" "/Users/davide/src/diodeinc/customers/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "58b5c83b-fb06-4eb7-87e3-21d8096c76cb")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2444,7 +2547,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "264f8819-6044-46b8-8711-432681ec993f")
+			(uuid "739179ec-1f62-465c-b4eb-beaef6ce81cf")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2707,7 +2810,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -2724,31 +2827,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "2d65725a-5de2-4930-9f2c-cab265a0431b")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "R"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "148c74eb-d133-4481-9f4e-200088a5921e")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "__symbol_value" "(symbol\n  \"R\"\n  (pin_numbers\n    (hide yes)\n  )\n  (pin_names\n    (offset 0)\n  )\n  (exclude_from_sim no)\n  (in_bom yes)\n  (on_board yes)\n  (property\n    \"Reference\"\n    \"R\"\n    (at 2.032 0 90)\n    (effects\n      (font (size 1.27 1.27))\n    )\n  )\n  (property\n    \"Value\"\n    \"R\"\n    (at 0 0 90)\n    (effects\n      (font (size 1.27 1.27))\n    )\n  )\n  (property\n    \"Footprint\"\n    \"\"\n    (at -1.778 0 90)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Datasheet\"\n    \"~\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Description\"\n    \"Resistor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_keywords\"\n    \"R res resistor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_fp_filters\"\n    \"R_*\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (symbol\n    \"R_0_1\"\n    (rectangle\n      (start\n        -1.016\n        -2.54\n      )\n      (end\n        1.016\n        2.54\n      )\n      (stroke\n        (width 0.254)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n  )\n  (symbol\n    \"R_1_1\"\n    (pin\n      passive\n      line\n      (at 0 3.81 270)\n      (length 1.27)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"1\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 0 -3.81 90)\n      (length 1.27)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"2\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n  )\n  (embedded_fonts no)\n)"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "6abd4815-a701-4891-94c8-8669388a4857")
+			(uuid "886473c9-7300-40b8-b6ff-a1ffa46dd6b3")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2760,7 +2839,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "a16be9bb-0468-49ab-8efd-c9adbe6bd0f7")
+			(uuid "de7afa8d-e92c-4edc-ab01-d6b6c5c493d0")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2768,11 +2847,11 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/nasheed-x/Library/Caches/pcb/gitlab/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+		(property "symbol_path" "/Users/davide/src/diodeinc/customers/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "69703133-6313-40b0-a0b6-063cec0eb1af")
+			(uuid "070753a2-dd57-4239-abd3-d3ca7e55d9d5")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2780,11 +2859,11 @@
 				)
 			)
 		)
-		(property "Package" "0402"
+		(property "symbol_name" "R"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "35cfeac4-82be-45ca-a099-c306242a4083")
+			(uuid "c32fba9d-f056-405e-ae9f-4b75fb6efe94")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2796,7 +2875,43 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "3a1e9ea7-9de8-4890-ba24-e25ed83c69fe")
+			(uuid "3c699bb6-2598-4c56-b11b-f3db3e37c696")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3c3a4d2f-91ef-46c8-bfba-e31c09125a7b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "type" "resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e1118f79-ea69-476f-be23-f254f4e03a78")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "855c39f8-7b5a-4978-b1a0-35215bced551")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2989,7 +3104,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -3006,19 +3121,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "935564a9-a58b-4070-8261-2adede5f88f5")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Package" "0402"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "94558488-f505-462b-8e73-dc8f3890f66b")
+			(uuid "98c86308-b523-440b-bea7-8ab477ff4c68")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3030,7 +3133,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "3cbbe543-4d7e-48b7-b649-46863d680435")
+			(uuid "cf96acfc-fff7-42ba-8473-cfdfb4a89f7e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3038,23 +3141,11 @@
 				)
 			)
 		)
-		(property "__symbol_value" "(symbol\n  \"C\"\n  (pin_numbers\n    (hide yes)\n  )\n  (pin_names\n    (offset 0.254)\n  )\n  (exclude_from_sim no)\n  (in_bom yes)\n  (on_board yes)\n  (property\n    \"Reference\"\n    \"C\"\n    (at 0.635 2.54 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left)\n    )\n  )\n  (property\n    \"Value\"\n    \"C\"\n    (at 0.635 -2.54 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left)\n    )\n  )\n  (property\n    \"Footprint\"\n    \"\"\n    (at 0.9652 -3.81 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Datasheet\"\n    \"~\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Description\"\n    \"Unpolarized capacitor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_keywords\"\n    \"cap capacitor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_fp_filters\"\n    \"C_*\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (symbol\n    \"C_0_1\"\n    (polyline\n      (pts\n        (xy -2.032 0.762)\n        (xy 2.032 0.762)\n      )\n      (stroke\n        (width 0.508)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n    (polyline\n      (pts\n        (xy -2.032 -0.762)\n        (xy 2.032 -0.762)\n      )\n      (stroke\n        (width 0.508)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n  )\n  (symbol\n    \"C_1_1\"\n    (pin\n      passive\n      line\n      (at 0 3.81 270)\n      (length 2.794)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"1\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 0 -3.81 90)\n      (length 2.794)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"2\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n  )\n  (embedded_fonts no)\n)"
+		(property "Type" "capacitor"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "219256cb-56de-48ff-9e80-04ccbc10f9b9")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Capacitance" "10pF"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "a34ca6f5-1e7e-4f75-9cb4-177b58afbb08")
+			(uuid "340c95b0-57af-425a-85d4-094774efac65")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3066,7 +3157,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "6c79ed73-a1fc-4e19-84e5-bd2897a0531a")
+			(uuid "179aaf9e-0eb1-4eed-aca0-a3908b76655a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3074,11 +3165,47 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/nasheed-x/Library/Caches/pcb/gitlab/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+		(property "type" "capacitor"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "a156caab-acfa-496a-b308-5f0fc4d1118a")
+			(uuid "6660142f-7998-4f8d-b07e-1e8c3079b2ac")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ef767a63-8427-4a81-b95e-18e3c9bf0929")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Capacitance" "10pF"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d475d585-b10e-4c29-825e-ec9ff9cb535f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "symbol_path" "/Users/davide/src/diodeinc/customers/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "4c258c7f-4090-4256-b2b4-2c9b024afc4e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3090,7 +3217,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "bcb8d8e7-c216-46fa-8590-14327f26527f")
+			(uuid "a5663c52-3a32-486d-9894-f8a74b05afbf")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3283,7 +3410,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -3300,79 +3427,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "badc90d6-5668-4f08-a5f3-785d0c867151")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "C"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "0b15e275-6035-451c-b751-3559f01dc3c9")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/nasheed-x/Library/Caches/pcb/gitlab/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "5e8cd6ea-d0f4-41cf-a1ec-2fd3348f3e7c")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "__symbol_value" "(symbol\n  \"C\"\n  (pin_numbers\n    (hide yes)\n  )\n  (pin_names\n    (offset 0.254)\n  )\n  (exclude_from_sim no)\n  (in_bom yes)\n  (on_board yes)\n  (property\n    \"Reference\"\n    \"C\"\n    (at 0.635 2.54 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left)\n    )\n  )\n  (property\n    \"Value\"\n    \"C\"\n    (at 0.635 -2.54 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left)\n    )\n  )\n  (property\n    \"Footprint\"\n    \"\"\n    (at 0.9652 -3.81 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Datasheet\"\n    \"~\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Description\"\n    \"Unpolarized capacitor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_keywords\"\n    \"cap capacitor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_fp_filters\"\n    \"C_*\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (symbol\n    \"C_0_1\"\n    (polyline\n      (pts\n        (xy -2.032 0.762)\n        (xy 2.032 0.762)\n      )\n      (stroke\n        (width 0.508)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n    (polyline\n      (pts\n        (xy -2.032 -0.762)\n        (xy 2.032 -0.762)\n      )\n      (stroke\n        (width 0.508)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n  )\n  (symbol\n    \"C_1_1\"\n    (pin\n      passive\n      line\n      (at 0 3.81 270)\n      (length 2.794)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"1\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 0 -3.81 90)\n      (length 2.794)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"2\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n  )\n  (embedded_fonts no)\n)"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "be0a0870-24fd-4b37-866b-832e419ab3a2")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Package" "0402"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "5f49a9d1-5e05-44ab-a541-b7f5474529d3")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Voltage" "10V"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "df253ac3-d625-43c8-b6f9-4269f00239ef")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Capacitance" "10pF"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "16ec8086-9439-4cfb-9415-a7f97decd41b")
+			(uuid "a0cf3bed-b7da-448e-becf-d0ac88891398")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3384,7 +3439,91 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "2ef41b63-daa6-460c-b1c8-10fba9836a30")
+			(uuid "d87b028e-c755-457c-9e34-d14c3a7ef51a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e1ccf045-85cb-4212-a884-623f4f46808a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "symbol_name" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "66a73f04-984f-40c0-8296-222a30475428")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Capacitance" "10pF"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f9a3f963-8090-4051-a0f4-d2a68b9e7b76")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "type" "capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a0037274-7761-4f91-bdea-4207ed48b6a7")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "symbol_path" "/Users/davide/src/diodeinc/customers/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "567c3a62-c8ae-458f-855c-dbd6e87a11a9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "10V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "bf19f3e5-596d-4fe7-af2e-50588134bc94")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "4c65e720-898d-4548-a965-a42b276026a3")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3577,7 +3716,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -3594,55 +3733,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "26c80d41-e160-4c02-8be6-7bfcba149631")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/nasheed-x/Library/Caches/pcb/gitlab/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "706a39fb-6261-45ca-af0b-aef28a332fa5")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "C"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "9b5fe0ef-4af1-4340-847c-dd18cfb0d98b")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Package" "0402"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "a32262d4-b119-436b-be90-a7b73a7bdda6")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "__symbol_value" "(symbol\n  \"C\"\n  (pin_numbers\n    (hide yes)\n  )\n  (pin_names\n    (offset 0.254)\n  )\n  (exclude_from_sim no)\n  (in_bom yes)\n  (on_board yes)\n  (property\n    \"Reference\"\n    \"C\"\n    (at 0.635 2.54 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left)\n    )\n  )\n  (property\n    \"Value\"\n    \"C\"\n    (at 0.635 -2.54 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left)\n    )\n  )\n  (property\n    \"Footprint\"\n    \"\"\n    (at 0.9652 -3.81 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Datasheet\"\n    \"~\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Description\"\n    \"Unpolarized capacitor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_keywords\"\n    \"cap capacitor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_fp_filters\"\n    \"C_*\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (symbol\n    \"C_0_1\"\n    (polyline\n      (pts\n        (xy -2.032 0.762)\n        (xy 2.032 0.762)\n      )\n      (stroke\n        (width 0.508)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n    (polyline\n      (pts\n        (xy -2.032 -0.762)\n        (xy 2.032 -0.762)\n      )\n      (stroke\n        (width 0.508)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n  )\n  (symbol\n    \"C_1_1\"\n    (pin\n      passive\n      line\n      (at 0 3.81 270)\n      (length 2.794)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"1\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 0 -3.81 90)\n      (length 2.794)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"2\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n  )\n  (embedded_fonts no)\n)"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "7f53efeb-3057-4376-8348-6cacdfc871e5")
+			(uuid "c71df01e-24cf-45b7-a088-69d8d4c89415")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3654,7 +3745,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "89fbca82-57a8-485b-a635-2b3f7fcb0b05")
+			(uuid "23bf7c7d-9ce6-4305-b4d0-ff25c887d238")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3666,7 +3757,55 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "48f4e8ad-b526-46e3-a0b8-d131ea3b2222")
+			(uuid "43cfae0d-d4fc-441a-9952-ade847e9e6ac")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "symbol_path" "/Users/davide/src/diodeinc/customers/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e5ab5878-b765-4bfe-a783-b72267cbda65")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "9c4aa31f-196b-41da-a273-293aa21bc174")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3896c01d-38cc-459f-abb0-17fcec8118b0")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "30c4918d-9dea-4768-8be2-2edfed8eb792")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3678,7 +3817,19 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "8ff43805-ce44-4ebe-a1f3-78611dcca430")
+			(uuid "2de6a664-915e-4b28-aab7-69a94ddd47b7")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "type" "capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "96e82381-e7e1-4bdf-a6c3-01e56587e5eb")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3871,7 +4022,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Schottky diode"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -3888,103 +4039,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "d17aba3e-a0ab-44d3-9f6e-3ccd4d61aa45")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Package" "SOD-523"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "0842b270-6a4f-42ae-bdb6-b5962645482c")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "D_Schottky"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "4c246b21-3d50-4e93-811a-c8ef73a0b286")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "I_r" "300mA"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "9d2f9e7d-e4a1-4d30-8c05-4a6a02ca59ac")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Mpn" "BAT30KFILM"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "4757c807-3785-41a5-83ca-f31afd602ddc")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/nasheed-x/Library/Caches/pcb/gitlab/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "69ddb062-051a-4001-b53f-aaf876a4b226")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "D"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "9850bd91-a469-478d-9adb-b459a2389ac3")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "V_r" "30V"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "f0f8ee3d-b287-45ec-bb10-917e9406289c")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "__symbol_value" "(symbol\n  \"D_Schottky\"\n  (pin_numbers\n    (hide yes)\n  )\n  (pin_names\n    (offset 1.016)\n    (hide yes)\n  )\n  (exclude_from_sim no)\n  (in_bom yes)\n  (on_board yes)\n  (property\n    \"Reference\"\n    \"D\"\n    (at 0 2.54 0)\n    (effects\n      (font (size 1.27 1.27))\n    )\n  )\n  (property\n    \"Value\"\n    \"D_Schottky\"\n    (at 0 -2.54 0)\n    (effects\n      (font (size 1.27 1.27))\n    )\n  )\n  (property\n    \"Footprint\"\n    \"\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Datasheet\"\n    \"~\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Description\"\n    \"Schottky diode\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_keywords\"\n    \"diode Schottky\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_fp_filters\"\n    \"TO-???* *_Diode_* *SingleDiode* D_*\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (symbol\n    \"D_Schottky_0_1\"\n    (polyline\n      (pts\n        (xy -1.905 0.635)\n        (xy -1.905 1.27)\n        (xy -1.27 1.27)\n        (xy -1.27 -1.27)\n        (xy -0.635 -1.27)\n        (xy -0.635 -0.635)\n      )\n      (stroke\n        (width 0.254)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n    (polyline\n      (pts\n        (xy 1.27 1.27)\n        (xy 1.27 -1.27)\n        (xy -1.27 0)\n        (xy 1.27 1.27)\n      )\n      (stroke\n        (width 0.254)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n    (polyline\n      (pts\n        (xy 1.27 0)\n        (xy -1.27 0)\n      )\n      (stroke\n        (width 0)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n  )\n  (symbol\n    \"D_Schottky_1_1\"\n    (pin\n      passive\n      line\n      (at -3.81 0 0)\n      (length 2.54)\n      (name\n        \"K\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"1\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 3.81 0 180)\n      (length 2.54)\n      (name\n        \"A\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"2\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n  )\n  (embedded_fonts no)\n)"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "1dab28a1-5509-48e8-985a-a73805ff7383")
+			(uuid "c179a380-8030-45ec-9e1a-4c96432056fa")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3996,7 +4051,115 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "3177dd3b-cd6d-468f-8e53-5941677bf731")
+			(uuid "b5078238-41b0-4c07-b32e-4e0dbc10c150")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "V_r" "30V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1a525e9e-ca31-4ace-9c1c-1ea167b75e0b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "prefix" "D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "58b74823-ffb4-4cac-91cb-1784115bf52d")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "BAT30KFILM"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "feb11975-1343-492e-9369-96ab8197d843")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "I_r" "300mA"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "82dbb8c5-a50c-42a4-b375-224970ae0c87")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "SOD-523"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "46e1b855-c1d0-406a-8bcd-9ec438ec5d1c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "type" "diode"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "7dd73c9c-e8cc-4890-9db1-e54dea539330")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "symbol_path" "/Users/davide/src/diodeinc/customers/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e402bc55-69e8-4b4d-87df-ab6052e48a85")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "symbol_name" "D_Schottky"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b5b8d5f3-9d40-4baf-b972-b48a5d2f6ace")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "diode"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c04d5d9d-e0ef-49df-89c8-0a74157edaf7")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4259,7 +4422,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -4276,55 +4439,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "42172062-0cfb-4922-a879-4d5ecfabfbd1")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "R"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "9d43cc8a-2ceb-48f8-b775-efd7dc104b6e")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Resistance" "10k"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "804745c8-27df-4b1c-9a35-a8c063dd921e")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/nasheed-x/Library/Caches/pcb/gitlab/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "d73842c4-6855-42be-85e1-1fcf2f6da64c")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "__symbol_value" "(symbol\n  \"R\"\n  (pin_numbers\n    (hide yes)\n  )\n  (pin_names\n    (offset 0)\n  )\n  (exclude_from_sim no)\n  (in_bom yes)\n  (on_board yes)\n  (property\n    \"Reference\"\n    \"R\"\n    (at 2.032 0 90)\n    (effects\n      (font (size 1.27 1.27))\n    )\n  )\n  (property\n    \"Value\"\n    \"R\"\n    (at 0 0 90)\n    (effects\n      (font (size 1.27 1.27))\n    )\n  )\n  (property\n    \"Footprint\"\n    \"\"\n    (at -1.778 0 90)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Datasheet\"\n    \"~\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Description\"\n    \"Resistor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_keywords\"\n    \"R res resistor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_fp_filters\"\n    \"R_*\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (symbol\n    \"R_0_1\"\n    (rectangle\n      (start\n        -1.016\n        -2.54\n      )\n      (end\n        1.016\n        2.54\n      )\n      (stroke\n        (width 0.254)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n  )\n  (symbol\n    \"R_1_1\"\n    (pin\n      passive\n      line\n      (at 0 3.81 270)\n      (length 1.27)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"1\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 0 -3.81 90)\n      (length 1.27)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"2\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n  )\n  (embedded_fonts no)\n)"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "4b091e7e-93cf-43f2-bc27-2a6af803bd93")
+			(uuid "c4834e69-3c59-43dd-aae0-09f89fbaef21")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4336,7 +4451,67 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "382feb97-43b5-4a6b-b1e9-58a95b844532")
+			(uuid "1871ae6a-7979-4e0f-9abe-5a6d35734ec6")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "8c737d3c-e6bd-44d5-9fd5-ea7e2b6d517d")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "symbol_name" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ee68c303-7975-462c-b0bb-b05a51ad1c3b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Resistance" "10k"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "74fc1cea-3872-4e77-aaa2-1537ce7cef00")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "symbol_path" "/Users/davide/src/diodeinc/customers/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5a5df2c3-fb67-4b90-a95a-56426f857774")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "type" "resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "79caa4b0-bd60-4ecb-be19-e9ad6d74055e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4348,7 +4523,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "8396fbc1-22b9-47ec-9ddd-c2b4496fca71")
+			(uuid "07539159-95ac-4bc8-a35a-b56446dc7482")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4497,6 +4672,10 @@
 				(xyz 0 0 0)
 			)
 		)
+	)
+	(group "JST_H1"
+		(uuid "d8529f2a-66a1-4259-b4f6-03e4984a951b")
+		(members "4e95ed6c-8ec9-43e9-9334-9d596bc79b38")
 	)
 	(embedded_fonts no)
 	(embedded_files
