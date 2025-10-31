@@ -4,13 +4,13 @@ runner = [
   "probe-rs",
   "run",
   "--chip",
-  "STM32G431CBUx",
+  "STM32G431C8",
   "--log-format",
   "{L} {s}",
 ]
 
 [build]
-# STM32G431CB uses Cortex-M4F with FPU
+# STM32G431C8 uses Cortex-M4F with FPU
 target = "thumbv7em-none-eabihf"
 
 [env]

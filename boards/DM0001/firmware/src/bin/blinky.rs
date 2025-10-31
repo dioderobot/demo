@@ -1,9 +1,10 @@
 #![no_std]
 #![no_main]
 
-//! Simple blinky example for WV0001 board
+//! Simple blinky example for DM0001 board
 //! 
-//! This example blinks the debug LED (PB13) to verify basic functionality
+//! This example blinks the Status LED (PC15, red) to verify basic functionality
+//! The Power LED (V3V3, green) should be always on if the board is powered correctly
 
 use defmt::*;
 use embassy_executor::Spawner;
@@ -14,18 +15,19 @@ use {defmt_rtt as _, panic_probe as _};
 #[embassy_executor::main]
 async fn main(_spawner: Spawner) {
     let p = embassy_stm32::init(Default::default());
-    info!("WV0001 Blinky Started!");
+    info!("DM0001 Blinky Started!");
 
-    // PB13: Debug LED (blue, active high)
-    let mut debug_led = Output::new(p.PC15, Level::Low, Speed::Low);
+    // PC15: Status LED (red, active high)
+    let mut status_led = Output::new(p.PC15, Level::Low, Speed::Low);
 
+    info!("Starting blink loop...");
     loop {
-        info!("Debug LED ON");
-        debug_led.set_high();
+        info!("Status LED ON");
+        status_led.set_high();
         Timer::after_millis(500).await;
 
-        info!("Debug LED OFF");
-        debug_led.set_low();
+        info!("Status LED OFF");
+        status_led.set_low();
         Timer::after_millis(500).await;
     }
 }
