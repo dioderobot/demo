@@ -1,2 +1,8 @@
+_default:
+    @just --list
+
 blink:
     cd firmware && cargo run --bin blinky --release
+
+bringup:
+    cd firmware && cargo run --bin bringup --release
