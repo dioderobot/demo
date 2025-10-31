@@ -1,0 +1,18 @@
+[target.'cfg(all(target_arch = "arm", target_os = "none"))']
+# Use probe-rs for flashing and RTT logging
+runner = [
+  "probe-rs",
+  "run",
+  "--chip",
+  "STM32G431CBUx",
+  "--log-format",
+  "{L} {s}",
+]
+
+[build]
+# STM32G431CB uses Cortex-M4F with FPU
+target = "thumbv7em-none-eabihf"
+
+[env]
+# Enable defmt logging
+DEFMT_LOG = "info"
