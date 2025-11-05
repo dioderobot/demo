@@ -124,12 +124,14 @@ Led(name = "LED_PWR", color = "red", supply_voltage = "3.3V", p1 = vdd_3v3, p2 =
 # Diode Logo
 Component(
     name = "LOGO",
+    description = "Diode Logo",
     prefix = "TP",
     footprint = File("../../components/logo/eda/logo.kicad_mod"),
     pin_defs = {},
     pins = {},
+    dnp = True,
     properties = {
-        "value": "Soldermask Image",
-        "description": "Diode Logo",
-    }
+        "exclude_from_bom": True,
+        "exclude_from_pos_files": True,
+    },
 )
