@@ -3,7 +3,6 @@ TLV758P Adjustable LDO Regulator Module
 0.5A Low-Dropout Voltage Regulator in WSON-6 package
 """
 
-load("@stdlib/config.zen", "config_properties")
 load("@stdlib/interfaces.zen", "Gpio", "Ground", "Power")
 load("@stdlib/units.zen", "Resistance", "unit")
 
@@ -115,14 +114,14 @@ Component(
         "PAD": GND.NET,  # Connect thermal pad to ground
     },
     mpn = "TLV75801PDRV",
-    properties = config_properties({
+    manufacturer = "Texas Instruments",
+    description = "Low Dropout Voltage Regulator",
+    properties = {
         "input_voltage": input_voltage,
         "output_voltage": output_voltage,
         "current_rating": "0.5A",
         "package": "WSON-6",
-        "lcsc": "C2876308",
-        "manufacturer": "Texas Instruments",
-    }),
+    },
 )
 
 # -----------------------------------------------------------------------------

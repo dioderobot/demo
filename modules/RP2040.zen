@@ -3,7 +3,6 @@ RP2040 Microcontroller Module
 """
 
 load("@stdlib/interfaces.zen", "Analog", "Gpio", "Ground", "OscPair", "Power", "Qspi", "Swd", "Usb2")
-load("@stdlib/config.zen", "config_properties")
 
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 Resistor = Module("@stdlib/generics/Resistor.zen")
@@ -68,11 +67,12 @@ Component(
     symbol = Symbol(library = "@kicad-symbols/MCU_RaspberryPi.kicad_sym", name = "RP2040"),
     footprint = File("@kicad-footprints/Package_DFN_QFN.pretty/QFN-56-1EP_7x7mm_P0.4mm_EP3.2x3.2mm.kicad_mod"),
     mpn = "SC0914(13)",
+    manufacturer = "Raspberry Pi",
+    description = "Raspberry Pi RP2040 Microcontroller",
     pins = pins,
-    properties = config_properties({
-        "manufacturer": "Raspberry Pi",
+    properties = {
         "package": "56-QFN",
-    }),
+    },
 )
 
 # Decoupling capacitors (0402, 100nF typical)

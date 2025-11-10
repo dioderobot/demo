@@ -1,4 +1,3 @@
-load("@stdlib/config.zen", "config_properties")
 load("@stdlib/interfaces.zen", "Spi", "Power", "Ground", "Gpio")
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
@@ -30,20 +29,6 @@ Capacitor = Module("@stdlib/generics/Capacitor.zen")
 # EP - Exposed Pad (not connected to die)
 # -----------------------------------------------------------------------------
 
-# Properties
-properties = config_properties({
-    "description": "256-Kbit (32K × 8) Serial (SPI) F-RAM",
-    "manufacturer": "Infineon Technologies",
-    "memory_size": "256Kbit (32K × 8)",
-    "interface": "SPI up to 40MHz",
-    "endurance": "100 trillion read/writes",
-    "data_retention": "151 years",
-    "supply_voltage": "2.0V to 3.6V",
-    "operating_temperature": "-40°C to +85°C",
-    "package": "8-DFN (4x4.5mm)",
-    "datasheet": "https://www.infineon.com/dgdl/Infineon-FM25V02A_256_Kbit_(32K_8)_Serial_(SPI)_F-RAM-DataSheet-v10_00-EN.pdf"
-})
-
 # -----------------------------------------------------------------------------
 # IO ports
 # -----------------------------------------------------------------------------
@@ -69,7 +54,18 @@ Component(
     footprint = File("../components/fm25v02a-dg/eda/SON95P450X400X80-9N.kicad_mod"),
     prefix = "U",
     mpn = "FM25V02A-DG",
-    properties = properties,
+    manufacturer = "Infineon Technologies",
+    description = "256-Kbit (32K × 8) Serial (SPI) F-RAM",
+    datasheet = "https://www.infineon.com/dgdl/Infineon-FM25V02A_256_Kbit_(32K_8)_Serial_(SPI)_F-RAM-DataSheet-v10_00-EN.pdf",
+    properties = {
+        "memory_size": "256Kbit (32K × 8)",
+        "interface": "SPI up to 40MHz",
+        "endurance": "100 trillion read/writes",
+        "data_retention": "151 years",
+        "supply_voltage": "2.0V to 3.6V",
+        "operating_temperature": "-40°C to +85°C",
+        "package": "8-DFN (4x4.5mm)",
+    },
     pins = {
         "~{CS}": spi.CS,      # 1 - Chip Select (active low)
         "SO": spi.MISO,       # 2 - Serial Output (MISO)

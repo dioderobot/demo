@@ -1,4 +1,4 @@
-load("@stdlib/config.zen", "config_properties", "config_unit")
+load("@stdlib/config.zen", "config_unit")
 load("@stdlib/interfaces.zen", "Ground", "Power")
 load("@stdlib/units.zen", "Frequency")
 load("@stdlib/utils.zen", "format_value")
@@ -44,12 +44,13 @@ Component(
         "V+": VCC.NET,
     },
     mpn = _active_osc_mpn_map[osc_key],
-    properties = config_properties({
+    manufacturer = "EPSON",
+    description = "32.768kHz Crystal Oscillator",
+    properties = {
         "frequency": frequency,
-        "manufacturer": "EPSON",
         "package": "4-SMD (2.5x2)",
         "type": "TCXO" if tcxo else "XO",
-    }),
+    },
 )
 
 # Power supply decoupling capacitor

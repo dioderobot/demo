@@ -1,4 +1,3 @@
-load("@stdlib/config.zen", "config_properties")
 load("@stdlib/interfaces.zen", "Power", "Ground", "Gpio")
 
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
@@ -23,17 +22,6 @@ Resistor = Module("@stdlib/generics/Resistor.zen")
 # B2 - GND (Circuit Ground)
 # -----------------------------------------------------------------------------
 
-# Properties
-properties = config_properties({
-    "description": "Ultra-Low Voltage Drop Ideal Diode",
-    "manufacturer": "Analog Devices (Maxim)",
-    "voltage_drop_typ": "43mV @ 500mA, 85mV @ 1A",
-    "quiescent_current": "7µA typ, 18µA max",
-    "thermal_protection": "154°C",
-    "package": "WLP-4",
-    "datasheet": "https://datasheets.maximintegrated.com/en/ds/MAX40200.pdf"
-})
-
 # -----------------------------------------------------------------------------
 # IO ports
 # -----------------------------------------------------------------------------
@@ -56,7 +44,15 @@ Component(
     footprint = File("@kicad-footprints/Package_BGA.pretty/WLP-4_0.728x0.728mm_Layout2x2_P0.35mm.kicad_mod"),
     prefix = "U",
     mpn = "MAX40200ANS+",
-    properties = properties,
+    manufacturer = "Analog Devices (Maxim)",
+    description = "Ultra-Low Voltage Drop Ideal Diode",
+    datasheet = "https://datasheets.maximintegrated.com/en/ds/MAX40200.pdf",
+    properties = {
+        "voltage_drop_typ": "43mV @ 500mA, 85mV @ 1A",
+        "quiescent_current": "7µA typ, 18µA max",
+        "thermal_protection": "154°C",
+        "package": "WLP-4",
+    },
     pins = {
         "VDD": vdd.NET,   # A1 - Supply Input (Anode)
         "OUT": out.NET,   # A2 - Ideal Diode Output (Cathode)

@@ -56,6 +56,8 @@ Component(
     ),
     footprint=File("@kicad-footprints/Package_DFN_QFN.pretty/DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm.kicad_mod"),
     mpn=mpn,
+    manufacturer="Microchip Technology",
+    description="24LC64 EEPROM",
     pin_defs={
         "A0": "1",
         "A1": "2", 
@@ -79,8 +81,6 @@ Component(
         "EP": GND.NET  # Connect exposed pad to ground
     },
     properties={
-        "Value": mpn,
-        "Memory_type": "EEPROM",
         "Memory_size": memory_info["size_kb"],
         "Memory_organization": memory_info["org"],
         "Interface": "I2C",
@@ -88,9 +88,6 @@ Component(
         "Vcc_max": "5.5V",
         "Temperature": "-40°C to +85°C",
         "Package": "UDFN-8",
-        "Manufacturer": "Microchip Technology",
-        "Mpn": mpn,
-        "Serial_number": "128-bit factory programmed"
     }
 )
 

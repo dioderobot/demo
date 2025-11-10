@@ -3,7 +3,6 @@ Single TVS Diode Module
 Unidirectional transient voltage suppressor
 """
 
-load("@stdlib/config.zen", "config_properties")
 
 # -----------------------------------------------------------------------------
 # Component parameters
@@ -35,16 +34,6 @@ if part_key not in TVS_PARTS:
     error("No TVS part available for %s voltage in %s package" % (voltage, package))
 
 part_info = TVS_PARTS[part_key]
-
-properties = config_properties({
-    "voltage": voltage,
-    "package": package,
-    "mpn": part_info["mpn"],
-    "manufacturer": part_info["manufacturer"],
-    "clamping_voltage": part_info["vc"],
-    "description": part_info["description"],
-    "type": "TVS Diode",
-})
 
 # -----------------------------------------------------------------------------
 # IO ports
@@ -82,5 +71,13 @@ Component(
         "K": K,
         "A": A,
     },
-    properties = properties,
+    mpn = part_info["mpn"],
+    manufacturer = part_info["manufacturer"],
+    description = part_info["description"],
+    properties = {
+        "voltage": voltage,
+        "package": package,
+        "clamping_voltage": part_info["vc"],
+        "type": "TVS Diode",
+    },
 )

@@ -1,5 +1,4 @@
 load("@stdlib/interfaces.zen", "I2c", "Power", "Ground", "Gpio", "NotConnected")
-load("@stdlib/config.zen", "config_properties")
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 

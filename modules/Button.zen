@@ -1,4 +1,3 @@
-load("@stdlib/config.zen", "config_properties")
 
 # Optional parameters
 mpn = config("mpn", str, default = "KMR231G LFS", optional = True)

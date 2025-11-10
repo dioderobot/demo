@@ -20,7 +20,6 @@ SPECIFICATIONS:
 """
 
 load("@stdlib/interfaces.zen", "Analog", "CanTtl", "Ground", "I2c", "OscPair", "Power", "Spi", "Uart", "Usart", "Usb2", "Gpio", "Sdio", "Swd", "Pwm", "Rmii", "NotConnected")
-load("@stdlib/config.zen", "config_properties")
 
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 Resistor = Module("@stdlib/generics/Resistor.zen")
@@ -477,15 +476,15 @@ Component(
     symbol = Symbol(library = "@kicad-symbols/MCU_ST_STM32H7.kicad_sym", name = "STM32H753IIKx"),
     footprint = File("../components/stm32h753/eda/UFBGA-201_10x10mm_Layout15x15_P0.65mm.kicad_mod"),
     mpn = "STM32H753IIK6",
+    manufacturer = "STMicroelectronics",
     pins = pins,
-    properties = config_properties({
-        "manufacturer": "STMicroelectronics",
+    properties = {
         "package": "UFBGA-201",
         "core": "ARM Cortex-M7",
         "frequency": "480MHz",
         "flash": "2MB",
         "ram": "1MB",
-    }),
+    },
 )
 
 # ============================================================================

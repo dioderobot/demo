@@ -1,5 +1,4 @@
 load("@stdlib/interfaces.zen", "Can", "CanTtl", "Power", "Ground", "Gpio")
-load("@stdlib/config.zen", "config_properties")
 
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 Resistor = Module("@stdlib/generics/Resistor.zen")
@@ -62,21 +61,6 @@ if terminate:
 # External pull-down not required but can be added for extra assurance
 
 # -----------------------------------------------------------------------------
-# Component properties
-# -----------------------------------------------------------------------------
-
-properties = config_properties({
-    "description": "High-Speed CAN Transceiver",
-    "manufacturer": "NXP",
-    "part_number": "TJA1051TK/3",
-    "package": "HVSON-8",
-    "supply_voltage": "3.0V-5.5V",
-    "io_voltage": "1.65V-5.5V",
-    "can_speed": "5 Mbit/s",
-    "temperature_range": "-40°C to +150°C",
-})
-
-# -----------------------------------------------------------------------------
 # Component definition
 # -----------------------------------------------------------------------------
 
@@ -89,6 +73,8 @@ Component(
     footprint = File("@kicad-footprints/Package_SON.pretty/HVSON-8-1EP_3x3mm_P0.65mm_EP1.6x2.4mm.kicad_mod"),
     prefix = "U",
     mpn = "TJA1051TK/3,118",
+    manufacturer = "NXP",
+    description = "High-Speed CAN Transceiver",
     pin_defs = {
         "TXD": "1",      # CAN transmit data input
         "GND": "2",      # Ground  
@@ -111,5 +97,11 @@ Component(
         "S": silent.NET,
         "EP": gnd.NET,
     },
-    properties = properties,
+    properties = {
+        "package": "HVSON-8",
+        "supply_voltage": "3.0V-5.5V",
+        "io_voltage": "1.65V-5.5V",
+        "can_speed": "5 Mbit/s",
+        "temperature_range": "-40°C to +150°C",
+    },
 )

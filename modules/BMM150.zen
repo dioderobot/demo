@@ -1,5 +1,4 @@
 load("@stdlib/interfaces.zen", "I2c", "Power", "Ground", "Gpio")
-load("@stdlib/config.zen", "config_properties")
 
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 
@@ -37,9 +36,9 @@ Component(
         "VDD": VCC.NET           # Main supply
     },
     mpn = "BMM150",
-    properties=config_properties({
+    properties={
         "package": "12-WLCSP",
-    })
+    }
 )
 
 # Power supply decoupling capacitors (recommended: 100nF per datasheet)

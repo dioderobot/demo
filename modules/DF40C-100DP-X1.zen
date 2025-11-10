@@ -1,4 +1,3 @@
-load("@stdlib/config.zen", "config_properties")
 load("@stdlib/interfaces.zen", "I2c", "Uart", "Usart", "Can", "Power", "Ground", "Gpio", "Analog", "Swd", "Usb2", "Pwm")
 
 # -----------------------------------------------------------------------------
@@ -94,14 +93,6 @@ load("@stdlib/interfaces.zen", "I2c", "Uart", "Usart", "Can", "Power", "Ground",
 # 94-100| GND / CAP / UART4 / FMU_CAP1 | …                 |
 # -----------------------------------------------------------------------------
 
-# Component properties
-properties = config_properties({
-    "description": "100-pin B2B connector - FMU X1 power & low-speed",
-    "manufacturer": "Hirose Electric Co Ltd",
-    "pitch": "0.4mm",
-    "stack_height": "3mm"
-})
-
 # -----------------------------------------------------------------------------
 # IO ports
 # -----------------------------------------------------------------------------
@@ -186,7 +177,12 @@ Component(
     footprint = File("@kicad-footprints:9.0.3/Connector_Hirose_DF40.pretty/Hirose_DF40C-100DP-0.4V_2x50-1MP_P0.4mm.kicad_mod"),
     prefix = "J",
     mpn = "DF40C-100DP-0.4V(51)",
-    properties = properties,
+    manufacturer = "Hirose Electric Co Ltd",
+    description = "100-pin B2B connector",
+    properties = {
+        "pitch": "0.4mm",
+        "stack_height": "3mm"
+    },
     pin_defs = {
         # Map symbol pins (Pin_aX, Pin_bX) to footprint pins (1-100)
         "Pin_a1": "1", "Pin_a2": "2", "Pin_a3": "3", "Pin_a4": "4", "Pin_a5": "5",

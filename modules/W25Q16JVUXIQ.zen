@@ -1,9 +1,7 @@
 # W25Q16JVUXIQ - 16Mbit QSPI Flash Module
 # Winbond 16Mbit Serial Flash in USON-8 3x2mm package
 
-load("@stdlib/config.zen", "config_properties")
 load("@stdlib/interfaces.zen", "Ground", "Power", "Qspi")
-load("./TVS_Single.zen", "properties")
 
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
@@ -21,6 +19,11 @@ Component(
     symbol = Symbol(library = "@kicad-symbols/Memory_Flash.kicad_sym", name = "W25Q16JVSS"),
     footprint = File("@kicad-footprints/Package_SON.pretty/Winbond_USON-8-1EP_3x2mm_P0.5mm_EP0.2x1.6mm.kicad_mod"),
     mpn = "W25Q16JVUXIQ",
+    manufacturer = "Winbond Electronics",
+    description = "FLASH - NOR Memory IC 16Mbit SPI - Quad I/O 133 MHz 6 ns",
+    properties = {
+        "package": "8-USON (2x3)",
+    },
     pins = {
         "~{CS}": qspi.CS,
         "CLK": qspi.CLK,
@@ -31,12 +34,6 @@ Component(
         "VCC": vcc.NET,
         "GND": gnd.NET,
     },
-    properties = config_properties({
-        "manufacturer": "Winbond Electronics",
-        "description": "FLASH - NOR Memory IC 16Mbit SPI - Quad I/O 133 MHz 6 ns",
-        "package": "8-USON (2x3)",
-        "lcsc": "C2843335",
-    }),
 )
 
 Capacitor(name = "C_FLASH_DEC", package = "0402", value = "100nF", P1 = vcc, P2 = gnd)

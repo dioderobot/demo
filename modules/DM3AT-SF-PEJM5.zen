@@ -1,15 +1,4 @@
-load("@stdlib/config.zen", "config_properties")
 load("@stdlib/interfaces.zen", "Sdio", "Power", "Ground", "Gpio")
-
-# -----------------------------------------------------------------------------
-# Component properties
-# -----------------------------------------------------------------------------
-
-properties = config_properties({
-    "description": "Micro SD Card Socket with card detection pins",
-    "manufacturer": "Hirose Electric Co Ltd",
-    "datasheet": "https://www.hirose.com/product/en/download_file/key_name/DM3AT-SF-PEJ2M5/category/Drawing%20(2D)/doc_file_id/D49662_en/"
-})
 
 # -----------------------------------------------------------------------------
 # IO ports
@@ -39,7 +28,9 @@ Component(
     footprint = File("@kicad-footprints/Connector_Card.pretty/microSD_HC_Hirose_DM3AT-SF-PEJM5.kicad_mod"),
     prefix = "J",
     mpn = "DM3AT-SF-PEJM5",
-    properties = properties,
+    manufacturer = "Hirose Electric Co Ltd",
+    description = "Micro SD Card Socket with card detection pins",
+    datasheet = "https://www.hirose.com/product/en/download_file/key_name/DM3AT-SF-PEJ2M5/category/Drawing%20(2D)/doc_file_id/D49662_en/",
     pin_defs = {
         "1": "1",
         "2": "2", 

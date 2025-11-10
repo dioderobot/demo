@@ -3,7 +3,6 @@ USB4105-GF-A USB-C Receptacle Module
 USB 2.0 only connector with 16-pin top mount horizontal design
 """
 
-load("@stdlib/config.zen", "config_properties")
 load("@stdlib/interfaces.zen", "Ground", "Power", "Usb2")
 
 add_property("layout_path", "build/USB4105")
@@ -49,14 +48,12 @@ Component(
         "SBU2": Net("SBU2"),
     },
     mpn = "USB4105-GF-A",
-    properties = config_properties({
-        "mode": mode,
-        "manufacturer": "GCT",
-        "lcsc": "C3020560",
-        "description": "USB-C Receptacle USB2.0 16P Top Mount Horizontal",
+    manufacturer = "GCT",
+    description = "USB-C Receptacle USB2.0 16P Top Mount Horizontal",
+    properties = {
         "connector_type": "USB-C",
         "usb_version": "2.0",
-    }),
+    },
 )
 
 # Power protection and filtering chain: VBUS_RAW -> TVS -> Ferrite -> Capacitors -> VBUS

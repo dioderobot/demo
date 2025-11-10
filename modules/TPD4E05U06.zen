@@ -3,7 +3,6 @@ TPD4E05U06 4-Channel ESD Protection Array Module
 Automotive-grade USB 2.0 ESD protection diode
 """
 
-load("@stdlib/config.zen", "config_properties")
 load("@stdlib/interfaces.zen", "Ground", "Power", "Usb2")
 
 gnd = io("GND", Ground)
@@ -11,15 +10,6 @@ d1p = io("D1P", Net)
 d1m = io("D1M", Net)
 d2p = io("D2P", Net)
 d2m = io("D2M", Net)
-
-properties = config_properties({
-    "manufacturer": "Texas Instruments",
-    "mpn": "TPD4E05U06QDQARQ1",
-    "description": "4-Channel ESD Protection Array, USB 2.0, Automotive",
-    "esd_rating": "±30kV",
-    "io_capacitance": "0.5pF",
-    "clamping_voltage": "5.5V",
-})
 
 Component(
     name = "TVS",
@@ -50,5 +40,12 @@ Component(
         "NC.2": d2p,
         "NC.1": d2m,
     },
-    properties = properties,
+    mpn = "TPD4E05U06QDQARQ1",
+    manufacturer = "Texas Instruments",
+    description = "4-Channel ESD Protection Array, USB 2.0, Automotive",
+    properties = {
+        "esd_rating": "±30kV",
+        "io_capacitance": "0.5pF",
+        "clamping_voltage": "5.5V",
+    },
 )
