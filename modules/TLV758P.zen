@@ -138,11 +138,11 @@ Capacitor(
     P2 = GND.NET,
 )
 
-# Output capacitor (4.7µF ceramic for stability)
+# Output capacitor (1µF ceramic for stability)
 Capacitor(
     name = "C_OUT",
     package = "0402",
-    value = "4.7uF",
+    value = "1uF",
     voltage = "10V",
     P1 = VOUT.NET,
     P2 = GND.NET,
