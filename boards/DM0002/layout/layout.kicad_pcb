@@ -231,7 +231,7 @@
 				)
 			)
 		)
-		(property "Value" "100nF"
+		(property "Value" "GCM155R71H104KE02D"
 			(at 0 1.16 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -256,7 +256,7 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "100nF"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -273,7 +273,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "66d20a9d-e290-4691-8b32-56aeb3b21535")
+			(uuid "b9bf9018-4f7c-400b-8f93-608f11295573")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -285,7 +285,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "67b13529-9b54-4515-ad74-5d284c8efcdc")
+			(uuid "717ce739-1091-40f5-a8ab-c2f0ca8f8065")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -293,11 +293,11 @@
 				)
 			)
 		)
-		(property "Type" "capacitor"
+		(property "Prefix" "C"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "dd3bc226-5c1a-45e9-b9f9-4f677313931f")
+			(uuid "17e5659b-67cc-4a05-a690-ccb801b868d2")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -305,23 +305,11 @@
 				)
 			)
 		)
-		(property "prefix" "C"
+		(property "Voltage" "None"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "2f5877aa-7a44-4eb0-881b-19150c0381e9")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "type" "capacitor"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "e606811a-d80d-4c51-af3e-4cb32d530c73")
+			(uuid "391abb97-f52c-4dc5-b4c7-09ddcd2fb7ea")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -333,7 +321,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "0b75bac0-29b6-4955-b2f3-94d73f96c0e9")
+			(uuid "6ee9c264-fe9d-48fd-8964-6d0a380131be")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -341,11 +329,11 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+		(property "Manufacturer" "Murata Electronics"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "54ab602d-c023-43fa-a4e4-1c6eae0f5b85")
+			(uuid "bdcae081-a156-40b3-8d31-4d4a994731fc")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -353,11 +341,59 @@
 				)
 			)
 		)
-		(property "symbol_name" "C"
+		(property "Dielectric" "None"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "8abeabce-c970-49a8-8491-78dcc0f63ae2")
+			(uuid "1e585629-1e62-4ebe-971c-082eee19f8b1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Esr" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "0a65b562-37cf-4a72-aaba-3b0608bce80c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GCM155R71H104KE02J\", \"manufacturer\": \"Murata Electronics\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5b78748c-59ad-4c83-a73e-3fdb28660792")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "7ebdb58b-384c-43e0-bfd9-fe36a8ae881c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GCM155R71H104KE02D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3a600481-6bc7-488e-abd9-01792d86ef3a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -549,7 +585,7 @@
 				)
 			)
 		)
-		(property "Description" "Light emitting diode, small symbol, filled shape"
+		(property "Description" "LED ORANGE"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -566,79 +602,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "54f95918-0f79-4bbb-8f65-0bbec2f7dce4")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "LED_Small_Filled"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "ad240aeb-969a-4697-abc5-cb423d441043")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Forward_current" "4.980842911877394mA"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "84507be2-0148-42f7-9ec9-64442b57d0c8")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Color" "orange"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "fa90130f-5118-4b5d-8588-076685d142cc")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Forward_voltage" "2V"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "267f1b1b-1e7a-4889-9fe8-1f74c9808239")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "type" "led"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "0d833322-9dab-4d49-8eda-0f96d6f2db23")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "5ef59061-4b27-4bd5-87bd-89f1d5e6f38c")
+			(uuid "81fa767b-45dd-4d6c-af8a-e6007d758451")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -650,7 +614,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "16c8b8fa-1acb-41c1-9ed6-8490ae10ebdb")
+			(uuid "5f109066-0df4-4b08-9663-096317798c3b")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -658,11 +622,11 @@
 				)
 			)
 		)
-		(property "prefix" "D"
+		(property "Forward Voltage" "2V"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "27dfc686-fcb1-4037-a493-f23318bc81b6")
+			(uuid "2e9c41f9-0122-4324-a718-c1796b796da0")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -670,11 +634,11 @@
 				)
 			)
 		)
-		(property "Mpn" "VLMO1500-GS08"
+		(property "Prefix" "D"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "b2de2c34-a6e8-41c4-be51-607323089c33")
+			(uuid "0bd9e82b-273d-4b31-b873-e88109b1da2a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -686,7 +650,43 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "b5e9475d-aa0f-40be-b7eb-c719979c2d63")
+			(uuid "5dcbb4b0-46e3-4256-a306-dcd98e32d931")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Forward Current" "4.980842911877394mA"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b81251df-bec8-405b-ba37-78cd470de5fa")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Color" "orange"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ede73455-1891-49a0-ac25-40ddfc13d884")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "VLMO1500-GS08"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c181e669-181f-48ee-8dbb-b1160e40044c")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -889,7 +889,7 @@
 				)
 			)
 		)
-		(property "Description" "Light emitting diode, small symbol, filled shape"
+		(property "Description" "LED GREEN"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -906,19 +906,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "1bf45938-ae94-4a9b-88f7-4f1082660f0e")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Color" "green"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "7cd05014-a304-41ee-b52b-72c7036a2055")
+			(uuid "a75dc3d6-1bdc-4f2e-b6da-9f77860ba2b8")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -930,91 +918,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "ddf23a5b-c17a-492a-88cd-c061042b1c5a")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "813515cf-8ead-4f3e-bd61-c3245cafbeca")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "LED_Small_Filled"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "f9d80906-23a6-43d9-9e53-17e8f0f90204")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Package" "0402"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "18232bd3-700f-4ed8-8dd3-275403218ea0")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "D"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "6150269c-b71b-4aad-9677-c869793c1a02")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "type" "led"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "81499172-81c9-4b4f-bd61-94ecac82adb2")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Forward_current" "8.666666666666666mA"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "f2628725-9502-4130-b86d-97a82588c9a6")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Forward_voltage" "2V"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "485e49c5-34f3-4268-bfb3-4d7df73afe40")
+			(uuid "c4b32aab-9a3e-47e4-ac57-0a84d34f1f34")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1026,7 +930,67 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "789f6e9c-2bc3-46ab-b468-e77ce5464266")
+			(uuid "c656b3f1-0467-44b1-aef3-7e93908bb39c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Forward Voltage" "2V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "90474117-bf74-484e-9b3c-5d21e8e32b95")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a7867c57-3cc5-4566-9d03-31cb74b292e7")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "bc25a192-eea7-45e1-85d1-ad559e84d535")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Color" "green"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "907aa732-13e6-44a8-acee-894771b92bfa")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Forward Current" "8.666666666666666mA"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "cb4645b7-4476-455f-ac63-35d6aaea45df")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1204,7 +1168,7 @@
 				)
 			)
 		)
-		(property "Value" "27"
+		(property "Value" "ERJ-2RKF27R0X"
 			(at 0 1.17 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -1229,7 +1193,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "27"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1246,7 +1210,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "60430def-25ec-4b74-8ed2-70a5263e782b")
+			(uuid "0b80a2ac-7112-4a89-8ce9-a4b20ec3184e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1254,11 +1218,11 @@
 				)
 			)
 		)
-		(property "Resistance" "27"
+		(property "Prefix" "R"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "ce6f7cc2-4231-40f0-b4c5-b5722cffc527")
+			(uuid "916c4271-17e4-4643-97a7-0b971f2e5c50")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1266,11 +1230,11 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+		(property "Mpn" "ERJ-2RKF27R0X"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "5bb1d17f-d7e8-4f6e-bf70-1d958e5193cb")
+			(uuid "efea72b4-f599-416c-932b-7db23369bcf2")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1278,11 +1242,35 @@
 				)
 			)
 		)
-		(property "prefix" "R"
+		(property "Voltage" "None"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "52dfa36b-24de-4a18-8580-a02620e74cc1")
+			(uuid "2f13d447-9b7d-4b82-b270-b65c502aeb48")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F27R0X\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c7ca59a9-519c-4942-ab5a-5a52238c1a3b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Electronic Components"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e15e8081-2935-455b-8f48-01f4bb550330")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1294,19 +1282,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "16a68003-6055-48b3-9f9b-853f38f2ae5b")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "type" "resistor"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "c70bbca0-57c4-4d7d-9f8f-86c8b3f0a051")
+			(uuid "9248778a-f29c-4cd8-9925-c3d0758a876e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1318,7 +1294,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "7d11fd00-6d9a-4229-b4b9-2efc0dddb0e1")
+			(uuid "03c36f1f-4e90-422a-88d3-4301b29061f0")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1326,11 +1302,11 @@
 				)
 			)
 		)
-		(property "symbol_name" "R"
+		(property "Resistance" "27"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "3e0a53e6-cb37-435e-869a-a1ad9e8f7708")
+			(uuid "d2e26ed1-9ab7-45b0-9078-c4e7281d8412")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1497,7 +1473,7 @@
 				)
 			)
 		)
-		(property "Value" "10k 1%"
+		(property "Value" "ERJ-2RKF1002X"
 			(at 0 1.17 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -1522,7 +1498,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "10k 1%"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1539,7 +1515,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "9dd868e5-dea0-493c-917a-d25e33af157d")
+			(uuid "3c3e42ab-54c6-4588-8060-dfb403ca3660")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1547,11 +1523,11 @@
 				)
 			)
 		)
-		(property "Package" "0402"
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F1002X\", \"manufacturer\": \"Panasonic Electronic Components\"}"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "b26d1b0f-e756-4425-82c6-fdcb6291b3d6")
+			(uuid "5397ab6b-109c-489d-b543-e3ed4e566ec9")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1559,35 +1535,11 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+		(property "Manufacturer" "Panasonic Electronic Components"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "e8ba23e8-7cbf-4fba-baf2-e34e600e6d95")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Resistance" "10k 1%"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "65d3fd83-b381-409f-9b46-53e40c306e23")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "type" "resistor"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "0a8028c6-6f87-4527-9e23-d1cc25fb40a5")
+			(uuid "20a6523d-f091-4f4c-a5b5-e0a68b4c6523")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1599,7 +1551,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "646c1a78-96e7-4aad-8df0-23aab01c8269")
+			(uuid "3ef85c61-b022-41fd-b913-3441eded2a9d")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1607,11 +1559,11 @@
 				)
 			)
 		)
-		(property "prefix" "R"
+		(property "Prefix" "R"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "67b3a331-838a-411a-878a-bebb89eab789")
+			(uuid "0f80ed0b-06f2-4ad7-8b24-3948a473c41e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1619,11 +1571,47 @@
 				)
 			)
 		)
-		(property "symbol_name" "R"
+		(property "Package" "0402"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "eded86aa-f311-42e6-b457-01fa17abb919")
+			(uuid "18a8aac3-0ad8-433e-8f19-20f10870afe7")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Resistance" "10k 1%"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3dd389ab-b130-4929-a3fc-0cf110ec044b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF1002X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "6e98cbe3-756b-4df0-ac58-e97e5267e725")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "af031fe6-4b05-4ba3-b583-31a34c1f3186")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1815,7 +1803,7 @@
 				)
 			)
 		)
-		(property "Description" "Light emitting diode, small symbol, filled shape"
+		(property "Description" "LED RED"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1832,91 +1820,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "41c557fa-0d76-4493-a599-30802de27172")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Type" "led"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "81dc426e-d4b5-44da-abae-92b3aa7490c7")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Color" "red"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "a14a7567-3c1f-49c1-ab20-9878db3f6fc9")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "type" "led"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "2b46beef-4f76-46b1-baea-0c941e079cca")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Forward_current" "8.666666666666666mA"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "1b1b2cd0-5911-4205-aff8-3862ce2a2880")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Forward_voltage" "2V"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "6b5ba3ca-d64b-42dd-84f1-8aa23bee45b6")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Mpn" "VLMS1500-GS08"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "8ae53b07-aa90-49f5-a556-0b2ed6ac2a6f")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "LED_Small_Filled"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "108a4f0a-747e-4afb-8857-16281d0e8179")
+			(uuid "d109158f-4aad-47ef-b15e-5ca34404d81d")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1928,7 +1832,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "43aac206-e52c-41c1-a985-62197293912e")
+			(uuid "132685c8-459d-46fc-9aca-1bba31286d6b")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1936,11 +1840,11 @@
 				)
 			)
 		)
-		(property "prefix" "D"
+		(property "Forward Current" "8.666666666666666mA"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "8c8b6e0b-50cb-4072-8d23-839c17493002")
+			(uuid "cf202af6-4fd9-4855-b2ef-354751b62da8")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1948,11 +1852,59 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+		(property "Prefix" "D"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "a57cb19a-c3ec-428d-85b2-110f1b8fc004")
+			(uuid "4e4c7aaa-43fb-456f-aff6-7bd004a238a2")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "led"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "88331334-06f7-4d92-b98c-838047093fe0")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Color" "red"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "59a388b6-1763-4abe-847f-5a5aaa2de3c3")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "VLMS1500-GS08"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "2fcee95f-7bb5-4416-97ca-c25ee228f0f8")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Forward Voltage" "2V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1255a454-c55e-4fc3-ac73-4b393bdb8b65")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2154,7 +2106,7 @@
 				)
 			)
 		)
-		(property "Description" "A microcontroller by Raspberry Pi"
+		(property "Description" "Raspberry Pi RP2040 Microcontroller"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -2170,7 +2122,19 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "7fa143dc-8a76-4e0d-9527-99021d9eaed1")
+			(uuid "3a9444b0-6af9-476b-97b2-63092a620bd1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "U"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b211b7c2-250c-4f84-9f3d-80df3c44afa8")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2182,7 +2146,19 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "f824e9d5-91ca-4579-9552-db524fb87090")
+			(uuid "1f70f26c-3468-47e8-8503-9c60d337b3f1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "SC0914(13)"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "51e22ffc-044b-453b-94a7-4f77b2a8b8dd")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2194,55 +2170,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "91161dd7-bda9-41a7-8da4-2020d2046d21")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "RP2040"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "b7c03670-65c1-42c6-81ed-cc46add053af")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/MCU_RaspberryPi.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "fe911001-17b8-4685-b692-47996b632079")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "mpn" "SC0914(13)"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "31aa9d4e-f6a1-442e-81ae-fd3cf4618b33")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "U"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "ad1262fb-e367-4e27-8355-078656b9747d")
+			(uuid "c5b91938-32ef-4323-9b06-45673039cdf8")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2960,7 +2888,7 @@
 				)
 			)
 		)
-		(property "Value" "1uF"
+		(property "Value" "GRM155Z71A105KE01D"
 			(at 0 1.16 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -2985,7 +2913,7 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "1uF"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -3002,31 +2930,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "d3f0058e-19dd-4d68-abb1-86f5cbc23f9b")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "C"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "4a550b4d-8c2c-4fc9-bb45-10764b4dc888")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Package" "0402"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "4ce47b7f-c877-4672-b308-8de4948399ee")
+			(uuid "58d568ad-40b3-4bc3-be9c-20bd50596955")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3038,7 +2942,91 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "268ff037-c1b3-42af-9573-82e09bf989e8")
+			(uuid "b19b2b69-5bcd-46cb-aa43-fa8cee15462a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3c8e6d05-1614-48f6-91b3-6f600345a3f5")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5cc06810-fd2e-48ef-a5e0-be82a718703b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GRM155Z71A105KE01J\", \"manufacturer\": \"Murata Electronics\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "78b0c41b-1fc1-455f-941a-658f97a55eb1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "48b31387-02d9-4a7c-9d93-652da14ffc88")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GRM155Z71A105KE01D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b4341240-36d7-4feb-aac4-6ebaad1cb59b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "0e974cb2-ebea-45c8-8105-8a0e3c4d30ed")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Dielectric" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "20f7e818-166b-49df-a343-391bd9b2ec9a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3050,7 +3038,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "d9c78169-ad54-45eb-a1cb-e6c16145afab")
+			(uuid "771c9781-e520-4adf-9c1f-b63100d1ad1a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3058,35 +3046,11 @@
 				)
 			)
 		)
-		(property "type" "capacitor"
+		(property "Esr" "None"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "af1b6ac1-18f9-41e6-806c-acec3e428d34")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "ec12e854-9ced-498d-aefd-690c9460bb42")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "C"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "fb8de9ce-f169-4ddc-9ff3-38cf2157c6ae")
+			(uuid "18066dbf-aa28-4a63-8dc0-e01fc876009e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3278,7 +3242,7 @@
 				)
 			)
 		)
-		(property "Description" "Light emitting diode, small symbol, filled shape"
+		(property "Description" "LED ORANGE"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -3295,31 +3259,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "9d916a90-b96f-4693-b6f0-9d865fc6a975")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Forward_current" "4.980842911877394mA"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "8a7ac639-4f8f-4a23-98af-603c51fcffcb")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "D"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "170b2a98-c6cd-4607-b487-f10354dc69fb")
+			(uuid "814caa9e-5fe2-49c5-af99-93a622eeef3e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3331,31 +3271,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "6a7d44c1-4686-4394-9b0b-a862251c85d3")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Mpn" "VLMO1500-GS08"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "97440d8d-9ea6-4b88-a01e-29f3da623e0e")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "type" "led"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "41e261a3-8e1c-4530-8d5e-5e9fc6a0bc6a")
+			(uuid "b8ca45eb-2535-4334-8160-5e85f2b617c6")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3367,7 +3283,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "0f999510-171c-4f7f-bd18-60387f1a1c76")
+			(uuid "cb073da0-1153-4828-aa02-e70e166eaf1f")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3375,11 +3291,11 @@
 				)
 			)
 		)
-		(property "Forward_voltage" "2V"
+		(property "Prefix" "D"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "8573ba07-5b6b-4e48-9c45-bd9f3058c8a9")
+			(uuid "1b069324-5c9c-47a5-a95b-8eac40f89b96")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3387,23 +3303,11 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+		(property "Forward Current" "4.980842911877394mA"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "aa51255b-3bd4-49db-9b8c-6fa9f7f77915")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "LED_Small_Filled"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "ed27e699-1514-4527-bc22-8e18c7711f67")
+			(uuid "24cf6636-2c95-4eca-8c41-51bb6e2aab72")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3415,7 +3319,31 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "b66b73e1-c900-402a-a11d-d3674b17e120")
+			(uuid "ebe67d05-a827-4070-b3a2-4175e16d2de1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "VLMO1500-GS08"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "cf710f39-1ec1-4f79-a1dc-55312bb5f3a4")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Forward Voltage" "2V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "be3aa476-4dad-4bfb-80ca-dfcf67357821")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3593,7 +3521,7 @@
 				)
 			)
 		)
-		(property "Value" "4.7uF 10V"
+		(property "Value" "GRM155Z71A105KE01D"
 			(at 0 1.16 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -3618,7 +3546,7 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "1uF 10V"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -3635,7 +3563,91 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "9a48d10b-dab4-4406-aff0-e404e0045c62")
+			(uuid "dd1f1889-dbfa-4256-9b6e-327d034a1048")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1cba0199-ee77-4cde-8716-5cb387e9b0d1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GRM155Z71A105KE01J\", \"manufacturer\": \"Murata Electronics\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "9fc36ed5-6992-475b-a7d0-1d957493ecd7")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Esr" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3e5f430c-bbf8-4abe-ab09-adc6cd6d920c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Dielectric" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "8491f473-1783-43ee-8857-0f2d843bf9a5")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GRM155Z71A105KE01D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "9c2bdeb8-a57d-45a3-85a0-f2257d5cfd94")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Capacitance" "1uF"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3b25d944-3aad-4bff-b3d3-a0e78bd808e7")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "774437a4-f91e-4df5-b919-52fc6b68eb42")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3647,67 +3659,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "557ddcea-ed58-4d7a-8ab0-7484fd0f8cbc")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Capacitance" "4.7uF"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "f3bfacd2-e2db-48f3-b975-7af07365a587")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "type" "capacitor"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "a0870196-3942-4d5f-8598-2a64b2d7851d")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Type" "capacitor"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "5533c887-9875-4ece-b86b-39b07ef2892d")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "e0c7eb9b-83bf-47b8-a670-eec544c05bab")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "C"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "c886ad40-232b-4958-aea6-21a8ab582e7e")
+			(uuid "bf8614c3-1744-4814-a677-371411ddc840")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3719,7 +3671,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "94fbaa88-f933-4386-ba57-d19f0c573dbf")
+			(uuid "dc28f38c-c65a-42ed-ba25-938b63a857f2")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3727,11 +3679,11 @@
 				)
 			)
 		)
-		(property "symbol_name" "C"
+		(property "Type" "capacitor"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "fef83632-845d-42a4-a4b6-c0b87bce4e42")
+			(uuid "c8eee9b8-ddc3-4686-bc31-e8f50c0af87b")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3898,7 +3850,7 @@
 				)
 			)
 		)
-		(property "Value" "Pad_D1.5mm"
+		(property "Value" "?"
 			(at 0 1.75 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -3940,43 +3892,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "41e2923c-2002-46d8-b1d0-e260c66101fd")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Connector.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "af1cd612-fced-4ce9-93fc-0848c80fd2ae")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "TestPoint"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "618384c8-20bf-4b22-a7ad-65411ca4bf2e")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "TP"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "ba3389de-8b6f-4ca1-855f-767f964574ed")
+			(uuid "b42528ef-746a-4087-b034-62420046446b")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3988,7 +3904,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "6ecff460-c815-40e4-9748-744795c17f61")
+			(uuid "826fd1dd-bb6c-43b2-8929-9606d7fb7867")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3996,23 +3912,11 @@
 				)
 			)
 		)
-		(property "Exclude_from_pos_files" "True"
+		(property "Prefix" "TP"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "8eac04b7-07f5-4f38-bbfb-53ac486a04e6")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Do_not_populate" "True"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "a1e3f5a9-88a2-4a18-9b4b-ec38b0be62c9")
+			(uuid "f534cd97-3438-4692-bccf-2241a89b5314")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4081,7 +3985,7 @@
 				)
 			)
 		)
-		(property "Value" "5.1k 5%"
+		(property "Value" "ERJ-2RKF5101X"
 			(at 0 1.17 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -4106,7 +4010,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "5.1k 5%"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -4123,7 +4027,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "315955a5-10fc-4c30-a997-50592239de09")
+			(uuid "9f961d95-f2fe-4899-8339-ac92e107d100")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4131,11 +4035,11 @@
 				)
 			)
 		)
-		(property "symbol_name" "R"
+		(property "Prefix" "R"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "1295852b-1cdf-4ec7-9d66-5a653f56c22a")
+			(uuid "b5af1814-9b33-4504-a81e-8f72003afa91")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4143,11 +4047,11 @@
 				)
 			)
 		)
-		(property "Resistance" "5.1k 5%"
+		(property "Mpn" "ERJ-2RKF5101X"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "bc2ab255-8220-4f09-bffa-45d43c5e3f27")
+			(uuid "4516aa4d-ad38-4e16-85a0-70016493b71e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4159,7 +4063,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "f16e3dce-c7c9-410d-b9b1-55a86cb5a9b6")
+			(uuid "07cc7621-af6d-433c-b383-1ca7731a726b")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4167,23 +4071,11 @@
 				)
 			)
 		)
-		(property "type" "resistor"
+		(property "Voltage" "None"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "c9e2b5d3-b43d-46d7-ac95-98814b00ca19")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "e9ba7ea3-cf9b-4121-b8a4-273b7551bf4a")
+			(uuid "9eb29605-3909-4c89-af96-bc55aee5e1a6")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4195,7 +4087,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "47c1a3cc-e769-4602-93d3-5f0318b597f3")
+			(uuid "01341ff8-1fda-4b87-a44c-a28f08228fd1")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4203,11 +4095,35 @@
 				)
 			)
 		)
-		(property "prefix" "R"
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F5101X\", \"manufacturer\": \"Panasonic Electronic Components\"}"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "a0ee68ff-127d-4fb2-b834-1c4eb01ea769")
+			(uuid "d232dcf6-d87f-4045-b165-b54101c095c7")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Electronic Components"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1845b2f0-5413-4984-9b57-67e0ba50e20e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Resistance" "5.1k 5%"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e8100cbd-b63a-4718-8578-47b2b4eaec30")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4399,7 +4315,7 @@
 				)
 			)
 		)
-		(property "Description" "Light emitting diode, small symbol, filled shape"
+		(property "Description" "LED ORANGE"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -4416,7 +4332,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "cfb002c1-f390-468f-af73-c595659c77b5")
+			(uuid "626ee1ca-cc17-4037-8027-016da219cefb")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4424,35 +4340,11 @@
 				)
 			)
 		)
-		(property "Forward_voltage" "2V"
+		(property "Forward Current" "4.980842911877394mA"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "b6380dc7-66e4-4e09-8fcc-0137e12031dc")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Type" "led"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "ad3e5924-d6a5-4f36-8ee8-5e5b586ce616")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "type" "led"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "b82bd936-8260-4da0-8f40-4df58ec89695")
+			(uuid "9a38a950-fa3c-4532-9020-118182348fbb")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4464,7 +4356,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "812c4516-c20f-458e-9b43-6f619da41e5e")
+			(uuid "6d42f56d-2955-4876-a950-11ee35d2bacb")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4472,11 +4364,11 @@
 				)
 			)
 		)
-		(property "prefix" "D"
+		(property "Type" "led"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "e175edc4-708c-4676-ac89-3820393a6a63")
+			(uuid "60a70c1d-1557-41f4-9e39-ac8f831026ff")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4484,11 +4376,11 @@
 				)
 			)
 		)
-		(property "symbol_name" "LED_Small_Filled"
+		(property "Prefix" "D"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "89a5e457-927d-4d81-ba10-c094d750db2c")
+			(uuid "c1301ffb-4585-4283-b536-81cc20eb26ce")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4500,7 +4392,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "cb7f306a-509e-49cf-bfeb-b3b1ec91fc80")
+			(uuid "b10a1cad-80d7-4b3a-a960-76d3171be953")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4508,11 +4400,11 @@
 				)
 			)
 		)
-		(property "Forward_current" "4.980842911877394mA"
+		(property "Forward Voltage" "2V"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "f9a7c498-9b2a-4c71-94e2-a3fba9278998")
+			(uuid "83d66963-e2d0-42a1-a06c-4d55afd0a8f8")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4524,19 +4416,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "8da4a67c-76a6-4bb5-a5bf-0705f5ae4d98")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "72f3d73b-1d99-4d71-8f0a-8eff59f5d5f2")
+			(uuid "4431926e-b6fd-4d01-a498-54950a370e4a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4714,7 +4594,7 @@
 				)
 			)
 		)
-		(property "Value" "1uF 10V"
+		(property "Value" "GRM155Z71A105KE01D"
 			(at 0 1.16 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -4739,7 +4619,7 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "1uF 10V"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -4756,79 +4636,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "239276c8-7da8-4193-9b60-fb801a5c7b67")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "cb9f01f8-9a98-4b08-8b58-c3c448c66fbe")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "C"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "88607349-1261-433b-9056-6fd259555fec")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Capacitance" "1uF"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "c9169f03-8c89-426e-8787-1f94188f109e")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "C"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "c712aef8-0352-4c01-8435-d067a1b3ef77")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "type" "capacitor"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "ac301310-f0db-4c7c-b810-48cf0a77056d")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Voltage" "10V"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "bdd0aaec-8176-4d10-a8a9-4b68e370b2a4")
+			(uuid "9b816494-9330-4b2d-97d0-3daee8ca43ac")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4840,7 +4648,79 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "f6ccda3f-8fca-47fc-b081-ce1693945300")
+			(uuid "cf983db8-8360-473a-a70f-26d3fff9ff12")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Capacitance" "1uF"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "62eed991-ab45-4cd5-854b-6e3629d25d0d")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b14789c0-c8a7-4e6c-b1ca-6e4a6ff180af")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Esr" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3033859b-3127-4470-a55a-8dcf3e5eab1e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "10V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "cb052dd9-befd-445a-8890-13fd1853b02c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GRM155Z71A105KE01J\", \"manufacturer\": \"Murata Electronics\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "7c1b54a2-2bc9-4900-91f7-c7ba8a958545")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GRM155Z71A105KE01D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "77004a40-eb8a-427f-b8a5-72acc650c5df")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4852,7 +4732,31 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "71b30ab5-c015-4753-bab9-9b9ea6de1ba7")
+			(uuid "5e0873dc-0149-40c9-b4bc-a0472704870e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "2229a503-88f0-4a7c-9a61-7a6e32552c53")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Dielectric" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "66985fdd-1ce3-4e2e-b183-fd99cf66fad6")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5019,7 +4923,7 @@
 				)
 			)
 		)
-		(property "Value" "10k"
+		(property "Value" "ERJ-2RKF1002X"
 			(at 0 1.17 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -5044,7 +4948,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "10k"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -5061,7 +4965,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "8ccad62f-9bbd-4b2e-9969-cdd62843c9e2")
+			(uuid "7cebce4b-48b1-4c1c-bbe4-9d58f4610559")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5073,7 +4977,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "3d36b259-fcec-4e42-b64e-041517b99123")
+			(uuid "3e969aed-2341-4dd1-9261-7a978f7ce661")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5081,11 +4985,11 @@
 				)
 			)
 		)
-		(property "prefix" "R"
+		(property "Prefix" "R"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "f3a8f891-0dc0-4041-b42d-71ce8cc4cb50")
+			(uuid "084ab353-2e57-4073-828c-2218a677109e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5093,47 +4997,11 @@
 				)
 			)
 		)
-		(property "Package" "0402"
+		(property "Mpn" "ERJ-2RKF1002X"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "51b6d2d4-6f2f-463f-8ecd-563804d59f18")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "R"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "b9dbff23-f12b-4c5a-b524-375ee4d98dc8")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "bc6670d6-2a1a-4632-a4bf-772312ef3050")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "type" "resistor"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "a2dfd95b-1088-4d23-92d8-a796b0896e2a")
+			(uuid "5a21251c-47f6-41a7-b7c0-00049a394767")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5145,7 +5013,55 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "8d7434f6-cf8c-4d5b-a60c-71576fa46cc6")
+			(uuid "c4267dd2-858f-4e12-b95c-d369a8e3b0b5")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "01698a5e-b227-4071-9aab-fb3886b236e6")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "86981418-ac37-48f2-ba53-ca7646f6016c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F1002X\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1a6fe55f-9b75-443e-9e73-a155d8a3cccc")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Electronic Components"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1098ee21-24bf-488b-9236-b057bb2a3db4")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5312,7 +5228,7 @@
 				)
 			)
 		)
-		(property "Value" "150"
+		(property "Value" "ERJ-2RKF1500X"
 			(at 0 1.17 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -5337,7 +5253,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "150"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -5354,7 +5270,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "86f90203-cc0a-49d0-bd40-b03db51f66fc")
+			(uuid "40c9d8a6-f30d-4e70-971e-f372cf01b8ec")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5362,35 +5278,11 @@
 				)
 			)
 		)
-		(property "type" "resistor"
+		(property "Manufacturer" "Panasonic Electronic Components"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "8d38229b-1fc5-48e1-886f-aeb9c73cef43")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Resistance" "150"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "4f2dd2b4-730a-41bb-87f1-dbd756597916")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "R"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "73a00344-58f7-4fcc-8684-dba62ed8c5bf")
+			(uuid "942360d2-deae-421d-bdfe-7688ea2c22e3")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5402,19 +5294,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "36a7db04-4867-4e15-8c49-40471e1da5cb")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "R"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "407591cc-ea57-41a7-93b1-2e24344e629d")
+			(uuid "e0d52f87-06b1-4375-a4a7-0082b35fa17e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5426,7 +5306,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "577d5b07-6cc4-49a1-994c-5f412d56dc9b")
+			(uuid "3541a6b4-9bb5-45f5-b1fa-f0255d71a332")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5434,11 +5314,59 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+		(property "Voltage" "None"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "ac3e30b7-2b52-49b8-a3c8-0a00fb801560")
+			(uuid "f324356b-70c4-4754-bc8e-15ac5c79bb9a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F1500X\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "817d54a8-4673-4096-8fae-f07220bc6e68")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF1500X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "932e6b57-ec7d-4f78-bd66-7d3a73a24950")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "99fac154-b3a6-433b-b4dc-31af1f3b7a82")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Resistance" "150"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "816bfda7-7a64-42c0-84bf-249a6dd09394")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5629,7 +5557,7 @@
 				)
 			)
 		)
-		(property "Description" "500mA Low-Dropout Linear Regulator, Adjustable Output, WSON-6"
+		(property "Description" "Low Dropout Voltage Regulator"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -5645,7 +5573,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "23a70c52-f2a8-4e51-8280-dbb254306cb9")
+			(uuid "3165977e-8755-49c1-b095-3f92d3266825")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5653,11 +5581,47 @@
 				)
 			)
 		)
-		(property "Lcsc" "C2876308"
+		(property "Input Voltage" "5V"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "9429942f-d7c0-4ac0-9439-ec61d87fb298")
+			(uuid "b0b916a4-f52b-4140-860e-9f58e2de680a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "TLV75801PDRV"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "06a7c972-e20a-49b3-bffc-0c4cb834a467")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Output Voltage" "3.3V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "955c6ee0-abe6-4d34-99e4-d9e353d32902")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Current Rating" "0.5A"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b2eb393f-f0ee-47fd-b6ad-e1d61b94eef9")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5669,7 +5633,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "336c735f-9898-42e5-aa42-0a361db48bc1")
+			(uuid "dc170de0-c528-48c3-9fc9-9ecc3f6b6337")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5677,59 +5641,11 @@
 				)
 			)
 		)
-		(property "mpn" "TLV75801PDRV"
+		(property "Prefix" "U"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "34ad47b5-fe3f-4459-aa43-0329f4632499")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Output_voltage" "3.3V"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "9b70d199-c9b2-47fe-971c-5298d14feee2")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "U"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "d62b8c9e-0dc6-49ed-8465-2a75d239fb7d")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Input_voltage" "5V"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "9582c5e1-4f5f-41c9-b8c0-4c1b844fedc8")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Regulator_Linear.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "f7b9e79d-d5fc-4e9f-9a2d-c49a73756aed")
+			(uuid "08610409-d9f8-4f83-a1df-25466e0804be")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5741,31 +5657,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "05b20ec5-f4c5-406d-b47a-c14bf2f08a15")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Current_rating" "0.5A"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "d07e6938-f820-40ff-ad00-99be69b3e114")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "TLV75801PDRV"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "ca78add9-a619-4cd2-9097-ee76af7cc307")
+			(uuid "c2350133-d96f-4b54-8ba3-e86a703817cd")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6009,7 +5901,7 @@
 				)
 			)
 		)
-		(property "Value" "100nF"
+		(property "Value" "GCM155R71H104KE02D"
 			(at 0 1.16 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -6034,7 +5926,7 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "100nF"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -6051,43 +5943,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "e9ab4c0c-807b-40c3-b82b-b8c2f4f8a8cc")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Type" "capacitor"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "9702a550-eab1-471a-86cf-cf755659a611")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "1bae4639-45b5-4a47-887c-be94652eade0")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "C"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "d169c25a-0ce6-4dc5-87d6-ba55cf9d933e")
+			(uuid "4c4157c9-8cb8-49db-8588-7acbfce2f27d")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6099,7 +5955,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "df240cbc-8b60-41f5-a2e6-36efb42eacf1")
+			(uuid "cf22efe1-2c07-4d67-a63c-1061125ef8c2")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6107,11 +5963,11 @@
 				)
 			)
 		)
-		(property "prefix" "C"
+		(property "Mpn" "GCM155R71H104KE02D"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "a5c4e510-e6f3-4f18-be55-290d7975bac0")
+			(uuid "07dbfdac-95b6-4857-a7ab-734db11e7c2d")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6119,11 +5975,35 @@
 				)
 			)
 		)
-		(property "type" "capacitor"
+		(property "Alternatives" "{\"mpn\": \"GCM155R71H104KE02J\", \"manufacturer\": \"Murata Electronics\"}"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "3d5689b7-4aae-4ea3-af1e-c98bcad7048c")
+			(uuid "10ac672b-bab8-4c25-a80e-6f6ffd4d8aea")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "57fe0ad1-7135-4660-b25e-1ec277fbb957")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3b53bd92-44b4-4ae0-8ddf-5b1cb91e53bf")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6135,7 +6015,55 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "176ce44d-39a6-4d89-87dd-42fff4e17e0c")
+			(uuid "6fc07c8e-d93a-43f0-a197-b720a8e2dae1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "aa4a0e0e-8630-4afe-b675-4415a3403edb")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Esr" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e0649f43-6c8f-40b1-8cb8-ffad8dcc6ffd")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "60fc233c-971e-4158-8be0-f97b25c12538")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Dielectric" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "53422b12-37a0-4682-b77d-35367609aa3a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6302,7 +6230,7 @@
 				)
 			)
 		)
-		(property "Value" "100nF"
+		(property "Value" "GCM155R71H104KE02D"
 			(at 0 1.16 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -6327,7 +6255,7 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "100nF"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -6344,7 +6272,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "2d4e10d3-080a-4789-b8dd-8e34ec651aac")
+			(uuid "ec186bb3-4edf-45d3-a2bb-04dc2cb04765")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6352,11 +6280,11 @@
 				)
 			)
 		)
-		(property "Capacitance" "100nF"
+		(property "Prefix" "C"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "9f2c027b-0aa9-4295-898e-51624c5fe813")
+			(uuid "7169f914-7bf9-45a6-b819-12f174f2d755")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6368,7 +6296,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "2198adb6-351c-4531-8657-41728f97ec6c")
+			(uuid "396817fd-7945-457b-9d16-2e28a9bce8ec")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6376,11 +6304,11 @@
 				)
 			)
 		)
-		(property "type" "capacitor"
+		(property "Voltage" "None"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "83f6ff59-8aeb-4d09-8971-69287660c460")
+			(uuid "3453c19c-fb38-4fa0-81a3-5c33589b4e48")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6388,11 +6316,11 @@
 				)
 			)
 		)
-		(property "prefix" "C"
+		(property "Alternatives" "{\"mpn\": \"GCM155R71H104KE02J\", \"manufacturer\": \"Murata Electronics\"}"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "fcf95846-ed7d-4b07-8246-92a8b061c79e")
+			(uuid "ead204f6-818a-4228-8c1f-6a2489f4f881")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6400,23 +6328,11 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+		(property "Mpn" "GCM155R71H104KE02D"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "ac6be682-58cd-4487-be27-c550e924fded")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "C"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "15584f67-afce-4427-a5f8-b94308048967")
+			(uuid "614df386-6437-4d54-a272-5e1e944e93d2")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6428,7 +6344,55 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "f5322bbb-5c29-429e-8abe-efefab43d065")
+			(uuid "2cb243d3-f2b9-4986-b00d-498fc1998860")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "4886a09b-ee2c-4853-9c60-906b92310edc")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Esr" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "6c5ad755-4ffc-44a3-a37b-45e01d16e86a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Capacitance" "100nF"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ae1ab7b4-b15a-4d0a-97b8-ddd4baf32483")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Dielectric" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5b3c89d4-73bd-4b1c-9cb9-1ab1e7433471")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6620,7 +6584,7 @@
 				)
 			)
 		)
-		(property "Description" "Ferrite bead"
+		(property "Description" "220 2A 100MHz"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -6637,91 +6601,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "00514e1c-d3e2-42c5-8ae2-8d519535e279")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "e8f80544-0a91-46dd-a9b3-738325d9202b")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "FB"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "14cb9e78-8b23-4a8a-96b9-adf97eb9b92b")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Current" "2A"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "dc45a68b-53ce-4820-ab4d-0f671465eda7")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Frequency" "100MHz"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "a6aae137-8d1f-4998-8cad-45c3d264c423")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Package" "0603"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "3e2f33f5-9b14-457b-967b-e7a574f41fee")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "type" "ferrite_bead"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "a4333344-800f-4cfd-ae27-575e96cb4bbf")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Resistance" "220"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "147f7158-d1a6-442c-a887-860d62a51da5")
+			(uuid "9bd03a19-c0cb-4c35-b5ad-90ed9f99e6fb")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6733,7 +6613,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "5e2c36dc-863e-4f92-9649-7492ca8f113b")
+			(uuid "2cbb430c-8de6-48a0-9d81-56b98ef81a30")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6741,11 +6621,59 @@
 				)
 			)
 		)
-		(property "symbol_name" "FerriteBead"
+		(property "Frequency" "100MHz"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "1c41e683-ea78-4425-9305-98ae3d7e0dc8")
+			(uuid "c9d805e5-e1ea-4aad-81f8-031378dece20")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "FB"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5529d84b-7f65-4d31-b075-257f17f1bda5")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0603"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "aada684a-96aa-4504-a8c2-bd070f1c88a3")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Current" "2A"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e5af2d22-f158-43e3-9978-9d125fb2cde2")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Resistance" "220"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a5f4714e-ce55-4abd-bef8-a71f03c5ab8f")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6912,7 +6840,7 @@
 				)
 			)
 		)
-		(property "Value" "100nF"
+		(property "Value" "GCM155R71H104KE02D"
 			(at 0 1.16 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -6937,7 +6865,7 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "100nF"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -6954,7 +6882,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "e21ff7ae-3336-44fe-a6b4-f4714ce1380b")
+			(uuid "3a564d22-a1a8-4017-a349-3ae057f2436a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6962,11 +6890,11 @@
 				)
 			)
 		)
-		(property "type" "capacitor"
+		(property "Prefix" "C"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "bad86b97-e668-4482-8227-4ed67845ee67")
+			(uuid "f13dc280-97f3-4cb5-b7cc-514dce237dff")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6974,11 +6902,11 @@
 				)
 			)
 		)
-		(property "symbol_name" "C"
+		(property "Dielectric" "None"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "39abd345-6482-4e38-a2e3-40129db802be")
+			(uuid "e433fff8-f27a-4d6b-a278-59acf9baf659")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6986,23 +6914,11 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+		(property "Voltage" "None"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "c23361cc-5b0a-4e64-9bd3-5840cc4c9b76")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Type" "capacitor"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "2f94e731-77c8-42a4-b697-b76fc5a37a2f")
+			(uuid "942167ce-a43c-4033-bfe9-b4bcfc906e89")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7014,7 +6930,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "5383bcad-ac7a-4867-a6da-b810d4f2626d")
+			(uuid "7d7f057f-4e77-4080-b479-15b0078182e6")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7022,11 +6938,47 @@
 				)
 			)
 		)
-		(property "prefix" "C"
+		(property "Esr" "None"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "4c661c65-da15-45ff-97f9-fc2d49d86ea0")
+			(uuid "5b46cf62-0796-42fe-b77f-879b3e7aaf73")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "0ff714e6-cee9-4b95-a92b-e803b9a1af5c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b4ca319b-e1e5-4323-8f22-ba4775894d52")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GCM155R71H104KE02J\", \"manufacturer\": \"Murata Electronics\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "0190f510-f11d-43ed-beb9-f2fc80e4353c")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7038,7 +6990,19 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "7ef85f34-6640-404c-9a23-b99186327df8")
+			(uuid "be36ec13-d823-4a47-bbd2-44e931a3d76f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GCM155R71H104KE02D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a2ec052e-93fe-4999-962f-57d99a5731c4")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7247,7 +7211,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "aa6b166b-dd9f-4faa-adb9-6222c16c4337")
+			(uuid "5aee95eb-deff-4760-b7fb-2748487e2abb")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7255,11 +7219,11 @@
 				)
 			)
 		)
-		(property "mpn" "KMR231G LFS"
+		(property "Prefix" "SW"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "3c44f05d-c860-4a4b-ae81-84a103d727d9")
+			(uuid "9bad7e84-d5c0-4956-b73f-aa0f57a2444d")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7267,35 +7231,11 @@
 				)
 			)
 		)
-		(property "symbol_name" "SW_Push"
+		(property "Mpn" "KMR231G LFS"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "c5966e1f-9e4d-4ddf-800a-6881b8320593")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Switch.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "e3892c2c-2a1e-4a7d-a303-65164855e287")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "SW"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "095e9fbb-f57b-4ea6-8ec8-786ba38bee22")
+			(uuid "87fa6fb6-f8fe-4bb6-8753-50624170f27d")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7563,7 +7503,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "dfa97f07-c486-4fbb-8771-24acb864ddce")
+			(uuid "8aec659a-e256-4d20-bc56-118b2ffa48d1")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7571,59 +7511,11 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+		(property "Prefix" "D"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "2c5df046-f0c8-42ae-a993-0a8886b6a1a5")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "D"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "7d4d4859-5905-4583-9883-3d10c7c0b0fa")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Package" "SOD523"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "9c2fba54-0de5-4666-a379-0643dadf1541")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Nexperia"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "fe5c7581-d4bc-4ac2-a293-f43c2aac0b0c")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "D_TVS_Small"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "64935574-98f9-448d-b9d2-0653fae4b3b3")
+			(uuid "8c0556b8-438e-4c45-9551-e7baf57bb3fb")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7635,7 +7527,19 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "490f1eec-145c-41c9-8e5a-357657a81153")
+			(uuid "87e80302-300e-4c9b-bd9a-faeaa231542b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Nexperia"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5e776f73-dc95-429b-82f9-210b6bc16fe2")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7647,7 +7551,31 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "14baff05-633a-417d-932d-aa14f8120aec")
+			(uuid "9a4b5a2f-da71-4a15-8809-c1a7e928e6eb")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "SOD523"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "99f7f78c-9aa6-4a28-8f7d-0d95592911f5")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Clamping Voltage" "8V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "dd080903-5864-42f6-b7f9-9b01e7c88fb9")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7659,19 +7587,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "ecd2094c-d530-4fd6-9c7e-747686125487")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Clamping_voltage" "8V"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "2cb0d83c-bc95-4906-9406-4d688926de9f")
+			(uuid "8daa3f2b-9eec-4dc2-9096-2def59f630fe")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7908,7 +7824,7 @@
 				)
 			)
 		)
-		(property "Value" "100nF"
+		(property "Value" "GCM155R71H104KE02D"
 			(at 0 1.16 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -7933,7 +7849,7 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "100nF"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -7950,7 +7866,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "3e7c5b6e-2fab-402d-91e8-0909721fe1a9")
+			(uuid "85835b9b-59f2-43f8-9932-b3e8654bd8ec")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7958,11 +7874,11 @@
 				)
 			)
 		)
-		(property "Capacitance" "100nF"
+		(property "Mpn" "GCM155R71H104KE02D"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "76b8aff1-1197-431c-b631-dc6dc8dbdce5")
+			(uuid "f89cb59e-9f2a-4f75-9fcc-92fe255c4a9e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7970,11 +7886,11 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+		(property "Prefix" "C"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "4c9bc9db-4126-4f40-b3e7-723910176f9e")
+			(uuid "9ae94806-f826-4e48-ab08-3bdb04b08c7d")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7982,47 +7898,11 @@
 				)
 			)
 		)
-		(property "prefix" "C"
+		(property "Dielectric" "None"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "43887083-c0c2-4d1e-9d98-bd221e192620")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "type" "capacitor"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "68678df4-60a6-4a81-bf6a-57dc8fc5c620")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "C"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "b6a5aa67-4f4b-44b3-9d39-f044037161b3")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Type" "capacitor"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "8d9a0ebb-5874-4c3e-a671-79495eb5f718")
+			(uuid "986df0c0-f612-4d84-91a7-cc659144038f")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8034,7 +7914,79 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "c9f3f5b8-c1d1-4b2d-b115-14d99efbf1fb")
+			(uuid "a306cd62-38d5-4c60-b7a5-8fc2b8bd7423")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f086b487-a15d-4239-b91a-cc0b7887d78e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "02aa2341-20ef-4443-8e3d-ee31faacd535")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ce998e1c-488b-4202-8b74-4749ec91f74c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Esr" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c61d4def-4b6c-4749-9200-1d9ae27d57db")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Capacitance" "100nF"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "62d9c041-745c-4183-9ef5-558822e99abb")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GCM155R71H104KE02J\", \"manufacturer\": \"Murata Electronics\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "53166d49-8e18-414b-93ee-78a363b97a7b")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8201,7 +8153,7 @@
 				)
 			)
 		)
-		(property "Value" "100nF"
+		(property "Value" "GCM155R71H104KE02D"
 			(at 0 1.16 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -8226,7 +8178,7 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "100nF"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -8243,7 +8195,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "4134b416-5abe-4c86-a257-ccb25d5fe89f")
+			(uuid "668d793b-56c3-4463-b188-5e911637bb88")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8251,11 +8203,11 @@
 				)
 			)
 		)
-		(property "prefix" "C"
+		(property "Prefix" "C"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "8df0d78e-aee8-4b18-8f30-27b9b730804f")
+			(uuid "8747c272-356b-4d69-a74d-e317b3a81a5a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8263,35 +8215,11 @@
 				)
 			)
 		)
-		(property "Package" "0402"
+		(property "Dielectric" "None"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "a9b258c3-07be-41d5-a97b-a2f2503aa737")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "C"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "4318f087-0b0b-46d9-b97b-60b0ba40bc72")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "ac940ba7-5208-4d43-a95a-ecd11d58da0c")
+			(uuid "d0feff47-2d5e-4d81-84b3-41b55c23b709")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8303,7 +8231,43 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "758c3d61-7e26-47e8-bb05-c65828c25d8c")
+			(uuid "ecb2a849-4188-458a-a2c0-4f4d748386db")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Esr" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5b82394c-a786-44f3-8e7d-c2c9a0de6d5d")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "63b2caa0-fd23-47a0-baca-1ee95eda4035")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GCM155R71H104KE02D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "15111145-b838-4ea2-b84a-40a10dcac70b")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8315,7 +8279,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "28a41c57-cbba-4f4d-aa26-3ae016cab1ed")
+			(uuid "3a85ce7b-a150-43a2-b5a4-dcfe83415449")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8323,11 +8287,35 @@
 				)
 			)
 		)
-		(property "type" "capacitor"
+		(property "Alternatives" "{\"mpn\": \"GCM155R71H104KE02J\", \"manufacturer\": \"Murata Electronics\"}"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "7003833b-55c4-41ac-a1bd-e6e827ddc7ba")
+			(uuid "7690e635-20f8-4a67-b578-73a35cd5e858")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "00801875-216b-4937-87e9-d7e50387df3f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3675044e-53eb-4efd-924d-d157b8ab4d57")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8494,7 +8482,7 @@
 				)
 			)
 		)
-		(property "Value" "150"
+		(property "Value" "ERJ-2RKF1500X"
 			(at 0 1.17 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -8519,7 +8507,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "150"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -8536,7 +8524,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "7aaaf342-a24e-48dc-9530-9f3686944888")
+			(uuid "8850b834-b5cb-47dd-8edc-440bbe9ae12d")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8544,23 +8532,11 @@
 				)
 			)
 		)
-		(property "Package" "0402"
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F1500X\", \"manufacturer\": \"Panasonic Electronic Components\"}"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "a4257d31-c446-4f59-8165-ccc12c2219c9")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "R"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "0f11b00a-816a-4855-97b6-4852d4febd02")
+			(uuid "3eeee842-44e9-4735-b927-030ce085279a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8572,7 +8548,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "bc7b8034-e83a-44a7-b427-5ccb196ba9a9")
+			(uuid "f2627fe2-ca98-4782-b962-705fbc11ea67")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8580,11 +8556,11 @@
 				)
 			)
 		)
-		(property "type" "resistor"
+		(property "Mpn" "ERJ-2RKF1500X"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "f51006dc-ecc2-40bf-9c9d-0e63b78d2157")
+			(uuid "ef2ce520-bc38-4878-9b82-a61ae8e19e2c")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8592,11 +8568,11 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+		(property "Manufacturer" "Panasonic Electronic Components"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "31c18bcf-decc-4b4a-a1d6-7985f8b70340")
+			(uuid "7fd3af2f-1e8d-4e45-a352-bb5f6351474e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8604,11 +8580,35 @@
 				)
 			)
 		)
-		(property "symbol_name" "R"
+		(property "Prefix" "R"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "02026135-76db-45a8-93f8-f84cfc26e998")
+			(uuid "6e544f58-72ef-4b31-a89e-354692ea2a5e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "8f03761f-3dc2-4507-9bb3-26e221929e0b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "590476db-6c0d-4d67-b288-2fc592dd5d85")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8620,7 +8620,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "54a24123-d972-47ad-827d-4ee2e200afe5")
+			(uuid "47182843-e796-49ee-8875-829bdd0d0901")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8829,7 +8829,19 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "a567026f-4c2b-4f8f-b075-30d8dcc376d2")
+			(uuid "b2e07178-16ed-46ee-8cc5-4e953f30a4f1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "913139e0-40fd-43fd-b75d-a4757dd52b76")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8841,7 +8853,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "8e25afac-4d7d-4f93-9cf9-6624598dea34")
+			(uuid "cd6b27a9-0408-4212-a068-72e4224961ce")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8849,47 +8861,11 @@
 				)
 			)
 		)
-		(property "prefix" "D"
+		(property "Clamping Voltage" "5.5V"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "5c9f0fe0-e84e-4f46-99c1-a22048afb7e8")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Io_capacitance" "0.5pF"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "0d4f4852-6932-43b2-84e9-8336ccf7f20a")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Clamping_voltage" "5.5V"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "9e111d49-f42d-442a-9752-a95b1f946773")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Esd_rating" "±30kV"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "a6daa58e-2421-41d7-a54d-00154fef6da7")
+			(uuid "dbe03c6d-b6ac-4aa1-a0b5-1b2fd70b3042")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8901,7 +8877,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "7b1ba761-6689-4f33-8a55-b09360b463ab")
+			(uuid "6b7db024-1896-4024-8170-67b49677acd8")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8909,11 +8885,11 @@
 				)
 			)
 		)
-		(property "symbol_name" "TPD4E05U06DQA"
+		(property "Esd Rating" "±30kV"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "7cd4c6fa-d7f1-41d3-8959-996b2ef07b0d")
+			(uuid "0e9bf788-2603-4993-b603-d77560e99539")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8921,11 +8897,11 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Power_Protection.kicad_sym"
+		(property "Io Capacitance" "0.5pF"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "506c4283-271c-4ad5-aabc-4235c0f53ec3")
+			(uuid "af00b3c5-6046-4fdb-a589-12fd14eaeb7d")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9178,7 +9154,7 @@
 				)
 			)
 		)
-		(property "Value" "10k"
+		(property "Value" "ERJ-2RKF1002X"
 			(at 0 1.17 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -9203,7 +9179,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "10k"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -9220,7 +9196,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "243f25d0-2527-4e77-826c-b1c3929fa9ed")
+			(uuid "d013db3d-38fd-491c-9dab-8274d2f4e0c1")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9228,11 +9204,11 @@
 				)
 			)
 		)
-		(property "Type" "resistor"
+		(property "Manufacturer" "Panasonic Electronic Components"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "418195ac-238d-468c-80d7-bb711030334b")
+			(uuid "05d147af-b41b-4015-9a63-b10a3918863a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9240,11 +9216,11 @@
 				)
 			)
 		)
-		(property "type" "resistor"
+		(property "Mpn" "ERJ-2RKF1002X"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "7f1ec2b9-d8da-4d14-a175-c3652dc19a9a")
+			(uuid "e32dcf2e-e0ca-47a4-bbef-724ba0b81ccd")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9252,23 +9228,11 @@
 				)
 			)
 		)
-		(property "Resistance" "10k"
+		(property "Voltage" "None"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "b450ca40-b509-4e29-b7b3-9b05b0053e95")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "bf8682ee-be70-4040-aa65-55a5ef0f2306")
+			(uuid "354dcef5-5b23-4832-b858-1d99bf63ec41")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9280,7 +9244,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "c41db031-ee50-4ae6-829c-e0f3ae94d5fa")
+			(uuid "11c5e4cd-9a8e-41c0-9431-2137a0fb59b7")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9288,11 +9252,11 @@
 				)
 			)
 		)
-		(property "prefix" "R"
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F1002X\", \"manufacturer\": \"Panasonic Electronic Components\"}"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "65b50375-fd19-4e84-a87d-37d1e3db244b")
+			(uuid "ec99b19b-e2cc-47ff-94e7-26b2920efbe9")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9300,11 +9264,35 @@
 				)
 			)
 		)
-		(property "symbol_name" "R"
+		(property "Prefix" "R"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "e30c11e7-a55b-417a-8f25-63d12096a734")
+			(uuid "33a50b48-706d-4d7b-ba10-8929649ddf8f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Resistance" "10k"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "0d29e477-56ce-4500-95a5-d8fb77ccf90b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b6482f2f-2d7f-454b-9989-bef4bda60f8d")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9471,7 +9459,7 @@
 				)
 			)
 		)
-		(property "Value" "10uF 10V"
+		(property "Value" "GRM188Z71A106KA73D"
 			(at 0 1.43 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -9496,7 +9484,7 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "10uF 10V"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -9513,7 +9501,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "d8b80605-dd72-4937-9e66-03447bb6135e")
+			(uuid "e1816aa6-47aa-4b7a-aa6f-299b7eb2d87a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9521,11 +9509,11 @@
 				)
 			)
 		)
-		(property "Capacitance" "10uF"
+		(property "Prefix" "C"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "ad9ec06c-5e32-4472-ba4b-48963a71aae9")
+			(uuid "bab9296b-88ab-4929-af86-41d2da91e47f")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9533,11 +9521,11 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+		(property "Dielectric" "None"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "a426b789-16bc-4ee5-b155-9e0156907c91")
+			(uuid "10bcf51a-7311-43ae-bc62-a20788623e4f")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9545,11 +9533,11 @@
 				)
 			)
 		)
-		(property "type" "capacitor"
+		(property "Esr" "None"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "45e32556-6a3d-4864-8d7d-02c0cb2b2d89")
+			(uuid "63ac9996-8406-4294-bbd5-1933bd0edc4f")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9557,35 +9545,11 @@
 				)
 			)
 		)
-		(property "Package" "0603"
+		(property "Alternatives" "{\"mpn\": \"GRM188Z71A106KA73J\", \"manufacturer\": \"Murata Electronics\"},{\"mpn\": \"GRM188Z71A106MA73D\", \"manufacturer\": \"Murata Electronics\"},{\"mpn\": \"GRM188Z71A106MA73J\", \"manufacturer\": \"Murata Electronics\"}"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "eb6a6d2b-54cf-4a49-a3d8-4666e6e25389")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "C"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "bdfe9cec-1428-42ac-8792-de32a7c3bfae")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "C"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "a234038c-557d-49fe-9877-6908136fb7a1")
+			(uuid "8dff58d9-8f1c-46c7-95f6-ea490579b673")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9597,7 +9561,43 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "0c8b2691-5da3-45d6-b78a-2aad5e6d4621")
+			(uuid "e7a2e52e-d549-4b56-bc88-b2ff3a5ed0f8")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Capacitance" "10uF"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "30ec4077-dcd1-4af6-adae-f7740b83e222")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0603"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "be54935f-7059-42f0-8789-e9a45bf6228d")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "bdb95a63-466f-4159-9589-6a0dd2f75028")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9609,7 +9609,19 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "8ee90714-7d38-4012-aada-4a70e3d2d4c3")
+			(uuid "868a9b46-5679-48da-85f6-eb5d43b6f135")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GRM188Z71A106KA73D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "65c8decf-3d3f-441c-9b26-caca0ee0654d")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9776,7 +9788,7 @@
 				)
 			)
 		)
-		(property "Value" "100nF"
+		(property "Value" "GCM155R71H104KE02D"
 			(at 0 1.16 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -9801,7 +9813,7 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "100nF"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -9818,7 +9830,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "fe12a256-c7b0-41de-b7b0-48408f6c3c01")
+			(uuid "01d86e9a-d86f-41a0-b51e-bdb6dbcad148")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9826,11 +9838,47 @@
 				)
 			)
 		)
-		(property "prefix" "C"
+		(property "Alternatives" "{\"mpn\": \"GCM155R71H104KE02J\", \"manufacturer\": \"Murata Electronics\"}"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "8f3757b5-ba64-4a0c-b0d3-a3b753c3ecf6")
+			(uuid "85ff3cfb-e62d-45f4-9379-4a19ff6637d0")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "db8ce109-6a8f-427d-814f-231e85baf98c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "511e271a-fcff-4236-beb5-467b20567248")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GCM155R71H104KE02D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5f80992c-5d6d-48cc-a49e-82e0ed3f35c5")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9842,7 +9890,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "69b60c4a-171b-4086-9a46-b14bee1c2e6f")
+			(uuid "6bb33a2d-d369-427b-8ca3-ad0be782b18e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9850,11 +9898,11 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+		(property "Esr" "None"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "33507aa2-0215-4d63-a278-d642c972b684")
+			(uuid "41e31861-0315-4285-84b7-339657246ff1")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9862,11 +9910,11 @@
 				)
 			)
 		)
-		(property "symbol_name" "C"
+		(property "Prefix" "C"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "15ee83cd-f05c-4d2d-b302-172366d7934b")
+			(uuid "ddbaec74-f1f4-45ba-8629-6f681cbf100e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9878,7 +9926,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "042151ef-2f6c-40f2-b2e4-688be08d086a")
+			(uuid "a79894ed-2039-4a58-b1e4-f07466d7460e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9890,7 +9938,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "07542e83-c6e8-4e03-ba87-2219f9515505")
+			(uuid "6df9bacd-6035-4701-add2-55936787eb07")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9898,11 +9946,11 @@
 				)
 			)
 		)
-		(property "type" "capacitor"
+		(property "Dielectric" "None"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "4d10f30f-997a-456b-b288-82bd6feda4ab")
+			(uuid "315cbc16-0c7f-4c3d-9ef5-ed604b4ff5de")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10069,7 +10117,7 @@
 				)
 			)
 		)
-		(property "Value" "100nF"
+		(property "Value" "GCM155R71H104KE02D"
 			(at 0 1.16 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -10094,7 +10142,7 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "100nF"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -10111,7 +10159,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "00eaf518-4ca6-44ef-9edf-551f036b5357")
+			(uuid "9a73b0e6-d766-4310-804d-0085397daf81")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10119,59 +10167,11 @@
 				)
 			)
 		)
-		(property "type" "capacitor"
+		(property "Mpn" "GCM155R71H104KE02D"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "06bdda4a-0265-4d71-aee9-ef70c0cb5abe")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "c8fc8457-4c96-4b5f-9345-02f1cbf45217")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "C"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "6a130ae0-63a2-4752-80a2-b86114882291")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "C"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "1bea16c4-7331-476c-a88c-f92ebc19bc59")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Package" "0402"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "68d2bf80-23eb-4a75-81d1-e3f05d5e376f")
+			(uuid "dbbf9292-61da-400e-9673-ded6e369442e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10183,7 +10183,31 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "484cb711-5dce-4b1c-9c68-46b99a53fdea")
+			(uuid "65d0d61a-df00-43c4-ac95-e00c19a0580a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f16288d2-8a07-4784-892d-0661a81bd284")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "25f0b3fa-8b27-4e03-b6db-43243e2452b7")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10195,7 +10219,67 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "8e80a3b7-ac5f-492c-83e6-73a78acc6588")
+			(uuid "efc63f19-06d6-45cf-98da-34769079c4b9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GCM155R71H104KE02J\", \"manufacturer\": \"Murata Electronics\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "06d4d4f0-3439-4450-bea0-d0d147d2fa75")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Esr" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e8fb3495-5db3-4fda-9d08-fe761975d9f3")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "54c38fad-816b-4820-9edc-3c678ee468ab")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ccf0486f-88cc-4016-8ac2-65e673fff79a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Dielectric" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e4d8c72f-12b4-4308-bf2a-cb9baa214d21")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10362,7 +10446,7 @@
 				)
 			)
 		)
-		(property "Value" "261"
+		(property "Value" "ERJ-2RKF2610X"
 			(at 0 1.17 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -10387,7 +10471,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "261"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -10404,7 +10488,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "45649adb-c71e-413f-ab1c-25a1a0c23798")
+			(uuid "cdbb4760-a87d-473c-afd3-f9dc2df9ea3e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10412,59 +10496,11 @@
 				)
 			)
 		)
-		(property "Resistance" "261"
+		(property "Voltage" "None"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "395592a1-e99e-4c88-86be-2614515cdb2e")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "R"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "7966c144-2c82-4824-b9ec-78913c0335df")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "bcc055fc-e5a7-4e03-9e14-4dda3e261414")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Package" "0402"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "37113e12-abe9-4f86-b328-2ddcf62add61")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "type" "resistor"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "6b752ac6-7d0c-43e6-8c2c-c74b4f0c74f5")
+			(uuid "f78d0316-303f-4923-be09-d008bc1d1bd3")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10476,7 +10512,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "c3fcf0f8-0941-461a-8225-c5611117d38a")
+			(uuid "14c62122-c945-4744-994d-383f7b1ea6af")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10484,11 +10520,71 @@
 				)
 			)
 		)
-		(property "prefix" "R"
+		(property "Manufacturer" "Panasonic Electronic Components"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "796e9aa6-7241-427d-bef8-df35b4dc0168")
+			(uuid "1696b0a7-f176-469c-b285-7ee5ae95dc6b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF2610X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1caa65f8-e5cb-43df-9f77-777d3e5d2058")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Resistance" "261"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "936d426f-c813-4087-941e-a57d509c6f71")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "543a8ab4-fec4-4b7b-90af-0aaa43959569")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3224bc10-4ce8-4718-a0da-7735843dd0a3")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F2610X\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d8199bf8-8a1b-4471-82fb-e55a624b28de")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10655,7 +10751,7 @@
 				)
 			)
 		)
-		(property "Value" "110"
+		(property "Value" "ERJ-2RKF1100X"
 			(at 0 1.17 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -10680,7 +10776,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "110"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -10697,7 +10793,19 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "c9734034-41f9-4e91-b9b0-3f789a6c7941")
+			(uuid "6c633a77-a1a7-424c-a645-f635ce08c057")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF1100X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "bba53b4a-2a66-4009-b3cb-d1cd438858f4")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10709,7 +10817,31 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "9b6ce4e8-0b52-4b78-b96a-c5a10af906b8")
+			(uuid "fa7ff9a9-8c1f-4c06-9c4b-573404e132de")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F1100X\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "18004326-20aa-4ee2-bee8-6e5731c84b0f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3c8e29d5-1c89-48af-9177-10d7113af95a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10721,7 +10853,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "1f63617a-bf27-4168-aa33-4f68f4bb55e3")
+			(uuid "82493e26-33bd-4d3a-8958-e8264f90ddfd")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10729,35 +10861,11 @@
 				)
 			)
 		)
-		(property "symbol_name" "R"
+		(property "Manufacturer" "Panasonic Electronic Components"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "e16856a1-ff61-4850-9964-5fd25939f95f")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "type" "resistor"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "7265fad8-1206-4c2b-a240-964792cf9a95")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "R"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "31b2053f-eb11-46d6-a8e1-3759ef6bee86")
+			(uuid "426422a8-632a-4267-a825-95efca8297ce")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10769,7 +10877,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "a83de019-7f0a-4c18-83c5-85029b46883d")
+			(uuid "bc5960f1-ac0f-4a62-bfe3-b828f2eb5eb2")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10777,11 +10885,11 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+		(property "Voltage" "None"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "31696a71-18f3-4f95-9eb9-0cf5d9f4c619")
+			(uuid "ad463b00-80b9-438f-b30b-52e6e59bb5a0")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10948,7 +11056,7 @@
 				)
 			)
 		)
-		(property "Value" "100nF"
+		(property "Value" "GCM155R71H104KE02D"
 			(at 0 1.16 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -10973,7 +11081,7 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "100nF"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -10990,7 +11098,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "c10230b6-b00a-4821-9cdf-75aef62737a4")
+			(uuid "05a3516c-5eef-4c08-9ae3-591b703bf3dd")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10998,71 +11106,11 @@
 				)
 			)
 		)
-		(property "type" "capacitor"
+		(property "Mpn" "GCM155R71H104KE02D"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "070b4fab-bd43-4bac-8025-8bcbae8c908a")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "C"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "043309c2-f69d-4a72-b265-3435321bae0c")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "8929f35a-300d-41d0-98e9-e67af17b3b01")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "C"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "98c5bb11-76e6-4e78-90f5-5574f57ae9dc")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Type" "capacitor"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "2977274f-7ff9-462a-9566-f14e4853b5ad")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Package" "0402"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "59e52b3f-513b-4d77-86f8-c230a4301ad8")
+			(uuid "30f4985f-c1db-43d8-bb79-7565c53f616b")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11074,7 +11122,103 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "d2b43a5c-ec7d-48f3-b8a4-95e61da1589f")
+			(uuid "2c1d965d-1b27-49b0-9238-f232d6d76d82")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "de00ba0a-faab-4449-9c15-87d035158764")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Esr" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f99cc0d6-251a-4cc3-895d-378d8660f557")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "cfa81823-f435-448a-bfae-3f2ecda04427")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f1a7dce9-a931-4aaa-86d9-3050a0ad4818")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Dielectric" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "4c4766bf-56fc-45b2-ad3d-d297e97567ca")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "0fe26e23-7b09-4d3f-9dbd-57126cceedcd")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e188066f-2c9f-4a94-9b9d-47b7e922d420")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GCM155R71H104KE02J\", \"manufacturer\": \"Murata Electronics\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "2cb3da42-362c-4739-931d-1095242c648a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11241,7 +11385,7 @@
 				)
 			)
 		)
-		(property "Value" "100nF"
+		(property "Value" "GCM155R71H104KE02D"
 			(at 0 1.16 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -11266,7 +11410,7 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "100nF"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -11283,7 +11427,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "77a8b5c7-b6ce-4627-86c2-3346b2ff71e2")
+			(uuid "8ccdf087-58b0-41da-a86f-cecae5c1f5bb")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11291,71 +11435,11 @@
 				)
 			)
 		)
-		(property "type" "capacitor"
+		(property "Mpn" "GCM155R71H104KE02D"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "262d97be-f2cf-42b3-a375-ca5e5cea0598")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Capacitance" "100nF"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "dc84b4e8-c86f-4aa9-a78b-892c236d6437")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Type" "capacitor"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "4ef27f24-fb2d-47c5-9c25-0bf8bfebe1f8")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "0a5069d6-af4d-488f-a59a-fe3755f5d8d5")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "C"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "8bb49280-7892-43a4-b973-4629c83e3b98")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "C"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "dfde79de-f420-4722-afbc-e052c5ad979d")
+			(uuid "6cfdf684-7262-4ae3-9776-24903e56439d")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11367,7 +11451,103 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "8dd82392-dc87-4b65-be6a-53d4beac1d54")
+			(uuid "32aae0b0-d1c2-4a62-9a03-db421f32911b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b96364e3-3b39-4422-9b45-3105c8a024ff")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Capacitance" "100nF"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ad894d9f-5291-436a-acba-7c39cdea2a88")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "70273c52-3b78-4d6d-bcf9-74b96dda2808")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e7f90aa1-09a7-4932-ba7e-b70919d842f8")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Dielectric" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "7484e679-6148-4744-ac69-4d20771b3ea9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Esr" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5019cc67-d3f3-4204-a2ff-d90ded2521fe")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GCM155R71H104KE02J\", \"manufacturer\": \"Murata Electronics\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "55d5a621-759e-41d8-8c4a-545e5916cd2f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "2b3974b6-dfa3-465f-acdf-e46daa4d2666")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11534,7 +11714,7 @@
 				)
 			)
 		)
-		(property "Value" "261"
+		(property "Value" "ERJ-2RKF2610X"
 			(at 0 1.17 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -11559,7 +11739,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "261"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -11576,7 +11756,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "17980a87-f493-406e-a014-762f095325e0")
+			(uuid "773a1e15-8fd9-4298-bdc1-4cb91f713ce8")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11584,11 +11764,11 @@
 				)
 			)
 		)
-		(property "Package" "0402"
+		(property "Manufacturer" "Panasonic Electronic Components"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "9874e8bd-fe5e-4bfc-9b59-cb8306605c90")
+			(uuid "6830ef5c-d8d1-418a-a432-65b23fd6d4f8")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11596,23 +11776,11 @@
 				)
 			)
 		)
-		(property "symbol_name" "R"
+		(property "Prefix" "R"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "010c6d15-f1ae-4598-a0f7-e57128aa0c82")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "type" "resistor"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "40721676-31ca-46f7-9346-617fa82a9f73")
+			(uuid "46c4e9be-1438-4f28-b59e-d3e2bba0f501")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11624,7 +11792,55 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "34992d0e-372f-45c9-8b42-d599f8b20659")
+			(uuid "e62e99e8-1979-49ed-8ca4-1c107c3d647f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1c57b0db-fefb-46c0-923c-a1f259bbb82e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "36bf7017-3cec-4c4a-8f5b-5c98d7efc61f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F2610X\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b64c3736-8266-4188-92ed-e860e554c020")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF2610X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "774cedb7-6205-4a4d-8a30-7b6d31466be2")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11636,31 +11852,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "feb8d73e-160b-415e-88b8-d8ae22a1dfc4")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "R"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "eda989fd-1e9f-4757-ade8-e877e8551804")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "69b8830d-2ed7-47c5-89d4-e23d95f03a8a")
+			(uuid "90cee3cd-6cd8-4b7d-81a9-97d316085543")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11827,7 +12019,7 @@
 				)
 			)
 		)
-		(property "Value" "Pad_D1.5mm"
+		(property "Value" "?"
 			(at 0 1.75 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -11869,31 +12061,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "a8456484-b826-4706-a480-152099d14ff4")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Exclude_from_pos_files" "True"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "977d862e-6354-484e-aa14-152a001fcc81")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "TP"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "8be6d5d2-6fd5-45b5-9057-7cddafcb7ae8")
+			(uuid "af1eded5-8ad4-4892-9e5a-dbaa9371bfc2")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11905,7 +12073,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "1c666db8-e975-4203-9844-451fd48ece38")
+			(uuid "c92a33f4-340f-40d0-8d29-2bc16700f6e8")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11913,35 +12081,11 @@
 				)
 			)
 		)
-		(property "symbol_name" "TestPoint"
+		(property "Prefix" "TP"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "7808c2c4-67a2-47e2-8795-739e7d45ef25")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Do_not_populate" "True"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "86c168af-e4eb-4354-b529-9800da04a075")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Connector.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "713705df-022a-4e95-bd4c-dc87a844a47a")
+			(uuid "f88c6f7d-82c4-4191-b831-ef4750521e53")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12010,7 +12154,7 @@
 				)
 			)
 		)
-		(property "Value" "100nF"
+		(property "Value" "GCM155R71H104KE02D"
 			(at 0 1.16 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -12035,7 +12179,7 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "100nF"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -12052,7 +12196,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "0c6c8f67-b6d4-4eb9-8e7f-363d3392b295")
+			(uuid "99196364-cb48-473b-97ae-079b985b1a67")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12060,47 +12204,11 @@
 				)
 			)
 		)
-		(property "symbol_name" "C"
+		(property "Voltage" "None"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "13ce3c28-f011-494b-978f-19e6cf47cced")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "C"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "8d8b98b0-118d-4b5e-82b5-0a0effe80477")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "type" "capacitor"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "157c0aaf-3a58-407e-a175-ea89aa04eb52")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Type" "capacitor"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "91d2b8bb-f20a-456f-a858-17da1038f548")
+			(uuid "2bdfdb5b-fb3b-41c0-98e0-a569115643f0")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12112,7 +12220,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "d2551b76-f1f2-4075-8cf6-e81cf0aa2e79")
+			(uuid "fa47ee39-74e9-4daa-8bfd-1facfd35fa39")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12120,11 +12228,47 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+		(property "Esr" "None"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "9692ea70-3080-4472-96cd-22b55624bf2c")
+			(uuid "7548e7e1-d7dc-43ac-8084-451af8218dc3")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GCM155R71H104KE02D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "4c866764-2a65-498c-9a13-0b2993366252")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5db2f8d1-a103-41ea-9276-aae98e54d50f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "dfede11d-ed53-4ddb-b0a2-98bd186572ac")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12136,7 +12280,43 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "632ce78d-f2bd-4891-9993-f55b999c94f0")
+			(uuid "50f31cf6-51b1-4601-8374-d531c715394c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Dielectric" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "6e4ccc78-9ff7-4dbb-93cf-e90aac667273")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GCM155R71H104KE02J\", \"manufacturer\": \"Murata Electronics\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "fb76d0ee-e8d5-4e8e-ab94-9872264a2003")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "0adb619d-8a72-402b-aafd-559027e28ed8")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12303,7 +12483,7 @@
 				)
 			)
 		)
-		(property "Value" "100nF"
+		(property "Value" "GCM155R71H104KE02D"
 			(at 0 1.16 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -12328,7 +12508,7 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "100nF"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -12345,7 +12525,31 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "16f07be5-f3a1-4d14-ace2-204e6f6d7fe9")
+			(uuid "b650c21f-9a71-478f-a8b7-f9786cb5be7f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Esr" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "785017d7-8ecf-4c37-9e66-1b92084469dd")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "67e3965a-ea09-480a-82bf-1a29dd21b33b")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12357,7 +12561,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "3251fe9e-e9c2-478c-94ac-123523d7a1a5")
+			(uuid "e0e18ac8-b692-4210-9bd9-2a8228b5b015")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12365,59 +12569,11 @@
 				)
 			)
 		)
-		(property "symbol_name" "C"
+		(property "Prefix" "C"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "9f9a0b1a-fb50-49ab-8497-5e14c22ead33")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Type" "capacitor"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "ad5d2644-b893-49cf-bd7d-eacaff948c16")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "C"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "e62c6bc2-c558-4e0a-b8b7-73f8ae270e1f")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "3dfa6b36-315a-47cc-b714-2780bb04ea78")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "type" "capacitor"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "422909a1-f559-4bdb-a767-e0e2c31b0bd8")
+			(uuid "8d5e195d-e05b-4833-b570-168492bacde6")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12429,7 +12585,67 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "0c503064-624a-4a04-936f-87a5d0a5ec77")
+			(uuid "3431987a-4bae-440d-90c7-931f62290313")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GCM155R71H104KE02J\", \"manufacturer\": \"Murata Electronics\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "4510e9a9-0cd2-4ddf-b390-8e7c32a95a82")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "8376fdc4-2c60-4179-9cb7-9fad662dd4ba")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GCM155R71H104KE02D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "044c1599-271c-44d0-bd9f-b70a9fad8c9b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Dielectric" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3ad8f3ff-a489-4e16-a6d9-549b2d7614e7")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b7d5f8f4-3c00-4705-a1d1-b66b33f4ede6")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12623,7 +12839,7 @@
 				)
 			)
 		)
-		(property "Description" "USB 2.0-only 16P Type-C Receptacle connector"
+		(property "Description" "USB-C Receptacle USB2.0 16P Top Mount Horizontal"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -12640,7 +12856,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "6a3ddd1b-49ea-4ce0-8ba3-d5834e7cbb76")
+			(uuid "71846384-46dd-47f6-bbf0-89c475e079e7")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12648,11 +12864,11 @@
 				)
 			)
 		)
-		(property "prefix" "J"
+		(property "Mpn" "USB4105-GF-A"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "a8262c72-0d22-4d5c-b030-74a6ee92807b")
+			(uuid "161935be-4b3a-482b-82d4-809e0dda3274")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12660,11 +12876,23 @@
 				)
 			)
 		)
-		(property "Lcsc" "C3020560"
+		(property "Prefix" "J"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "dc8c6e46-8f2d-4013-986b-fc9f90090df0")
+			(uuid "c8b7ed51-efd9-402e-97b4-78605a056957")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Connector Type" "USB-C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "26edb88b-5c2c-4f07-adf9-842025f9f734")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12676,7 +12904,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "18c37c09-2460-42f3-8b74-5fb2dd3b5b69")
+			(uuid "e95d24e7-79c5-4bf9-ae2f-1b62d6af2b2a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12684,71 +12912,11 @@
 				)
 			)
 		)
-		(property "Usb_version" "2.0"
+		(property "Usb Version" "2.0"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "d3cbbf8c-af1a-42ee-a1f3-dc89c1cb217c")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Connector.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "b257f5e1-e304-40ee-a65f-6cd8c61bdb3d")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Connector_type" "USB-C"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "fe4c1687-7127-4484-9b01-33830b195fea")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "USB_C_Receptacle_USB2.0_16P"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "c08ddd55-8bf2-4423-a860-02239267fa85")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Mode" "device"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "9221bbf2-7e74-4c89-8539-6dfcd8130287")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "mpn" "USB4105-GF-A"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "9bbb7120-7150-44a1-ac0f-d8e08ae795ad")
+			(uuid "c6f4b24f-7612-4ee9-b23e-b4a3234213e3")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12838,14 +13006,14 @@
 			(at -2.89 -2.605 180)
 			(size 0.65 0.65)
 			(drill 0.65)
-			(layers "F&B.Cu" "*.Mask")
+			(layers "*.Cu" "*.Mask")
 			(uuid "55160af9-049f-4207-903d-10fe4c33ea43")
 		)
 		(pad "" np_thru_hole circle
 			(at 2.89 -2.605 180)
 			(size 0.65 0.65)
 			(drill 0.65)
-			(layers "F&B.Cu" "*.Mask")
+			(layers "*.Cu" "*.Mask")
 			(uuid "217ec58b-bd2c-4c8d-bb82-bf07bd0c2d50")
 		)
 		(pad "A1" smd roundrect
@@ -13046,7 +13214,7 @@
 				)
 			)
 		)
-		(property "Value" "261"
+		(property "Value" "ERJ-2RKF2610X"
 			(at 0 1.17 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -13071,7 +13239,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "261"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -13088,79 +13256,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "23110dba-927c-447d-af35-6f6c545a3226")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "9a94c20a-13b4-4e62-8531-97464f7f838a")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "R"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "d58a2a86-eff6-4990-aaea-927d5270c98e")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "R"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "0fc60ff1-ed90-4adb-b510-866b35987b99")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Package" "0402"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "1147ac21-d365-4f0c-9db6-dc86e4e3c932")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "type" "resistor"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "644546c5-7dc8-4526-866d-026b2d17428f")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Type" "resistor"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "afac0f51-649d-436a-afc3-0b994fce4a84")
+			(uuid "1ee8853e-8638-4f22-af41-83da5293740a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13172,7 +13268,91 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "b9191aba-3ccf-45c3-9ef1-bde1a9e9a4bd")
+			(uuid "2b1a2313-be32-439d-8949-982507b484a9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF2610X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "92bfa863-da91-4213-a580-87dfb49aabcc")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "21a4e41a-81a7-4582-a89b-f8768c094055")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "20d3b380-de99-43e3-82e0-ccb9a3cf339d")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "65312b44-1368-4ce2-92c7-2949f90d7a4b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F2610X\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "364f652d-b31e-4ac8-93ab-73cc13b7e7df")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "356d974e-f32d-4793-8e03-688e68542c14")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Electronic Components"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f9756418-70aa-4328-8d04-d7b2661c7566")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13339,7 +13519,7 @@
 				)
 			)
 		)
-		(property "Value" "1.27mm 5x2"
+		(property "Value" "1.27mm 5x2 Vertical"
 			(at 0.635 6.775 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -13364,7 +13544,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, double row, 02x05, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)"
+		(property "Description" "1.27mm 5x2 Vertical"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -13381,19 +13561,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "5488e1d5-0e54-4c18-b128-f24157707045")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Orientation" "Vertical"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "53d9db3f-ce7d-41d2-834b-ad6e19c51bb4")
+			(uuid "51605364-ca7e-4e66-a1d4-85e851d6c167")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13405,7 +13573,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "5d251b78-0614-497f-8dfa-e13779768f90")
+			(uuid "a43681bb-c800-4efc-bc4f-0513e5fa5f7a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13413,11 +13581,11 @@
 				)
 			)
 		)
-		(property "prefix" "J"
+		(property "Rows" "2.0"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "32e52d20-9147-40a3-bc9c-1b93705ad2e5")
+			(uuid "6270afb0-5c30-4c57-8e3c-e9cda0304b92")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13425,11 +13593,11 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Connector_Generic.kicad_sym"
+		(property "Pins" "5.0"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "90b2307f-35ab-456c-b1b0-70788a94338c")
+			(uuid "b4ff4c99-0675-45e6-b418-75bfacd23e48")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13437,11 +13605,11 @@
 				)
 			)
 		)
-		(property "symbol_name" "Conn_02x05_Odd_Even"
+		(property "Orientation" "Vertical"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "c2d47f81-025c-46ec-b872-dd81666ab99e")
+			(uuid "df25a4f3-6c55-4142-81e7-0c60d5da404b")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13449,11 +13617,11 @@
 				)
 			)
 		)
-		(property "Rows" "2"
+		(property "Connector Type" "Pin Header"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "62a47530-538e-4b8b-b83a-ac67f2e1c48f")
+			(uuid "48151718-443d-441c-8f31-9965125d6a79")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13461,11 +13629,11 @@
 				)
 			)
 		)
-		(property "Pins" "5"
+		(property "Prefix" "J"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "613e7eb6-9b5b-4585-9a9d-6c1ff26c2beb")
+			(uuid "763a8d2a-f2ef-4a13-a0b9-7ef50d555b09")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13826,7 +13994,7 @@
 				)
 			)
 		)
-		(property "Value" "27"
+		(property "Value" "ERJ-2RKF27R0X"
 			(at 0 1.17 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -13851,7 +14019,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "27"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -13868,7 +14036,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "a48104d0-13df-4074-a05f-8f69e352737a")
+			(uuid "7fc5ed89-a6bd-4597-94b3-d53a26088174")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13876,11 +14044,11 @@
 				)
 			)
 		)
-		(property "prefix" "R"
+		(property "Mpn" "ERJ-2RKF27R0X"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "aa7cb7eb-b01d-4396-896d-6a8e446db20a")
+			(uuid "cdc700f0-5c26-4b33-8d78-c2e2b905aca1")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13888,11 +14056,11 @@
 				)
 			)
 		)
-		(property "Type" "resistor"
+		(property "Manufacturer" "Panasonic Electronic Components"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "b62da75f-323b-4e19-a445-4ebcb5c5144f")
+			(uuid "838ff081-391b-4ae6-bd11-f418c1e87a3c")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13900,11 +14068,11 @@
 				)
 			)
 		)
-		(property "Package" "0402"
+		(property "Prefix" "R"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "b5cf3ae1-588c-40d1-9a19-5dfd2eeff3e3")
+			(uuid "47997fe5-21e5-480a-a3c7-e225dddc4ff7")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13912,11 +14080,11 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F27R0X\", \"manufacturer\": \"Panasonic Electronic Components\"}"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "890f3e5f-2eef-4c07-96e2-a5afee2cce4a")
+			(uuid "bfb884c6-e793-4dc4-a698-b46fe1fd0898")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13924,11 +14092,11 @@
 				)
 			)
 		)
-		(property "type" "resistor"
+		(property "Voltage" "None"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "fecae3a4-be02-4f6a-961c-4cc21434285a")
+			(uuid "1d94806f-dc4f-4f04-8c40-cc5a255b80b9")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13940,7 +14108,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "9a3d941f-9f59-44a9-a6a8-e8b8276881b6")
+			(uuid "b84d3095-cebf-44fd-a8a5-856a3325d484")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13948,11 +14116,23 @@
 				)
 			)
 		)
-		(property "symbol_name" "R"
+		(property "Type" "resistor"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "a01eb42a-cece-4719-92c8-5867fdc70733")
+			(uuid "4d925232-3053-4f41-ac7c-c2341ef1df98")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b381d0c1-c461-42e7-8c0f-68ea75bf3a43")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14119,7 +14299,7 @@
 				)
 			)
 		)
-		(property "Value" "100nF"
+		(property "Value" "GCM155R71H104KE02D"
 			(at 0 1.16 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -14144,7 +14324,7 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "100nF"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -14161,19 +14341,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "3b87eb1c-b385-4dca-954a-077c34350e1e")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Capacitance" "100nF"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "ee7422d5-f242-4758-939b-7bf073a07017")
+			(uuid "75cacd20-0354-445f-8bca-bca86312ba33")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14185,7 +14353,19 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "982aade9-76a4-4a74-9496-9c60f38c48c6")
+			(uuid "f1c3d059-bd0a-4ec2-ae77-46963c1d4d2a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Capacitance" "100nF"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "253b1c9b-9592-4b05-bf8b-db0e13b4344e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14197,7 +14377,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "43ba84a3-a8a0-424b-a444-acc37f827f4f")
+			(uuid "3dc7888e-be6f-453d-be0e-89c0fe7516bd")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14205,11 +14385,11 @@
 				)
 			)
 		)
-		(property "type" "capacitor"
+		(property "Esr" "None"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "1abbb267-5ea9-4559-9786-69bab0f11d58")
+			(uuid "68d64f34-46e9-4eca-a28b-98abe04776b0")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14217,11 +14397,11 @@
 				)
 			)
 		)
-		(property "prefix" "C"
+		(property "Alternatives" "{\"mpn\": \"GCM155R71H104KE02J\", \"manufacturer\": \"Murata Electronics\"}"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "f4f736c2-6bcb-4214-ad22-a885ed240dec")
+			(uuid "09166a31-fd99-40ba-b586-7119831fa3e8")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14229,11 +14409,11 @@
 				)
 			)
 		)
-		(property "symbol_name" "C"
+		(property "Dielectric" "None"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "7ce1850f-5d91-49d2-b841-e77cd6a14b54")
+			(uuid "cd23f9e4-3c73-449c-94c2-cab60a5b1002")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14241,11 +14421,47 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+		(property "Mpn" "GCM155R71H104KE02D"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "8afda0b1-8831-499d-917f-b76263cd3b7c")
+			(uuid "06a9bd47-d706-4900-8f65-1c8b28e13357")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5d3fdc75-5991-4e08-8ba9-0c3c920f77fc")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "6ed96161-871e-4358-a747-6e4c9f09fc5d")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "40518daf-249b-4c17-9721-8764268ac6c5")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14437,7 +14653,7 @@
 				)
 			)
 		)
-		(property "Description" "Light emitting diode, small symbol, filled shape"
+		(property "Description" "LED BLUE"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -14454,7 +14670,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "a311594e-b371-46a6-80b1-78ad9deddc5f")
+			(uuid "7e4e12b7-8228-48b2-9f2f-6f8445f31b03")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14462,95 +14678,11 @@
 				)
 			)
 		)
-		(property "Mpn" "VLMB1500-GS08"
+		(property "Prefix" "D"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "522febf9-72f2-476e-bd61-b90ac1fca570")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Forward_voltage" "2.8V"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "7238f6b6-10b0-45c3-9616-3e6ee3264c9e")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Color" "blue"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "6ce8dfc4-10bb-48b4-956f-b01e4abb49ed")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Package" "0402"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "55b1b095-f120-48aa-b00c-78dcc494cd17")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Forward_current" "4.545454545454545mA"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "9294d1b2-2f19-434a-9b4e-bbe447a5c73c")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "LED_Small_Filled"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "5f153d1b-669c-45ec-869d-ebbbe223c740")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "343f6667-1015-4e6d-bb14-0eacdab55cb6")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "D"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "dc8608ae-4b61-4939-81fa-cab986110833")
+			(uuid "70395649-50d6-4e53-85e2-4b374b14d4f3")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14562,7 +14694,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "33ea90a0-35d4-4843-be53-3dbf864af379")
+			(uuid "64eb6c8c-aa94-4e74-aaf7-d039d27a1284")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14570,11 +14702,59 @@
 				)
 			)
 		)
-		(property "type" "led"
+		(property "Color" "blue"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "a6168995-38aa-4a3e-9921-370eaa8dee58")
+			(uuid "6b2df719-0bad-41ae-9108-fd89ca239ef3")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Forward Current" "4.545454545454545mA"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "07352691-15ad-43a6-8d8f-fa7b6bdfca92")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Forward Voltage" "2.8V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "79adcfe0-3ab9-40c7-850f-1fbee9ea63a8")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "VLMB1500-GS08"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "59688e47-9c8b-47e0-bd60-749ef25d8869")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "0b6bcf89-4be1-4e1e-a402-ac8b215514c5")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14776,7 +14956,7 @@
 				)
 			)
 		)
-		(property "Description" "16Mbit / 2MiB Serial Flash Memory, Standard/Dual/Quad SPI, 2.7-3.6V, SOIC-8 (208 mil)"
+		(property "Description" "FLASH - NOR Memory IC 16Mbit SPI - Quad I/O 133 MHz 6 ns"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -14792,19 +14972,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "e2b7ce15-511a-48f6-8f9a-8737e1af4f32")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "W25Q16JVSS"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "07709472-1e49-4caf-a33b-c3a320e00c21")
+			(uuid "7a8ea552-bc6b-4568-af3f-5b91eee812f2")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14816,7 +14984,31 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "898413d6-1d56-4c35-95c9-a6bc6b888bda")
+			(uuid "28315605-901e-42a9-a94b-3ce8a297290c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "U"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "dbef1764-5077-47bf-94f5-d41e017258c6")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "W25Q16JVUXIQ"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "fa9baf42-7972-40a5-ba5f-1b2b50f08254")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14828,55 +15020,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "dca2af25-9072-4f5a-bba8-54d4542eea4a")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Lcsc" "C2843335"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "462a2a9a-04c4-4450-9291-8252f063e0c1")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "U"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "ae318da3-2640-4b28-8b27-5960519cdea5")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "mpn" "W25Q16JVUXIQ"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "fdf27b2e-abbc-4bb6-bfa1-c5aca8381ac7")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Memory_Flash.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "3424c058-34d1-4020-adc9-2e254c8c943d")
+			(uuid "7d61a50b-0c28-43ec-a9eb-ab11556b44fd")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15153,7 +15297,7 @@
 				)
 			)
 		)
-		(property "Description" "HCMOS Clock Oscillator"
+		(property "Description" "32.768kHz Crystal Oscillator"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -15170,7 +15314,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "49e1dea6-2cbe-49e0-a192-e619163c9223")
+			(uuid "93e17118-6445-43d2-a637-f10c5dfedf4d")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15178,83 +15322,11 @@
 				)
 			)
 		)
-		(property "Package" "4-SMD (2.5x2)"
+		(property "Mpn" "SG-210STF 12.0000ML0"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "c268ca59-8deb-4f8b-ab8a-87981c28fe79")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Type" "XO"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "d85b7dc3-233e-45d2-9ae7-6c30acc20c2e")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "EPSON"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "853d6acf-fd1a-47f4-9de3-420859616b1b")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Oscillator.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "cdccf5fd-ecbc-4bfc-aa03-471c3be85a5e")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "XO32"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "00a19286-03be-44a5-a441-ecd33cdd3e7b")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "mpn" "SG-210STF 12.0000ML0"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "892e34bd-9664-4362-8abc-9dd8cd56a3db")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "U"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "25640e12-a5b0-428e-921b-4b9b2ac9cc55")
+			(uuid "e9a8b08f-1b2b-4d73-a4b0-dfc843a8d398")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15266,7 +15338,55 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "65b14063-8728-4e5a-af09-8b90c0d8344e")
+			(uuid "e3001565-9b0a-4697-900f-f1013763151e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "EPSON"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "afdebb91-ff9c-4167-932a-8fe46fd48280")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "XO"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "bc05858c-f3e8-4f22-ac3e-ab0fa4428899")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "4-SMD (2.5x2)"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "62b97993-8883-440f-9f0e-e6a0dc723810")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "U"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "47936993-9f3b-4e0c-9fde-f19d5c81bfaf")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15538,7 +15658,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "54925525-d467-43aa-9913-3d04f49a639a")
+			(uuid "bbad8944-172f-48b3-9a82-62872b5f0293")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15546,11 +15666,11 @@
 				)
 			)
 		)
-		(property "prefix" "TP"
+		(property "Prefix" "TP"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "eefe3154-d7d7-49ea-9303-b652b1e582fa")
+			(uuid "ab689e16-8fc5-4539-9f1b-274595a6b996")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15559,7 +15679,7 @@
 			)
 		)
 		(path "/544dc57c-baa2-5168-99a1-10f1e2971422/544dc57c-baa2-5168-99a1-10f1e2971422")
-		(attr board_only exclude_from_pos_files)
+		(attr board_only exclude_from_pos_files exclude_from_bom dnp)
 		(fp_poly
 			(pts
 				(xy 0.427783 -1.311049) (xy 0.541801 -1.26736) (xy 0.674214 -1.188722) (xy 0.866847 -1.05948) (xy 0.874408 -0.612297)
@@ -15622,7 +15742,7 @@
 				)
 			)
 		)
-		(property "Value" "10k"
+		(property "Value" "ERJ-2RKF1002X"
 			(at 0 1.17 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -15647,7 +15767,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "10k"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -15664,7 +15784,55 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "0e2b0c37-48bf-46a8-8610-4032b77eb9bb")
+			(uuid "4b396ea7-9060-4d1b-a959-31b01087a3a9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Electronic Components"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "37076da0-094a-460b-ad90-c2077b831fdd")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F1002X\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "637bda8b-a3c0-4f11-a65a-a28a68369902")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "20cbab73-199e-4da1-8cb5-ee8d8a8c4762")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f2343e2b-1002-449f-9717-14911f17fa66")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15676,67 +15844,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "7299dfd1-38b9-4825-811a-e196d5779723")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "R"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "20edf77d-4f12-435a-8c9d-65ee82f69600")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "type" "resistor"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "e5d64f66-6cdf-456a-a1fe-703db230abcf")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "R"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "83c80c58-945d-4376-8357-54722b086b8f")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Resistance" "10k"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "8f7e7d8f-bb3b-4d32-96de-dd4836ff46ba")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "5bf5e110-7b7b-43a0-af50-b969307ac30c")
+			(uuid "2384046c-9c73-4924-84cb-3b90ad7d92a1")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15748,7 +15856,31 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "9311ea83-3e9c-4807-91eb-e40dec075d54")
+			(uuid "b782c41b-2f5e-4327-b47d-b29785de2664")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Resistance" "10k"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "193f59fa-84ee-48db-826d-13eb2274eda9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF1002X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "33f11feb-700f-42d9-a1e7-fc1adbdddfd4")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15915,7 +16047,7 @@
 				)
 			)
 		)
-		(property "Value" "47k"
+		(property "Value" "ERJ-2RKF4702X"
 			(at 0 1.17 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -15940,7 +16072,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "47k"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -15957,19 +16089,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "61886240-5b76-4896-8341-a586f43e0a06")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Resistance" "47k"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "2499155b-12bf-4f7f-953b-62f43f46d91e")
+			(uuid "2b9703d0-b60c-4f50-9105-778b86bcfb78")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15981,7 +16101,19 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "557cd655-ee7b-4266-8b8b-11733b0a5f20")
+			(uuid "de9bd32d-ff5c-4619-95ed-6a7c7889b854")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF4702X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "64db70d2-daf9-47eb-91a9-72b2b2d490ef")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15993,7 +16125,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "d079bcaf-254a-42e4-b3e1-ab29ae547125")
+			(uuid "0fbda7a6-244a-4d1b-8960-064c471a0b10")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16001,11 +16133,11 @@
 				)
 			)
 		)
-		(property "type" "resistor"
+		(property "Resistance" "47k"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "ebb28cfb-96db-432c-b538-8e0a0d9b7d4d")
+			(uuid "4ff4f40e-4c32-4924-8184-398550613750")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16013,11 +16145,11 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F4702X\", \"manufacturer\": \"Panasonic Electronic Components\"}"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "1e79d793-5bda-43c5-adfd-4f05ccd77afd")
+			(uuid "b99a360d-d4a5-4837-a867-86e8655790d3")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16025,11 +16157,11 @@
 				)
 			)
 		)
-		(property "prefix" "R"
+		(property "Manufacturer" "Panasonic Electronic Components"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "427b90c6-3081-4f10-bbb3-33b8a3552881")
+			(uuid "d6e175ea-9183-4b8b-a1fe-6e42d73b80d0")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16037,11 +16169,23 @@
 				)
 			)
 		)
-		(property "symbol_name" "R"
+		(property "Voltage" "None"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "371358fd-88de-4301-bed5-e2c10f489d31")
+			(uuid "092f5a00-6655-4252-95e8-8846bbe21a98")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a54d06f2-150b-46b1-bd01-77d19922b39f")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16208,7 +16352,7 @@
 				)
 			)
 		)
-		(property "Value" "33k"
+		(property "Value" "ERJ-2RKF3302X"
 			(at 0 1.17 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -16233,7 +16377,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "33k"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -16250,7 +16394,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "a0b0894d-7a34-4532-9b2a-2594c873d4e7")
+			(uuid "b6bed490-18db-4966-ae1b-0d584e9485f1")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16258,35 +16402,11 @@
 				)
 			)
 		)
-		(property "Resistance" "33k"
+		(property "Mpn" "ERJ-2RKF3302X"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "bc41d2cd-cc02-4fb5-a6b1-5e550ff811f7")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "cda4ea8a-9550-4c97-bf65-ffd82580a9f0")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "R"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "dff1dc38-0fab-4119-8828-9d19656fd454")
+			(uuid "68be7803-c1b2-45cc-ac7c-20cc89c06285")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16298,7 +16418,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "0f1c5cb9-ff9d-44fe-b155-54bc9fbe94cc")
+			(uuid "d982be74-676d-4fdc-b6f3-efb54c475c91")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16306,11 +16426,11 @@
 				)
 			)
 		)
-		(property "prefix" "R"
+		(property "Resistance" "33k"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "2fe2ba9f-43ad-4ca2-bc41-89a259c32582")
+			(uuid "ebfd9834-9f17-498d-8936-7733c14873f4")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16318,11 +16438,35 @@
 				)
 			)
 		)
-		(property "type" "resistor"
+		(property "Manufacturer" "Panasonic Electronic Components"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "224807af-9a45-4228-bc6b-6f53b82c28b1")
+			(uuid "f84217ab-d5ea-4799-ab7f-4aafba07dff9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F3302X\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "6972384d-1019-4331-b966-c17f17cdc84f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a02b6c02-1282-4cb9-a58d-2367ad58e9e8")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16334,7 +16478,19 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "d36451e0-db93-486d-873d-361455652387")
+			(uuid "68109547-2521-449f-a517-77bf47e7637c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "da7626ff-4a5f-4614-b303-04f7fc5472ec")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16501,7 +16657,7 @@
 				)
 			)
 		)
-		(property "Value" "5.1k 5%"
+		(property "Value" "ERJ-2RKF5101X"
 			(at 0 1.17 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -16526,7 +16682,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "5.1k 5%"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -16543,7 +16699,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "956a03e3-7d00-49fb-9022-d8809369cf0f")
+			(uuid "4580b45f-b811-47d0-94d5-82833bd4fb91")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16551,11 +16707,11 @@
 				)
 			)
 		)
-		(property "type" "resistor"
+		(property "Mpn" "ERJ-2RKF5101X"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "e630e303-6c9a-48a7-b86b-3c98e2e4dcc8")
+			(uuid "a5f3473e-989b-4998-9714-ee379a5764f6")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16567,31 +16723,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "298c088b-14e9-43d1-ad21-adf48a857cc1")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Resistance" "5.1k 5%"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "918ae722-fb81-4450-8f7d-a37dc42eb165")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "5309b156-edd2-47f2-a872-d99998ded865")
+			(uuid "0438b22c-3ecc-415b-9051-c75ccc2a6ca8")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16603,7 +16735,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "5cc9001e-b965-4641-a86e-2d99a079832e")
+			(uuid "7fa5d66a-b1b7-490b-a02d-3734bf5e37b1")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16611,11 +16743,11 @@
 				)
 			)
 		)
-		(property "prefix" "R"
+		(property "Voltage" "None"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "2b9767b3-c91c-4ef9-b9c0-85b16315cdd5")
+			(uuid "24fb90d7-ddb8-4a08-9d28-83e87fa0f810")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16623,11 +16755,47 @@
 				)
 			)
 		)
-		(property "symbol_name" "R"
+		(property "Resistance" "5.1k 5%"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "b4ec0d6e-8e1e-4633-87d6-9768c45f577c")
+			(uuid "cb7de6b1-1600-494f-9126-02ab127fbe0b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F5101X\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "9165539c-90d2-4f85-aa3d-dd7c59df79b8")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "33d80f14-2b6c-48b8-8e7d-448c6fff58cb")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Electronic Components"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "af9625a2-48c3-486b-85c4-84bb9fe27a47")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16794,7 +16962,7 @@
 				)
 			)
 		)
-		(property "Value" "10k"
+		(property "Value" "ERJ-2RKF1002X"
 			(at 0 1.17 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -16819,7 +16987,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "10k"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -16836,7 +17004,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "ef72649d-d853-4816-8647-de97c36dfc99")
+			(uuid "6f5f04d1-a2cd-434e-b5ad-6cc3beb5e55d")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16844,11 +17012,11 @@
 				)
 			)
 		)
-		(property "type" "resistor"
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F1002X\", \"manufacturer\": \"Panasonic Electronic Components\"}"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "54f7fc8e-a2f8-46ca-a7c1-6f50f2d4025b")
+			(uuid "253cb216-be08-4a18-a235-548572c12360")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16860,7 +17028,31 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "44ef1a60-e822-453c-91e7-26b19adc4bc1")
+			(uuid "26a594f7-7bd7-4822-bfa6-0877e947759a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF1002X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "0d02703d-72bf-48a3-bc11-d9b749d2067e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "0ef5774a-f787-468d-93a0-95d0b640b310")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16872,7 +17064,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "cc9e76ee-9d1b-469e-a0a0-afcce63ff73e")
+			(uuid "a256c062-03ec-4b13-a02b-6d69bc963b5d")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16880,23 +17072,11 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+		(property "Manufacturer" "Panasonic Electronic Components"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "2736738c-a7f7-44b9-be6b-fbb79e77f4eb")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "R"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "deef00bb-0604-4cee-b007-5fb0bd9a92fd")
+			(uuid "af2bd9a3-8b55-4b6b-9bae-f7a8f08cfb1b")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16908,7 +17088,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "12fffb68-361c-472c-ab92-da62e1d2f355")
+			(uuid "d67232a0-47f6-4138-853c-d31a1549c884")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16916,11 +17096,11 @@
 				)
 			)
 		)
-		(property "symbol_name" "R"
+		(property "Prefix" "R"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "901e4d48-c4e0-4cce-8ebd-40344847ff3d")
+			(uuid "38238e24-0e9b-4038-983b-d7a7d477806f")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17087,7 +17267,7 @@
 				)
 			)
 		)
-		(property "Value" "10k"
+		(property "Value" "ERJ-2RKF1002X"
 			(at 0 1.17 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -17112,7 +17292,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "10k"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -17129,7 +17309,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "6b60afc2-1cb2-4076-946b-8e669d7456fe")
+			(uuid "59767b01-2656-41fc-81cd-61044cb656c6")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17137,11 +17317,11 @@
 				)
 			)
 		)
-		(property "type" "resistor"
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F1002X\", \"manufacturer\": \"Panasonic Electronic Components\"}"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "eb298568-2eb9-4a83-9499-4321efc5c328")
+			(uuid "723f93fa-9be7-4b40-a057-45611661888b")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17153,7 +17333,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "7d4754a9-614b-4dbf-bc23-189c0e639300")
+			(uuid "79f68610-a32e-4db6-87cf-bd223a42a754")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17161,47 +17341,11 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+		(property "Voltage" "None"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "b73ba3b5-61b0-450e-a5d4-b2493e2fce06")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "R"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "b4ddf6c7-3876-4d31-9eb5-9c25b02462fc")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Type" "resistor"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "3c3b15a4-b276-40c8-8c8c-db6520201354")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "R"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "3e3d7022-ec15-47c4-905a-0876d8063b46")
+			(uuid "9a59a7bf-bf0b-44dd-8ae8-f9a01f014295")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17213,7 +17357,55 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "79f4cd01-aaa0-4422-9076-ce2a5892fd9b")
+			(uuid "00570ce8-efde-472a-a584-4f0c26440f3e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "634921ae-9280-4e8c-8317-f865cfff0012")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Electronic Components"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c5e8fab9-99bd-49da-8865-704bbc03bd65")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "26c3cafb-45de-49b4-9d57-b792759452f4")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF1002X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "6adbe178-281a-4e29-9000-388e82f77bd8")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17380,7 +17572,7 @@
 				)
 			)
 		)
-		(property "Value" "47k 1%"
+		(property "Value" "ERJ-2RKF4702X"
 			(at 0 1.17 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -17405,7 +17597,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "47k 1%"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -17422,43 +17614,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "16d13c5f-8497-45bb-b64f-36bc833675df")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Resistance" "47k 1%"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "fdb41e95-c2f8-4408-9e7e-442d61e6580d")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "R"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "68f2c00d-0fd7-4074-b194-9873b2a55b23")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Type" "resistor"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "8003e838-065c-4da0-a640-4f8e12d893ce")
+			(uuid "91285c67-272b-4cbd-8534-f7b1ab8744c9")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17470,7 +17626,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "9871b31e-338b-44f7-b2fe-c90d61111bf9")
+			(uuid "78b8ba62-951e-428c-acc0-31635d13fa3e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17478,11 +17634,11 @@
 				)
 			)
 		)
-		(property "type" "resistor"
+		(property "Manufacturer" "Panasonic Electronic Components"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "762ea63d-32ca-49e8-99a0-10353490f4a7")
+			(uuid "12a500d5-ca67-4417-8add-141780b62a2e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17490,11 +17646,11 @@
 				)
 			)
 		)
-		(property "prefix" "R"
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F4702X\", \"manufacturer\": \"Panasonic Electronic Components\"}"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "cdb6ea3e-decb-40a4-a438-34497a16a07c")
+			(uuid "4ad8a3ed-df78-4f9c-8395-d746cab115f3")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17502,11 +17658,59 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+		(property "Type" "resistor"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "f73fd202-130a-46e5-b722-352b74d3a818")
+			(uuid "7cb8e272-4573-442c-9a51-da17c2b711f9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Resistance" "47k 1%"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5d702a85-9b69-40bb-8def-8d819f32b174")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "6b46e83f-986b-4f6b-81bd-0c3fc846dac9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF4702X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "0e2f0fd2-d11a-4890-9a96-98ad2cf1f0fa")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1a0f461b-6702-4155-be64-71b64f350196")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17673,7 +17877,7 @@
 				)
 			)
 		)
-		(property "Value" "1uF"
+		(property "Value" "GRM155Z71A105KE01D"
 			(at 0 1.16 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -17698,7 +17902,7 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "1uF"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -17715,7 +17919,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "dcc78268-3621-4f8a-9f06-f858fd9743e8")
+			(uuid "4bb87e2d-b701-47a0-a417-beef8b5d7023")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17723,11 +17927,11 @@
 				)
 			)
 		)
-		(property "prefix" "C"
+		(property "Manufacturer" "Murata Electronics"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "9c8528e8-f3e5-4ffa-bccd-6ace99e7dfb7")
+			(uuid "b492887f-f88a-4ff9-bc1f-6b8e862fdfb4")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17735,11 +17939,11 @@
 				)
 			)
 		)
-		(property "type" "capacitor"
+		(property "Prefix" "C"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "b2fed8f9-e4d8-4507-9d1c-c75f4bbcb855")
+			(uuid "7ea5e209-86c2-4141-8f41-6e006cd33867")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17747,35 +17951,11 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+		(property "Mpn" "GRM155Z71A105KE01D"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "1665373d-701b-4d9c-b20e-8e95d7fb8107")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Capacitance" "1uF"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "d48c821d-bc0b-4c8d-84a5-3d964056e19e")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Package" "0402"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "b39fa3ce-4e86-4a4f-bfa3-6905ee9c934a")
+			(uuid "92b20d21-ffb8-40df-bd63-7edcac5b08dc")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17787,7 +17967,7 @@
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "8169989d-1ef3-4193-a36d-45777b63f105")
+			(uuid "21443716-8dbb-48a9-8083-323dfc22562e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17795,11 +17975,71 @@
 				)
 			)
 		)
-		(property "symbol_name" "C"
+		(property "Voltage" "None"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "a3b811d3-9e59-4c4b-968e-4110a54497fd")
+			(uuid "cb4c9647-84e3-4270-bc1d-d85d46b0b28e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Dielectric" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "98912043-2340-459c-909e-68072f0c3e77")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GRM155Z71A105KE01J\", \"manufacturer\": \"Murata Electronics\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f76c0b0c-a0dd-4bd3-9890-2625b6b89419")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5f560560-e918-4beb-bd26-b9c8809250da")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Capacitance" "1uF"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "4cc9086c-3f0a-4815-883d-4b58e199d27f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Esr" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b950e4b2-32c3-4621-9d7d-d79db70bd628")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17967,7 +18207,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "Pad_D1.5mm"
+		(property "Value" "?"
 			(at 0 -1.75 0)
 			(layer "B.Fab")
 			(hide yes)
@@ -18012,7 +18252,7 @@
 			(at 0 0 0)
 			(layer "B.SilkS")
 			(hide yes)
-			(uuid "28f344fc-08f2-47b4-87d4-89b8d7850fa3")
+			(uuid "a273167c-3903-4b65-ad95-224a22c9239e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18020,35 +18260,11 @@
 				)
 			)
 		)
-		(property "Exclude_from_pos_files" "True"
+		(property "Prefix" "TP"
 			(at 0 0 0)
 			(layer "B.SilkS")
 			(hide yes)
-			(uuid "d89f02d5-c515-466c-b98c-a5337007bd82")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Connector.kicad_sym"
-			(at 0 0 0)
-			(layer "B.SilkS")
-			(hide yes)
-			(uuid "2901796b-4103-4f2e-90c0-115a8786158f")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "TestPoint"
-			(at 0 0 0)
-			(layer "B.SilkS")
-			(hide yes)
-			(uuid "3cc5cd99-4f56-47da-a763-61d56a55bb20")
+			(uuid "eafc4bb6-a2ea-42ca-bf7c-428fd321af5b")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18060,31 +18276,7 @@
 			(at 0 0 0)
 			(layer "B.SilkS")
 			(hide yes)
-			(uuid "4f5323b8-3dd3-4aca-813b-6a6b2e6e9ffb")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Do_not_populate" "True"
-			(at 0 0 0)
-			(layer "B.SilkS")
-			(hide yes)
-			(uuid "d7c45c8b-f27d-4436-ae32-11e7d8f3dd6c")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "TP"
-			(at 0 0 0)
-			(layer "B.SilkS")
-			(hide yes)
-			(uuid "5b762937-b600-4030-8056-982681e7146d")
+			(uuid "58ea4810-c97e-469f-b77b-025abdd8f814")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18155,7 +18347,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "Pad_D1.5mm"
+		(property "Value" "?"
 			(at 0 -1.75 0)
 			(layer "B.Fab")
 			(hide yes)
@@ -18200,7 +18392,7 @@
 			(at 0 0 0)
 			(layer "B.SilkS")
 			(hide yes)
-			(uuid "84b3c01a-b92a-41e4-bf06-92955a056010")
+			(uuid "858209c3-4460-434b-8d1f-fe3669eb4aaf")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18208,23 +18400,11 @@
 				)
 			)
 		)
-		(property "Do_not_populate" "True"
+		(property "Prefix" "TP"
 			(at 0 0 0)
 			(layer "B.SilkS")
 			(hide yes)
-			(uuid "edd2b13b-e78c-4d1e-b521-341dbb68cd35")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_name" "TestPoint"
-			(at 0 0 0)
-			(layer "B.SilkS")
-			(hide yes)
-			(uuid "f2780643-a2c1-4537-ac20-fb998eb9edf9")
+			(uuid "3043324e-f8af-4221-b8b0-5697771b6cce")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18236,43 +18416,7 @@
 			(at 0 0 0)
 			(layer "B.SilkS")
 			(hide yes)
-			(uuid "efb66815-8134-4d3d-b259-a19b230f52d6")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "TP"
-			(at 0 0 0)
-			(layer "B.SilkS")
-			(hide yes)
-			(uuid "91a6efae-4fa2-4c66-a2a5-14f40f29ff6e")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Exclude_from_pos_files" "True"
-			(at 0 0 0)
-			(layer "B.SilkS")
-			(hide yes)
-			(uuid "e322ebeb-3f96-4ab0-998c-3eeec9757d38")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Connector.kicad_sym"
-			(at 0 0 0)
-			(layer "B.SilkS")
-			(hide yes)
-			(uuid "9ce52cb3-2d88-436b-9664-b9719d52b0e6")
+			(uuid "429c49d1-8ca5-481b-bc2b-fc7c5ea7b219")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18343,7 +18487,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Value" "Pad_D1.5mm"
+		(property "Value" "?"
 			(at 0 -1.75 0)
 			(layer "B.Fab")
 			(hide yes)
@@ -18388,7 +18532,7 @@
 			(at 0 0 0)
 			(layer "B.SilkS")
 			(hide yes)
-			(uuid "72a752f4-07ad-425d-b4c9-9ad35841fcee")
+			(uuid "9f766c88-f0d1-4a4f-b16f-587cb13a7524")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18396,11 +18540,11 @@
 				)
 			)
 		)
-		(property "symbol_name" "TestPoint"
+		(property "Prefix" "TP"
 			(at 0 0 0)
 			(layer "B.SilkS")
 			(hide yes)
-			(uuid "2bb69063-f460-447f-9fd0-1fcea7c0714b")
+			(uuid "0e166fbb-ce14-4ad2-8f6c-c8342edc3fb7")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18412,55 +18556,7 @@
 			(at 0 0 0)
 			(layer "B.SilkS")
 			(hide yes)
-			(uuid "7a0ae09b-da88-4c7a-9bf6-457b4464ebdf")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "prefix" "TP"
-			(at 0 0 0)
-			(layer "B.SilkS")
-			(hide yes)
-			(uuid "a731aba7-1d0b-4f77-a62d-f87602aac296")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Exclude_from_pos_files" "True"
-			(at 0 0 0)
-			(layer "B.SilkS")
-			(hide yes)
-			(uuid "540bcfb3-2db3-46a8-8500-085f6f0219ea")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/akhilles/src/dioderobot/demo/vendor/gitlab.com/kicad/libraries/kicad-symbols/9.0.0/Connector.kicad_sym"
-			(at 0 0 0)
-			(layer "B.SilkS")
-			(hide yes)
-			(uuid "4200f3f2-4160-42b8-9beb-6f73d2904cdf")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Do_not_populate" "True"
-			(at 0 0 0)
-			(layer "B.SilkS")
-			(hide yes)
-			(uuid "ad985045-7b82-44e0-bc5e-6172c5022c3b")
+			(uuid "1acbdb83-394c-4cec-8ed4-738feb1beb16")
 			(effects
 				(font
 					(size 1.27 1.27)

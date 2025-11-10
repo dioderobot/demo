@@ -324,20 +324,16 @@
     "netclass_assignments": null,
     "netclass_patterns": [
       {
-        "netclass": "90Ohm Diff",
-        "pattern": "USB_D_N"
-      },
-      {
         "netclass": "50Ohm SE",
-        "pattern": "MCU.QSPI_IO3"
-      },
-      {
-        "netclass": "50Ohm SE",
-        "pattern": "MCU.QSPI_IO1"
+        "pattern": "MCU.QSPI_CLK"
       },
       {
         "netclass": "50Ohm SE",
         "pattern": "MCU.QSPI_IO0"
+      },
+      {
+        "netclass": "90Ohm Diff",
+        "pattern": "USB_D_N"
       },
       {
         "netclass": "50Ohm SE",
@@ -345,15 +341,19 @@
       },
       {
         "netclass": "50Ohm SE",
-        "pattern": "MCU.QSPI_CLK"
-      },
-      {
-        "netclass": "90Ohm Diff",
-        "pattern": "USB_D_P"
+        "pattern": "MCU.QSPI_IO1"
       },
       {
         "netclass": "50Ohm SE",
         "pattern": "MCU.QSPI_IO2"
+      },
+      {
+        "netclass": "50Ohm SE",
+        "pattern": "MCU.QSPI_IO3"
+      },
+      {
+        "netclass": "90Ohm Diff",
+        "pattern": "USB_D_P"
       }
     ]
   },
