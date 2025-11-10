@@ -1,4 +1,4 @@
-load("../config.zen", "config_properties", "config_unit")
+load("../config.zen", "config_unit")
 load("../units.zen", "Capacitance", "Resistance", "Temperature", "Voltage")
 load("../utils.zen", "format_value")
 
@@ -19,6 +19,7 @@ package = config("package", Package, default=Package("0603"))
 value = config_unit("value", Capacitance)
 
 # Optional
+mpn = config("mpn", str, optional=True)
 mount = config("mount", Mount, default=Mount("SMD"), optional=True)
 voltage = config_unit("voltage", Voltage, optional=True)
 dielectric = config("dielectric", Dielectric, optional=True)
@@ -26,25 +27,25 @@ esr = config_unit("esr", Resistance, optional=True)
 t_max = config_unit("t_max", Temperature, optional=True)
 t_min = config_unit("t_min", Temperature, optional=True)
 
-# Properties
-properties = config_properties(
-    {
-        "value": format_value(value, voltage, dielectric, esr),
-        "package": package,
-        "capacitance": value,
-        "voltage": voltage,
-        "dielectric": dielectric,
-        "esr": esr,
-        "type": "capacitor",
-    }
-)
-
 # -----------------------------------------------------------------------------
 # IO ports
 # -----------------------------------------------------------------------------
 
 P1 = io("P1", Net)
 P2 = io("P2", Net)
+
+if not voltage and hasattr(P1, "voltage") and hasattr(P2, "voltage"):
+    voltage = Voltage(P1.voltage.diff(P2.voltage) * 1.5)
+
+# Properties
+properties = {
+    "value": format_value(value, voltage, dielectric, esr),
+    "package": package,
+    "capacitance": value,
+    "voltage": voltage,
+    "dielectric": dielectric,
+    "esr": esr,
+}
 
 # -----------------------------------------------------------------------------
 # Helper functions
@@ -86,6 +87,7 @@ def _footprint(mount: Mount, package: Package):
 
 Component(
     name="C",
+    mpn=mpn,
     prefix="C",
     symbol=Symbol(**_symbol(mount, package)),
     footprint=File(_footprint(mount, package)),
