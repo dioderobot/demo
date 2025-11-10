@@ -5,7 +5,7 @@ on:
   push:
 
 env:
-  PCB_VERSION: "v0.2.17"
+  PCB_VERSION: "v0.2.23"
 
 permissions:
   contents: read
@@ -82,7 +82,7 @@ jobs:
         run: |
           short_sha=$(git rev-parse --short HEAD)
           archive_path="${{ matrix.board }}-$short_sha.zip"
-          pcb release -b ${{ matrix.board }} --output-dir . --output-name $archive_path
+          pcb release -b ${{ matrix.board }} --output-dir . --output-name $archive_path -S layout.drc --yes
           echo "archive_path=$archive_path" >> "$GITHUB_OUTPUT"
           echo "short_sha=$short_sha" >> "$GITHUB_OUTPUT"
 
