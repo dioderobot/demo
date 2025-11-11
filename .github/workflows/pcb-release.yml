@@ -5,7 +5,7 @@ on:
   push:
 
 env:
-  PCB_VERSION: "v0.2.23"
+  PCB_VERSION: "v0.2.24"
 
 permissions:
   contents: read
@@ -30,7 +30,7 @@ jobs:
           version: ${{ matrix.pcb-version }}
       - name: Build .zen files
         run: |
-          pcb build boards -Dwarnings --offline
+          pcb build boards --offline
 
   detect:
     name: Detect boards
