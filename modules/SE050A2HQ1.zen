@@ -22,13 +22,13 @@ Component(
     name = "U",
     footprint = File("../components/se050a2hq1/eda/HX2QFN20_SOT1969-1_NXP.kicad_mod"),
     mpn = "SE050A2HQ1/Z01SHZ",
-    properties = config_properties({
+    properties = {
         "Type": "IoT Secure Element",
         "Interface": "I2C",
         "Supply Voltage": "1.62V - 3.6V",
         "Package": "HX2QFN20",
         "Temperature Range": "-25°C to 85°C"
-    }),
+    },
     pin_defs = {
         "ISO_14443_LB": "1",
         "n.c._2": "2",

@@ -59,9 +59,9 @@ Component(
         "VSS3": GND.NET,            # Ground
         "VDD": VCC.NET              # Analog supply voltage
     },
-    properties=config_properties({
+    properties={
         "package": "10-LGA (2.0x2.0x0.75mm)",
-    }),
+    },
     mpn="BMP388"
 )
 

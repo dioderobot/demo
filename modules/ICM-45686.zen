@@ -64,9 +64,9 @@ Component(
         "AP_SDA_SDIO": SPI.MOSI,      # Pin 14: SPI data in
     },
     mpn = "ICM-45686",
-    properties=config_properties({
+    properties={
         "package": "14-LGA",
-    }),
+    },
 )
 
 # Decoupling capacitor
