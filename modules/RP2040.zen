@@ -66,12 +66,16 @@ Component(
     name = "RP2040",
     symbol = Symbol(library = "@kicad-symbols/MCU_RaspberryPi.kicad_sym", name = "RP2040"),
     footprint = File("@kicad-footprints/Package_DFN_QFN.pretty/QFN-56-1EP_7x7mm_P0.4mm_EP3.2x3.2mm.kicad_mod"),
-    mpn = "SC0914(13)",
+    mpn = "RP2040",
     manufacturer = "Raspberry Pi",
     description = "Raspberry Pi RP2040 Microcontroller",
     pins = pins,
     properties = {
         "package": "56-QFN",
+        "alternatives": [
+            {"mpn": "SC0914(7)", "manufacturer": "Raspberry Pi"},
+            {"mpn": "SC0914(13)", "manufacturer": "Raspberry Pi"},
+        ],
     },
 )
 
