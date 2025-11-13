@@ -22,8 +22,14 @@ Component(
     symbol = Symbol(library = "@kicad-symbols/Switch.kicad_sym", name = "SW_Push"),
     footprint = File(_get_footprint(mpn)),
     mpn = mpn,
+    manufacturer = "C&K",
     pins = {
         "1": P1,
         "2": P2,
     },
+    properties = {
+        "alternatives": [
+            {"mpn": "Y78B23110FP", "manufacturer": "C&K"},
+        ]
+    }
 )

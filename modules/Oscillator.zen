@@ -1,31 +1,17 @@
 load("@stdlib/config.zen", "config_unit")
 load("@stdlib/interfaces.zen", "Ground", "Power")
 load("@stdlib/units.zen", "Frequency")
-load("@stdlib/utils.zen", "format_value")
 
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 
 # Required
 frequency = config_unit("frequency", Frequency, default = "16MHz")
-tcxo = config("tcxo", bool, default = False)  # True for TCXO, False for XO
 
-
-# Active oscillator frequency and type to MPN mapping
-# Format: (frequency_string, is_tcxo) -> MPN
 _active_osc_mpn_map = {
-    # Non-TCXO oscillators (XO)
-    ("12MHz", False): "SG-210STF 12.0000ML0",
-    ("16MHz", False): "SG-210STF 16.0000ML0", 
-    ("24MHz", False): "SG-210STF 24.0000ML0",
-    ("24MHz", True): "ECS-TXO-2520MV-240-AN-TR",
+    "12MHz": "SG-210STF 12.0000ML0",
+    "16MHz": "SG-210STF 16.0000ML0", 
+    "24MHz": "SG-210STF 24.0000ML0",
 }
-
-freq_str = format_value(frequency)
-osc_key = (freq_str, tcxo)
-if osc_key not in _active_osc_mpn_map:
-    supported_combinations = [(freq, "TCXO" if is_tcxo else "XO") for freq, is_tcxo in _active_osc_mpn_map.keys()]
-    error("Unsupported oscillator combination: %s %s. Supported: %s" % (freq_str, "TCXO" if tcxo else "XO", supported_combinations))
-
 
 VCC = io("VCC", Power)
 GND = io("GND", Ground)
@@ -43,13 +29,16 @@ Component(
         "OUT": OUT,
         "V+": VCC.NET,
     },
-    mpn = _active_osc_mpn_map[osc_key],
+    mpn = _active_osc_mpn_map[str(frequency)],
     manufacturer = "EPSON",
     description = "XTAL OSC XO 12.0000MHZ CMOS SMD",
     properties = {
         "frequency": frequency,
         "package": "4-SMD (2.5x2)",
-        "type": "TCXO" if tcxo else "XO",
+        "type": "XO",
+        "alternatives": [
+            {"mpn": "X1G0041710018", "manufacturer": "EPSON"},
+        ]
     },
 )
 

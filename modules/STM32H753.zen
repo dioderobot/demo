@@ -56,7 +56,6 @@ lse_pair = OscPair("LSE_32K")     # 32.768kHz crystal pins
 Oscillator(
     name = "U_HSE",
     frequency = "16MHz",
-    tcxo = False,
     VCC = vdd_3v3,
     GND = gnd,
     OUT = hse_out,

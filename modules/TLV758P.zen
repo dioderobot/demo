@@ -113,7 +113,7 @@ Component(
         "DNC": Net("NC"),  # Do not connect
         "PAD": GND.NET,  # Connect thermal pad to ground
     },
-    mpn = "TLV75801PDRV",
+    mpn = "TLV75801PDRVR",
     manufacturer = "Texas Instruments",
     description = "Low Dropout Voltage Regulator",
     properties = {
@@ -121,6 +121,9 @@ Component(
         "output_voltage": output_voltage,
         "current_rating": "0.5A",
         "package": "WSON-6",
+        "alternatives": [
+            {"mpn": "TLV75801PDRVT", "manufacturer": "Texas Instruments"},
+        ]
     },
 )
 
