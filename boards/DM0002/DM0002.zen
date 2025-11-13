@@ -1,5 +1,6 @@
 load("@stdlib/interfaces.zen", "Analog", "Gpio", "Ground", "Power", "Swd", "Uart", "Usb2")
 load("@stdlib/board_config.zen", "Board")
+load("@stdlib/units.zen", "Voltage")
 
 Board(
     name = "DM0002",
@@ -112,14 +113,14 @@ Resistor(name = "R_VBUS_DIV_H", package = "0402", value = "33kOhm", P1 = vbus_5v
 Resistor(name = "R_VBUS_DIV_L", package = "0402", value = "47kOhm", P1 = vbus_det, P2 = gnd)
 
 # GPIO-controlled Status LEDs (GPIO sources current when high, push-pull topology)
-Led(name = "LED_B", color = "blue", supply_voltage = "3.3V", p1 = gpio_17_led_blue, p2 = gnd)
-Led(name = "LED_G", color = "green", supply_voltage = "3.3V", p1 = gpio_16_led_green, p2 = gnd)
-Led(name = "LED_O1", color = "orange", supply_voltage = "3.3V", p1 = gpio_15_led_orange, p2 = gnd)
-Led(name = "LED_O2", color = "orange", supply_voltage = "3.3V", p1 = gpio_14_led_orange, p2 = gnd)
-Led(name = "LED_O3", color = "orange", supply_voltage = "3.3V", p1 = gpio_12_led_orange, p2 = gnd)
+Led(name = "LED_B", color = "blue", supply_voltage = Voltage("3.3V"), p1 = gpio_17_led_blue, p2 = gnd)
+Led(name = "LED_G", color = "green", supply_voltage = Voltage("3.3V"), p1 = gpio_16_led_green, p2 = gnd)
+Led(name = "LED_O1", color = "orange", supply_voltage = Voltage("3.3V"), p1 = gpio_15_led_orange, p2 = gnd)
+Led(name = "LED_O2", color = "orange", supply_voltage = Voltage("3.3V"), p1 = gpio_14_led_orange, p2 = gnd)
+Led(name = "LED_O3", color = "orange", supply_voltage = Voltage("3.3V"), p1 = gpio_12_led_orange, p2 = gnd)
 
 # Power indicator LED
-Led(name = "LED_PWR", color = "red", supply_voltage = "3.3V", p1 = vdd_3v3, p2 = gnd)
+Led(name = "LED_PWR", color = "red", supply_voltage = Voltage("3.3V"), p1 = vdd_3v3, p2 = gnd)
 
 # Diode Logo
 Component(
@@ -130,8 +131,6 @@ Component(
     pin_defs = {},
     pins = {},
     dnp = True,
-    properties = {
-        "exclude_from_bom": True,
-        "exclude_from_pos_files": True,
-    },
+    skip_bom = True,
+    skip_pos = True,
 )

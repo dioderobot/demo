@@ -9,47 +9,40 @@
 #   supply_voltage – supply voltage (e.g., "3.3V")
 
 load("@stdlib/interfaces.zen", "Power", "Ground")
-load("@stdlib/units.zen", "unit", "Voltage")
+load("@stdlib/units.zen", "unit", "Voltage", "Resistance", "Current")
 Led      = Module("@stdlib/generics/Led.zen")
 Resistor = Module("@stdlib/generics/Resistor.zen")
 
 # ------------------------------------------------------------
 # User parameters
 # ------------------------------------------------------------
-color = config("color", str, default="red")
-supply_voltage = config("supply_voltage", str, default="3.3V")
-
-# Parse supply voltage
-vsup_unit = unit(supply_voltage, Voltage)
-vsup = vsup_unit.value  # voltage in volts
+color = config("color", Led.Color, default="red")
+supply_voltage = config("supply_voltage", Voltage, default=Voltage("3.3V"))
 
 # ------------------------------------------------------------
 # Static part database (0402 LEDs from Vishay + series R)
 # Data from Digikey: Forward voltage and test current per datasheet
 # ------------------------------------------------------------
+VISHAY_MFR = "Vishay Semiconductor Opto Division"
 parts = {
-    "blue":   { "mpn": "VLMB1500-GS08", "vf": 2.8, "i_test": 0.005, "r": 110 },
-    "green":  { "mpn": "VLMG1500-GS08", "vf": 2.0, "i_test": 0.020, "r": 150 },
-    "orange": { "mpn": "VLMO1500-GS08", "vf": 2.0, "i_test": 0.020, "r": 261 },
-    "red":    { "mpn": "VLMS1500-GS08", "vf": 2.0, "i_test": 0.020, "r": 150 },
+    "blue":   { "mpn": "VLMB1500-GS08", "manufacturer": VISHAY_MFR, "vf": 2.8, "i_test": 0.005, "r": 110 },
+    "green":  { "mpn": "VLMG1500-GS08", "manufacturer": VISHAY_MFR, "vf": 2.0, "i_test": 0.020, "r": 150 },
+    "orange": { "mpn": "VLMO1500-GS08", "manufacturer": VISHAY_MFR, "vf": 2.0, "i_test": 0.020, "r": 261 },
+    "red":    { "mpn": "VLMS1500-GS08", "manufacturer": VISHAY_MFR, "vf": 2.0, "i_test": 0.020, "r": 150 },
 }
 
-clr = str(color).lower()
-if clr not in parts:
-    error("Unsupported LED color '%s'. Supported: %s" % (clr, list(parts.keys())))
-
-data    = parts[clr]
-vf      = data["vf"]            # forward voltage in volts
-i_test  = data["i_test"]        # test current in amps
-r_ohm   = data["r"]             # series resistor in ohms
-i_led   = (vsup - vf) / r_ohm   # resulting current (A)
+data    = parts[color.value]
+vf      = Voltage(data["vf"])            # forward voltage in volts
+i_test  = Current(data["i_test"])        # test current in amps
+r_ohm   = Resistance(data["r"])          # series resistor in ohms
+i_led   = (supply_voltage - vf) / r_ohm  # resulting current (A)
 
 # ------------------------------------------------------------
 # Safety checks
 # ------------------------------------------------------------
-check(vf < vsup, "Forward voltage (%s V) >= supply (%s V)" % (vf, vsup))
+check(vf < supply_voltage, "Forward voltage (%s) >= supply (%s)" % (vf, supply_voltage))
 check(i_led >= 0, "Calculated LED current is negative")
-check(i_led <= i_test, "LED current (%s mA) exceeds rated test current (%s mA)" % (i_led*1e3, i_test*1e3))
+check(i_led <= i_test, "LED current (%s) exceeds rated test current (%s)" % (i_led, i_test))
 
 # ------------------------------------------------------------
 # External interfaces
@@ -66,10 +59,11 @@ led_r_net = Net("LED_R_NET")
 Led(
     name            = "D",
     package         = "0402",
-    color           = clr,
+    color           = color,
     mpn             = data["mpn"],
-    forward_voltage = "%sV" % vf,
-    forward_current = "%smA" % (i_led*1e3),
+    manufacturer    = data["manufacturer"],
+    forward_voltage = vf,
+    forward_current = i_led,
     A               = led_r_net,    # Anode to p1 (VCC for open-drain)
     K               = p2,           # Cathode to internal net
 )
@@ -77,7 +71,7 @@ Led(
 Resistor(
     name    = "R_D",
     package = "0402",
-    value   = "%dOhm" % r_ohm,
+    value   = r_ohm,
     P1      = p1,          # From LED cathode
     P2      = led_r_net,   # To p2 (MCU pin for open-drain)
 )
