@@ -53,6 +53,9 @@ Component(
     properties = {
         "connector_type": "USB-C",
         "usb_version": "2.0",
+        "alternatives": [
+            { "mpn": "GT-USB-7010ASV", "manufacturer": "G-Switch" },
+        ],
     },
 )
 
