@@ -4,14 +4,14 @@ USB 2.0 only connector with 16-pin top mount horizontal design
 """
 
 load("@stdlib/interfaces.zen", "Ground", "Power", "Usb2")
+load("@stdlib/units.zen", "VoltageRange")
 
 add_property("layout_path", "build/USB4105")
 
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
-FerriteBead = Module("@stdlib/generics/FerriteBead.zen")
+Tvs = Module("@stdlib/generics/Tvs.zen")
 TPD4E05U06 = Module("TPD4E05U06.zen")
-TVS_Single = Module("TVS_Single.zen")
 
 # USB-C connector modes
 UsbCMode = enum("host", "device", "external")
@@ -21,15 +21,12 @@ HostCurrent = enum("default", "1.5A", "3A")
 mode = config("mode", UsbCMode, default = UsbCMode("device"))
 host_current = config("host_current", HostCurrent, default = HostCurrent("default"), optional = True)
 
-vbus = io("VBUS", Power)
+vbus = io("VBUS", Power, default=Power("VBUS", voltage=VoltageRange("4.5 to 5.5V")))
 usb = io("USB", Usb2)
 gnd = io("GND", Ground)
 shield = io("SHIELD", Ground, optional = True, default = gnd)
 cc1 = io("CC1", Net, optional = True, default = Net("CC1"))
 cc2 = io("CC2", Net, optional = True, default = Net("CC2"))
-
-# Internal power filtering nets
-vbus_raw = Net("VBUS_RAW")
 
 Component(
     name = "USB_C",
@@ -37,7 +34,7 @@ Component(
     footprint = File("@kicad-footprints/Connector_USB.pretty/USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal.kicad_mod"),
     prefix = "J",
     pins = {
-        "VBUS": vbus_raw,
+        "VBUS": vbus,
         "D+": usb.D.P,
         "D-": usb.D.N,
         "CC1": cc1,
@@ -62,27 +59,13 @@ Component(
 # Power protection and filtering chain: VBUS_RAW -> TVS -> Ferrite -> Capacitors -> VBUS
 
 # VBUS TVS protection (5V unidirectional)
-TVS_Single(
+Tvs(
     name = "D_TVS_VBUS",
-    voltage = "5V",
-    package = "SOD523",
-    K = vbus_raw,           # Cathode to protected line
-    A = gnd                 # Anode to ground
+    reverse_standoff_voltage = VoltageRange("5 to 6V"),
+    package = "DO-219AB",
+    K = vbus, # Cathode to protected line
+    A = gnd   # Anode to ground
 )
-
-# Ferrite bead for EMI filtering (high current rated)
-FerriteBead(
-    name = "FB_VBUS",
-    resistance = "220Ohm",
-    frequency = "100MHz", 
-    package = "0603",
-    current = "2A",
-    P1 = vbus_raw,
-    P2 = vbus  # Connect directly to output
-)
-
-# Single VBUS filtering capacitor
-Capacitor(name="C_VBUS", package="0603", value="10uF", voltage="10V", P1=vbus, P2=gnd)
 
 if mode == UsbCMode("device"):
     # Device mode: Rd pull-down resistors (5.1kΩ to GND)

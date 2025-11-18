@@ -1,6 +1,6 @@
 load("@stdlib/interfaces.zen", "Analog", "Gpio", "Ground", "Power", "Swd", "Uart", "Usb2")
 load("@stdlib/board_config.zen", "Board")
-load("@stdlib/units.zen", "Voltage")
+load("@stdlib/units.zen", "Voltage", "VoltageRange")
 
 Board(
     name = "DM0002",
@@ -23,8 +23,8 @@ TestPoint = Module("@stdlib/generics/TestPoint.zen")
 Resistor = Module("@stdlib/generics/Resistor.zen")
 
 # Power rails
-vbus_5v0 = Power("VBUS_5V0")
-vdd_3v3 = Power("VDD_3V3")
+vbus_5v0 = Power("VBUS_5V0", voltage=VoltageRange("4.5 to 5.5V"))
+vdd_3v3 = Power("VDD_3V3", voltage=VoltageRange("3.3V"))
 gnd = Ground("GND")
 
 # External interfaces
