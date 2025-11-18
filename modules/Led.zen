@@ -23,12 +23,11 @@ supply_voltage = config("supply_voltage", Voltage, default=Voltage("3.3V"))
 # Static part database (0402 LEDs from Vishay + series R)
 # Data from Digikey: Forward voltage and test current per datasheet
 # ------------------------------------------------------------
-VISHAY_MFR = "Vishay Semiconductor Opto Division"
 parts = {
-    "blue":   { "mpn": "VLMB1500-GS08", "manufacturer": VISHAY_MFR, "vf": 2.8, "i_test": 0.005, "r": 110 },
-    "green":  { "mpn": "VLMG1500-GS08", "manufacturer": VISHAY_MFR, "vf": 2.0, "i_test": 0.020, "r": 150 },
-    "orange": { "mpn": "VLMO1500-GS08", "manufacturer": VISHAY_MFR, "vf": 2.0, "i_test": 0.020, "r": 261 },
-    "red":    { "mpn": "VLMS1500-GS08", "manufacturer": VISHAY_MFR, "vf": 2.0, "i_test": 0.020, "r": 150 },
+    "blue":   { "vf": 2.8, "i_test": 0.005, "r": 110 },
+    "green":  { "vf": 2.0, "i_test": 0.020, "r": 150 },
+    "orange": { "vf": 2.0, "i_test": 0.020, "r": 261 },
+    "red":    { "vf": 2.0, "i_test": 0.020, "r": 150 },
 }
 
 data    = parts[color.value]
@@ -60,8 +59,6 @@ Led(
     name            = "D",
     package         = "0402",
     color           = color,
-    mpn             = data["mpn"],
-    manufacturer    = data["manufacturer"],
     forward_voltage = vf,
     forward_current = i_led,
     A               = led_r_net,    # Anode to p1 (VCC for open-drain)
