@@ -1,5 +1,5 @@
 load("../config.zen", "config_unit")
-load("../units.zen", "Current", "Frequency", "Resistance")
+load("../units.zen", "Resistance", "Voltage", "Power")
 load("../utils.zen", "format_value")
 
 # -----------------------------------------------------------------------------
@@ -14,24 +14,36 @@ Mount = enum("SMD")
 # -----------------------------------------------------------------------------
 
 # Required
-package = config("package", Package, convert=Package)
-resistance = config_unit("resistance", Resistance)
-frequency = config_unit("frequency", Frequency)
+package = config("package", Package, default=Package("0603"))
+value = config_unit("value", Resistance)
 
 # Optional
 mpn = config("mpn", str, optional=True)
 manufacturer = config("manufacturer", str, optional=True)
 mount = config("mount", Mount, default=Mount("SMD"), optional=True)
-current = config_unit("current", Current, optional=True)
+voltage = config_unit("voltage", Voltage, optional=True)
+power = config_unit("power", Power, optional=True)
+use_us_symbol = config("use_us_symbol", bool, default=False, optional=True)
+
+do_not_populate = config("do_not_populate", bool, default=False)
+exclude_from_bom = config("exclude_from_bom", bool, default=False)
+skip_bom = config("skip_bom", bool, default=False)
+
+if do_not_populate:
+    warn("do_not_populate is deprecated. Use dnp instead.", kind="deprecated.do_not_populate")
+if exclude_from_bom:
+    warn("exclude_from_bom is deprecated. Use skip_bom instead.", kind="deprecated.exclude_from_bom")
 
 # Properties – combined and normalized
 properties = {
-    "value": format_value(resistance, current, frequency),
+    "value": format_value(value, voltage, power),
     "package": package,
-    "resistance": resistance,
-    "frequency": frequency,
-    "current": current,
+    "resistance": value,
+    "voltage": voltage,
 }
+
+if power:
+    properties["power"] = power
 
 # -----------------------------------------------------------------------------
 # IO ports
@@ -45,16 +57,20 @@ P2 = io("P2", Net)
 # -----------------------------------------------------------------------------
 
 
-def _symbol(package: Package):
+def _symbol(mount: Mount, package: Package, use_us_symbol: bool):
+    if use_us_symbol:
+        name = "R_US"
+    else:
+        name = "R"
+
     return {
         "library": "@kicad-symbols/Device.kicad_sym",
-        "name": "FerriteBead",
+        "name": name,
     }
 
 
-def _footprint(package: Package) -> str:
-    """Returns the resistor SMD footprint for the ferrite bead based on the package."""
-    resistor_footprints = {
+def _footprint(mount: Mount, package: Package):
+    kicad_footprints = {
         Package("0201"): "@kicad-footprints/Resistor_SMD.pretty/R_0201_0603Metric.kicad_mod",
         Package("0402"): "@kicad-footprints/Resistor_SMD.pretty/R_0402_1005Metric.kicad_mod",
         Package("0603"): "@kicad-footprints/Resistor_SMD.pretty/R_0603_1608Metric.kicad_mod",
@@ -65,10 +81,10 @@ def _footprint(package: Package) -> str:
         Package("2512"): "@kicad-footprints/Resistor_SMD.pretty/R_2512_6332Metric.kicad_mod",
     }
 
-    if package not in resistor_footprints:
+    if package not in kicad_footprints:
         error("Invalid package: " + str(package))
 
-    return resistor_footprints[package]
+    return kicad_footprints[package]
 
 
 # -----------------------------------------------------------------------------
@@ -76,12 +92,12 @@ def _footprint(package: Package) -> str:
 # -----------------------------------------------------------------------------
 
 Component(
-    name="FB",
+    name="R",
     mpn=mpn,
     manufacturer=manufacturer,
-    symbol=Symbol(**_symbol(package)),
-    footprint=File(_footprint(package)),
-    prefix="FB",
+    symbol=Symbol(**_symbol(mount, package, use_us_symbol)),
+    footprint=File(_footprint(mount, package)),
+    prefix="R",
     pin_defs={
         "P1": "1",
         "P2": "2",
@@ -90,6 +106,14 @@ Component(
         "P1": P1,
         "P2": P2,
     },
+    spice_model=SpiceModel(
+        "//simulation/Resistor.lib",
+        "R",
+        nets=[P1, P2],
+        args={"RVAL": str(value.value)},
+    ),
     properties=properties,
-    type="ferrite_bead",
+    type="resistor",
+    dnp=do_not_populate,
+    skip_bom=skip_bom or exclude_from_bom,
 )

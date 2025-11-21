@@ -1,5 +1,5 @@
 load("../config.zen", "config_unit")
-load("../units.zen", "Resistance", "Voltage", "Power")
+load("../units.zen", "Current", "Frequency", "Resistance", "Impedance")
 load("../utils.zen", "format_value")
 
 # -----------------------------------------------------------------------------
@@ -14,35 +14,38 @@ Mount = enum("SMD")
 # -----------------------------------------------------------------------------
 
 # Required
-package = config("package", Package, default=Package("0603"))
-value = config_unit("value", Resistance)
+package = config("package", Package)
+
+# Deprecated
+resistance = config_unit("resistance", Resistance, optional=True)
 
 # Optional
+dcr = config_unit("dcr", Resistance, optional=True)
+impedance = config_unit("value", Impedance, default=Impedance("220Ohm"), optional=True)
+frequency = config_unit("frequency", Frequency, default=Frequency("100MHz"), optional=True)
 mpn = config("mpn", str, optional=True)
 manufacturer = config("manufacturer", str, optional=True)
 mount = config("mount", Mount, default=Mount("SMD"), optional=True)
-voltage = config_unit("voltage", Voltage, optional=True)
-power = config_unit("power", Power, optional=True)
-use_us_symbol = config("use_us_symbol", bool, default=False, optional=True)
+current = config_unit("current", Current, optional=True)
 
-do_not_populate = config("do_not_populate", bool, default=False)
-exclude_from_bom = config("exclude_from_bom", bool, default=False)
+# Backwards compatibility: if resistance is specified, use it as impedance
+if resistance:
+    impedance = resistance
+    warn("'resistance' is deprecated, use 'value' instead")
 
-if do_not_populate:
-    warn("do_not_populate is deprecated. Use dnp instead.", kind="deprecated.do_not_populate")
-if exclude_from_bom:
-    warn("exclude_from_bom is deprecated. Use skip_bom instead.", kind="deprecated.exclude_from_bom")
+# Ensure we have an effective impedance
+if not impedance:
+    error("FerriteBead requires 'value' to be specified")
 
 # Properties – combined and normalized
 properties = {
-    "value": format_value(value, voltage, power),
+    "value": format_value(impedance, current, frequency),
     "package": package,
-    "resistance": value,
-    "voltage": voltage,
+    "impedance": impedance,
+    "dcr": dcr,
+    "frequency": frequency,
+    "current": current,
 }
-
-if power:
-    properties["power"] = power
 
 # -----------------------------------------------------------------------------
 # IO ports
@@ -56,20 +59,16 @@ P2 = io("P2", Net)
 # -----------------------------------------------------------------------------
 
 
-def _symbol(mount: Mount, package: Package, use_us_symbol: bool):
-    if use_us_symbol:
-        name = "R_US"
-    else:
-        name = "R"
-
+def _symbol(package: Package):
     return {
         "library": "@kicad-symbols/Device.kicad_sym",
-        "name": name,
+        "name": "FerriteBead",
     }
 
 
-def _footprint(mount: Mount, package: Package):
-    kicad_footprints = {
+def _footprint(package: Package) -> str:
+    """Returns the resistor SMD footprint for the ferrite bead based on the package."""
+    resistor_footprints = {
         Package("0201"): "@kicad-footprints/Resistor_SMD.pretty/R_0201_0603Metric.kicad_mod",
         Package("0402"): "@kicad-footprints/Resistor_SMD.pretty/R_0402_1005Metric.kicad_mod",
         Package("0603"): "@kicad-footprints/Resistor_SMD.pretty/R_0603_1608Metric.kicad_mod",
@@ -80,10 +79,10 @@ def _footprint(mount: Mount, package: Package):
         Package("2512"): "@kicad-footprints/Resistor_SMD.pretty/R_2512_6332Metric.kicad_mod",
     }
 
-    if package not in kicad_footprints:
+    if package not in resistor_footprints:
         error("Invalid package: " + str(package))
 
-    return kicad_footprints[package]
+    return resistor_footprints[package]
 
 
 # -----------------------------------------------------------------------------
@@ -91,12 +90,12 @@ def _footprint(mount: Mount, package: Package):
 # -----------------------------------------------------------------------------
 
 Component(
-    name="R",
+    name="FB",
     mpn=mpn,
     manufacturer=manufacturer,
-    symbol=Symbol(**_symbol(mount, package, use_us_symbol)),
-    footprint=File(_footprint(mount, package)),
-    prefix="R",
+    symbol=Symbol(**_symbol(package)),
+    footprint=File(_footprint(package)),
+    prefix="FB",
     pin_defs={
         "P1": "1",
         "P2": "2",
@@ -105,14 +104,6 @@ Component(
         "P1": P1,
         "P2": P2,
     },
-    spice_model=SpiceModel(
-        "//simulation/Resistor.lib",
-        "R",
-        nets=[P1, P2],
-        args={"RVAL": str(value.value)},
-    ),
     properties=properties,
-    type="resistor",
-    dnp=do_not_populate,
-    skip_bom=exclude_from_bom,
+    type="ferrite_bead",
 )
