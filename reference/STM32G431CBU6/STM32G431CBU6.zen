@@ -249,12 +249,12 @@ Capacitor(
 
 FerriteBead(
     name = "FB_VDDA",
-    resistance = "600ohms",
+    value = "600ohms",
     frequency = "100MHz",
     package = "0402",
     P1 = V3V3,
     P2 = VDDA
-    )
+)
 # ============================================================================
 # Module Properties
 # ============================================================================

@@ -499,7 +499,7 @@ for i in range(6):  # Typical number of VDD pins in UFBGA-201
 # Ferrite bead for analog supply noise filtering (BLM18PG121SN1D or similar)
 FerriteBead(
     name = "FB_VDDA",
-    resistance = "120Ohm",
+    value = "120Ohm",
     frequency = "100MHz", 
     package = "0603",
     current = "500mA",
