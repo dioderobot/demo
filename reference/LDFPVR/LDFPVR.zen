@@ -16,7 +16,7 @@ load("@stdlib/interfaces.zen", "Power")
 # Component Modules
 # ----------------------------------------------------------------------------
 
-Ldo = Module("../../components/LDFPVR/LDFPVR.zen")
+Ldo = Module("github.com/dioderobot/demo/components/LDFPVR/LDFPVR.zen")
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 
@@ -100,7 +100,7 @@ Resistor(
 )
 
 
-add_property("datasheet", "//components/LDFPVR/LDFPVR.pdf")
+add_property("datasheet", "github.com/dioderobot/demo/components/LDFPVR/LDFPVR.pdf")
 
 # ----------------------------------------------------------------------------
 # PCB Schematic

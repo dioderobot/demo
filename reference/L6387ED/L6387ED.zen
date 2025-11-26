@@ -16,7 +16,7 @@ load("@stdlib/interfaces.zen", "Power")
 # Component Modules
 # ----------------------------------------------------------------------------
 
-L6387ED = Module("../../components/L6387ED/L6387ED.zen")
+L6387ED = Module("github.com/dioderobot/demo/components/L6387ED/L6387ED.zen")
 SchottkyDiode = Module("@stdlib/generics/Diode.zen")
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
@@ -125,7 +125,7 @@ SchottkyDiode(
 )
 
 
-add_property("datasheet", "//components/L6387ED/L6387ED.pdf")
+add_property("datasheet", "github.com/dioderobot/demo/components/L6387ED/L6387ED.pdf")
 
 
 

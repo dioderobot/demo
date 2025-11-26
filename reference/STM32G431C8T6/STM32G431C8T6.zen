@@ -16,11 +16,11 @@ load("@stdlib/interfaces.zen", "Power", "Spi", "I2c", "Usb2", "Swd")
 # Component Modules
 # ----------------------------------------------------------------------------
 
-MCU = Module("../../components/STM32G431C8T6/STM32G431C8T6.zen")
+MCU = Module("github.com/dioderobot/demo/components/STM32G431C8T6/STM32G431C8T6.zen")
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 Crystal = Module("@stdlib/generics/Crystal.zen")
-Oscillator = Module("../../components/CSTNE8M00GH5C000R0/CSTNE8M00GH5C000R0.zen")
+Oscillator = Module("github.com/dioderobot/demo/components/CSTNE8M00GH5C000R0/CSTNE8M00GH5C000R0.zen")
 Inductor = Module("@stdlib/generics/Inductor.zen")
 FerriteBead = Module("@stdlib/generics/FerriteBead.zen")
 
@@ -256,7 +256,7 @@ FerriteBead(
 # Module Properties
 # ============================================================================
 
-add_property("datasheet", "../../components/STM32G431C8T6/STM32G431C8T6.pdf")
+add_property("datasheet", "github.com/dioderobot/demo/components/STM32G431C8T6/STM32G431C8T6.pdf")
 
 # ============================================================================
 # PCB Schematic

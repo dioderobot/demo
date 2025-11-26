@@ -1,3 +1,20 @@
 [board]
 name = "DM0001"
 description = "ZenDrive 3-phase BLDC motor controller"
+
+[dependencies]
+"github.com/diodeinc/stdlib" = "0.4.0"
+"github.com/dioderobot/demo/components/0435_250KRS" = "0.1.0"
+"github.com/dioderobot/demo/components/BM05BMSRSSMTB" = "0.1.0"
+"github.com/dioderobot/demo/components/SM05BMSRSSMTB" = "0.1.0"
+"github.com/dioderobot/demo/components/SMM4F26AMTR" = "0.1.0"
+"github.com/dioderobot/demo/components/STL180N6F7" = "0.1.0"
+"github.com/dioderobot/demo/reference/FSA5157L6X" = "0.1.0"
+"github.com/dioderobot/demo/reference/L6387ED" = "0.1.0"
+"github.com/dioderobot/demo/reference/L7986TR" = "0.1.0"
+"github.com/dioderobot/demo/reference/LDFPVR" = "0.1.0"
+"github.com/dioderobot/demo/reference/STM32G431C8T6" = "0.1.0"
+"github.com/dioderobot/demo/reference/TCAN330DCNT" = "0.1.0"
+
+[assets]
+"gitlab.com/kicad/libraries/kicad-symbols/power.kicad_sym" = "9.0.3"

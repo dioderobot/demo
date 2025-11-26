@@ -20,7 +20,7 @@ RST_N = io("RST_N", Gpio)         # ISO7816 reset (optional, for ISO7816 interfa
 
 Component(
     name = "U",
-    footprint = File("../components/se050a2hq1/eda/HX2QFN20_SOT1969-1_NXP.kicad_mod"),
+    footprint = File("github.com/dioderobot/demo/components/se050a2hq1/eda/HX2QFN20_SOT1969-1_NXP.kicad_mod"),
     mpn = "SE050A2HQ1/Z01SHZ",
     properties = {
         "Type": "IoT Secure Element",

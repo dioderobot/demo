@@ -17,9 +17,9 @@ load("@stdlib/board_config.zen", "Board")
 # Component Modules
 # ----------------------------------------------------------------------------
 
-Mcu = Module("//reference/STM32G431C8T6/STM32G431C8T6.zen")
-Buck = Module("//reference/L7986TR/L7986TR.zen")
-Ldo = Module("//reference/LDFPVR/LDFPVR.zen")
+Mcu = Module("github.com/dioderobot/demo/reference/STM32G431C8T6/STM32G431C8T6.zen")
+Buck = Module("github.com/dioderobot/demo/reference/L7986TR/L7986TR.zen")
+Ldo = Module("github.com/dioderobot/demo/reference/LDFPVR/LDFPVR.zen")
 HallEncoder = Module("src/HallEncoder.zen")
 PhaseDriver = Module("src/PhaseDriver.zen")
 CanInterface = Module("src/Can.zen")
@@ -30,7 +30,7 @@ SchottkyDiode = Module("@stdlib/generics/Diode.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 Thermistor = Module("@stdlib/generics/Thermistor.zen")
 Led = Module("@stdlib/generics/Led.zen")
-PwmHeader = Module("//components/SM05BMSRSSMTB/SM05BMSRSSMTB.zen")
+PwmHeader = Module("github.com/dioderobot/demo/components/SM05BMSRSSMTB/SM05BMSRSSMTB.zen")
 TagConnect = Module("@stdlib/kicad/TagConnect.zen")
 
 # ----------------------------------------------------------------------------

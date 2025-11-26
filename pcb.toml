@@ -1,8 +1,13 @@
 [workspace]
-name = "customer"
-
-[packages]
-stdlib = "@github/diodeinc/stdlib:v0.3.16"
+repository = "github.com/dioderobot/demo"
+pcb-version = "0.3"
+members = [
+    "components/*",
+    "reference/*",
+    "modules/*",
+    "boards/*",
+]
+vendor = ["github.com/diodeinc/registry/**"]
 
 [access]
 allow = ["*"]
