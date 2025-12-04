@@ -16,7 +16,7 @@ load("@stdlib/interfaces.zen", "Power")
 # Component Modules
 # ----------------------------------------------------------------------------
 
-Ldo = Module("../../components/LD1117S50TR/LD1117S50TR.zen")
+Ldo = Module("github.com/dioderobot/demo/components/LD1117S50TR/LD1117S50TR.zen")
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 
@@ -72,7 +72,7 @@ Capacitor(
     P2 = GND
 )
 
-add_property("datasheet", "//components/LD1117S50TR/LD1117S50TR.pdf")
+add_property("datasheet", "github.com/dioderobot/demo/components/LD1117S50TR/LD1117S50TR.pdf")
 
 # ----------------------------------------------------------------------------
 # PCB Schematic

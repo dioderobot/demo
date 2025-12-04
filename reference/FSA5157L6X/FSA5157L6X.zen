@@ -16,7 +16,7 @@ load("@stdlib/interfaces.zen", "Power", "CanTtl", "Can")
 # Component Modules
 # ----------------------------------------------------------------------------
 
-FSA5157L6X = Module("../../components/FSA5157L6X/FSA5157L6X.zen")
+FSA5157L6X = Module("github.com/dioderobot/demo/components/FSA5157L6X/FSA5157L6X.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 
 # ----------------------------------------------------------------------------
@@ -69,7 +69,7 @@ Capacitor(
     P2 = GND
 )
 
-add_property("datasheet", "//components/FSA5157L6X/FSA5157L6X.pdf")
+add_property("datasheet", "github.com/dioderobot/demo/components/FSA5157L6X/FSA5157L6X.pdf")
 
 # pcb:sch C_VCC.C x=308.8800 y=214.9000 rot=0
 # pcb:sch FSA5157L6X.FSA5157L6X x=481.6000 y=151.4000 rot=0

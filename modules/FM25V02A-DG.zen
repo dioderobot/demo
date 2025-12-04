@@ -51,7 +51,7 @@ hold_n = io("hold_n", Gpio, default = Gpio("hold_n"), optional = True) # Hold (a
 Component(
     name = "U",
     symbol = Symbol(library = "@kicad-symbols/Memory_NVRAM.kicad_sym", name = "MR20H40"),
-    footprint = File("../components/fm25v02a-dg/eda/SON95P450X400X80-9N.kicad_mod"),
+    footprint = File("github.com/dioderobot/demo/components/fm25v02a-dg/eda/SON95P450X400X80-9N.kicad_mod"),
     prefix = "U",
     mpn = "FM25V02A-DG",
     manufacturer = "Infineon Technologies",

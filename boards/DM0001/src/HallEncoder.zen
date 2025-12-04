@@ -16,7 +16,7 @@ load("@stdlib/interfaces.zen", "CanTtl", "I2c", "Power", "Spi", "Swd", "Uart", "
 # Component Modules
 # ----------------------------------------------------------------------------
 
-JstHeader = Module("//components/BM05BMSRSSMTB/BM05BMSRSSMTB.zen")
+JstHeader = Module("github.com/dioderobot/demo/components/BM05BMSRSSMTB/BM05BMSRSSMTB.zen")
 SchottkyDiode = Module("@stdlib/generics/Diode.zen")
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")

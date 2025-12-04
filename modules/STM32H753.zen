@@ -473,7 +473,7 @@ for pin in all_pins:
 Component(
     name = "MCU",
     symbol = Symbol(library = "@kicad-symbols/MCU_ST_STM32H7.kicad_sym", name = "STM32H753IIKx"),
-    footprint = File("../components/stm32h753/eda/UFBGA-201_10x10mm_Layout15x15_P0.65mm.kicad_mod"),
+    footprint = File("github.com/dioderobot/demo/components/stm32h753/eda/UFBGA-201_10x10mm_Layout15x15_P0.65mm.kicad_mod"),
     mpn = "STM32H753IIK6",
     manufacturer = "STMicroelectronics",
     pins = pins,

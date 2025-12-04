@@ -38,7 +38,7 @@ if INT.NET.name == "INT_NC":
 # Main component
 Component(
     name="U",
-    footprint=File("../components/icp-20100/eda/PQFN50P200X200X85-10N.kicad_mod"),
+    footprint=File("github.com/dioderobot/demo/components/icp-20100/eda/PQFN50P200X200X85-10N.kicad_mod"),
     pin_defs = {
         "CSB": "1",      # SPI Chip Select (tie high for I2C)
         "SCL": "2",      # I2C Clock
