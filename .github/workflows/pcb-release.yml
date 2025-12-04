@@ -48,7 +48,10 @@ jobs:
 
       - name: Detect boards
         id: detect
-        uses: diodeinc/pcb-action/detect@v2
+        shell: bash
+        run: |
+          set -e -o pipefail
+          echo "boards=$(pcb info -f json | jq -c '[.packages[].config.board.name? // empty]')" >> "$GITHUB_OUTPUT"
 
   release:
     name: Release ${{ matrix.board }}
