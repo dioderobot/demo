@@ -5,7 +5,7 @@ on:
   push:
 
 env:
-  PCB_VERSION: "v0.3.0"
+  PCB_VERSION: "v0.3.1"
 
 permissions:
   contents: read
@@ -51,7 +51,14 @@ jobs:
         shell: bash
         run: |
           set -e -o pipefail
-          echo "boards=$(pcb info -f json | jq -c '[.packages[].config.board.name? // empty]')" >> "$GITHUB_OUTPUT"
+          version=$(pcb --version | awk '{print $2}')
+          minor=${version#*.}; minor=${minor%%.*}
+          if [[ ${version%%.*} -ge 1 || $minor -ge 3 ]]; then
+            boards=$(pcb info -f json | jq -c '[.packages[].config.board.name? // empty]')
+          else
+            boards=$(pcb info -f json | jq -c '[.boards[].name]')
+          fi
+          echo "boards=$boards" >> "$GITHUB_OUTPUT"
 
   release:
     name: Release ${{ matrix.board }}
