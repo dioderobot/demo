@@ -212,6 +212,8 @@ swd = io("swd", Swd)                                      # SWD programming/debu
 # INTERNAL NETS
 # ============================================================================
 vcap = Net("VCAP")                 # Core voltage regulator capacitors
+pdr_on = Net("PDR_ON")             # Power down reset on
+boot0 = Net("BOOT0")               # Boot0
 
 # ============================================================================
 # PIN MAPPING (functional pins only - unused pins auto-assigned NotConnected)
@@ -421,9 +423,9 @@ functional_pins = {
     # -------------------------------------------------------------------------
     # SYSTEM CONTROL PINS
     # -------------------------------------------------------------------------
-    "BOOT0": Net("BOOT0"),    # Boot mode select (needs pull-down)
+    "BOOT0": boot0,    # Boot mode select (needs pull-down)
     "NRST": reset_in.NET,     # Reset input (needs RC circuit)
-    "PDR_ON": Net("PDR_ON"),  # Power-down reset (needs RC to VDD)
+    "PDR_ON": pdr_on.NET,     # Power-down reset (needs RC to VDD)
     
     # -------------------------------------------------------------------------
     # DEBUG INTERFACES
@@ -530,13 +532,13 @@ Capacitor(name = "C_VBAT", package = "0402", value = "100nF", P1 = vbat, P2 = gn
 # ============================================================================
 
 # BOOT0 Pull-down Resistor (10kΩ, ensures normal boot from flash)
-Resistor(name = "R_BOOT0_PD", package = "0402", value = "10kOhm", P1 = Net("BOOT0"), P2 = gnd)
+Resistor(name = "R_BOOT0_PD", package = "0402", value = "10kOhm", P1 = boot0, P2 = gnd)
 
 # NRST Reset Circuit (10kΩ pull-up, PDR_ON handles power-on reset)
 Resistor(name = "R_NRST_PU", package = "0402", value = "10kOhm", P1 = reset_in, P2 = vdd_3v3)
 
 # PDR_ON Power-down Reset Circuit (10kΩ pull-up to VDD core)
-Resistor(name = "R_PDR_ON_PU", package = "0402", value = "10kOhm", P1 = Net("PDR_ON"), P2 = vdd_3v3)
+Resistor(name = "R_PDR_ON_PU", package = "0402", value = "10kOhm", P1 = pdr_on, P2 = vdd_3v3)
 
 # ============================================================================
 # DEBUG TEST POINTS
@@ -546,4 +548,4 @@ Resistor(name = "R_PDR_ON_PU", package = "0402", value = "10kOhm", P1 = Net("PDR
 TestPoint(name = "TP_SWDIO", variant = "Pad_D1.5mm", P1 = swd.SWDIO)
 TestPoint(name = "TP_SWCLK", variant = "Pad_D1.5mm", P1 = swd.SWCLK)
 TestPoint(name = "TP_NRST", variant = "Pad_D1.5mm", P1 = reset_in)
-TestPoint(name = "TP_BOOT0", variant = "Pad_D1.5mm", P1 = Net("BOOT0"))
+TestPoint(name = "TP_BOOT0", variant = "Pad_D1.5mm", P1 = boot0)
