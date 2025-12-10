@@ -10,6 +10,9 @@ Component(
     footprint = File("diode/diode.kicad_mod"),
     pins = {},
     properties = {
+        "dnp": "true",
+        "skip_bom": "true",
+        "skip_pos": "true",
         "exclude_from_bom": "true",
         "exclude_from_pos": "true",
         "board_only": "true",
