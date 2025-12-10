@@ -196,15 +196,9 @@ Capacitor(
     dielectric = "X7R",
     P1 = R_SMALL_SIGNAL,
     P2 = COMP,
-    properties = {
-        "LCSC Part" : "C77024",
-        "alternatives": [
-            { "mpn": "GRM155R71H472KA01D", "manufacturer": "Murata Electronics" },
-            { "mpn": "C0402C472K4RECAUTO", "manufacturer": "KEMET" },
-        ],
-    },
+    mpn = "GRM155R71H472KA01D",
+    manufacturer = "Murata Electronics",
 )
-
 
 Capacitor(
     name = "C_SMALL_SIGNAL_2",
