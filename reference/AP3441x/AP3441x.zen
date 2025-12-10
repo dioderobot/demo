@@ -1,0 +1,234 @@
+"""
+AP3441x 3A STEP-DOWN DC-DC BUCK CONVERTER Reference Design
+Author: Nasheed Ur Rehman
+
+Datasheet: https://www.diodes.com/datasheet/download/AP3441.pdf
+
+Usage:
+  Standard voltage outputs (automatic configuration):
+    - Set config_vout_selection to one of: "1.0V", "1.2V", "1.5V", "1.8V", "2.5V", "2.8V", "3.3V"
+    - Inductor and feedback resistors are automatically configured
+  
+  Custom voltage output:
+    - Set config_vout_selection to "Custom"
+    - Override config_fb_resistance_top and config_fb_resistance_bottom for your desired Vout
+    - Formula: Vout = 0.6V * (1 + R_top/R_bottom)
+"""
+
+# ----------------------------------------------------------------------------
+# Libraries & Dependencies
+# ----------------------------------------------------------------------------
+
+load("@stdlib/config.zen", "config_properties", "config_unit")
+load("@stdlib/interfaces.zen", "Power")
+load("@stdlib/properties.zen", "Layout")
+load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "Resistance", "Voltage")
+
+# ----------------------------------------------------------------------------
+# Configuration
+# ----------------------------------------------------------------------------
+
+# Enum for output voltage selection
+Variant = enum("AP3441SHEM7B", "AP3441LSHEM7B")
+OutputVoltage = enum("1.0V", "1.2V", "1.5V", "1.8V", "2.5V", "2.8V", "3.3V", "Custom")
+Inductance = enum("1.0uH", "2.2uH")
+
+config_variant = config("variant", Variant, default = Variant("AP3441SHEM7B"))
+config_vout_selection = config("vout_selection", OutputVoltage, default = OutputVoltage("3.3V"))
+
+# Feedback resistor map for each output voltage
+# AP3441 has 0.6V reference voltage
+# Vout = Vref * (1 + R_top/R_bottom)
+# Using 10k as bottom resistor, calculated R_top for each voltage
+feedback_resistor_map = {
+    OutputVoltage("1.0V"): "6.8kohms",  # 10k * (1.0/0.6 - 1) ≈ 6.67k, using standard 6.8k
+    OutputVoltage("1.2V"): "10kohms",  # 10k * (1.2/0.6 - 1) = 10k
+    OutputVoltage("1.5V"): "15kohms",  # 10k * (1.5/0.6 - 1) = 15k
+    OutputVoltage("1.8V"): "20kohms",  # 10k * (1.8/0.6 - 1) = 20k
+    OutputVoltage("2.5V"): "31.6kohms",  # 10k * (2.5/0.6 - 1) ≈ 31.67k, using standard 31.6k
+    OutputVoltage("2.8V"): "36.5kohms",  # 10k * (2.8/0.6 - 1) ≈ 36.67k, using standard 36.5k
+    OutputVoltage("3.3V"): "45.3kohms",  # 10k * (3.3/0.6 - 1) = 45k, using standard 45.3k
+}
+
+# Map of output voltage to inductance value
+inductance_map = {
+    OutputVoltage("1.0V"): Inductance("1.0uH"),
+    OutputVoltage("1.2V"): Inductance("1.0uH"),
+    OutputVoltage("1.5V"): Inductance("2.2uH"),
+    OutputVoltage("1.8V"): Inductance("2.2uH"),
+    OutputVoltage("2.5V"): Inductance("2.2uH"),
+    OutputVoltage("2.8V"): Inductance("2.2uH"),
+    OutputVoltage("3.3V"): Inductance("2.2uH"),
+    OutputVoltage("Custom"): Inductance("2.2uH"),
+}
+
+# Map of variant to module path
+variant_module_map = {
+    Variant("AP3441SHEM7B"): "github.com/dioderobot/demo/components/AP3441SHEM7B/AP3441SHEM7B.zen",
+    Variant("AP3441LSHEM7B"): "github.com/dioderobot/demo/components/AP3441LSHEM7B/AP3441LSHEM7B.zen",
+}
+
+if config_vout_selection == OutputVoltage("Custom"):
+    fb_resistance_top = config("fb_resistance_top", str, default = "10kohms")
+    fb_resistance_bottom = config("fb_resistance_bottom", str, default = "10kohms")
+else:
+    fb_resistance_top = feedback_resistor_map.get(config_vout_selection, "45.3kohms")
+    fb_resistance_bottom = "10kohms"
+
+# Select inductance based on output voltage
+inductance_5030 = inductance_map.get(config_vout_selection, Inductance("2.2uH"))
+
+# ----------------------------------------------------------------------------
+# Component Modules
+# ----------------------------------------------------------------------------
+
+# Load both variants explicitly
+AP3441SHEM7B = Module("github.com/dioderobot/demo/components/AP3441SHEM7B/AP3441SHEM7B.zen")
+AP3441LSHEM7B = Module("github.com/dioderobot/demo/components/AP3441LSHEM7B/AP3441LSHEM7B.zen")
+
+# Select the appropriate variant
+if config_variant == Variant("AP3441SHEM7B"):
+    AP3441x = AP3441SHEM7B
+else:
+    AP3441x = AP3441LSHEM7B
+
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+Resistor = Module("@stdlib/generics/Resistor.zen")
+Inductor = Module("github.com/dioderobot/demo/reference/XAL50xx/XAL50xx.zen")
+
+# ----------------------------------------------------------------------------
+# io_interfaces
+# ----------------------------------------------------------------------------
+
+io_vin = io("vin", Net, default = Net("vin", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+io_pg = io("pg", Net)
+io_enable = io("enable", Net)
+io_vout = io("vout", Net, default = Net("vout", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+io_gnd = io("gnd", Net, default = Net("gnd", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+
+# ----------------------------------------------------------------------------
+# local nets
+# ----------------------------------------------------------------------------
+
+lx_out = Net("lx_out")
+fb_node = Net("fb_node")
+
+# ----------------------------------------------------------------------------
+# Components
+# ----------------------------------------------------------------------------
+
+AP3441x(
+    name = config_variant.value,
+    VIN = io_vin,
+    FB = fb_node,
+    LX = lx_out,
+    PG = io_pg,
+    EN = io_enable,
+    NC = Net("nc"),
+    EP = io_gnd,
+    PGND = io_gnd,
+    SGND = io_gnd,
+)
+
+# Output Inductor
+Inductor(
+    name = "L_OUT",
+    package = "5030",
+    inductance = inductance_5030,
+    P1 = lx_out,
+    P2 = io_vout,
+)
+
+# Feedback Resistor Divider
+Resistor(
+    name = "R_FB_TOP",
+    value = fb_resistance_top,
+    package = "0402",
+    P1 = io_vout,
+    P2 = fb_node,
+)
+
+Resistor(
+    name = "R_FB_BOTTOM",
+    value = fb_resistance_bottom,
+    package = "0402",
+    P1 = fb_node,
+    P2 = io_gnd,
+)
+
+# Input Capacitors
+Capacitor(
+    name = "C_VIN_BULK",
+    value = "10uF",
+    package = "0805",
+    voltage = "16V",
+    dielectric = "X7R",
+    P1 = io_vin,
+    P2 = io_gnd,
+)
+
+Capacitor(
+    name = "C_VIN_DECOUPLING",
+    value = "100nF",
+    package = "0402",
+    voltage = "16V",
+    dielectric = "X7R",
+    P1 = io_vin,
+    P2 = io_gnd,
+)
+
+# Output Capacitors
+Capacitor(
+    name = "C_VOUT_BULK",
+    value = "10uF",
+    package = "0805",
+    voltage = "16V",
+    dielectric = "X5R",
+    P1 = io_vout,
+    P2 = io_gnd,
+)
+
+Capacitor(
+    name = "C_VOUT_DECOUPLING",
+    value = "100nF",
+    package = "0402",
+    voltage = "16V",
+    dielectric = "X7R",
+    P1 = io_vout,
+    P2 = io_gnd,
+)
+
+Capacitor(
+    name = "C_FB",
+    value = "4.7nF",
+    package = "0402",
+    voltage = "16V",
+    dielectric = "X5R",
+    P1 = io_vout,
+    P2 = fb_node,
+)
+
+Layout("AP3441x", "layout_ap3441x")
+
+# ----------------------------------------------------------------------------
+# Datasheet
+# ----------------------------------------------------------------------------
+
+add_property("datasheet", "github.com/dioderobot/demo/components/AP3441SHEM7B/AP3441SHEM7B.pdf")
+
+# pcb:sch L_OUT.XAL_Inductor.XAL5030-102MEC x=570.5000 y=63.0207 rot=0
+# pcb:sch AP3441LSHEM7B.AP3441LSHE-7B x=214.9000 y=62.5000 rot=0
+
+# pcb:sch AP3441SHEM7B.AP3441SHE-7B x=202.2000 y=49.8000 rot=0
+# pcb:sch C_FB.C x=-262.6200 y=-13.7000 rot=0
+# pcb:sch C_VIN_BULK.C x=-8.6200 y=164.1000 rot=0
+# pcb:sch C_VIN_DECOUPLING.C x=92.9800 y=164.1000 rot=0
+# pcb:sch C_VOUT_BULK.C x=816.8800 y=126.0000 rot=0
+# pcb:sch C_VOUT_DECOUPLING.C x=981.9800 y=126.0000 rot=0
+# pcb:sch L_OUT.XAL_Inductor.XAL5030-222MEC x=570.5000 y=63.0207 rot=0
+# pcb:sch R_FB_BOTTOM.R x=-87.3600 y=164.1000 rot=0
+# pcb:sch R_FB_TOP.R x=-87.3600 y=-13.7000 rot=0
+# pcb:sch gnd.1 x=341.9000 y=316.5000 rot=0
+# pcb:sch vin.1 x=105.6800 y=-64.5000 rot=0
+# pcb:sch vout.1 x=-84.8200 y=-64.5000 rot=0
+# pcb:sch vout.2 x=994.6800 y=24.4000 rot=0

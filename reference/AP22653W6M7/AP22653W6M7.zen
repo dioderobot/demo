@@ -1,0 +1,139 @@
+"""
+AP22653W6-7 Adjustable Current Limit Switch Reference Design
+Author: Nasheed Ur Rehman
+
+Usage:
+  Standard current limit settings (automatic RLIM configuration):
+    - Set config_current_limit to one of: "150mA", "250mA", "500mA", "750mA", 
+      "1000mA", "1250mA", "1500mA", "1750mA", "2000mA", "2500mA"
+    - RLIM resistor is automatically configured based on datasheet values
+  
+  Custom current limit:
+    - Set config_current_limit to "Custom"
+    - Override config_ilim_resistance with your desired RLIM value
+    - Formula from datasheet: I_LIMIT[mA] ≈ 30321 / R[kΩ]^1.055 (typical)
+    - Valid range: 10kΩ ≤ RLIM ≤ 210kΩ
+
+Datasheet: https://www.diodes.com/assets/Datasheets/AP22652_53_52A_53A.pdf
+"""
+
+# ----------------------------------------------------------------------------
+# Libraries & Dependencies
+# ----------------------------------------------------------------------------
+
+load("@stdlib/config.zen", "config_properties", "config_unit")
+load("@stdlib/interfaces.zen", "Power")
+load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "Resistance", "Voltage")
+
+# ----------------------------------------------------------------------------
+# Configuration
+# ----------------------------------------------------------------------------
+
+# Current limit options based on datasheet
+CurrentLimit = enum("150mA", "250mA", "500mA", "750mA", "1000mA", "1250mA", "1500mA", "1750mA", "2000mA", "2500mA", "Custom")
+
+config_current_limit = config("current_limit", CurrentLimit, default = CurrentLimit("1750mA"))
+
+# Map of current limits to RLIM resistor values
+# Based on AP22653 datasheet Table: Current-Limit Threshold vs RLIM
+# Using typical values from datasheet with standard resistor values
+current_to_resistor_map = {
+    CurrentLimit("150mA"): "180kohms",  # ~150mA @ 180kΩ (datasheet: 125mA @ 210kΩ)
+    CurrentLimit("250mA"): "100kohms",  # ~250mA @ 100kΩ
+    CurrentLimit("500mA"): "49.9kohms",  # 490mA @ 49.9kΩ (datasheet exact)
+    CurrentLimit("750mA"): "33kohms",  # ~750mA @ 33kΩ
+    CurrentLimit("1000mA"): "27kohms",  # ~1000mA @ 27kΩ
+    CurrentLimit("1250mA"): "20kohms",  # 1286mA @ 20kΩ (datasheet exact)
+    CurrentLimit("1500mA"): "18kohms",  # ~1500mA @ 18kΩ
+    CurrentLimit("1750mA"): "15kohms",  # 1735mA @ 15kΩ (datasheet exact)
+    CurrentLimit("2000mA"): "13kohms",  # ~2000mA @ 13kΩ
+    CurrentLimit("2500mA"): "10kohms",  # 2665mA @ 10kΩ (datasheet exact)
+}
+
+# Allow custom resistor value override
+if config_current_limit == CurrentLimit("Custom"):
+    config_ilim_resistance = config("ilim_resistance", str, default = "15kohms")
+else:
+    config_ilim_resistance = current_to_resistor_map.get(config_current_limit, "15kohms")
+
+# ----------------------------------------------------------------------------
+# Component Modules
+# ----------------------------------------------------------------------------
+
+AP22653W6M7 = Module("github.com/dioderobot/demo/components/AP22653W6M7/AP22653W6M7.zen")
+Resistor = Module("@stdlib/generics/Resistor.zen")
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+
+# ----------------------------------------------------------------------------
+# io_interfaces
+# ----------------------------------------------------------------------------
+
+io_vin = io("vin", Net, default = Net("vin", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+io_enable = io("enable", Net)
+io_gnd = io("gnd", Net, default = Net("gnd", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+io_vout = io("vout", Net, default = Net("vout", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+
+io_nfault = io("nfault", Net)
+
+# ----------------------------------------------------------------------------
+# local nets
+# ----------------------------------------------------------------------------
+
+nc = Net("nc")
+ilim = Net("ilim")
+
+# ----------------------------------------------------------------------------
+# Components
+# ----------------------------------------------------------------------------
+
+AP22653W6M7(
+    name = "AP22653W6M7",
+    IN = io_vin,
+    OUT = io_vout,
+    EN = io_enable,
+    ILIM = ilim,
+    n_FAULT = io_nfault,
+    GND = io_gnd,
+)
+
+Resistor(
+    name = "R_ILIM",
+    value = config_ilim_resistance,
+    package = "0402",
+    P1 = ilim,
+    P2 = io_gnd,
+)
+
+Capacitor(
+    name = "C_IN",
+    value = "10uF",
+    voltage = "10V",
+    dielectric = "X7R",
+    package = "0805",
+    P1 = io_vin,
+    P2 = io_gnd,
+)
+
+Capacitor(
+    name = "C_OUT",
+    value = "10uF",
+    voltage = "10V",
+    dielectric = "X7R",
+    package = "0805",
+    P1 = io_vout,
+    P2 = io_gnd,
+)
+
+# ----------------------------------------------------------------------------
+# Datasheet
+# ----------------------------------------------------------------------------]
+
+add_property("datasheet", "github.com/dioderobot/demo/components/AP22653W6M7/AP22653W6M7.pdf")
+
+# pcb:sch R_ILIM.R x=928.6400 y=151.4000 rot=0
+# pcb:sch AP22653W6M7.AP22653W6-7 x=570.5000 y=87.9000 rot=0
+# pcb:sch C_IN.C x=359.6800 y=138.7000 rot=0
+# pcb:sch C_OUT.C x=994.6800 y=138.7000 rot=0
+# pcb:sch gnd.1 x=697.5000 y=265.7000 rot=0
+# pcb:sch vin.1 x=372.3800 y=62.5000 rot=0
+# pcb:sch vout.1 x=1007.3800 y=62.5000 rot=0

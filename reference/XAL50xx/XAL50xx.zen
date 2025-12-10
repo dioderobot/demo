@@ -1,0 +1,131 @@
+"""
+XAL50xx Series Configurable Shielded Power Inductors
+Coilcraft XAL5030 and XAL5050 Series
+Author: Nasheed Ur Rehman
+
+This module provides a configurable interface to select any XAL series inductor.
+The inductor is selected based on package and inductance configuration.
+
+Usage: 
+    XAL50xx = Module("//reference/XAL50xx/XAL50xx.zen")
+    XAL50xx(
+        name = "L1",
+        P1 = vin,
+        P2 = vout,
+        package = "5030",      # Choose package: "5030" or "5050"
+        inductance = "3.3uH",  # Choose inductance value
+    )
+
+Datasheet: ./XAL50xx.pdf
+"""
+
+# ----------------------------------------------------------------------------
+# Libraries & Dependencies
+# ----------------------------------------------------------------------------
+
+load("@stdlib/config.zen", "config_properties", "config_unit")
+
+# ----------------------------------------------------------------------------
+# Configuration
+# ----------------------------------------------------------------------------
+
+# Package selection enum
+PackageOptions = enum("5030", "5050")
+
+# Package selection: "5030" or "5050"
+config_package = config("package", PackageOptions, default = PackageOptions("5050"))
+
+# Available inductance values for each package
+XAL5030_Inductance = enum(
+    "330nH",  # 19.2A sat, 3.52mOhms
+    "600nH",  # 17.7A sat, 4.52mOhms
+    "800nH",  # 13.0A sat, 5.65mOhms
+    "1.0uH",  # 11.1A sat, 9.40mOhms
+    "1.2uH",  # 10.4A sat, 12.40mOhms
+    "2.2uH",  # 9.7A sat, 14.50mOhms
+    "3.3uH",  # 8.1A sat, 23.30mOhms
+    "4.7uH",  # 5.9A sat, 40.00mOhms
+)
+
+XAL5050_Inductance = enum(
+    "5.6uH",  # 7.2A sat, 25.80mOhms
+    "6.8uH",  # 6.4A sat, 29.45mOhms
+    "8.2uH",  # 6.1A sat, 34.95mOhms
+    "10uH",  # 4.9A sat, 45.00mOhms
+    "15uH",  # 3.9A sat, 76.70mOhms
+    "22uH",  # 3.4A sat, 99.65mOhms
+)
+
+# Inductance selection based on package
+if config_package == PackageOptions("5030"):
+    config_inductance = config("inductance", XAL5030_Inductance, default = XAL5030_Inductance("2.2uH"))
+elif config_package == PackageOptions("5050"):
+    config_inductance = config("inductance", XAL5050_Inductance, default = XAL5050_Inductance("5.6uH"))
+
+# ----------------------------------------------------------------------------
+# Component Mapping
+# ----------------------------------------------------------------------------
+
+XAL5030_Components = {
+    "330nH": "github.com/dioderobot/demo/components/XAL5030M331MEC/XAL5030M331MEC.zen",
+    "600nH": "github.com/dioderobot/demo/components/XAL5030M601MEC/XAL5030M601MEC.zen",
+    "800nH": "github.com/dioderobot/demo/components/XAL5030M801MEC/XAL5030M801MEC.zen",
+    "1.0uH": "github.com/dioderobot/demo/components/XAL5030M102MEC/XAL5030M102MEC.zen",
+    "1.2uH": "github.com/dioderobot/demo/components/XAL5030M122MEC/XAL5030M122MEC.zen",
+    "2.2uH": "github.com/dioderobot/demo/components/XAL5030M222MEC/XAL5030M222MEC.zen",
+    "3.3uH": "github.com/dioderobot/demo/components/XAL5030M332MEC/XAL5030M332MEC.zen",
+    "4.7uH": "github.com/dioderobot/demo/components/XAL5030M472MEC/XAL5030M472MEC.zen",
+}
+
+XAL5050_Components = {
+    "5.6uH": "github.com/dioderobot/demo/components/XAL5050M562MEC/XAL5050M562MEC.zen",
+    "6.8uH": "github.com/dioderobot/demo/components/XAL5050M682MEC/XAL5050M682MEC.zen",
+    "8.2uH": "github.com/dioderobot/demo/components/XAL5050M822MEC/XAL5050M822MEC.zen",
+    "10uH": "github.com/dioderobot/demo/components/XAL5050M103MEC/XAL5050M103MEC.zen",
+    "15uH": "github.com/dioderobot/demo/components/XAL5050M153MEC/XAL5050M153MEC.zen",
+    "22uH": "github.com/dioderobot/demo/components/XAL5050M223MEC/XAL5050M223MEC.zen",
+}
+
+# ----------------------------------------------------------------------------
+# IO Pins
+# ----------------------------------------------------------------------------
+
+P1 = io("P1", Net)
+P2 = io("P2", Net)
+
+# ----------------------------------------------------------------------------
+# Dynamic Component Selection
+# ----------------------------------------------------------------------------
+
+# Select the appropriate component based on package and inductance
+if config_package == PackageOptions("5030"):
+    # Get the inductance value string
+    inductance_str = config_inductance.value
+    if inductance_str in XAL5030_Components:
+        Component = Module(XAL5030_Components[inductance_str])
+    else:
+        # Fallback to default if not found
+        Component = Module(XAL5030_Components["2.2uH"])
+        
+elif config_package == PackageOptions("5050"):
+    # Get the inductance value string
+    inductance_str = config_inductance.value
+    if inductance_str in XAL5050_Components:
+        Component = Module(XAL5050_Components[inductance_str])
+    else:
+        # Fallback to default if not found
+        Component = Module(XAL5050_Components["5.6uH"])
+
+# Instantiate the selected component
+# Component should always be assigned by this point
+Component(
+    name = "XAL_Inductor",
+    P1 = P1,
+    P2 = P2,
+)
+
+# ----------------------------------------------------------------------------
+# Datasheet Reference
+# ----------------------------------------------------------------------------
+
+add_property("datasheet", "./XAL50xx.pdf")

@@ -1,0 +1,17 @@
+"""
+Heart Logo Graphic Component
+Author: Generated
+"""
+
+# Component definition for Heart Logo
+Component(
+    name = "Heart_Logo",
+    symbol = Symbol(library = "heart/heart.kicad_sym"),
+    footprint = File("heart/heart.kicad_mod"),
+    pins = {},
+    properties = {
+        "exclude_from_bom": "true",
+        "exclude_from_pos": "true",
+        "board_only": "true",
+    },
+)

@@ -1,0 +1,33 @@
+"""Comprehensive test for XAL50xx component."""
+
+load("@stdlib/properties.zen", "Layout")
+
+XAL50xx = Module("../../XAL50xx.zen")
+
+# Map packages to their respective inductance enums
+package_inductances = {
+    "5030": XAL50xx.XAL5030_Inductance,
+    "5050": XAL50xx.XAL5050_Inductance,
+}
+
+# Nested loop to test all package and inductance combinations
+for package in XAL50xx.PackageOptions.values():
+    # Get the appropriate inductance enum for this package
+    # Extract the actual value from the enum
+    package_str = package.value
+    inductance_enum = package_inductances[package_str]
+
+    # Iterate through all inductance values for this package
+    for inductance in inductance_enum.values():
+        # Create a clean name for the instance
+        ind_str = inductance.value.replace(".", "p").replace("uH", "u").replace("nH", "n")
+        name = "L_{}_{}".format(package_str, ind_str)
+
+        # Instantiate the component
+        XAL50xx(
+            name = name,
+            package = package,
+            inductance = inductance,
+            P1 = Net(name + "_P1"),
+            P2 = Net(name + "_P2"),
+        )

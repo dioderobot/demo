@@ -1,0 +1,25 @@
+"""
+TPD1E0B04DPYT
+
+Auto-generated using `pcb search`. Do not modify.
+"""
+
+mpn = config("mpn", str, optional=True, default="TPD1E0B04DPYT")
+
+Pins = struct(
+    P1 = io("P1", Net),
+    P2 = io("P2", Net)
+)
+
+Component(
+    name = "TPD1E0B04DPYT",
+    mpn = mpn,
+    manufacturer = "Texas Instruments",
+    datasheet = File("TPD1E0B04DPYT.pdf"),
+    symbol = Symbol(library = "TPD1E0B04DPYT.kicad_sym"),
+    footprint = File("TPD1E0B04DPYT.kicad_mod"),
+    pins = {
+        "1": Pins.P1,
+        "2": Pins.P2
+    },
+)

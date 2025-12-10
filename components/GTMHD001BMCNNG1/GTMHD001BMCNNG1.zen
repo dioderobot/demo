@@ -1,0 +1,60 @@
+"""GT-HD001B-CNNG1 Component"""
+
+# Pins
+Pins = struct(
+    CEC = io("CEC", Net),
+    DDC_CECGround = io("DDC_CECGround", Net),
+    EH = io("EH", Net),
+    HotPlugDetect = io("HotPlugDetect", Net),
+    P5VPower = io("P5VPower", Net),
+    Reserved_N_C = io("Reserved_N_C", Net),
+    SCL = io("SCL", Net),
+    SDA = io("SDA", Net),
+    TMDSClockM = io("TMDSClockM", Net),
+    TMDSClockP = io("TMDSClockP", Net),
+    TMDSClockShield = io("TMDSClockShield", Net),
+    TMDSData0M = io("TMDSData0M", Net),
+    TMDSData0P = io("TMDSData0P", Net),
+    TMDSData0Shield = io("TMDSData0Shield", Net),
+    TMDSData1M = io("TMDSData1M", Net),
+    TMDSData1P = io("TMDSData1P", Net),
+    TMDSData1Shield = io("TMDSData1Shield", Net),
+    TMDSData2M = io("TMDSData2M", Net),
+    TMDSData2P = io("TMDSData2P", Net),
+    TMDSData2Shield = io("TMDSData2Shield", Net),
+)
+
+# Component
+Component(
+    name = "GT-HD001B-CNNG1",
+    symbol = Symbol(library = "C27636747.kicad_sym"),
+    footprint = File("HDMI-SMD_GT-HD001B-CNNG1.kicad_mod"),
+    pins = {
+        "CEC": Pins.CEC,
+        "DDC/CECGround": Pins.DDC_CECGround,
+        "EH": Pins.EH,
+        "HotPlugDetect": Pins.HotPlugDetect,
+        "+5VPower": Pins.P5VPower,
+        "Reserved(N.C.)": Pins.Reserved_N_C,
+        "SCL": Pins.SCL,
+        "SDA": Pins.SDA,
+        "TMDSClock-": Pins.TMDSClockM,
+        "TMDSClock+": Pins.TMDSClockP,
+        "TMDSClockShield": Pins.TMDSClockShield,
+        "TMDSData0-": Pins.TMDSData0M,
+        "TMDSData0+": Pins.TMDSData0P,
+        "TMDSData0Shield": Pins.TMDSData0Shield,
+        "TMDSData1-": Pins.TMDSData1M,
+        "TMDSData1+": Pins.TMDSData1P,
+        "TMDSData1Shield": Pins.TMDSData1Shield,
+        "TMDSData2-": Pins.TMDSData2M,
+        "TMDSData2+": Pins.TMDSData2P,
+        "TMDSData2Shield": Pins.TMDSData2Shield,
+    },
+    properties = {
+        "value": "GT-HD001B-CNNG1",
+        "mpn": "GT-HD001B-CNNG1",
+    },
+)
+
+add_property("layout_path", "build/preview")

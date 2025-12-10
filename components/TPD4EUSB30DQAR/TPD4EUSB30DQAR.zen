@@ -1,0 +1,35 @@
+"""TPD4EUSB30DQAR Component"""
+
+# Pins
+Pins = struct(
+    D1M = io("D1M", Net),
+    D1P = io("D1P", Net),
+    D2M = io("D2M", Net),
+    D2P = io("D2P", Net),
+    GND = io("GND", Net),
+)
+
+# Component
+Component(
+    name = "TPD4EUSB30DQAR",
+    symbol = Symbol(library = "TPD4EUSB30DQAR.kicad_sym"),
+    footprint = File("DQA_R-PUSON-N10_.kicad_mod"),
+    pins = {
+        "D1-": Pins.D1M,
+        "D1+": Pins.D1P,
+        "D2-": Pins.D2M,
+        "D2+": Pins.D2P,
+        "GND_1": Pins.GND,
+        "GND_2": Pins.GND,
+        "N.C._1": Pins.D2M,
+        "N.C._2": Pins.D2P,
+        "N.C._3": Pins.D1M,
+        "N.C._4": Pins.D1P,
+    },
+    properties = {
+        "value": "TPD4EUSB30DQAR",
+        "mpn": "TPD4EUSB30DQAR",
+    },
+)
+
+add_property("layout_path", "build/preview")

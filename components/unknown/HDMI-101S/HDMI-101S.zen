@@ -1,0 +1,59 @@
+"""
+HDMI-101S
+
+Auto-generated using `pcb search`. Do not modify.
+"""
+
+mpn = config("mpn", str, optional=True, default="HDMI-101S")
+
+Pins = struct(
+    CEC = io("CEC", Net),
+    DDC_CEC_GND = io("DDC_CEC_GND", Net),
+    HOT_PLUG_DET = io("HOT_PLUG_DET", Net),
+    P5V = io("P5V", Net),
+    SCL = io("SCL", Net),
+    SDA = io("SDA", Net),
+    SHIELD = io("SHIELD", Net),
+    TMDS_CLOCKM = io("TMDS_CLOCKM", Net),
+    TMDS_CLOCKP = io("TMDS_CLOCKP", Net),
+    TMDS_CLOCK_SHIELD = io("TMDS_CLOCK_SHIELD", Net),
+    TMDS_DATA0M = io("TMDS_DATA0M", Net),
+    TMDS_DATA0P = io("TMDS_DATA0P", Net),
+    TMDS_DATA0_SHIELD = io("TMDS_DATA0_SHIELD", Net),
+    TMDS_DATA1M = io("TMDS_DATA1M", Net),
+    TMDS_DATA1P = io("TMDS_DATA1P", Net),
+    TMDS_DATA1_SHIELD = io("TMDS_DATA1_SHIELD", Net),
+    TMDS_DATA2M = io("TMDS_DATA2M", Net),
+    TMDS_DATA2P = io("TMDS_DATA2P", Net),
+    TMDS_DATA2_SHIELD = io("TMDS_DATA2_SHIELD", Net),
+    UTILITY = io("UTILITY", Net)
+)
+
+Component(
+    name = "HDMI-101S",
+    mpn = mpn,
+    symbol = Symbol(library = "C720620.kicad_sym"),
+    footprint = File("HDMI-SMD_HDMI-101S.kicad_mod"),
+    pins = {
+        "CEC": Pins.CEC,
+        "DDC/CEC_GND": Pins.DDC_CEC_GND,
+        "HOT_PLUG_DET": Pins.HOT_PLUG_DET,
+        "+5V": Pins.P5V,
+        "SCL": Pins.SCL,
+        "SDA": Pins.SDA,
+        "SHIELD": Pins.SHIELD,
+        "TMDS_CLOCK-": Pins.TMDS_CLOCKM,
+        "TMDS_CLOCK+": Pins.TMDS_CLOCKP,
+        "TMDS_CLOCK_SHIELD": Pins.TMDS_CLOCK_SHIELD,
+        "TMDS_DATA0-": Pins.TMDS_DATA0M,
+        "TMDS_DATA0+": Pins.TMDS_DATA0P,
+        "TMDS_DATA0_SHIELD": Pins.TMDS_DATA0_SHIELD,
+        "TMDS_DATA1-": Pins.TMDS_DATA1M,
+        "TMDS_DATA1+": Pins.TMDS_DATA1P,
+        "TMDS_DATA1_SHIELD": Pins.TMDS_DATA1_SHIELD,
+        "TMDS_DATA2-": Pins.TMDS_DATA2M,
+        "TMDS_DATA2+": Pins.TMDS_DATA2P,
+        "TMDS_DATA2_SHIELD": Pins.TMDS_DATA2_SHIELD,
+        "UTILITY": Pins.UTILITY
+    },
+)

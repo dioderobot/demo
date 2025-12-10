@@ -1,0 +1,592 @@
+(kicad_symbol_lib
+  (version 20241209)
+  (generator "editor")
+  (generator_version "1.0")
+  (symbol
+    "TYPE-C24PQT"
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (property
+      "Reference"
+      "J"
+      (at 0 5.08 0)
+      (effects
+        (font (size 1.27 1.27))
+        (justify left)
+      )
+    )
+    (property
+      "Value"
+      "TYPE-C24PQT"
+      (at 0 -5.08 0)
+      (effects
+        (font (size 1.27 1.27))
+        (justify left)
+      )
+    )
+    (property
+      "Footprint"
+      "C2681555:USB-C-SMD_TYPE-C-24P-QT"
+      (at 0 -7.62 0)
+      (effects
+        (font (size 1.27 1.27))
+        (justify left)
+        (hide yes)
+      )
+    )
+    (property
+      "Datasheet"
+      "~"
+      (at 0 -10.16 0)
+      (effects
+        (font (size 1.27 1.27))
+        (justify left)
+        (hide yes)
+      )
+    )
+    (property
+      "Description"
+      "USB Type-C 24-Pin Receptacle Connector"
+      (at 0 -12.7 0)
+      (effects
+        (font (size 1.27 1.27))
+        (justify left)
+        (hide yes)
+      )
+    )
+    (property
+      "ki_keywords"
+      "USB-C Type-C USB connector receptacle"
+      (at 0 -15.24 0)
+      (effects
+        (font (size 1.27 1.27))
+        (justify left)
+        (hide yes)
+      )
+    )
+    (symbol
+      "TYPE-C24PQT_0_1"
+      (rectangle
+        (start
+          -25.8064
+          45.1612
+        )
+        (end
+          25.8064
+          -45.1612
+        )
+        (stroke
+          (width 0.254)
+          (type default)
+        )
+        (fill
+          (type background)
+        )
+      )
+      (circle
+        (center
+          -22.5806
+          41.9354
+        )
+        (radius 0.9652000000000001)
+        (stroke
+          (width 0.254)
+          (type default)
+        )
+        (fill
+          (type none)
+        )
+      )
+    )
+    (symbol
+      "TYPE-C24PQT_1_1"
+      (pin
+        power_in
+        line
+        (at -32.257999999999996 38.7096 0)
+        (length 6.4516)
+        (name
+          "GND"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "A1"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at -32.257999999999996 32.257999999999996 0)
+        (length 6.4516)
+        (name
+          "TX1+"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "A2"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at -32.257999999999996 25.8064 0)
+        (length 6.4516)
+        (name
+          "TX1-"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "A3"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        power_in
+        line
+        (at -32.257999999999996 19.3548 0)
+        (length 6.4516)
+        (name
+          "VBUS"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "A4"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at -32.257999999999996 12.9032 0)
+        (length 6.4516)
+        (name
+          "CC1"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "A5"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at -32.257999999999996 6.4516 0)
+        (length 6.4516)
+        (name
+          "D+"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "A6"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at -32.257999999999996 0 0)
+        (length 6.4516)
+        (name
+          "D-"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "A7"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at -32.257999999999996 -6.4516 0)
+        (length 6.4516)
+        (name
+          "SBU1"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "A8"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        power_in
+        line
+        (at -32.257999999999996 -12.9032 0)
+        (length 6.4516)
+        (name
+          "VBUS"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "A9"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at -32.257999999999996 -19.3548 0)
+        (length 6.4516)
+        (name
+          "RX2-"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "A10"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at -32.257999999999996 -25.8064 0)
+        (length 6.4516)
+        (name
+          "RX2+"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "A11"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        power_in
+        line
+        (at -32.257999999999996 -32.257999999999996 0)
+        (length 6.4516)
+        (name
+          "GND"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "A12"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        power_in
+        line
+        (at 32.257999999999996 38.7096 180)
+        (length 6.4516)
+        (name
+          "GND"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "B1"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at 32.257999999999996 32.257999999999996 180)
+        (length 6.4516)
+        (name
+          "TX2+"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "B2"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at 32.257999999999996 25.8064 180)
+        (length 6.4516)
+        (name
+          "TX2-"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "B3"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        power_in
+        line
+        (at 32.257999999999996 19.3548 180)
+        (length 6.4516)
+        (name
+          "VBUS"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "B4"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at 32.257999999999996 12.9032 180)
+        (length 6.4516)
+        (name
+          "CC2"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "B5"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at 32.257999999999996 6.4516 180)
+        (length 6.4516)
+        (name
+          "D+"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "B6"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at 32.257999999999996 0 180)
+        (length 6.4516)
+        (name
+          "D-"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "B7"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at 32.257999999999996 -6.4516 180)
+        (length 6.4516)
+        (name
+          "SBU2"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "B8"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        power_in
+        line
+        (at 32.257999999999996 -12.9032 180)
+        (length 6.4516)
+        (name
+          "VBUS"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "B9"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at 32.257999999999996 -19.3548 180)
+        (length 6.4516)
+        (name
+          "RX1-"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "B10"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at 32.257999999999996 -25.8064 180)
+        (length 6.4516)
+        (name
+          "RX1+"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "B11"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        power_in
+        line
+        (at 32.257999999999996 -32.257999999999996 180)
+        (length 6.4516)
+        (name
+          "GND"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "B12"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        passive
+        line
+        (at -6.4516 -51.6128 90)
+        (length 6.4516)
+        (name
+          "SHIELD"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "3"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        passive
+        line
+        (at 6.4516 -51.6128 90)
+        (length 6.4516)
+        (name
+          "SHIELD"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "4"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        passive
+        line
+        (at 0 -51.6128 90)
+        (length 6.4516)
+        (name
+          "SHIELD"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "25"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+    )
+  )
+)
