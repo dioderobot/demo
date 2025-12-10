@@ -58,8 +58,12 @@ Component(
         "SBU2": Net("sbu2"),
         "VBUS": io_5v,
     },
+    mpn = "GT-USB-7010ASV",
     properties = {
-        "value": "USB_C_Receptacle",
+        "value": "GT-USB-7010ASV",
+        "manufacturer": "G-Switch",
+        "description": "USB-C Receptacle USB2.0 16P Top Mount Horizontal",
+        "datasheet": "https://www.lcsc.com/datasheet/C2988369.pdf/",
     },
 )
 

@@ -46,4 +46,11 @@ Component(
         "TRD3-": Pins_CRJ009MML4MTH.TRD3M,
         "TRD3+": Pins_CRJ009MML4MTH.TRD3P,
     },
+    properties = {
+        "alternatives": [
+            { "mpn": "CRJ009-ML4-TH", "manufacturer": "Same Sky" },
+            { "mpn": "HR911130C", "manufacturer": "HANRUN(Zhongshan HanRun Elec) " },
+        ],
+        "LCSC Part" : "C50933"
+            },
 )

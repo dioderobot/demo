@@ -56,4 +56,16 @@ Component(
         "TMDS_DATA2_SHIELD": Pins.TMDS_DATA2_SHIELD,
         "UTILITY": Pins.UTILITY
     },
+    properties = {
+        "value": "HDMI-101S",
+        "mpn": "HDMI-101S",
+        "LCSC Part" : "C720620",
+        "description": "HDMI 1.0b compliant 1080p display port to HDMI 1.4a",
+        "datasheet": "https://www.hdmi.org/sites/default/files/documents/HDMI_Specification_1.4_Final.pdf",
+        "manufacturer": "XUNPU",
+        "alternatives": [
+            { "mpn": "HDMI-101S", "manufacturer": "XUNPU" },
+            { "mpn": "685119248123", "manufacturer": "Würth Elektronik" },
+        ],
+    },
 )

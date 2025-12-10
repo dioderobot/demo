@@ -90,6 +90,14 @@ Component(
     properties = {
         "value": "1-2199119-3",
         "mpn": "1-2199119-3",
+        "manufacturer": "TE Connectivity",
+        "description": "PCIe Gen3 x4 M.2 Socket",
+        "package": "M.2_Socket_M",
+        "alternatives": [
+            { "mpn": "MDT320M01004", "manufacturer": "Amphenol ICC (FCI)"},
+            { "mpn": "91302-32-067RDM", "manufacturer": "UMAX"},
+        ],
+        "LCSC Part" : "C1509730",
     },
 )
 

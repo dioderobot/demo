@@ -38,8 +38,12 @@ Component(
         "VDD_IO": Pins.VDD_IO,
     },
     properties = {
-        "value": "LIS3DH",
-        "mpn": "LIS3DH",
+        "value": "LIS3DHTR",
+        "mpn": "LIS3DHTR",
+        "description": "3-axis accelerometer",
+        "datasheet": "https://www.st.com/resource/en/datasheet/lis3dh.pdf",
+        "LCSC Part" : "C15134", 
+        "manufacturer": "STMicroelectronics",
     },
 )
 

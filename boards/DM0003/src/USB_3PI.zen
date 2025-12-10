@@ -191,9 +191,13 @@ Component(
         "1": VBUS,
         "2": io_gnd,
     },
+    mpn = "TAJB107K006RNJ",
     properties = {
-        "value": "100uF",
-        "voltage": "10V",
+        "manufacturer": "KYOCERA AVX",
+        "value": "100uF 6.3V",
+        "package": "CASE-B-3528-21",
+        "datasheet": "https://datasheets.kyocera-avx.com/TAJ.pdf",
+        "LCSC Part" : "C16133",
     },
 )
 

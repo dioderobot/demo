@@ -4,7 +4,7 @@ TYPE-C24PQT
 Auto-generated using `pcb search`. Do not modify.
 """
 
-mpn = config("mpn", str, optional=True, default="TYPE-C24PQT")
+mpn = config("mpn", str, optional=True, default="TYPE-C 24P QT")
 
 Pins = struct(
     CC1 = io("CC1", Net),
@@ -49,5 +49,10 @@ Component(
         "TX2-": Pins.TX2M,
         "TX2+": Pins.TX2P,
         "VBUS": Pins.VBUS,
+    },
+    properties = {
+        "description": "USB Type-C 24-Pin Receptacle Connector",
+        "datasheet": "https://www.usb.org/sites/default/files/documents/usb_type-c.zip",
+        "manufacturer": "SHOU HAN",
     },
 )
