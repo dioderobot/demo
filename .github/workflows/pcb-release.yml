@@ -86,6 +86,17 @@ jobs:
         with:
           version: ${{ env.PCB_VERSION }}
 
+      - name: Check git status before release
+        run: |
+          echo "=== Git status before pcb release ==="
+          git status
+          echo ""
+          echo "=== Git diff (if any) ==="
+          git diff --stat || true
+          echo ""
+          echo "=== Untracked files ==="
+          git ls-files --others --exclude-standard || true
+
       - name: Run pcb release
         id: release
         shell: bash
@@ -95,6 +106,31 @@ jobs:
           pcb release -b ${{ matrix.board }} --output-dir . --output-name $archive_path -S layout.drc --yes
           echo "archive_path=$archive_path" >> "$GITHUB_OUTPUT"
           echo "short_sha=$short_sha" >> "$GITHUB_OUTPUT"
+
+      - name: Check git status after release
+        if: always()
+        run: |
+          echo "=== Git status after pcb release ==="
+          git status
+          echo ""
+          echo "=== Git diff --stat (modified files) ==="
+          git diff --stat || true
+          echo ""
+          echo "=== Git diff (full content) ==="
+          git diff || true
+          echo ""
+          echo "=== Untracked files ==="
+          git ls-files --others --exclude-standard || true
+          echo ""
+          echo "=== Checking for common culprits ==="
+          echo "Modified .zen files:"
+          git diff --name-only -- '*.zen' || true
+          echo ""
+          echo "Modified .kicad_* files:"
+          git diff --name-only -- '*.kicad_*' || true
+          echo ""
+          echo "=== git describe output ==="
+          git describe --always --dirty || true
 
       - name: Sign
         uses: sigstore/gh-action-sigstore-python@v3.0.0
