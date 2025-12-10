@@ -1,0 +1,193 @@
+(footprint "TestPoint_Keystone_5019_Miniature"
+	(version 20241229)
+	(generator "pcbnew")
+	(generator_version "9.0")
+	(layer "F.Cu")
+	(descr "Keystone SMT Miniature Test Point 5019, http://www.keyelco.com/product-pdf.cfm?p=1357")
+	(tags "Test Point")
+	(property "Reference" "REF**"
+		(at 0 -2.25 0)
+		(layer "F.SilkS")
+		(uuid "7f1fa587-ca68-4f8c-83ac-742a41459d01")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "TestPoint_Keystone_5019_Miniature"
+		(at 0 2.25 0)
+		(layer "F.Fab")
+		(uuid "411b5da2-28f0-4851-aa82-e12ba7994e2d")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0.02 -2.81 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "f5ffd12e-ee48-4d99-b069-656dc9ce97f7")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0.02 -2.81 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "a0e31b43-9d87-47f4-a99b-10c26cef784d")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(fp_rect
+		(start -2.1 -1.2)
+		(end 2.1 1.2)
+		(stroke
+			(width 0.12)
+			(type default)
+		)
+		(fill no)
+		(layer "F.SilkS")
+		(uuid "03cd27f2-aae9-4be8-ad59-00495e8a5fbe")
+	)
+	(fp_line
+		(start -2.35 -1.45)
+		(end 2.35 -1.45)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "fdf6aa5f-bbfa-46bc-85e3-5e97bb500e7d")
+	)
+	(fp_line
+		(start -2.35 1.45)
+		(end -2.35 -1.45)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "5c78ef4f-4617-403e-974c-a1b591d10ea8")
+	)
+	(fp_line
+		(start 2.35 -1.45)
+		(end 2.35 1.45)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "7b2cd53d-93d8-45b1-836d-70136b7cf3c5")
+	)
+	(fp_line
+		(start 2.35 1.45)
+		(end -2.35 1.45)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "ea7960d4-1259-4cdc-a9a4-365de7f752d5")
+	)
+	(fp_rect
+		(start -1.9 -0.5)
+		(end 1.9 0.5)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill no)
+		(layer "F.Fab")
+		(uuid "e7b6b597-2eec-4c88-8227-47b42c9f9bef")
+	)
+	(fp_rect
+		(start -1.25 -1)
+		(end 0 -0.5)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill no)
+		(layer "F.Fab")
+		(uuid "e373f429-dbc3-4351-ae76-20bd521694c1")
+	)
+	(fp_rect
+		(start -1.25 0.5)
+		(end 0 1)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill no)
+		(layer "F.Fab")
+		(uuid "c237dfc0-617b-4138-8728-537538f34fee")
+	)
+	(fp_rect
+		(start 0 -1)
+		(end 1.25 -0.5)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill no)
+		(layer "F.Fab")
+		(uuid "ac93b1dc-aa29-47bc-9e8f-365069cba74d")
+	)
+	(fp_rect
+		(start 0 0.5)
+		(end 1.25 1)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill no)
+		(layer "F.Fab")
+		(uuid "1e7cd6a2-0df8-49f9-b588-d99f813a8419")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(uuid "b976a935-1066-4888-a015-59ec4606e3f5")
+		(effects
+			(font
+				(size 0.9 0.9)
+				(thickness 0.135)
+			)
+		)
+	)
+	(pad "1" smd roundrect
+		(at 0 0)
+		(size 3.8 2)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.125)
+		(uuid "36e9b045-6d4e-4029-9fd2-a9cb2475ece3")
+	)
+	(embedded_fonts no)
+	(model "${KICAD9_3DMODEL_DIR}/TestPoint.3dshapes/TestPoint_Keystone_5019_Miniature.step"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)
