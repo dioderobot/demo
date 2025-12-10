@@ -1,0 +1,113 @@
+"""
+HDMI - CM5 Carrier
+Author: Nasheed Ur Rehman
+"""
+
+# ----------------------------------------------------------------------------
+# Libraries & Dependencies
+# ----------------------------------------------------------------------------
+
+load("@stdlib/config.zen", "config_properties", "config_unit")
+load("@stdlib/interfaces.zen", "Hdmi", "Power")
+load("@stdlib/properties.zen", "Layout")
+load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "Resistance", "Voltage")
+
+# ----------------------------------------------------------------------------
+# Component Modules
+# ----------------------------------------------------------------------------
+
+HDMI_Connector = Module("github.com/dioderobot/demo/components/unknown/HDMI-101S/HDMI-101S.zen")
+ESD_Protection = Module("github.com/dioderobot/demo/components/PUSB3F96X/PUSB3F96X.zen")
+Current_Limit_Switch = Module("github.com/dioderobot/demo/reference/STMPS2151STR/STMPS2151STR.zen")
+
+# ----------------------------------------------------------------------------
+# io_interfaces
+# ----------------------------------------------------------------------------
+
+io_5v = io("io_5v", Net, default = Net("io_5v", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+io_gnd = io("io_gnd", Net, default = Net("io_gnd", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+hdmi_c = io("HDMI_C", Hdmi)
+
+# ----------------------------------------------------------------------------
+# Local nets
+# ----------------------------------------------------------------------------
+
+nc = Net("nc")
+hdmi_5v = Net("hdmi_5v")
+
+# ----------------------------------------------------------------------------
+# Components
+# ----------------------------------------------------------------------------
+
+HDMI_Connector(
+    name = "HDMI_Connector",
+    P5V = hdmi_5v,
+    CEC = hdmi_c.CEC,
+    DDC_CEC_GND = io_gnd,
+    HOT_PLUG_DET = hdmi_c.HPD,
+    SCL = hdmi_c.SCL,
+    SDA = hdmi_c.SDA,
+    SHIELD = io_gnd,
+    TMDS_CLOCKM = hdmi_c.CLK.N,
+    TMDS_CLOCKP = hdmi_c.CLK.P,
+    TMDS_CLOCK_SHIELD = io_gnd,
+    TMDS_DATA0M = hdmi_c.D0.N,
+    TMDS_DATA0P = hdmi_c.D0.P,
+    TMDS_DATA0_SHIELD = io_gnd,
+    TMDS_DATA1M = hdmi_c.D1.N,
+    TMDS_DATA1P = hdmi_c.D1.P,
+    TMDS_DATA1_SHIELD = io_gnd,
+    TMDS_DATA2M = hdmi_c.D2.N,
+    TMDS_DATA2P = hdmi_c.D2.P,
+    TMDS_DATA2_SHIELD = io_gnd,
+    UTILITY = nc,
+)
+
+Current_Limit_Switch(
+    name = "Current_Limit_Switch",
+    vin = io_5v,
+    vout = hdmi_5v,
+    gnd = io_gnd,
+    enable = io_5v,
+    fault = Net("fault"),
+)
+
+# ESD_Protection(
+#     name = "ESD_Protection_1",
+#     CH1 = hdmi_c.D2_P,
+#     CH2 = hdmi_c.D2_N,
+#     CH3 = hdmi_c.D0_P,
+#     CH4 = hdmi_c.D0_N,
+#     GND = io_gnd,
+# )
+
+# ESD_Protection(
+#     name = "ESD_Protection_2",
+#     CH1 = hdmi_c.D1_P,
+#     CH2 = hdmi_c.D1_N,
+#     CH3 = hdmi_c.CLK_P,
+#     CH4 = hdmi_c.CLK_N,
+#     GND = io_gnd,
+# )
+
+# ESD_Protection(
+#     name = "ESD_Protection_3",
+#     CH1 = hdmi_c.HPD,
+#     CH2 = hdmi_c.CEC,
+#     CH3 = hdmi_c.SCL,
+#     CH4 = hdmi_c.SDA,
+#     GND = io_gnd,
+# )
+
+Layout("layout", "layout_HDMI/")
+
+# pcb:sch Current_Limit_Switch.C_IN.C x=3585.4800 y=202.2000 rot=0
+# pcb:sch Current_Limit_Switch.C_OUT.C x=3077.4800 y=214.9000 rot=0
+# pcb:sch Current_Limit_Switch.STMPS2151STR.STMPS2151STR x=3262.9000 y=138.7000 rot=0
+# pcb:sch ESD_Protection_1.PUSB3F96X x=3885.2000 y=-229.6000 rot=0
+# pcb:sch ESD_Protection_2.PUSB3F96X x=3885.2000 y=-26.4000 rot=0
+# pcb:sch ESD_Protection_3.PUSB3F96X x=3885.2000 y=164.1000 rot=0
+# pcb:sch HDMI_Connector.HDMI-101S x=4507.5000 y=-204.2000 rot=0
+# pcb:sch io_5v.1 x=3598.1800 y=100.6000 rot=0
+# pcb:sch io_gnd.1 x=4024.9000 y=380.0000 rot=0
+# pcb:sch io_gnd.2 x=4609.1000 y=405.4000 rot=0

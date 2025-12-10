@@ -1,0 +1,227 @@
+"""
+USB PD - CM5 Carrier
+Author: Nasheed Ur Rehman
+"""
+
+# ----------------------------------------------------------------------------
+# Libraries & Dependencies
+# ----------------------------------------------------------------------------
+
+load("@stdlib/interfaces.zen", "Ground", "Power", "Usb2", "Usb3", "UsbTypeC")
+load("@stdlib/config.zen", "config_properties", "config_unit")
+load("@stdlib/properties.zen", "Layout")
+load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "Resistance", "Voltage")
+
+# ----------------------------------------------------------------------------
+# Configuration
+# ----------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------
+# Component Modules
+# ----------------------------------------------------------------------------
+
+USB_TypeC_Connector = Module("github.com/dioderobot/demo/components/unknown/TYPE-C24PQT/TYPE-C24PQT.zen")
+ESD = Module("github.com/dioderobot/demo/components/TPD4EUSB30DQAR/TPD4EUSB30DQAR.zen")
+Current_Limit_Switch = Module("github.com/dioderobot/demo/reference/AP22653W6M7/AP22653W6M7.zen")
+Resistor = Module("@stdlib/generics/Resistor.zen")
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+RCLAMP0502BATCT = Module("github.com/dioderobot/demo/components/RCLAMP0502BATCT/RCLAMP0502BATCT.zen")
+TUSB321RWBR = Module("github.com/dioderobot/demo/components/TUSB321RWBR/TUSB321RWBR.zen")
+SSMUX = Module("github.com/dioderobot/demo/components/unknown/HD3SS3212IRKSR/HD3SS3212IRKSR.zen")
+
+# ----------------------------------------------------------------------------
+# io_interfaces
+# ----------------------------------------------------------------------------
+
+io_5v = io("V5V", Net, default = Net("V5V", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+io_3v3 = io("V3V3", Net, default = Net("V3V3", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+io_gnd = io("GND", Net, default = Net("GND", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+
+USB3P = io("USB_3PI", Usb3)
+VBUS_EN = io("VBUS_EN", Net)
+
+USB_Connector = UsbTypeC("USB_C")
+VBUS = Power("VBUS")
+PORT = Net("PORT")
+VBUS_DET = Net("VBUS_DET")
+DIR = Net("DIR")
+
+USB_TypeC_Connector(
+    name = "USB_PD",
+    VBUS = VBUS,
+    CC1 = USB_Connector.CC1,
+    CC2 = USB_Connector.CC2,
+    DM = USB3P.D.N,
+    DP = USB3P.D.P,
+    GND = io_gnd,
+    EP = io_gnd,
+    SUB1 = Net("NC"),
+    SUB2 = Net("NC"),
+    RX1M = USB_Connector.SSRX0.N,
+    RX2M = USB_Connector.SSRX1.N,
+    RX1P = USB_Connector.SSRX0.P,
+    RX2P = USB_Connector.SSRX1.P,
+    TX1P = USB_Connector.SSTX0.P,
+    TX1M = USB_Connector.SSTX0.N,
+    TX2M = USB_Connector.SSTX1.N,
+    TX2P = USB_Connector.SSTX1.P,
+)
+ESD(
+    name = "ESD_1",
+    D1M = USB_Connector.CC2,
+    D1P = USB_Connector.CC1,
+    D2P = USB3P.D.N,
+    D2M = USB3P.D.P,
+    GND = io_gnd,
+)
+
+ESD(
+    name = "ESD_2",
+    D1M = USB_Connector.SSRX0.P,
+    D1P = USB_Connector.SSRX0.N,
+    D2M = USB_Connector.SSTX0.P,
+    D2P = USB_Connector.SSTX0.N,
+    GND = io_gnd,
+)
+
+ESD(
+    name = "ESD_3",
+    D1M = USB_Connector.SSRX1.N,
+    D1P = USB_Connector.SSRX1.P,
+    D2M = USB_Connector.SSTX1.N,
+    D2P = USB_Connector.SSTX1.P,
+    GND = io_gnd,
+)
+
+TUSB321RWBR(
+    name = "TUSB321RWBR",
+    VDD = VBUS,
+    GND = io_gnd,
+    CC1 = USB_Connector.CC1,
+    CC2 = USB_Connector.CC2,
+    OUT1 = Net("NC"),
+    OUT2 = Net("NC"),
+    PORT = PORT,
+    ID = Net("NC"),
+    DIR = DIR,
+    CURRENT_MODE = io_gnd,
+    VBUS_DET = VBUS_DET,
+    n_VCONN_FAULT = Net("NC"),
+)
+
+Capacitor(
+    name = "C_VBUS_DET",
+    value = "100nF",
+    package = "0402",
+    voltage = "16V",
+    dielectric = "X7R",
+    P1 = VBUS,
+    P2 = io_gnd,
+)
+
+Resistor(
+    name = "R_PORT",
+    value = "4.7kohms",
+    package = "0402",
+    P1 = VBUS,
+    P2 = PORT,
+)
+
+Resistor(
+    name = "R_VBUS_DET",
+    value = "910kohms",
+    package = "0402",
+    P1 = VBUS,
+    P2 = VBUS_DET,
+)
+
+Capacitor(
+    name = "C_SSMUX",
+    value = "100nF",
+    package = "0402",
+    voltage = "16V",
+    dielectric = "X7R",
+    P1 = io_3v3,
+    P2 = io_gnd,
+)
+
+SSMUX(
+    name = "SSMUX",
+    VCC = io_3v3,
+    GND_1 = io_gnd,
+    GND_2 = io_gnd,
+    GND_3 = io_gnd,
+    A0N = USB3P.SSRX.N,
+    A0P = USB3P.SSRX.P,
+    A1N = USB3P.SSTX.N,
+    A1P = USB3P.SSTX.P,
+    B1N = USB_Connector.SSTX1.N,
+    B1P = USB_Connector.SSTX1.P,
+    B0N = USB_Connector.SSRX1.N,
+    B0P = USB_Connector.SSRX1.P,
+    C1N = USB_Connector.SSTX0.P,
+    C1P = USB_Connector.SSTX0.N,
+    C0N = USB_Connector.SSRX0.P,
+    C0P = USB_Connector.SSRX0.N,
+    EPAD = io_gnd,
+    OEN = io_gnd,
+    RSVD1 = Net("NC"),
+    RSVD2 = Net("NC"),
+    SEL = DIR,
+)
+
+Current_Limit_Switch(
+    name = "Current_Limit_Switch",
+    vin = io_5v,
+    vout = VBUS,
+    gnd = io_gnd,
+    enable = VBUS_EN,
+    nfault = Net("nfault"),
+    current_limit = "1750mA",
+    properties = {
+        "collapse": "true",
+    },
+)
+
+Component(
+    name = "C_BULK",
+    symbol = Symbol(library = "@kicad-symbols/Device.kicad_sym", name = "C_Polarized"),
+    footprint = File("@kicad-footprints/Capacitor_Tantalum_SMD.pretty/CP_EIA-3528-21_Kemet-B.kicad_mod"),
+    pins = {
+        "1": VBUS,
+        "2": io_gnd,
+    },
+    properties = {
+        "value": "100uF",
+        "voltage": "10V",
+    },
+)
+
+# pcb:sch C_BULK x=611.1400 y=214.9000 rot=0
+# pcb:sch C_SSMUX.C x=207.2800 y=-39.1000 rot=0
+# pcb:sch C_VBUS1.C x=1121.6800 y=-153.4000 rot=0
+# pcb:sch C_VBUS2.C x=1210.5800 y=-153.4000 rot=0
+# pcb:sch C_VBUS_DET.C x=727.9800 y=214.9000 rot=0
+# pcb:sch Current_Limit_Switch x=419.1000 y=177.8000 rot=0
+# pcb:sch ESD_1.TPD4EUSB30DQAR x=-991.6000 y=-128.0000 rot=180
+# pcb:sch ESD_2.TPD4EUSB30DQAR x=-1321.8000 y=-26.4000 rot=0
+# pcb:sch ESD_3.TPD4EUSB30DQAR x=-1321.8000 y=176.8000 rot=0
+# pcb:sch GND.2 x=2208.8000 y=519.7000 rot=0
+# pcb:sch GND.3 x=-1169.4000 y=418.1000 rot=0
+# pcb:sch GND.5 x=-140.7000 y=519.7000 rot=0
+# pcb:sch GND.6 x=367.3000 y=354.6000 rot=0
+# pcb:sch GND.7 x=214.9000 y=87.9000 rot=0
+# pcb:sch GND.10 x=-775.7000 y=494.3000 rot=0
+# pcb:sch GND.12 x=-267.7000 y=-89.9000 rot=0
+# pcb:sch R_PORT.R x=65.0400 y=-458.2000 rot=0
+# pcb:sch R_VBUS.R x=1055.6400 y=-153.4000 rot=0
+# pcb:sch R_VBUS_DET.R x=-23.8600 y=-458.2000 rot=0
+# pcb:sch SSMUX.HD3SS3212IRKSR x=-229.6000 y=-39.1000 rot=0
+# pcb:sch TUSB321RWBR.TUSB321RWBR x=-432.8000 y=-547.1000 rot=0
+# pcb:sch USB_PD.HC-TYPE-C-24P-FLS-CH5.06-5A-23 x=621.3000 y=-128.0000 rot=0
+# pcb:sch USB_PD.TYPE-C24PQT x=-788.4000 y=-318.5000 rot=0
+# pcb:sch V3V3.1 x=-8.6200 y=-128.0000 rot=0
+# pcb:sch V5V.1 x=372.3800 y=100.6000 rot=0
+# pcb:sch VBUS.1 x=740.6800 y=113.3000 rot=0
+# pcb:sch VBUS.2 x=-529.3200 y=-420.1000 rot=0
+# pcb:sch VBUS.3 x=-262.6200 y=-648.7000 rot=0

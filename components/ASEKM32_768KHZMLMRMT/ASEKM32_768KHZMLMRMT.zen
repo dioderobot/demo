@@ -1,0 +1,28 @@
+"""ASEK 32.768KHZ Crystal Oscillator Component"""
+
+# Pins
+Pins = struct(
+    GND = io("GND", Net),
+    OUTPUT = io("OUTPUT", Net),
+    TRI_STATE = io("TRI_STATE", Net),
+    VDD = io("VDD", Net),
+)
+
+# Component
+Component(
+    name = "ASEK_32_768KHZ_L_R_T",
+    symbol = Symbol(library = "ASEK-32_768KHZ-L-R-T.kicad_sym"),
+    footprint = File("ASEK32768KHZLRT.kicad_mod"),
+    pins = {
+        "GND": Pins.GND,
+        "OUTPUT": Pins.OUTPUT,
+        "TRI-STATE": Pins.TRI_STATE,
+        "VDD": Pins.VDD,
+    },
+    properties = {
+        "value": "ASEK-32.768KHZ-L-R-T",
+        "mpn": "ASEK-32.768KHZ-L-R-T",
+    },
+)
+
+add_property("layout_path", "build/preview")

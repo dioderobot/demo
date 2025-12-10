@@ -1,0 +1,53 @@
+"""
+TYPE-C24PQT
+
+Auto-generated using `pcb search`. Do not modify.
+"""
+
+mpn = config("mpn", str, optional=True, default="TYPE-C24PQT")
+
+Pins = struct(
+    CC1 = io("CC1", Net),
+    CC2 = io("CC2", Net),
+    DM = io("DM", Net),
+    DP = io("DP", Net),
+    EP = io("EP", Net),
+    GND = io("GND", Net),
+    RX1M = io("RX1M", Net),
+    RX1P = io("RX1P", Net),
+    RX2M = io("RX2M", Net),
+    RX2P = io("RX2P", Net),
+    SUB1 = io("SUB1", Net),
+    SUB2 = io("SUB2", Net),
+    TX1M = io("TX1M", Net),
+    TX1P = io("TX1P", Net),
+    TX2M = io("TX2M", Net),
+    TX2P = io("TX2P", Net),
+    VBUS = io("VBUS", Net)
+)
+
+Component(
+    name = "TYPE-C24PQT",
+    mpn = mpn,
+    symbol = Symbol(library = "C2681555.kicad_sym"),
+    footprint = File("USB-C-SMD_TYPE-C-24P-QT.kicad_mod"),
+    pins = {
+        "CC1": Pins.CC1,
+        "CC2": Pins.CC2,
+        "D-": Pins.DM,
+        "D+": Pins.DP,
+        "EP": Pins.EP,
+        "GND": Pins.GND,
+        "RX1-": Pins.RX1M,
+        "RX1+": Pins.RX1P,
+        "RX2-": Pins.RX2M,
+        "RX2+": Pins.RX2P,
+        "SUB1": Pins.SUB1,
+        "SUB2": Pins.SUB2,
+        "TX1-": Pins.TX1M,
+        "TX1+": Pins.TX1P,
+        "TX2-": Pins.TX2M,
+        "TX2+": Pins.TX2P,
+        "VBUS": Pins.VBUS,
+    },
+)

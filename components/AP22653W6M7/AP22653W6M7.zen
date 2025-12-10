@@ -1,0 +1,32 @@
+"""AP22653W6-7 Component"""
+
+# Pins
+Pins = struct(
+    EN = io("EN", Net),
+    GND = io("GND", Net),
+    ILIM = io("ILIM", Net),
+    IN = io("IN", Net),
+    OUT = io("OUT", Net),
+    n_FAULT = io("n_FAULT", Net),
+)
+
+# Component
+Component(
+    name = "AP22653W6-7",
+    symbol = Symbol(library = "AP22653W6-7.kicad_sym"),
+    footprint = File("SOT95P280X145-6N.kicad_mod"),
+    pins = {
+        "EN": Pins.EN,
+        "GND": Pins.GND,
+        "ILIM": Pins.ILIM,
+        "IN": Pins.IN,
+        "OUT": Pins.OUT,
+        "~{FAULT}": Pins.n_FAULT,
+    },
+    properties = {
+        "value": "AP22653W6-7",
+        "mpn": "AP22653W6-7",
+    },
+)
+
+add_property("layout_path", "build/preview")

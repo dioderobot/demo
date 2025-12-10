@@ -1,0 +1,107 @@
+"""
+USB - CM5 Carrier
+Author: Nasheed Ur Rehman
+"""
+
+# ----------------------------------------------------------------------------
+# Libraries & Dependencies
+# ----------------------------------------------------------------------------
+
+load("@stdlib/config.zen", "config_properties", "config_unit")
+load("@stdlib/interfaces.zen", "Power", "Usb2")
+load("@stdlib/properties.zen", "Layout")
+load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "Resistance", "Voltage")
+
+# ----------------------------------------------------------------------------
+# Configuration
+# ----------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------
+# Component Modules
+# ----------------------------------------------------------------------------
+
+Resistor = Module("@stdlib/generics/Resistor.zen")
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+VoltageClamp = Module("github.com/dioderobot/demo/components/RCLAMP0502BATCT/RCLAMP0502BATCT.zen")
+
+# ----------------------------------------------------------------------------
+# io_interfaces
+# ----------------------------------------------------------------------------
+
+io_5v = io("io_5v", Net, default = Net("io_5v", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+io_gnd = io("io_gnd", Net, default = Net("io_gnd", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+usb2c = io("USB_PI", Usb2)
+
+io_CC1 = io("CC1", Net)
+io_CC2 = io("CC2", Net)
+
+# ----------------------------------------------------------------------------
+# local nets
+# ----------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------
+# Components
+# ----------------------------------------------------------------------------
+
+Component(
+    name = "USB_Connector",
+    symbol = Symbol(library = "@kicad-symbols/Connector.kicad_sym", name = "USB_C_Receptacle_USB2.0_16P"),
+    footprint = File("@kicad-footprints/Connector_USB.pretty/USB_C_Receptacle_G-Switch_GT-USB-7010ASV.kicad_mod"),
+    pins = {
+        "CC1": io_CC1,
+        "CC2": io_CC2,
+        "D-": usb2c.D.N,
+        "D+": usb2c.D.P,
+        "SHIELD": io_gnd,
+        "GND": io_gnd,
+        "SBU1": Net("sbu1"),
+        "SBU2": Net("sbu2"),
+        "VBUS": io_5v,
+    },
+    properties = {
+        "value": "USB_C_Receptacle",
+    },
+)
+
+VoltageClamp(
+    name = "Voltage_Clamp",
+    K1 = usb2c.D.N,
+    K2 = usb2c.D.P,
+    A = io_gnd,
+)
+
+Resistor(
+    name = "R_VBUS",
+    value = "2.2kohms",
+    package = "0402",
+    P1 = io_5v,
+    P2 = io_gnd,
+)
+
+Capacitor(
+    name = "C_VBUS1",
+    value = "100nF",
+    package = "0402",
+    voltage = "16V",
+    dielectric = "X7R",
+    P1 = io_5v,
+    P2 = io_gnd,
+)
+
+Capacitor(
+    name = "C_VBUS2",
+    value = "100nF",
+    package = "0402",
+    voltage = "16V",
+    dielectric = "X7R",
+    P1 = io_5v,
+    P2 = io_gnd,
+)
+
+# pcb:sch C_VBUS1.C x=1261.3800 y=202.2000 rot=0
+# pcb:sch C_VBUS2.C x=1439.1800 y=202.2000 rot=0
+# pcb:sch R_VBUS.R x=1106.4400 y=202.2000 rot=0
+# pcb:sch USB_Connector x=583.2000 y=37.1000 rot=0
+# pcb:sch Voltage_Clamp.RCLAMP0502BATCT x=913.4000 y=354.6000 rot=270
+# pcb:sch io_5v.1 x=956.5800 y=-51.8000 rot=0
+# pcb:sch io_gnd.1 x=951.5000 y=507.0000 rot=0

@@ -1,0 +1,26 @@
+"""RCLAMP0502BATCT Component"""
+
+# Pins
+Pins = struct(
+    A = io("A", Net),
+    K1 = io("K1", Net),
+    K2 = io("K2", Net),
+)
+
+# Component
+Component(
+    name = "RCLAMP0502BATCT",
+    symbol = Symbol(library = "@kicad-symbols/Power_Protection.kicad_sym", name = "RCLAMP0502BA"),
+    footprint = File("SOT50P160X90-3N.kicad_mod"),
+    pins = {
+        "A": Pins.A,
+        "K1": Pins.K1,
+        "K2": Pins.K2,
+    },
+    properties = {
+        "value": "RCLAMP0502BATCT",
+        "mpn": "RCLAMP0502BATCT",
+    },
+)
+
+add_property("layout_path", "build/preview")

@@ -1,0 +1,32 @@
+"""XAL5030-801MEC Component"""
+
+# Pins
+Pins = struct(
+    P1 = io("P1", Net),
+    P2 = io("P2", Net),
+)
+
+# Component
+Component(
+    name = "XAL5030-801MEC",
+    symbol = Symbol(library = "XAL5030-801MEC.kicad_sym"),
+    footprint = File("@kicad-footprints/Inductor_SMD.pretty/L_Coilcraft_XAL5030-XXX.kicad_mod"),
+    pins = {
+        "1": Pins.P1,
+        "2": Pins.P2,
+    },
+    properties = {
+        "value": "XAL5030-801MEC",
+        "mpn": "XAL5030-801MEC",
+        "inductance": "800nH",
+        "tolerance": "20%",
+        "dcr_typ": "5.14mohms",
+        "dcr_max": "5.65mohms",
+        "srf_typ": "63MHz",
+        "isat": "18.5A",
+        "irms_20c": "10.0A",
+        "irms_40c": "13.0A",
+    },
+)
+
+add_property("layout_path", "build/preview")

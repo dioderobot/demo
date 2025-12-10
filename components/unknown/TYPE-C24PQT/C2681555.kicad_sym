@@ -1,0 +1,802 @@
+(kicad_symbol_lib
+  (version 20241209)
+  (generator "editor")
+  (generator_version "1.0")
+  (symbol
+    "TYPE-C24PQT"
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (property
+      "Reference"
+      "J"
+      (at 0 5.08 0)
+      (effects
+        (font (size 1.27 1.27))
+        (justify left)
+      )
+    )
+    (property
+      "Value"
+      "TYPE-C24PQT"
+      (at 0 -5.08 0)
+      (effects
+        (font (size 1.27 1.27))
+        (justify left)
+      )
+    )
+    (property
+      "Footprint"
+      "C2681555:USB-C-SMD_TYPE-C-24P-QT"
+      (at 0 -7.62 0)
+      (effects
+        (font (size 1.27 1.27))
+        (justify left)
+        (hide yes)
+      )
+    )
+    (property
+      "Datasheet"
+      "https://www.usb.org/sites/default/files/documents/usb_type-c.zip"
+      (at 0 -10.16 0)
+      (effects
+        (font (size 1.27 1.27))
+        (justify left)
+        (hide yes)
+      )
+    )
+    (property
+      "Description"
+      "USB Type-C 24-Pin Receptacle Connector"
+      (at 0 -12.7 0)
+      (effects
+        (font (size 1.27 1.27))
+        (justify left)
+        (hide yes)
+      )
+    )
+    (property
+      "ki_keywords"
+      "usb type-c usb-c connector receptacle 24-pin"
+      (at 0 -15.24 0)
+      (effects
+        (font (size 1.27 1.27))
+        (justify left)
+        (hide yes)
+      )
+    )
+    (symbol
+      "TYPE-C24PQT_0_1"
+      (rectangle
+        (start
+          -10.16
+          30.48
+        )
+        (end
+          10.16
+          -40.64
+        )
+        (stroke
+          (width 0.254)
+          (type default)
+        )
+        (fill
+          (type background)
+        )
+      )
+      (polyline
+        (pts
+          (xy -8.89 1.27)
+          (xy -8.89 8.89)
+        )
+        (stroke
+          (width 0.254)
+          (type default)
+        )
+        (fill
+          (type none)
+        )
+      )
+      (rectangle
+        (start
+          -7.62
+          1.27
+        )
+        (end
+          -6.35
+          8.89
+        )
+        (stroke
+          (width 0.254)
+          (type default)
+        )
+        (fill
+          (type solid)
+        )
+      )
+      (arc
+        (start
+          -7.62
+          8.89
+        )
+        (mid
+          -6.985
+          9.525
+        )
+        (end
+          -6.35
+          8.89
+        )
+        (stroke
+          (width 0.254)
+          (type default)
+        )
+      )
+      (arc
+        (start
+          -8.89
+          8.89
+        )
+        (mid
+          -6.985
+          10.795
+        )
+        (end
+          -5.08
+          8.89
+        )
+        (stroke
+          (width 0.254)
+          (type default)
+        )
+      )
+      (arc
+        (start
+          -5.08
+          1.27
+        )
+        (mid
+          -6.985
+          -0.635
+        )
+        (end
+          -8.89
+          1.27
+        )
+        (stroke
+          (width 0.254)
+          (type default)
+        )
+      )
+      (arc
+        (start
+          -6.35
+          1.27
+        )
+        (mid
+          -6.985
+          0.635
+        )
+        (end
+          -7.62
+          1.27
+        )
+        (stroke
+          (width 0.254)
+          (type default)
+        )
+      )
+      (polyline
+        (pts
+          (xy -5.08 8.89)
+          (xy -5.08 1.27)
+        )
+        (stroke
+          (width 0.254)
+          (type default)
+        )
+        (fill
+          (type none)
+        )
+      )
+      (circle
+        (center
+          -2.54
+          6.223000000000001
+        )
+        (radius 0.635)
+        (stroke
+          (width 0.254)
+          (type default)
+        )
+        (fill
+          (type solid)
+        )
+      )
+      (polyline
+        (pts
+          (xy -1.27 9.398000000000001)
+          (xy 0 11.938)
+          (xy 1.27 9.398000000000001)
+          (xy -1.27 9.398000000000001)
+        )
+        (stroke
+          (width 0.254)
+          (type default)
+        )
+        (fill
+          (type solid)
+        )
+      )
+      (polyline
+        (pts
+          (xy 0 3.048)
+          (xy 2.54 5.588000000000001)
+          (xy 2.54 6.8580000000000005)
+        )
+        (stroke
+          (width 0.254)
+          (type default)
+        )
+        (fill
+          (type none)
+        )
+      )
+      (polyline
+        (pts
+          (xy 0 1.7779999999999998)
+          (xy -2.54 4.318)
+          (xy -2.54 5.588000000000001)
+        )
+        (stroke
+          (width 0.254)
+          (type default)
+        )
+        (fill
+          (type none)
+        )
+      )
+      (polyline
+        (pts
+          (xy 0 -0.762)
+          (xy 0 9.398000000000001)
+        )
+        (stroke
+          (width 0.254)
+          (type default)
+        )
+        (fill
+          (type none)
+        )
+      )
+      (circle
+        (center
+          0
+          -0.762
+        )
+        (radius 1.27)
+        (stroke
+          (width 0.254)
+          (type default)
+        )
+        (fill
+          (type solid)
+        )
+      )
+      (rectangle
+        (start
+          1.905
+          6.8580000000000005
+        )
+        (end
+          3.175
+          8.128
+        )
+        (stroke
+          (width 0.254)
+          (type default)
+        )
+        (fill
+          (type solid)
+        )
+      )
+    )
+    (symbol
+      "TYPE-C24PQT_1_1"
+      (pin
+        power_in
+        line
+        (at 15.24 27.94 180)
+        (length 5.08)
+        (name
+          "VBUS"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "A4"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        power_in
+        line
+        (at 15.24 27.94 180)
+        (length 5.08)
+        (hide yes)
+        (name
+          "VBUS"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "A9"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        power_in
+        line
+        (at 15.24 27.94 180)
+        (length 5.08)
+        (hide yes)
+        (name
+          "VBUS"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "B4"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        power_in
+        line
+        (at 15.24 27.94 180)
+        (length 5.08)
+        (hide yes)
+        (name
+          "VBUS"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "B9"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at 15.24 22.86 180)
+        (length 5.08)
+        (name
+          "CC1"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "A5"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at 15.24 20.32 180)
+        (length 5.08)
+        (name
+          "CC2"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "B5"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at 15.24 15.24 180)
+        (length 5.08)
+        (name
+          "D+"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "A6"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at 15.24 12.7 180)
+        (length 5.08)
+        (name
+          "D+"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "B6"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at 15.24 10.16 180)
+        (length 5.08)
+        (name
+          "D-"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "A7"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at 15.24 7.62 180)
+        (length 5.08)
+        (name
+          "D-"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "B7"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at 15.24 2.54 180)
+        (length 5.08)
+        (name
+          "SUB1"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "A8"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at 15.24 0 180)
+        (length 5.08)
+        (name
+          "SUB2"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "B8"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at 15.24 -5.08 180)
+        (length 5.08)
+        (name
+          "TX1+"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "A2"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at 15.24 -7.62 180)
+        (length 5.08)
+        (name
+          "TX1-"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "A3"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at 15.24 -12.7 180)
+        (length 5.08)
+        (name
+          "RX2+"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "A11"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at 15.24 -15.24 180)
+        (length 5.08)
+        (name
+          "RX2-"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "A10"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at 15.24 -20.32 180)
+        (length 5.08)
+        (name
+          "TX2+"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "B2"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at 15.24 -22.86 180)
+        (length 5.08)
+        (name
+          "TX2-"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "B3"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at 15.24 -27.94 180)
+        (length 5.08)
+        (name
+          "RX1+"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "B11"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        bidirectional
+        line
+        (at 15.24 -30.48 180)
+        (length 5.08)
+        (name
+          "RX1-"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "B10"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        power_in
+        line
+        (at 0 -45.72 90)
+        (length 5.08)
+        (name
+          "GND"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "A1"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        power_in
+        line
+        (at 0 -45.72 90)
+        (length 5.08)
+        (hide yes)
+        (name
+          "GND"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "A12"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        power_in
+        line
+        (at 0 -45.72 90)
+        (length 5.08)
+        (hide yes)
+        (name
+          "GND"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "B1"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        power_in
+        line
+        (at 0 -45.72 90)
+        (length 5.08)
+        (hide yes)
+        (name
+          "GND"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "B12"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        passive
+        line
+        (at -7.62 -45.72 90)
+        (length 5.08)
+        (name
+          "EP"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "3"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        passive
+        line
+        (at -7.62 -45.72 90)
+        (length 5.08)
+        (hide yes)
+        (name
+          "EP"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "4"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        passive
+        line
+        (at -7.62 -45.72 90)
+        (length 5.08)
+        (hide yes)
+        (name
+          "EP"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "25"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+    )
+  )
+)

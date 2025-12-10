@@ -1,0 +1,17 @@
+"""
+Cat Logo Graphic Component
+Author: Generated
+"""
+
+# Component definition for Cat Logo
+Component(
+    name = "Cat_Logo",
+    symbol = Symbol(library = "heart/heart.kicad_sym"),
+    footprint = File("cat/cat.kicad_mod"),
+    pins = {},
+    properties = {
+        "exclude_from_bom": "true",
+        "exclude_from_pos": "true",
+        "board_only": "true",
+    },
+)

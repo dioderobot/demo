@@ -1,0 +1,28 @@
+"""SM02B-SRSS-TB_LF__SN_ Component"""
+
+# Pins
+Pins = struct(
+    MP1 = io("MP1", Net),
+    MP2 = io("MP2", Net),
+    P1 = io("P1", Net),
+    P2 = io("P2", Net),
+)
+
+# Component
+Component(
+    name = "SM02B-SRSS-TB_LF__SN_",
+    symbol = Symbol(library = "SM02B-SRSS-TB_LF__SN_.kicad_sym"),
+    footprint = File("SM02BSRSSTBLFSN.kicad_mod"),
+    pins = {
+        "MP1": Pins.MP1,
+        "MP2": Pins.MP2,
+        "1": Pins.P1,
+        "2": Pins.P2,
+    },
+    properties = {
+        "value": "SM02B-SRSS-TB_LF__SN_",
+        "mpn": "SM02B-SRSS-TB_LF__SN_",
+    },
+)
+
+add_property("layout_path", "build/preview")

@@ -1,0 +1,295 @@
+"""
+CM5 - CM5 Carrier
+Author: Nasheed Ur Rehman
+"""
+
+# ----------------------------------------------------------------------------
+# Libraries & Dependencies
+# ----------------------------------------------------------------------------
+
+load("@stdlib/config.zen", "config_properties", "config_unit")
+load("@stdlib/interfaces.zen", "Ethernet_Phy", "Ground", "Hdmi", "I2c", "Mipi", "PcieGen3x1Lane", "Power", "Spi", "Usb2", "Usb3")
+load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "Resistance", "Voltage")
+
+# ----------------------------------------------------------------------------
+# Configuration
+# ----------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------
+# Component Modules
+# ----------------------------------------------------------------------------
+
+CM5IO = Module("github.com/dioderobot/demo/reference/RP_CM5_IO/CM5_IO.zen")
+JST_BATT = Module("github.com/dioderobot/demo/components/SM02BMSRSSMTB_LF_SN/SM02BMSRSSMTB_LF_SN.zen")
+
+# ----------------------------------------------------------------------------
+# Component Mapping
+# ----------------------------------------------------------------------------
+
+# Power Pins
+io_5V_IN = io("CM5_5V_IN", Net)
+io_3V3_CM5 = io("CM5_3V3", Net)
+io_1V8_CM5 = io("CM5_1V8", Net)
+io_GND = io("GND", Net)
+io_GPIO_VREF = io("GPIO_VREF", Net)
+
+# MIPI Interface
+mipi_pi = io("DPHY0_P", Mipi)
+
+# HDMI Interface
+hdmi_pi = io("HDMI_PI", Hdmi)
+
+# USB2 Interface
+usb3p = io("USB3P", Usb3)
+usb_pi = io("USB_PI", Usb2)
+io_USBOTG_ID = io("USBOTG_ID", Net)
+
+# PCIe Interface
+pcie = io("PCIE_PI", PcieGen3x1Lane)
+pcie_pwr_en = io("PCIE_PI_PWR_EN", Net)
+
+# SPI Interface
+spi_pi = io("SPI_PI", Spi)
+
+# I2C/SPI Interfaces
+i2c0 = io("I2C0", I2c)
+i2c1 = io("I2C1", I2c)
+
+# GPIO Pins
+io_DC_GPI25 = io("DC_GPI25", Net)
+io_BL_GPIO24 = io("BL_GPIO24", Net)
+io_RST_GPIO27 = io("RST_GPIO27", Net)
+
+# ID Pins
+io_ID_SC = io("ID_SC", Net)
+io_ID_SD = io("ID_SD", Net)
+
+# Ethernet Interface
+eth_pi = io("ETH_PI", Ethernet_Phy)
+io_ETH_nLED_ACTIVITY = io("ETH_nLED_ACTIVITY", Net)
+io_nLED_SPEED_100_1000 = io("nLED_SPEED_100_1000", Net)
+
+# Camera Control
+io_CAM_GPIO0 = io("CAM_GPIO0", Net)
+io_CAM_GPIO1 = io("CAM_GPIO1", Net)
+
+# Other Interfaces
+io_CC1 = io("CC1", Net)
+io_CC2 = io("CC2", Net)
+io_EEPROM_nWP = io("EEPROM_nWP", Net)
+io_FAN_PWM = io("FAN_PWM", Net)
+io_FAN_TACHO = io("FAN_TACHO", Net)
+io_nLED_ACTIVITY = io("nLED_ACTIVITY", Net)
+io_PI_nLED_PWR = io("PI_nLED_PWR", Net)
+io_GLOBAL_EN = io("GLOBAL_EN", Net)
+io_PWR_BUT = io("PWR_BUT", Net)
+io_VBUS_EN = io("VBUS_EN", Net)
+io_nRPIBOOT = io("nRPIBOOT", Net)
+
+# ----------------------------------------------------------------------------
+# Local Nets
+# ----------------------------------------------------------------------------
+
+BATT = Net("BATT", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD"))
+
+# ----------------------------------------------------------------------------
+# ComponentS
+# ----------------------------------------------------------------------------
+
+CM5IO(
+    name = "CM5IO",
+    GND = io_GND,
+    V1V8_Output = io_1V8_CM5,
+    V3V3_Output = io_3V3_CM5,
+    V5V_Input = io_5V_IN,
+
+    # GPIO Interface
+    GPIO_VREF_1V8_3V3_Input = io_GPIO_VREF,
+    GPIO2 = i2c1.SDA,
+    GPIO3 = i2c1.SCL,
+    GPIO4 = Net("NC"),
+    GPIO5 = Net("NC"),
+    GPIO6 = Net("NC"),
+    GPIO7 = Net("NC"),
+    GPIO8 = Net("NC"),
+    GPIO9 = Net("NC"),
+    GPIO10 = Net("NC"),
+    GPIO11 = Net("NC"),
+    GPIO12 = Net("NC"),
+    GPIO13 = Net("NC"),
+    GPIO14 = Net("NC"),
+    GPIO15 = Net("NC"),
+    GPIO16 = Net("NC"),
+    GPIO17 = Net("NC"),
+    GPIO18 = spi_pi.CS,
+    GPIO19 = spi_pi.MISO,
+    GPIO20 = spi_pi.MOSI,
+    GPIO21 = spi_pi.CLK,
+    GPIO22 = Net("NC"),
+    GPIO23 = Net("NC"),
+    GPIO24 = io_BL_GPIO24,
+    GPIO25 = io_DC_GPI25,
+    GPIO26 = Net("NC"),
+    GPIO27 = io_RST_GPIO27,
+    VBAT = BATT,
+
+    # Ethernet Interface
+    Ethernet_Pair0_N = eth_pi.TR0.N,
+    Ethernet_Pair0_P = eth_pi.TR0.P,
+    Ethernet_Pair1_N = eth_pi.TR1.N,
+    Ethernet_Pair1_P = eth_pi.TR1.P,
+    Ethernet_Pair2_N = eth_pi.TR2.N,
+    Ethernet_Pair2_P = eth_pi.TR2.P,
+    Ethernet_Pair3_N = eth_pi.TR3.N,
+    Ethernet_Pair3_P = eth_pi.TR3.P,
+    Ethernet_SYNC_OUT_3V3 = Net("NC"),
+    Ethernet_nLED2_3V3 = io_nLED_SPEED_100_1000,
+    Ethernet_nLED3_3V3 = io_ETH_nLED_ACTIVITY,
+
+    # HDMI Interface
+    HDMI0_CEC = hdmi_pi.CEC,
+    HDMI0_CLK_N = hdmi_pi.CLK.N,
+    HDMI0_CLK_P = hdmi_pi.CLK.P,
+    HDMI0_HOTPLUG = hdmi_pi.HPD,
+    HDMI0_SCL = hdmi_pi.SCL,
+    HDMI0_SDA = hdmi_pi.SDA,
+    HDMI0_TX0_N = hdmi_pi.D0.N,
+    HDMI0_TX0_P = hdmi_pi.D0.P,
+    HDMI0_TX1_N = hdmi_pi.D1.N,
+    HDMI0_TX1_P = hdmi_pi.D1.P,
+    HDMI0_TX2_N = hdmi_pi.D2.N,
+    HDMI0_TX2_P = hdmi_pi.D2.P,
+
+    # HDMI1 Interface
+    HDMI1_CEC = Net("NC"),
+    HDMI1_CLK_N = Net("NC"),
+    HDMI1_CLK_P = Net("NC"),
+    HDMI1_HOTPLUG = Net("NC"),
+    HDMI1_SCL = Net("NC"),
+    HDMI1_SDA = Net("NC"),
+    HDMI1_TX0_N = Net("NC"),
+    HDMI1_TX0_P = Net("NC"),
+    HDMI1_TX1_N = Net("NC"),
+    HDMI1_TX1_P = Net("NC"),
+    HDMI1_TX2_N = Net("NC"),
+    HDMI1_TX2_P = Net("NC"),
+
+    # CC Interface
+    CC1 = io_CC1,
+    CC2 = io_CC2,
+
+    # USB Interface
+    USB2_N = usb_pi.D.N,
+    USB2_P = usb_pi.D.P,
+
+    # USB3 Interface
+    USB3_0_D_N = usb3p.D.N,
+    USB3_0_D_P = usb3p.D.P,
+    USB3_0_RX_N = usb3p.SSRX.N,
+    USB3_0_RX_P = usb3p.SSRX.P,
+    USB3_0_TX_N = usb3p.SSTX.N,
+    USB3_0_TX_P = usb3p.SSTX.P,
+    USB3_1_D_N = Net("NC"),
+    USB3_1_D_P = Net("NC"),
+    USB3_1_RX_N = Net("NC"),
+    USB3_1_RX_P = Net("NC"),
+    USB3_1_TX_N = Net("NC"),
+    USB3_1_TX_P = Net("NC"),
+
+    # USB OTG Interface
+    USB_OTG_ID = io_USBOTG_ID,
+
+    # PCIe Interface
+    PCIE_PWR_EN = pcie_pwr_en,
+    PCIE_nWAKE = pcie.WAKE_N,
+    PCIe_CLK_N = pcie.REFCLK.N,
+    PCIe_CLK_P = pcie.REFCLK.P,
+    PCIe_RX_N = pcie.RX.N,
+    PCIe_RX_P = pcie.RX.P,
+    PCIe_TX_N = pcie.TX.N,
+    PCIe_TX_P = pcie.TX.P,
+    PCIe_nCLKREQ = pcie.CLK_REQ_N,  
+    PCIe_nRST = pcie.RESET_N,
+
+    # MIPI Interface
+    MIPI0_C_N = mipi_pi.CLK.N,
+    MIPI0_C_P = mipi_pi.CLK.P,
+    MIPI0_D0_N = mipi_pi.DATA0.N,
+    MIPI0_D0_P = mipi_pi.DATA0.P,
+    MIPI0_D1_N = mipi_pi.DATA1.N,
+    MIPI0_D1_P = mipi_pi.DATA1.P,
+    MIPI0_D2_N = mipi_pi.DATA2.N,
+    MIPI0_D2_P = mipi_pi.DATA2.P,
+    MIPI0_D3_N = mipi_pi.DATA3.N,
+    MIPI0_D3_P = mipi_pi.DATA3.P,
+
+    # MIPI1 Interface
+    MIPI1_C_N = Net("NC"),
+    MIPI1_C_P = Net("NC"),
+    MIPI1_D0_N = Net("NC"),
+    MIPI1_D0_P = Net("NC"),
+    MIPI1_D1_N = Net("NC"),
+    MIPI1_D1_P = Net("NC"),
+    MIPI1_D2_N = Net("NC"),
+    MIPI1_D2_P = Net("NC"),
+    MIPI1_D3_N = Net("NC"),
+    MIPI1_D3_P = Net("NC"),
+
+    # SD Interface
+    SD_CLK = Net("NC"),
+    SD_CMD = Net("NC"),
+    SD_DAT0 = Net("NC"),
+    SD_DAT1 = Net("NC"),
+    SD_DAT2 = Net("NC"),
+    SD_DAT3 = Net("NC"),
+    SD_DAT4 = Net("NC"),
+    SD_DAT5 = Net("NC"),
+    SD_DAT6 = Net("NC"),
+    SD_DAT7 = Net("NC"),
+    SD_PWR_ON = Net("NC"),
+    SD_VDD_Override = Net("NC"),
+
+    # Camera Interface
+    CAM_GPIO0 = io_CAM_GPIO0,
+    CAM_GPIO1 = io_CAM_GPIO1,
+    SCL0 = i2c0.SCL,
+    SDA0 = i2c0.SDA,
+
+    # Other Interfaces
+    BT_nDisable = Net("NC"),
+    EEPROM_nWP = io_EEPROM_nWP,
+    FAN_PWM = io_FAN_PWM,
+    FAN_TACHO = io_FAN_TACHO,
+    ID_SC = io_ID_SC,
+    ID_SD = io_ID_SD,
+    LED_nACT = io_nLED_ACTIVITY,
+    LED_nPWR = io_PI_nLED_PWR,
+    PMIC_ENABLE = io_GLOBAL_EN,
+    PWR_BUT = io_PWR_BUT,
+    VBUS_EN = io_VBUS_EN,
+    WiFi_nDisable = Net("NC"),
+    nRPIBOOT = io_nRPIBOOT,
+)
+
+JST_BATT(
+    name = "JST_BATT",
+    P1 = BATT,
+    P2 = io_GND,
+    MP1 = io_GND,
+    MP2 = io_GND,
+)
+
+# pcb:sch CM5IO x=88.9000 y=177.8000 rot=0
+# pcb:sch CM5IO.J1_CM5.10164227-1001A1RLF x=100.6000 y=1319.8000 rot=0
+# pcb:sch CM5IO.J2_CM5.10164227-1001A1RLF x=1065.8000 y=1319.8000 rot=0
+# pcb:sch CM5IO.MountingHole_1.MH x=-318.5000 y=1815.1000 rot=0
+# pcb:sch CM5IO.MountingHole_2.MH x=-318.5000 y=1865.9000 rot=0
+# pcb:sch CM5IO.MountingHole_3.MH x=-318.5000 y=1916.7000 rot=0
+# pcb:sch CM5IO.MountingHole_4.MH x=-318.5000 y=1967.5000 rot=0
+# pcb:sch JST_BATT.SM02B-SRSS-TB_LF__SN_ x=113.3000 y=2666.0000 rot=0
+# pcb:sch BATT.1 x=588.2800 y=2246.9000 rot=0
+# pcb:sch CM5_1V8.1 x=499.3800 y=2399.3000 rot=0
+# pcb:sch CM5_3V3.1 x=473.9800 y=2348.5000 rot=0
+# pcb:sch CM5_5V_IN.1 x=-72.1200 y=2272.3000 rot=0
+# pcb:sch GND.1 x=456.2000 y=2742.2000 rot=0
+# pcb:sch GND.2 x=1180.1000 y=2678.7000 rot=0
