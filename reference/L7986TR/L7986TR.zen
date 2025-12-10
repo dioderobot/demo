@@ -193,8 +193,18 @@ Capacitor(
     package = "0402",
     value = "4.7nF",
     voltage = "16V",
+    dielectric = "X7R",
     P1 = R_SMALL_SIGNAL,
     P2 = COMP,
+    properties = {
+        "mpn": "0402B472K500NT",
+        "manufacturer": "FH (Guangdong Fenghua Advanced Tech)GEO",
+        "LCSC Part" : "C1538",
+        "alternatives": [
+            { "mpn": "0402B472K500NT", "manufacturer": "FH (Guangdong Fenghua Advanced Tech)" },
+            { "mpn": "C0402C472K4RECAUTO", "manufacturer": "KEMET" },
+        ],
+    },
 )
 
 
