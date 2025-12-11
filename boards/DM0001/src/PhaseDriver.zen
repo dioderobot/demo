@@ -167,6 +167,8 @@ Resistor(
     name = "R_Phase",
     value = "1ohm",
     package = "0805",
+    mpn = "RC0805JR-071RL",
+    manufacturer = "Yageo",
     P1 = PHASEOUT,
     P2 = RC_NODE,
 )
@@ -176,6 +178,8 @@ Capacitor(
     value = "1nF",
     package = "0603",
     voltage = "100V",
+    mpn = "GRM1885C1H102JA01D",
+    manufacturer = "Murata Electronics",
     P1 = RC_NODE,
     P2 = GND,
 )
@@ -189,6 +193,7 @@ SchottkyDiode(
     variant = "Schottky",
     package = "SOD-523",
     mpn = "BAT30KFILM",
+    manufacturer = "STMicroelectronics",
     i_r = "300mA",
     v_r = "30V",
     A = D_BEMF,
@@ -208,6 +213,7 @@ SchottkyDiode(
     variant = "Schottky",
     package = "SOD-523",
     mpn = "BAT30KFILM",
+    manufacturer = "STMicroelectronics",
     i_r = "300mA",
     v_r = "30V",
     A = BEMF,

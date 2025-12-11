@@ -46,8 +46,16 @@ for i in range(1, no_of_power_caps):
         package = capacitor_package,
         voltage = capacitor_voltage,
         dielectric = capacitor_dielectric,
+        mpn = "C2012X5R1V226M125AC",
+        manufacturer = "TDK Corporation",
         P1 = VPLUS,
         P2 = GND,
+        properties = {
+            "alternatives": [
+                { "mpn": "C2012X5R1V226M125AC", "manufacturer": "TDK Corporation" },
+                { "mpn": "C2012X5R1V226MT000E", "manufacturer": "TDK Corporation" },
+            ]
+        }
     )
 
 SMM4F26A(

@@ -20,4 +20,14 @@ Component(
         "1": Pins.P1,
         "2": Pins.P2
     },
+    properties = {
+        "value": "0435_250KRS",
+        "mpn": "0435_250KRS",
+        "manufacturer": "Littelfuse",
+        "datasheet": "https://www.littelfuse.com/products/semiconductors/fuses/circuit-breakers/surface-mount/0435-250krs",
+        "alternatives": [
+            { "mpn": "0435_250KRS", "manufacturer": "Littelfuse" },
+            { "mpn": "JFC0402-0250FS", "manufacturer": "Shenzhen JDT Fuse" },
+        ],
+    }
 )

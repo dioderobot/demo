@@ -4,7 +4,7 @@ SM05B-SRSS-TB
 Auto-generated using `pcb search`. Do not modify.
 """
 
-mpn = config("mpn", str, optional=True, default="SM05B-SRSS-TB")
+mpn = config("mpn", str, optional=True, default="SM05B-SRSS-TB(LF)(SN)")
 
 Pins = struct(
     MP1 = io("MP1", Net),
@@ -32,4 +32,13 @@ Component(
         "4": Pins.P4,
         "5": Pins.P5
     },
+    properties = {
+        "value": "SM05B-SRSS-TB",
+        "mpn": "SM05B-SRSS-TB",
+        "manufacturer": "JST (JAPAN SOLDERLESS TERMINALS)",
+        "datasheet": "https://www.jst-mfg.com/product/pdf/eng/eSH.pdf",
+        "alternatives": [
+            { "mpn": "SM05B-SRSS-TB(LF)(SN)", "manufacturer": "JST (JAPAN SOLDERLESS TERMINALS)" },
+        ],
+    }
 )

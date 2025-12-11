@@ -68,6 +68,8 @@ Capacitor(
     name = "C_VIN_LDO",
     value = "1uF",
     voltage = input_cap_voltage,
+    mpn = "CL05A105KP5NNNC",
+    manufacturer = "Samsung Electro-Mechanics",
     package = "0402",
     P1 = VIN_LDO,
     P2 = GND
@@ -78,6 +80,8 @@ Capacitor(
     name = "C_VOUT_LDO",
     value = "2.2uF",
     voltage = output_cap_voltage,
+    mpn = "CL05A225MQ5NNNC",
+    manufacturer = "Samsung Electro-Mechanics",
     package = "0402",
     P1 = VOUT_LDO,
     P2 = GND

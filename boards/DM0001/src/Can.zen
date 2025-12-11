@@ -111,10 +111,17 @@ SchottkyDiode(
     package = "SOD-123",
     variant = "Schottky",
     mpn = "1N5817W",
+    manufacturer = "Shenzhen Slkormicro Semicon Co., Ltd.",
     i_f = "1A",
     v_r = "20V",
     A = FUSE,
     K = V5V,
+    properties = {
+        "alternatives": [
+            { "mpn": "1N5817W", "manufacturer": "Shenzhen Slkormicro Semicon Co., Ltd." },
+            { "mpn": "MBRX120LF-TP", "manufacturer": "MCC (Micro Commercial Components)" },
+        ],
+    }
 )
 
 # pcb:sch D_CAN x=127.0000 y=-114.3000 rot=180

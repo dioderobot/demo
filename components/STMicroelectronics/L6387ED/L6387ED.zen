@@ -34,4 +34,14 @@ Component(
         "VBOOT": Pins.VBOOT,
         "VCC": Pins.VCC
     },
+    properties = {
+        "value": "L6387ED",
+        "mpn": "L6387ED",
+        "manufacturer": "STMicroelectronics",
+        "datasheet": "https://www.st.com/resource/en/datasheet/l6387ed.pdf",
+        "alternatives": [
+            { "mpn": "L6387ED", "manufacturer": "STMicroelectronics" },
+            { "mpn": "L6387ED013TR", "manufacturer": "STMicroelectronics" },
+        ],
+    }
 )

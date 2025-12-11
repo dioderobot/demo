@@ -24,4 +24,13 @@ Component(
         "K_1": Pins.K_1,
         "K_2": Pins.K_2
     },
+    properties = {
+        "description": "TVS Diode Single Uni-Dir 26V 400W 2-Pin(1+Tab) DO-222AA T/R",
+        "datasheet": "https://www.st.com/resource/en/datasheet/smm4f10a.pdf",
+        "package": "DO-222AA",
+        "LCSC Part" : "C2970284",
+        "alternatives": [
+            {"mpn": "SMM4F26A-TR", "manufacturer": "STMicroelectronics"},
+        ],
+    },
 )

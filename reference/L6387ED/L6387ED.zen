@@ -86,6 +86,8 @@ Capacitor(
 # Decoupling capacitor for VCC
 Capacitor(
     name = "C_VCC",
+    mpn = "CL10A474KA8NNNC",
+    manufacturer = "Samsung Electro-Mechanics",
     value = decoupling_cap_value,
     voltage = decoupling_cap_voltage,
     package = "0603",
@@ -118,6 +120,7 @@ SchottkyDiode(
     variant = "Schottky",
     package = "SOD-123",
     mpn = "STPS0560Z",
+    manufacturer = "STMicroelectronics",
     i_r = "0.5A",
     v_r = "60V",
     A = VCC,

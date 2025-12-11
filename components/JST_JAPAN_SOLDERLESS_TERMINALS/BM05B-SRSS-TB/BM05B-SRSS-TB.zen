@@ -4,7 +4,7 @@ BM05B-SRSS-TB
 Auto-generated using `pcb search`. Do not modify.
 """
 
-mpn = config("mpn", str, optional=True, default="BM05B-SRSS-TB")
+mpn = config("mpn", str, optional=True, default="BM05B-SRSS-TB(LF)(SN)")
 
 Pins = struct(
     MP1 = io("MP1", Net),
@@ -32,4 +32,15 @@ Component(
         "4": Pins.P4,
         "5": Pins.P5
     },
+    properties = {
+        "value": "BM05B-SRSS-TB",
+        "mpn": "BM05B-SRSS-TB",
+        "manufacturer": "JST (JAPAN SOLDERLESS TERMINALS)",
+        "datasheet": "http://media.digikey.com/pdf/Data%20Sheets/JST%20PDFs/SR%20Connector.pdf",
+        "alternatives": [
+            { "mpn": "BM05B-SRSS-TB(LF)(SN)", "manufacturer": "JST (JAPAN SOLDERLESS TERMINALS)" },
+            { "mpn": "BM05B-SRSS-TBT(LF)(SN)", "manufacturer": "JST (JAPAN SOLDERLESS TERMINALS)" },
+
+        ],
+    }
 )
