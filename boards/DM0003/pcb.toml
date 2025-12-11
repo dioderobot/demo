@@ -1,11 +1,6 @@
 [board]
 name = "DM0003"
-description = """
-Raspberry Pi Compute Module 5 carrier board.
-A feature-rich carrier board for the Raspberry Pi CM5 with comprehensive I/O expansion.
-Includes dual HDMI, PCIe M.2 slot, USB-C with Power Delivery, Gigabit Ethernet, MIPI DSI/CSI, and GPIO access.
-Ideal for industrial applications, edge computing, and embedded systems requiring CM5 capabilities.
-"""
+description = "Raspberry Pi CM5 carrier board. Features HDMI, PCIe M.2, USB-C PD, and Gigabit Ethernet."
 
 [dependencies]
 "github.com/diodeinc/stdlib" = "0.4.4"
