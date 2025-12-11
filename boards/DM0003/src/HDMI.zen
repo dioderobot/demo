@@ -16,8 +16,8 @@ load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "
 # Component Modules
 # ----------------------------------------------------------------------------
 
-HDMI_Connector = Module("github.com/dioderobot/demo/components/unknown/HDMI-101S/HDMI-101S.zen")
-ESD_Protection = Module("github.com/dioderobot/demo/components/PUSB3F96X/PUSB3F96X.zen")
+HDMI_Connector = Module("github.com/dioderobot/demo/components/XUNPU/HDMI-101S/HDMI-101S.zen")
+ESD_Protection = Module("github.com/dioderobot/demo/components/Nexperia/PUSB3F96X/PUSB3F96X.zen")
 Current_Limit_Switch = Module("github.com/dioderobot/demo/reference/STMPS2151STR/STMPS2151STR.zen")
 
 # ----------------------------------------------------------------------------

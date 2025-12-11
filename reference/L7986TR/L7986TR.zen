@@ -16,13 +16,13 @@ load("@stdlib/interfaces.zen", "Power")
 # Component Modules
 # ----------------------------------------------------------------------------
 
-Buck = Module("github.com/dioderobot/demo/components/L7986TR/L7986TR.zen")
-SchottkyDiode = Module("github.com/dioderobot/demo/components/STPS1L40M/STPS1L40M.zen")
+Buck = Module("github.com/dioderobot/demo/components/STMicroelectronics/L7986TR/L7986TR.zen")
+SchottkyDiode = Module("github.com/dioderobot/demo/components/STMicroelectronics/STPS1L40M/STPS1L40M.zen")
 Schottky = Module("@stdlib/generics/Diode.zen")
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 Crystal = Module("@stdlib/generics/Crystal.zen")
-Inductor = Module("github.com/dioderobot/demo/components/LPS4018M333MRC/LPS4018M333MRC.zen")
+Inductor = Module("github.com/dioderobot/demo/components/Coilcraft/LPS4018-333MRC/LPS4018-333MRC.zen")
 FerriteBead = Module("@stdlib/generics/FerriteBead.zen")
 
 
@@ -223,7 +223,7 @@ Resistor(
     P2 = FB,
 )
 
-add_property("datasheet", "github.com/dioderobot/demo/components/L7986TR/L7986TR.pdf")
+add_property("datasheet", "github.com/dioderobot/demo/components/STMicroelectronics/L7986TR/L7986TR.pdf")
 
 # ----------------------------------------------------------------------------
 # PCB Schematic

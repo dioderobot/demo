@@ -1,0 +1,206 @@
+(footprint "WLP-4_0.728x0.728mm_Layout2x2_P0.35mm"
+	(version 20241229)
+	(generator "kicad-footprint-generator")
+	(layer "F.Cu")
+	(descr "WLP-4, 0.728x0.728mm, 4 Ball, 2x2 Layout, 0.35mm Pitch, generated with kicad-footprint-generator ipc_bga_generator.py, https://datasheets.maximintegrated.com/en/ds/MAX40200.pdf")
+	(tags "BGA 4 0.35")
+	(solder_mask_margin 0.02)
+	(solder_paste_margin 0.000001)
+	(property "Reference" "REF**"
+		(at 0 -1.364 0)
+		(layer "F.SilkS")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "WLP-4_0.728x0.728mm_Layout2x2_P0.35mm"
+		(at 0 1.364 0)
+		(layer "F.Fab")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(fp_line
+		(start -0.535 0.535)
+		(end -0.535 -0.3225)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+	)
+	(fp_line
+		(start -0.3225 -0.535)
+		(end 0.535 -0.535)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+	)
+	(fp_line
+		(start 0.535 -0.535)
+		(end 0.535 0.535)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+	)
+	(fp_line
+		(start 0.535 0.535)
+		(end -0.535 0.535)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+	)
+	(fp_poly
+		(pts
+			(xy -0.535 -0.535)
+			(xy -1.035 -0.535)
+			(xy -0.535 -1.035)
+		)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(fill yes)
+		(layer "F.SilkS")
+	)
+	(fp_line
+		(start -1.37 -1.37)
+		(end -1.37 1.37)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+	)
+	(fp_line
+		(start -1.37 1.37)
+		(end 1.37 1.37)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+	)
+	(fp_line
+		(start 1.37 -1.37)
+		(end -1.37 -1.37)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+	)
+	(fp_line
+		(start 1.37 1.37)
+		(end 1.37 -1.37)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+	)
+	(fp_line
+		(start -0.364 -0.182)
+		(end -0.182 -0.364)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+	)
+	(fp_line
+		(start -0.364 0.364)
+		(end -0.364 -0.182)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+	)
+	(fp_line
+		(start -0.182 -0.364)
+		(end 0.364 -0.364)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+	)
+	(fp_line
+		(start 0.364 -0.364)
+		(end 0.364 0.364)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+	)
+	(fp_line
+		(start 0.364 0.364)
+		(end -0.364 0.364)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(effects
+			(font
+				(size 0.17 0.17)
+				(thickness 0.0255)
+			)
+		)
+	)
+	(pad "A1" smd circle
+		(at -0.175 -0.175)
+		(size 0.2 0.2)
+		(property pad_prop_bga)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+	)
+	(pad "A2" smd circle
+		(at 0.175 -0.175)
+		(size 0.2 0.2)
+		(property pad_prop_bga)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+	)
+	(pad "B1" smd circle
+		(at -0.175 0.175)
+		(size 0.2 0.2)
+		(property pad_prop_bga)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+	)
+	(pad "B2" smd circle
+		(at 0.175 0.175)
+		(size 0.2 0.2)
+		(property pad_prop_bga)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+	)
+	(embedded_fonts no)
+	(model "${KICAD9_3DMODEL_DIR}/Package_BGA.3dshapes/WLP-4_0.728x0.728mm_Layout2x2_P0.35mm.step"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

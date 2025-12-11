@@ -17,7 +17,7 @@ load("@stdlib/interfaces.zen", "Power")
 # ----------------------------------------------------------------------------
 
 GateDriver = Module("github.com/dioderobot/demo/reference/L6387ED/L6387ED.zen")
-Nfet = Module("github.com/dioderobot/demo/components/STL180N6F7/STL180N6F7.zen")
+Nfet = Module("github.com/dioderobot/demo/components/STMicroelectronics/STL180N6F7/STL180N6F7.zen")
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 SchottkyDiode = Module("@stdlib/generics/Diode.zen")

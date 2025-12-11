@@ -16,8 +16,8 @@ load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "
 # Component Modules
 # ----------------------------------------------------------------------------
 
-Ethernet = Module("github.com/dioderobot/demo/components/CRJ009-ML4-TH/CRJ009-ML4-TH.zen")
-QuadTVS = Module("github.com/dioderobot/demo/components/TPD4EUSB30DQAR/TPD4EUSB30DQAR.zen")
+Ethernet = Module("github.com/dioderobot/demo/components/Same_Sky/CRJ009-ML4-TH/CRJ009-ML4-TH.zen")
+QuadTVS = Module("github.com/dioderobot/demo/components/Texas_Instruments/TPD4EUSB30DQAR/TPD4EUSB30DQAR.zen")
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 Led = Module("@stdlib/generics/Led.zen")

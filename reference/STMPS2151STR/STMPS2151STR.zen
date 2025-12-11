@@ -21,7 +21,7 @@ load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "
 # Component Modules
 # ----------------------------------------------------------------------------
 
-STMPS2151STR = Module("github.com/dioderobot/demo/components/STMPS2151STR/STMPS2151STR.zen")
+STMPS2151STR = Module("github.com/dioderobot/demo/components/STMicroelectronics/STMPS2151STR/STMPS2151STR.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 
 # ----------------------------------------------------------------------------
@@ -68,7 +68,7 @@ Capacitor(
     P2 = io_gnd,
 )
 
-add_property("datasheet", "github.com/dioderobot/demo/components/STMPS2151STR/STMPS2151STR.pdf")
+add_property("datasheet", "github.com/dioderobot/demo/components/STMicroelectronics/STMPS2151STR/STMPS2151STR.pdf")
 
 # pcb:sch C_IN.C x=1134.3800 y=87.9000 rot=0
 # pcb:sch C_OUT.C x=524.7800 y=87.9000 rot=0

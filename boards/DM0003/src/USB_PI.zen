@@ -22,7 +22,7 @@ load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "
 
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
-VoltageClamp = Module("github.com/dioderobot/demo/components/RCLAMP0502BATCT/RCLAMP0502BATCT.zen")
+VoltageClamp = Module("github.com/dioderobot/demo/components/Semtech_Corporation/RCLAMP0502BATCT/RCLAMP0502BATCT.zen")
 
 # ----------------------------------------------------------------------------
 # io_interfaces

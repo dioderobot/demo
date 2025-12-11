@@ -20,14 +20,14 @@ load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "
 # Component Modules
 # ----------------------------------------------------------------------------
 
-USB_TypeC_Connector = Module("github.com/dioderobot/demo/components/unknown/TYPE-C24PQT/TYPE-C24PQT.zen")
-ESD = Module("github.com/dioderobot/demo/components/TPD4EUSB30DQAR/TPD4EUSB30DQAR.zen")
+USB_TypeC_Connector = Module("github.com/dioderobot/demo/components/SHOUHAN/TYPE-C24PQT/TYPE-C24PQT.zen")
+ESD = Module("github.com/dioderobot/demo/components/Texas_Instruments/TPD4EUSB30DQAR/TPD4EUSB30DQAR.zen")
 Current_Limit_Switch = Module("github.com/dioderobot/demo/reference/AP22653W6M7/AP22653W6M7.zen")
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
-RCLAMP0502BATCT = Module("github.com/dioderobot/demo/components/RCLAMP0502BATCT/RCLAMP0502BATCT.zen")
-TUSB321RWBR = Module("github.com/dioderobot/demo/components/unknown/TUSB321RWBR/TUSB321RWBR.zen")
-SSMUX = Module("github.com/dioderobot/demo/components/unknown/HD3SS3212IRKSR/HD3SS3212IRKSR.zen")
+RCLAMP0502BATCT = Module("github.com/dioderobot/demo/components/Semtech_Corporation/RCLAMP0502BATCT/RCLAMP0502BATCT.zen")
+TUSB321RWBR = Module("github.com/dioderobot/demo/components/Texas_Instruments/TUSB321RWBR/TUSB321RWBR.zen")
+SSMUX = Module("github.com/dioderobot/demo/components/Texas_Instruments/HD3SS3212IRKSR/HD3SS3212IRKSR.zen")
 
 # ----------------------------------------------------------------------------
 # io_interfaces

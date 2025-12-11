@@ -30,7 +30,9 @@ SchottkyDiode = Module("@stdlib/generics/Diode.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 Thermistor = Module("@stdlib/generics/Thermistor.zen")
 Led = Module("@stdlib/generics/Led.zen")
-PwmHeader = Module("github.com/dioderobot/demo/components/SM05BMSRSSMTB/SM05BMSRSSMTB.zen")
+PwmHeader = Module(
+    "github.com/dioderobot/demo/components/JST_JAPAN_SOLDERLESS_TERMINALS/SM05B-SRSS-TB/SM05B-SRSS-TB.zen"
+)
 TagConnect = Module("@stdlib/kicad/TagConnect.zen")
 
 # ----------------------------------------------------------------------------
@@ -41,11 +43,11 @@ TagConnect = Module("@stdlib/kicad/TagConnect.zen")
 # Global Power Interfaces
 # ----------------------------------------------------------------------------
 
-VPLUS = io("VPLUS", Net, default = Net("VPLUS", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
-V10V = io("V10V", Net, default = Net("V10V", symbol = Symbol("@kicad-symbols/power.kicad_sym:+10V")))
-V5V = io("V5V", Net, default = Net("V5V", symbol = Symbol("@kicad-symbols/power.kicad_sym:+5V")))
-V3V3 = io("V3V3", Net, default = Net("V3V3", symbol = Symbol("@kicad-symbols/power.kicad_sym:+3V3")))
-GND = io("GND", Net, default = Net("GND", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+VPLUS = io("VPLUS", Net, default=Net("VPLUS", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+V10V = io("V10V", Net, default=Net("V10V", symbol=Symbol("@kicad-symbols/power.kicad_sym:+10V")))
+V5V = io("V5V", Net, default=Net("V5V", symbol=Symbol("@kicad-symbols/power.kicad_sym:+5V")))
+V3V3 = io("V3V3", Net, default=Net("V3V3", symbol=Symbol("@kicad-symbols/power.kicad_sym:+3V3")))
+GND = io("GND", Net, default=Net("GND", symbol=Symbol("@kicad-symbols/power.kicad_sym:GND")))
 
 # ----------------------------------------------------------------------------
 # Global Communication Interfaces
@@ -142,35 +144,35 @@ NC_PWM_MP2 = Net("NC_PWM_MP2")
 # Power Rails
 
 Buck(
-    name = "Buck",
-    VIN_BUCK = VPLUS,
-    VOUT_BUCK = V10V,
-    GND = GND,
-    properties = {
+    name="Buck",
+    VIN_BUCK=VPLUS,
+    VOUT_BUCK=V10V,
+    GND=GND,
+    properties={
         "collapse": "true",
     },
 )
 
 Ldo(
-    name = "Ldo_5V",
-    VIN_LDO = V10V,
-    VOUT_LDO = V5V,
-    GND = GND,
-    fb_resistor_top = "52.3kohms",
-    fb_resistor_bottom = "10kohms",
-    properties = {
+    name="Ldo_5V",
+    VIN_LDO=V10V,
+    VOUT_LDO=V5V,
+    GND=GND,
+    fb_resistor_top="52.3kohms",
+    fb_resistor_bottom="10kohms",
+    properties={
         "collapse": "true",
     },
 )
 
 Ldo(
-    name = "Ldo_3V3",
-    VIN_LDO = V5V,
-    VOUT_LDO = V3V3,
-    GND = GND,
-    fb_resistor_top = "30.9kohms",
-    fb_resistor_bottom = "10kohms",
-    properties = {
+    name="Ldo_3V3",
+    VIN_LDO=V5V,
+    VOUT_LDO=V3V3,
+    GND=GND,
+    fb_resistor_top="30.9kohms",
+    fb_resistor_bottom="10kohms",
+    properties={
         "collapse": "true",
     },
 )
@@ -178,10 +180,10 @@ Ldo(
 # Power Caps
 
 PowerCaps(
-    name = "PowerCaps",
-    VPLUS = VPLUS,
-    GND = GND,
-    properties = {
+    name="PowerCaps",
+    VPLUS=VPLUS,
+    GND=GND,
+    properties={
         "collapse": "true",
     },
 )
@@ -189,46 +191,46 @@ PowerCaps(
 # MCU
 
 Mcu(
-    name = "STM32G431C8T6",
-    V3V3 = V3V3,
-    GND = GND,
-    PA0 = VBUS,  # VBUS sensing
-    PA1 = CURR_FDBK1_OPAMP_PLUS,  # Current feedback 1 OpAmp+
-    PA2 = OP1_OUT,  # OpAmp 1 output
-    PA3 = CURR_FDBK1_OPAMP_MINUS,  # Current feedback 1 OpAmp-
-    PA4 = BEMF1,  # BEMF phase 1
-    PA5 = CURR_FDBK2_OPAMP_MINUS,  # Current feedback 2 OpAmp-
-    PA6 = OP2_OUT,  # OpAmp 2 output
-    PA7 = CURR_FDBK2_OPAMP_PLUS,  # Current feedback 2 OpAmp+
-    PA8 = TIM1_CH1,  # Timer1 Channel 1
-    PA9 = TIM1_CH2,  # Timer1 Channel 2
-    PA10 = TIM1_CH3,  # Timer1 Channel 3
-    PA11 = CAN_RX,  # CAN Receive
-    PA12 = TIM1_CH2N,  # Timer1 Channel 2N
-    PA13 = SWDIO,  # SWD Data
-    PA14 = SWCLK,  # SWD Clock
-    PA15 = PWM,
-    PB0 = CURR_FDBK3_OPAMP_PLUS,  # Current feedback 3 OpAmp+
-    PB1 = OP3_OUT,  # OpAmp 3 output
-    PB2 = CURR_FDBK3_OPAMP_MINUS,  # Current feedback 3 OpAmp-
-    PB3 = UART2_TX,  # UART2 Transmit
-    PB4 = UART2_RX,  # UART2 Receive
-    PB5 = GPIO_BEMF,  # GPIO for BEMF
-    PB6 = A_PLUS_H1_OUT,  # Hall A / Encoder A
-    PB7 = B_PLUS_H2_OUT,  # Hall B / Encoder B
-    PB8_BOOT0 = Z_PLUS_H3_OUT,  # Hall C / Encoder Z (shares with BOOT0)
-    PB9 = CAN_TX,  # CAN Transmit
-    PB10 = PB10,  # Unassigned
-    PB11 = BEMF3,  # BEMF phase 3
-    PB12 = BEMF2,  # BEMF phase 2 (ADC capable)
-    PB13 = CAN_SHDN,  # CAN Shutdown (remapped from PC11)
-    PB14 = TEMP_FEEDBACK,  # Temperature feedback
-    PB15 = TIM1_CH3N,  # Timer1 Channel 3N
-    PC13 = TIM1_CH1N,  # Timer1 Channel 1N
-    PC14_OSC32_IN = CAN_TERM,  # CAN Termination
-    PC15_OSC32_OUT = STATUS,  # Status signal
-    nRST = nRST,
-    properties = {
+    name="STM32G431C8T6",
+    V3V3=V3V3,
+    GND=GND,
+    PA0=VBUS,  # VBUS sensing
+    PA1=CURR_FDBK1_OPAMP_PLUS,  # Current feedback 1 OpAmp+
+    PA2=OP1_OUT,  # OpAmp 1 output
+    PA3=CURR_FDBK1_OPAMP_MINUS,  # Current feedback 1 OpAmp-
+    PA4=BEMF1,  # BEMF phase 1
+    PA5=CURR_FDBK2_OPAMP_MINUS,  # Current feedback 2 OpAmp-
+    PA6=OP2_OUT,  # OpAmp 2 output
+    PA7=CURR_FDBK2_OPAMP_PLUS,  # Current feedback 2 OpAmp+
+    PA8=TIM1_CH1,  # Timer1 Channel 1
+    PA9=TIM1_CH2,  # Timer1 Channel 2
+    PA10=TIM1_CH3,  # Timer1 Channel 3
+    PA11=CAN_RX,  # CAN Receive
+    PA12=TIM1_CH2N,  # Timer1 Channel 2N
+    PA13=SWDIO,  # SWD Data
+    PA14=SWCLK,  # SWD Clock
+    PA15=PWM,
+    PB0=CURR_FDBK3_OPAMP_PLUS,  # Current feedback 3 OpAmp+
+    PB1=OP3_OUT,  # OpAmp 3 output
+    PB2=CURR_FDBK3_OPAMP_MINUS,  # Current feedback 3 OpAmp-
+    PB3=UART2_TX,  # UART2 Transmit
+    PB4=UART2_RX,  # UART2 Receive
+    PB5=GPIO_BEMF,  # GPIO for BEMF
+    PB6=A_PLUS_H1_OUT,  # Hall A / Encoder A
+    PB7=B_PLUS_H2_OUT,  # Hall B / Encoder B
+    PB8_BOOT0=Z_PLUS_H3_OUT,  # Hall C / Encoder Z (shares with BOOT0)
+    PB9=CAN_TX,  # CAN Transmit
+    PB10=PB10,  # Unassigned
+    PB11=BEMF3,  # BEMF phase 3
+    PB12=BEMF2,  # BEMF phase 2 (ADC capable)
+    PB13=CAN_SHDN,  # CAN Shutdown (remapped from PC11)
+    PB14=TEMP_FEEDBACK,  # Temperature feedback
+    PB15=TIM1_CH3N,  # Timer1 Channel 3N
+    PC13=TIM1_CH1N,  # Timer1 Channel 1N
+    PC14_OSC32_IN=CAN_TERM,  # CAN Termination
+    PC15_OSC32_OUT=STATUS,  # Status signal
+    nRST=nRST,
+    properties={
         "collapse": "true",
     },
 )
@@ -236,29 +238,29 @@ Mcu(
 # Hall Encoder
 
 HallEncoder(
-    name = "HallEncoder",
-    V5V = V5V,
-    V3V3 = V3V3,
-    GND = GND,
-    A_PLUS_H1_OUT = A_PLUS_H1_OUT,
-    B_PLUS_H2_OUT = B_PLUS_H2_OUT,
-    Z_PLUS_H3_OUT = Z_PLUS_H3_OUT,
-    properties = {
+    name="HallEncoder",
+    V5V=V5V,
+    V3V3=V3V3,
+    GND=GND,
+    A_PLUS_H1_OUT=A_PLUS_H1_OUT,
+    B_PLUS_H2_OUT=B_PLUS_H2_OUT,
+    Z_PLUS_H3_OUT=Z_PLUS_H3_OUT,
+    properties={
         "collapse": "true",
     },
 )
 
 # CAN
 CanInterface(
-    name = "Can_Interface",
-    V5V = V5V,
-    V3V3 = V3V3,
-    GND = GND,
-    CAN_RX = CAN_RX,
-    CAN_TX = CAN_TX,
-    CAN_TERM = CAN_TERM,  # CAN Termination Resistor
-    CAN_SHDN = CAN_SHDN,  # CAN Shutdown
-    properties = {
+    name="Can_Interface",
+    V5V=V5V,
+    V3V3=V3V3,
+    GND=GND,
+    CAN_RX=CAN_RX,
+    CAN_TX=CAN_TX,
+    CAN_TERM=CAN_TERM,  # CAN Termination Resistor
+    CAN_SHDN=CAN_SHDN,  # CAN Shutdown
+    properties={
         "collapse": "true",
     },
 )
@@ -267,54 +269,54 @@ CanInterface(
 
 # Phase A Driver
 PhaseDriver(
-    name = "PhaseDriverA",
-    VPLUS = VPLUS,
-    VCC = V10V,
-    V3V3 = V3V3,
-    GND = GND,
-    TIM_CHN = TIM1_CH1N,
-    TIM_CHP = TIM1_CH1,
-    PHASEOUT = PHASE_A,
-    VSHUNTP = VSHUNTP_A,
-    GPIO_BEMF = GPIO_BEMF,
-    BEMF = BEMF1,
-    properties = {
+    name="PhaseDriverA",
+    VPLUS=VPLUS,
+    VCC=V10V,
+    V3V3=V3V3,
+    GND=GND,
+    TIM_CHN=TIM1_CH1N,
+    TIM_CHP=TIM1_CH1,
+    PHASEOUT=PHASE_A,
+    VSHUNTP=VSHUNTP_A,
+    GPIO_BEMF=GPIO_BEMF,
+    BEMF=BEMF1,
+    properties={
         "collapse": "true",
     },
 )
 
 # Phase B Driver
 PhaseDriver(
-    name = "PhaseDriverB",
-    VPLUS = VPLUS,
-    VCC = V10V,
-    V3V3 = V3V3,
-    GND = GND,
-    TIM_CHN = TIM1_CH2N,
-    TIM_CHP = TIM1_CH2,
-    PHASEOUT = PHASE_B,
-    VSHUNTP = VSHUNTP_B,
-    GPIO_BEMF = GPIO_BEMF,
-    BEMF = BEMF2,
-    properties = {
+    name="PhaseDriverB",
+    VPLUS=VPLUS,
+    VCC=V10V,
+    V3V3=V3V3,
+    GND=GND,
+    TIM_CHN=TIM1_CH2N,
+    TIM_CHP=TIM1_CH2,
+    PHASEOUT=PHASE_B,
+    VSHUNTP=VSHUNTP_B,
+    GPIO_BEMF=GPIO_BEMF,
+    BEMF=BEMF2,
+    properties={
         "collapse": "true",
     },
 )
 
 # Phase C Driver
 PhaseDriver(
-    name = "PhaseDriverC",
-    VPLUS = VPLUS,
-    VCC = V10V,
-    V3V3 = V3V3,
-    GND = GND,
-    TIM_CHN = TIM1_CH3N,
-    TIM_CHP = TIM1_CH3,
-    PHASEOUT = PHASE_C,
-    VSHUNTP = VSHUNTP_C,
-    GPIO_BEMF = GPIO_BEMF,
-    BEMF = BEMF3,
-    properties = {
+    name="PhaseDriverC",
+    VPLUS=VPLUS,
+    VCC=V10V,
+    V3V3=V3V3,
+    GND=GND,
+    TIM_CHN=TIM1_CH3N,
+    TIM_CHP=TIM1_CH3,
+    PHASEOUT=PHASE_C,
+    VSHUNTP=VSHUNTP_C,
+    GPIO_BEMF=GPIO_BEMF,
+    BEMF=BEMF3,
+    properties={
         "collapse": "true",
     },
 )
@@ -322,19 +324,19 @@ PhaseDriver(
 # Shunt Sense
 
 ShuntSense(
-    name = "ShuntSense",
-    V3V3 = V3V3,
-    GND = GND,
-    VSHUNTP_A = VSHUNTP_A,
-    VSHUNTP_B = VSHUNTP_B,
-    VSHUNTP_C = VSHUNTP_C,
-    CURR_FDBK1_OPAMP_PLUS = CURR_FDBK1_OPAMP_PLUS,
-    CURR_FDBK1_OPAMP_MINUS = CURR_FDBK1_OPAMP_MINUS,
-    CURR_FDBK2_OPAMP_PLUS = CURR_FDBK2_OPAMP_PLUS,
-    CURR_FDBK2_OPAMP_MINUS = CURR_FDBK2_OPAMP_MINUS,
-    CURR_FDBK3_OPAMP_PLUS = CURR_FDBK3_OPAMP_PLUS,
-    CURR_FDBK3_OPAMP_MINUS = CURR_FDBK3_OPAMP_MINUS,
-    properties = {
+    name="ShuntSense",
+    V3V3=V3V3,
+    GND=GND,
+    VSHUNTP_A=VSHUNTP_A,
+    VSHUNTP_B=VSHUNTP_B,
+    VSHUNTP_C=VSHUNTP_C,
+    CURR_FDBK1_OPAMP_PLUS=CURR_FDBK1_OPAMP_PLUS,
+    CURR_FDBK1_OPAMP_MINUS=CURR_FDBK1_OPAMP_MINUS,
+    CURR_FDBK2_OPAMP_PLUS=CURR_FDBK2_OPAMP_PLUS,
+    CURR_FDBK2_OPAMP_MINUS=CURR_FDBK2_OPAMP_MINUS,
+    CURR_FDBK3_OPAMP_PLUS=CURR_FDBK3_OPAMP_PLUS,
+    CURR_FDBK3_OPAMP_MINUS=CURR_FDBK3_OPAMP_MINUS,
+    properties={
         "collapse": "true",
     },
 )
@@ -342,28 +344,28 @@ ShuntSense(
 # TagConnect for SWD debugging
 
 TagConnect(
-    name = "TagConnect",
-    tag_type = "TC2030-IDC-NL-2x03",  # 6-pin Tag-Connect for SWD
-    P1 = V3V3,  # VCC
-    P2 = SWDIO,  # SWDIO
-    P3 = nRST,  # Reset
-    P4 = SWCLK,  # SWCLK
-    P5 = GND,  # GND
-    P6 = GND,  # SWO (not used, tied to GND)
+    name="TagConnect",
+    tag_type="TC2030-IDC-NL-2x03",  # 6-pin Tag-Connect for SWD
+    P1=V3V3,  # VCC
+    P2=SWDIO,  # SWDIO
+    P3=nRST,  # Reset
+    P4=SWCLK,  # SWCLK
+    P5=GND,  # GND
+    P6=GND,  # SWO (not used, tied to GND)
 )
 
 # PWM Header
 
 PwmHeader(
-    name = "PwmHeader",
-    MP1 = NC_PWM_MP1,
-    MP2 = NC_PWM_MP2,
-    P1 = V5V,
-    P2 = UART2_TX,
-    P3 = UART2_RX,
-    P4 = PWM,
-    P5 = GND,
-    properties = {
+    name="PwmHeader",
+    MP1=NC_PWM_MP1,
+    MP2=NC_PWM_MP2,
+    P1=V5V,
+    P2=UART2_TX,
+    P3=UART2_RX,
+    P4=PWM,
+    P5=GND,
+    properties={
         "collapse": "true",
     },
 )
@@ -371,110 +373,110 @@ PwmHeader(
 # VBUS Sense
 
 Resistor(
-    name = "R_VBUS_Sense_Top",
-    value = "169kohms 1%",
-    package = "0402",
-    P1 = VPLUS,
-    P2 = VBUS,
+    name="R_VBUS_Sense_Top",
+    value="169kohms 1%",
+    package="0402",
+    P1=VPLUS,
+    P2=VBUS,
 )
 
 Resistor(
-    name = "R_VBUS_Sense_Bottom",
-    value = "18kohms 1%",
-    package = "0402",
-    P1 = VBUS,
-    P2 = GND,
+    name="R_VBUS_Sense_Bottom",
+    value="18kohms 1%",
+    package="0402",
+    P1=VBUS,
+    P2=GND,
 )
 
 SchottkyDiode(
-    name = "D_VBUS_Sense",
-    variant = "Schottky",
-    package = "SOD-523",
-    mpn = "BAT30KFILM",
-    i_r = "300mA",
-    v_r = "30V",
-    A = VBUS,
-    K = V3V3,
+    name="D_VBUS_Sense",
+    variant="Schottky",
+    package="SOD-523",
+    mpn="BAT30KFILM",
+    i_r="300mA",
+    v_r="30V",
+    A=VBUS,
+    K=V3V3,
 )
 
 Capacitor(
-    name = "C_VBUS_Sense",
-    value = "100nF",
-    dielectric = "X7R",
-    voltage = "16V",
-    package = "0402",
-    P1 = VBUS,
-    P2 = GND,
+    name="C_VBUS_Sense",
+    value="100nF",
+    dielectric="X7R",
+    voltage="16V",
+    package="0402",
+    P1=VBUS,
+    P2=GND,
 )
 
 # Temperature Sense
 
 Thermistor(
-    name = "Thermistor",
-    value = "10kohms 1%",
-    package = "0402",
-    temperature_coefficient = "NTC",
-    mpn = "NTCG103JF103FT1",
-    P1 = V3V3,
-    P2 = TEMP_FEEDBACK,
+    name="Thermistor",
+    value="10kohms 1%",
+    package="0402",
+    temperature_coefficient="NTC",
+    mpn="NTCG103JF103FT1",
+    P1=V3V3,
+    P2=TEMP_FEEDBACK,
 )
 
 Resistor(
-    name = "R_TEMP_FEEDBACK",
-    value = "4.7kohms 1%",
-    package = "0402",
-    P1 = TEMP_FEEDBACK,
-    P2 = GND,
+    name="R_TEMP_FEEDBACK",
+    value="4.7kohms 1%",
+    package="0402",
+    P1=TEMP_FEEDBACK,
+    P2=GND,
 )
 
 Capacitor(
-    name = "C_TEMP_FEEDBACK",
-    value = "10nF 1%",
-    package = "0402",
-    voltage = "10V",
-    dielectric = "X7R",
-    P1 = TEMP_FEEDBACK,
-    P2 = GND,
+    name="C_TEMP_FEEDBACK",
+    value="10nF 1%",
+    package="0402",
+    voltage="10V",
+    dielectric="X7R",
+    P1=TEMP_FEEDBACK,
+    P2=GND,
 )
 
 # Status & Power LED
 
 Resistor(
-    name = "R_STATUS_LED",
-    value = "1kohms 1%",
-    package = "0402",
-    P1 = STATUS,
-    P2 = R_STATUS_LED,
+    name="R_STATUS_LED",
+    value="1kohms 1%",
+    package="0402",
+    P1=STATUS,
+    P2=R_STATUS_LED,
 )
 
 Led(
-    name = "Status_LED",
-    color = "red",
-    package = "0402",
-    A = R_STATUS_LED,
-    K = GND,
+    name="Status_LED",
+    color="red",
+    package="0402",
+    A=R_STATUS_LED,
+    K=GND,
 )
 
 Resistor(
-    name = "R_POWER_LED",
-    value = "1kohms 1%",
-    package = "0402",
-    P1 = V3V3,
-    P2 = R_POWER_LED,
+    name="R_POWER_LED",
+    value="1kohms 1%",
+    package="0402",
+    P1=V3V3,
+    P2=R_POWER_LED,
 )
 
 Led(
-    name = "Power_LED",
-    color = "green",
-    package = "0402",
-    A = R_POWER_LED,
-    K = GND,
+    name="Power_LED",
+    color="green",
+    package="0402",
+    A=R_POWER_LED,
+    K=GND,
 )
 
 Board(
-    name = "DM0001",
-    layout_path = "layout",
-    layers = 6,
+    name="DM0001",
+    layout_path="layout",
+    layers=6,
 )
 
 # ============================================================================

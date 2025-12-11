@@ -20,17 +20,17 @@ load("@stdlib/utils.zen", "e96")
 # Component Modules
 # ----------------------------------------------------------------------------
 
-SPI_Connector = Module("github.com/dioderobot/demo/components/BM10BMSURSMTF_LF_SN/BM10BMSURSMTF_LF_SN.zen")
-FAN_Connector = Module("github.com/dioderobot/demo/components/BM04BMSRSSMTB_LF_SN/BM04BMSRSSMTB_LF_SN.zen")
-I2C_Connector = Module("github.com/dioderobot/demo/components/BM04BMSRSSMTB_LF_SN/BM04BMSRSSMTB_LF_SN.zen")
+SPI_Connector = Module("github.com/dioderobot/demo/components/JST_JAPAN_SOLDERLESS_TERMINALS/BM10BMSURSMTF_LF_SN/BM10BMSURSMTF_LF_SN.zen")
+FAN_Connector = Module("github.com/dioderobot/demo/components/JST_JAPAN_SOLDERLESS_TERMINALS/BM04BMSRSSMTB_LF_SN/BM04BMSRSSMTB_LF_SN.zen")
+I2C_Connector = Module("github.com/dioderobot/demo/components/JST_JAPAN_SOLDERLESS_TERMINALS/BM04BMSRSSMTB_LF_SN/BM04BMSRSSMTB_LF_SN.zen")
 Led = Module("@stdlib/generics/Led.zen")
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 LIS3DH = Module("github.com/dioderobot/demo/reference/LIS3DH/LIS3DH.zen")
-Reset_Button = Module("github.com/dioderobot/demo/components/B3UM1000P/B3UM1000P.zen")
-ESD_Clamp = Module("github.com/dioderobot/demo/components/RCLAMP0502BATCT/RCLAMP0502BATCT.zen")
+Reset_Button = Module("github.com/dioderobot/demo/components/OMRON_Electronics/B3UM1000P/B3UM1000P.zen")
+ESD_Clamp = Module("github.com/dioderobot/demo/components/Semtech_Corporation/RCLAMP0502BATCT/RCLAMP0502BATCT.zen")
 SN74LVC1G14DRLRG4 = Module("github.com/dioderobot/demo/components/Texas_Instruments/SN74LVC1G14DRLRG4/SN74LVC1G14DRLRG4.zen")
-Power_Button = Module("github.com/dioderobot/demo/components/B3UM1000P/B3UM1000P.zen")
+Power_Button = Module("github.com/dioderobot/demo/components/OMRON_Electronics/B3UM1000P/B3UM1000P.zen")
 
 # ----------------------------------------------------------------------------
 # io_interfaces

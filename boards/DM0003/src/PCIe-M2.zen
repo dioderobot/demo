@@ -20,8 +20,8 @@ load("@stdlib/utils.zen", "e96")
 # Component Modules
 # ----------------------------------------------------------------------------
 
-PCIe_Connector = Module("github.com/dioderobot/demo/components/1M2199119M3/1M2199119M3.zen")
-Crystal = Module("github.com/dioderobot/demo/components/ASEKM32_768KHZMLMRMT/ASEKM32_768KHZMLMRMT.zen")
+PCIe_Connector = Module("github.com/dioderobot/demo/components/TE_Connectivity/1M2199119M3/1M2199119M3.zen")
+Crystal = Module("github.com/dioderobot/demo/components/ASEK/ASEKM32_768KHZMLMRMT/ASEKM32_768KHZMLMRMT.zen")
 Buck = Module("github.com/dioderobot/demo/reference/AP3441x/AP3441x.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 Resistor = Module("@stdlib/generics/Resistor.zen")
