@@ -16,7 +16,7 @@ load("@stdlib/interfaces.zen", "Power")
 # Component Modules
 # ----------------------------------------------------------------------------
 
-Ldo = Module("github.com/dioderobot/demo/components/LDFPVR/LDFPVR.zen")
+Ldo = Module("github.com/dioderobot/demo/components/STMicroelectronics/LDFPVR/LDFPVR.zen")
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 
@@ -68,6 +68,8 @@ Capacitor(
     name = "C_VIN_LDO",
     value = "1uF",
     voltage = input_cap_voltage,
+    mpn = "CL05A105KP5NNNC",
+    manufacturer = "Samsung Electro-Mechanics",
     package = "0402",
     P1 = VIN_LDO,
     P2 = GND
@@ -78,6 +80,8 @@ Capacitor(
     name = "C_VOUT_LDO",
     value = "2.2uF",
     voltage = output_cap_voltage,
+    mpn = "CL05A225MQ5NNNC",
+    manufacturer = "Samsung Electro-Mechanics",
     package = "0402",
     P1 = VOUT_LDO,
     P2 = GND
@@ -100,7 +104,7 @@ Resistor(
 )
 
 
-add_property("datasheet", "github.com/dioderobot/demo/components/LDFPVR/LDFPVR.pdf")
+add_property("datasheet", "github.com/dioderobot/demo/components/STMicroelectronics/LDFPVR/LDFPVR.pdf")
 
 # ----------------------------------------------------------------------------
 # PCB Schematic

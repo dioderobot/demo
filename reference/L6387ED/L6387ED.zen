@@ -16,7 +16,7 @@ load("@stdlib/interfaces.zen", "Power")
 # Component Modules
 # ----------------------------------------------------------------------------
 
-L6387ED = Module("github.com/dioderobot/demo/components/L6387ED/L6387ED.zen")
+L6387ED = Module("github.com/dioderobot/demo/components/STMicroelectronics/L6387ED/L6387ED.zen")
 SchottkyDiode = Module("@stdlib/generics/Diode.zen")
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
@@ -86,6 +86,8 @@ Capacitor(
 # Decoupling capacitor for VCC
 Capacitor(
     name = "C_VCC",
+    mpn = "CL10A474KA8NNNC",
+    manufacturer = "Samsung Electro-Mechanics",
     value = decoupling_cap_value,
     voltage = decoupling_cap_voltage,
     package = "0603",
@@ -118,6 +120,7 @@ SchottkyDiode(
     variant = "Schottky",
     package = "SOD-123",
     mpn = "STPS0560Z",
+    manufacturer = "STMicroelectronics",
     i_r = "0.5A",
     v_r = "60V",
     A = VCC,
@@ -125,7 +128,7 @@ SchottkyDiode(
 )
 
 
-add_property("datasheet", "github.com/dioderobot/demo/components/L6387ED/L6387ED.pdf")
+add_property("datasheet", "github.com/dioderobot/demo/components/STMicroelectronics/L6387ED/L6387ED.pdf")
 
 
 

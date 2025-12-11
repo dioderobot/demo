@@ -1,0 +1,252 @@
+(footprint "Mounting_Wuerth_WP-SMRA-D3.3mm_L7mm_7466300_Horizontal"
+	(version 20241229)
+	(generator "pcbnew")
+	(generator_version "9.0")
+	(layer "F.Cu")
+	(descr "Right-angle SMD mounting hardware, inside through hole 3.3mm, lenght 7mm, total height 5mm, Würth electronics 7466300 (https://www.we-online.com/components/products/datasheet/7466300.pdf)")
+	(tags "screw")
+	(property "Reference" "REF**"
+		(at 0 -3.5 0)
+		(layer "F.SilkS")
+		(uuid "5122ba44-9ffe-45d9-905f-8ddb135fef0f")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "Mounting_Wuerth_WP-SMRA-D3.3mm_L7mm_7466300_Horizontal"
+		(at 0 3.5 0)
+		(layer "F.Fab")
+		(uuid "11bf24c9-a5e1-43d8-98f8-4b07895a5e1d")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "dd2f6e32-6f00-4221-82ce-7aa20543460b")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "254169a0-90d4-4a94-bca1-5e3bd4e8ba39")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(fp_line
+		(start -3.61 -2.61)
+		(end -3.61 2.61)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "4e34eead-471b-4b70-916e-765a2c41869a")
+	)
+	(fp_line
+		(start -3.61 2.61)
+		(end -3.34 2.61)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "863bcfd0-aee4-465d-9fff-0502b72f171b")
+	)
+	(fp_line
+		(start -3.34 -2.61)
+		(end -3.61 -2.61)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "c46e7428-30bc-4e70-ac04-ef119ae0da37")
+	)
+	(fp_line
+		(start 3.34 2.61)
+		(end 3.61 2.61)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "5f145c58-7e93-4ff5-a2a1-5c0b648d3b98")
+	)
+	(fp_line
+		(start 3.61 -2.61)
+		(end 3.34 -2.61)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "375ac9b4-bc69-467c-aaad-8765ca7b2287")
+	)
+	(fp_line
+		(start 3.61 2.61)
+		(end 3.61 -2.61)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "67afbf15-26f8-4eda-9336-a3099ab4b245")
+	)
+	(fp_line
+		(start -3.75 -2.83)
+		(end -3.75 2.83)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "172d22a4-0b1a-41ec-babd-b201cc89a61e")
+	)
+	(fp_line
+		(start 3.75 -2.83)
+		(end -3.75 -2.83)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "29b8b3a8-9600-4f82-be46-96a0d24e91c8")
+	)
+	(fp_line
+		(start 3.75 -2.83)
+		(end 3.75 2.83)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "bb34e2f5-96e9-467c-a31b-4486dd6d3dc3")
+	)
+	(fp_line
+		(start 3.75 2.83)
+		(end -3.75 2.83)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "03e1f603-af69-4b99-b9ef-7cd52c6adf71")
+	)
+	(fp_line
+		(start -3.5 -2.5)
+		(end -3.5 2.5)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "90d3c15c-b1ba-486c-a04f-74ce6dbc5020")
+	)
+	(fp_line
+		(start -3.5 2.5)
+		(end 3.5 2.5)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "9c3ae6d9-cb3b-4790-a260-90ab74bf4f3e")
+	)
+	(fp_line
+		(start 3.5 -2.5)
+		(end -3.5 -2.5)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "9d842c5a-3008-45c2-a9c1-6a91ff90c8ac")
+	)
+	(fp_line
+		(start 3.5 2.5)
+		(end 3.5 -2.5)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "88f28c88-790f-4e0c-a070-8e85e257da8c")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(uuid "4a2c9eb3-afcd-4578-97a3-47f07771591b")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "1" smd roundrect
+		(at -1.6 -1.35)
+		(size 2.95 2.45)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.1020408163)
+		(solder_paste_margin -0.1)
+		(uuid "3131c57e-b162-490c-ba50-3cc9334ea6d6")
+	)
+	(pad "1" smd roundrect
+		(at -1.6 1.35)
+		(size 2.95 2.45)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.1020408163)
+		(solder_paste_margin -0.1)
+		(uuid "43b77e50-887e-45e5-a8f6-f48e45448e9a")
+	)
+	(pad "1" smd roundrect
+		(at 1.6 -1.35)
+		(size 2.95 2.45)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.1020408163)
+		(solder_paste_margin -0.1)
+		(uuid "558b651d-db33-4d31-8222-84a34572359b")
+	)
+	(pad "1" smd roundrect
+		(at 1.6 1.35)
+		(size 2.95 2.45)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.1020408163)
+		(solder_paste_margin -0.1)
+		(uuid "92c77d6d-61fc-451f-b4d1-9dc4aa946768")
+	)
+	(embedded_fonts no)
+	(model "${KICAD9_3DMODEL_DIR}/Mounting_Wuerth.3dshapes/Mounting_Wuerth_WP-SMRA-D3.3mm_L7mm_7466300_Horizontal.step"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

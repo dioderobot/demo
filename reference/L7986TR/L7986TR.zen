@@ -16,13 +16,13 @@ load("@stdlib/interfaces.zen", "Power")
 # Component Modules
 # ----------------------------------------------------------------------------
 
-Buck = Module("github.com/dioderobot/demo/components/L7986TR/L7986TR.zen")
-SchottkyDiode = Module("github.com/dioderobot/demo/components/STPS1L40M/STPS1L40M.zen")
+Buck = Module("github.com/dioderobot/demo/components/STMicroelectronics/L7986TR/L7986TR.zen")
+SchottkyDiode = Module("github.com/dioderobot/demo/components/STMicroelectronics/STPS1L40M/STPS1L40M.zen")
 Schottky = Module("@stdlib/generics/Diode.zen")
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 Crystal = Module("@stdlib/generics/Crystal.zen")
-Inductor = Module("github.com/dioderobot/demo/components/LPS4018M333MRC/LPS4018M333MRC.zen")
+Inductor = Module("github.com/dioderobot/demo/components/Coilcraft/LPS4018-333MRC/LPS4018-333MRC.zen")
 FerriteBead = Module("@stdlib/generics/FerriteBead.zen")
 
 
@@ -124,6 +124,8 @@ Capacitor(
     value = "10uF",
     voltage = "50V",
     dielectric = "X7R",
+    mpn = "CL31B106KAHNNNE",
+    manufacturer = "Samsung Electro-Mechanics",
     P1 = VIN_BUCK,
     P2 = GND,
 )
@@ -145,6 +147,8 @@ Capacitor(
     package = "1206",
     value = "22uF",
     voltage = output_cap_voltage,
+    mpn = "CL31A226MOCLNNC",
+    manufacturer = "Samsung Electro-Mechanics",
     P1 = VOUT_BUCK,
     P2 = GND,
 )
@@ -194,15 +198,10 @@ Capacitor(
     value = "4.7nF",
     voltage = "50V",
     dielectric = "X7R",
+    mpn = "GRM155R71H472KA01D",
+    manufacturer = "Murata Electronics",
     P1 = R_SMALL_SIGNAL,
     P2 = COMP,
-    properties = {
-        "LCSC Part" : "C77024",
-        "alternatives": [
-            { "mpn": "GRM155R71H472KA01D", "manufacturer": "Murata Electronics" },
-            { "mpn": "C0402C472K4RECAUTO", "manufacturer": "KEMET" },
-        ],
-    },
 )
 
 
@@ -210,9 +209,17 @@ Capacitor(
     name = "C_SMALL_SIGNAL_2",
     package = "0402",
     value = "3.9nF",
-    voltage = "16V",
+    voltage = "50V",
+    mpn = "CL05B392KB5NNNC",
+    manufacturer = "Samsung Electro-Mechanics",
     P1 = VOUT_BUCK,
     P2 = R_SMALL_SIGNAL_2,
+    properties = {
+        "alternatives": [
+            { "mpn": "GRM155R71H392KA01D", "manufacturer": "Murata Electronics" },
+            { "mpn": "CL05B392KB5NNNC", "manufacturer": "Samsung Electro-Mechanics" },
+        ]
+    }
 )
 
 Resistor(
@@ -223,7 +230,7 @@ Resistor(
     P2 = FB,
 )
 
-add_property("datasheet", "github.com/dioderobot/demo/components/L7986TR/L7986TR.pdf")
+add_property("datasheet", "github.com/dioderobot/demo/components/STMicroelectronics/L7986TR/L7986TR.pdf")
 
 # ----------------------------------------------------------------------------
 # PCB Schematic

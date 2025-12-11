@@ -16,7 +16,7 @@ load("@stdlib/interfaces.zen", "Power")
 # ----------------------------------------------------------------------------
 
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
-SMM4F26A = Module("github.com/dioderobot/demo/components/SMM4F26AMTR/SMM4F26AMTR.zen")
+SMM4F26A = Module("github.com/dioderobot/demo/components/STMicroelectronics/SMM4F26A-TR/SMM4F26A-TR.zen")
 
 # ----------------------------------------------------------------------------
 # Configuration Parameters
@@ -46,8 +46,16 @@ for i in range(1, no_of_power_caps):
         package = capacitor_package,
         voltage = capacitor_voltage,
         dielectric = capacitor_dielectric,
+        mpn = "C2012X5R1V226M125AC",
+        manufacturer = "TDK Corporation",
         P1 = VPLUS,
         P2 = GND,
+        properties = {
+            "alternatives": [
+                { "mpn": "C2012X5R1V226M125AC", "manufacturer": "TDK Corporation" },
+                { "mpn": "C2012X5R1V226MT000E", "manufacturer": "TDK Corporation" },
+            ]
+        }
     )
 
 SMM4F26A(

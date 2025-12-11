@@ -16,11 +16,11 @@ load("@stdlib/interfaces.zen", "Power", "Spi", "I2c", "Usb2", "Swd")
 # Component Modules
 # ----------------------------------------------------------------------------
 
-MCU = Module("github.com/dioderobot/demo/components/STM32G431C8T6/STM32G431C8T6.zen")
+MCU = Module("github.com/dioderobot/demo/components/STMicroelectronics/STM32G431C8T6/STM32G431C8T6.zen")
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 Crystal = Module("@stdlib/generics/Crystal.zen")
-Oscillator = Module("github.com/dioderobot/demo/components/CSTNE8M00GH5C000R0/CSTNE8M00GH5C000R0.zen")
+Oscillator = Module("github.com/dioderobot/demo/components/Murata_Electronics/CSTNE8M00GH5C000R0/CSTNE8M00GH5C000R0.zen")
 Inductor = Module("@stdlib/generics/Inductor.zen")
 FerriteBead = Module("@stdlib/generics/FerriteBead.zen")
 
@@ -230,6 +230,8 @@ Capacitor(
     package = "0402",
     voltage = "25V",
     dielectric = "X5R",
+    mpn = "CL05A105KP5NNNC",
+    manufacturer = "Samsung Electro-Mechanics",
     P1 = VDDA,
     P2 = GND
     )
@@ -249,6 +251,8 @@ FerriteBead(
     value = "600ohms",
     frequency = "100MHz",
     package = "0402",
+    mpn = "MMZ1005S601CT000",
+    manufacturer = "TDK Corporation",
     P1 = V3V3,
     P2 = VDDA
 )
@@ -256,7 +260,7 @@ FerriteBead(
 # Module Properties
 # ============================================================================
 
-add_property("datasheet", "github.com/dioderobot/demo/components/STM32G431C8T6/STM32G431C8T6.pdf")
+add_property("datasheet", "github.com/dioderobot/demo/components/STMicroelectronics/STM32G431C8T6/STM32G431C8T6.pdf")
 
 # ============================================================================
 # PCB Schematic

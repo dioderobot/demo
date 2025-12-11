@@ -1,0 +1,47 @@
+"""
+L6387ED
+
+Auto-generated using `pcb search`. Do not modify.
+"""
+
+mpn = config("mpn", str, optional=True, default="L6387ED")
+
+Pins = struct(
+    GND = io("GND", Net),
+    HIN = io("HIN", Net),
+    HVG = io("HVG", Net),
+    LIN = io("LIN", Net),
+    LVG = io("LVG", Net),
+    OUT = io("OUT", Net),
+    VBOOT = io("VBOOT", Net),
+    VCC = io("VCC", Net)
+)
+
+Component(
+    name = "L6387ED",
+    mpn = mpn,
+    manufacturer = "STMicroelectronics",
+    datasheet = File("L6387ED.pdf"),
+    symbol = Symbol(library = "L6387ED.kicad_sym"),
+    footprint = File("SOIC127P600X175-8N.kicad_mod"),
+    pins = {
+        "GND": Pins.GND,
+        "HIN": Pins.HIN,
+        "HVG": Pins.HVG,
+        "LIN": Pins.LIN,
+        "LVG": Pins.LVG,
+        "OUT": Pins.OUT,
+        "VBOOT": Pins.VBOOT,
+        "VCC": Pins.VCC
+    },
+    properties = {
+        "value": "L6387ED",
+        "mpn": "L6387ED",
+        "manufacturer": "STMicroelectronics",
+        "datasheet": "https://www.st.com/resource/en/datasheet/l6387ed.pdf",
+        "alternatives": [
+            { "mpn": "L6387ED", "manufacturer": "STMicroelectronics" },
+            { "mpn": "L6387ED013TR", "manufacturer": "STMicroelectronics" },
+        ],
+    }
+)

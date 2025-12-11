@@ -1,6 +1,6 @@
 [board]
 name = "DM0002"
-description = "Diode Probe (RP2040 CMSIS-DAP)"
+description = "RP2040-based CMSIS-DAP debug probe. Supports SWD, UART, and USB passthrough."
 
 [dependencies]
 "github.com/diodeinc/stdlib" = "0.4.4"
