@@ -17,6 +17,7 @@ USB4105 = Module("github.com/dioderobot/demo/modules/USB4105.zen")
 TLV758P = Module("github.com/dioderobot/demo/modules/TLV758P.zen")
 Led = Module("github.com/dioderobot/demo/modules/Led.zen")
 
+# suppress: deprecated
 PinHeader = Module("@stdlib/kicad/PinHeader.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 TestPoint = Module("@stdlib/generics/TestPoint.zen")
