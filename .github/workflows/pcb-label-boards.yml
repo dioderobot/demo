@@ -1,0 +1,29 @@
+name: PCB Label Boards
+
+on:
+  pull_request:
+
+env:
+  PCB_VERSION: "v0.3.17"
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  label-boards:
+    name: Label PR with affected boards
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install pcb
+        uses: diodeinc/pcb-action/setup@v2
+        with:
+          version: ${{ env.PCB_VERSION }}
+
+      - name: Label PR
+        uses: diodeinc/pcb-action/label-boards@v2
