@@ -17,8 +17,7 @@ USB4105 = Module("github.com/dioderobot/demo/modules/USB4105.zen")
 TLV758P = Module("github.com/dioderobot/demo/modules/TLV758P.zen")
 Led = Module("github.com/dioderobot/demo/modules/Led.zen")
 
-# suppress: deprecated
-PinHeader = Module("@stdlib/kicad/PinHeader.zen")
+PinHeader = Module("@stdlib/generics/PinHeader.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 TestPoint = Module("@stdlib/generics/TestPoint.zen")
 Resistor = Module("@stdlib/generics/Resistor.zen")
@@ -87,20 +86,21 @@ mcu = RP2040(
 
 idc_header = PinHeader(
     name="SWD_HEADER",
+    mount="THT",
     pins=5,
     rows=2,
     pitch="1.27mm",
     orientation="Vertical",
-    Pin_1=target_v_sense,
-    Pin_2=target_swd.SWDIO,
-    Pin_3=gnd,
-    Pin_4=target_swd.SWCLK,
-    Pin_5=gnd,
-    Pin_6=target_uart.RX,
-    Pin_7=Net("NC"),
-    Pin_8=target_uart.TX,
-    Pin_9=target_gnd_detect,
-    Pin_10=target_reset,
+    P1=target_v_sense,
+    P2=target_swd.SWDIO,
+    P3=gnd,
+    P4=target_swd.SWCLK,
+    P5=gnd,
+    P6=target_uart.RX,
+    P7=Net("NC"),
+    P8=target_uart.TX,
+    P9=target_gnd_detect,
+    P10=target_reset,
 )
 
 # Test points for power rails
