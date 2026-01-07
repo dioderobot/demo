@@ -234,6 +234,7 @@
 		(property "Value" "GCM155R71H104KE02D"
 			(at 0 1.16 90)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "53d211a8-7ac0-471d-8699-cde83de21fa2")
 			(effects
 				(font
@@ -254,11 +255,155 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF 4.95V"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "8669a97e-a73b-4319-af51-02a05ef8cb8f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "MCU.C_ADC_AVDD.C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a1f26d6b-06e1-44e7-a0cb-86936715590d")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GCM155R71H104KE02D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "fe1cb156-292f-4017-b9d4-b8f2c4429a36")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b42e42cb-e2d1-49b9-a784-dfec3e7738f2")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Esr" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "76d39d94-715a-4bcd-ae72-4d649e052889")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "498b8e39-15d2-4f6c-9907-65483c119aec")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b1211597-f844-4e70-a815-1d05acf5b66c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Dielectric" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5c195c92-a360-459e-b32e-6e30a3db0b78")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GCM155R71H104KE02J\", \"manufacturer\": \"Murata Electronics\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "8aee1f8e-c698-49b1-8466-12d105d8e4af")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "2d77e560-2863-4be3-a4bf-e955f745ea8d")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Capacitance" "100nF"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b1cd016b-87fd-4661-a2a2-630b54ab2ead")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "967d77d5-60c5-4fc8-9ff4-fec9b44f9a31")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "4.95V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "2c384119-ef43-4889-b8d5-58694f3ba3a9")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -429,6 +574,7 @@
 		(property "Value" "VLMO1500-GS08"
 			(at 0 1.17 90)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "f930dc70-1323-4643-b8bc-b67acd1e0351")
 			(effects
 				(font
@@ -449,11 +595,143 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "LED ORANGE 2V"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "18dac02d-ee99-4265-9843-ee04488cb977")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "LED_O3.D.LED"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "da653039-78d8-4499-b5d8-644aae44335c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "led"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "8b4874b7-eab4-419f-ac52-293b1943eefb")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "806b5009-9978-48d0-ae2e-246e6ffb7012")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"LTST-C281KFKT-5A\", \"manufacturer\": \"Lite-On Inc.\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f790d3e3-1f1a-4725-911d-fd8853972c10")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Semiconductor Opto Division"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "4714f188-b567-4a4d-9dbf-23e5ffc0953a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b8f2af96-bf25-498c-9420-85289bc17f4c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Color" "orange"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "7f3eb3ee-6ea5-41c5-b2c5-09a7f0fb28ce")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Forward Current" "4.9808429118773946360153257mA"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ce7c1f3d-01f7-4320-80ce-3d9b28829025")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_led"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "03f69565-690d-4933-a0ce-7750a0a3de92")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "VLMO1500-GS08"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a38d972c-cf35-4dce-a57e-cbc28f743038")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Forward Voltage" "2V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "6e00e8b2-763e-477d-8e3b-f9920d1308cd")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -635,6 +913,7 @@
 		(property "Value" "VLMG1500-GS08"
 			(at 0 1.17 90)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "cd3da929-5903-4448-a061-cc453bf35995")
 			(effects
 				(font
@@ -655,11 +934,143 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "LED GREEN 2V"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "ffe08c7d-64a0-4244-b3c6-c3005c82ec78")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "LED_G.D.LED"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "db264e44-7f06-41f9-8d81-6b0efb883b98")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_led"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "dbda6c9e-7cdb-41b7-bb41-c91c18b6511e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Semiconductor Opto Division"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "2d36c555-5313-4291-b2a6-62567c981851")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b8a6eb37-617a-4987-b572-af5ee92491d1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Color" "green"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "6f02aa71-e5b4-44ee-aedf-6e38487a6dd7")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "VLMG1500-GS08"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1ca19fab-3aa5-4134-b86f-84735d8ec87c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Forward Current" "8.6666666666666666666666667mA"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ee4ff1b3-cb0e-4324-956b-3a4c3013e1fa")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Forward Voltage" "2V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "101ebc5b-3a32-4ceb-bc29-f6d9d8282621")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "led"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "28919ea0-7784-4e0a-84d9-c6d2e4931cb4")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "dbce6a8b-9e64-4d25-ab12-d45f17b45a9c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"LTST-C281KGKT-5A\", \"manufacturer\": \"Lite-On Inc.\"},{\"mpn\": \"LTST-C283KGKT-5A\", \"manufacturer\": \"Lite-On Inc.\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "558cbbe6-ae31-4a97-8894-6621e0dfe8a3")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -841,6 +1252,7 @@
 		(property "Value" "ERJ-2RKF27R0X"
 			(at 0 1.17 90)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "83bb2d95-29b1-4474-a43b-1f1e71a3fc57")
 			(effects
 				(font
@@ -861,11 +1273,131 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "27"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "a563c2d8-7f52-4b8c-8db5-fa466ec2ea0e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "MCU.R_USB_DP.R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "07743234-2e32-42bb-a2b4-ed5e4a4ee9c5")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF27R0X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "43b977e0-fdb2-45a8-9351-f0b5158f547c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F27R0X\", \"manufacturer\": \"Panasonic Electronic Components\"},{\"mpn\": \"0402WGF270JTCE\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "fabbebf9-f651-4883-b59c-bd4a8c116e09")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b80ec25b-a729-4776-a828-ab316d965c28")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "9c647046-e2d6-4595-bb9f-39956f198026")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Resistance" "27"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b42ad1e1-d42c-40b0-b660-d3f512e4c3e9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5875fdd5-9d48-4fd0-9051-3cd82b928761")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "45c58c44-948c-46ad-bc2e-93f7d2879970")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Electronic Components"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a1da9cba-b9d9-46a3-b50b-c3aa2a0bc4a1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "8dc965db-944c-4177-b4e5-5d903b2e8646")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1036,6 +1568,7 @@
 		(property "Value" "ERJ-2RKF1002X"
 			(at 0 1.17 180)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "aebd74de-1841-4d17-9014-c6a384b8fb75")
 			(effects
 				(font
@@ -1056,11 +1589,131 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10k 1%"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "3d8e1ff2-1459-4a33-be40-1d336d4046e5")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "LDO_3V3.R_FB2.R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "bd8617cb-279a-4556-a3bf-61f50f8f75cb")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Electronic Components"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "732d29d5-9690-434d-a90a-fdf32eed8078")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c27171e9-3e4c-40f6-b2ff-8cc5eec3bbc6")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3bfd3f57-d59a-424c-8ddc-a29f78d8f669")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d02c19b6-d19a-4a75-9f18-f2c30d013b56")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF1002X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "031d40d4-5310-45e0-8021-8e4f602d3272")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F1002X\", \"manufacturer\": \"Panasonic Electronic Components\"},{\"mpn\": \"0402WGF1002TCE\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "608eff82-99a5-4eab-8d0c-a89a727cfd39")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ff3b882f-e863-4923-9d92-2950b015a63c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "9b92459c-2555-4442-b3dd-ee5a6a4a5fd4")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Resistance" "10k 1%"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "bde90c34-9980-488e-a9f1-cffd7ad34a8d")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1231,6 +1884,7 @@
 		(property "Value" "VLMS1500-GS08"
 			(at 0 1.17 270)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "bcb2d22f-35ce-4e4a-8ab3-0e9f7b04fea3")
 			(effects
 				(font
@@ -1251,11 +1905,143 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "LED RED 2V"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "f3d53ff4-258c-4575-bbea-8a598383f042")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "LED_PWR.D.LED"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "39b46d73-64c2-4e5b-854d-31cc7ec211c6")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "555a2b61-0371-42d1-b880-ddcc87119dd6")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Forward Voltage" "2V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "9a1afbff-60e5-4e1f-a38b-ccaad2b7dd37")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Semiconductor Opto Division"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "80e2ecbf-3df9-4af4-971d-7c723d315fb7")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "VLMS1500-GS08"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e7bfb7e6-68c3-412d-9ee8-f925ab07b863")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "led"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ab3e43b3-42fb-4dde-aab6-ea2c90b573c7")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_led"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a274fe1b-99c0-41b3-8d77-df7c84845305")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Forward Current" "8.6666666666666666666666667mA"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "38d61eaf-2354-4716-877e-8ca5f3cac7c2")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"LTST-C281KRKT-5A\", \"manufacturer\": \"Lite-On Inc.\"},{\"mpn\": \"LTST-C283KRKT-5A\", \"manufacturer\": \"Lite-On Inc.\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "17a1127f-a274-4126-a5e2-d439a2777d6b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "fd18c76b-1fd9-4b1f-b832-d6ed71a828ac")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Color" "red"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e1554efa-7a8c-448c-847b-be209c78eb0e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1437,6 +2223,7 @@
 		(property "Value" "RP2040"
 			(at 0 4.83 0)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "0d6e16c3-3170-4ba6-9bbf-f170cd6bced2")
 			(effects
 				(font
@@ -1445,7 +2232,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -1457,11 +2244,83 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Raspberry Pi RP2040 Microcontroller"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "6ab691b4-a6fe-4f69-bf3a-8567b13c39f4")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "MCU.RP2040"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c19e096c-060b-4c8c-a3d6-4fc5d6796a57")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "56-QFN"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a1a8f338-b4f1-4ed0-b7ea-abf592896068")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Raspberry Pi"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "10e2c5df-cac2-41e1-9ad2-0b1f6b4ea20e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "U"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "cf22c1e4-6c79-4928-b0ea-8bc2698096e9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "RP2040"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "0f7bb3c4-50b2-4cd9-b711-2d6b820ac620")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"SC0914(7)\", \"manufacturer\": \"Raspberry Pi\"},{\"mpn\": \"SC0914(13)\", \"manufacturer\": \"Raspberry Pi\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "7626b408-fb6e-4754-9f3b-1652354c67b3")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2305,6 +3164,7 @@
 		(property "Value" "GRM155Z71A105KE01D"
 			(at 0 1.16 90)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "1e6f2d1b-ad59-4082-8bb6-030e7fab4dac")
 			(effects
 				(font
@@ -2325,11 +3185,155 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1uF"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "1e69f636-a3a3-40ff-98ee-db139a37c24c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "MCU.C_VREG_VOUT.C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "57a5f55d-6f99-43cc-bc30-5aaf1822ce36")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Esr" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "733cd23b-f9e9-487f-b2f9-d1cecc9d225b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c5508c7f-30e7-4836-91dc-0976ca83e925")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GRM155Z71A105KE01D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e8558640-4603-4a0f-a441-1483f10fb382")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Dielectric" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "2d29ae29-9c39-4f95-9569-3a4fbd0cb633")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "78b1dc4f-2c6f-48de-a68f-403b115c1d3f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GRM155Z71A105KE01J\", \"manufacturer\": \"Murata Electronics\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "911e5111-060d-4a47-b5e3-e508536b6b40")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "41662099-3ffc-4292-9f23-0f81e8a1517b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "af5fceab-a926-486d-814f-13b88387cdf4")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "cb33bde0-c32c-4194-8cb6-8e48b23d288d")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "501f7683-4f81-4911-8330-bcee6d5ff8da")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Capacitance" "1uF"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "8698ad0d-8418-4474-b433-a64125402937")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2500,6 +3504,7 @@
 		(property "Value" "VLMO1500-GS08"
 			(at 0 1.17 90)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "ec830e44-e728-4e87-a87a-e7ebac3df3c2")
 			(effects
 				(font
@@ -2520,11 +3525,143 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "LED ORANGE 2V"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "1884f723-3bd7-45f5-96b0-2cc460aa6776")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "LED_O2.D.LED"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "dfa18cf1-8ea9-44da-9d70-ebdec3b856fc")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "led"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "17f5a64f-3117-422e-b2cc-ab19f0b4d791")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "7789e1f7-e580-4514-bd96-e66072204780")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "28ffed9d-c093-4f64-ae0c-9bae7737fae9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "VLMO1500-GS08"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1df6c797-589a-4811-9290-8442244c9b31")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Color" "orange"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "38b52507-10df-4f31-9447-3b923ec6701a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"LTST-C281KFKT-5A\", \"manufacturer\": \"Lite-On Inc.\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1bdbd307-3c65-4cd6-8ec7-a38352e8cb30")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Forward Voltage" "2V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "6a9e0f1b-7b70-4c30-90c8-8acab57bfda0")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_led"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "28fef546-44b4-47ad-8e18-0cf563c5e079")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Semiconductor Opto Division"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c33fd343-3562-42ec-bcc8-d1ebc2f6786a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Forward Current" "4.9808429118773946360153257mA"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b0dd0bec-0cc1-4c51-9888-a0b43bcae706")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2706,6 +3843,7 @@
 		(property "Value" "GRM155Z71A105KE01D"
 			(at 0 1.16 90)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "a06c2339-a342-4946-9f1f-3d9c471d6a26")
 			(effects
 				(font
@@ -2726,11 +3864,155 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1uF 10V"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "68bca230-1e16-48b6-a2e2-881c09f3bbcc")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "LDO_3V3.C_OUT.C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "97ee7ed9-58e7-4176-b307-9c7babaad2f9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GRM155Z71A105KE01D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "90e4a9f4-55a5-44e2-a938-42f90f2e9444")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "0a79ff33-2933-49a8-bb19-a8e0bcb0b8fc")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f9cf0a4f-cb39-491d-8d3b-64186ff7164c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Capacitance" "1uF"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5861f022-56a9-4d92-9310-61a08662d339")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Dielectric" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "eed0cdec-03a7-49c3-ad2c-637f58e2b9ea")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GRM155Z71A105KE01J\", \"manufacturer\": \"Murata Electronics\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b4ceeb95-0e90-4161-ac69-9b72b6d45a35")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "10V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "8bea2794-9145-4726-b26f-816468edd1b5")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ad462008-0e4b-48cb-89ed-cbff83b3dcba")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Esr" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "9f08912c-1e80-485d-8d28-21b42093b98d")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "aa73395b-1bda-42bc-8112-ddd724773d28")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "4e2a04ff-2e43-4d71-829c-675c6a73dfde")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2901,6 +4183,7 @@
 		(property "Value" "?"
 			(at 0 1.75 0)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "4ac8cd1f-ac85-4ba0-b3ba-20463412259e")
 			(effects
 				(font
@@ -2922,12 +4205,48 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "test point"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "f0ddf50c-2e84-4309-9593-d6d5cd3f27ae")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "MCU.TP_SWDIO.TP"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "8fc19b71-6bab-43db-bd38-e8029bd5d286")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Variant" "Pad_D1.5mm"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "36093a4d-cc35-455d-9cc4-50da202dbcae")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "TP"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "cbcd0ae2-f166-4dda-95b0-787ce4b97525")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3000,6 +4319,7 @@
 		(property "Value" "ERJ-2RKF5101X"
 			(at 0 1.17 90)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "d08ba603-6f62-4d7a-ab8b-5a2674030033")
 			(effects
 				(font
@@ -3020,11 +4340,131 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "5.1k 5%"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "34f0bfce-5978-4198-a2e1-79aae9e03dff")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "USB_C.R_CC1.R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "613d3d40-1f0e-4624-8ec8-3e07e3367ba8")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5ee19835-2a02-4df9-aa4f-1d2cb14eb4e1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "4aac6f30-a4c3-4c59-bcb9-b3132490ca3c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF5101X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a069447e-b3b6-4e78-a1b0-8806d05517c5")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Electronic Components"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3c9f23d9-ea6b-430d-bf64-af92f8bd7d18")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Resistance" "5.1k 5%"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "8140f643-b934-4b86-9d08-16cfc65ccb28")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "7aaf3155-f665-46fb-901a-b24acfb395ad")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5b251d4d-def6-4b6d-9d99-e2921555fe60")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "dd80c6bf-603a-4d52-84e7-045790cf37ec")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F5101X\", \"manufacturer\": \"Panasonic Electronic Components\"},{\"mpn\": \"0402WGF5101TCE\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "bea49202-332f-49d2-886c-6fde406182a5")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3195,6 +4635,7 @@
 		(property "Value" "SMF5V0A-E3-08"
 			(at 0 2 180)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "5ed08bd6-0882-412c-8900-426b60da7d9e")
 			(effects
 				(font
@@ -3216,12 +4657,156 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "5–6 V TVS Diode"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "238cf65a-e70b-4b8a-81c9-5117c6cc4c70")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "USB_C.D_TVS_VBUS.D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a5570f04-c7a9-4464-bb28-7b9321eeabc9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b65d0c5f-7ce4-41d2-b573-8f1254e78d14")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "SMF5V0A-E3-08"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c752c2bf-c8d1-4f6b-8570-bbfc8cc1aa35")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay General Semiconductor - Diodes Division"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "40dd329b-e855-4dc2-bed5-6c8d3bca31e3")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_tvs"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "7a415083-54b1-4487-bc00-f8afeffdb5ee")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Reverse Clamping Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "71079d2a-0727-4b6b-a822-0f3fe2576ad0")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "DO-219AB"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ac9c430e-d7a7-4f4c-bea3-8e81ab4b664c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Peak Pulse Power" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5cdab34d-4f03-4049-a55f-700fc1508d6c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Reverse Standoff Voltage" "5–6 V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "11fb679d-4f0d-45fa-9b3b-7f093924b89e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "tvs"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "71065cf6-1e24-45e4-a2a9-7835d2943c39")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"SZSMF5.0AT1G\", \"manufacturer\": \"Littelfuse Inc.\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "93ebf3c7-5520-4e71-b70f-09210acbacf7")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Direction" "Unidirectional"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "06c63a6f-2dc0-4dec-92da-5edadb1bf14c")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3462,6 +5047,7 @@
 		(property "Value" "VLMO1500-GS08"
 			(at 0 1.17 90)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "24ac3568-c8e8-4ead-b068-5602d241d877")
 			(effects
 				(font
@@ -3482,11 +5068,143 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "LED ORANGE 2V"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "2d78531c-c57b-4c8f-91e2-620cf0f68a11")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "LED_O1.D.LED"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "488e1d6f-331f-4284-8c36-8db13e966b9b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"LTST-C281KFKT-5A\", \"manufacturer\": \"Lite-On Inc.\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ae2aa3e1-65bb-4037-92a5-fe779eb6f6cb")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b26f4e6f-5caf-4c7d-9c02-33f6375378ae")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "led"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "7bfb7c2e-caff-462a-98b1-0e9c43bc670f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Forward Current" "4.9808429118773946360153257mA"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "6c5ccd81-0435-47c7-9c1b-dc4340c87eca")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Forward Voltage" "2V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "9c98bd14-f198-4776-9dc9-acbef4140762")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Color" "orange"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "52be315f-80c8-4b90-8d07-2e33f68d2b9b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Semiconductor Opto Division"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "8d2670d7-322d-4b6b-8e32-75b0036d8280")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "52c9b656-dff4-4bb9-959a-6148d81e1c4a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_led"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f296093a-b341-46fe-b233-bdfedd3bbc26")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "VLMO1500-GS08"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3db337e2-5ebc-4ee9-a755-b95c4a298835")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3668,6 +5386,7 @@
 		(property "Value" "GRM155Z71A105KE01D"
 			(at 0 1.16 90)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "39bcf394-314e-48df-a048-628069196573")
 			(effects
 				(font
@@ -3688,11 +5407,155 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1uF 10V"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "bc687761-baca-49c8-9e45-ed16692c6f79")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "LDO_3V3.C_IN.C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ba695a3f-8ef1-40d8-b7ca-ac2e4fcf78ce")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "068f89e9-b0fb-4133-bef8-1ac9d60ea953")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "92fd500f-73da-47d2-8102-eab36468a8ed")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Dielectric" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "05be0aef-5b53-47e8-80b2-1930afd2b2e4")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "8626d0fd-ad0b-43cc-9cdf-7d912b45ad60")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GRM155Z71A105KE01J\", \"manufacturer\": \"Murata Electronics\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "fed39b3b-2a3f-488e-96c0-062fb06d834d")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "bd2d7790-af68-4346-a8e2-0a16186fdb70")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c357da5c-33b6-43c0-a7f1-4d705e2b0bc5")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Esr" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "0769994b-b672-43d7-9896-c04ecc23fe8e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GRM155Z71A105KE01D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5e106edc-dc4c-4aa7-9ddf-3a9bee8e66b2")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "10V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1717f1c9-81c7-4c1c-a5dc-934afd09667a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Capacitance" "1uF"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "af57224b-d226-42b3-8ec8-ed2c4dffa9ed")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3863,6 +5726,7 @@
 		(property "Value" "ERJ-2RKF1002X"
 			(at 0 1.17 180)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "b59b83e2-cdb9-4e56-a997-790d5ebb65a2")
 			(effects
 				(font
@@ -3883,11 +5747,131 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10k"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "87b1fce2-0893-438d-87c4-10fe35eb5601")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "MCU.FLASH.R_FLASH_IO2.R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "2a3ff4d3-5b4f-4566-b37f-76e403c18f5c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Electronic Components"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b9e04898-d116-4663-81ba-6d0b7ebf8913")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Resistance" "10k"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f451bcb1-8afe-40b7-a0e1-c69a09863392")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF1002X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "075263ee-b118-4810-b914-5a6ddbabc622")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "fbf9841b-17d5-48eb-b314-d59d91d83dd2")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F1002X\", \"manufacturer\": \"Panasonic Electronic Components\"},{\"mpn\": \"0402WGF1002TCE\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e35f3346-8607-4d27-a308-bee0c4b8c742")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "79038af2-de03-417b-a8a3-37974ebeba1a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b19ff472-1c93-4e64-a95d-2056b23ea1ca")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a12fa848-33c0-433f-941f-4c78d456c1cd")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "183e04c6-1c5c-47a0-be2b-db68820ccbf0")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4058,6 +6042,7 @@
 		(property "Value" "ERJ-2RKF1500X"
 			(at 0 1.17 270)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "6e278917-d73b-4794-b08c-37c3ec0e65cf")
 			(effects
 				(font
@@ -4078,11 +6063,131 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "150"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "4e4b74f0-bb8a-4630-beb4-a60884a686c2")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "LED_PWR.R_D.R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "6d6ada2f-e0e4-46c0-a2f8-748271355b19")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Resistance" "150"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "644ce0df-c8f2-466a-90e2-c1a1e69197a4")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1c509e23-8ecb-4c6c-9f3e-412631d95fca")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "738f75f6-34f9-4d83-b7e2-7478dad85469")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF1500X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a7f3bbd5-dc20-48e8-a7ae-ac48ad15a510")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3b75a965-647e-4423-bde3-46ebf169e718")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Electronic Components"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "8467104c-1d2c-4198-985a-7f0c87380e95")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F1500X\", \"manufacturer\": \"Panasonic Electronic Components\"},{\"mpn\": \"0402WGF1500TCE\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "9870d772-0851-4609-8be7-7aa1b5b3685f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "8fa95cfe-1fdf-4584-b2bc-14764f72325f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "759419ec-4779-4558-a23f-c0461e5f09fc")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4253,6 +6358,7 @@
 		(property "Value" "TLV75801PDRVR"
 			(at 0 1.95 90)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "473e33d2-588d-4003-8d03-806ddb9777fe")
 			(effects
 				(font
@@ -4261,7 +6367,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tlv758p.pdf"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -4273,11 +6379,119 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Low Dropout Voltage Regulator"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "f91f76c7-8ab7-4df6-8130-fc349bae37a4")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "LDO_3V3.U_LDO"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f66813ad-93cd-451e-9097-be0baeeb2e9f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "TLV75801PDRVR"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "800415d4-bee4-4f9e-bd0e-99a6b1704f1a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Current Rating" "0.5A"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a9d5495a-7a6f-460a-a733-ebca7f1858eb")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Output Voltage" "3.3V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "0d1982fa-de78-436f-8745-861db2fea85b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Input Voltage" "5V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "cadb0fc6-1ec3-40d5-83c9-9cbbf31f8bf6")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Texas Instruments"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "2599eaa6-4fef-4711-a5f9-ae33e8a2339c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "WSON-6"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5751e891-d320-4b3f-af30-002cdfd5d855")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"TLV75801PDRVT\", \"manufacturer\": \"Texas Instruments\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "141baf0b-a6fc-4a28-a3ce-42db4b765430")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "U"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1534b6c5-cf64-4259-9dbd-9a6fec751a32")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4567,6 +6781,7 @@
 		(property "Value" "GCM155R71H104KE02D"
 			(at 0 1.16 270)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "cd9b3f0a-ab79-4861-84ae-c1940c7a2ed6")
 			(effects
 				(font
@@ -4587,11 +6802,155 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "e53df4f6-27df-4cb8-b0ec-391ad3545cfa")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "MCU.C_DVDD_1.C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "794a0223-8aa1-4580-8628-889a8c340dff")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Dielectric" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "416155eb-2d67-41d8-98cf-5643c6771f95")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Capacitance" "100nF"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c5e8a4e8-54bc-4aae-8e9a-11eb188e476c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GCM155R71H104KE02J\", \"manufacturer\": \"Murata Electronics\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1bc7878b-f566-4730-b4f5-db9cee8aac21")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Esr" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "6bbd2a0e-59bc-4718-9de1-e40631443322")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5744f1a2-5fa7-476a-8f4c-8c7874b59ba3")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "27f91a19-1e53-46b9-b31d-96cf9ada0470")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "00644471-17ac-4721-871d-cefa7e96e56d")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "cb06786f-0581-44d6-bf96-60e7dee072b0")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "eab82e4f-ca52-4e05-a555-ffdab1584f1f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "559cd842-86e1-45d9-b159-9963d2a6b13a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GCM155R71H104KE02D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "9fedd338-29c4-4f26-bdf3-4cd48be6945f")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4762,6 +7121,7 @@
 		(property "Value" "GCM155R71H104KE02D"
 			(at 0 1.16 270)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "d1d833cd-4383-4aac-be40-4d96eba0df7c")
 			(effects
 				(font
@@ -4782,11 +7142,155 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF 4.95V"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "7509e38d-f0d9-472f-b72a-2b5d0c4a5102")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "MCU.C_IOVDD_3.C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c5ccf6c7-5c0b-4dca-94f3-7f02344c58f5")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GCM155R71H104KE02D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "6cdf787f-3f6a-46e0-8001-6e5c9968303c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "4.95V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "dcc357ce-9c9c-45df-ae01-070269aab9a3")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "2dc45484-767e-4ec0-a46c-5dd861599415")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3fdf2d2a-59b5-4f7e-9648-acca0a1a6edf")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GCM155R71H104KE02J\", \"manufacturer\": \"Murata Electronics\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3a7b1078-455b-4a18-bfd8-d2ed331ac79a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Esr" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "161e7b1b-6a64-4203-962b-df25e6876a2b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "836a28e7-f5ba-4d9f-b3cb-bc75e243f614")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Capacitance" "100nF"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "cf101d61-9dd5-47c3-9310-c7c1334929e6")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "66cdac5e-2193-4a54-a28b-763f90ba82be")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "7a3f0cea-9675-454c-83d1-70115232fc4c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Dielectric" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "28c89c15-d638-4254-9c5e-6210e8df593f")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4957,6 +7461,7 @@
 		(property "Value" "GCM155R71H104KE02D"
 			(at 0 1.16 90)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "fc9c1971-cf25-46b2-b1d6-e3076f234d7b")
 			(effects
 				(font
@@ -4977,11 +7482,155 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF 4.95V"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "d6b6ca44-9df8-4c28-9915-33dcc45eff38")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "MCU.C_IOVDD_2.C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "6a847b93-b131-426c-9dd2-dbaf351e2e8e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "9f3a6e7f-ab1f-42de-a93e-c466fc9647b1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "cdb25146-b469-423f-a61f-766f6dbe0d5c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GCM155R71H104KE02J\", \"manufacturer\": \"Murata Electronics\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d0ea95fc-91ef-4194-9174-3aa7b4ad6f40")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GCM155R71H104KE02D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "80a4c1d2-d6a1-40c6-89a5-71c361154138")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "4.95V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a4302b97-f4bf-4955-8d1e-f28a3cbe7d62")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Esr" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ef54fd35-6ff1-48be-acbc-c6edb0fd1a8b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "0f2b7eca-c152-4951-a3d6-b2d4aeefbb76")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "12434374-929d-4c0d-92d0-5c1d93ad0752")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Capacitance" "100nF"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5a30cd05-2f1c-4f3f-943e-0311175daf8c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Dielectric" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "34e7dfbf-5731-4b0d-8fdd-14e552668237")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d56c252c-1b7c-4f78-9797-9a9880a31811")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5152,6 +7801,7 @@
 		(property "Value" "KMR231G LFS"
 			(at 0 2.55 180)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "4880d81b-3d9d-46df-9d7c-643c9166b371")
 			(effects
 				(font
@@ -5173,12 +7823,72 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Push button switch, generic, two pins"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "aa048fad-e7c5-4eb0-b1c2-4b3f867ab55f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "MCU.SW_BOOTSEL.SW"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c29ea1be-edca-4dd4-8ad2-6a2364a92089")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "SW"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "dd638739-0780-4955-94a2-91b8619dcf1a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"Y78B23110FP\", \"manufacturer\": \"C&K\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "0b886217-5dbd-480c-86c7-e202a36c6679")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "KMR231G LFS"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b3c7e6e4-b3ef-42f2-88a1-70237c244809")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "C&K"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ccbf3a0c-d004-4d9f-ba78-834d2da37d99")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5352,7 +8062,7 @@
 			(size 0.9 1)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net 8 "MCU.QSPI_CS")
-			(uuid "823085c7-dbeb-49c2-a3bf-e68f48b957df")
+			(uuid "c2161d25-e2df-449e-933a-9af3373f201a")
 		)
 		(pad "2" smd rect
 			(at -2.05 0.8 180)
@@ -5366,7 +8076,7 @@
 			(size 0.9 1)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net 1 "GND")
-			(uuid "66c14c64-97a3-43b4-b678-47ed33336d20")
+			(uuid "ed0adb0e-3055-4f28-8a97-b9cca6ce3ae5")
 		)
 		(pad "SH" smd rect
 			(at 0 -1.425 180)
@@ -5408,6 +8118,7 @@
 		(property "Value" "GCM155R71H104KE02D"
 			(at 0 1.16 90)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "9b05c6c9-9ed8-432d-87fe-1d9264fc19d5")
 			(effects
 				(font
@@ -5428,11 +8139,155 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF 4.95V"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "f8292c7f-a402-4da0-be41-29d095ce68d3")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "MCU.C_IOVDD_6.C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "7ccee33b-71c7-42d5-a4b7-2b045aa2f60c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GCM155R71H104KE02D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "425fcbb2-0ecb-42c2-be7d-01f8d85985ee")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GCM155R71H104KE02J\", \"manufacturer\": \"Murata Electronics\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5ae5df14-0afb-413a-b460-de32a7f5042c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "390a53d1-0b5f-4a16-8022-2f32ecae3c1b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c145c318-7111-43c7-bbf3-7a19c7c2f6c6")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Dielectric" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5f621372-cb2b-430b-a67b-3e80fc12cb2a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e24c2118-637b-49f0-9412-b3d943ab6708")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Capacitance" "100nF"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "12a355f1-c69d-4120-b941-ea770693c5a3")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f1244916-cc88-4442-b001-7fb21ec2840e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Esr" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "78c2f6b9-ae37-427f-9329-f892c957115b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "4.95V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "23186b11-c6fb-4ca6-9f0f-06468666bcf8")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d04abff5-4350-4880-ae81-ad944dc8a525")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5603,6 +8458,7 @@
 		(property "Value" "GCM155R71H104KE02D"
 			(at 0 1.16 90)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "db6fa277-60f6-4e00-b774-bfe97740e93a")
 			(effects
 				(font
@@ -5623,11 +8479,155 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "bfb10332-cd54-4d6d-a57c-4b7bce1dbaaa")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "MCU.C_DVDD_2.C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "adf718b4-bed6-4e17-9be4-c8fd82d2302a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "92d9d983-7477-47e4-867b-ae80ba64ca6d")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GCM155R71H104KE02J\", \"manufacturer\": \"Murata Electronics\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "4c845eec-c2fd-4e06-8866-b4ff4db27f35")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Capacitance" "100nF"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "4f7c8255-5885-4c64-924e-a4a645f5a616")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Dielectric" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "32edd33b-0ea6-4288-ab3b-96130741d83f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "90317e2d-9547-409b-8f96-fb0b5d38520e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "eb2b7bce-103c-43c6-8344-df5c47247246")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GCM155R71H104KE02D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ceeaa184-03b8-41ee-b026-83357cb5adba")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1d0fe809-06bb-487e-8354-015c0549ea5e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e2f71021-b0ac-4dcc-b418-a53534839916")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a4fbef3b-dfc1-4f21-aaad-f6b64279f996")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Esr" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "65b62a55-2271-47db-a02f-21e7b464c2d0")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5798,6 +8798,7 @@
 		(property "Value" "ERJ-2RKF1500X"
 			(at 0 1.17 270)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "109022e9-a676-4de5-b5d0-56846f321454")
 			(effects
 				(font
@@ -5818,11 +8819,131 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "150"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "b9b9c92a-aa92-493d-8ed7-1d53a4b74fe3")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "LED_G.R_D.R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b2f95062-c10f-4345-a4d1-fba19ece5042")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF1500X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "37ebd64b-f4d8-4c5e-8b88-5887b03fd995")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ea3333cb-dc51-4e1f-b05f-fd22e9915f50")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "23e4396a-61e9-4296-a678-25d442a449a5")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F1500X\", \"manufacturer\": \"Panasonic Electronic Components\"},{\"mpn\": \"0402WGF1500TCE\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "50ddf5ba-ee44-461c-9587-dc039b1081ec")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f1d72589-117e-423a-9b40-e094c9a78cb3")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Resistance" "150"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "bfa65d01-f119-4da1-adfc-9f8a163258d9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Electronic Components"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "323ef983-12b7-4e62-bd60-e20ddd521cd7")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d83d95cd-6de1-48af-9688-1afa0d9c70b4")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "534b4e6e-a648-4998-af80-dfcb17e1756b")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5993,6 +9114,7 @@
 		(property "Value" "TPD4E05U06QDQARQ1"
 			(at 0.01829 2.5 90)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "4a3cd00b-b442-4174-b620-6af5b56ec49c")
 			(effects
 				(font
@@ -6001,7 +9123,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tpd4e05u06.pdf"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -6014,12 +9136,108 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4-Channel ESD Protection Array, USB 2.0, Automotive"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "ddbf222e-16a6-4d9e-8a3e-258a01e805df")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "USB_C.TVS.TVS"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "8481f02d-4275-4dc2-ba40-7d39ea14e5f5")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Io Capacitance" "0.5pF"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "7ef2d702-d30d-4d57-a5c6-78f04b320a4c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Texas Instruments"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1e4ea9f1-8451-4eb3-af25-335a97f413a5")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"TPD4E05U06DQAR\", \"manufacturer\": \"Texas Instruments\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "cb09d36d-f27e-4a76-b872-bccb48ed5240")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "TPD4E05U06QDQARQ1"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5039a5fa-470b-4b38-aeb1-9fda8e753107")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "7eb33ca0-a3b6-49f0-a719-5f46a9e18cf8")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Clamping Voltage" "5.5V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "83227d2d-30a1-4420-917f-b34ff60f4804")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Esd Rating" "±30kV"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "948712c5-a7eb-4a93-ab1b-18b467477dc2")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6276,6 +9494,7 @@
 		(property "Value" "ERJ-2RKF1002X"
 			(at 0 1.17 90)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "6657fc1a-e80d-4624-80e4-23b55189251c")
 			(effects
 				(font
@@ -6296,11 +9515,131 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10k"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "0a32f9fe-1ed9-44ff-b9e3-b504c8c430be")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "MCU.FLASH.R_FLASH_CS.R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "342ee4f6-1fa5-4fd4-9a56-94e0b73bd1fc")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Resistance" "10k"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c87cfb9b-a8cc-426a-a933-f6517e310d2c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "38e0128b-90e7-4ea3-aad0-bf0f8b7f97aa")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "06ed62e6-1c08-49bf-9bb3-865f3d2da691")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Electronic Components"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "59edc586-ede0-444b-a64a-cb47e40b5dd6")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "9d1c7480-25c0-4b36-b4bb-e6803a88eb76")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF1002X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "4d8ddbbe-61e2-4888-b217-c9f2df2101bb")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F1002X\", \"manufacturer\": \"Panasonic Electronic Components\"},{\"mpn\": \"0402WGF1002TCE\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e3e18be8-1192-4ded-87cc-96f570aede46")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3addbddc-1499-4a9d-ac47-afc7a3abff0a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e7a0224c-e0c6-4f4a-b340-a4cad0b79f79")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6471,6 +9810,7 @@
 		(property "Value" "GCM155R71H104KE02D"
 			(at 0 1.16 270)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "93c10204-13f1-4011-a16b-97fe9a6cf6df")
 			(effects
 				(font
@@ -6491,11 +9831,155 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "6a6cfa1d-fc7f-49b5-95f8-b7efea0a9a2c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "MCU.C_RUN_POR.C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "0bb119d7-f19c-489b-8f72-ce9d6e858fc1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "7163941c-7f79-4f0b-82cd-269ed8a77939")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Dielectric" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5d704772-c69c-499f-98f3-38bd5f7ab166")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "beac0f81-1ed8-4619-b305-cdbc28682e9a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Capacitance" "100nF"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "04f05a2d-4750-41aa-a925-f4b7ff04d875")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ff5a0157-5827-4b92-849a-ae3c133755d5")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "74ae56aa-144f-49ba-bcd3-19200ab442e3")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "4e8c2e5c-9e7b-497a-9754-2bd875fd42f6")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GCM155R71H104KE02D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "20f13a98-970a-49c8-89f2-3fa6c7fb3248")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Esr" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b37a1a90-fb25-4b1a-bcc0-6e1647ce58a6")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "faca774e-6ae6-4afc-a705-825c358711f2")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GCM155R71H104KE02J\", \"manufacturer\": \"Murata Electronics\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e035dc93-2c1b-4112-aec5-c73589821bed")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6666,6 +10150,7 @@
 		(property "Value" "GCM155R71H104KE02D"
 			(at 0 1.16 0)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "9f41cece-edb6-4254-b4e7-e169fa0114bc")
 			(effects
 				(font
@@ -6686,11 +10171,155 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF 4.95V"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "5c1a0f78-054e-4612-8a09-5d5f6cf93772")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "MCU.C_IOVDD_1.C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "17ebb36c-08d4-4190-bc21-f18eafb28d48")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5b58e1c1-3ffa-420d-9643-33cf56aa3084")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "65fbf8e5-a79a-4dff-9754-4995d6c498da")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Capacitance" "100nF"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "077b1d10-eaf8-470a-8b79-ee3fa562cee9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "62274ba1-6c02-475e-abc3-2f49c3aee0dc")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GCM155R71H104KE02D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a2f70e1b-acb1-47a2-b3a4-859404cff791")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "4.95V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "2705ea24-155c-4203-8777-f543bad0d69e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "6a72eac6-b99a-4c1d-9a21-afa9ddb1b914")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Esr" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "683296ba-6fc5-4128-a65d-da7054367d52")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Dielectric" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a9b2ca70-22d7-4ba4-995f-3b986253cf7f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "fb9dcc49-d010-49d7-9fd8-8b7cb3d9ffe9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GCM155R71H104KE02J\", \"manufacturer\": \"Murata Electronics\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a2db4694-4c62-47ea-98a7-7af1baae61ad")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6861,6 +10490,7 @@
 		(property "Value" "ERJ-2RKF2610X"
 			(at 0 1.17 270)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "bb4e79f4-8723-4ce7-a062-a7c6793c054e")
 			(effects
 				(font
@@ -6881,11 +10511,131 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "261"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "f26d68f9-ba67-4ded-966c-2b73f30c3932")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "LED_O2.R_D.R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f92f7752-ca5b-4755-be71-b6825db8fce1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Electronic Components"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "41bdc3a9-f6f5-47c7-b6d8-94953d7a0023")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "6f4043cb-f13a-4cea-a3d8-86637e8537ad")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F2610X\", \"manufacturer\": \"Panasonic Electronic Components\"},{\"mpn\": \"0402WGF2610TCE\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "657cfcc3-d098-4cd4-b73b-1e80e9e003a5")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "296e9c95-dcd1-44c8-9574-ed0da6c92500")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "0f649584-a165-4db0-9db7-f3a8a9dba345")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "9ce9458e-4f29-4e58-bb39-4be23902a783")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "75367a65-bbf9-4dc6-81b9-ac2246ba1858")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Resistance" "261"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c4fe98e2-b72c-45ae-b378-e2355c833db8")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF2610X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "be62fa99-3188-484c-b25b-9cd05c10f6b7")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7056,6 +10806,7 @@
 		(property "Value" "ERJ-2RKF1100X"
 			(at 0 1.17 270)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "80024650-14ed-48ee-a95a-2f85fbeef034")
 			(effects
 				(font
@@ -7076,11 +10827,131 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "110"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "9472c526-f8d0-4c0e-a916-5e177dbc8538")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "LED_B.R_D.R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "08346149-c138-439d-9a2d-4179a245a85d")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F1100X\", \"manufacturer\": \"Panasonic Electronic Components\"},{\"mpn\": \"0402WGF1100TCE\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d0467602-6618-46ad-beae-23880b5ddf8e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Electronic Components"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d8244142-f61d-414c-b9a6-0fc7b9b0caab")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b3b519be-4144-4ab0-926d-1ee95b24fdf3")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "aff9e0c7-1718-4719-a1a5-b0d7d2250d3b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF1100X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "7754410a-5250-4ca1-a6af-1b1daf997123")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "33d64ac1-a960-479c-b4f7-5f2919bd4577")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5e9813c8-718b-4ecf-8b80-2d7360c7edc3")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1912953a-7c5e-4a65-b0f1-52f43ba8f9c9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Resistance" "110"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e2434b33-97e7-4f29-99f0-3d06f8925b2b")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7251,6 +11122,7 @@
 		(property "Value" "GCM155R71H104KE02D"
 			(at 0 1.16 90)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "234d4188-5a91-4d69-bfd7-993ec9003c94")
 			(effects
 				(font
@@ -7271,11 +11143,155 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF 4.95V"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "6b7363f2-f8c8-4590-b9cc-b81d4a8c0184")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "MCU.FLASH.C_FLASH_DEC.C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f7965051-b135-4452-9219-a6996382aa01")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "27026db5-c9d7-4696-85cf-c4e06f6bf663")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d648116a-3375-4efb-827c-cfbce00a3922")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GCM155R71H104KE02D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "7dc59bf2-b0a1-429a-aae4-37f865d54e90")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Capacitance" "100nF"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b33fcb64-d98e-4290-9f77-21cfc0ed0ad9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Dielectric" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e7a80cc6-6af2-46ab-b05a-1d77fdb09227")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "87ca45a8-bcb6-4c8a-964f-8f6208dce40c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "09bcefda-3f37-4422-8bf9-096b9bd3c915")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Esr" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "50dbde36-8123-44d5-ae4a-f2ca4406da8c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GCM155R71H104KE02J\", \"manufacturer\": \"Murata Electronics\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "266f3b3d-6568-42bd-9c45-9c6dfc5ea78b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "4.95V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "7cd9780f-86be-4740-aa52-5368c0cae832")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d920482a-122c-4537-9f98-08515fab988e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7446,6 +11462,7 @@
 		(property "Value" "GCM155R71H104KE02D"
 			(at 0 1.16 90)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "32552c99-2034-49f5-a657-95a0e547ea6e")
 			(effects
 				(font
@@ -7466,11 +11483,155 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF 4.95V"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "8c6b9afc-1d3b-4bb9-94ef-549d4196a5e5")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "MCU.C_IOVDD_4.C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a3f33605-c050-4733-9ae8-f89c92bdc70a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "7efe217a-4f60-46b0-b084-7243c02957f5")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "4.95V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ccc52cea-8226-4988-b9ba-83623638589f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GCM155R71H104KE02J\", \"manufacturer\": \"Murata Electronics\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c5a4621a-3d70-4fae-8cd6-15b529b165e1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "089aa780-fbcc-400d-a62d-b7f386159394")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GCM155R71H104KE02D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "313f5c6d-e694-4a5e-9c6f-bac0786c702b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Dielectric" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f424794d-e816-4cdc-b474-d44df3a93569")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Capacitance" "100nF"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "de69ce66-fa9c-4436-97c4-275a8cc5592e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Esr" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1353358c-ed23-4f66-ba1f-4985395f6cdd")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "47584525-6bee-4911-b4fe-33a6fbbfd649")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c4d6cae7-2acd-4a2d-a375-87bfe061896b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "93164784-6f4d-4a74-b5ed-9bda0826c21d")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7641,6 +11802,7 @@
 		(property "Value" "ERJ-2RKF2610X"
 			(at 0 1.17 270)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "47a7460a-9498-4449-bf3f-b5781dc55962")
 			(effects
 				(font
@@ -7661,11 +11823,131 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "261"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "36f12133-1139-4d2f-83c3-c7138d4c9b65")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "LED_O1.R_D.R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f3329cc3-9443-4aa0-a8dc-294634a521e5")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Resistance" "261"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "15eec25e-0301-4fd8-9377-42b7d462bee9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "04bc1d49-3216-48f2-9198-845b145e3e92")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF2610X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "22fc4d71-52ef-4de9-be5e-026a1dd9b1e1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "6ab699a6-b34f-4d8b-a0bc-ac3455fe3667")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Electronic Components"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d0f6fe70-73d6-41f8-a5fb-278d197d9bb3")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e2e9198e-855c-40eb-8c44-1270cee4df27")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "83542f96-4b14-48eb-851e-f641af4b16e0")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F2610X\", \"manufacturer\": \"Panasonic Electronic Components\"},{\"mpn\": \"0402WGF2610TCE\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "4529db2b-4171-423d-8787-33aa13e547bd")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "eb563881-34b3-4966-a5e9-dfff9fefc6c8")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7836,6 +12118,7 @@
 		(property "Value" "?"
 			(at 0 1.75 0)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "59d8cb15-0482-4f3c-9941-52f089d05a4d")
 			(effects
 				(font
@@ -7857,12 +12140,48 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "test point"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "4cdd5a34-5bcb-47c5-83ba-a785043487b1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "MCU.TP_SWCLK.TP"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "745b0699-65cd-4e95-a69a-f0d6440d686b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Variant" "Pad_D1.5mm"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "77e15f57-b109-4c48-9ce5-e866945ffea4")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "TP"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1dc17ea2-d96a-4301-bd73-39ff85473c54")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7935,6 +12254,7 @@
 		(property "Value" "GCM155R71H104KE02D"
 			(at 0 1.16 180)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "2b8bb5e3-7eb2-441c-81f9-ab3e0817d35b")
 			(effects
 				(font
@@ -7955,11 +12275,155 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF 4.95V"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "5e002a5f-c346-415d-b825-e0ccd744aecb")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "MCU.XO.C_OSC.C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d329114c-9a36-430c-9c3f-3bb9804f4339")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "6750ce0f-c270-4818-8c38-497bbcc60830")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "27835ea8-7891-4c80-80fa-5bb5de35621c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "4.95V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "7beabd58-e404-48d2-9016-f4be5b59854b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "505ecc16-c6a6-4ce9-ad2a-2081faeb0f7b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Dielectric" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "da37b51d-704c-412f-9204-2c5df2c3b2e0")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1562c8a8-e479-484f-8a6e-523a3bc55e45")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Esr" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5edbe249-fce2-4466-8d55-1badf8134fd0")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Capacitance" "100nF"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "2c1996e4-8aba-4a43-ae27-68724c629985")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GCM155R71H104KE02J\", \"manufacturer\": \"Murata Electronics\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "bdad2fcd-bd90-4a59-949e-8b90f3bde8bd")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GCM155R71H104KE02D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "25c8a926-65e1-473b-a52c-e53fade21967")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "9defa8d4-e232-4682-84a0-6f8891ea84b1")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8130,6 +12594,7 @@
 		(property "Value" "GCM155R71H104KE02D"
 			(at 0 1.16 90)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "939ea42a-c113-4eef-9fff-381facbdbe78")
 			(effects
 				(font
@@ -8150,11 +12615,155 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF 4.95V"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "828a2c8c-9b54-4531-b86c-c2b00c253087")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "MCU.C_USB_VDD.C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5d7f0f36-2095-4866-9f4b-00ede5853dd5")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Capacitance" "100nF"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "2780b624-2b88-49fc-9f07-3b75e6517407")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "6c5bc3d0-e86d-4fa6-a173-0ac4de01dae0")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "555034fe-c0d4-4632-8ab3-ea708f56cf8f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Dielectric" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ca8e62d6-bf6e-4ba0-946d-28afa88b0a3e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "9c663dbd-e055-4364-a076-4c8fe28574da")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GCM155R71H104KE02D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d40d8e59-7322-4e1e-b637-412800a94ae1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Esr" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "2ae5bbdb-e997-4cff-86af-353e22b52741")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ac8fe4b5-db70-4022-b5d0-c236e4ed7d32")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "30492dd0-08b8-40a6-bda8-3e30f98931ba")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GCM155R71H104KE02J\", \"manufacturer\": \"Murata Electronics\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "913d5d98-103b-4abe-8a19-7443188707e3")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "4.95V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "bc2bf499-e3b4-41b5-8257-fd14e20a2f19")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8327,6 +12936,7 @@
 			(at 0 5 180)
 			(unlocked yes)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "ea428705-a3f9-4fc0-b8d1-b0503cb15080")
 			(effects
 				(font
@@ -8335,7 +12945,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.usb.org/sites/default/files/documents/usb_type-c.zip"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -8348,12 +12958,96 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "USB-C Receptacle USB2.0 16P Top Mount Horizontal"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "529f7cad-3b9a-414f-accd-e1791d4528e0")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "USB_C.USB_C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "69628b41-d801-4e37-a4ff-aa921247e706")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Usb Version" "2.0"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3c7a7bcc-2b4c-4590-b5e9-e706593aaf29")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "GCT"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e36ba66e-cdd9-468c-aec7-d1b69cd5e72c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Connector Type" "USB-C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c8464a63-9464-4463-9751-9b1a2dda7e6d")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "J"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "03c53068-4603-4ae1-bcc3-e2bb4cba3015")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GT-USB-7010ASV\", \"manufacturer\": \"G-Switch\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b0ee5adc-a1f9-47db-aee9-d33738a50c90")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "USB4105-GF-A"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3464a2ca-771a-4133-b1b8-06c4f2241075")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8443,14 +13137,14 @@
 			(at -2.89 -2.605 180)
 			(size 0.65 0.65)
 			(drill 0.65)
-			(layers "F&B.Cu" "*.Mask")
+			(layers "*.Cu" "*.Mask")
 			(uuid "c0e2358f-7652-41ee-87e5-5e531c55e397")
 		)
 		(pad "" np_thru_hole circle
 			(at 2.89 -2.605 180)
 			(size 0.65 0.65)
 			(drill 0.65)
-			(layers "F&B.Cu" "*.Mask")
+			(layers "*.Cu" "*.Mask")
 			(uuid "19d8f6c4-8cea-445f-81c7-f2b919a882bb")
 		)
 		(pad "A1" smd roundrect
@@ -8599,7 +13293,7 @@
 			(layers "*.Cu" "*.Mask" "F.Paste")
 			(remove_unused_layers no)
 			(net 1 "GND")
-			(uuid "19840961-bd53-4d13-ab66-20d81b1d75b0")
+			(uuid "ddfd0ab7-a529-4438-9a03-0ba975523764")
 		)
 		(pad "S1" thru_hole oval
 			(at 4.32 -3.105 180)
@@ -8609,7 +13303,7 @@
 			(layers "*.Cu" "*.Mask" "F.Paste")
 			(remove_unused_layers no)
 			(net 1 "GND")
-			(uuid "19840961-bd53-4d13-ab66-20d81b1d75b0")
+			(uuid "b6ed967b-590b-49e7-9827-2d635d86da62")
 		)
 		(pad "S1" thru_hole oval
 			(at 4.32 1.075 180)
@@ -8619,7 +13313,7 @@
 			(layers "*.Cu" "*.Mask" "F.Paste")
 			(remove_unused_layers no)
 			(net 1 "GND")
-			(uuid "19840961-bd53-4d13-ab66-20d81b1d75b0")
+			(uuid "b9173fbf-538e-4e65-b15f-2d5209a03910")
 		)
 		(embedded_fonts no)
 		(model "${KICAD9_3DMODEL_DIR}/Connector_USB.3dshapes/USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal.step"
@@ -8655,6 +13349,7 @@
 		(property "Value" "ERJ-2RKF2610X"
 			(at 0 1.17 270)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "6ab563c9-291c-4915-9ab2-1b18a5765626")
 			(effects
 				(font
@@ -8675,11 +13370,131 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "261"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "54c7d1d2-0670-4e92-9079-3323425c9020")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "LED_O3.R_D.R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d588d0af-cf99-4807-b642-be2b131675dd")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF2610X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "313eacb3-42ba-4526-8242-81a61530803d")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "48842dcc-d8b5-41fa-a7df-1637a8e55a24")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "2cdbacd4-409c-4787-8974-6958fc5b3685")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Resistance" "261"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "8e7ff62d-1a29-43ce-b270-2dbed9e3aae8")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F2610X\", \"manufacturer\": \"Panasonic Electronic Components\"},{\"mpn\": \"0402WGF2610TCE\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "eaec308d-46ff-4b63-af18-a656383e9a85")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ed99b4af-994c-4757-801a-3c639c8d0a51")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "4205a748-0b9e-4544-8895-a1a40e2bffc2")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Electronic Components"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "72b7e4fa-9df5-4e76-b74b-b6e6a904f32f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f270ba14-e9e0-486d-95b1-e1110311d298")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8850,6 +13665,7 @@
 		(property "Value" "62201021121"
 			(at 0.635 6.825 90)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "6480be3c-d114-4650-9521-9523ffa73ce9")
 			(effects
 				(font
@@ -8870,11 +13686,155 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1.27mm 5x2 Vertical"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "e72f5a56-3c4e-43ab-bcd3-07745cb3fb58")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "SWD_HEADER.PH"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "7f5c24fe-88b5-4f29-8689-bfadb5e25091")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Connector Type" "Pin Header"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "09aad9ef-8ad6-47bc-8ed6-8177f9c9b099")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_pin_header"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c2ed2b1d-3ee5-49a5-8005-456ce59e5800")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Pins" "5.0"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "66c50e15-e871-44c4-9e89-c0b08b8e0a22")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ZX-PZ1.27-2-5PZZ\", \"manufacturer\": \"Megastar\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e8bb5459-f9e3-46d1-81eb-9dc0c61f5355")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Rows" "2.0"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "0dff515b-f874-40f1-a9cb-72da4c943959")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "connector"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "082979b2-bc90-4232-a779-14f09ea2c504")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "62201021121"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1403280e-a363-4c4b-80bf-864055a30733")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "J"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "085f664c-27bf-44e0-b4a2-62e99bda70cc")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Pitch" "1.27mm"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "318a1183-d3e4-4a83-953e-0c8e99fa378b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Orientation" "Vertical"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b146ca30-edbe-4ebe-9b96-ecfadefc58c3")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Würth Elektronik"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ccbfe97f-dd15-4b5e-ae16-657064d3042d")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9199,6 +14159,7 @@
 		(property "Value" "ERJ-2RKF27R0X"
 			(at 0 1.17 90)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "b471aec4-2235-4b55-a89e-966958025169")
 			(effects
 				(font
@@ -9219,11 +14180,131 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "27"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "044c3416-fde6-4bcb-b9d7-3b80b08c43ad")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "MCU.R_USB_DM.R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "acdc8fc9-2a41-4809-9e92-ca27a90d4115")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Resistance" "27"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f3bf76dc-5deb-4824-8719-cb483718d4b1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b68a3602-ddbb-4801-b92b-54713c837462")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F27R0X\", \"manufacturer\": \"Panasonic Electronic Components\"},{\"mpn\": \"0402WGF270JTCE\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "13a064f2-fd4b-4c37-b646-8417f8fc613a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "18ef57bb-0f11-4bc7-9910-ae17e4d5373c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF27R0X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "07f490f0-6b10-499b-a3fe-55563d8918b9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d57f24dd-b979-4feb-80ce-5b0f1c872c0c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b8776bbc-fd83-43a6-851e-f9ea51edba29")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d8d91ce0-52e8-4faa-8612-a861019e5912")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Electronic Components"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "261919f5-8051-44b5-b42a-11aaf8a75cae")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9394,6 +14475,7 @@
 		(property "Value" "GCM155R71H104KE02D"
 			(at 0 1.16 180)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "4de51c00-cd85-45a8-9e41-00485c26cfe8")
 			(effects
 				(font
@@ -9414,11 +14496,155 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF 4.95V"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "1f108f6a-68e8-4b6d-aa82-a20428520adc")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "MCU.C_IOVDD_5.C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ae5b1c5e-88d5-41ee-9dd3-db4885cf6146")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5d093960-2c4f-4381-8d6a-be9ce4c441f8")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "98309e83-63db-4338-8148-17ee934bf85a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GCM155R71H104KE02D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "95911ebd-008b-4db7-b3cf-c223e60a507e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c6c45c5f-66b2-49b5-a0fa-95d1e0d40eb1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "985f294d-c70b-43f0-83fe-330cbb2e16b1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Esr" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "edc8b5ec-8e38-43cc-bd67-d5615957af5c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "589e35a4-b112-465e-8bb3-3337ff9d3ea6")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GCM155R71H104KE02J\", \"manufacturer\": \"Murata Electronics\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "7ea6df09-1e16-43ea-b5fd-839c20af1b7c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Dielectric" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "faa5a8bd-04c9-4ef0-b811-84c9eaec997c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "4.95V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "cc882046-a503-4ef2-9a7b-cb6b3993309a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Capacitance" "100nF"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e98ce913-4ee7-465e-96d2-eb9aff5d174b")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9589,6 +14815,7 @@
 		(property "Value" "VLMB1500-GS08"
 			(at 0 1.17 90)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "13933309-0b42-4925-8395-600b017cd882")
 			(effects
 				(font
@@ -9609,11 +14836,143 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "LED BLUE 2.8V"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "061bacc2-4013-4a05-b124-5795a60f55c9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "LED_B.D.LED"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1ebc6492-5b2e-4fa7-9e7b-44038e5cace6")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "VLMB1500-GS08"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "8c3d671f-fbf8-443b-ac1a-e60250c188ce")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f8838c51-0d90-48fb-bfba-299d53f5f062")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "51544555-38b7-4236-82ad-9d172f5d1ccb")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_led"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "4834f504-b007-44fd-8135-4fe484184db4")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Forward Current" "4.5454545454545454545454545mA"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e92cd1ae-62d0-413c-b3e4-e6e3b4eace67")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"LTST-C281TBKT-5A\", \"manufacturer\": \"Lite-On Inc.\"},{\"mpn\": \"LTST-C283TBKT-5A\", \"manufacturer\": \"Lite-On Inc.\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "fa644247-3492-48a0-af19-3037da6529cb")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Color" "blue"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "15d1b9eb-913a-4a4f-b9cb-d0b5efe3f3e8")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "led"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d77a965e-7d28-4b74-902c-73eeb275690d")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Vishay Semiconductor Opto Division"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3623db8f-534e-4d5e-8d63-3679d3628dc8")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Forward Voltage" "2.8V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b633d026-bce8-41e4-a292-fca70e2293fc")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9795,6 +15154,7 @@
 		(property "Value" "W25Q16JVUXIQ"
 			(at 0 1.95 90)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "8153a5eb-6c77-47b6-8fd8-61dbba6485db")
 			(effects
 				(font
@@ -9803,7 +15163,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.winbond.com/hq/support/documentation/levelOne.jsp?__locale=en&DocNo=DA00-W25Q16JV.1"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -9815,11 +15175,71 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "FLASH - NOR Memory IC 16Mbit SPI - Quad I/O 133 MHz 6 ns"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "22c9dc82-c545-4048-87eb-e0d5a6b27531")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "MCU.FLASH.W25Q16JVUXIQ"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d197d719-5c28-41b3-b365-69ff8f2bec25")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "U"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f48f4b50-536c-4405-8af8-7e2cfab9154b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "W25Q16JVUXIQ"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "09d8174a-c98e-45a6-9f60-fa81201ccb9e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "8-USON (2x3)"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f836ba3f-ff1d-4b9a-bcf9-d60e3a88ebd1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Winbond Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d9db1341-65c4-4e30-84de-f1d62b5326e1")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10116,6 +15536,7 @@
 		(property "Value" "SG-210STF 12.0000ML0"
 			(at 0 2.2 90)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "cf55956a-1851-4a5a-b8da-e2265eda9463")
 			(effects
 				(font
@@ -10124,7 +15545,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "http://cdn-reichelt.de/documents/datenblatt/B400/XO32.pdf"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -10136,11 +15557,107 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "XTAL OSC XO 12.0000MHZ CMOS SMD"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "2cdc8765-d436-418d-bfb3-e5c622a0b208")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "MCU.XO.OSC"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c8c507b1-481a-4bc5-9a75-f8a03edeface")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "SG-210STF 12.0000ML0"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1e8ad943-9f9e-4232-8971-473b7822725a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Frequency" "12MHz"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "130c437a-3526-4d6e-a015-82649680b2c2")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "4-SMD (2.5x2)"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "486b22d1-6af7-4cea-9cc1-d7d19405e9a0")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "XO"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1ce52525-ac1e-43e2-8f60-bc523561e67d")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"X1G0041710018\", \"manufacturer\": \"EPSON\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e1d60f40-0854-4ba9-b941-fdcdc9fc955c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "EPSON"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "947c4d7e-149d-4f4f-acf0-e501b7d70b05")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "U"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "01c15261-aa2e-454f-a143-bd58cc72ff2d")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10289,11 +15806,35 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Diode Logo"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "1dd64981-b518-4edf-8cf1-523f28bbc9c8")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "LOGO"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "2e6ef1b2-55dd-427f-8b02-2f11ccee3657")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "TP"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f963119c-3645-476c-9e5b-004b8193b624")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10369,6 +15910,7 @@
 		(property "Value" "ERJ-2RKF1002X"
 			(at 0 1.17 180)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "6b7718e2-dbd8-4755-a029-1dbd469550ea")
 			(effects
 				(font
@@ -10389,11 +15931,131 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10k"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "120ba584-fd53-4600-a084-932c303f175c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "MCU.FLASH.R_FLASH_IO3.R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "7b5d8ad7-6b92-430c-abab-ef51b597d710")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Electronic Components"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "48749c8d-7702-437c-9490-dd0f50f2f85f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Resistance" "10k"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "51c2069e-c0de-4cc2-9b4f-5abcd1f7b5a4")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "2fb997c6-e678-458a-bf64-7ae3c137a953")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F1002X\", \"manufacturer\": \"Panasonic Electronic Components\"},{\"mpn\": \"0402WGF1002TCE\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a892d640-39b6-4a3f-8e06-b625758204f5")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF1002X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "befa0cdf-5003-4e34-b03a-cc0293822d0c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "12ffab6e-24cd-4311-847a-ac17a07afeff")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "217dd515-66fc-477d-a9c2-02e7c2ffefec")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d428b85b-aae4-4fdf-bb10-4d75bcbafd66")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "2894cc13-1616-4d5a-bd14-4063615e4d5f")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10564,6 +16226,7 @@
 		(property "Value" "ERJ-2RKF4702X"
 			(at 0 1.17 180)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "6d702eb1-4795-47ae-93b8-ba29fd681cac")
 			(effects
 				(font
@@ -10584,11 +16247,131 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "47k"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "18610f1b-0cb1-4ae9-907a-ed9715b96e25")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "R_VBUS_DIV_L.R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a35869af-daa3-4e6e-ad84-20b01ddc7412")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Electronic Components"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "2e2d0573-33a6-4eaa-8123-fddab3cc7924")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F4702X\", \"manufacturer\": \"Panasonic Electronic Components\"},{\"mpn\": \"0402WGF4702TCE\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "cbd437d9-e92e-4a76-9ef9-f06ddd90a0b5")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a8fbcefe-60de-4254-8761-0e8205f5e0e6")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "7eacc20a-e321-458e-8e2d-53aa0975476b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "4f94f1c6-b68c-4594-a4b8-fd3a025127ec")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF4702X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "aa2b0822-a74e-4b6d-b37a-2bfb3bb03172")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Resistance" "47k"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "cbad3a28-540a-424e-b570-763f93949ed9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "cf97b5bc-5557-4631-a10c-26a190bc2cff")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ce23b4f3-ec61-42e7-ba08-db16574dbfb9")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10759,6 +16542,7 @@
 		(property "Value" "ERJ-2RKF3302X"
 			(at 0 1.17 180)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "a4191e0b-c040-4db9-94be-dac4662fcf5a")
 			(effects
 				(font
@@ -10779,11 +16563,131 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "33k"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "b04bff4b-27b5-410b-bc02-f36225a085b1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "R_VBUS_DIV_H.R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "8d807bf2-0119-41ad-b56a-d37814c5d4d7")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "fdde6bac-6a16-4293-ac3a-e1f259f219e2")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Resistance" "33k"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "6824a6d4-7c7d-4083-9774-4b1097443900")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "27dd7b99-9446-4b14-add8-eb3ec70f36f2")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Electronic Components"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "bdeadf40-8003-4382-b4fd-dbe43f6dd82e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF3302X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "20e2814d-7cee-485e-8ba0-63b83363ac46")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F3302X\", \"manufacturer\": \"Panasonic Electronic Components\"},{\"mpn\": \"0402WGF3302TCE\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "95ec687f-7b32-4620-a72f-f9f1e0fbfb79")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "6b9ddf20-9cd7-4167-80e7-8b44a09e7ca6")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "88b70e58-1d35-4124-90a2-1dd893714c39")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e3424173-6b9a-440b-8b4a-b468fe877e71")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10954,6 +16858,7 @@
 		(property "Value" "ERJ-2RKF5101X"
 			(at 0 1.17 90)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "cea8daea-62f6-4d52-9f4f-f4e597f9bfd2")
 			(effects
 				(font
@@ -10974,11 +16879,131 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "5.1k 5%"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "ad0ae0ca-cd7c-4fe3-a333-676da718dc53")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "USB_C.R_CC2.R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "20c4f98a-bd80-4617-bb80-5d0a85301649")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF5101X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d6fa4b90-deb1-4985-af1b-a28846fc7b52")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "992518f3-5679-42e1-a0e2-cde433c4935a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d581fb60-8b42-4e99-825d-8bbabc0c3f2e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1d095b93-8671-4ef5-b475-e89a2da98c32")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F5101X\", \"manufacturer\": \"Panasonic Electronic Components\"},{\"mpn\": \"0402WGF5101TCE\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b09dde2d-6b25-4e28-8110-fd2c6e073187")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Electronic Components"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f74bf5ab-2100-479d-99d6-837bb53b4b0f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "df05af46-674b-467a-ba2d-6765066025cd")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Resistance" "5.1k 5%"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3c7404ad-0fc5-4306-87c6-670d4c2a695e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "accab29d-e4c3-4646-a0cf-c3b6033a038a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11149,6 +17174,7 @@
 		(property "Value" "ERJ-2RKF1002X"
 			(at 0 1.17 90)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "6dcb2edd-2707-4145-bd8f-7c3b89927c41")
 			(effects
 				(font
@@ -11169,11 +17195,131 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10k"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "6ec1b43d-ad77-46fe-87ad-76b3ac4340d2")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "MCU.R_RUN_PU.R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "60def336-e607-4b3b-a73c-134f301f9e56")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ee7f7ead-9564-4ed1-98d4-c1adaa429da4")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d6202bbc-3313-41d1-9948-d157afb7252a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF1002X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ead31e11-2eb8-45f0-b40e-c4897483a00b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Resistance" "10k"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c0821044-3f95-4580-af25-dd8044b78800")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F1002X\", \"manufacturer\": \"Panasonic Electronic Components\"},{\"mpn\": \"0402WGF1002TCE\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ad36299b-b1f5-4a08-8445-d11c4b901d86")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "addf0ce6-dc0e-4dbf-a771-4c9fc8174f95")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "715a7349-9759-48c4-aa66-d301d0ec4618")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "7c845a45-82d0-4eee-b303-5fb9ec638362")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Electronic Components"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3eee11e4-43f0-4bcb-b4b9-7da4a4daa160")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11344,6 +17490,7 @@
 		(property "Value" "ERJ-2RKF1002X"
 			(at 0 1.17 270)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "c8abcebd-a386-4da8-9827-fcc4af8d9d59")
 			(effects
 				(font
@@ -11364,11 +17511,131 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10k"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "a12df581-ecb9-425a-b1c6-6698730104a2")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "LDO_3V3.R_EN_PU.R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "25ca061f-1180-4f27-8d62-876430f34c73")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Electronic Components"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f1ca304f-c15d-42e3-b718-a38b1129cbcc")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "17e4b5b3-0175-4cdf-a171-8b12ea60937f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3e4b45b0-5fd4-4202-b85a-7c7a7f265d55")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "22541bec-aa0f-400e-b047-e965cbfff5bd")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f3a8f0e2-7207-4ca7-adcd-669be0f2f52f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "961599cf-4e7d-4154-8cad-d5a5a284847c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF1002X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "04f7f1dc-00d0-40e2-ba23-1070b9dbb62c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F1002X\", \"manufacturer\": \"Panasonic Electronic Components\"},{\"mpn\": \"0402WGF1002TCE\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "09c2ef47-1e49-467e-b4cf-af34b04ffd4c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Resistance" "10k"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "522b023b-1736-4400-a6f0-fad35e9a6bcf")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11539,6 +17806,7 @@
 		(property "Value" "ERJ-2RKF4702X"
 			(at 0 1.17 0)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "18edc962-d396-4ebc-a63c-7fdeb05d7a77")
 			(effects
 				(font
@@ -11559,11 +17827,131 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "47k 1%"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "1faf678a-6b15-43bf-882e-cf9ffc2e8b8c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "LDO_3V3.R_FB1.R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "34b99127-2d14-46ff-9ca5-c3dac4dddeba")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "28516dfc-a93c-4a9e-a6b6-d605c94e37cb")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Electronic Components"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "21ab2ba8-1226-49ee-b1b8-35cb6b0cd0c3")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Resistance" "47k 1%"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3e450093-a083-48b5-a755-1b2fe8890967")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "da25f5f6-76af-4eac-bba0-c4425366a236")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "83abb8d7-e903-4c54-a104-54a56bdf1621")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F4702X\", \"manufacturer\": \"Panasonic Electronic Components\"},{\"mpn\": \"0402WGF4702TCE\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "37f38a42-4246-4e02-a0ef-8575d1d211d3")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "9ad67f93-de20-4332-a4db-70e80b88d3ac")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF4702X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b5402f28-6ef0-440c-9a74-6fc93b973027")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5a4ccb09-e313-431d-a747-afdc79897113")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11734,6 +18122,7 @@
 		(property "Value" "GRM155Z71A105KE01D"
 			(at 0 1.16 90)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "d3d9e4f7-d1da-4d3c-aa29-f3cbdb7a6cc3")
 			(effects
 				(font
@@ -11754,11 +18143,155 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1uF 4.95V"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "5163de26-ef92-4b49-8991-b09d459bb14f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Path" "MCU.C_VREG_IN.C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5cf7630f-a32a-4c8f-9c73-fe2f2aba75e3")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "241fccdb-0e32-4b64-a94a-a9b93ec67556")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Esr" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "483066a0-a696-4e13-b69e-73755fa926c5")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c55b5141-8d03-48e1-92c2-045df52af353")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Dielectric" "None"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "67217036-9aa0-44b8-aaa5-eace152ae5c2")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Type" "capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "99368f65-453c-439b-bb71-386b1eb6b5bb")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "60b18a82-4674-4631-8461-22bd8290155c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GRM155Z71A105KE01D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "9ef66ddc-cd01-4e6e-bc38-82d02a9bfbb1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GRM155Z71A105KE01J\", \"manufacturer\": \"Murata Electronics\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "02c6d53a-6337-4c80-a8dd-a0b51f1163ee")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Capacitance" "1uF"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "afe355e2-c37d-4282-a6bb-f1c3e123dec6")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "0402"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a781a78e-e13a-4ded-8247-f82946c63b65")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Voltage" "4.95V"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "66aae173-841e-450a-a814-67ffe55fad76")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11930,6 +18463,7 @@
 		(property "Value" "?"
 			(at 0 -1.75 0)
 			(layer "B.Fab")
+			(hide yes)
 			(uuid "f17c020d-a84e-4bff-b4e2-3924ee2fcadf")
 			(effects
 				(font
@@ -11953,7 +18487,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "test point"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "B.Fab")
@@ -11965,6 +18499,42 @@
 					(thickness 0.15)
 				)
 				(justify mirror)
+			)
+		)
+		(property "Path" "TP_GND.TP"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "c0922c51-50d2-46da-b39a-b59548ea41c3")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Variant" "Pad_D1.5mm"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "5d99d397-d2f9-4e59-91f0-e762aa7d4483")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "TP"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "5435271d-9ae4-434d-9444-2ac71116d3ec")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
 			)
 		)
 		(path "/ad59b617-d00b-58b2-b67e-c7ce8f44b245/ad59b617-d00b-58b2-b67e-c7ce8f44b245")
@@ -12034,6 +18604,7 @@
 		(property "Value" "?"
 			(at 0 -1.75 0)
 			(layer "B.Fab")
+			(hide yes)
 			(uuid "63270154-4004-49ab-aae4-cafbc9326667")
 			(effects
 				(font
@@ -12057,7 +18628,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "test point"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "B.Fab")
@@ -12069,6 +18640,42 @@
 					(thickness 0.15)
 				)
 				(justify mirror)
+			)
+		)
+		(property "Path" "TP_VBUS.TP"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "73747adb-9952-483b-9243-c397053eba1c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Variant" "Pad_D1.5mm"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "c08664a1-a015-4a90-96c5-f507ce3d0e7a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "TP"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "74e88418-2c43-43ed-a55d-3e421cf97fbf")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
 			)
 		)
 		(path "/7a1c0f50-a769-5370-bd45-ccb179aeac26/7a1c0f50-a769-5370-bd45-ccb179aeac26")
@@ -12138,6 +18745,7 @@
 		(property "Value" "?"
 			(at 0 -1.75 0)
 			(layer "B.Fab")
+			(hide yes)
 			(uuid "baa2a085-9b75-45a6-808c-db7a537f4ab4")
 			(effects
 				(font
@@ -12161,7 +18769,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "test point"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "B.Fab")
@@ -12173,6 +18781,42 @@
 					(thickness 0.15)
 				)
 				(justify mirror)
+			)
+		)
+		(property "Path" "TP_3V3.TP"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "dc98031c-4a00-4ab3-b4bc-57babaa99b8a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "TP"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "4b8ef7ea-b3ca-49a2-be08-28a329cb40b1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Variant" "Pad_D1.5mm"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "4148e575-9a88-4e59-83ea-ccb49b6bdd95")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
 			)
 		)
 		(path "/3c2f1102-96ea-5ed6-bf6b-0a0a01d193d6/3c2f1102-96ea-5ed6-bf6b-0a0a01d193d6")
