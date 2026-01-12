@@ -65,7 +65,7 @@ jobs:
     needs: detect
     runs-on: ubicloud-standard-30-ubuntu-2404
     container:
-      image: ghcr.io/dioderobot/kicad:4e720f9c
+      image: ghcr.io/dioderobot/kicad:b3d5c7bf
       options: --user root
     strategy:
       fail-fast: false
