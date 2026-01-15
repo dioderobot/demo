@@ -8,8 +8,10 @@ pub mod commutation;
 pub mod pwm;
 pub mod bemf;
 pub mod startup;
+pub mod controller;
 
 pub use commutation::CommutationStep;
+pub use controller::{MotorController, MotorConfig, ControlAction};
 
 /// Motor state machine
 #[derive(Debug, Clone, Copy, PartialEq, Eq, defmt::Format)]
