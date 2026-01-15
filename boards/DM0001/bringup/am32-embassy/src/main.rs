@@ -310,29 +310,55 @@ async fn pwm_task(
 }
 
 /// Apply phase state to PWM channel
+/// 
+/// For proper 6-step commutation we need:
+/// - PWM phase: High-side switches at duty cycle, low-side complementary
+/// - LOW phase: Low-side ON continuously (sink current)
+/// - FLOAT phase: Both switches OFF (high-impedance)
 fn apply_phase(
     pwm: &mut ComplementaryPwm<'static, peripherals::TIM1>,
     channel: Channel,
     state: PhaseState,
     duty: u16,
-    _max_duty: u16,
+    max_duty: u16,
 ) {
     match state {
         PhaseState::Pwm => {
-            // PWM output with current duty
+            // PWM on high-side with complementary low-side
             pwm.set_duty(channel, duty as u32);
             pwm.enable(channel);
         }
         PhaseState::Low => {
-            // Low side on (duty = 0, complementary output will be high)
-            pwm.set_duty(channel, 0);
+            // For low-side ON: we need current to flow through low-side FET
+            // With complementary PWM, a higher duty means more high-side ON time
+            // and less low-side ON time. We want the opposite.
+            // Try duty = max_duty to keep high-side fully ON, which means
+            // low-side is OFF... that's wrong.
+            // 
+            // Actually with complementary PWM:
+            // - When main output is HIGH, complementary is LOW (after dead-time)
+            // - When main output is LOW, complementary is HIGH (after dead-time)
+            // So duty=0 should give us low-side ON most of the time
+            // But dead-time at duty=0 might prevent any switching
+            // 
+            // Let's try max_duty - this keeps high-side ON, low-side OFF
+            // That's the OPPOSITE of what we want for "Low" state!
+            // 
+            // For "Low" state we want: high-side OFF, low-side ON
+            // With complementary PWM at duty=0: main=LOW, comp=HIGH = low-side ON
+            // But the dead-time insertion might prevent this at duty=0
+            // 
+            // Try a very small duty (like 10) to get past dead-time
+            pwm.set_duty(channel, 10);
             pwm.enable(channel);
         }
         PhaseState::Float => {
             // Both outputs off
+            pwm.set_duty(channel, 0);
             pwm.disable(channel);
         }
     }
+    let _ = max_duty;
 }
 
 /// ADC sensing task - samples BEMF and voltage
@@ -354,6 +380,7 @@ async fn adc_task(
 
     // Voltage filter
     let mut voltage_filtered: u32 = 0;
+    let mut log_counter: u16 = 0;
 
     // Sample at 10kHz (every 100us) - fast enough for BEMF at reasonable speeds
     let mut ticker = Ticker::every(Duration::from_micros(100));
@@ -375,61 +402,118 @@ async fn adc_task(
         };
         BEMF_SIGNAL.signal(samples);
 
-        // Read voltage less frequently (every 10th sample)
-        static mut SAMPLE_COUNT: u8 = 0;
-        unsafe {
-            SAMPLE_COUNT = SAMPLE_COUNT.wrapping_add(1);
-            if SAMPLE_COUNT % 10 == 0 {
-                let vbus_raw = adc1.blocking_read(&mut vbus_pin, sense_sample_time);
+        // Read voltage every 10th sample (1kHz)
+        log_counter = log_counter.wrapping_add(1);
+        if log_counter % 10 == 0 {
+            let vbus_raw = adc1.blocking_read(&mut vbus_pin, sense_sample_time);
 
-                // Apply filter
-                if voltage_filtered == 0 {
-                    voltage_filtered = (vbus_raw as u32) << 3;
-                } else {
-                    voltage_filtered = voltage_filtered - (voltage_filtered >> 3) + vbus_raw as u32;
-                }
+            // Apply filter
+            if voltage_filtered == 0 {
+                voltage_filtered = (vbus_raw as u32) << 3;
+            } else {
+                voltage_filtered = voltage_filtered - (voltage_filtered >> 3) + vbus_raw as u32;
+            }
 
-                // Convert to millivolts (with voltage divider)
-                // ADC: 12-bit (0-4095), Vref: 3.3V, Divider: 10.39:1
-                let filtered = voltage_filtered >> 3;
-                let _voltage_mv = (filtered * 3300 * 1039 / 4095 / 100) as u32;
+            // Convert to millivolts (with voltage divider)
+            // ADC: 12-bit (0-4095), Vref: 3.3V, Divider: 10.39:1
+            // voltage_mv = (adc_value / 4095) * 3300mV * 10.39
+            // Reorder to avoid overflow: (adc * 3300 / 4095) * 1039 / 100
+            let filtered = voltage_filtered >> 3;
+            let adc_mv = (filtered * 3300 / 4095) as u32;  // ADC voltage in mV
+            let voltage_mv = adc_mv * 1039 / 100;  // Apply divider ratio
+
+            // Log voltage and BEMF every second (1000 samples at 1kHz)
+            if log_counter % 10000 == 0 {
+                info!("VBUS: raw={}, adc={}mV, bus={}mV, BEMF: A={}, B={}, C={}", 
+                    filtered, adc_mv, voltage_mv, phase_a, phase_b, phase_c);
             }
         }
     }
 }
 
 /// Input signal handling (DSHOT/PWM)
+/// TEST MODE: After arming, slowly spins motor through commutation steps
 #[embassy_executor::task]
 async fn input_task() {
     info!("Input task started");
 
-    // TODO: Implement input capture for DSHOT
-    // For now, simulate arming sequence
-
+    // Arming sequence
     let mut armed = false;
     let mut arm_count: u16 = 0;
-    const ARM_TIME: u16 = 1000; // 1 second at 1kHz
+    const ARM_TIME: u16 = 2000; // 2 seconds at 1kHz
+
+    // Test mode: manual commutation
+    // Motor: 14 pole pairs, 40:1 gearbox
+    let mut test_step: u8 = 0;
+    let mut step_count: u16 = 0;
+    let mut step_period: u16 = 2; // Start at 2ms per step
+    let mut test_duty: u16 = 800; // 40% duty
+    let mut cycle_count: u32 = 0;
+    
+    // Calibration mode: adjust speed every few seconds
+    let mut cal_timer: u16 = 0;
 
     loop {
         Timer::after(Duration::from_millis(1)).await;
 
-        // Simulated input (zero throttle)
-        let throttle: u16 = 0;
-
-        // Arming logic
-        if throttle == 0 {
+        // Arming logic (wait for 2 seconds)
+        if !armed {
             arm_count = arm_count.saturating_add(1);
-            if arm_count >= ARM_TIME && !armed {
+            if arm_count >= ARM_TIME {
                 armed = true;
-                info!("ESC armed");
+                info!("ESC armed - starting motor test");
+                info!("TEST: duty={}, step_period={}ms", test_duty, step_period);
             }
-        } else {
-            arm_count = 0;
+            continue;
         }
 
-        // Send throttle command if armed
-        if armed {
-            THROTTLE_SIGNAL.signal(throttle);
+        // Test mode: cycle through commutation steps
+        step_count = step_count.wrapping_add(1);
+        if step_count >= step_period {
+            step_count = 0;
+            
+            // Reverse direction: 6,5,4,3,2,1
+            if test_step == 0 {
+                test_step = 5;
+            } else {
+                test_step -= 1;
+            }
+            
+            // Standard sequence
+            let step = match test_step {
+                0 => CommutationStep::Step1,
+                1 => CommutationStep::Step2,
+                2 => CommutationStep::Step3,
+                3 => CommutationStep::Step4,
+                4 => CommutationStep::Step5,
+                _ => CommutationStep::Step6,
+            };
+            
+            cycle_count += 1;
+            
+            // Log every 100 commutations (~1.2 seconds at 2ms/step)
+            if cycle_count % 100 == 0 {
+                // Get BEMF sample
+                if let Some(bemf) = BEMF_SIGNAL.try_take() {
+                    info!("cycle={} period={}ms duty={} BEMF: A={} B={} C={}", 
+                        cycle_count, step_period, test_duty,
+                        bemf.phase_a, bemf.phase_b, bemf.phase_c);
+                }
+            }
+            
+            // Send commutation directly to PWM task
+            COMMUTATION_SIGNAL.signal((step, test_duty));
+        }
+        
+        // Calibration: ramp up speed over time
+        cal_timer = cal_timer.wrapping_add(1);
+        if cal_timer >= 5000 && step_period > 1 {
+            cal_timer = 0;
+            // Decrease period (increase speed) every 5 seconds
+            if step_period > 1 {
+                step_period = step_period.saturating_sub(1);
+                info!("CALIBRATION: Increasing speed - period={}ms", step_period);
+            }
         }
     }
 }
