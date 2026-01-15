@@ -46,7 +46,7 @@ impl AdcSensing {
     /// Update with raw ADC readings
     pub fn update(&mut self, voltage_raw: u16, temp_raw: u16) {
         // Apply exponential moving average filter
-        let coeff = 1u32 << self.filter_shift;
+        let _coeff = 1u32 << self.filter_shift;
         
         if self.voltage_filtered == 0 {
             self.voltage_filtered = (voltage_raw as u32) << self.filter_shift;

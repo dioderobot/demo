@@ -63,6 +63,8 @@ cd boards/DM0001/bringup/am32-embassy
 cargo build --release
 ```
 
+Binary size: ~25KB flash, ~2KB RAM (fits in STM32G431C8T6: 64KB flash, 32KB RAM)
+
 ### Flash
 
 ```bash
@@ -153,10 +155,10 @@ am32-embassy/
 - [x] Startup sequence
 - [x] Telemetry data structures
 - [x] CAN message structures
-- [ ] TIM1 PWM hardware integration
-- [ ] ADC DMA hardware integration
-- [ ] Input capture hardware integration
-- [ ] Full hardware testing
+- [x] TIM1 complementary PWM hardware driver
+- [x] ADC hardware driver for BEMF and sensing
+- [ ] TIM2 input capture for DSHOT (software decoder ready)
+- [ ] Full hardware testing on DM0001 board
 
 ## Next Steps
 

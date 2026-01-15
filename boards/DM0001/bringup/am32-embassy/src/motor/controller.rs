@@ -180,7 +180,7 @@ impl MotorController {
             self.stall_count = 0;
             
             // Calculate advance timing
-            let advance_delay = self.timing.advance_timing(self.config.timing_advance);
+            let _advance_delay = self.timing.advance_timing(self.config.timing_advance);
             
             // For now, commutate immediately (TODO: implement advance timing)
             self.commutate();
