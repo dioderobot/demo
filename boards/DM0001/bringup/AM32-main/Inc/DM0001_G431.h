@@ -82,22 +82,45 @@
 #define PHASE_C_GPIO_LOW LL_GPIO_PIN_15
 #define PHASE_C_GPIO_PORT_LOW GPIOB
 
-// BEMF sensing via comparators
-// Phase A BEMF: PA4 -> COMP1 INM (LL_COMP_INPUT_MINUS_IO1)
-// Phase B BEMF: PB12 -> Need ADC, not direct comparator
-// Phase C BEMF: PB11 -> Need ADC, not direct comparator
-// 
-// The DM0001 uses a different BEMF topology than typical AM32 targets.
-// It has dedicated BEMF sense resistors going to ADC pins, not comparator inputs.
-// We'll use COMP1/COMP2 with the available pins.
+// ============================================================================
+// BEMF Sensing Configuration
+// ============================================================================
+// The DM0001 uses ADC-based BEMF sensing instead of hardware comparators.
+// BEMF signals are routed through voltage dividers to ADC-capable pins:
+//   Phase A BEMF: PA4  -> ADC2_IN17
+//   Phase B BEMF: PB12 -> ADC1_IN11
+//   Phase C BEMF: PB11 -> ADC1_IN14
+//
+// Zero-crossing detection is performed in software by comparing the floating
+// phase voltage to a calculated virtual neutral point.
+// ============================================================================
 
-// For now, use PA4 for comparator-based BEMF (Phase A)
-// The other phases will need ADC-based zero crossing detection
-#define PHASE_A_COMP LL_COMP_INPUT_MINUS_IO1  // PA4
-#define PHASE_B_COMP LL_COMP_INPUT_MINUS_IO1  // Placeholder - needs ADC
-#define PHASE_C_COMP LL_COMP_INPUT_MINUS_IO2  // Placeholder - needs ADC
+// Enable ADC-based BEMF detection (disables hardware comparator mode)
+#define USE_ADC_BEMF
 
-#define PHASE_A_INPUT_PLUS LL_COMP_INPUT_PLUS_IO1  // PA1 (internal reference)
+// BEMF ADC pin definitions
+#define BEMF_A_PIN LL_GPIO_PIN_4
+#define BEMF_A_PORT GPIOA
+#define BEMF_A_ADC_INSTANCE ADC2
+#define BEMF_A_ADC_CHANNEL LL_ADC_CHANNEL_17
+
+#define BEMF_B_PIN LL_GPIO_PIN_12
+#define BEMF_B_PORT GPIOB
+#define BEMF_B_ADC_INSTANCE ADC1
+#define BEMF_B_ADC_CHANNEL LL_ADC_CHANNEL_11
+
+#define BEMF_C_PIN LL_GPIO_PIN_11
+#define BEMF_C_PORT GPIOB
+#define BEMF_C_ADC_INSTANCE ADC1
+#define BEMF_C_ADC_CHANNEL LL_ADC_CHANNEL_14
+
+// Dummy comparator defines for compatibility with AM32 code
+// These are not actually used when USE_ADC_BEMF is defined
+#define PHASE_A_COMP LL_COMP_INPUT_MINUS_IO1
+#define PHASE_B_COMP LL_COMP_INPUT_MINUS_IO1
+#define PHASE_C_COMP LL_COMP_INPUT_MINUS_IO2
+
+#define PHASE_A_INPUT_PLUS LL_COMP_INPUT_PLUS_IO1
 #define PHASE_B_INPUT_PLUS LL_COMP_INPUT_PLUS_IO1
 #define PHASE_C_INPUT_PLUS LL_COMP_INPUT_PLUS_IO1
 

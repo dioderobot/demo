@@ -34,6 +34,19 @@
 #include "common.h"
 #include "targets.h"
 
+#ifdef USE_ADC_BEMF
+// Use ADC-based BEMF detection
+#include "comparator_adc.h"
+
+// Wrapper functions that call the ADC implementation
+void maskPhaseInterrupts(void) { maskPhaseInterrupts_ADC(); }
+void enableCompInterrupts(void) { enableCompInterrupts_ADC(); }
+void changeCompInput(void) { changeCompInput_ADC(); }
+uint8_t getCompOutputLevel(void) { return getCompOutputLevel_ADC(); }
+
+#else
+// Use hardware comparator-based BEMF detection (original implementation)
+
 COMP_TypeDef* active_COMP = COMP2;
 uint32_t current_EXTI_LINE = LL_EXTI_LINE_22;
 
@@ -147,3 +160,5 @@ void changeCompInput()
 
 //	}
 //}
+
+#endif /* USE_ADC_BEMF */

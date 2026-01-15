@@ -4063,6 +4063,13 @@
 
 #define MCU_G431
 
+// Enable ADC-based BEMF detection for DM0001
+// The DM0001 uses ADC pins for BEMF sensing instead of comparator inputs:
+//   Phase A BEMF: PA4  -> ADC2_IN17
+//   Phase B BEMF: PB12 -> ADC1_IN11
+//   Phase C BEMF: PB11 -> ADC1_IN14
+#define USE_ADC_BEMF
+
 // Input capture for DSHOT/PWM on PA15 (TIM2_CH1)
 #define USE_TIMER_2_CHANNEL_1
 #define INPUT_PIN LL_GPIO_PIN_15
@@ -4093,11 +4100,26 @@
 #define PHASE_C_GPIO_LOW LL_GPIO_PIN_15
 #define PHASE_C_GPIO_PORT_LOW GPIOB
 
-// BEMF sensing - PA4 is the only direct comparator input
-// Phase A BEMF: PA4 -> COMP1 INM
-#define PHASE_A_COMP LL_COMP_INPUT_MINUS_IO1  // PA4
-#define PHASE_B_COMP LL_COMP_INPUT_MINUS_IO1  // Shared
-#define PHASE_C_COMP LL_COMP_INPUT_MINUS_IO2  // PA0
+// BEMF ADC pin definitions
+#define BEMF_A_PIN LL_GPIO_PIN_4
+#define BEMF_A_PORT GPIOA
+#define BEMF_A_ADC_INSTANCE ADC2
+#define BEMF_A_ADC_CHANNEL LL_ADC_CHANNEL_17
+
+#define BEMF_B_PIN LL_GPIO_PIN_12
+#define BEMF_B_PORT GPIOB
+#define BEMF_B_ADC_INSTANCE ADC1
+#define BEMF_B_ADC_CHANNEL LL_ADC_CHANNEL_11
+
+#define BEMF_C_PIN LL_GPIO_PIN_11
+#define BEMF_C_PORT GPIOB
+#define BEMF_C_ADC_INSTANCE ADC1
+#define BEMF_C_ADC_CHANNEL LL_ADC_CHANNEL_14
+
+// Dummy comparator defines for compatibility (not used with USE_ADC_BEMF)
+#define PHASE_A_COMP LL_COMP_INPUT_MINUS_IO1
+#define PHASE_B_COMP LL_COMP_INPUT_MINUS_IO1
+#define PHASE_C_COMP LL_COMP_INPUT_MINUS_IO2
 
 #define PHASE_A_INPUT_PLUS LL_COMP_INPUT_PLUS_IO1
 #define PHASE_B_INPUT_PLUS LL_COMP_INPUT_PLUS_IO1
