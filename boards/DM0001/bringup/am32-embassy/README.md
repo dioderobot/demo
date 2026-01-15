@@ -10,6 +10,9 @@ Rust implementation of AM32 ESC firmware using the Embassy async framework for t
 - **PWM servo input** support
 - **RTT logging** via defmt for debugging
 - **Async architecture** using Embassy
+- **Motor state machine** with startup sequence
+- **Telemetry output** (bidirectional DSHOT, KISS)
+- **CAN bus** message structures (hardware driver pending)
 
 ## Hardware
 
@@ -50,7 +53,7 @@ Rust implementation of AM32 ESC firmware using the Embassy async framework for t
 rustup target add thumbv7em-none-eabihf
 
 # Install probe-rs for flashing
-cargo install probe-rs --features cli
+cargo install probe-rs-tools
 ```
 
 ### Build
@@ -73,14 +76,7 @@ probe-rs run --chip STM32G431CBUx target/thumbv7em-none-eabihf/release/am32-emba
 Connect with probe-rs to view RTT logs:
 
 ```bash
-probe-rs attach --chip STM32G431CBUx
-```
-
-Or use the `defmt-print` tool:
-
-```bash
-cargo install defmt-print
-probe-rs run --chip STM32G431CBUx target/thumbv7em-none-eabihf/release/am32-embassy 2>&1 | defmt-print -e target/thumbv7em-none-eabihf/release/am32-embassy
+probe-rs attach --chip STM32G431CBUx target/thumbv7em-none-eabihf/release/am32-embassy
 ```
 
 ## Architecture
@@ -98,7 +94,7 @@ probe-rs run --chip STM32G431CBUx target/thumbv7em-none-eabihf/release/am32-emba
 ├───────┼─────────────┼─────────────┼─────────────┼───────────┤
 │       ▼             ▼             ▼             ▼           │
 │  ┌─────────────────────────────────────────────────────┐   │
-│  │                  Motor Control Core                  │   │
+│  │                  Motor Controller                    │   │
 │  │  ┌──────────┐  ┌──────────┐  ┌──────────┐          │   │
 │  │  │Commutator│  │   BEMF   │  │ Startup  │          │   │
 │  │  │ (6-step) │  │  Sensor  │  │ Sequence │          │   │
@@ -106,17 +102,46 @@ probe-rs run --chip STM32G431CBUx target/thumbv7em-none-eabihf/release/am32-emba
 │  └───────┼─────────────┼─────────────┼─────────────────┘   │
 │          ▼             ▼             ▼                      │
 ├─────────────────────────────────────────────────────────────┤
-│                    Hardware Abstraction                      │
+│                    Hardware Drivers                          │
 │  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐    │
-│  │   TIM1   │  │   ADC    │  │   TIM2   │  │  Flash   │    │
-│  │   PWM    │  │ Sensing  │  │  Input   │  │ Storage  │    │
+│  │   PWM    │  │   ADC    │  │  Input   │  │Telemetry │    │
+│  │ (TIM1)   │  │ Sensing  │  │ Capture  │  │  Output  │    │
 │  └──────────┘  └──────────┘  └──────────┘  └──────────┘    │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## Status
+## Module Structure
 
-This is a work in progress. Current status:
+```
+am32-embassy/
+├── src/
+│   ├── main.rs              # Entry point, Embassy tasks
+│   ├── config.rs            # DM0001 pin mappings
+│   ├── motor/
+│   │   ├── mod.rs           # Motor state machine
+│   │   ├── commutation.rs   # 6-step commutation table
+│   │   ├── pwm.rs           # PWM driver abstraction
+│   │   ├── bemf.rs          # ADC-based BEMF detection
+│   │   ├── startup.rs       # Open-loop startup sequence
+│   │   └── controller.rs    # Motor control integration
+│   ├── input/
+│   │   ├── dshot.rs         # DSHOT protocol decoder
+│   │   ├── servo.rs         # PWM servo input
+│   │   └── signal.rs        # Unified input abstraction
+│   ├── drivers/
+│   │   ├── adc.rs           # ADC sensing driver
+│   │   ├── input_capture.rs # Input capture driver
+│   │   ├── can.rs           # CAN bus driver
+│   │   └── telemetry.rs     # Telemetry output
+│   ├── sensing/
+│   │   └── adc.rs           # Voltage/current/temp
+│   ├── settings/
+│   │   ├── defaults.rs      # AM32-compatible settings
+│   │   └── eeprom.rs        # Flash storage
+│   └── sounds.rs            # Startup beeps
+```
+
+## Status
 
 - [x] Project structure
 - [x] Embassy setup with RTT logging
@@ -124,12 +149,23 @@ This is a work in progress. Current status:
 - [x] BEMF zero-crossing detection algorithm
 - [x] DSHOT protocol decoder
 - [x] Settings/EEPROM structure
-- [ ] TIM1 PWM driver implementation
-- [ ] ADC DMA sampling
-- [ ] Input capture for DSHOT
-- [ ] Full motor control integration
-- [ ] CAN bus support
-- [ ] Telemetry output
+- [x] Motor controller state machine
+- [x] Startup sequence
+- [x] Telemetry data structures
+- [x] CAN message structures
+- [ ] TIM1 PWM hardware integration
+- [ ] ADC DMA hardware integration
+- [ ] Input capture hardware integration
+- [ ] Full hardware testing
+
+## Next Steps
+
+The software framework is complete. To make it fully functional:
+
+1. **Connect PWM driver to TIM1** - Use Embassy's `ComplementaryPwm` with actual pins
+2. **Connect ADC driver** - Use Embassy's `Adc` with proper channel configuration
+3. **Connect input capture** - Use Embassy's `InputCapture` for DSHOT/PWM input
+4. **Hardware testing** - Verify on actual DM0001 board
 
 ## License
 
