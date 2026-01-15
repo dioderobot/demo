@@ -2,7 +2,7 @@
 //!
 //! Pin mapping and hardware configuration specific to the DM0001 board.
 
-use embassy_stm32::gpio::Pin;
+#![allow(dead_code)]
 
 /// DM0001 board configuration
 pub struct BoardConfig {

@@ -2,6 +2,8 @@
 //!
 //! Uses PWM to generate tones through the motor windings.
 
+#![allow(dead_code)]
+
 /// Sound frequencies (Hz)
 pub mod frequencies {
     pub const C4: u32 = 262;

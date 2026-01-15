@@ -2,6 +2,6 @@
 //!
 //! Handles voltage, current, and temperature measurement.
 
-pub mod adc;
+#![allow(dead_code)]
 
-pub use adc::{AdcSensing, SensorReadings};
+pub mod adc;

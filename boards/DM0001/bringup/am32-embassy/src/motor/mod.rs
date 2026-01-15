@@ -2,15 +2,14 @@
 //!
 //! Implements 6-step BLDC commutation with ADC-based BEMF sensing.
 
+#![allow(dead_code)]
+
 pub mod commutation;
 pub mod pwm;
 pub mod bemf;
 pub mod startup;
 
-pub use commutation::{CommutationStep, CommutationTable};
-pub use pwm::MotorPwm;
-pub use bemf::BemfSensor;
-pub use startup::StartupSequence;
+pub use commutation::CommutationStep;
 
 /// Motor state machine
 #[derive(Debug, Clone, Copy, PartialEq, Eq, defmt::Format)]

@@ -2,8 +2,9 @@
 //!
 //! Flash-based persistent settings storage.
 
+#![allow(dead_code)]
+
 pub mod eeprom;
 pub mod defaults;
 
-pub use eeprom::EepromStorage;
 pub use defaults::Settings;
