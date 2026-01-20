@@ -1,4 +1,4 @@
-## DM001: ZenDrive
+## DM0001: ZenDrive
 
 A 3-phase BLDC motor controller reference design built with Zen modules and KiCad assets. This repository doubles as a template for new hardware projects that follow a modular, reusable structure.
 
