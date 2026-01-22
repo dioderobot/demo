@@ -80,6 +80,9 @@ jobs:
         with:
           version: ${{ env.PCB_VERSION }}
 
+      - name: Build board
+        run: pcb build ${{ matrix.board.path }} -S layout.drc
+
       - name: Run pcb release
         id: release
         shell: bash
