@@ -51,21 +51,15 @@ jobs:
         shell: bash
         run: |
           set -e -o pipefail
-          version=$(pcb --version | awk '{print $2}')
-          minor=${version#*.}; minor=${minor%%.*}
-          if [[ ${version%%.*} -ge 1 || $minor -ge 3 ]]; then
-            boards=$(pcb info -f json | jq -c '[.packages[].config.board.name? // empty]')
-          else
-            boards=$(pcb info -f json | jq -c '[.boards[].name]')
-          fi
+          boards=$(pcb info . -f json | jq -c '[.packages[] | select(.config.board != null) | {name: .config.board.name, path: (.rel_path + "/" + .config.board.path)}]')
           echo "boards=$boards" >> "$GITHUB_OUTPUT"
 
   release:
-    name: Release ${{ matrix.board }}
+    name: Release ${{ matrix.board.name }}
     needs: detect
     runs-on: ubicloud-standard-30-ubuntu-2404
     container:
-      image: ghcr.io/dioderobot/kicad:b3d5c7bf
+      image: ghcr.io/dioderobot/kicad:53906e16
       options: --user root
     strategy:
       fail-fast: false
@@ -86,13 +80,16 @@ jobs:
         with:
           version: ${{ env.PCB_VERSION }}
 
+      - name: Build board
+        run: pcb build ${{ matrix.board.path }} -S layout.drc
+
       - name: Run pcb release
         id: release
         shell: bash
         run: |
           short_sha=$(git rev-parse --short HEAD)
-          archive_path="${{ matrix.board }}-$short_sha.zip"
-          pcb release -b ${{ matrix.board }} --output-dir . --output-name $archive_path -S layout.drc --yes
+          archive_path="${{ matrix.board.name }}-$short_sha.zip"
+          pcb release ${{ matrix.board.path }} --output-dir . --output-name $archive_path -S layout.drc --yes
           echo "archive_path=$archive_path" >> "$GITHUB_OUTPUT"
           echo "short_sha=$short_sha" >> "$GITHUB_OUTPUT"
 
@@ -104,7 +101,7 @@ jobs:
       - name: Upload release archive
         uses: actions/upload-artifact@v4
         with:
-          name: pcb-release-${{ matrix.board }}-${{ steps.release.outputs.short_sha }}
+          name: pcb-release-${{ matrix.board.name }}-${{ steps.release.outputs.short_sha }}
           path: ${{ steps.release.outputs.archive_path }}
           retention-days: 30
 
