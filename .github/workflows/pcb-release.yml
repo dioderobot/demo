@@ -81,7 +81,7 @@ jobs:
           version: ${{ env.PCB_VERSION }}
 
       - name: Build board
-        run: pcb build ${{ matrix.board.path }} -S layout.drc
+        run: pcb build ${{ matrix.board.path }} -S layout.drc --locked
 
       - name: Run pcb release
         id: release
