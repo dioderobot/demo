@@ -13065,7 +13065,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "8a7c0622-2653-46b2-9058-f4226d32363d")
+			(uuid "4227aabb-f9c8-46ea-bf6a-02573547546e")
 		)
 		(fp_line
 			(start -4.67 -0.1)
@@ -13075,7 +13075,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "6d8c0c41-3d10-4087-8ca7-99bf9ea684bd")
+			(uuid "aa3c8b3d-afea-4de0-a096-6221f299cbe6")
 		)
 		(fp_line
 			(start 5 3.675)
@@ -13085,7 +13085,7 @@
 				(type solid)
 			)
 			(layer "Dwgs.User")
-			(uuid "3015d7ef-2434-4e4b-afb6-e6913bde28b8")
+			(uuid "e2c8677c-71b7-4677-b134-9a8c2f5b5ea7")
 		)
 		(fp_rect
 			(start -5.32 -4.76)
@@ -13096,7 +13096,7 @@
 			)
 			(fill no)
 			(layer "F.CrtYd")
-			(uuid "14f17e46-8a40-4054-8395-1cfbdc3cca8f")
+			(uuid "125a1b90-07f3-457d-b409-e8a557ecac64")
 		)
 		(fp_rect
 			(start -4.47 -3.675)
@@ -13107,7 +13107,7 @@
 			)
 			(fill no)
 			(layer "F.Fab")
-			(uuid "be597e55-a699-45dc-a667-b6c39ae80f80")
+			(uuid "4a276522-4e05-404c-aae4-f0eaa11f0f59")
 		)
 		(fp_text user "PCB Edge"
 			(at 0 3.1 180)
@@ -13138,14 +13138,14 @@
 			(size 0.65 0.65)
 			(drill 0.65)
 			(layers "*.Cu" "*.Mask")
-			(uuid "c0e2358f-7652-41ee-87e5-5e531c55e397")
+			(uuid "fb5c7d7d-a898-491d-b4b9-be314a9c3943")
 		)
 		(pad "" np_thru_hole circle
 			(at 2.89 -2.605 180)
 			(size 0.65 0.65)
 			(drill 0.65)
 			(layers "*.Cu" "*.Mask")
-			(uuid "19d8f6c4-8cea-445f-81c7-f2b919a882bb")
+			(uuid "d1cc8271-7168-4279-b9db-41add8930d25")
 		)
 		(pad "A1" smd roundrect
 			(at -3.2 -3.68 180)
@@ -13293,7 +13293,7 @@
 			(layers "*.Cu" "*.Mask" "F.Paste")
 			(remove_unused_layers no)
 			(net 1 "GND")
-			(uuid "ddfd0ab7-a529-4438-9a03-0ba975523764")
+			(uuid "19840961-bd53-4d13-ab66-20d81b1d75b0")
 		)
 		(pad "S1" thru_hole oval
 			(at 4.32 -3.105 180)
@@ -13303,7 +13303,7 @@
 			(layers "*.Cu" "*.Mask" "F.Paste")
 			(remove_unused_layers no)
 			(net 1 "GND")
-			(uuid "b6ed967b-590b-49e7-9827-2d635d86da62")
+			(uuid "19840961-bd53-4d13-ab66-20d81b1d75b0")
 		)
 		(pad "S1" thru_hole oval
 			(at 4.32 1.075 180)
@@ -13313,7 +13313,7 @@
 			(layers "*.Cu" "*.Mask" "F.Paste")
 			(remove_unused_layers no)
 			(net 1 "GND")
-			(uuid "b9173fbf-538e-4e65-b15f-2d5209a03910")
+			(uuid "19840961-bd53-4d13-ab66-20d81b1d75b0")
 		)
 		(embedded_fonts no)
 		(model "${KICAD9_3DMODEL_DIR}/Connector_USB.3dshapes/USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal.step"
@@ -13734,7 +13734,7 @@
 				)
 			)
 		)
-		(property "Pins" "5.0"
+		(property "Pins" "5"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -13746,7 +13746,7 @@
 				)
 			)
 		)
-		(property "Rows" "2.0"
+		(property "Rows" "2"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
