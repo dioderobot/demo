@@ -3,9 +3,11 @@ name: PCB Release
 on:
   workflow_dispatch:
   push:
+    branches:
+      - '**'
 
 env:
-  PCB_VERSION: "v0.3.26"
+  PCB_VERSION: "HEAD"
 
 permissions:
   contents: read
@@ -83,20 +85,46 @@ jobs:
       - name: Build board
         run: pcb build ${{ matrix.board.path }} -S layout.drc --locked
 
-      - name: Run pcb release
+      - name: Run pcb publish
         id: release
         shell: bash
         run: |
           short_sha=$(git rev-parse --short HEAD)
-          archive_path="${{ matrix.board.name }}-$short_sha.zip"
-          pcb release ${{ matrix.board.path }} --output-dir . --output-name $archive_path -S layout.drc --yes
+          pcb publish ${{ matrix.board.path }} -S layout.drc
+          archive_path=".pcb/releases/${{ matrix.board.name }}-$short_sha.zip"
           echo "archive_path=$archive_path" >> "$GITHUB_OUTPUT"
           echo "short_sha=$short_sha" >> "$GITHUB_OUTPUT"
 
-      - name: Sign
-        uses: sigstore/gh-action-sigstore-python@v3.0.0
-        with:
-          inputs: ${{ steps.release.outputs.archive_path }}
+      - name: Create release
+        shell: bash
+        env:
+          ARTIFACT: ${{ steps.release.outputs.archive_path }}
+        run: |
+          set -euo pipefail
+
+          SHA256_HEX=$(shasum -a 256 "$ARTIFACT" | cut -d' ' -f1)
+          SHA256_BASE64=$(python3 -c "import base64; print(base64.b64encode(bytes.fromhex('$SHA256_HEX')).decode())")
+
+          OIDC_TOKEN=$(curl -sSf \
+            -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=https://api.diode.computer/releases" \
+            | jq -r '.value')
+
+          UPLOAD_URL=$(curl -sSf -X POST \
+            -H "Authorization: Bearer $OIDC_TOKEN" \
+            "https://api.diode.computer/api/file/$SHA256_HEX" \
+            | jq -r '.uploadUrl')
+
+          curl -sSf -X PUT "$UPLOAD_URL" \
+            -H "Content-Type: application/zip" \
+            -H "x-amz-checksum-sha256: $SHA256_BASE64" \
+            --data-binary @"$ARTIFACT"
+
+          curl -sSf -X POST \
+            -H "Authorization: Bearer $OIDC_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "{\"artifactHash\":\"$SHA256_HEX\"}" \
+            "https://api.diode.computer/api/releases/github"
 
       - name: Upload release archive
         uses: actions/upload-artifact@v4
@@ -104,20 +132,3 @@ jobs:
           name: pcb-release-${{ matrix.board.name }}-${{ steps.release.outputs.short_sha }}
           path: ${{ steps.release.outputs.archive_path }}
           retention-days: 30
-
-      - name: Upload cosign bundle
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ steps.release.outputs.archive_path }}.sigstore.json
-          path: ${{ steps.release.outputs.archive_path }}.sigstore.json
-          retention-days: 30
-
-      - name: Create release
-        shell: bash
-        env:
-          API_URL: https://api.diode.computer/api/releases/upload
-        run: |
-          set -euo pipefail
-          curl -sSf -X POST "$API_URL" \
-            -F "artifact=@${{ steps.release.outputs.archive_path }};type=application/zip" \
-            -F "bundle=@${{ steps.release.outputs.archive_path }}.sigstore.json;type=application/json"
