@@ -7,7 +7,7 @@ on:
       - '**'
 
 env:
-  PCB_VERSION: "HEAD"
+  PCB_VERSION: "v0.3.29"
 
 permissions:
   contents: read
@@ -72,7 +72,7 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Install dependencies
-        run: apt-get update && apt-get install -y curl jq git python3 python3-venv python-is-python3 xz-utils
+        run: apt-get update && apt-get install -y curl jq git xz-utils xxd
 
       - name: Fix git permissions
         run: git config --global --add safe.directory $GITHUB_WORKSPACE
@@ -96,35 +96,25 @@ jobs:
           echo "short_sha=$short_sha" >> "$GITHUB_OUTPUT"
 
       - name: Create release
-        shell: bash
         env:
           ARTIFACT: ${{ steps.release.outputs.archive_path }}
         run: |
           set -euo pipefail
 
           SHA256_HEX=$(shasum -a 256 "$ARTIFACT" | cut -d' ' -f1)
-          SHA256_BASE64=$(python3 -c "import base64; print(base64.b64encode(bytes.fromhex('$SHA256_HEX')).decode())")
+          SHA256_BASE64=$(echo -n "$SHA256_HEX" | xxd -r -p | base64)
 
-          OIDC_TOKEN=$(curl -sSf \
-            -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
-            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=https://api.diode.computer/releases" \
-            | jq -r '.value')
+          OIDC_TOKEN=$(curl -sSf -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=https://api.diode.computer/releases" | jq -r '.value')
 
-          UPLOAD_URL=$(curl -sSf -X POST \
-            -H "Authorization: Bearer $OIDC_TOKEN" \
-            "https://api.diode.computer/api/file/$SHA256_HEX" \
-            | jq -r '.uploadUrl')
+          UPLOAD_URL=$(curl -sSf -X POST -H "Authorization: Bearer $OIDC_TOKEN" \
+            "https://api.diode.computer/api/file/$SHA256_HEX" | jq -r '.uploadUrl')
 
-          curl -sSf -X PUT "$UPLOAD_URL" \
-            -H "Content-Type: application/zip" \
-            -H "x-amz-checksum-sha256: $SHA256_BASE64" \
-            --data-binary @"$ARTIFACT"
+          curl -sSf -X PUT "$UPLOAD_URL" -H "Content-Type: application/zip" \
+            -H "x-amz-checksum-sha256: $SHA256_BASE64" --data-binary @"$ARTIFACT"
 
-          curl -sSf -X POST \
-            -H "Authorization: Bearer $OIDC_TOKEN" \
-            -H "Content-Type: application/json" \
-            -d "{\"artifactHash\":\"$SHA256_HEX\"}" \
-            "https://api.diode.computer/api/releases/github"
+          curl -sSf -X POST -H "Authorization: Bearer $OIDC_TOKEN" -H "Content-Type: application/json" \
+            -d "{\"artifactHash\":\"$SHA256_HEX\"}" "https://api.diode.computer/api/releases/github"
 
       - name: Upload release archive
         uses: actions/upload-artifact@v4
