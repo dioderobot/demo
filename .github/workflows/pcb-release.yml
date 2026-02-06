@@ -7,7 +7,7 @@ on:
       - '**'
 
 env:
-  PCB_VERSION: "v0.3.29"
+  PCB_VERSION: "v0.3.36"
 
 permissions:
   contents: read
@@ -32,7 +32,7 @@ jobs:
           version: ${{ matrix.pcb-version }}
       - name: Build .zen files
         run: |
-          pcb build boards --locked
+          pcb build . --locked
 
   detect:
     name: Detect boards
