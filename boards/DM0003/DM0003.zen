@@ -7,7 +7,7 @@ Author: Nasheed Ur Rehman
 # Libraries & Dependencies
 # ----------------------------------------------------------------------------
 
-load("@stdlib/config.zen", "config_properties", "config_unit")
+load("@stdlib/config.zen", "config_properties")
 load("@stdlib/interfaces.zen", "Ethernet_Phy", "Hdmi", "I2c", "Mipi", "PcieGen3x1Lane", "Power", "Ground", "Spi", "Usb2", "Usb3")
 load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Resistance", "Voltage", "VoltageRange")
 load("@stdlib/board_config.zen", "Board")

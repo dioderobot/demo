@@ -7,7 +7,6 @@
 # Libraries & Dependencies
 # ----------------------------------------------------------------------------
 
-load("@stdlib/config.zen", "config_unit")
 load("@stdlib/interfaces.zen", "CanTtl", "I2c", "Power", "Spi", "Swd", "Uart", "Usb2")
 load("@stdlib/properties.zen", "Layout")
 load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "Resistance", "Voltage")

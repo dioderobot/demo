@@ -1,11 +1,10 @@
-load("@stdlib/config.zen", "config_unit")
 load("@stdlib/interfaces.zen", "Ground", "Power")
 load("@stdlib/units.zen", "Frequency")
 
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 
 # Required
-frequency = config_unit("frequency", Frequency, default = "16MHz")
+frequency = config("frequency", Frequency, default = "16MHz")
 
 _active_osc_mpn_map = {
     "12MHz": "SG-210STF 12.0000ML0",

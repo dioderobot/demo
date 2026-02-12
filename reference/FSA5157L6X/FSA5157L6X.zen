@@ -9,7 +9,6 @@
 # ----------------------------------------------------------------------------
 
 load("@stdlib/units.zen", "Voltage", "Current", "Capacitance", "Inductance", "Frequency", "Resistance")
-load("@stdlib/config.zen", "config_unit")
 load("@stdlib/interfaces.zen", "Power", "CanTtl", "Can")
 
 # ----------------------------------------------------------------------------
