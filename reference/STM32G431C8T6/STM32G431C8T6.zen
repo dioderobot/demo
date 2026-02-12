@@ -9,7 +9,6 @@
 # ----------------------------------------------------------------------------
 
 load("@stdlib/units.zen", "Voltage", "Current", "Capacitance", "Inductance", "Frequency", "Resistance")
-load("@stdlib/config.zen", "config_unit")
 load("@stdlib/interfaces.zen", "Power", "Spi", "I2c", "Usb2", "Swd")
 
 # ----------------------------------------------------------------------------
@@ -28,9 +27,9 @@ FerriteBead = Module("@stdlib/generics/FerriteBead.zen")
 # Configuration Parameters
 # ----------------------------------------------------------------------------
 
-osc_freq = config_unit("crystal_frequency", Frequency, default="8MHz")
-osc_load = config_unit("crystal_load", Capacitance, default="12.5pF")
-osc_series_resistance = config_unit("crystal_series_resistance", Resistance, default="100ohms")
+osc_freq = config("crystal_frequency", Frequency, default="8MHz")
+osc_load = config("crystal_load", Capacitance, default="12.5pF")
+osc_series_resistance = config("crystal_series_resistance", Resistance, default="100ohms")
 
 # ----------------------------------------------------------------------------
 # Global Power Interfaces
