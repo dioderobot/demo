@@ -139,9 +139,7 @@ CM5(
     PWR_BUT=PWR_BUT,
     VBUS_EN=VBUS_EN,
     nRPIBOOT=nRPIBOOT,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
 )
 
 Ethernet(
@@ -149,18 +147,14 @@ Ethernet(
     ETH_C=ETH_C,
     nLed_G=ETH_nLED_ACTIVITY,
     nLed_Y=nLED_SPEED_100_1000,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
     **{"3v3pi": io_3v3pi, "gnd": io_gnd},
 )
 
 HDMI(
     name="HDMI",
     HDMI_C=HDMI_PI,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
     **{"5v": io_5v, "gnd": io_gnd},
 )
 
@@ -169,9 +163,7 @@ USBPI(
     USB_PI=USB_PI,
     CC1=CC1,
     CC2=CC2,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
     **{"5v": io_5v, "gnd": io_gnd},
 )
 
@@ -182,18 +174,14 @@ USB3PI(
     GND=io_gnd,
     VBUS_EN=VBUS_EN,
     USB_3PI=USB_3P,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
 )
 
 PCIe_M2(
     name="PCIE_M2",
     PCIE_C=PCIE_PI,
     PCIE_PWR_EN=PCIE_PI_PWR_EN,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
     **{"5v": io_5v, "gnd": io_gnd},
 )
 
@@ -203,9 +191,7 @@ DSI_CSI(
     cam_gpio0=CAM_GPIO0,
     cam_gpio1=CAM_GPIO1,
     i2c=I2C0,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
     **{"3v3pi": io_3v3pi, "gnd": io_gnd},
 )
 
@@ -222,9 +208,7 @@ IO(
     nLED_ACTIVITY=nLED_ACTIVITY,
     nRESET=GLOBAL_EN,
     pwr_but=PWR_BUT,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
     **{"5v": io_5v, "3v3pi": io_3v3pi, "gnd": io_gnd},
 )
 

@@ -133,9 +133,7 @@ Buck(
     gnd=io_gnd,
     pg=Net("NC"),
     enable=pcie_pwr_en,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
 )
 
 Resistor(

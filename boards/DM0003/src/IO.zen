@@ -141,9 +141,7 @@ LIS3DH(
     gnd=io_gnd,
     sda=I2C.SDA,
     scl=I2C.SCL,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
 )
 
 LED_V_F = "2V"

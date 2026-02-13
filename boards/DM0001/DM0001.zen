@@ -147,9 +147,7 @@ Buck(
     VIN_BUCK=VPLUS,
     VOUT_BUCK=V10V,
     GND=GND,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
 )
 
 Ldo(
@@ -159,9 +157,7 @@ Ldo(
     GND=GND,
     fb_resistor_top="52.3kohms",
     fb_resistor_bottom="10kohms",
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
 )
 
 Ldo(
@@ -171,9 +167,7 @@ Ldo(
     GND=GND,
     fb_resistor_top="30.9kohms",
     fb_resistor_bottom="10kohms",
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
 )
 
 # Power Caps
@@ -182,9 +176,7 @@ PowerCaps(
     name="PowerCaps",
     VPLUS=VPLUS,
     GND=GND,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
 )
 
 # MCU
@@ -229,9 +221,7 @@ Mcu(
     PC14_OSC32_IN=CAN_TERM,  # CAN Termination
     PC15_OSC32_OUT=STATUS,  # Status signal
     nRST=nRST,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
 )
 
 # Hall Encoder
@@ -244,9 +234,7 @@ HallEncoder(
     A_PLUS_H1_OUT=A_PLUS_H1_OUT,
     B_PLUS_H2_OUT=B_PLUS_H2_OUT,
     Z_PLUS_H3_OUT=Z_PLUS_H3_OUT,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
 )
 
 # CAN
@@ -259,9 +247,7 @@ CanInterface(
     CAN_TX=CAN_TX,
     CAN_TERM=CAN_TERM,  # CAN Termination Resistor
     CAN_SHDN=CAN_SHDN,  # CAN Shutdown
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
 )
 
 # Phase Drivers
@@ -279,9 +265,7 @@ PhaseDriver(
     VSHUNTP=VSHUNTP_A,
     GPIO_BEMF=GPIO_BEMF,
     BEMF=BEMF1,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
 )
 
 # Phase B Driver
@@ -297,9 +281,7 @@ PhaseDriver(
     VSHUNTP=VSHUNTP_B,
     GPIO_BEMF=GPIO_BEMF,
     BEMF=BEMF2,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
 )
 
 # Phase C Driver
@@ -315,9 +297,7 @@ PhaseDriver(
     VSHUNTP=VSHUNTP_C,
     GPIO_BEMF=GPIO_BEMF,
     BEMF=BEMF3,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
 )
 
 # Shunt Sense
@@ -335,9 +315,7 @@ ShuntSense(
     CURR_FDBK2_OPAMP_MINUS=CURR_FDBK2_OPAMP_MINUS,
     CURR_FDBK3_OPAMP_PLUS=CURR_FDBK3_OPAMP_PLUS,
     CURR_FDBK3_OPAMP_MINUS=CURR_FDBK3_OPAMP_MINUS,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
 )
 
 # TagConnect for SWD debugging
@@ -364,9 +342,7 @@ PwmHeader(
     P3=UART2_RX,
     P4=PWM,
     P5=GND,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
 )
 
 # VBUS Sense

@@ -74,7 +74,7 @@ GateDriver(
     boot_cap_voltage="25V",
     decoupling_cap_value="470nF",
     boot_cap_value="1uF",
-    properties={"collapse": "true"},
+    schematic="collapse",
 )
 
 Nfet(
@@ -90,7 +90,7 @@ Nfet(
     S_1=PHASEOUT,
     S_2=PHASEOUT,
     S_3=PHASEOUT,
-    properties={"collapse": "true"},
+    schematic="collapse",
 )
 
 Nfet(
@@ -106,7 +106,7 @@ Nfet(
     S_1=VSHUNTP,
     S_2=VSHUNTP,
     S_3=VSHUNTP,
-    properties={"collapse": "true"},
+    schematic="collapse",
 )
 
 # Shunt resistor

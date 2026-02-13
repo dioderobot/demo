@@ -98,9 +98,7 @@ SchottkyDiode(
     A=GND,
     K_1=OUT,
     K_2=OUT,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
 )
 
 # Schottky(

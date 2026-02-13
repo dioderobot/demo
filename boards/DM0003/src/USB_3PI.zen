@@ -179,9 +179,7 @@ Current_Limit_Switch(
     enable=VBUS_EN,
     nfault=Net("nfault"),
     current_limit="1750mA",
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
 )
 
 Component(
