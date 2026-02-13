@@ -54,11 +54,11 @@ Diode_Logo = Module("src/graphics/Diode_Logo.zen")
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-io_5v = io("io_5v", Power, default=Power("io_5v", voltage=VoltageRange("5V")))
-io_3v3pi = io("io_3v3pi", Power, default=Power("io_3v3pi", voltage=VoltageRange("3.3V")))
-io_1v8 = io("io_1v8", Power, default=Power("io_1v8", voltage=VoltageRange("1.8V")))
-io_gnd = io("io_gnd", Ground)
-io_gpio_vref = io("gpio_vref", Net)
+io_5v = Power("io_5v", voltage=VoltageRange("5V"))
+io_3v3pi = Power("io_3v3pi", voltage=VoltageRange("3.3V"))
+io_1v8 = Power("io_1v8", voltage=VoltageRange("1.8V"))
+io_gnd = Ground("io_gnd")
+io_gpio_vref = Net("gpio_vref")
 
 DPHY0_P = io("DPHY0_P", Mipi)
 HDMI_PI = io("HDMI_PI", Hdmi)
