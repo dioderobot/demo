@@ -6,7 +6,7 @@ Author: Nasheed Ur Rehman
 This module provides a configurable interface to select any XAL series inductor.
 The inductor is selected based on package and inductance configuration.
 
-Usage: 
+Usage:
     XAL50xx = Module("//reference/XAL50xx/XAL50xx.zen")
     XAL50xx(
         name = "L1",
@@ -33,7 +33,7 @@ load("@stdlib/config.zen", "config_properties")
 PackageOptions = enum("5030", "5050")
 
 # Package selection: "5030" or "5050"
-config_package = config("package", PackageOptions, default = PackageOptions("5050"))
+config_package = config("package", PackageOptions, default=PackageOptions("5050"))
 
 # Available inductance values for each package
 XAL5030_Inductance = enum(
@@ -58,9 +58,9 @@ XAL5050_Inductance = enum(
 
 # Inductance selection based on package
 if config_package == PackageOptions("5030"):
-    config_inductance = config("inductance", XAL5030_Inductance, default = XAL5030_Inductance("2.2uH"))
+    config_inductance = config("inductance", XAL5030_Inductance, default=XAL5030_Inductance("2.2uH"))
 elif config_package == PackageOptions("5050"):
-    config_inductance = config("inductance", XAL5050_Inductance, default = XAL5050_Inductance("5.6uH"))
+    config_inductance = config("inductance", XAL5050_Inductance, default=XAL5050_Inductance("5.6uH"))
 
 # ----------------------------------------------------------------------------
 # Component Mapping
@@ -106,7 +106,7 @@ if config_package == PackageOptions("5030"):
     else:
         # Fallback to default if not found
         Component = Module(XAL5030_Components["2.2uH"])
-        
+
 elif config_package == PackageOptions("5050"):
     # Get the inductance value string
     inductance_str = config_inductance.value
@@ -119,9 +119,9 @@ elif config_package == PackageOptions("5050"):
 # Instantiate the selected component
 # Component should always be assigned by this point
 Component(
-    name = "XAL_Inductor",
-    P1 = P1,
-    P2 = P2,
+    name="XAL_Inductor",
+    P1=P1,
+    P2=P2,
 )
 
 # ----------------------------------------------------------------------------

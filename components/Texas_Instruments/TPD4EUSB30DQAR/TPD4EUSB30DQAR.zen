@@ -2,19 +2,19 @@
 
 # Pins
 Pins = struct(
-    D1M = io("D1M", Net),
-    D1P = io("D1P", Net),
-    D2M = io("D2M", Net),
-    D2P = io("D2P", Net),
-    GND = io("GND", Net),
+    D1M=io("D1M", Net),
+    D1P=io("D1P", Net),
+    D2M=io("D2M", Net),
+    D2P=io("D2P", Net),
+    GND=io("GND", Net),
 )
 
 # Component
 Component(
-    name = "TPD4EUSB30DQAR",
-    symbol = Symbol(library = "TPD4EUSB30DQAR.kicad_sym"),
-    footprint = File("DQA_R-PUSON-N10_.kicad_mod"),
-    pins = {
+    name="TPD4EUSB30DQAR",
+    symbol=Symbol(library="TPD4EUSB30DQAR.kicad_sym"),
+    footprint=File("DQA_R-PUSON-N10_.kicad_mod"),
+    pins={
         "D1-": Pins.D1M,
         "D1+": Pins.D1P,
         "D2-": Pins.D2M,
@@ -26,14 +26,14 @@ Component(
         "N.C._3": Pins.D1M,
         "N.C._4": Pins.D1P,
     },
-    properties = {
+    properties={
         "value": "TPD4EUSB30DQAR",
         "mpn": "TPD4EUSB30DQAR",
         "description": "Texas Instruments - TPD4EUSB30DQAR - ESD and Surge Protection",
         "manufacturer": "Texas Instruments",
-        "LCSC Part" : "C90627",
+        "LCSC Part": "C90627",
         "alternatives": [
-            { "mpn": "DT1140-04LP-7", "manufacturer": "Diodes Incorporated" },
+            {"mpn": "DT1140-04LP-7", "manufacturer": "Diodes Incorporated"},
         ],
     },
 )

@@ -2,19 +2,19 @@
 
 # Pins
 Pins = struct(
-    CH1 = io("CH1", Net),
-    CH2 = io("CH2", Net),
-    CH3 = io("CH3", Net),
-    CH4 = io("CH4", Net),
-    GND = io("GND", Net),
+    CH1=io("CH1", Net),
+    CH2=io("CH2", Net),
+    CH3=io("CH3", Net),
+    CH4=io("CH4", Net),
+    GND=io("GND", Net),
 )
 
 # Component
 Component(
-    name = "PUSB3F96X",
-    symbol = Symbol(library = "PUSB3F96X.kicad_sym"),
-    footprint = File("PUSB3F96X.kicad_mod"),
-    pins = {
+    name="PUSB3F96X",
+    symbol=Symbol(library="PUSB3F96X.kicad_sym"),
+    footprint=File("PUSB3F96X.kicad_mod"),
+    pins={
         "CH1": Pins.CH1,
         "CH2": Pins.CH2,
         "CH3": Pins.CH3,
@@ -26,7 +26,7 @@ Component(
         "N.C._3": Pins.CH2,
         "N.C._4": Pins.CH1,
     },
-    properties = {
+    properties={
         "value": "PUSB3F96X",
         "mpn": "PUSB3F96X",
     },

@@ -6,193 +6,175 @@
 # Pins
 Pins_CM5IO = struct(
     # Power outputs
-    P1_8v_Output = io("P1_8v_Output", Net),
-    P3_3v_Output = io("P3_3v_Output", Net),
-    P5v_Input = io("P5v_Input", Net),
-    GND = io("GND", Net),
-    VBAT = io("VBAT", Net),
-    GPIO_VREF_1_8v_3_3v_Input = io("GPIO_VREF_1_8v_3_3v_Input", Net),
-    PMIC_ENABLE = io("PMIC_ENABLE", Net),
-    PWR_BUT = io("PWR_BUT", Net),
-    VBUS_EN = io("VBUS_EN", Net),
-
+    P1_8v_Output=io("P1_8v_Output", Net),
+    P3_3v_Output=io("P3_3v_Output", Net),
+    P5v_Input=io("P5v_Input", Net),
+    GND=io("GND", Net),
+    VBAT=io("VBAT", Net),
+    GPIO_VREF_1_8v_3_3v_Input=io("GPIO_VREF_1_8v_3_3v_Input", Net),
+    PMIC_ENABLE=io("PMIC_ENABLE", Net),
+    PWR_BUT=io("PWR_BUT", Net),
+    VBUS_EN=io("VBUS_EN", Net),
     # Ethernet
-    Ethernet_Pair0_N = io("Ethernet_Pair0_N", Net),
-    Ethernet_Pair0_P = io("Ethernet_Pair0_P", Net),
-    Ethernet_Pair1_N = io("Ethernet_Pair1_N", Net),
-    Ethernet_Pair1_P = io("Ethernet_Pair1_P", Net),
-    Ethernet_Pair2_N = io("Ethernet_Pair2_N", Net),
-    Ethernet_Pair2_P = io("Ethernet_Pair2_P", Net),
-    Ethernet_Pair3_N = io("Ethernet_Pair3_N", Net),
-    Ethernet_Pair3_P = io("Ethernet_Pair3_P", Net),
-    Ethernet_SYNC_OUT_3_3v = io("Ethernet_SYNC_OUT_3_3v", Net),
-    Ethernet_nLED2_3_3v = io("Ethernet_nLED2_3_3v", Net),
-    Ethernet_nLED3_3_3v = io("Ethernet_nLED3_3_3v", Net),
-
+    Ethernet_Pair0_N=io("Ethernet_Pair0_N", Net),
+    Ethernet_Pair0_P=io("Ethernet_Pair0_P", Net),
+    Ethernet_Pair1_N=io("Ethernet_Pair1_N", Net),
+    Ethernet_Pair1_P=io("Ethernet_Pair1_P", Net),
+    Ethernet_Pair2_N=io("Ethernet_Pair2_N", Net),
+    Ethernet_Pair2_P=io("Ethernet_Pair2_P", Net),
+    Ethernet_Pair3_N=io("Ethernet_Pair3_N", Net),
+    Ethernet_Pair3_P=io("Ethernet_Pair3_P", Net),
+    Ethernet_SYNC_OUT_3_3v=io("Ethernet_SYNC_OUT_3_3v", Net),
+    Ethernet_nLED2_3_3v=io("Ethernet_nLED2_3_3v", Net),
+    Ethernet_nLED3_3_3v=io("Ethernet_nLED3_3_3v", Net),
     # GPIO
-    GPIO2 = io("GPIO2", Net),
-    GPIO3 = io("GPIO3", Net),
-    GPIO4 = io("GPIO4", Net),
-    GPIO5 = io("GPIO5", Net),
-    GPIO6 = io("GPIO6", Net),
-    GPIO7 = io("GPIO7", Net),
-    GPIO8 = io("GPIO8", Net),
-    GPIO9 = io("GPIO9", Net),
-    GPIO10 = io("GPIO10", Net),
-    GPIO11 = io("GPIO11", Net),
-    GPIO12 = io("GPIO12", Net),
-    GPIO13 = io("GPIO13", Net),
-    GPIO14 = io("GPIO14", Net),
-    GPIO15 = io("GPIO15", Net),
-    GPIO16 = io("GPIO16", Net),
-    GPIO17 = io("GPIO17", Net),
-    GPIO18 = io("GPIO18", Net),
-    GPIO19 = io("GPIO19", Net),
-    GPIO20 = io("GPIO20", Net),
-    GPIO21 = io("GPIO21", Net),
-    GPIO22 = io("GPIO22", Net),
-    GPIO23 = io("GPIO23", Net),
-    GPIO24 = io("GPIO24", Net),
-    GPIO25 = io("GPIO25", Net),
-    GPIO26 = io("GPIO26", Net),
-    GPIO27 = io("GPIO27", Net),
-
+    GPIO2=io("GPIO2", Net),
+    GPIO3=io("GPIO3", Net),
+    GPIO4=io("GPIO4", Net),
+    GPIO5=io("GPIO5", Net),
+    GPIO6=io("GPIO6", Net),
+    GPIO7=io("GPIO7", Net),
+    GPIO8=io("GPIO8", Net),
+    GPIO9=io("GPIO9", Net),
+    GPIO10=io("GPIO10", Net),
+    GPIO11=io("GPIO11", Net),
+    GPIO12=io("GPIO12", Net),
+    GPIO13=io("GPIO13", Net),
+    GPIO14=io("GPIO14", Net),
+    GPIO15=io("GPIO15", Net),
+    GPIO16=io("GPIO16", Net),
+    GPIO17=io("GPIO17", Net),
+    GPIO18=io("GPIO18", Net),
+    GPIO19=io("GPIO19", Net),
+    GPIO20=io("GPIO20", Net),
+    GPIO21=io("GPIO21", Net),
+    GPIO22=io("GPIO22", Net),
+    GPIO23=io("GPIO23", Net),
+    GPIO24=io("GPIO24", Net),
+    GPIO25=io("GPIO25", Net),
+    GPIO26=io("GPIO26", Net),
+    GPIO27=io("GPIO27", Net),
     # I2C / EEPROM
-    ID_SC = io("ID_SC", Net),
-    ID_SD = io("ID_SD", Net),
-    SCL0 = io("SCL0", Net),
-    SDA0 = io("SDA0", Net),
-    EEPROM_nWP = io("EEPROM_nWP", Net),
-
+    ID_SC=io("ID_SC", Net),
+    ID_SD=io("ID_SD", Net),
+    SCL0=io("SCL0", Net),
+    SDA0=io("SDA0", Net),
+    EEPROM_nWP=io("EEPROM_nWP", Net),
     # SD Card
-    SD_CLK = io("SD_CLK", Net),
-    SD_CMD = io("SD_CMD", Net),
-    SD_DAT0 = io("SD_DAT0", Net),
-    SD_DAT1 = io("SD_DAT1", Net),
-    SD_DAT2 = io("SD_DAT2", Net),
-    SD_DAT3 = io("SD_DAT3", Net),
-    SD_DAT4 = io("SD_DAT4", Net),
-    SD_DAT5 = io("SD_DAT5", Net),
-    SD_DAT6 = io("SD_DAT6", Net),
-    SD_DAT7 = io("SD_DAT7", Net),
-    SD_PWR_ON = io("SD_PWR_ON", Net),
-    SD_VDD_Override = io("SD_VDD_Override", Net),
-
+    SD_CLK=io("SD_CLK", Net),
+    SD_CMD=io("SD_CMD", Net),
+    SD_DAT0=io("SD_DAT0", Net),
+    SD_DAT1=io("SD_DAT1", Net),
+    SD_DAT2=io("SD_DAT2", Net),
+    SD_DAT3=io("SD_DAT3", Net),
+    SD_DAT4=io("SD_DAT4", Net),
+    SD_DAT5=io("SD_DAT5", Net),
+    SD_DAT6=io("SD_DAT6", Net),
+    SD_DAT7=io("SD_DAT7", Net),
+    SD_PWR_ON=io("SD_PWR_ON", Net),
+    SD_VDD_Override=io("SD_VDD_Override", Net),
     # HDMI0
-    HDMI0_CEC = io("HDMI0_CEC", Net),
-    HDMI0_CLK_N = io("HDMI0_CLK_N", Net),
-    HDMI0_CLK_P = io("HDMI0_CLK_P", Net),
-    HDMI0_HOTPLUG = io("HDMI0_HOTPLUG", Net),
-    HDMI0_SCL = io("HDMI0_SCL", Net),
-    HDMI0_SDA = io("HDMI0_SDA", Net),
-    HDMI0_TX0_N = io("HDMI0_TX0_N", Net),
-    HDMI0_TX0_P = io("HDMI0_TX0_P", Net),
-    HDMI0_TX1_N = io("HDMI0_TX1_N", Net),
-    HDMI0_TX1_P = io("HDMI0_TX1_P", Net),
-    HDMI0_TX2_N = io("HDMI0_TX2_N", Net),
-    HDMI0_TX2_P = io("HDMI0_TX2_P", Net),
-
+    HDMI0_CEC=io("HDMI0_CEC", Net),
+    HDMI0_CLK_N=io("HDMI0_CLK_N", Net),
+    HDMI0_CLK_P=io("HDMI0_CLK_P", Net),
+    HDMI0_HOTPLUG=io("HDMI0_HOTPLUG", Net),
+    HDMI0_SCL=io("HDMI0_SCL", Net),
+    HDMI0_SDA=io("HDMI0_SDA", Net),
+    HDMI0_TX0_N=io("HDMI0_TX0_N", Net),
+    HDMI0_TX0_P=io("HDMI0_TX0_P", Net),
+    HDMI0_TX1_N=io("HDMI0_TX1_N", Net),
+    HDMI0_TX1_P=io("HDMI0_TX1_P", Net),
+    HDMI0_TX2_N=io("HDMI0_TX2_N", Net),
+    HDMI0_TX2_P=io("HDMI0_TX2_P", Net),
     # HDMI1
-    HDMI1_CEC = io("HDMI1_CEC", Net),
-    HDMI1_CLK_N = io("HDMI1_CLK_N", Net),
-    HDMI1_CLK_P = io("HDMI1_CLK_P", Net),
-    HDMI1_HOTPLUG = io("HDMI1_HOTPLUG", Net),
-    HDMI1_SCL = io("HDMI1_SCL", Net),
-    HDMI1_SDA = io("HDMI1_SDA", Net),
-    HDMI1_TX0_N = io("HDMI1_TX0_N", Net),
-    HDMI1_TX0_P = io("HDMI1_TX0_P", Net),
-    HDMI1_TX1_N = io("HDMI1_TX1_N", Net),
-    HDMI1_TX1_P = io("HDMI1_TX1_P", Net),
-    HDMI1_TX2_N = io("HDMI1_TX2_N", Net),
-    HDMI1_TX2_P = io("HDMI1_TX2_P", Net),
-
+    HDMI1_CEC=io("HDMI1_CEC", Net),
+    HDMI1_CLK_N=io("HDMI1_CLK_N", Net),
+    HDMI1_CLK_P=io("HDMI1_CLK_P", Net),
+    HDMI1_HOTPLUG=io("HDMI1_HOTPLUG", Net),
+    HDMI1_SCL=io("HDMI1_SCL", Net),
+    HDMI1_SDA=io("HDMI1_SDA", Net),
+    HDMI1_TX0_N=io("HDMI1_TX0_N", Net),
+    HDMI1_TX0_P=io("HDMI1_TX0_P", Net),
+    HDMI1_TX1_N=io("HDMI1_TX1_N", Net),
+    HDMI1_TX1_P=io("HDMI1_TX1_P", Net),
+    HDMI1_TX2_N=io("HDMI1_TX2_N", Net),
+    HDMI1_TX2_P=io("HDMI1_TX2_P", Net),
     # MIPI0
-    MIPI0_C_N = io("MIPI0_C_N", Net),
-    MIPI0_C_P = io("MIPI0_C_P", Net),
-    MIPI0_D0_N = io("MIPI0_D0_N", Net),
-    MIPI0_D0_P = io("MIPI0_D0_P", Net),
-    MIPI0_D1_N = io("MIPI0_D1_N", Net),
-    MIPI0_D1_P = io("MIPI0_D1_P", Net),
-    MIPI0_D2_N = io("MIPI0_D2_N", Net),
-    MIPI0_D2_P = io("MIPI0_D2_P", Net),
-    MIPI0_D3_N = io("MIPI0_D3_N", Net),
-    MIPI0_D3_P = io("MIPI0_D3_P", Net),
-
+    MIPI0_C_N=io("MIPI0_C_N", Net),
+    MIPI0_C_P=io("MIPI0_C_P", Net),
+    MIPI0_D0_N=io("MIPI0_D0_N", Net),
+    MIPI0_D0_P=io("MIPI0_D0_P", Net),
+    MIPI0_D1_N=io("MIPI0_D1_N", Net),
+    MIPI0_D1_P=io("MIPI0_D1_P", Net),
+    MIPI0_D2_N=io("MIPI0_D2_N", Net),
+    MIPI0_D2_P=io("MIPI0_D2_P", Net),
+    MIPI0_D3_N=io("MIPI0_D3_N", Net),
+    MIPI0_D3_P=io("MIPI0_D3_P", Net),
     # MIPI1
-    MIPI1_C_N = io("MIPI1_C_N", Net),
-    MIPI1_C_P = io("MIPI1_C_P", Net),
-    MIPI1_D0_N = io("MIPI1_D0_N", Net),
-    MIPI1_D0_P = io("MIPI1_D0_P", Net),
-    MIPI1_D1_N = io("MIPI1_D1_N", Net),
-    MIPI1_D1_P = io("MIPI1_D1_P", Net),
-    MIPI1_D2_N = io("MIPI1_D2_N", Net),
-    MIPI1_D2_P = io("MIPI1_D2_P", Net),
-    MIPI1_D3_N = io("MIPI1_D3_N", Net),
-    MIPI1_D3_P = io("MIPI1_D3_P", Net),
-
+    MIPI1_C_N=io("MIPI1_C_N", Net),
+    MIPI1_C_P=io("MIPI1_C_P", Net),
+    MIPI1_D0_N=io("MIPI1_D0_N", Net),
+    MIPI1_D0_P=io("MIPI1_D0_P", Net),
+    MIPI1_D1_N=io("MIPI1_D1_N", Net),
+    MIPI1_D1_P=io("MIPI1_D1_P", Net),
+    MIPI1_D2_N=io("MIPI1_D2_N", Net),
+    MIPI1_D2_P=io("MIPI1_D2_P", Net),
+    MIPI1_D3_N=io("MIPI1_D3_N", Net),
+    MIPI1_D3_P=io("MIPI1_D3_P", Net),
     # PCIe
-    PCIe_CLK_N = io("PCIe_CLK_N", Net),
-    PCIe_CLK_P = io("PCIe_CLK_P", Net),
-    PCIe_RX_N = io("PCIe_RX_N", Net),
-    PCIe_RX_P = io("PCIe_RX_P", Net),
-    PCIe_TX_N = io("PCIe_TX_N", Net),
-    PCIe_TX_P = io("PCIe_TX_P", Net),
-    PCIe_nCLKREQ = io("PCIe_nCLKREQ", Net),
-    PCIe_nRST = io("PCIe_nRST", Net),
-    PCIE_PWR_EN = io("PCIE_PWR_EN", Net),
-    PCIE_nWAKE = io("PCIE_nWAKE", Net),
-
+    PCIe_CLK_N=io("PCIe_CLK_N", Net),
+    PCIe_CLK_P=io("PCIe_CLK_P", Net),
+    PCIe_RX_N=io("PCIe_RX_N", Net),
+    PCIe_RX_P=io("PCIe_RX_P", Net),
+    PCIe_TX_N=io("PCIe_TX_N", Net),
+    PCIe_TX_P=io("PCIe_TX_P", Net),
+    PCIe_nCLKREQ=io("PCIe_nCLKREQ", Net),
+    PCIe_nRST=io("PCIe_nRST", Net),
+    PCIE_PWR_EN=io("PCIE_PWR_EN", Net),
+    PCIE_nWAKE=io("PCIE_nWAKE", Net),
     # USB2
-    USB2_N = io("USB2_N", Net),
-    USB2_P = io("USB2_P", Net),
-    USB_OTG_ID = io("USB_OTG_ID", Net),
-
+    USB2_N=io("USB2_N", Net),
+    USB2_P=io("USB2_P", Net),
+    USB_OTG_ID=io("USB_OTG_ID", Net),
     # USB3-0
-    USB3M0MD_N = io("USB3M0MD_N", Net),
-    USB3M0MD_P = io("USB3M0MD_P", Net),
-    USB3M0MRX_N = io("USB3M0MRX_N", Net),
-    USB3M0MRX_P = io("USB3M0MRX_P", Net),
-    USB3M0MTX_N = io("USB3M0MTX_N", Net),
-    USB3M0MTX_P = io("USB3M0MTX_P", Net),
-
+    USB3M0MD_N=io("USB3M0MD_N", Net),
+    USB3M0MD_P=io("USB3M0MD_P", Net),
+    USB3M0MRX_N=io("USB3M0MRX_N", Net),
+    USB3M0MRX_P=io("USB3M0MRX_P", Net),
+    USB3M0MTX_N=io("USB3M0MTX_N", Net),
+    USB3M0MTX_P=io("USB3M0MTX_P", Net),
     # USB3-1
-    USB3M1MD_N = io("USB3M1MD_N", Net),
-    USB3M1MD_P = io("USB3M1MD_P", Net),
-    USB3M1MRX_N = io("USB3M1MRX_N", Net),
-    USB3M1MRX_P = io("USB3M1MRX_P", Net),
-    USB3M1MTX_N = io("USB3M1MTX_N", Net),
-    USB3M1MTX_P = io("USB3M1MTX_P", Net),
-
+    USB3M1MD_N=io("USB3M1MD_N", Net),
+    USB3M1MD_P=io("USB3M1MD_P", Net),
+    USB3M1MRX_N=io("USB3M1MRX_N", Net),
+    USB3M1MRX_P=io("USB3M1MRX_P", Net),
+    USB3M1MTX_N=io("USB3M1MTX_N", Net),
+    USB3M1MTX_P=io("USB3M1MTX_P", Net),
     # USB-C CC
-    CC1 = io("CC1", Net),
-    CC2 = io("CC2", Net),
-
+    CC1=io("CC1", Net),
+    CC2=io("CC2", Net),
     # Camera
-    CAM_GPIO0 = io("CAM_GPIO0", Net),
-    CAM_GPIO1 = io("CAM_GPIO1", Net),
-
+    CAM_GPIO0=io("CAM_GPIO0", Net),
+    CAM_GPIO1=io("CAM_GPIO1", Net),
     # Fan
-    FAN_PWM = io("FAN_PWM", Net),
-    FAN_TACHO = io("FAN_TACHO", Net),
-
+    FAN_PWM=io("FAN_PWM", Net),
+    FAN_TACHO=io("FAN_TACHO", Net),
     # LEDs
-    LED_nACT = io("LED_nACT", Net),
-    LED_nPWR = io("LED_nPWR", Net),
-
+    LED_nACT=io("LED_nACT", Net),
+    LED_nPWR=io("LED_nPWR", Net),
     # Wireless
-    BT_nDisable = io("BT_nDisable", Net),
-    WiFi_nDisable = io("WiFi_nDisable", Net),
-
+    BT_nDisable=io("BT_nDisable", Net),
+    WiFi_nDisable=io("WiFi_nDisable", Net),
     # Boot
-    nRPIBOOT = io("nRPIBOOT", Net),
+    nRPIBOOT=io("nRPIBOOT", Net),
 )
 
 # Component
 Component(
-    name = "CM5IO",
-    symbol = Symbol(library = "computemodule5-cm5.kicad_sym"),
-    footprint = File("Raspberry-Pi-5-Compute-Module.kicad_mod"),
-    pins = {
+    name="CM5IO",
+    symbol=Symbol(library="computemodule5-cm5.kicad_sym"),
+    footprint=File("Raspberry-Pi-5-Compute-Module.kicad_mod"),
+    pins={
         # Power
         "+1.8v_(Output)": Pins_CM5IO.P1_8v_Output,
         "+3.3v_(Output)": Pins_CM5IO.P3_3v_Output,
@@ -203,7 +185,6 @@ Component(
         "PMIC_ENABLE": Pins_CM5IO.PMIC_ENABLE,
         "PWR_BUT": Pins_CM5IO.PWR_BUT,
         "VBUS_EN": Pins_CM5IO.VBUS_EN,
-
         # Ethernet
         "Ethernet_Pair0_N": Pins_CM5IO.Ethernet_Pair0_N,
         "Ethernet_Pair0_P": Pins_CM5IO.Ethernet_Pair0_P,
@@ -216,7 +197,6 @@ Component(
         "Ethernet_SYNC_OUT(3.3v)": Pins_CM5IO.Ethernet_SYNC_OUT_3_3v,
         "Ethernet_nLED2(3.3v)": Pins_CM5IO.Ethernet_nLED2_3_3v,
         "Ethernet_nLED3(3.3v)": Pins_CM5IO.Ethernet_nLED3_3_3v,
-
         # GPIO
         "GPIO2": Pins_CM5IO.GPIO2,
         "GPIO3": Pins_CM5IO.GPIO3,
@@ -244,14 +224,12 @@ Component(
         "GPIO25": Pins_CM5IO.GPIO25,
         "GPIO26": Pins_CM5IO.GPIO26,
         "GPIO27": Pins_CM5IO.GPIO27,
-
         # I2C / EEPROM
         "ID_SC": Pins_CM5IO.ID_SC,
         "ID_SD": Pins_CM5IO.ID_SD,
         "SCL0": Pins_CM5IO.SCL0,
         "SDA0": Pins_CM5IO.SDA0,
         "EEPROM_nWP": Pins_CM5IO.EEPROM_nWP,
-
         # SD Card
         "SD_CLK": Pins_CM5IO.SD_CLK,
         "SD_CMD": Pins_CM5IO.SD_CMD,
@@ -265,7 +243,6 @@ Component(
         "SD_DAT7": Pins_CM5IO.SD_DAT7,
         "SD_PWR_ON": Pins_CM5IO.SD_PWR_ON,
         "SD_VDD_Override": Pins_CM5IO.SD_VDD_Override,
-
         # HDMI0
         "HDMI0_CEC": Pins_CM5IO.HDMI0_CEC,
         "HDMI0_CLK_N": Pins_CM5IO.HDMI0_CLK_N,
@@ -279,7 +256,6 @@ Component(
         "HDMI0_TX1_P": Pins_CM5IO.HDMI0_TX1_P,
         "HDMI0_TX2_N": Pins_CM5IO.HDMI0_TX2_N,
         "HDMI0_TX2_P": Pins_CM5IO.HDMI0_TX2_P,
-
         # HDMI1
         "HDMI1_CEC": Pins_CM5IO.HDMI1_CEC,
         "HDMI1_CLK_N": Pins_CM5IO.HDMI1_CLK_N,
@@ -293,7 +269,6 @@ Component(
         "HDMI1_TX1_P": Pins_CM5IO.HDMI1_TX1_P,
         "HDMI1_TX2_N": Pins_CM5IO.HDMI1_TX2_N,
         "HDMI1_TX2_P": Pins_CM5IO.HDMI1_TX2_P,
-
         # MIPI0
         "MIPI0_C_N": Pins_CM5IO.MIPI0_C_N,
         "MIPI0_C_P": Pins_CM5IO.MIPI0_C_P,
@@ -305,7 +280,6 @@ Component(
         "MIPI0_D2_P": Pins_CM5IO.MIPI0_D2_P,
         "MIPI0_D3_N": Pins_CM5IO.MIPI0_D3_N,
         "MIPI0_D3_P": Pins_CM5IO.MIPI0_D3_P,
-
         # MIPI1
         "MIPI1_C_N": Pins_CM5IO.MIPI1_C_N,
         "MIPI1_C_P": Pins_CM5IO.MIPI1_C_P,
@@ -317,7 +291,6 @@ Component(
         "MIPI1_D2_P": Pins_CM5IO.MIPI1_D2_P,
         "MIPI1_D3_N": Pins_CM5IO.MIPI1_D3_N,
         "MIPI1_D3_P": Pins_CM5IO.MIPI1_D3_P,
-
         # PCIe
         "PCIe_CLK_N": Pins_CM5IO.PCIe_CLK_N,
         "PCIe_CLK_P": Pins_CM5IO.PCIe_CLK_P,
@@ -329,12 +302,10 @@ Component(
         "PCIe_nRST": Pins_CM5IO.PCIe_nRST,
         "PCIE_PWR_EN": Pins_CM5IO.PCIE_PWR_EN,
         "PCIE_nWAKE": Pins_CM5IO.PCIE_nWAKE,
-
         # USB2
         "USB2_N": Pins_CM5IO.USB2_N,
         "USB2_P": Pins_CM5IO.USB2_P,
         "USB_OTG_ID": Pins_CM5IO.USB_OTG_ID,
-
         # USB3-0
         "USB3-0-D_N": Pins_CM5IO.USB3M0MD_N,
         "USB3-0-D_P": Pins_CM5IO.USB3M0MD_P,
@@ -342,7 +313,6 @@ Component(
         "USB3-0-RX_P": Pins_CM5IO.USB3M0MRX_P,
         "USB3-0-TX_N": Pins_CM5IO.USB3M0MTX_N,
         "USB3-0-TX_P": Pins_CM5IO.USB3M0MTX_P,
-
         # USB3-1
         "USB3-1-D_N": Pins_CM5IO.USB3M1MD_N,
         "USB3-1-D_P": Pins_CM5IO.USB3M1MD_P,
@@ -350,27 +320,21 @@ Component(
         "USB3-1-RX_P": Pins_CM5IO.USB3M1MRX_P,
         "USB3-1-TX_N": Pins_CM5IO.USB3M1MTX_N,
         "USB3-1-TX_P": Pins_CM5IO.USB3M1MTX_P,
-
         # USB-C CC
         "CC1": Pins_CM5IO.CC1,
         "CC2": Pins_CM5IO.CC2,
-
         # Camera
         "CAM_GPIO0": Pins_CM5IO.CAM_GPIO0,
         "CAM_GPIO1": Pins_CM5IO.CAM_GPIO1,
-
         # Fan
         "FAN_PWM": Pins_CM5IO.FAN_PWM,
         "FAN_TACHO": Pins_CM5IO.FAN_TACHO,
-
         # LEDs
         "LED_nACT": Pins_CM5IO.LED_nACT,
         "LED_nPWR": Pins_CM5IO.LED_nPWR,
-
         # Wireless
         "BT_nDisable": Pins_CM5IO.BT_nDisable,
         "WiFi_nDisable": Pins_CM5IO.WiFi_nDisable,
-
         # Boot
         "nRPIBOOT": Pins_CM5IO.nRPIBOOT,
     },

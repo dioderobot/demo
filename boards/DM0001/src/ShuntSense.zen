@@ -20,8 +20,8 @@ Resistor = Module("@stdlib/generics/Resistor.zen")
 # Global Power Interfaces
 # ---------------------------------------------------------------------------
 
-V3V3 = io("V3V3", Net, default = Net("V3V3", symbol = Symbol("@kicad-symbols/power.kicad_sym:+3V3")))
-GND = io("GND", Net, default = Net("GND", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+V3V3 = io("V3V3", Net, default=Net("V3V3", symbol=Symbol("@kicad-symbols/power.kicad_sym:+3V3")))
+GND = io("GND", Net, default=Net("GND", symbol=Symbol("@kicad-symbols/power.kicad_sym:GND")))
 
 # ----------------------------------------------------------------------------
 # Global IO Nets
@@ -56,80 +56,80 @@ CURR_FDBK3_OPAMP_MINUS = GND
 # Phase A
 
 Resistor(
-    name = "R_Divider_Top_A",
-    value = "22kohms 1%",
-    package = "0402",
-    P1 = V3V3,
-    P2 = CURR_FDBK1_OPAMP_PLUS,
+    name="R_Divider_Top_A",
+    value="22kohms 1%",
+    package="0402",
+    P1=V3V3,
+    P2=CURR_FDBK1_OPAMP_PLUS,
 )
 
 Resistor(
-    name = "R_Divider_Bottom_A",
-    value = "2.2kohms 1%",
-    package = "0402",
-    P1 = CURR_FDBK1_OPAMP_PLUS,
-    P2 = GND,
+    name="R_Divider_Bottom_A",
+    value="2.2kohms 1%",
+    package="0402",
+    P1=CURR_FDBK1_OPAMP_PLUS,
+    P2=GND,
 )
 
 Resistor(
-    name = "R_Feedback_A",
-    value = "1.5kohms 1%",
-    package = "0402",
-    P1 = CURR_FDBK1_OPAMP_PLUS,
-    P2 = VSHUNTP_A,
+    name="R_Feedback_A",
+    value="1.5kohms 1%",
+    package="0402",
+    P1=CURR_FDBK1_OPAMP_PLUS,
+    P2=VSHUNTP_A,
 )
 
 # Phase B
 
 
 Resistor(
-    name = "R_Divider_Top_B",
-    value = "22kohms 1%",
-    package = "0402",
-    P1 = V3V3,
-    P2 = CURR_FDBK2_OPAMP_PLUS,
+    name="R_Divider_Top_B",
+    value="22kohms 1%",
+    package="0402",
+    P1=V3V3,
+    P2=CURR_FDBK2_OPAMP_PLUS,
 )
 
 Resistor(
-    name = "R_Divider_Bottom_B",
-    value = "2.2kohms 1%",
-    package = "0402",
-    P1 = CURR_FDBK2_OPAMP_PLUS,
-    P2 = GND,
-)   
-
-Resistor(
-    name = "R_Feedback_B",
-    value = "1.5kohms 1%",
-    package = "0402",
-    P1 = CURR_FDBK2_OPAMP_PLUS,
-    P2 = VSHUNTP_B,
-)
-
-# Phase C   
-
-Resistor(
-    name = "R_Divider_Top_C",
-    value = "22kohms 1%",
-    package = "0402",
-    P1 = V3V3,
-    P2 = CURR_FDBK3_OPAMP_PLUS,
-)
-
-Resistor(   
-    name = "R_Divider_Bottom_C",
-    value = "2.2kohms 1%",
-    package = "0402",
-    P1 = CURR_FDBK3_OPAMP_PLUS,
-    P2 = GND,
+    name="R_Divider_Bottom_B",
+    value="2.2kohms 1%",
+    package="0402",
+    P1=CURR_FDBK2_OPAMP_PLUS,
+    P2=GND,
 )
 
 Resistor(
-    name = "R_Feedback_C",
-    value = "1.5kohms 1%",
-    package = "0402",
-    P1 = CURR_FDBK3_OPAMP_PLUS,
-    P2 = VSHUNTP_C,
+    name="R_Feedback_B",
+    value="1.5kohms 1%",
+    package="0402",
+    P1=CURR_FDBK2_OPAMP_PLUS,
+    P2=VSHUNTP_B,
+)
+
+# Phase C
+
+Resistor(
+    name="R_Divider_Top_C",
+    value="22kohms 1%",
+    package="0402",
+    P1=V3V3,
+    P2=CURR_FDBK3_OPAMP_PLUS,
+)
+
+Resistor(
+    name="R_Divider_Bottom_C",
+    value="2.2kohms 1%",
+    package="0402",
+    P1=CURR_FDBK3_OPAMP_PLUS,
+    P2=GND,
+)
+
+Resistor(
+    name="R_Feedback_C",
+    value="1.5kohms 1%",
+    package="0402",
+    P1=CURR_FDBK3_OPAMP_PLUS,
+    P2=VSHUNTP_C,
 )
 
 # ============================================================================

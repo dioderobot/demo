@@ -8,7 +8,7 @@ Author: Nasheed Ur Rehman
 # ----------------------------------------------------------------------------
 
 load("@stdlib/config.zen", "config_properties")
-load("@stdlib/interfaces.zen", "I2c", "Power", "Spi", "Power", "Ground","NotConnected")
+load("@stdlib/interfaces.zen", "I2c", "Power", "Spi", "Power", "Ground", "NotConnected")
 load("@stdlib/units.zen", "Capacitance", "Current", "Resistance", "Voltage", "VoltageRange")
 load("@stdlib/utils.zen", "e96")
 
@@ -20,23 +20,31 @@ load("@stdlib/utils.zen", "e96")
 # Component Modules
 # ----------------------------------------------------------------------------
 
-SPI_Connector = Module("github.com/dioderobot/demo/components/JST_JAPAN_SOLDERLESS_TERMINALS/BM10BMSURSMTF_LF_SN/BM10BMSURSMTF_LF_SN.zen")
-FAN_Connector = Module("github.com/dioderobot/demo/components/JST_JAPAN_SOLDERLESS_TERMINALS/BM04BMSRSSMTB_LF_SN/BM04BMSRSSMTB_LF_SN.zen")
-I2C_Connector = Module("github.com/dioderobot/demo/components/JST_JAPAN_SOLDERLESS_TERMINALS/BM04BMSRSSMTB_LF_SN/BM04BMSRSSMTB_LF_SN.zen")
+SPI_Connector = Module(
+    "github.com/dioderobot/demo/components/JST_JAPAN_SOLDERLESS_TERMINALS/BM10BMSURSMTF_LF_SN/BM10BMSURSMTF_LF_SN.zen"
+)
+FAN_Connector = Module(
+    "github.com/dioderobot/demo/components/JST_JAPAN_SOLDERLESS_TERMINALS/BM04BMSRSSMTB_LF_SN/BM04BMSRSSMTB_LF_SN.zen"
+)
+I2C_Connector = Module(
+    "github.com/dioderobot/demo/components/JST_JAPAN_SOLDERLESS_TERMINALS/BM04BMSRSSMTB_LF_SN/BM04BMSRSSMTB_LF_SN.zen"
+)
 Led = Module("@stdlib/generics/Led.zen")
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 LIS3DH = Module("github.com/dioderobot/demo/reference/LIS3DH/LIS3DH.zen")
 Reset_Button = Module("github.com/dioderobot/demo/components/OMRON_Electronics/B3UM1000P/B3UM1000P.zen")
 ESD_Clamp = Module("github.com/dioderobot/demo/components/Semtech_Corporation/RCLAMP0502BATCT/RCLAMP0502BATCT.zen")
-SN74LVC1G14DRLRG4 = Module("github.com/dioderobot/demo/components/Texas_Instruments/SN74LVC1G14DRLRG4/SN74LVC1G14DRLRG4.zen")
+SN74LVC1G14DRLRG4 = Module(
+    "github.com/dioderobot/demo/components/Texas_Instruments/SN74LVC1G14DRLRG4/SN74LVC1G14DRLRG4.zen"
+)
 Power_Button = Module("github.com/dioderobot/demo/components/OMRON_Electronics/B3UM1000P/B3UM1000P.zen")
 
 # ----------------------------------------------------------------------------
 # io_interfaces
 # ----------------------------------------------------------------------------
-io_5v = io("io_5v", Power, default = Power("io_5v", voltage = VoltageRange("5V")))
-io_3v3pi = io("io_3v3pi", Power, default = Power("io_3v3pi", voltage = VoltageRange("3.3V")))
+io_5v = io("io_5v", Power, default=Power("io_5v", voltage=VoltageRange("5V")))
+io_3v3pi = io("io_3v3pi", Power, default=Power("io_3v3pi", voltage=VoltageRange("3.3V")))
 io_gnd = io("io_gnd", Ground)
 
 SPI = io("spi", Spi)
@@ -63,130 +71,133 @@ led_pwr = Net("led_pwr")
 # ----------------------------------------------------------------------------
 
 SPI_Connector(
-    name = "SPI_Connector",
-    P1 = SPI.MISO,
-    P2 = SPI.MOSI,
-    P3 = SPI.CLK,
-    P4 = io_bl,
-    P5 = io_gnd,
-    P6 = SPI.CS,
-    P7 = io_rst,
-    P8 = io_dc,
-    P9 = io_gnd,
-    P10 = io_3v3pi,
-    MP1 = io_gnd,
-    MP2 = io_gnd,
+    name="SPI_Connector",
+    P1=SPI.MISO,
+    P2=SPI.MOSI,
+    P3=SPI.CLK,
+    P4=io_bl,
+    P5=io_gnd,
+    P6=SPI.CS,
+    P7=io_rst,
+    P8=io_dc,
+    P9=io_gnd,
+    P10=io_3v3pi,
+    MP1=io_gnd,
+    MP2=io_gnd,
 )
 
 FAN_Connector(
-    name = "Fan_Connector",
-    P1 = io_5v,
-    P2 = io_fan_pwm,
-    P3 = io_gnd,
-    P4 = io_fan_tacho,
+    name="Fan_Connector",
+    P1=io_5v,
+    P2=io_fan_pwm,
+    P3=io_gnd,
+    P4=io_fan_tacho,
 )
 
 I2C_Connector(
-    name = "I2C_Connector",
-    P1 = io_gnd,
-    P2 = io_3v3pi,
-    P3 = I2C.SDA,
-    P4 = I2C.SCL,
+    name="I2C_Connector",
+    P1=io_gnd,
+    P2=io_3v3pi,
+    P3=I2C.SDA,
+    P4=I2C.SCL,
 )
 
 Resistor(
-    name = "R_SDA",
-    package = "0402",
-    value = "2.2kohms",
-    P1 = I2C.SDA,
-    P2 = io_3v3pi,
+    name="R_SDA",
+    package="0402",
+    value="2.2kohms",
+    P1=I2C.SDA,
+    P2=io_3v3pi,
 )
 
 Resistor(
-    name = "R_SCL",
-    package = "0402",
-    value = "2.2kohms",
-    P1 = I2C.SCL,
-    P2 = io_3v3pi,
+    name="R_SCL",
+    package="0402",
+    value="2.2kohms",
+    P1=I2C.SCL,
+    P2=io_3v3pi,
 )
 
 Capacitor(
-    name = "C_VDD",
-    package = "0805",
-    value = "4.7uF",
-    voltage = "25V",
-    dielectric = "X7R",
-    P1 = io_3v3pi,
-    P2 = io_gnd,
+    name="C_VDD",
+    package="0805",
+    value="4.7uF",
+    voltage="25V",
+    dielectric="X7R",
+    P1=io_3v3pi,
+    P2=io_gnd,
 )
 
 ESD_Clamp(
-    name = "ESD_Clamp",
-    A = io_gnd,
-    K1 = I2C.SCL,
-    K2 = I2C.SDA,
+    name="ESD_Clamp",
+    A=io_gnd,
+    K1=I2C.SCL,
+    K2=I2C.SDA,
 )
 
 LIS3DH(
-    name = "LIS3DH",
-    interface = "I2C",
-    vdd = io_3v3pi,
-    gnd = io_gnd,
-    sda = I2C.SDA,
-    scl = I2C.SCL,
-    properties = {
+    name="LIS3DH",
+    interface="I2C",
+    vdd=io_3v3pi,
+    gnd=io_gnd,
+    sda=I2C.SDA,
+    scl=I2C.SCL,
+    properties={
         "collapse": "true",
     },
 )
 
 LED_V_F = "2V"
 LED_I_F = "5mA"
+
+
 def led_current_limit_resistance(supply_voltage, forward_voltage, current_limit):
     return e96((Voltage(supply_voltage) - Voltage(forward_voltage)) / Current(current_limit))
 
+
 Led(
-    name = "LED_ACTIVITY",
-    package = "0402",
-    color = "green",
-    forward_voltage = LED_V_F,
-    forward_current = LED_I_F,
-    A = io_5v,
-    K = r_led_activity,
+    name="LED_ACTIVITY",
+    package="0402",
+    color="green",
+    forward_voltage=LED_V_F,
+    forward_current=LED_I_F,
+    A=io_5v,
+    K=r_led_activity,
 )
 
 Resistor(
-    name = "R_ACTIVITY",
-    package = "0402",
-    value = led_current_limit_resistance(io_5v.voltage.max, LED_V_F, LED_I_F),
-    P1 = r_led_activity,
-    P2 = io_nLED_ACTIVITY,
+    name="R_ACTIVITY",
+    package="0402",
+    value=led_current_limit_resistance(io_5v.voltage.max, LED_V_F, LED_I_F),
+    P1=r_led_activity,
+    P2=io_nLED_ACTIVITY,
 )
 
 Led(
-    name = "LED_PWR",
-    package = "0402",
-    color = "red",
-    forward_voltage = LED_V_F,
-    forward_current = LED_I_F,
-    A = io_5v,
-    K = led_pwr,
+    name="LED_PWR",
+    package="0402",
+    color="red",
+    forward_voltage=LED_V_F,
+    forward_current=LED_I_F,
+    A=io_5v,
+    K=led_pwr,
 )
 
 Resistor(
-    name = "R_PWR",
-    package = "0402",
-    value = led_current_limit_resistance(io_5v.voltage.max, LED_V_F, LED_I_F),
-    P1 = r_led_pwr,
-    P2 = led_pwr,
+    name="R_PWR",
+    package="0402",
+    value=led_current_limit_resistance(io_5v.voltage.max, LED_V_F, LED_I_F),
+    P1=r_led_pwr,
+    P2=led_pwr,
 )
 
 SN74LVC1G14DRLRG4(
-    name = "SN74LVC1G14DRLRG4",
-    A = io_nPWR_LED,
-    GND = io_gnd,
-    VCC = io_5v,
-    Y = r_led_pwr,
-    N_C = NotConnected(),
+    name="SN74LVC1G14DRLRG4",
+    A=io_nPWR_LED,
+    GND=io_gnd,
+    VCC=io_5v,
+    Y=r_led_pwr,
+    N_C=NotConnected(),
 )
 
 # Resistor(
@@ -208,9 +219,9 @@ SN74LVC1G14DRLRG4(
 # )
 
 Power_Button(
-    name = "Power_Button",
-    A = io_pwr_but,
-    K = io_gnd,
+    name="Power_Button",
+    A=io_pwr_but,
+    K=io_gnd,
 )
 
 # pcb:sch C_VDD.C x=1172.4800 y=341.9000 rot=0

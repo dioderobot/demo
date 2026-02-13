@@ -22,47 +22,46 @@ if address not in [0x76, 0x77]:
 sdo_high = address == 0x77
 
 
-
 # I/O ports
-VCC = io("VCC", Power)           # Power supply (1.71V to 3.6V for both VDD and VDDIO)
-GND = io("GND", Ground)          # Ground
-I2C = io("I2C", I2c)             # I2C interface
+VCC = io("VCC", Power)  # Power supply (1.71V to 3.6V for both VDD and VDDIO)
+GND = io("GND", Ground)  # Ground
+I2C = io("I2C", I2c)  # I2C interface
 
 # Interrupt pin
-INT = io("INT", Gpio)            # Interrupt output pin
+INT = io("INT", Gpio)  # Interrupt output pin
 
 # Main component
 Component(
     name="U",
     footprint=File("@kicad-footprints/Package_LGA.pretty/ST_HLGA-10_2x2mm_P0.5mm_LayoutBorder3x2y.kicad_mod"),
-    pin_defs = {
-        "VDDIO": "1",    # Digital interface supply
-        "SCK": "2",      # Serial clock input (SCL for I2C)
-        "VSS1": "3",     # Ground
-        "SDI": "4",      # Serial data input (SDA for I2C)
-        "SDO": "5",      # Serial data output / I2C Address Select (SA0)
-        "CSB": "6",      # Chip select (tie high for I2C)
-        "INT": "7",      # Interrupt output
-        "VSS2": "8",     # Ground
-        "VSS3": "9",     # Ground
-        "VDD": "10"      # Analog supply voltage
+    pin_defs={
+        "VDDIO": "1",  # Digital interface supply
+        "SCK": "2",  # Serial clock input (SCL for I2C)
+        "VSS1": "3",  # Ground
+        "SDI": "4",  # Serial data input (SDA for I2C)
+        "SDO": "5",  # Serial data output / I2C Address Select (SA0)
+        "CSB": "6",  # Chip select (tie high for I2C)
+        "INT": "7",  # Interrupt output
+        "VSS2": "8",  # Ground
+        "VSS3": "9",  # Ground
+        "VDD": "10",  # Analog supply voltage
     },
     pins={
-        "VDDIO": VCC.NET,           # Digital interface supply
-        "SCK": I2C.SCL,             # Serial clock (I2C SCL)
-        "VSS1": GND.NET,            # Ground
-        "SDI": I2C.SDA,             # Serial data input (I2C SDA)
+        "VDDIO": VCC.NET,  # Digital interface supply
+        "SCK": I2C.SCL,  # Serial clock (I2C SCL)
+        "VSS1": GND.NET,  # Ground
+        "SDI": I2C.SDA,  # Serial data input (I2C SDA)
         "SDO": VCC.NET if sdo_high else GND.NET,  # I2C address select (SA0)
-        "CSB": VCC.NET,             # Chip select (tie high for I2C)
-        "INT": INT.NET,             # Interrupt output
-        "VSS2": GND.NET,            # Ground
-        "VSS3": GND.NET,            # Ground
-        "VDD": VCC.NET              # Analog supply voltage
+        "CSB": VCC.NET,  # Chip select (tie high for I2C)
+        "INT": INT.NET,  # Interrupt output
+        "VSS2": GND.NET,  # Ground
+        "VSS3": GND.NET,  # Ground
+        "VDD": VCC.NET,  # Analog supply voltage
     },
     properties={
         "package": "10-LGA (2.0x2.0x0.75mm)",
     },
-    mpn="BMP388"
+    mpn="BMP388",
 )
 
 # Power supply decoupling capacitors

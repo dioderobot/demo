@@ -4,10 +4,10 @@ Author: Nasheed Ur Rehman
 
 Usage:
   Standard current limit settings (automatic RLIM configuration):
-    - Set config_current_limit to one of: "150mA", "250mA", "500mA", "750mA", 
+    - Set config_current_limit to one of: "150mA", "250mA", "500mA", "750mA",
       "1000mA", "1250mA", "1500mA", "1750mA", "2000mA", "2500mA"
     - RLIM resistor is automatically configured based on datasheet values
-  
+
   Custom current limit:
     - Set config_current_limit to "Custom"
     - Override config_ilim_resistance with your desired RLIM value
@@ -30,9 +30,11 @@ load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "
 # ----------------------------------------------------------------------------
 
 # Current limit options based on datasheet
-CurrentLimit = enum("150mA", "250mA", "500mA", "750mA", "1000mA", "1250mA", "1500mA", "1750mA", "2000mA", "2500mA", "Custom")
+CurrentLimit = enum(
+    "150mA", "250mA", "500mA", "750mA", "1000mA", "1250mA", "1500mA", "1750mA", "2000mA", "2500mA", "Custom"
+)
 
-config_current_limit = config("current_limit", CurrentLimit, default = CurrentLimit("1750mA"))
+config_current_limit = config("current_limit", CurrentLimit, default=CurrentLimit("1750mA"))
 
 # Map of current limits to RLIM resistor values
 # Based on AP22653 datasheet Table: Current-Limit Threshold vs RLIM
@@ -52,7 +54,7 @@ current_to_resistor_map = {
 
 # Allow custom resistor value override
 if config_current_limit == CurrentLimit("Custom"):
-    config_ilim_resistance = config("ilim_resistance", str, default = "15kohms")
+    config_ilim_resistance = config("ilim_resistance", str, default="15kohms")
 else:
     config_ilim_resistance = current_to_resistor_map.get(config_current_limit, "15kohms")
 
@@ -68,10 +70,10 @@ Capacitor = Module("@stdlib/generics/Capacitor.zen")
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-io_vin = io("vin", Net, default = Net("vin", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+io_vin = io("vin", Net, default=Net("vin", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
 io_enable = io("enable", Net)
-io_gnd = io("gnd", Net, default = Net("gnd", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
-io_vout = io("vout", Net, default = Net("vout", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+io_gnd = io("gnd", Net, default=Net("gnd", symbol=Symbol("@kicad-symbols/power.kicad_sym:GND")))
+io_vout = io("vout", Net, default=Net("vout", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
 
 io_nfault = io("nfault", Net)
 
@@ -87,41 +89,41 @@ ilim = Net("ilim")
 # ----------------------------------------------------------------------------
 
 AP22653W6M7(
-    name = "AP22653W6M7",
-    IN = io_vin,
-    OUT = io_vout,
-    EN = io_enable,
-    ILIM = ilim,
-    n_FAULT = io_nfault,
-    GND = io_gnd,
+    name="AP22653W6M7",
+    IN=io_vin,
+    OUT=io_vout,
+    EN=io_enable,
+    ILIM=ilim,
+    n_FAULT=io_nfault,
+    GND=io_gnd,
 )
 
 Resistor(
-    name = "R_ILIM",
-    value = config_ilim_resistance,
-    package = "0402",
-    P1 = ilim,
-    P2 = io_gnd,
+    name="R_ILIM",
+    value=config_ilim_resistance,
+    package="0402",
+    P1=ilim,
+    P2=io_gnd,
 )
 
 Capacitor(
-    name = "C_IN",
-    value = "10uF",
-    voltage = "10V",
-    dielectric = "X7R",
-    package = "0805",
-    P1 = io_vin,
-    P2 = io_gnd,
+    name="C_IN",
+    value="10uF",
+    voltage="10V",
+    dielectric="X7R",
+    package="0805",
+    P1=io_vin,
+    P2=io_gnd,
 )
 
 Capacitor(
-    name = "C_OUT",
-    value = "10uF",
-    voltage = "10V",
-    dielectric = "X7R",
-    package = "0805",
-    P1 = io_vout,
-    P2 = io_gnd,
+    name="C_OUT",
+    value="10uF",
+    voltage="10V",
+    dielectric="X7R",
+    package="0805",
+    P1=io_vout,
+    P2=io_gnd,
 )
 
 # ----------------------------------------------------------------------------

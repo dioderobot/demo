@@ -2,29 +2,29 @@
 
 # Pins
 Pins = struct(
-    P1 = io("P1", Net),
-    P2 = io("P2", Net),
-    P3 = io("P3", Net),
-    P4 = io("P4", Net),
+    P1=io("P1", Net),
+    P2=io("P2", Net),
+    P3=io("P3", Net),
+    P4=io("P4", Net),
 )
 
 # Component
 Component(
-    name = "BM04B-SRSS-TB_LF__SN_",
-    symbol = Symbol(library = "BM04B-SRSS-TB_LF__SN_.kicad_sym"),
-    footprint = File("BM04B-SRSS-TB_LFSN_.kicad_mod"),
-    pins = {
+    name="BM04B-SRSS-TB_LF__SN_",
+    symbol=Symbol(library="BM04B-SRSS-TB_LF__SN_.kicad_sym"),
+    footprint=File("BM04B-SRSS-TB_LFSN_.kicad_mod"),
+    pins={
         "1": Pins.P1,
         "2": Pins.P2,
         "3": Pins.P3,
         "4": Pins.P4,
     },
-    properties = {
+    properties={
         "value": "BM04B-SRSS-TB(LF)(SN)",
         "mpn": "BM04B-SRSS-TB(LF)(SN)",
         "description": "JST (JAPAN SOLDERLESS TERMINALS) - BM04B-SRSS-TB(LF)(SN) - HEADER, TOP ENTRY, 4WAY",
         "manufacturer": "JST (JAPAN SOLDERLESS TERMINALS)",
-        "LCSC Part" : "C495539",
+        "LCSC Part": "C495539",
     },
 )
 

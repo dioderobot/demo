@@ -26,8 +26,8 @@ Led = Module("@stdlib/generics/Led.zen")
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-io_3v3pi = io("io_3v3pi", Net, default = Net("io_3v3pi", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
-io_gnd = io("io_gnd", Net, default = Net("io_gnd", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+io_3v3pi = io("io_3v3pi", Net, default=Net("io_3v3pi", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+io_gnd = io("io_gnd", Net, default=Net("io_gnd", symbol=Symbol("@kicad-symbols/power.kicad_sym:GND")))
 
 eth_c = io("ETH_C", Ethernet_Phy)
 
@@ -51,49 +51,49 @@ k_yellow = Net("k_yellow")
 # ----------------------------------------------------------------------------
 
 Ethernet(
-    name = "ETH",
-    A_GREEN = io_3v3pi,
-    A_YELLOW = io_3v3pi,
-    K_GREEN = k_green,
-    K_YELLOW = k_yellow,
-    MH1 = mp,
-    MH2 = mp,
-    NC_1 = Net(),
-    NC_2 = Net(),
-    TRD0P = eth_c.TR0.P,
-    TRD0M = eth_c.TR0.N,
-    TRD1P = eth_c.TR1.P,
-    TRD1M = eth_c.TR1.N,
-    TRD2P = eth_c.TR2.P,
-    TRD2M = eth_c.TR2.N,
-    TRD3P = eth_c.TR3.P,
-    TRD3M = eth_c.TR3.N,
+    name="ETH",
+    A_GREEN=io_3v3pi,
+    A_YELLOW=io_3v3pi,
+    K_GREEN=k_green,
+    K_YELLOW=k_yellow,
+    MH1=mp,
+    MH2=mp,
+    NC_1=Net(),
+    NC_2=Net(),
+    TRD0P=eth_c.TR0.P,
+    TRD0M=eth_c.TR0.N,
+    TRD1P=eth_c.TR1.P,
+    TRD1M=eth_c.TR1.N,
+    TRD2P=eth_c.TR2.P,
+    TRD2M=eth_c.TR2.N,
+    TRD3P=eth_c.TR3.P,
+    TRD3M=eth_c.TR3.N,
 )
 
 QuadTVS(
-    name = "TVS_0",
-    D1M = eth_c.TR0.N,
-    D1P = eth_c.TR0.P,
-    D2M = eth_c.TR1.N,
-    D2P = eth_c.TR1.P,
-    GND = io_gnd,
+    name="TVS_0",
+    D1M=eth_c.TR0.N,
+    D1P=eth_c.TR0.P,
+    D2M=eth_c.TR1.N,
+    D2P=eth_c.TR1.P,
+    GND=io_gnd,
 )
 
 QuadTVS(
-    name = "TVS_1",
-    D1M = eth_c.TR2.N,
-    D1P = eth_c.TR2.P,
-    D2M = eth_c.TR3.N,
-    D2P = eth_c.TR3.P,
-    GND = io_gnd,
+    name="TVS_1",
+    D1M=eth_c.TR2.N,
+    D1P=eth_c.TR2.P,
+    D2M=eth_c.TR3.N,
+    D2P=eth_c.TR3.P,
+    GND=io_gnd,
 )
 
 Resistor(
-    name = "R1",
-    value = "0ohms",
-    package = "0402",
-    P1 = mp,
-    P2 = io_gnd,
+    name="R1",
+    value="0ohms",
+    package="0402",
+    P1=mp,
+    P2=io_gnd,
 )
 
 # Capacitor(
@@ -105,19 +105,19 @@ Resistor(
 # )
 
 Resistor(
-    name = "R_LED_Y",
-    value = "470ohms",
-    package = "0402",
-    P1 = k_green,
-    P2 = nLed_Y,
+    name="R_LED_Y",
+    value="470ohms",
+    package="0402",
+    P1=k_green,
+    P2=nLed_Y,
 )
 
 Resistor(
-    name = "R_LED_G",
-    value = "470ohms",
-    package = "0402",
-    P1 = k_yellow,
-    P2 = nLed_G,
+    name="R_LED_G",
+    value="470ohms",
+    package="0402",
+    P1=k_yellow,
+    P2=nLed_G,
 )
 
 Layout("layout", "layout_Ethernet/")

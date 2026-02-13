@@ -32,8 +32,8 @@ decoupling_cap_value = config("decoupling_cap_value", str, default="100nF")
 # Global Power Interfaces
 # ----------------------------------------------------------------------------
 
-VCC = io("VCC", Net, default = Net("VCC", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
-GND = io("GND", Net, default = Net("GND", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+VCC = io("VCC", Net, default=Net("VCC", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+GND = io("GND", Net, default=Net("GND", symbol=Symbol("@kicad-symbols/power.kicad_sym:GND")))
 
 # ----------------------------------------------------------------------------
 # Global IO Nets
@@ -48,24 +48,16 @@ B1 = io("B1", Net)
 # Components
 # ----------------------------------------------------------------------------
 
-FSA5157L6X(
-    name = "FSA5157L6X",
-    VCC = VCC,
-    GND = GND,
-    A = A,
-    S = S,
-    B0 = B0,
-    B1 = B1
-)
+FSA5157L6X(name="FSA5157L6X", VCC=VCC, GND=GND, A=A, S=S, B0=B0, B1=B1)
 
 Capacitor(
-    name = "C_VCC",
-    value = decoupling_cap_value,
-    voltage = decoupling_cap_voltage,
-    dielectric = "X7R",
-    package = "0402",
-    P1 = VCC,
-    P2 = GND
+    name="C_VCC",
+    value=decoupling_cap_value,
+    voltage=decoupling_cap_voltage,
+    dielectric="X7R",
+    package="0402",
+    P1=VCC,
+    P2=GND,
 )
 
 add_property("datasheet", "github.com/dioderobot/demo/components/onsemi/FSA5157L6X/FSA5157L6X.pdf")

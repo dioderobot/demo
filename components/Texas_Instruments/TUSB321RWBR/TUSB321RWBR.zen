@@ -7,27 +7,27 @@ Auto-generated using `pcb search`. Do not modify.
 mpn = config("mpn", str, optional=True, default="TUSB321RWBR")
 
 Pins = struct(
-    CC1 = io("CC1", Net),
-    CC2 = io("CC2", Net),
-    CURRENT_MODE = io("CURRENT_MODE", Net),
-    DIR = io("DIR", Net),
-    GND = io("GND", Net),
-    ID = io("ID", Net),
-    OUT1 = io("OUT1", Net),
-    OUT2 = io("OUT2", Net),
-    PORT = io("PORT", Net),
-    VBUS_DET = io("VBUS_DET", Net),
-    VDD = io("VDD", Net),
-    n_VCONN_FAULT = io("n_VCONN_FAULT", Net)
+    CC1=io("CC1", Net),
+    CC2=io("CC2", Net),
+    CURRENT_MODE=io("CURRENT_MODE", Net),
+    DIR=io("DIR", Net),
+    GND=io("GND", Net),
+    ID=io("ID", Net),
+    OUT1=io("OUT1", Net),
+    OUT2=io("OUT2", Net),
+    PORT=io("PORT", Net),
+    VBUS_DET=io("VBUS_DET", Net),
+    VDD=io("VDD", Net),
+    n_VCONN_FAULT=io("n_VCONN_FAULT", Net),
 )
 
 Component(
-    name = "TUSB321RWBR",
-    mpn = mpn,
-    datasheet = File("TUSB321RWBR.pdf"),
-    symbol = Symbol(library = "TUSB321RWBR.kicad_sym"),
-    footprint = File("TUSB321RWBR.kicad_mod"),
-    pins = {
+    name="TUSB321RWBR",
+    mpn=mpn,
+    datasheet=File("TUSB321RWBR.pdf"),
+    symbol=Symbol(library="TUSB321RWBR.kicad_sym"),
+    footprint=File("TUSB321RWBR.kicad_mod"),
+    pins={
         "CC1": Pins.CC1,
         "CC2": Pins.CC2,
         "CURRENT_MODE": Pins.CURRENT_MODE,
@@ -39,13 +39,13 @@ Component(
         "PORT": Pins.PORT,
         "VBUS_DET": Pins.VBUS_DET,
         "VDD": Pins.VDD,
-        "~{VCONN_FAULT}": Pins.n_VCONN_FAULT
+        "~{VCONN_FAULT}": Pins.n_VCONN_FAULT,
     },
-    properties = {
+    properties={
         "value": "TUSB321RWBR",
         "mpn": "TUSB321RWBR",
         "description": "Texas Instruments - TUSB321RWBR - USB Type-C Configuration Channel Logic and Port Control with VCONN",
         "manufacturer": "Texas Instruments",
-        "LCSC Part" : "C139392",
+        "LCSC Part": "C139392",
     },
 )

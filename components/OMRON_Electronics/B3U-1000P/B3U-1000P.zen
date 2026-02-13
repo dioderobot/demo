@@ -6,20 +6,14 @@ Auto-generated using `pcb search`. Do not modify.
 
 mpn = config("mpn", str, optional=True, default="B3U-1000P")
 
-Pins = struct(
-    P1 = io("P1", Net),
-    P2 = io("P2", Net)
-)
+Pins = struct(P1=io("P1", Net), P2=io("P2", Net))
 
 Component(
-    name = "B3U-1000P",
-    mpn = mpn,
-    manufacturer = "OMRON Electronics",
-    datasheet = File("B3U-1000P.pdf"),
-    symbol = Symbol(library = "B3U-1000P.kicad_sym"),
-    footprint = File("B3U-1000P.kicad_mod"),
-    pins = {
-        "1": Pins.P1,
-        "2": Pins.P2
-    },
+    name="B3U-1000P",
+    mpn=mpn,
+    manufacturer="OMRON Electronics",
+    datasheet=File("B3U-1000P.pdf"),
+    symbol=Symbol(library="B3U-1000P.kicad_sym"),
+    footprint=File("B3U-1000P.kicad_mod"),
+    pins={"1": Pins.P1, "2": Pins.P2},
 )

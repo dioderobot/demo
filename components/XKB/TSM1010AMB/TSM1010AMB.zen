@@ -2,26 +2,26 @@
 
 # Pins
 Pins = struct(
-    P1 = io("P1", Net),
-    P2 = io("P2", Net),
-    P3 = io("P3", Net),
-    P4 = io("P4", Net),
-    P5 = io("P5", Net),
+    P1=io("P1", Net),
+    P2=io("P2", Net),
+    P3=io("P3", Net),
+    P4=io("P4", Net),
+    P5=io("P5", Net),
 )
 
 # Component
 Component(
-    name = "TS-1010A-B",
-    symbol = Symbol(library = "C381059.kicad_sym"),
-    footprint = File("SW-SMD_TS-1010A-B.kicad_mod"),
-    pins = {
+    name="TS-1010A-B",
+    symbol=Symbol(library="C381059.kicad_sym"),
+    footprint=File("SW-SMD_TS-1010A-B.kicad_mod"),
+    pins={
         "1": Pins.P1,
         "2": Pins.P2,
         "3": Pins.P3,
         "4": Pins.P4,
         "5": Pins.P5,
     },
-    properties = {
+    properties={
         "value": "TS-1010A-B",
         "mpn": "TS-1010A-B",
     },

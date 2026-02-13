@@ -24,8 +24,8 @@ Current_Limit_Switch = Module("github.com/dioderobot/demo/reference/STMPS2151STR
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-io_5v = io("io_5v", Net, default = Net("io_5v", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
-io_gnd = io("io_gnd", Net, default = Net("io_gnd", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+io_5v = io("io_5v", Net, default=Net("io_5v", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+io_gnd = io("io_gnd", Net, default=Net("io_gnd", symbol=Symbol("@kicad-symbols/power.kicad_sym:GND")))
 hdmi_c = io("HDMI_C", Hdmi)
 
 # ----------------------------------------------------------------------------
@@ -40,36 +40,36 @@ hdmi_5v = Net("hdmi_5v")
 # ----------------------------------------------------------------------------
 
 HDMI_Connector(
-    name = "HDMI_Connector",
-    P5V = hdmi_5v,
-    CEC = hdmi_c.CEC,
-    DDC_CEC_GND = io_gnd,
-    HOT_PLUG_DET = hdmi_c.HPD,
-    SCL = hdmi_c.SCL,
-    SDA = hdmi_c.SDA,
-    SHIELD = io_gnd,
-    TMDS_CLOCKM = hdmi_c.CLK.N,
-    TMDS_CLOCKP = hdmi_c.CLK.P,
-    TMDS_CLOCK_SHIELD = io_gnd,
-    TMDS_DATA0M = hdmi_c.D0.N,
-    TMDS_DATA0P = hdmi_c.D0.P,
-    TMDS_DATA0_SHIELD = io_gnd,
-    TMDS_DATA1M = hdmi_c.D1.N,
-    TMDS_DATA1P = hdmi_c.D1.P,
-    TMDS_DATA1_SHIELD = io_gnd,
-    TMDS_DATA2M = hdmi_c.D2.N,
-    TMDS_DATA2P = hdmi_c.D2.P,
-    TMDS_DATA2_SHIELD = io_gnd,
-    UTILITY = nc,
+    name="HDMI_Connector",
+    P5V=hdmi_5v,
+    CEC=hdmi_c.CEC,
+    DDC_CEC_GND=io_gnd,
+    HOT_PLUG_DET=hdmi_c.HPD,
+    SCL=hdmi_c.SCL,
+    SDA=hdmi_c.SDA,
+    SHIELD=io_gnd,
+    TMDS_CLOCKM=hdmi_c.CLK.N,
+    TMDS_CLOCKP=hdmi_c.CLK.P,
+    TMDS_CLOCK_SHIELD=io_gnd,
+    TMDS_DATA0M=hdmi_c.D0.N,
+    TMDS_DATA0P=hdmi_c.D0.P,
+    TMDS_DATA0_SHIELD=io_gnd,
+    TMDS_DATA1M=hdmi_c.D1.N,
+    TMDS_DATA1P=hdmi_c.D1.P,
+    TMDS_DATA1_SHIELD=io_gnd,
+    TMDS_DATA2M=hdmi_c.D2.N,
+    TMDS_DATA2P=hdmi_c.D2.P,
+    TMDS_DATA2_SHIELD=io_gnd,
+    UTILITY=nc,
 )
 
 Current_Limit_Switch(
-    name = "Current_Limit_Switch",
-    vin = io_5v,
-    vout = hdmi_5v,
-    gnd = io_gnd,
-    enable = io_5v,
-    fault = Net("fault"),
+    name="Current_Limit_Switch",
+    vin=io_5v,
+    vout=hdmi_5v,
+    gnd=io_gnd,
+    enable=io_5v,
+    fault=Net("fault"),
 )
 
 # ESD_Protection(

@@ -32,8 +32,8 @@ decoupling_cap_value = config("decoupling_cap_value", str, default="100nF")
 # Global Power Interfaces
 # ----------------------------------------------------------------------------
 
-VCC = io("VCC", Net, default = Net("VCC", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
-GND = io("GND", Net, default = Net("GND", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+VCC = io("VCC", Net, default=Net("VCC", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+GND = io("GND", Net, default=Net("GND", symbol=Symbol("@kicad-symbols/power.kicad_sym:GND")))
 
 # ----------------------------------------------------------------------------
 # Global IO Nets
@@ -50,31 +50,30 @@ SHDN = io("SHDN", Net)
 # ============================================================================
 
 TCAN330DCNT(
-    name = "TCAN330DCNT",
-    VCC = VCC,
-    GND = GND,
-    CANH = CAN_H,
-    CANL = CAN_L,
-    SHDN = SHDN,
-    RXD = CAN_RX,
-    TXD = CAN_TX,
-    S = GND,
+    name="TCAN330DCNT",
+    VCC=VCC,
+    GND=GND,
+    CANH=CAN_H,
+    CANL=CAN_L,
+    SHDN=SHDN,
+    RXD=CAN_RX,
+    TXD=CAN_TX,
+    S=GND,
 )
 
 Capacitor(
-    name = "C_VCC",
-    value = decoupling_cap_value,
-    voltage = decoupling_cap_voltage,
-    package = "0402",
-    dielectric = "X7R",
-    P1 = VCC,
-    P2 = GND
+    name="C_VCC",
+    value=decoupling_cap_value,
+    voltage=decoupling_cap_voltage,
+    package="0402",
+    dielectric="X7R",
+    P1=VCC,
+    P2=GND,
 )
 
 # ============================================================================
 # PCB Schematic
 # ============================================================================
-
 
 
 # pcb:sch C_VCC.C x=385.0800 y=87.9000 rot=0

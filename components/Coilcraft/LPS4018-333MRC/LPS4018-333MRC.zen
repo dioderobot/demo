@@ -6,18 +6,12 @@ Auto-generated using `pcb search`. Do not modify.
 
 mpn = config("mpn", str, optional=True, default="LPS4018-333MRC")
 
-Pins = struct(
-    P1 = io("P1", Net),
-    P2 = io("P2", Net)
-)
+Pins = struct(P1=io("P1", Net), P2=io("P2", Net))
 
 Component(
-    name = "LPS4018-333MRC",
-    mpn = mpn,
-    symbol = Symbol(library = "C17306753.kicad_sym"),
-    footprint = File("IND-SMD_L3.9-W3.9.kicad_mod"),
-    pins = {
-        "1": Pins.P1,
-        "2": Pins.P2
-    },
+    name="LPS4018-333MRC",
+    mpn=mpn,
+    symbol=Symbol(library="C17306753.kicad_sym"),
+    footprint=File("IND-SMD_L3.9-W3.9.kicad_mod"),
+    pins={"1": Pins.P1, "2": Pins.P2},
 )

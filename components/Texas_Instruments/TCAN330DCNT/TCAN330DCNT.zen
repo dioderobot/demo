@@ -7,24 +7,24 @@ Auto-generated using `pcb search`. Do not modify.
 mpn = config("mpn", str, optional=True, default="TCAN330DCNT")
 
 Pins = struct(
-    CANH = io("CANH", Net),
-    CANL = io("CANL", Net),
-    GND = io("GND", Net),
-    RXD = io("RXD", Net),
-    S = io("S", Net),
-    SHDN = io("SHDN", Net),
-    TXD = io("TXD", Net),
-    VCC = io("VCC", Net)
+    CANH=io("CANH", Net),
+    CANL=io("CANL", Net),
+    GND=io("GND", Net),
+    RXD=io("RXD", Net),
+    S=io("S", Net),
+    SHDN=io("SHDN", Net),
+    TXD=io("TXD", Net),
+    VCC=io("VCC", Net),
 )
 
 Component(
-    name = "TCAN330DCNT",
-    mpn = mpn,
-    manufacturer = "Texas Instruments",
-    datasheet = File("TCAN330DCNT.pdf"),
-    symbol = Symbol(library = "TCAN330DCNT.kicad_sym"),
-    footprint = File("SOT65P280X145-8N.kicad_mod"),
-    pins = {
+    name="TCAN330DCNT",
+    mpn=mpn,
+    manufacturer="Texas Instruments",
+    datasheet=File("TCAN330DCNT.pdf"),
+    symbol=Symbol(library="TCAN330DCNT.kicad_sym"),
+    footprint=File("SOT65P280X145-8N.kicad_mod"),
+    pins={
         "CANH": Pins.CANH,
         "CANL": Pins.CANL,
         "GND": Pins.GND,
@@ -32,6 +32,6 @@ Component(
         "S": Pins.S,
         "SHDN": Pins.SHDN,
         "TXD": Pins.TXD,
-        "VCC": Pins.VCC
+        "VCC": Pins.VCC,
     },
 )

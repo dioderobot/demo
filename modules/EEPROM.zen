@@ -19,22 +19,25 @@ if (address & 0xF8) != 0x50:
 # Extract address bits from the I2C address (0x50-0x57 range)
 addr_bits = address & 0x07
 a0_high = (addr_bits & 0x01) != 0  # bit 0
-a1_high = (addr_bits & 0x02) != 0  # bit 1  
+a1_high = (addr_bits & 0x02) != 0  # bit 1
 a2_high = (addr_bits & 0x04) != 0  # bit 2
+
 
 # Generate MPN based on memory size
 def _get_mpn(size):
     return "24LC" + str(size) + "T-E/MNY"
 
+
 # Get memory organization and properties based on size
 def _get_memory_info(size):
     info_map = {
-        MemorySize("8"):  {"org": "1K x 8",  "size_kb": "8Kbit"},
-        MemorySize("16"): {"org": "2K x 8",  "size_kb": "16Kbit"},
-        MemorySize("32"): {"org": "4K x 8",  "size_kb": "32Kbit"},
-        MemorySize("64"): {"org": "8K x 8",  "size_kb": "64Kbit"},
+        MemorySize("8"): {"org": "1K x 8", "size_kb": "8Kbit"},
+        MemorySize("16"): {"org": "2K x 8", "size_kb": "16Kbit"},
+        MemorySize("32"): {"org": "4K x 8", "size_kb": "32Kbit"},
+        MemorySize("64"): {"org": "8K x 8", "size_kb": "64Kbit"},
     }
     return info_map[size]
+
 
 mpn = _get_mpn(memory_size)
 memory_info = _get_memory_info(memory_size)
@@ -42,32 +45,29 @@ memory_info = _get_memory_info(memory_size)
 # Pin definitions based on UDFN-8 package from datasheet Table 2-1
 # Address pins are functional and determine the I2C device address
 I2C = io("I2C", I2c)
-GND = io("GND", Ground)          # Pin 4 - Ground
-VCC = io("VCC", Power)           # Pin 8 - Power Supply
+GND = io("GND", Ground)  # Pin 4 - Ground
+VCC = io("VCC", Power)  # Pin 8 - Power Supply
 
-WP = io("WP", Net, default = Net(), optional = True)               # Pin 7 - Write-Protect Input
+WP = io("WP", Net, default=Net(), optional=True)  # Pin 7 - Write-Protect Input
 
 # Main component
 Component(
     name="U",
-    symbol=Symbol(
-        library="@kicad-symbols/Memory_EEPROM.kicad_sym",
-        name="AT24CS64-MAHM"
-    ),
+    symbol=Symbol(library="@kicad-symbols/Memory_EEPROM.kicad_sym", name="AT24CS64-MAHM"),
     footprint=File("@kicad-footprints/Package_DFN_QFN.pretty/DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm.kicad_mod"),
     mpn=mpn,
     manufacturer="Microchip Technology",
     description="24LC64 EEPROM",
     pin_defs={
         "A0": "1",
-        "A1": "2", 
+        "A1": "2",
         "A2": "3",
         "GND": "4",
         "SDA": "5",
         "SCL": "6",
         "WP": "7",
         "VCC": "8",
-        "EP": "9"  # Exposed pad connected to GND
+        "EP": "9",  # Exposed pad connected to GND
     },
     pins={
         "A0": VCC.NET if a0_high else GND.NET,  # Strap address pin based on config
@@ -78,7 +78,7 @@ Component(
         "SCL": I2C.SCL,
         "WP": WP,
         "VCC": VCC.NET,
-        "EP": GND.NET  # Connect exposed pad to ground
+        "EP": GND.NET,  # Connect exposed pad to ground
     },
     properties={
         "Memory_size": memory_info["size_kb"],
@@ -88,26 +88,12 @@ Component(
         "Vcc_max": "5.5V",
         "Temperature": "-40°C to +85°C",
         "Package": "UDFN-8",
-    }
+    },
 )
 
 # Decoupling capacitor (recommended 100nF ceramic)
-Capacitor(
-    name="C_DECP",
-    value="100nF",
-    package="0402",
-    voltage="16V",
-    dielectric="X7R",
-    P1=VCC,
-    P2=GND
-)
+Capacitor(name="C_DECP", value="100nF", package="0402", voltage="16V", dielectric="X7R", P1=VCC, P2=GND)
 
 # Write protect pull-down resistor to enable writes by default
 # If WP is tied to VCC, writes are disabled
-Resistor(
-    name="R_WP_PD",
-    value="10kOhm",
-    package="0402", 
-    P1=WP,
-    P2=GND
-)
+Resistor(name="R_WP_PD", value="10kOhm", package="0402", P1=WP, P2=GND)

@@ -23,17 +23,17 @@ Resistor = Module("@stdlib/generics/Resistor.zen")
 # -----------------------------------------------------------------------------
 
 # Power interfaces
-vin = io("vin", Power)        # Input voltage (1.6V to 6.5V)
-vout = io("vout", Power)      # Regulated 3.3V output
-gnd = io("gnd", Ground)       # Ground
+vin = io("vin", Power)  # Input voltage (1.6V to 6.5V)
+vout = io("vout", Power)  # Regulated 3.3V output
+gnd = io("gnd", Ground)  # Ground
 
 # Control interfaces
-en = io("en", Gpio, default = Gpio("en"), optional = True)           # Enable input (active high, internal pulldown)
-pg = io("pg", Gpio, default = Gpio("pg"), optional = True)           # Power-good output (open-drain, requires pullup)
+en = io("en", Gpio, default=Gpio("en"), optional=True)  # Enable input (active high, internal pulldown)
+pg = io("pg", Gpio, default=Gpio("pg"), optional=True)  # Power-good output (open-drain, requires pullup)
 
 # Configuration
-pg_pullup = config("pg_pullup", bool, default = False, optional = True)  # Enable PG pullup resistor
-en_pullup = config("en_pullup", bool, default = False, optional = True)  # Enable EN pullup resistor
+pg_pullup = config("pg_pullup", bool, default=False, optional=True)  # Enable PG pullup resistor
+en_pullup = config("en_pullup", bool, default=False, optional=True)  # Enable EN pullup resistor
 
 # -----------------------------------------------------------------------------
 # Passive components
@@ -57,35 +57,32 @@ if pg_pullup:
 # -----------------------------------------------------------------------------
 
 Component(
-    name = "U",
-    symbol = Symbol(
-        library = "@kicad-symbols/Regulator_Linear.kicad_sym",
-        name = "LP5912-3.3DRV"
-    ),
-    footprint = File("@kicad-footprints/Package_SON.pretty/WSON-6-1EP_2x2mm_P0.65mm_EP1x1.6mm.kicad_mod"),
-    prefix = "U",
-    mpn = "LP5912-3.3DRVR",
-    manufacturer = "Texas Instruments",
-    description = "500-mA Low-Noise Low-IQ LDO",
-    pin_defs = {
-        "OUT": "1",      # Regulated output voltage
-        "NC": "2",       # No connection
-        "PG": "3",       # Power-good indicator (open-drain)
-        "EN": "4",       # Enable input (active high)
-        "GND": "5",      # Ground
-        "IN": "6",       # Unregulated input voltage
-        "EP": "7",       # Exposed thermal pad
+    name="U",
+    symbol=Symbol(library="@kicad-symbols/Regulator_Linear.kicad_sym", name="LP5912-3.3DRV"),
+    footprint=File("@kicad-footprints/Package_SON.pretty/WSON-6-1EP_2x2mm_P0.65mm_EP1x1.6mm.kicad_mod"),
+    prefix="U",
+    mpn="LP5912-3.3DRVR",
+    manufacturer="Texas Instruments",
+    description="500-mA Low-Noise Low-IQ LDO",
+    pin_defs={
+        "OUT": "1",  # Regulated output voltage
+        "NC": "2",  # No connection
+        "PG": "3",  # Power-good indicator (open-drain)
+        "EN": "4",  # Enable input (active high)
+        "GND": "5",  # Ground
+        "IN": "6",  # Unregulated input voltage
+        "EP": "7",  # Exposed thermal pad
     },
-    pins = {
+    pins={
         "OUT": vout.NET,
         "NC": NotConnected("NC"),
         "PG": pg.NET,
         "EN": en.NET,
         "GND": gnd.NET,
         "IN": vin.NET,
-        "EP": gnd.NET,   # Thermal pad connected to ground per datasheet
+        "EP": gnd.NET,  # Thermal pad connected to ground per datasheet
     },
-    properties = {
+    properties={
         "package": "WSON-6",
         "input_voltage": "1.6V-6.5V",
         "output_voltage": "3.3V ±2%",

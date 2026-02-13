@@ -28,8 +28,8 @@ VoltageClamp = Module("github.com/dioderobot/demo/components/Semtech_Corporation
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-io_5v = io("io_5v", Net, default = Net("io_5v", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
-io_gnd = io("io_gnd", Net, default = Net("io_gnd", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+io_5v = io("io_5v", Net, default=Net("io_5v", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+io_gnd = io("io_gnd", Net, default=Net("io_gnd", symbol=Symbol("@kicad-symbols/power.kicad_sym:GND")))
 usb2c = io("USB_PI", Usb2)
 
 io_CC1 = io("CC1", Net)
@@ -44,10 +44,10 @@ io_CC2 = io("CC2", Net)
 # ----------------------------------------------------------------------------
 
 Component(
-    name = "USB_Connector",
-    symbol = Symbol(library = "@kicad-symbols/Connector.kicad_sym", name = "USB_C_Receptacle_USB2.0_16P"),
-    footprint = File("@kicad-footprints/Connector_USB.pretty/USB_C_Receptacle_G-Switch_GT-USB-7010ASV.kicad_mod"),
-    pins = {
+    name="USB_Connector",
+    symbol=Symbol(library="@kicad-symbols/Connector.kicad_sym", name="USB_C_Receptacle_USB2.0_16P"),
+    footprint=File("@kicad-footprints/Connector_USB.pretty/USB_C_Receptacle_G-Switch_GT-USB-7010ASV.kicad_mod"),
+    pins={
         "CC1": io_CC1,
         "CC2": io_CC2,
         "D-": usb2c.D.N,
@@ -58,52 +58,52 @@ Component(
         "SBU2": Net("sbu2"),
         "VBUS": io_5v,
     },
-    mpn = "GT-USB-7010ASV",
-    properties = {
+    mpn="GT-USB-7010ASV",
+    properties={
         "value": "GT-USB-7010ASV",
         "manufacturer": "G-Switch",
-        "LCSC Part" : "C2988369",
+        "LCSC Part": "C2988369",
         "description": "USB-C Receptacle USB2.0 16P Top Mount Horizontal",
         "datasheet": "https://www.lcsc.com/datasheet/C2988369.pdf/",
         "alternatives": [
-            { "mpn": "USB4105-GF-A", "manufacturer": "GCT" },
+            {"mpn": "USB4105-GF-A", "manufacturer": "GCT"},
         ],
     },
 )
 
 VoltageClamp(
-    name = "Voltage_Clamp",
-    K1 = usb2c.D.N,
-    K2 = usb2c.D.P,
-    A = io_gnd,
+    name="Voltage_Clamp",
+    K1=usb2c.D.N,
+    K2=usb2c.D.P,
+    A=io_gnd,
 )
 
 Resistor(
-    name = "R_VBUS",
-    value = "2.2kohms",
-    package = "0402",
-    P1 = io_5v,
-    P2 = io_gnd,
+    name="R_VBUS",
+    value="2.2kohms",
+    package="0402",
+    P1=io_5v,
+    P2=io_gnd,
 )
 
 Capacitor(
-    name = "C_VBUS1",
-    value = "100nF",
-    package = "0402",
-    voltage = "16V",
-    dielectric = "X7R",
-    P1 = io_5v,
-    P2 = io_gnd,
+    name="C_VBUS1",
+    value="100nF",
+    package="0402",
+    voltage="16V",
+    dielectric="X7R",
+    P1=io_5v,
+    P2=io_gnd,
 )
 
 Capacitor(
-    name = "C_VBUS2",
-    value = "100nF",
-    package = "0402",
-    voltage = "16V",
-    dielectric = "X7R",
-    P1 = io_5v,
-    P2 = io_gnd,
+    name="C_VBUS2",
+    value="100nF",
+    package="0402",
+    voltage="16V",
+    dielectric="X7R",
+    P1=io_5v,
+    P2=io_gnd,
 )
 
 # pcb:sch C_VBUS1.C x=1261.3800 y=202.2000 rot=0

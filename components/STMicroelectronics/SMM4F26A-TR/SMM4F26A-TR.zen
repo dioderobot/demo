@@ -6,29 +6,21 @@ Auto-generated using `pcb search`. Do not modify.
 
 mpn = config("mpn", str, optional=True, default="SMM4F26A-TR")
 
-Pins = struct(
-    A = io("A", Net),
-    K_1 = io("K_1", Net),
-    K_2 = io("K_2", Net)
-)
+Pins = struct(A=io("A", Net), K_1=io("K_1", Net), K_2=io("K_2", Net))
 
 Component(
-    name = "SMM4F26A-TR",
-    mpn = mpn,
-    manufacturer = "STMicroelectronics",
-    datasheet = File("SMM4F26A-TR.pdf"),
-    symbol = Symbol(library = "SMM4F26A-TR.kicad_sym"),
-    footprint = File("SMM4F15ATR.kicad_mod"),
-    pins = {
-        "A": Pins.A,
-        "K_1": Pins.K_1,
-        "K_2": Pins.K_2
-    },
-    properties = {
+    name="SMM4F26A-TR",
+    mpn=mpn,
+    manufacturer="STMicroelectronics",
+    datasheet=File("SMM4F26A-TR.pdf"),
+    symbol=Symbol(library="SMM4F26A-TR.kicad_sym"),
+    footprint=File("SMM4F15ATR.kicad_mod"),
+    pins={"A": Pins.A, "K_1": Pins.K_1, "K_2": Pins.K_2},
+    properties={
         "description": "TVS Diode Single Uni-Dir 26V 400W 2-Pin(1+Tab) DO-222AA T/R",
         "datasheet": "https://www.st.com/resource/en/datasheet/smm4f10a.pdf",
         "package": "DO-222AA",
-        "LCSC Part" : "C2970284",
+        "LCSC Part": "C2970284",
         "alternatives": [
             {"mpn": "SMM4F26A-TR", "manufacturer": "STMicroelectronics"},
         ],

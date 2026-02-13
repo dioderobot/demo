@@ -2,27 +2,27 @@
 
 # Pins
 Pins = struct(
-    ADC1 = io("ADC1", Net),
-    ADC2 = io("ADC2", Net),
-    ADC3 = io("ADC3", Net),
-    CS = io("CS", Net),
-    GND = io("GND", Net),
-    INT1 = io("INT1", Net),
-    INT2 = io("INT2", Net),
-    NC = io("NC", Net),
-    SPC = io("SPC", Net),
-    SDI = io("SDI", Net),
-    SDO = io("SDO", Net),
-    VDD = io("VDD", Net),
-    VDD_IO = io("VDD_IO", Net),
+    ADC1=io("ADC1", Net),
+    ADC2=io("ADC2", Net),
+    ADC3=io("ADC3", Net),
+    CS=io("CS", Net),
+    GND=io("GND", Net),
+    INT1=io("INT1", Net),
+    INT2=io("INT2", Net),
+    NC=io("NC", Net),
+    SPC=io("SPC", Net),
+    SDI=io("SDI", Net),
+    SDO=io("SDO", Net),
+    VDD=io("VDD", Net),
+    VDD_IO=io("VDD_IO", Net),
 )
 
 # Component
 Component(
-    name = "LIS3DH",
-    symbol = Symbol(library = "@kicad-symbols/Sensor_Motion.kicad_sym", name = "LIS3DH"),
-    footprint = File("@kicad-footprints/Package_LGA.pretty/LGA-16_3x3mm_P0.5mm_LayoutBorder3x5y.kicad_mod"),
-    pins = {
+    name="LIS3DH",
+    symbol=Symbol(library="@kicad-symbols/Sensor_Motion.kicad_sym", name="LIS3DH"),
+    footprint=File("@kicad-footprints/Package_LGA.pretty/LGA-16_3x3mm_P0.5mm_LayoutBorder3x5y.kicad_mod"),
+    pins={
         "ADC1": Pins.ADC1,
         "ADC2": Pins.ADC2,
         "ADC3": Pins.ADC3,
@@ -37,12 +37,12 @@ Component(
         "VDD": Pins.VDD,
         "VDD_IO": Pins.VDD_IO,
     },
-    properties = {
+    properties={
         "value": "LIS3DHTR",
         "mpn": "LIS3DHTR",
         "description": "3-axis accelerometer",
         "datasheet": "https://www.st.com/resource/en/datasheet/lis3dh.pdf",
-        "LCSC Part" : "C15134", 
+        "LCSC Part": "C15134",
         "manufacturer": "STMicroelectronics",
     },
 )

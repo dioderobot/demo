@@ -2,23 +2,23 @@
 
 # Pins
 Pins = struct(
-    EN = io("EN", Net),
-    EP = io("EP", Net),
-    FB = io("FB", Net),
-    LX = io("LX", Net),
-    NC = io("NC", Net),
-    PG = io("PG", Net),
-    PGND = io("PGND", Net),
-    SGND = io("SGND", Net),
-    VIN = io("VIN", Net),
+    EN=io("EN", Net),
+    EP=io("EP", Net),
+    FB=io("FB", Net),
+    LX=io("LX", Net),
+    NC=io("NC", Net),
+    PG=io("PG", Net),
+    PGND=io("PGND", Net),
+    SGND=io("SGND", Net),
+    VIN=io("VIN", Net),
 )
 
 # Component
 Component(
-    name = "AP3441SHE-7B",
-    symbol = Symbol(library = "AP3441SHE-7B.kicad_sym"),
-    footprint = File("SON50P201X201X60-9N-D.kicad_mod"),
-    pins = {
+    name="AP3441SHE-7B",
+    symbol=Symbol(library="AP3441SHE-7B.kicad_sym"),
+    footprint=File("SON50P201X201X60-9N-D.kicad_mod"),
+    pins={
         "EN": Pins.EN,
         "EP": Pins.EP,
         "FB": Pins.FB,
@@ -29,7 +29,7 @@ Component(
         "SGND": Pins.SGND,
         "VIN": Pins.VIN,
     },
-    properties = {
+    properties={
         "value": "AP3441SHE-7B",
         "mpn": "AP3441SHE-7B",
     },

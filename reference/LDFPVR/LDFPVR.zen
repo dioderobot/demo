@@ -28,16 +28,16 @@ input_cap_voltage = config("input_cap_voltage", str, default="25V")
 output_cap_voltage = config("output_cap_voltage", str, default="10V")
 
 # Feedback resistors
-fb_resistor_top = config("fb_resistor_top", str, default="52.3kohms")  
+fb_resistor_top = config("fb_resistor_top", str, default="52.3kohms")
 fb_resistor_bottom = config("fb_resistor_bottom", str, default="10kohms")
 
 # ----------------------------------------------------------------------------
 # Global Power Interfaces
 # ----------------------------------------------------------------------------
 
-VIN_LDO = io("VIN_LDO", Net, default = Net("VIN_LDO", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
-VOUT_LDO = io("VOUT_LDO", Net, default = Net("VOUT_LDO", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
-GND = io("GND", Net, default = Net("GND", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+VIN_LDO = io("VIN_LDO", Net, default=Net("VIN_LDO", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+VOUT_LDO = io("VOUT_LDO", Net, default=Net("VOUT_LDO", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+GND = io("GND", Net, default=Net("GND", symbol=Symbol("@kicad-symbols/power.kicad_sym:GND")))
 
 # ----------------------------------------------------------------------------
 # Local Nets
@@ -51,56 +51,35 @@ NC_PG = Net("NC_PG")
 # Components
 # ============================================================================
 
-Ldo(
-    name = "LDFPVR",
-    ADJ_NC = ADJ_NC,
-    EN = VIN_LDO,
-    GND_1 = GND,
-    GND_2 = GND,
-    PG = NC_PG,
-    VIN = VIN_LDO,
-    VOUT = VOUT_LDO
-)
+Ldo(name="LDFPVR", ADJ_NC=ADJ_NC, EN=VIN_LDO, GND_1=GND, GND_2=GND, PG=NC_PG, VIN=VIN_LDO, VOUT=VOUT_LDO)
 
 # Input Capacitor
 Capacitor(
-    name = "C_VIN_LDO",
-    value = "1uF",
-    voltage = input_cap_voltage,
-    mpn = "CL05A105KP5NNNC",
-    manufacturer = "Samsung Electro-Mechanics",
-    package = "0402",
-    P1 = VIN_LDO,
-    P2 = GND
+    name="C_VIN_LDO",
+    value="1uF",
+    voltage=input_cap_voltage,
+    mpn="CL05A105KP5NNNC",
+    manufacturer="Samsung Electro-Mechanics",
+    package="0402",
+    P1=VIN_LDO,
+    P2=GND,
 )
 
-# Output Capacitor  
+# Output Capacitor
 Capacitor(
-    name = "C_VOUT_LDO",
-    value = "2.2uF",
-    voltage = output_cap_voltage,
-    mpn = "CL05A225MQ5NNNC",
-    manufacturer = "Samsung Electro-Mechanics",
-    package = "0402",
-    P1 = VOUT_LDO,
-    P2 = GND
+    name="C_VOUT_LDO",
+    value="2.2uF",
+    voltage=output_cap_voltage,
+    mpn="CL05A225MQ5NNNC",
+    manufacturer="Samsung Electro-Mechanics",
+    package="0402",
+    P1=VOUT_LDO,
+    P2=GND,
 )
 
-Resistor(
-    name = "R_FB_TOP",
-    value = fb_resistor_top,
-    package = "0402",
-    P1 = VOUT_LDO,
-    P2 = ADJ_NC
-)
+Resistor(name="R_FB_TOP", value=fb_resistor_top, package="0402", P1=VOUT_LDO, P2=ADJ_NC)
 
-Resistor(
-    name = "R_FB_BOTTOM", 
-    value = fb_resistor_bottom,
-    package = "0402",
-    P1 = ADJ_NC,
-    P2 = GND
-)
+Resistor(name="R_FB_BOTTOM", value=fb_resistor_bottom, package="0402", P1=ADJ_NC, P2=GND)
 
 
 add_property("datasheet", "github.com/dioderobot/demo/components/STMicroelectronics/LDFPVR/LDFPVR.pdf")

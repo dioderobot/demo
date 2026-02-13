@@ -1,6 +1,6 @@
-
 # Optional parameters
-mpn = config("mpn", str, default = "KMR231G LFS", optional = True)
+mpn = config("mpn", str, default="KMR231G LFS", optional=True)
+
 
 # MPN to footprint mapping
 def _get_footprint(part_number: str):
@@ -13,23 +13,24 @@ def _get_footprint(part_number: str):
         error("Unsupported MPN: %s. Supported: %s" % (part_number, list(footprint_map.keys())))
     return footprint_map[part_number]
 
+
 P1 = io("P1", Net)
 P2 = io("P2", Net)
 
 Component(
-    name = "SW",
-    prefix = "SW",
-    symbol = Symbol(library = "@kicad-symbols/Switch.kicad_sym", name = "SW_Push"),
-    footprint = File(_get_footprint(mpn)),
-    mpn = mpn,
-    manufacturer = "C&K",
-    pins = {
+    name="SW",
+    prefix="SW",
+    symbol=Symbol(library="@kicad-symbols/Switch.kicad_sym", name="SW_Push"),
+    footprint=File(_get_footprint(mpn)),
+    mpn=mpn,
+    manufacturer="C&K",
+    pins={
         "1": P1,
         "2": P2,
     },
-    properties = {
+    properties={
         "alternatives": [
             {"mpn": "Y78B23110FP", "manufacturer": "C&K"},
         ]
-    }
+    },
 )

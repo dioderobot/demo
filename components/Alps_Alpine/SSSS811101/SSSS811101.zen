@@ -5,21 +5,21 @@
 
 # Pins
 Pins_SSSS811101 = struct(
-    P1 = io("P1", Net),
-    P2 = io("P2", Net),
-    P3 = io("P3", Net),
-    P4 = io("P4", Net),
-    P5 = io("P5", Net),
-    P6 = io("P6", Net),
-    P7 = io("P7", Net),
+    P1=io("P1", Net),
+    P2=io("P2", Net),
+    P3=io("P3", Net),
+    P4=io("P4", Net),
+    P5=io("P5", Net),
+    P6=io("P6", Net),
+    P7=io("P7", Net),
 )
 
 # Component
 Component(
-    name = "SSSS811101",
-    symbol = Symbol(library = "SSSS811101.kicad_sym"),
-    footprint = File("SSSS811101.kicad_mod"),
-    pins = {
+    name="SSSS811101",
+    symbol=Symbol(library="SSSS811101.kicad_sym"),
+    footprint=File("SSSS811101.kicad_mod"),
+    pins={
         "1": Pins_SSSS811101.P1,
         "2": Pins_SSSS811101.P2,
         "3": Pins_SSSS811101.P3,

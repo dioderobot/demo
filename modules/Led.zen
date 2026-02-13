@@ -10,7 +10,7 @@
 
 load("@stdlib/interfaces.zen", "Power", "Ground")
 load("@stdlib/units.zen", "unit", "Voltage", "Resistance", "Current")
-Led      = Module("@stdlib/generics/Led.zen")
+Led = Module("@stdlib/generics/Led.zen")
 Resistor = Module("@stdlib/generics/Resistor.zen")
 
 # ------------------------------------------------------------
@@ -24,17 +24,17 @@ supply_voltage = config("supply_voltage", Voltage, default=Voltage("3.3V"))
 # Data from Digikey: Forward voltage and test current per datasheet
 # ------------------------------------------------------------
 parts = {
-    "blue":   { "vf": 2.8, "i_test": 0.005, "r": 110 },
-    "green":  { "vf": 2.0, "i_test": 0.020, "r": 150 },
-    "orange": { "vf": 2.0, "i_test": 0.020, "r": 261 },
-    "red":    { "vf": 2.0, "i_test": 0.020, "r": 150 },
+    "blue": {"vf": 2.8, "i_test": 0.005, "r": 110},
+    "green": {"vf": 2.0, "i_test": 0.020, "r": 150},
+    "orange": {"vf": 2.0, "i_test": 0.020, "r": 261},
+    "red": {"vf": 2.0, "i_test": 0.020, "r": 150},
 }
 
-data    = parts[color.value]
-vf      = Voltage(data["vf"])            # forward voltage in volts
-i_test  = Current(data["i_test"])        # test current in amps
-r_ohm   = Resistance(data["r"])          # series resistor in ohms
-i_led   = (supply_voltage - vf) / r_ohm  # resulting current (A)
+data = parts[color.value]
+vf = Voltage(data["vf"])  # forward voltage in volts
+i_test = Current(data["i_test"])  # test current in amps
+r_ohm = Resistance(data["r"])  # series resistor in ohms
+i_led = (supply_voltage - vf) / r_ohm  # resulting current (A)
 
 # ------------------------------------------------------------
 # Safety checks
@@ -56,19 +56,19 @@ led_r_net = Net("LED_R_NET")
 # Components
 # ------------------------------------------------------------
 Led(
-    name            = "D",
-    package         = "0402",
-    color           = color,
-    forward_voltage = vf,
-    forward_current = i_led,
-    A               = led_r_net,    # Anode to p1 (VCC for open-drain)
-    K               = p2,           # Cathode to internal net
+    name="D",
+    package="0402",
+    color=color,
+    forward_voltage=vf,
+    forward_current=i_led,
+    A=led_r_net,  # Anode to p1 (VCC for open-drain)
+    K=p2,  # Cathode to internal net
 )
 
 Resistor(
-    name    = "R_D",
-    package = "0402",
-    value   = r_ohm,
-    P1      = p1,          # From LED cathode
-    P2      = led_r_net,   # To p2 (MCU pin for open-drain)
+    name="R_D",
+    package="0402",
+    value=r_ohm,
+    P1=p1,  # From LED cathode
+    P2=led_r_net,  # To p2 (MCU pin for open-drain)
 )

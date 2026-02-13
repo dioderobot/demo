@@ -28,9 +28,9 @@ Capacitor = Module("@stdlib/generics/Capacitor.zen")
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-io_vin = io("vin", Net, default = Net("vin", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
-io_vout = io("vout", Net, default = Net("vout", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
-io_gnd = io("gnd", Net, default = Net("gnd", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+io_vin = io("vin", Net, default=Net("vin", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+io_vout = io("vout", Net, default=Net("vout", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+io_gnd = io("gnd", Net, default=Net("gnd", symbol=Symbol("@kicad-symbols/power.kicad_sym:GND")))
 
 io_enable = io("enable", Net)
 io_fault = io("fault", Net)
@@ -40,32 +40,32 @@ io_fault = io("fault", Net)
 # ----------------------------------------------------------------------------
 
 STMPS2151STR(
-    name = "STMPS2151STR",
-    IN = io_vin,
-    OUT = io_vout,
-    GND = io_gnd,
-    EN = io_enable,
-    FAULT = io_fault,
+    name="STMPS2151STR",
+    IN=io_vin,
+    OUT=io_vout,
+    GND=io_gnd,
+    EN=io_enable,
+    FAULT=io_fault,
 )
 
 Capacitor(
-    name = "C_IN",
-    value = "100nF",
-    voltage = "16V",
-    dielectric = "X7R",
-    package = "0402",
-    P1 = io_vin,
-    P2 = io_gnd,
+    name="C_IN",
+    value="100nF",
+    voltage="16V",
+    dielectric="X7R",
+    package="0402",
+    P1=io_vin,
+    P2=io_gnd,
 )
 
 Capacitor(
-    name = "C_OUT",
-    value = "100nF",
-    voltage = "16V",
-    dielectric = "X7R",
-    package = "0402",
-    P1 = io_vout,
-    P2 = io_gnd,
+    name="C_OUT",
+    value="100nF",
+    voltage="16V",
+    dielectric="X7R",
+    package="0402",
+    P1=io_vout,
+    P2=io_gnd,
 )
 
 add_property("datasheet", "github.com/dioderobot/demo/components/STMicroelectronics/STMPS2151STR/STMPS2151STR.pdf")
