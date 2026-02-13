@@ -8,7 +8,7 @@ Author: Nasheed Ur Rehman
 # ----------------------------------------------------------------------------
 
 load("@stdlib/interfaces.zen", "PcieGen3x1Lane", "Power", "Ground", "NotConnected")
-load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Resistance", "Voltage", "VoltageRange")
+load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Resistance", "Voltage")
 load("@stdlib/utils.zen", "e96")
 
 # ----------------------------------------------------------------------------
@@ -31,7 +31,7 @@ Led = Module("@stdlib/generics/Led.zen")
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-io_5v = io("5v", Power, default=Power(voltage=VoltageRange("5V")))
+io_5v = io("5v", Power, default=Power(voltage=Voltage("5V")))
 io_gnd = io("gnd", Ground)
 pcie_c = io("PCIE_C", PcieGen3x1Lane)
 pcie_pwr_en = io("PCIE_PWR_EN", Net)
@@ -40,7 +40,7 @@ pcie_pwr_en = io("PCIE_PWR_EN", Net)
 # local nets
 # ----------------------------------------------------------------------------
 
-m2_3v3 = Power("m2_3v3", voltage=VoltageRange("3.3V"))
+m2_3v3 = Power("m2_3v3", voltage=Voltage("3.3V"))
 das_dss_led1 = Net("DAS_DSS_LED1")
 r_activity = Net("R_Activity")
 susclk = Net("susclk")

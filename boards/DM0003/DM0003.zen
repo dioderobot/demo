@@ -20,7 +20,7 @@ load(
     "Usb2",
     "Usb3",
 )
-load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Resistance", "Voltage", "VoltageRange")
+load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Resistance", "Voltage")
 load("@stdlib/board_config.zen", "Board")
 
 # ----------------------------------------------------------------------------
@@ -53,9 +53,9 @@ Diode_Logo = Module("src/graphics/Diode_Logo.zen")
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-io_5v = Power("5v", voltage=VoltageRange("5V"))
-io_3v3pi = Power("3v3pi", voltage=VoltageRange("3.3V"))
-io_1v8 = Power("1v8", voltage=VoltageRange("1.8V"))
+io_5v = Power("5v", voltage=Voltage("5V"))
+io_3v3pi = Power("3v3pi", voltage=Voltage("3.3V"))
+io_1v8 = Power("1v8", voltage=Voltage("1.8V"))
 io_gnd = Ground("gnd")
 io_gpio_vref = Net("gpio_vref")
 
