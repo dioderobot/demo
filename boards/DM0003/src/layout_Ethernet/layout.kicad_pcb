@@ -83,20 +83,20 @@
 		)
 	)
 	(net 0 "")
-	(net 1 "io_3v3pi")
-	(net 2 "mp")
-	(net 3 "nLed_Y")
-	(net 4 "N2857")
+	(net 1 "3V3PI")
+	(net 2 "MP")
+	(net 3 "NLED_Y")
+	(net 4 "ETH.NC_CRJ009-ML4-TH_NC_1")
 	(net 5 "ETH_C_TR2_P")
-	(net 6 "k_yellow")
+	(net 6 "K_YELLOW")
 	(net 7 "ETH_C_TR1_N")
 	(net 8 "ETH_C_TR0_P")
-	(net 9 "N2858")
-	(net 10 "io_gnd")
-	(net 11 "nLed_G")
+	(net 9 "ETH.NC_CRJ009-ML4-TH_NC_2")
+	(net 10 "GND")
+	(net 11 "NLED_G")
 	(net 12 "ETH_C_TR1_P")
 	(net 13 "ETH_C_TR0_N")
-	(net 14 "k_green")
+	(net 14 "K_GREEN")
 	(net 15 "ETH_C_TR3_P")
 	(net 16 "ETH_C_TR2_N")
 	(net 17 "ETH_C_TR3_N")
@@ -194,6 +194,30 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "c7086b80-b5e7-4463-9a33-6cbf61cb3a26")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Lcsc Part" "C50933"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ea968cf1-c97d-496c-af65-65041134cb60")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"CRJ009-ML4-TH\", \"manufacturer\": \"Same Sky\"},{\"mpn\": \"HR911130C\", \"manufacturer\": \"HANRUN(Zhongshan HanRun Elec) \"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "0c4049e2-c5b4-420e-a8d0-3e6176eb86f0")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -412,7 +436,8 @@
 			(drill 0.9)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net 4 "N2857")
+			(net 4 "ETH.NC_CRJ009-ML4-TH_NC_1")
+			(pintype "no_connect")
 			(uuid "1efd14fd-13d6-4c80-bbc9-3b212124cbc4")
 		)
 		(pad "6" thru_hole circle
@@ -421,7 +446,8 @@
 			(drill 0.9)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net 9 "N2858")
+			(net 9 "ETH.NC_CRJ009-ML4-TH_NC_2")
+			(pintype "no_connect")
 			(uuid "f41000b3-3f9e-4ce3-ac90-9511b3aef06e")
 		)
 		(pad "7" thru_hole circle
@@ -466,7 +492,7 @@
 			(drill 1.02)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net 1 "io_3v3pi")
+			(net 1 "3V3PI")
 			(uuid "d133c83b-5589-48b8-ab9d-83e0f801223c")
 		)
 		(pad "12" thru_hole circle
@@ -475,7 +501,7 @@
 			(drill 1.02)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net 6 "k_yellow")
+			(net 6 "K_YELLOW")
 			(uuid "879e2e45-8aea-46a3-80d7-a46ef10b0416")
 		)
 		(pad "13" thru_hole circle
@@ -484,7 +510,7 @@
 			(drill 1.02)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net 1 "io_3v3pi")
+			(net 1 "3V3PI")
 			(uuid "5eabe4f9-902f-49ae-9997-0fc58abb544f")
 		)
 		(pad "14" thru_hole circle
@@ -493,7 +519,7 @@
 			(drill 1.02)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net 14 "k_green")
+			(net 14 "K_GREEN")
 			(uuid "f1c09f64-bd9f-4d56-9f45-a5a3c56f146e")
 		)
 		(pad "MH1" thru_hole circle
@@ -502,7 +528,7 @@
 			(drill 1.7)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net 2 "mp")
+			(net 2 "MP")
 			(uuid "c8f9a152-7bf0-46b0-9886-51a9dbda474a")
 		)
 		(pad "MH2" thru_hole circle
@@ -511,7 +537,7 @@
 			(drill 1.7)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net 2 "mp")
+			(net 2 "MP")
 			(uuid "370c86c0-6b9f-4129-be9e-747986c87cdb")
 		)
 		(embedded_fonts no)
@@ -575,7 +601,7 @@
 				)
 			)
 		)
-		(property "Description" "TPD4EUSB30DQAR"
+		(property "Description" "Texas Instruments - TPD4EUSB30DQAR - ESD and Surge Protection"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -628,6 +654,30 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "9705af61-be97-499b-acff-405b27f50a24")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Lcsc Part" "C90627"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b83665d6-45da-4794-ac91-3ad328e0d803")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"DT1140-04LP-7\", \"manufacturer\": \"Diodes Incorporated\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "cf92f3d7-0667-451d-9eb7-6ecc7ffa493a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -749,7 +799,7 @@
 			(at 0 0.385)
 			(size 0.4 0.55)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 10 "io_gnd")
+			(net 10 "GND")
 			(uuid "50c73105-a867-4147-a1bf-c6e26ad94832")
 		)
 		(pad "4" smd rect
@@ -784,7 +834,7 @@
 			(at 0 -0.385)
 			(size 0.4 0.55)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 10 "io_gnd")
+			(net 10 "GND")
 			(uuid "d691a692-f24e-4981-b814-cc08f1dce34c")
 		)
 		(pad "9" smd rect
@@ -838,7 +888,7 @@
 				)
 			)
 		)
-		(property "Value" "470"
+		(property "Value" "ERJ-2RKF4700X"
 			(at 0 1.17 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -929,6 +979,54 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "0c4e6961-9f39-485f-8eb0-d0356901e430")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F4700X\", \"manufacturer\": \"Panasonic Electronic Components\"},{\"mpn\": \"0402WGF4700TCE\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "455f83e9-5431-4d3d-8415-9ffcf6746ad1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Electronic Components"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "717d3b61-9ba3-4960-b629-b3846e92dd4a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "02b21e0b-8427-49cc-b615-8bbe07e915d4")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF4700X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d046d8ea-b572-4016-8ced-d21dbae8d87f")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1054,7 +1152,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 14 "k_green")
+			(net 14 "K_GREEN")
 			(uuid "ad2bae41-ad7b-4d30-b2e6-9cb6e5644f91")
 		)
 		(pad "2" smd roundrect
@@ -1062,7 +1160,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 3 "nLed_Y")
+			(net 3 "NLED_Y")
 			(uuid "68016d20-760a-4a70-ad7f-d0148bce71fa")
 		)
 		(embedded_fonts no)
@@ -1095,7 +1193,7 @@
 				)
 			)
 		)
-		(property "Value" "0"
+		(property "Value" "ERJ-2GE0R00X"
 			(at 0 1.17 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -1186,6 +1284,42 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "a810937c-4d65-463b-9a3a-34efd608fc7a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Electronic Components"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "2853b3ec-1a25-4cb1-90da-ce57bc1387b0")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5a51bbd6-2c9e-4822-bd22-841af69ea4c9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2GE0R00X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e3c590ca-190c-4444-a18a-feed5f61a496")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1311,7 +1445,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 2 "mp")
+			(net 2 "MP")
 			(uuid "cec3d008-5560-4c30-96c2-ab2f02e4eb7e")
 		)
 		(pad "2" smd roundrect
@@ -1319,7 +1453,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 10 "io_gnd")
+			(net 10 "GND")
 			(uuid "653f4569-6742-4f37-9988-99677d2b8512")
 		)
 		(embedded_fonts no)
@@ -1352,7 +1486,7 @@
 				)
 			)
 		)
-		(property "Value" "470"
+		(property "Value" "ERJ-2RKF4700X"
 			(at 0 1.17 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -1443,6 +1577,54 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "37c4c717-de98-485a-8098-ffd3a9d9da6a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F4700X\", \"manufacturer\": \"Panasonic Electronic Components\"},{\"mpn\": \"0402WGF4700TCE\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "045b89b7-ddff-43b9-99e8-c01c6608563e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Electronic Components"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "6a6a2b39-8ad0-42d1-961d-404481c5f15a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3f4abb0f-4dc1-463a-83c1-8ef23045b651")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF4700X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "7fe060ee-7c7b-4537-a303-068380f0cdcc")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1568,7 +1750,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 6 "k_yellow")
+			(net 6 "K_YELLOW")
 			(uuid "49c551cd-f08b-4716-af26-cd0694510b49")
 		)
 		(pad "2" smd roundrect
@@ -1576,7 +1758,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 11 "nLed_G")
+			(net 11 "NLED_G")
 			(uuid "6fb22ffe-bf28-4b14-88d9-342750d18e84")
 		)
 		(embedded_fonts no)
@@ -1633,7 +1815,7 @@
 				)
 			)
 		)
-		(property "Description" "TPD4EUSB30DQAR"
+		(property "Description" "Texas Instruments - TPD4EUSB30DQAR - ESD and Surge Protection"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -1686,6 +1868,30 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "eee2c143-91a5-412d-b747-b116d8af4d9e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Lcsc Part" "C90627"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "6015e297-93b6-4eab-b3d3-b5a6273d258f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"DT1140-04LP-7\", \"manufacturer\": \"Diodes Incorporated\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5bc9dc08-64d8-4e69-aa2c-6d9947643152")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1807,7 +2013,7 @@
 			(at 0 0.385)
 			(size 0.4 0.55)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 10 "io_gnd")
+			(net 10 "GND")
 			(uuid "1c9df213-519a-4dcb-9552-4a36c8fd98ff")
 		)
 		(pad "4" smd rect
@@ -1842,7 +2048,7 @@
 			(at 0 -0.385)
 			(size 0.4 0.55)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 10 "io_gnd")
+			(net 10 "GND")
 			(uuid "beb9bfc2-22f7-49b7-a081-398b0e28fd65")
 		)
 		(pad "9" smd rect
@@ -1878,14 +2084,6 @@
 				(xyz 0 0 -90)
 			)
 		)
-	)
-	(group "TVS_0"
-		(uuid "76ba9221-ddb8-4606-906f-770937065513")
-		(members "78eb1e95-a5ae-4311-b233-920438dfb455")
-	)
-	(group "TVS_1"
-		(uuid "b4bfd455-3183-4d05-bca5-fdb1fc17e2fc")
-		(members "c5ce101c-cd20-4d34-9073-bed742819f09")
 	)
 	(embedded_fonts no)
 	(embedded_files
