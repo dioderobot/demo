@@ -107,7 +107,7 @@ TUSB321RWBR(
     DIR=DIR,
     CURRENT_MODE=GND,
     VBUS_DET=VBUS_DET,
-    n_VCONN_FAULT=Net("NC"),
+    N_VCONN_FAULT=Net("NC"),
 )
 
 Capacitor(

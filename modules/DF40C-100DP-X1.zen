@@ -98,74 +98,74 @@ load("@stdlib/interfaces.zen", "I2c", "Uart", "Usart", "Can", "Power", "Ground",
 # -----------------------------------------------------------------------------
 
 # PWM outputs (AUX channels)
-fmu_ch1 = io("fmu_ch1", Pwm)
-fmu_ch2 = io("fmu_ch2", Pwm)
-fmu_ch3 = io("fmu_ch3", Pwm)
-fmu_ch4 = io("fmu_ch4", Pwm)
-fmu_ch5 = io("fmu_ch5", Pwm)
-fmu_ch6 = io("fmu_ch6", Pwm)
-fmu_ch7 = io("fmu_ch7", Pwm)
-fmu_ch8 = io("fmu_ch8", Pwm)
+fmu_ch1 = io("FMU_CH1", Pwm)
+fmu_ch2 = io("FMU_CH2", Pwm)
+fmu_ch3 = io("FMU_CH3", Pwm)
+fmu_ch4 = io("FMU_CH4", Pwm)
+fmu_ch5 = io("FMU_CH5", Pwm)
+fmu_ch6 = io("FMU_CH6", Pwm)
+fmu_ch7 = io("FMU_CH7", Pwm)
+fmu_ch8 = io("FMU_CH8", Pwm)
 
 # I2C buses
-i2c1 = io("i2c1", I2c)
-i2c2 = io("i2c2", I2c)
-i2c3 = io("i2c3", I2c)
+i2c1 = io("I2C1", I2c)
+i2c2 = io("I2C2", I2c)
+i2c3 = io("I2C3", I2c)
 
 # UART/USART buses
-usart1 = io("usart1", Usart)  # GPS1 (2-wire)
-usart2 = io("usart2", Usart)  # TELEM3 (RTS/CTS)
-usart3 = io("usart3", Usart)  # DEBUG (2-wire)
-usart5 = io("usart5", Usart)  # TELEM2 (RTS/CTS)
-usart6 = io("usart6", Usart)  # PX4IO (2-wire)
-usart7 = io("usart7", Usart)  # TELEM1 (RTS/CTS)
+usart1 = io("USART1", Usart)  # GPS1 (2-wire)
+usart2 = io("USART2", Usart)  # TELEM3 (RTS/CTS)
+usart3 = io("USART3", Usart)  # DEBUG (2-wire)
+usart5 = io("USART5", Usart)  # TELEM2 (RTS/CTS)
+usart6 = io("USART6", Usart)  # PX4IO (2-wire)
+usart7 = io("USART7", Usart)  # TELEM1 (RTS/CTS)
 
-uart4 = io("uart4", Uart)
-uart8 = io("uart8", Uart)  # GPS2 (no flow control)
+uart4 = io("UART4", Uart)
+uart8 = io("UART8", Uart)  # GPS2 (no flow control)
 
 # CAN buses
-can1 = io("can1", Can)
-can2 = io("can2", Can)
+can1 = io("CAN1", Can)
+can2 = io("CAN2", Can)
 
 # Power rails
-vdd_3v3 = io("vdd_3v3", Power)
-vdd_5v_in = io("vdd_5v_in", Power)
-gnd = io("gnd", Ground)
+vdd_3v3 = io("VDD_3V3", Power)
+vdd_5v_in = io("VDD_5V_IN", Power)
+gnd = io("GND", Ground)
 
 # Control/status signals
-buzzer = io("buzzer", Gpio)
-safety_switch_in = io("safety_switch_in", Gpio)
-hw_rev_sense = io("hw_rev_sense", Analog)
-safety_switch_led = io("safety_switch_led", Gpio)
-hw_ver_drive = io("hw_ver_drive", Gpio)
-hw_ver_sense = io("hw_ver_sense", Analog)
-ppm_input = io("ppm_input", Gpio)
-armed = io("armed", Gpio)
-reset = io("reset", Gpio)
+buzzer = io("BUZZER", Gpio)
+safety_switch_in = io("SAFETY_SWITCH_IN", Gpio)
+hw_rev_sense = io("HW_REV_SENSE", Analog)
+safety_switch_led = io("SAFETY_SWITCH_LED", Gpio)
+hw_ver_drive = io("HW_VER_DRIVE", Gpio)
+hw_ver_sense = io("HW_VER_SENSE", Analog)
+ppm_input = io("PPM_INPUT", Gpio)
+armed = io("ARMED", Gpio)
+reset = io("RESET", Gpio)
 
 # Power control
-spektrum_en = io("spektrum_en", Gpio)
-periph_5v_en = io("periph_5v_en", Gpio)
-periph_5v_oc = io("periph_5v_oc", Gpio)
-hipower_5v_en = io("hipower_5v_en", Gpio)
-hipower_5v_oc = io("hipower_5v_oc", Gpio)
-power_in_a = io("power_in_a", Gpio)
-power_in_b = io("power_in_b", Gpio)
-power_in_c = io("power_in_c", Gpio)
+spektrum_en = io("SPEKTRUM_EN", Gpio)
+periph_5v_en = io("PERIPH_5V_EN", Gpio)
+periph_5v_oc = io("PERIPH_5V_OC", Gpio)
+hipower_5v_en = io("HIPOWER_5V_EN", Gpio)
+hipower_5v_oc = io("HIPOWER_5V_OC", Gpio)
+power_in_a = io("POWER_IN_A", Gpio)
+power_in_b = io("POWER_IN_B", Gpio)
+power_in_c = io("POWER_IN_C", Gpio)
 
 # ADC inputs
-adc_6v6 = io("adc_6v6", Analog)
-adc_3v3 = io("adc_3v3", Analog)
+adc_6v6 = io("ADC_6V6", Analog)
+adc_3v3 = io("ADC_3V3", Analog)
 
 # Debug interface
-swd = io("swd", Swd)
+swd = io("SWD", Swd)
 
 # USB interface
-usb = io("usb", Usb2)
-vbus_sense = io("vbus_sense", Analog)
+usb = io("USB", Usb2)
+vbus_sense = io("VBUS_SENSE", Analog)
 
 # RTC battery
-rtc_bat = io("rtc_bat", Power)
+rtc_bat = io("RTC_BAT", Power)
 
 # -----------------------------------------------------------------------------
 # Component definition

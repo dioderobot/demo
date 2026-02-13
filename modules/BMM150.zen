@@ -15,8 +15,8 @@ GND = io("GND", Ground)  # Ground
 I2C = io("I2C", I2c)  # I2C interface
 
 # Interrupt pins
-INT = io("INT", Gpio, optional=True, default=Gpio())  # Interrupt output pin
-DRDY = io("DRDY", Gpio, optional=True, default=Gpio())  # Data ready output pin
+INT = io("INT", Gpio, optional=True)  # Interrupt output pin
+DRDY = io("DRDY", Gpio, optional=True)  # Data ready output pin
 
 # Main component
 Component(

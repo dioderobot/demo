@@ -65,9 +65,9 @@ ldo = TLV758P(
 # MCU connections
 mcu = RP2040(
     name="MCU",
-    vdd_3v3=vdd_3v3,
-    gnd=gnd,
-    usb=usb,
+    VDD_3V3=vdd_3v3,
+    GND=gnd,
+    USB=usb,
     # GPIO assignments
     GPIO12=gpio_12_led_orange,
     GPIO13=vbus_det,
@@ -114,14 +114,14 @@ Resistor(name="R_VBUS_DIV_H", package="0402", value="33kOhm", P1=vbus_5v0, P2=vb
 Resistor(name="R_VBUS_DIV_L", package="0402", value="47kOhm", P1=vbus_det, P2=gnd)
 
 # GPIO-controlled Status LEDs (GPIO sources current when high, push-pull topology)
-Led(name="LED_B", color="blue", supply_voltage=Voltage("3.3V"), p1=gpio_17_led_blue, p2=gnd)
-Led(name="LED_G", color="green", supply_voltage=Voltage("3.3V"), p1=gpio_16_led_green, p2=gnd)
-Led(name="LED_O1", color="orange", supply_voltage=Voltage("3.3V"), p1=gpio_15_led_orange, p2=gnd)
-Led(name="LED_O2", color="orange", supply_voltage=Voltage("3.3V"), p1=gpio_14_led_orange, p2=gnd)
-Led(name="LED_O3", color="orange", supply_voltage=Voltage("3.3V"), p1=gpio_12_led_orange, p2=gnd)
+Led(name="LED_B", color="blue", supply_voltage=Voltage("3.3V"), P1=gpio_17_led_blue, P2=gnd)
+Led(name="LED_G", color="green", supply_voltage=Voltage("3.3V"), P1=gpio_16_led_green, P2=gnd)
+Led(name="LED_O1", color="orange", supply_voltage=Voltage("3.3V"), P1=gpio_15_led_orange, P2=gnd)
+Led(name="LED_O2", color="orange", supply_voltage=Voltage("3.3V"), P1=gpio_14_led_orange, P2=gnd)
+Led(name="LED_O3", color="orange", supply_voltage=Voltage("3.3V"), P1=gpio_12_led_orange, P2=gnd)
 
 # Power indicator LED
-Led(name="LED_PWR", color="red", supply_voltage=Voltage("3.3V"), p1=vdd_3v3, p2=gnd)
+Led(name="LED_PWR", color="red", supply_voltage=Voltage("3.3V"), P1=vdd_3v3, P2=gnd)
 
 # Diode Logo
 Component(

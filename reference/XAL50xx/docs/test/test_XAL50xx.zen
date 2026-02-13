@@ -20,7 +20,7 @@ for package in XAL50xx.PackageOptions.values():
     # Iterate through all inductance values for this package
     for inductance in inductance_enum.values():
         # Create a clean name for the instance
-        ind_str = inductance.value.replace(".", "p").replace("uH", "u").replace("nH", "n")
+        ind_str = inductance.value.replace(".", "P").replace("uH", "U").replace("nH", "N")
         name = "L_{}_{}".format(package_str, ind_str)
 
         # Instantiate the component

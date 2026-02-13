@@ -7,7 +7,7 @@ Author: Nasheed Ur Rehman
 # Libraries & Dependencies
 # ----------------------------------------------------------------------------
 
-load("@stdlib/interfaces.zen", "Ethernet_Phy", "Power", "Ground")
+load("@stdlib/interfaces.zen", "Ethernet_Phy", "Power", "Ground", "NotConnected")
 load("@stdlib/properties.zen", "Layout")
 load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "Resistance", "Voltage")
 
@@ -57,8 +57,8 @@ Ethernet(
     K_YELLOW=ETHERNET_K_YELLOW,
     MH1=MP,
     MH2=MP,
-    NC_1=Net(),
-    NC_2=Net(),
+    NC_1=NotConnected(),
+    NC_2=NotConnected(),
     TRD0P=ETH_C.TR0.P,
     TRD0M=ETH_C.TR0.N,
     TRD1P=ETH_C.TR1.P,

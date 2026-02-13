@@ -13,11 +13,11 @@ Button = Module("Button.zen")
 Oscillator = Module("Oscillator.zen")
 
 # Public interfaces
-vdd_3v3 = io("vdd_3v3", Power)
-gnd = io("gnd", Ground)
-swd = io("swd", Swd, optional=True)
-usb = io("usb", Usb2, optional=True)
-run = io("run", Net, optional=True)
+vdd_3v3 = io("VDD_3V3", Power)
+gnd = io("GND", Ground)
+swd = io("SWD", Swd, optional=True)
+usb = io("USB", Usb2, optional=True)
+run = io("RUN", Net, optional=True)
 
 # Internal interfaces
 vdd_1v1 = Power("VDD_1V1")

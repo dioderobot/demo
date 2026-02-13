@@ -5,18 +5,18 @@ load("@stdlib/interfaces.zen", "Sdio", "Power", "Ground", "Gpio")
 # -----------------------------------------------------------------------------
 
 # SDIO interface for the microSD card data/control signals
-sdio = io("sdio", Sdio)
+sdio = io("SDIO", Sdio)
 
 # Power and ground
-vdd = io("vdd", Power)
-vss = io("vss", Ground)
+vdd = io("VDD", Power)
+vss = io("VSS", Ground)
 
 # Card detection pins
-det_a = io("det_a", Gpio)
-det_b = io("det_b", Gpio)
+det_a = io("DET_A", Gpio)
+det_b = io("DET_B", Gpio)
 
 # Shield connection
-shield = io("shield", Gpio, default=Gpio(NET=vss), optional=True)
+shield = io("SHIELD", Gpio, default=Gpio(NET=vss), optional=True)
 
 # -----------------------------------------------------------------------------
 # Component definition

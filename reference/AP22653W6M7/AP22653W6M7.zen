@@ -80,8 +80,8 @@ NFAULT = io("NFAULT", Net)
 # local nets
 # ----------------------------------------------------------------------------
 
-nc = Net("nc")
-ilim = Net("ilim")
+nc = Net("NC")
+ilim = Net("ILIM")
 
 # ----------------------------------------------------------------------------
 # Components
@@ -93,7 +93,7 @@ AP22653W6M7(
     OUT=VOUT,
     EN=ENABLE,
     ILIM=ilim,
-    n_FAULT=NFAULT,
+    N_FAULT=NFAULT,
     GND=GND,
 )
 

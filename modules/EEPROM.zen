@@ -48,7 +48,7 @@ I2C = io("I2C", I2c)
 GND = io("GND", Ground)  # Pin 4 - Ground
 VCC = io("VCC", Power)  # Pin 8 - Power Supply
 
-WP = io("WP", Net, default=Net(), optional=True)  # Pin 7 - Write-Protect Input
+WP = io("WP", Net, optional=True)  # Pin 7 - Write-Protect Input
 
 # Main component
 Component(

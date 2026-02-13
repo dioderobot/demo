@@ -27,12 +27,12 @@ Resistor = Module("@stdlib/generics/Resistor.zen")
 # -----------------------------------------------------------------------------
 
 # Power connections
-vdd = io("vdd", Power)  # Supply input (anode)
-out = io("out", Power)  # Ideal diode output (cathode)
-gnd = io("gnd", Ground)  # Circuit ground
+vdd = io("VDD", Power)  # Supply input (anode)
+out = io("OUT", Power)  # Ideal diode output (cathode)
+gnd = io("GND", Ground)  # Circuit ground
 
 # Control
-en = io("en", Gpio)  # Active-high enable input (with weak internal pullup)
+en = io("EN", Gpio)  # Active-high enable input (with weak internal pullup)
 
 # -----------------------------------------------------------------------------
 # Component definition

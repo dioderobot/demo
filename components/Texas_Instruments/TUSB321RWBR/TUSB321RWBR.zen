@@ -18,7 +18,7 @@ Pins = struct(
     PORT=io("PORT", Net),
     VBUS_DET=io("VBUS_DET", Net),
     VDD=io("VDD", Net),
-    n_VCONN_FAULT=io("n_VCONN_FAULT", Net),
+    n_VCONN_FAULT=io("N_VCONN_FAULT", Net),
 )
 
 Component(

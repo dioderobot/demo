@@ -31,7 +31,7 @@ Led = Module("@stdlib/generics/Led.zen")
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-V5 = io("5V", Power, default=Power(voltage=Voltage("5V")))
+V5 = io("5V", Power, default=Power("5V", voltage=Voltage("5V")))
 GND = io("GND", Ground)
 PCIE_C = io("PCIE_C", PcieGen3x1Lane)
 PCIE_PWR_EN = io("PCIE_PWR_EN", Net)
@@ -55,25 +55,25 @@ PCIe_Connector(
     CLKREQ=PCIE_C.CLK_REQ_N,
     PEWAKE=PCIE_C.WAKE_N,
     DEVSLP=NotConnected(),
-    PETp0_SATA_Aplus=PCIE_C.TX.N,
-    PETn0_SATA_Aminus=PCIE_C.TX.P,
-    PERp0_SATA_Bminus=PCIE_C.RX.N,
-    PERn0_SATA_Bplus=PCIE_C.RX.P,
-    PETp1=NotConnected(),
-    PETn1=NotConnected(),
-    PERp1=NotConnected(),
-    PERn1=NotConnected(),
-    PETp2=NotConnected(),
-    PETn2=NotConnected(),
-    PERp2=NotConnected(),
-    PERn2=NotConnected(),
-    PETp3=NotConnected(),
-    PETn3=NotConnected(),
-    PERp3=NotConnected(),
-    PERn3=NotConnected(),
+    PETP0_SATA_APLUS=PCIE_C.TX.N,
+    PETN0_SATA_AMINUS=PCIE_C.TX.P,
+    PERP0_SATA_BMINUS=PCIE_C.RX.N,
+    PERN0_SATA_BPLUS=PCIE_C.RX.P,
+    PETP1=NotConnected(),
+    PETN1=NotConnected(),
+    PERP1=NotConnected(),
+    PERN1=NotConnected(),
+    PETP2=NotConnected(),
+    PETN2=NotConnected(),
+    PERP2=NotConnected(),
+    PERN2=NotConnected(),
+    PETP3=NotConnected(),
+    PETN3=NotConnected(),
+    PERP3=NotConnected(),
+    PERN3=NotConnected(),
     # Reference Clock
-    REFCLKp=PCIE_C.REFCLK.P,
-    REFCLKn=PCIE_C.REFCLK.N,
+    REFCLKP=PCIE_C.REFCLK.P,
+    REFCLKN=PCIE_C.REFCLK.N,
     # Power
     VDD=M2_3V3,
     GND=GND,

@@ -63,25 +63,25 @@ load("@stdlib/interfaces.zen", "Spi", "Power", "Ground", "Gpio", "NotConnected",
 # -----------------------------------------------------------------------------
 
 # Ethernet RMII interface (uses single interface for all RMII signals)
-eth_rmii = io("eth_rmii", Rmii)
-eth_mdio = io("eth_mdio", Gpio)  # Management interface (separate from RMII)
-eth_mdc = io("eth_mdc", Gpio)  # Management interface (separate from RMII)
-eth_power_en = io("eth_power_en", Gpio)
+eth_rmii = io("ETH_RMII", Rmii)
+eth_mdio = io("ETH_MDIO", Gpio)  # Management interface (separate from RMII)
+eth_mdc = io("ETH_MDC", Gpio)  # Management interface (separate from RMII)
+eth_power_en = io("ETH_POWER_EN", Gpio)
 
 # SPI6 interface (with built-in CS and additional signals)
-spi6 = io("spi6", Spi)  # SPI6 with built-in CS (PI10)
-spi6_reset = io("spi6_reset", Gpio)  # PF10 - External SPI reset
-spi6_cs2 = io("spi6_cs2", Gpio)  # PA15 - Additional chip select
-spi6_drdy1 = io("spi6_drdy1", Gpio)  # PD11 - Data ready 1
-spi6_drdy2 = io("spi6_drdy2", Gpio)  # PD12 - Data ready 2
+spi6 = io("SPI6", Spi)  # SPI6 with built-in CS (PI10)
+spi6_reset = io("SPI6_RESET", Gpio)  # PF10 - External SPI reset
+spi6_cs2 = io("SPI6_CS2", Gpio)  # PA15 - Additional chip select
+spi6_drdy1 = io("SPI6_DRDY1", Gpio)  # PD11 - Data ready 1
+spi6_drdy2 = io("SPI6_DRDY2", Gpio)  # PD12 - Data ready 2
 
 # Special function pins (AVAILABLE on STM32)
-spix_sync = io("spix_sync", Gpio)  # PH10/TIM5_CH1 (AVAILABLE)
-nfc_gpio = io("nfc_gpio", Gpio)  # PH3 (AVAILABLE)
+spix_sync = io("SPIX_SYNC", Gpio)  # PH10/TIM5_CH1 (AVAILABLE)
+nfc_gpio = io("NFC_GPIO", Gpio)  # PH3 (AVAILABLE)
 
 # Reserved GPIO pins (AVAILABLE on STM32)
-gpio_pg6 = io("gpio_pg6", Gpio)  # PG6 (AVAILABLE)
-gpio_pd15 = io("gpio_pd15", Gpio)  # PD15 (reserved spare)
+gpio_pg6 = io("GPIO_PG6", Gpio)  # PG6 (AVAILABLE)
+gpio_pd15 = io("GPIO_PD15", Gpio)  # PD15 (reserved spare)
 
 # Spare pins (not connected)
 spare01 = NotConnected("SPARE01")
@@ -107,7 +107,7 @@ spare17 = NotConnected("SPARE17")
 # (removed NotConnected, will use actual GPIO interfaces)
 
 # Ground
-gnd = io("gnd", Ground)
+gnd = io("GND", Ground)
 
 # -----------------------------------------------------------------------------
 # Component definition

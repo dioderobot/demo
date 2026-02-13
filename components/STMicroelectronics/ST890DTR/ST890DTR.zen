@@ -9,8 +9,8 @@ Pins = struct(
     OUT_1=io("OUT_1", Net),
     OUT_2=io("OUT_2", Net),
     SET=io("SET", Net),
-    n_FAULT=io("n_FAULT", Net),
-    n_ON=io("n_ON", Net),
+    n_FAULT=io("N_FAULT", Net),
+    n_ON=io("N_ON", Net),
 )
 
 # Component

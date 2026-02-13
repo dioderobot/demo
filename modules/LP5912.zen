@@ -23,13 +23,13 @@ Resistor = Module("@stdlib/generics/Resistor.zen")
 # -----------------------------------------------------------------------------
 
 # Power interfaces
-vin = io("vin", Power)  # Input voltage (1.6V to 6.5V)
-vout = io("vout", Power)  # Regulated 3.3V output
-gnd = io("gnd", Ground)  # Ground
+vin = io("VIN", Power)  # Input voltage (1.6V to 6.5V)
+vout = io("VOUT", Power)  # Regulated 3.3V output
+gnd = io("GND", Ground)  # Ground
 
 # Control interfaces
-en = io("en", Gpio, default=Gpio("en"), optional=True)  # Enable input (active high, internal pulldown)
-pg = io("pg", Gpio, default=Gpio("pg"), optional=True)  # Power-good output (open-drain, requires pullup)
+en = io("EN", Gpio, default=Gpio("EN"), optional=True)  # Enable input (active high, internal pulldown)
+pg = io("PG", Gpio, default=Gpio("PG"), optional=True)  # Power-good output (open-drain, requires pullup)
 
 # Configuration
 pg_pullup = config("pg_pullup", bool, default=False, optional=True)  # Enable PG pullup resistor
