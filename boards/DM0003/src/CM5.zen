@@ -104,7 +104,7 @@ io_nRPIBOOT = io("nRPIBOOT", Net)
 # Local Nets
 # ----------------------------------------------------------------------------
 
-BATT = Net("BATT", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD"))
+BATT = Power("BATT")
 
 # ----------------------------------------------------------------------------
 # ComponentS

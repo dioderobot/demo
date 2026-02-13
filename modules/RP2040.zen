@@ -29,10 +29,10 @@ usb_internal = Usb2("USB_MCU")  # Internal USB interface (before series resistor
 
 # Build pins dictionary
 pins = {
-    "ADC_AVDD": vdd_3v3.NET,
-    "DVDD": vdd_1v1.NET,
-    "GND": gnd.NET,
-    "IOVDD": vdd_3v3.NET,
+    "ADC_AVDD": vdd_3v3,
+    "DVDD": vdd_1v1,
+    "GND": gnd,
+    "IOVDD": vdd_3v3,
     "QSPI_SCLK": qspi.CLK,
     "QSPI_SD0": qspi.IO0,
     "QSPI_SD1": qspi.IO1,
@@ -42,12 +42,12 @@ pins = {
     "RUN": run,
     "SWCLK": swd.SWCLK,
     "SWD": swd.SWDIO,
-    "TESTEN": gnd.NET,
+    "TESTEN": gnd,
     "USB_DM": usb_internal.D.N,
     "USB_DP": usb_internal.D.P,
-    "USB_VDD": vdd_3v3.NET,
-    "VREG_IN": vdd_3v3.NET,
-    "VREG_VOUT": vdd_1v1.NET,
+    "USB_VDD": vdd_3v3,
+    "VREG_IN": vdd_3v3,
+    "VREG_VOUT": vdd_1v1,
     "XIN": osc.XIN,
     "XOUT": osc.XOUT,
 }
@@ -55,12 +55,12 @@ pins = {
 # Add GPIO pins 0-25 using loop
 for i in range(26):
     gpio = io("GPIO%d" % i, Gpio, optional=True)
-    pins["GPIO%d" % i] = gpio.NET
+    pins["GPIO%d" % i] = gpio
 
 # Add ADC GPIO pins 26-29 using loop
 for i in range(4):
     adc = io("GPIO%d_ADC%d" % (26 + i, i), Analog, optional=True)
-    pins["GPIO%d_ADC%d" % (26 + i, i)] = adc.NET
+    pins["GPIO%d_ADC%d" % (26 + i, i)] = adc
 
 Component(
     name="RP2040",

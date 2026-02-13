@@ -8,7 +8,7 @@ Author: Nasheed Ur Rehman
 # ----------------------------------------------------------------------------
 
 load("@stdlib/config.zen", "config_properties")
-load("@stdlib/interfaces.zen", "Hdmi", "Power")
+load("@stdlib/interfaces.zen", "Hdmi", "Power", "Ground", "NotConnected")
 load("@stdlib/properties.zen", "Layout")
 load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "Resistance", "Voltage")
 
@@ -24,16 +24,15 @@ Current_Limit_Switch = Module("github.com/dioderobot/demo/reference/STMPS2151STR
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-io_5v = io("io_5v", Net, default=Net("io_5v", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
-io_gnd = io("io_gnd", Net, default=Net("io_gnd", symbol=Symbol("@kicad-symbols/power.kicad_sym:GND")))
+io_5v = io("io_5v", Power)
+io_gnd = io("io_gnd", Ground)
 hdmi_c = io("HDMI_C", Hdmi)
 
 # ----------------------------------------------------------------------------
 # Local nets
 # ----------------------------------------------------------------------------
 
-nc = Net("nc")
-hdmi_5v = Net("hdmi_5v")
+hdmi_5v = Power("hdmi_5v")
 
 # ----------------------------------------------------------------------------
 # Components
@@ -60,7 +59,7 @@ HDMI_Connector(
     TMDS_DATA2M=hdmi_c.D2.N,
     TMDS_DATA2P=hdmi_c.D2.P,
     TMDS_DATA2_SHIELD=io_gnd,
-    UTILITY=nc,
+    UTILITY=NotConnected(),
 )
 
 Current_Limit_Switch(

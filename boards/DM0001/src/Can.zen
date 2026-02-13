@@ -8,7 +8,7 @@
 # ----------------------------------------------------------------------------
 
 load("@stdlib/units.zen", "Voltage", "Current", "Capacitance", "Inductance", "Frequency", "Resistance")
-load("@stdlib/interfaces.zen", "CanTtl", "I2c", "Power", "Spi", "Swd", "Uart", "Usb2")
+load("@stdlib/interfaces.zen", "CanTtl", "I2c", "Power", "Spi", "Swd", "Uart", "Usb2", "Ground")
 # ----------------------------------------------------------------------------
 # Component Modules
 # ----------------------------------------------------------------------------
@@ -26,9 +26,9 @@ SchottkyDiode = Module("@stdlib/generics/Diode.zen")
 # Global Power Interfaces
 # ---------------------------------------------------------------------------
 
-V5V = io("V5V", Net, default=Net("V5V", symbol=Symbol("@kicad-symbols/power.kicad_sym:+5V")))
-V3V3 = io("V3V3", Net, default=Net("V3V3", symbol=Symbol("@kicad-symbols/power.kicad_sym:+3V3")))
-GND = io("GND", Net, default=Net("GND", symbol=Symbol("@kicad-symbols/power.kicad_sym:GND")))
+V5V = io("V5V", Power)
+V3V3 = io("V3V3", Power)
+GND = io("GND", Ground)
 
 # ----------------------------------------------------------------------------
 # Global IO Nets

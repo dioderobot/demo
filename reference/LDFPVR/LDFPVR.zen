@@ -9,7 +9,7 @@
 # ----------------------------------------------------------------------------
 
 load("@stdlib/units.zen", "Voltage", "Current", "Capacitance", "Inductance", "Frequency", "Resistance")
-load("@stdlib/interfaces.zen", "Power")
+load("@stdlib/interfaces.zen", "Power", "Ground")
 
 # ----------------------------------------------------------------------------
 # Component Modules
@@ -35,9 +35,9 @@ fb_resistor_bottom = config("fb_resistor_bottom", str, default="10kohms")
 # Global Power Interfaces
 # ----------------------------------------------------------------------------
 
-VIN_LDO = io("VIN_LDO", Net, default=Net("VIN_LDO", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
-VOUT_LDO = io("VOUT_LDO", Net, default=Net("VOUT_LDO", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
-GND = io("GND", Net, default=Net("GND", symbol=Symbol("@kicad-symbols/power.kicad_sym:GND")))
+VIN_LDO = io("VIN_LDO", Power)
+VOUT_LDO = io("VOUT_LDO", Power)
+GND = io("GND", Ground)
 
 # ----------------------------------------------------------------------------
 # Local Nets

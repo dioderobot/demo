@@ -8,7 +8,7 @@ Author: Nasheed Ur Rehman
 # ----------------------------------------------------------------------------
 
 load("@stdlib/config.zen", "config_properties")
-load("@stdlib/interfaces.zen", "Power", "Usb2")
+load("@stdlib/interfaces.zen", "Power", "Usb2", "Ground")
 load("@stdlib/properties.zen", "Layout")
 load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "Resistance", "Voltage")
 
@@ -28,8 +28,8 @@ VoltageClamp = Module("github.com/dioderobot/demo/components/Semtech_Corporation
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-io_5v = io("io_5v", Net, default=Net("io_5v", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
-io_gnd = io("io_gnd", Net, default=Net("io_gnd", symbol=Symbol("@kicad-symbols/power.kicad_sym:GND")))
+io_5v = io("io_5v", Power)
+io_gnd = io("io_gnd", Ground)
 usb2c = io("USB_PI", Usb2)
 
 io_CC1 = io("CC1", Net)

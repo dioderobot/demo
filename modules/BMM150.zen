@@ -24,16 +24,16 @@ Component(
     symbol=Symbol(library="@kicad-symbols/Sensor_Magnetic.kicad_sym", name="BMM150"),
     footprint=File("@kicad-footprints/Package_CSP.pretty/WLCSP-12_1.56x1.56mm_P0.4mm.kicad_mod"),
     pins={
-        "PS": VCC.NET,  # Protocol Select - tie to VCC for I2C
+        "PS": VCC,  # Protocol Select - tie to VCC for I2C
         "SCK": I2C.SCL,  # I2C Clock
-        "CSB": GND.NET,  # Address select - tie to GND for 0x10
-        "VDDIO": VCC.NET,  # I/O supply
+        "CSB": GND,  # Address select - tie to GND for 0x10
+        "VDDIO": VCC,  # I/O supply
         "SDI": I2C.SDA,  # I2C Data
-        "SDO": GND.NET,  # Address select - tie to GND for 0x10
-        "GND": GND.NET,
-        "INT": INT.NET,  # Interrupt (or grounded if not used)
-        "DRDY": DRDY.NET,  # Data ready (or grounded if not used)
-        "VDD": VCC.NET,  # Main supply
+        "SDO": GND,  # Address select - tie to GND for 0x10
+        "GND": GND,
+        "INT": INT,  # Interrupt (or grounded if not used)
+        "DRDY": DRDY,  # Data ready (or grounded if not used)
+        "VDD": VCC,  # Main supply
     },
     mpn="BMM150",
     properties={

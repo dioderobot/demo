@@ -54,10 +54,10 @@ Component(
         "package": "WLP-4",
     },
     pins={
-        "VDD": vdd.NET,  # A1 - Supply Input (Anode)
-        "OUT": out.NET,  # A2 - Ideal Diode Output (Cathode)
-        "EN": en.NET,  # B1 - Active-High Enable Input
-        "GND": gnd.NET,  # B2 - Circuit Ground
+        "VDD": vdd,  # A1 - Supply Input (Anode)
+        "OUT": out,  # A2 - Ideal Diode Output (Cathode)
+        "EN": en,  # B1 - Active-High Enable Input
+        "GND": gnd,  # B2 - Circuit Ground
     },
 )
 

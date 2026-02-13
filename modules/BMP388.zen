@@ -47,16 +47,16 @@ Component(
         "VDD": "10",  # Analog supply voltage
     },
     pins={
-        "VDDIO": VCC.NET,  # Digital interface supply
+        "VDDIO": VCC,  # Digital interface supply
         "SCK": I2C.SCL,  # Serial clock (I2C SCL)
-        "VSS1": GND.NET,  # Ground
+        "VSS1": GND,  # Ground
         "SDI": I2C.SDA,  # Serial data input (I2C SDA)
-        "SDO": VCC.NET if sdo_high else GND.NET,  # I2C address select (SA0)
-        "CSB": VCC.NET,  # Chip select (tie high for I2C)
-        "INT": INT.NET,  # Interrupt output
-        "VSS2": GND.NET,  # Ground
-        "VSS3": GND.NET,  # Ground
-        "VDD": VCC.NET,  # Analog supply voltage
+        "SDO": VCC if sdo_high else GND,  # I2C address select (SA0)
+        "CSB": VCC,  # Chip select (tie high for I2C)
+        "INT": INT,  # Interrupt output
+        "VSS2": GND,  # Ground
+        "VSS3": GND,  # Ground
+        "VDD": VCC,  # Analog supply voltage
     },
     properties={
         "package": "10-LGA (2.0x2.0x0.75mm)",

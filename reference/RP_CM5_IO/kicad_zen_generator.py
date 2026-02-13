@@ -200,7 +200,7 @@ def generate_zen_file(symbols, output_file="CM5_IO_generated.zen"):
     content.append('')
     content.append('load("@stdlib/units.zen", "Voltage", "Current", "Capacitance", "Inductance", "Frequency", "Resistance")')
     content.append('load("@stdlib/config.zen", "config_unit", "config_properties")')
-    content.append('load("@stdlib/interfaces.zen", "Power")')
+    content.append('load("@stdlib/interfaces.zen", "Power", "Ground")')
     content.append('load("@stdlib/properties.zen", "Layout")')
     content.append('')
     
@@ -282,7 +282,7 @@ def generate_zen_file(symbols, output_file="CM5_IO_generated.zen"):
     if power_ios:
         content.append('# Power and Ground')
         # Single GND net for all ground pins
-        content.append('io_GND = io("GND", Net, default = Net("gnd", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))')
+        content.append('io_GND = io("GND", Ground)')
         for pin_name, var_name, net_name, *ptype in power_ios:
             if 'GND' not in pin_name:
                 # Handle different power rails

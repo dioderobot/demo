@@ -9,7 +9,7 @@
 # ----------------------------------------------------------------------------
 
 load("@stdlib/units.zen", "Voltage", "Current", "Capacitance", "Inductance", "Frequency", "Resistance")
-load("@stdlib/interfaces.zen", "Power", "CanTtl", "Can")
+load("@stdlib/interfaces.zen", "Power", "CanTtl", "Can", "Ground")
 
 # ----------------------------------------------------------------------------
 # Component Modules
@@ -32,8 +32,8 @@ decoupling_cap_value = config("decoupling_cap_value", str, default="100nF")
 # Global Power Interfaces
 # ----------------------------------------------------------------------------
 
-VCC = io("VCC", Net, default=Net("VCC", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
-GND = io("GND", Net, default=Net("GND", symbol=Symbol("@kicad-symbols/power.kicad_sym:GND")))
+VCC = io("VCC", Power)
+GND = io("GND", Ground)
 
 # ----------------------------------------------------------------------------
 # Global IO Nets

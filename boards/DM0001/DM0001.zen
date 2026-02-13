@@ -7,7 +7,7 @@
 # Libraries & Dependencies
 # ----------------------------------------------------------------------------
 
-load("@stdlib/interfaces.zen", "CanTtl", "I2c", "Power", "Spi", "Swd", "Uart", "Usb2")
+load("@stdlib/interfaces.zen", "CanTtl", "I2c", "Power", "Spi", "Swd", "Uart", "Usb2", "Ground")
 load("@stdlib/properties.zen", "Layout")
 load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "Resistance", "Voltage")
 load("@stdlib/board_config.zen", "Board")
@@ -42,11 +42,11 @@ TagConnect = Module("@stdlib/kicad/TagConnect.zen")
 # Global Power Interfaces
 # ----------------------------------------------------------------------------
 
-VPLUS = io("VPLUS", Net, default=Net("VPLUS", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
-V10V = io("V10V", Net, default=Net("V10V", symbol=Symbol("@kicad-symbols/power.kicad_sym:+10V")))
-V5V = io("V5V", Net, default=Net("V5V", symbol=Symbol("@kicad-symbols/power.kicad_sym:+5V")))
-V3V3 = io("V3V3", Net, default=Net("V3V3", symbol=Symbol("@kicad-symbols/power.kicad_sym:+3V3")))
-GND = io("GND", Net, default=Net("GND", symbol=Symbol("@kicad-symbols/power.kicad_sym:GND")))
+VPLUS = Power("VPLUS")
+V10V = Power("V10V", voltage=Voltage("10V"), symbol=Symbol("@kicad-symbols/power.kicad_sym:+10V"))
+V5V = Power("V5V", voltage=Voltage("5V"), symbol=Symbol("@kicad-symbols/power.kicad_sym:+5V"))
+V3V3 = Power("V3V3", voltage=Voltage("3.3V"), symbol=Symbol("@kicad-symbols/power.kicad_sym:+3V3"))
+GND = Ground("GND")
 
 # ----------------------------------------------------------------------------
 # Global Communication Interfaces

@@ -70,15 +70,15 @@ Component(
         "EP": "9",  # Exposed pad connected to GND
     },
     pins={
-        "A0": VCC.NET if a0_high else GND.NET,  # Strap address pin based on config
-        "A1": VCC.NET if a1_high else GND.NET,  # Strap address pin based on config
-        "A2": VCC.NET if a2_high else GND.NET,  # Strap address pin based on config
-        "GND": GND.NET,
+        "A0": VCC if a0_high else GND,  # Strap address pin based on config
+        "A1": VCC if a1_high else GND,  # Strap address pin based on config
+        "A2": VCC if a2_high else GND,  # Strap address pin based on config
+        "GND": GND,
         "SDA": I2C.SDA,
         "SCL": I2C.SCL,
         "WP": WP,
-        "VCC": VCC.NET,
-        "EP": GND.NET,  # Connect exposed pad to ground
+        "VCC": VCC,
+        "EP": GND,  # Connect exposed pad to ground
     },
     properties={
         "Memory_size": memory_info["size_kb"],

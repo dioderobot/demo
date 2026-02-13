@@ -49,16 +49,16 @@ Component(
     },
     pins={
         "AP_SDO_ADO": SPI.MISO,  # Pin 1: SPI data out
-        "AUX1_SDIO": RESV2.NET,  # Pin 2: Reserved
-        "AUX1_SCLK": RESV3.NET,  # Pin 3: Reserved
-        "INT1": INT1.NET,  # Pin 4: Interrupt 1
-        "VDDIO": VCC.NET,  # Pin 5: I/O power supply
-        "GND": GND.NET,  # Pin 6: Ground
-        "RESV7": RESV7.NET,  # Pin 7: Reserved
-        "VDD": VCC.NET,  # Pin 8: Core power supply
-        "INT2": INT2.NET,  # Pin 9: Interrupt 2
-        "AUX1_CS": RESV10.NET,  # Pin 10: Reserved
-        "AUX1_SDO": RESV11.NET,  # Pin 11: Reserved
+        "AUX1_SDIO": RESV2,  # Pin 2: Reserved
+        "AUX1_SCLK": RESV3,  # Pin 3: Reserved
+        "INT1": INT1,  # Pin 4: Interrupt 1
+        "VDDIO": VCC,  # Pin 5: I/O power supply
+        "GND": GND,  # Pin 6: Ground
+        "RESV7": RESV7,  # Pin 7: Reserved
+        "VDD": VCC,  # Pin 8: Core power supply
+        "INT2": INT2,  # Pin 9: Interrupt 2
+        "AUX1_CS": RESV10,  # Pin 10: Reserved
+        "AUX1_SDO": RESV11,  # Pin 11: Reserved
         "AP_CS": SPI.CS,  # Pin 12: SPI chip select
         "AP_SCL_SCLK": SPI.CLK,  # Pin 13: SPI clock
         "AP_SDA_SDIO": SPI.MOSI,  # Pin 14: SPI data in
