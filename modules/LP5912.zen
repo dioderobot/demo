@@ -74,13 +74,13 @@ Component(
         "EP": "7",  # Exposed thermal pad
     },
     pins={
-        "OUT": vout.NET,
+        "OUT": vout,
         "NC": NotConnected("NC"),
-        "PG": pg.NET,
-        "EN": en.NET,
-        "GND": gnd.NET,
-        "IN": vin.NET,
-        "EP": gnd.NET,  # Thermal pad connected to ground per datasheet
+        "PG": pg,
+        "EN": en,
+        "GND": gnd,
+        "IN": vin,
+        "EP": gnd,  # Thermal pad connected to ground per datasheet
     },
     properties={
         "package": "WSON-6",

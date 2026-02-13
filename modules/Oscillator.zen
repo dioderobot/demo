@@ -15,7 +15,7 @@ _active_osc_mpn_map = {
 VCC = io("VCC", Power)
 GND = io("GND", Ground)
 OUT = io("OUT", Net)
-EN = io("EN", Net, optional=True, default=VCC.NET)  # Enable pin (HIGH=enable, LOW=disable)
+EN = io("EN", Net, optional=True, default=VCC)  # Enable pin (HIGH=enable, LOW=disable)
 
 Component(
     name="OSC",
@@ -24,9 +24,9 @@ Component(
     footprint=File("@kicad-footprints/Oscillator.pretty/Oscillator_SMD_SeikoEpson_SG210-4Pin_2.5x2.0mm.kicad_mod"),
     pins={
         "EN": EN,
-        "GND": GND.NET,
+        "GND": GND,
         "OUT": OUT,
-        "V+": VCC.NET,
+        "V+": VCC,
     },
     mpn=_active_osc_mpn_map[str(frequency)],
     manufacturer="EPSON",

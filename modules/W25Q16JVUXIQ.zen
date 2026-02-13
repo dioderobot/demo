@@ -31,8 +31,8 @@ Component(
         "DO/IO_{1}": qspi.IO1,
         "~{WP}/IO_{2}": qspi.IO2,
         "~{HOLD}/~{RESET}/IO_{3}": qspi.IO3,
-        "VCC": vcc.NET,
-        "GND": gnd.NET,
+        "VCC": vcc,
+        "GND": gnd,
     },
 )
 

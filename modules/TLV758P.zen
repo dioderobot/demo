@@ -109,13 +109,13 @@ Component(
         "PAD": "7",  # Thermal pad
     },
     pins={
-        "VIN": VIN.NET,
-        "VOUT": VOUT.NET,
+        "VIN": VIN,
+        "VOUT": VOUT,
         "FB": FB,
-        "GND": GND.NET,
-        "EN": EN.NET,
+        "GND": GND,
+        "EN": EN,
         "DNC": Net("NC"),  # Do not connect
-        "PAD": GND.NET,  # Connect thermal pad to ground
+        "PAD": GND,  # Connect thermal pad to ground
     },
     mpn="TLV75801PDRVR",
     manufacturer="Texas Instruments",
@@ -141,8 +141,8 @@ Capacitor(
     package="0402",
     value="1uF",
     voltage="10V",
-    P1=VIN.NET,
-    P2=GND.NET,
+    P1=VIN,
+    P2=GND,
 )
 
 # Output capacitor (1µF ceramic for stability)
@@ -151,8 +151,8 @@ Capacitor(
     package="0402",
     value="1uF",
     voltage="10V",
-    P1=VOUT.NET,
-    P2=GND.NET,
+    P1=VOUT,
+    P2=GND,
 )
 
 # Feedback resistor network
@@ -161,7 +161,7 @@ Resistor(
     name="R_FB1",
     package="0402",
     value=r1_value,
-    P1=VOUT.NET,
+    P1=VOUT,
     P2=FB,
 )
 
@@ -171,7 +171,7 @@ Resistor(
     package="0402",
     value=r2_value,
     P1=FB,
-    P2=GND.NET,
+    P2=GND,
 )
 
 # Enable pullup resistor (always present for default-on behavior)
@@ -180,6 +180,6 @@ Resistor(
     name="R_EN_PU",
     package="0402",
     value="10kOhm",
-    P1=VIN.NET,
-    P2=EN.NET,
+    P1=VIN,
+    P2=EN,
 )

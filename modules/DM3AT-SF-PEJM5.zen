@@ -16,7 +16,7 @@ det_a = io("det_a", Gpio)
 det_b = io("det_b", Gpio)
 
 # Shield connection
-shield = io("shield", Gpio, default=Gpio(NET=vss.NET), optional=True)
+shield = io("shield", Gpio, default=Gpio(NET=vss), optional=True)
 
 # -----------------------------------------------------------------------------
 # Component definition
@@ -48,13 +48,13 @@ Component(
         "1": sdio.DAT2,  # DAT2
         "2": sdio.DAT3,  # DAT3/CD
         "3": sdio.CMD,  # CMD
-        "4": vdd.NET,  # VDD
+        "4": vdd,  # VDD
         "5": sdio.CLK,  # CLK
-        "6": vss.NET,  # VSS (Ground)
+        "6": vss,  # VSS (Ground)
         "7": sdio.DAT0,  # DAT0
         "8": sdio.DAT1,  # DAT1
-        "9": det_b.NET,  # DET_B (Card detect B)
-        "10": det_a.NET,  # DET_A (Card detect A)
-        "11": shield.NET,  # SHIELD
+        "9": det_b,  # DET_B (Card detect B)
+        "10": det_a,  # DET_A (Card detect A)
+        "11": shield,  # SHIELD
     },
 )

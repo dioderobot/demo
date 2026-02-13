@@ -287,106 +287,106 @@ Component(
         "MountPin": "MP",
     },
     pins={
-        "Pin_a1": fmu_ch8.NET,  # 1 - FMU_CH8 (PH9/TIM12_CH2)
-        "Pin_a2": gnd.NET,  # 2 - GND
-        "Pin_a3": fmu_ch7.NET,  # 3 - FMU_CH7 (PH6/TIM12_CH1)
-        "Pin_a4": buzzer.NET,  # 4 - BUZZER_1 (PF9/TIM14_CH1)
-        "Pin_a5": fmu_ch6.NET,  # 5 - FMU_CH6 (PD14/TIM4_CH3)
-        "Pin_a6": gnd.NET,  # 6 - GND
-        "Pin_a7": fmu_ch5.NET,  # 7 - FMU_CH5 (PD13/TIM4_CH2)
+        "Pin_a1": fmu_ch8,  # 1 - FMU_CH8 (PH9/TIM12_CH2)
+        "Pin_a2": gnd,  # 2 - GND
+        "Pin_a3": fmu_ch7,  # 3 - FMU_CH7 (PH6/TIM12_CH1)
+        "Pin_a4": buzzer,  # 4 - BUZZER_1 (PF9/TIM14_CH1)
+        "Pin_a5": fmu_ch6,  # 5 - FMU_CH6 (PD14/TIM4_CH3)
+        "Pin_a6": gnd,  # 6 - GND
+        "Pin_a7": fmu_ch5,  # 7 - FMU_CH5 (PD13/TIM4_CH2)
         "Pin_a8": i2c3.SDA,  # 8 - I2C3_SDA_BASE_MS5611_EXT1 (PH8)
-        "Pin_a9": gnd.NET,  # 9 - GND
+        "Pin_a9": gnd,  # 9 - GND
         "Pin_a10": i2c3.SCL,  # 10 - I2C3_SCL_BASE_MS5611_EXT1 (PH7)
-        "Pin_a11": fmu_ch4.NET,  # 11 - FMU_CH4 (PA8/TIM1_CH1)
+        "Pin_a11": fmu_ch4,  # 11 - FMU_CH4 (PA8/TIM1_CH1)
         "Pin_a12": i2c2.SDA,  # 12 - I2C2_SDA_BASE_GPS2 (PF0)
-        "Pin_a13": fmu_ch3.NET,  # 13 - FMU_CH3 (PE11/TIM1_CH2)
+        "Pin_a13": fmu_ch3,  # 13 - FMU_CH3 (PE11/TIM1_CH2)
         "Pin_a14": i2c2.SCL,  # 14 - I2C2_SCL_BASE_GPS2 (PF1)
-        "Pin_a15": fmu_ch2.NET,  # 15 - FMU_CH2 (PA10/TIM1_CH3)
+        "Pin_a15": fmu_ch2,  # 15 - FMU_CH2 (PA10/TIM1_CH3)
         "Pin_a16": i2c1.SDA,  # 16 - I2C1_SDA_BASE_GPS1 (PB7)
-        "Pin_a17": fmu_ch1.NET,  # 17 - FMU_CH1 (PE14/TIM1_CH4)
+        "Pin_a17": fmu_ch1,  # 17 - FMU_CH1 (PE14/TIM1_CH4)
         "Pin_a18": i2c1.SCL,  # 18 - I2C1_SCL_BASE_GPS1 (PB8)
-        "Pin_a19": gnd.NET,  # 19 - GND
-        "Pin_a20": gnd.NET,  # 20 - GND
-        "Pin_a21": safety_switch_in.NET,  # 21 - FMU_SAFETY_SWITCH_IN (PF5)
+        "Pin_a19": gnd,  # 19 - GND
+        "Pin_a20": gnd,  # 20 - GND
+        "Pin_a21": safety_switch_in,  # 21 - FMU_SAFETY_SWITCH_IN (PF5)
         "Pin_a22": usart7.RTS,  # 22 - UART7_RTS_TELEM1 (PF8)
-        "Pin_a23": safety_switch_led.NET,  # 23 - FMU_nSAFETY_SWITCH_LED_OUT (PD10)
+        "Pin_a23": safety_switch_led,  # 23 - FMU_nSAFETY_SWITCH_LED_OUT (PD10)
         "Pin_a24": usart7.CTS,  # 24 - UART7_CTS_TELEM1 (PE10)
-        "Pin_a25": hw_ver_drive.NET,  # 25 - HW_VER_REV_DRIVE (PG0)
-        "Pin_a26": hw_rev_sense.NET,  # 26 - HW_REV_SENSE (PH4/ADC3_IN15)
-        "Pin_a27": hw_ver_sense.NET,  # 27 - HW_VER_SENSE (PH3/ADC3_IN14)
+        "Pin_a25": hw_ver_drive,  # 25 - HW_VER_REV_DRIVE (PG0)
+        "Pin_a26": hw_rev_sense,  # 26 - HW_REV_SENSE (PH4/ADC3_IN15)
+        "Pin_a27": hw_ver_sense,  # 27 - HW_VER_SENSE (PH3/ADC3_IN14)
         "Pin_a28": uart8.TX,  # 28 - UART8_TX_GPS2 (PE1)
-        "Pin_a29": rtc_bat.NET,  # 29 - V_RTC_BAT
+        "Pin_a29": rtc_bat,  # 29 - V_RTC_BAT
         "Pin_a30": uart8.RX,  # 30 - UART8_RX_GPS2 (PE0)
-        "Pin_a31": gnd.NET,  # 31 - GND
-        "Pin_a32": gnd.NET,  # 32 - GND
-        "Pin_a33": spektrum_en.NET,  # 33 - VDD_3V3_SPEKTRUM_EN (PH2)
+        "Pin_a31": gnd,  # 31 - GND
+        "Pin_a32": gnd,  # 32 - GND
+        "Pin_a33": spektrum_en,  # 33 - VDD_3V3_SPEKTRUM_EN (PH2)
         "Pin_a34": usart1.RX,  # 34 - USART1_RX_GPS1 (PB15)
-        "Pin_a35": periph_5v_en.NET,  # 35 - VDD_5V_PERIPH_nEN (PG4)
+        "Pin_a35": periph_5v_en,  # 35 - VDD_5V_PERIPH_nEN (PG4)
         "Pin_a36": usart1.TX,  # 36 - USART1_TX_GPS1 (PB14)
-        "Pin_a37": periph_5v_oc.NET,  # 37 - VDD_5V_PERIPH_nOC (PG5)
-        "Pin_a38": gnd.NET,  # 38 - GND
-        "Pin_a39": ppm_input.NET,  # 39 - FMU_PPM_INPUT (PI5/TIM8_CH1_IN)
+        "Pin_a37": periph_5v_oc,  # 37 - VDD_5V_PERIPH_nOC (PG5)
+        "Pin_a38": gnd,  # 38 - GND
+        "Pin_a39": ppm_input,  # 39 - FMU_PPM_INPUT (PI5/TIM8_CH1_IN)
         "Pin_a40": usart2.TX,  # 40 - USART2_TX_TELEM3 (PD5)
-        "Pin_a41": gnd.NET,  # 41 - GND
+        "Pin_a41": gnd,  # 41 - GND
         "Pin_a42": usart2.RX,  # 42 - USART2_RX_TELEM3 (PA3)
-        "Pin_a43": gnd.NET,  # 43 - GND
+        "Pin_a43": gnd,  # 43 - GND
         "Pin_a44": usart2.RTS,  # 44 - USART2_RTS_TELEM3 (PD4)
-        "Pin_a45": gnd.NET,  # 45 - GND
-        "Pin_a46": gnd.NET,  # 46 - GND
-        "Pin_a47": gnd.NET,  # 47 - GND
+        "Pin_a45": gnd,  # 45 - GND
+        "Pin_a46": gnd,  # 46 - GND
+        "Pin_a47": gnd,  # 47 - GND
         "Pin_a48": usart2.CTS,  # 48 - USART2_CTS_TELEM3 (PD3)
-        "Pin_a49": vdd_5v_in.NET,  # 49 - VDD_5V_IN A
-        "Pin_a50": gnd.NET,  # 50 - GND
-        "Pin_b1": vdd_5v_in.NET,  # 51 - VDD_5V_IN B
+        "Pin_a49": vdd_5v_in,  # 49 - VDD_5V_IN A
+        "Pin_a50": gnd,  # 50 - GND
+        "Pin_b1": vdd_5v_in,  # 51 - VDD_5V_IN B
         "Pin_b2": usart5.TX,  # 52 - UART5_TX_TELEM2 (PC12)
-        "Pin_b3": vdd_5v_in.NET,  # 53 - VDD_5V_IN C
+        "Pin_b3": vdd_5v_in,  # 53 - VDD_5V_IN C
         "Pin_b4": usart5.RX,  # 54 - UART5_RX_TELEM2 (PD2)
-        "Pin_b5": vdd_5v_in.NET,  # 55 - VDD_5V_IN (mirror)
-        "Pin_b6": gnd.NET,  # 56 - GND
+        "Pin_b5": vdd_5v_in,  # 55 - VDD_5V_IN (mirror)
+        "Pin_b6": gnd,  # 56 - GND
         "Pin_b7": can2.CAN_H,  # 57 - CAN2_TX (PB6/FDCAN2_TX)
         "Pin_b8": usart5.RTS,  # 58 - UART5_RTS_TELEM2 (PC8)
         "Pin_b9": can2.CAN_L,  # 59 - CAN2_RX (PB12/FDCAN2_RX)
         "Pin_b10": usart5.CTS,  # 60 - UART5_CTS_TELEM2 (PC9)
-        "Pin_b11": gnd.NET,  # 61 - GND
-        "Pin_b12": gnd.NET,  # 62 - GND
+        "Pin_b11": gnd,  # 61 - GND
+        "Pin_b12": gnd,  # 62 - GND
         "Pin_b13": can1.CAN_H,  # 63 - CAN1_TX (PB13/FDCAN1_TX)
         "Pin_b14": usart7.TX,  # 64 - UART7_TX_TELEM1 (PE8)
         "Pin_b15": can1.CAN_L,  # 65 - CAN1_RX (PB8/FDCAN1_RX)
         "Pin_b16": usart7.RX,  # 66 - UART7_RX_TELEM1 (PF6)
-        "Pin_b17": gnd.NET,  # 67 - GND
-        "Pin_b18": gnd.NET,  # 68 - GND
+        "Pin_b17": gnd,  # 67 - GND
+        "Pin_b18": gnd,  # 68 - GND
         "Pin_b19": usart3.TX,  # 69 - USART3_TX_DEBUG (PD8)
         "Pin_b20": usart6.RX,  # 70 - USART6_RX_FROM_IO (PC7)
         "Pin_b21": usart3.RX,  # 71 - USART3_RX_DEBUG (PD9)
         "Pin_b22": usart6.TX,  # 72 - USART6_TX_TO_IO (PC6)
-        "Pin_b23": gnd.NET,  # 73 - GND
-        "Pin_b24": gnd.NET,  # 74 - GND
+        "Pin_b23": gnd,  # 73 - GND
+        "Pin_b24": gnd,  # 74 - GND
         "Pin_b25": swd.SWDIO,  # 75 - FMU_SWDIO (PA13/SWDIO)
         "Pin_b26": usb.D.P,  # 76 - USB_D_P (PA12/USB_FS_DP)
         "Pin_b27": swd.SWCLK,  # 77 - FMU_SWCLK (PA14/SWCLK)
         "Pin_b28": usb.D.N,  # 78 - USB_D_N (PA11/USB_FS_DN)
-        "Pin_b29": gnd.NET,  # 79 - GND
-        "Pin_b30": vbus_sense.NET,  # 80 - VBUS_SENSE (PA9/ADC12_IN18)
-        "Pin_b31": hipower_5v_en.NET,  # 81 - VDD_5V_HIPOWER_nEN (PF12)
-        "Pin_b32": gnd.NET,  # 82 - GND
-        "Pin_b33": hipower_5v_oc.NET,  # 83 - VDD_5V_HIPOWER_nOC (PF13)
-        "Pin_b34": vdd_3v3.NET,  # 84 - FMU_VDD_3V3
-        "Pin_b35": armed.NET,  # 85 - nARMED (PC12)
-        "Pin_b36": vdd_3v3.NET,  # 86 - FMU_VDD_3V3
-        "Pin_b37": reset.NET,  # 87 - FMU_nRST (NRST)
-        "Pin_b38": gnd.NET,  # 88 - GND
-        "Pin_b39": power_in_a.NET,  # 89 - nPOWER_IN_A (PG1)
-        "Pin_b40": adc_6v6.NET,  # 90 - ADC1_6V6 (PB1/ADC1_IN9)
-        "Pin_b41": power_in_b.NET,  # 91 - nPOWER_IN_B (PG2)
-        "Pin_b42": adc_3v3.NET,  # 92 - ADC1_3V3 (PC3/ADC1_IN13)
-        "Pin_b43": power_in_c.NET,  # 93 - nPOWER_IN_C (PG3)
-        "Pin_b44": gnd.NET,  # 94 - GND
-        "Pin_b45": gnd.NET,  # 95 - GND
+        "Pin_b29": gnd,  # 79 - GND
+        "Pin_b30": vbus_sense,  # 80 - VBUS_SENSE (PA9/ADC12_IN18)
+        "Pin_b31": hipower_5v_en,  # 81 - VDD_5V_HIPOWER_nEN (PF12)
+        "Pin_b32": gnd,  # 82 - GND
+        "Pin_b33": hipower_5v_oc,  # 83 - VDD_5V_HIPOWER_nOC (PF13)
+        "Pin_b34": vdd_3v3,  # 84 - FMU_VDD_3V3
+        "Pin_b35": armed,  # 85 - nARMED (PC12)
+        "Pin_b36": vdd_3v3,  # 86 - FMU_VDD_3V3
+        "Pin_b37": reset,  # 87 - FMU_nRST (NRST)
+        "Pin_b38": gnd,  # 88 - GND
+        "Pin_b39": power_in_a,  # 89 - nPOWER_IN_A (PG1)
+        "Pin_b40": adc_6v6,  # 90 - ADC1_6V6 (PB1/ADC1_IN9)
+        "Pin_b41": power_in_b,  # 91 - nPOWER_IN_B (PG2)
+        "Pin_b42": adc_3v3,  # 92 - ADC1_3V3 (PC3/ADC1_IN13)
+        "Pin_b43": power_in_c,  # 93 - nPOWER_IN_C (PG3)
+        "Pin_b44": gnd,  # 94 - GND
+        "Pin_b45": gnd,  # 95 - GND
         "Pin_b46": uart4.RX,  # 96 - GND
-        "Pin_b47": gnd.NET,  # 97 - GND
+        "Pin_b47": gnd,  # 97 - GND
         "Pin_b48": uart4.TX,  # 98 - GND
-        "Pin_b49": gnd.NET,  # 99 - GND
-        "Pin_b50": gnd.NET,  # 100 - GND
-        "MountPin": gnd.NET,  # MP - Mounting Pins (to ground)
+        "Pin_b49": gnd,  # 99 - GND
+        "Pin_b50": gnd,  # 100 - GND
+        "MountPin": gnd,  # MP - Mounting Pins (to ground)
     },
 )
