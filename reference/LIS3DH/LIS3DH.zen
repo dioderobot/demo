@@ -10,7 +10,7 @@ Datasheet: https://www.st.com/resource/en/datasheet/lis3dh.pdf
 # ----------------------------------------------------------------------------
 
 load("@stdlib/config.zen", "config_properties")
-load("@stdlib/interfaces.zen", "Power", "NotConnected")
+load("@stdlib/interfaces.zen", "Power", "NotConnected", "Ground")
 load(
     "@stdlib/units.zen",
     "Capacitance",
@@ -48,15 +48,15 @@ Resistor = Module("@stdlib/generics/Resistor.zen")
 # ----------------------------------------------------------------------------
 
 # Power IOs (always exposed)
-io_vdd = io("vdd", Net, default=Net("vdd", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+io_vdd = io("vdd", Power)
 
 # Optional separate VDDIO
 if config_seperate_vddio:
-    io_vddio = io("vddio", Net, default=Net("vddio", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+    io_vddio = io("vddio", Power)
 else:
     io_vddio = io_vdd
 
-io_gnd = io("gnd", Net, default=Net("gnd", symbol=Symbol("@kicad-symbols/power.kicad_sym:GND")))
+io_gnd = io("gnd", Ground)
 
 # I2C mode: SDA, SCL
 # Per datasheet: CS must be tied high for I2C mode

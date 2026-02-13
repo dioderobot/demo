@@ -22,7 +22,7 @@ Datasheet: https://www.diodes.com/assets/Datasheets/AP22652_53_52A_53A.pdf
 # ----------------------------------------------------------------------------
 
 load("@stdlib/config.zen", "config_properties")
-load("@stdlib/interfaces.zen", "Power")
+load("@stdlib/interfaces.zen", "Power", "Ground")
 load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "Resistance", "Voltage")
 
 # ----------------------------------------------------------------------------
@@ -70,10 +70,10 @@ Capacitor = Module("@stdlib/generics/Capacitor.zen")
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-io_vin = io("vin", Net, default=Net("vin", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+io_vin = io("vin", Power)
 io_enable = io("enable", Net)
-io_gnd = io("gnd", Net, default=Net("gnd", symbol=Symbol("@kicad-symbols/power.kicad_sym:GND")))
-io_vout = io("vout", Net, default=Net("vout", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+io_gnd = io("gnd", Ground)
+io_vout = io("vout", Power)
 
 io_nfault = io("nfault", Net)
 

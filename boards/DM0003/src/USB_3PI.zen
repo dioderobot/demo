@@ -35,9 +35,9 @@ SSMUX = Module("github.com/dioderobot/demo/components/Texas_Instruments/HD3SS321
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-io_5v = io("V5V", Net, default=Net("V5V", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
-io_3v3 = io("V3V3", Net, default=Net("V3V3", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
-io_gnd = io("GND", Net, default=Net("GND", symbol=Symbol("@kicad-symbols/power.kicad_sym:GND")))
+io_5v = io("V5V", Power)
+io_3v3 = io("V3V3", Power)
+io_gnd = io("GND", Ground)
 
 USB3P = io("USB_3PI", Usb3)
 VBUS_EN = io("VBUS_EN", Net)

@@ -8,7 +8,7 @@ Author: Nasheed Ur Rehman
 # ----------------------------------------------------------------------------
 
 load("@stdlib/config.zen", "config_properties")
-load("@stdlib/interfaces.zen", "Ethernet_Phy", "Power")
+load("@stdlib/interfaces.zen", "Ethernet_Phy", "Power", "Ground")
 load("@stdlib/properties.zen", "Layout")
 load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "Resistance", "Voltage")
 
@@ -26,8 +26,8 @@ Led = Module("@stdlib/generics/Led.zen")
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-io_3v3pi = io("io_3v3pi", Net, default=Net("io_3v3pi", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
-io_gnd = io("io_gnd", Net, default=Net("io_gnd", symbol=Symbol("@kicad-symbols/power.kicad_sym:GND")))
+io_3v3pi = io("io_3v3pi", Power)
+io_gnd = io("io_gnd", Ground)
 
 eth_c = io("ETH_C", Ethernet_Phy)
 

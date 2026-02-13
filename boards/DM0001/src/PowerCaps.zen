@@ -8,7 +8,7 @@
 # ----------------------------------------------------------------------------
 
 load("@stdlib/units.zen", "Voltage", "Current", "Capacitance", "Inductance", "Frequency", "Resistance")
-load("@stdlib/interfaces.zen", "Power")
+load("@stdlib/interfaces.zen", "Power", "Ground")
 
 # ----------------------------------------------------------------------------
 # Component Modules
@@ -31,8 +31,8 @@ capacitor_package = config("capacitor_package", str, default="0805")
 # Global Power Interfaces
 # ----------------------------------------------------------------------------
 
-VPLUS = io("VPLUS", Net, default=Net("VPLUS", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
-GND = io("GND", Net, default=Net("GND", symbol=Symbol("@kicad-symbols/power.kicad_sym:GND")))
+VPLUS = io("VPLUS", Power)
+GND = io("GND", Ground)
 
 # ----------------------------------------------------------------------------
 # Power Caps

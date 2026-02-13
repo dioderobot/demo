@@ -20,7 +20,7 @@ Usage:
 # ----------------------------------------------------------------------------
 
 load("@stdlib/config.zen", "config_properties")
-load("@stdlib/interfaces.zen", "Power")
+load("@stdlib/interfaces.zen", "Power", "Ground")
 load("@stdlib/properties.zen", "Layout")
 load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "Resistance", "Voltage")
 
@@ -100,11 +100,11 @@ Inductor = Module("github.com/dioderobot/demo/reference/XAL50xx/XAL50xx.zen")
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-io_vin = io("vin", Net, default=Net("vin", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+io_vin = io("vin", Power)
 io_pg = io("pg", Net)
 io_enable = io("enable", Net)
-io_vout = io("vout", Net, default=Net("vout", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
-io_gnd = io("gnd", Net, default=Net("gnd", symbol=Symbol("@kicad-symbols/power.kicad_sym:GND")))
+io_vout = io("vout", Power)
+io_gnd = io("gnd", Ground)
 
 # ----------------------------------------------------------------------------
 # local nets

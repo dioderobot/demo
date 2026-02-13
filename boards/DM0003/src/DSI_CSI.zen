@@ -8,7 +8,7 @@ Author: Nasheed Ur Rehman
 # ----------------------------------------------------------------------------
 
 load("@stdlib/config.zen", "config_properties")
-load("@stdlib/interfaces.zen", "I2c", "Mipi", "Power")
+load("@stdlib/interfaces.zen", "I2c", "Mipi", "Power", "Ground")
 load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "Resistance", "Voltage")
 
 # ----------------------------------------------------------------------------
@@ -25,8 +25,8 @@ DSI_CSI_Connector = Module("github.com/dioderobot/demo/components/Hirose/FH12M22
 # io interfaces
 # ----------------------------------------------------------------------------
 
-io_3v3pi = io("io_3v3pi", Net, default=Net("io_3v3pi", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
-io_gnd = io("io_gnd", Net, default=Net("io_gnd", symbol=Symbol("@kicad-symbols/power.kicad_sym:GND")))
+io_3v3pi = io("io_3v3pi", Power)
+io_gnd = io("io_gnd", Ground)
 
 DPHY0_C = io("DPHY0_C", Mipi)
 i2c = io("i2c", I2c)

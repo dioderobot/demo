@@ -10,7 +10,7 @@ Datasheet: https://www.st.com/resource/en/datasheet/stmps2151.pdf
 # ----------------------------------------------------------------------------
 
 load("@stdlib/config.zen", "config_properties")
-load("@stdlib/interfaces.zen", "Power")
+load("@stdlib/interfaces.zen", "Power", "Ground")
 load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "Resistance", "Voltage")
 
 # ----------------------------------------------------------------------------
@@ -28,9 +28,9 @@ Capacitor = Module("@stdlib/generics/Capacitor.zen")
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-io_vin = io("vin", Net, default=Net("vin", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
-io_vout = io("vout", Net, default=Net("vout", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
-io_gnd = io("gnd", Net, default=Net("gnd", symbol=Symbol("@kicad-symbols/power.kicad_sym:GND")))
+io_vin = io("vin", Power)
+io_vout = io("vout", Power)
+io_gnd = io("gnd", Ground)
 
 io_enable = io("enable", Net)
 io_fault = io("fault", Net)
