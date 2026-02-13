@@ -9,7 +9,6 @@ Datasheet: https://www.st.com/resource/en/datasheet/stmps2151.pdf
 # Libraries & Dependencies
 # ----------------------------------------------------------------------------
 
-load("@stdlib/config.zen", "config_properties")
 load("@stdlib/interfaces.zen", "Power", "Ground")
 load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "Resistance", "Voltage")
 
@@ -28,12 +27,12 @@ Capacitor = Module("@stdlib/generics/Capacitor.zen")
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-io_vin = io("vin", Power)
-io_vout = io("vout", Power)
-io_gnd = io("gnd", Ground)
+VIN = io("VIN", Power)
+VOUT = io("VOUT", Power)
+GND = io("GND", Ground)
 
-io_enable = io("enable", Net)
-io_fault = io("fault", Net)
+ENABLE = io("ENABLE", Net)
+FAULT = io("FAULT", Net)
 
 # ----------------------------------------------------------------------------
 # Componenta
@@ -41,11 +40,11 @@ io_fault = io("fault", Net)
 
 STMPS2151STR(
     name="STMPS2151STR",
-    IN=io_vin,
-    OUT=io_vout,
-    GND=io_gnd,
-    EN=io_enable,
-    FAULT=io_fault,
+    IN=VIN,
+    OUT=VOUT,
+    GND=GND,
+    EN=ENABLE,
+    FAULT=FAULT,
 )
 
 Capacitor(
@@ -54,8 +53,8 @@ Capacitor(
     voltage="16V",
     dielectric="X7R",
     package="0402",
-    P1=io_vin,
-    P2=io_gnd,
+    P1=VIN,
+    P2=GND,
 )
 
 Capacitor(
@@ -64,15 +63,14 @@ Capacitor(
     voltage="16V",
     dielectric="X7R",
     package="0402",
-    P1=io_vout,
-    P2=io_gnd,
+    P1=VOUT,
+    P2=GND,
 )
 
-add_property("datasheet", "github.com/dioderobot/demo/components/STMicroelectronics/STMPS2151STR/STMPS2151STR.pdf")
 
 # pcb:sch C_IN.C x=1134.3800 y=87.9000 rot=0
 # pcb:sch C_OUT.C x=524.7800 y=87.9000 rot=0
 # pcb:sch STMPS2151STR.STMPS2151STR x=761.0000 y=49.8000 rot=0
-# pcb:sch gnd.1 x=875.3000 y=240.3000 rot=0
-# pcb:sch vin.1 x=1147.0800 y=24.4000 rot=0
-# pcb:sch vout.1 x=537.4800 y=11.7000 rot=0
+# pcb:sch GND.1 x=875.3000 y=240.3000 rot=0
+# pcb:sch VIN.1 x=1147.0800 y=24.4000 rot=0
+# pcb:sch VOUT.1 x=537.4800 y=11.7000 rot=0

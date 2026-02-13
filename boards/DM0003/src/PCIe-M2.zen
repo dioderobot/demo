@@ -7,9 +7,8 @@ Author: Nasheed Ur Rehman
 # Libraries & Dependencies
 # ----------------------------------------------------------------------------
 
-load("@stdlib/config.zen", "config_properties")
 load("@stdlib/interfaces.zen", "PcieGen3x1Lane", "Power", "Ground", "NotConnected")
-load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Resistance", "Voltage", "VoltageRange")
+load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Resistance", "Voltage")
 load("@stdlib/utils.zen", "e96")
 
 # ----------------------------------------------------------------------------
@@ -32,19 +31,19 @@ Led = Module("@stdlib/generics/Led.zen")
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-io_5v = io("io_5v", Power, default=Power(voltage=VoltageRange("5V")))
-io_gnd = io("io_gnd", Ground)
-pcie_c = io("PCIE_C", PcieGen3x1Lane)
-pcie_pwr_en = io("PCIE_PWR_EN", Net)
+V5 = io("5V", Power, default=Power("5V", voltage=Voltage("5V")))
+GND = io("GND", Ground)
+PCIE_C = io("PCIE_C", PcieGen3x1Lane)
+PCIE_PWR_EN = io("PCIE_PWR_EN", Net)
 
 # ----------------------------------------------------------------------------
 # local nets
 # ----------------------------------------------------------------------------
 
-m2_3v3 = Power("m2_3v3", voltage=VoltageRange("3.3V"))
-das_dss_led1 = Net("DAS_DSS_LED1")
-r_activity = Net("R_Activity")
-susclk = Net("susclk")
+M2_3V3 = Power("M2_3V3", voltage=Voltage("3.3V"))
+DAS_DSS_LED1 = Net("DAS_DSS_LED1")
+R_ACTIVITY = Net("R_ACTIVITY")
+SUSCLK = Net("SUSCLK")
 
 # ----------------------------------------------------------------------------
 # Components
@@ -52,36 +51,36 @@ susclk = Net("susclk")
 
 PCIe_Connector(
     name="PCIe_Connector",
-    PERST=pcie_c.RESET_N,
-    CLKREQ=pcie_c.CLK_REQ_N,
-    PEWAKE=pcie_c.WAKE_N,
+    PERST=PCIE_C.RESET_N,
+    CLKREQ=PCIE_C.CLK_REQ_N,
+    PEWAKE=PCIE_C.WAKE_N,
     DEVSLP=NotConnected(),
-    PETp0_SATA_Aplus=pcie_c.TX.N,
-    PETn0_SATA_Aminus=pcie_c.TX.P,
-    PERp0_SATA_Bminus=pcie_c.RX.N,
-    PERn0_SATA_Bplus=pcie_c.RX.P,
-    PETp1=NotConnected(),
-    PETn1=NotConnected(),
-    PERp1=NotConnected(),
-    PERn1=NotConnected(),
-    PETp2=NotConnected(),
-    PETn2=NotConnected(),
-    PERp2=NotConnected(),
-    PERn2=NotConnected(),
-    PETp3=NotConnected(),
-    PETn3=NotConnected(),
-    PERp3=NotConnected(),
-    PERn3=NotConnected(),
+    PETP0_SATA_APLUS=PCIE_C.TX.N,
+    PETN0_SATA_AMINUS=PCIE_C.TX.P,
+    PERP0_SATA_BMINUS=PCIE_C.RX.N,
+    PERN0_SATA_BPLUS=PCIE_C.RX.P,
+    PETP1=NotConnected(),
+    PETN1=NotConnected(),
+    PERP1=NotConnected(),
+    PERN1=NotConnected(),
+    PETP2=NotConnected(),
+    PETN2=NotConnected(),
+    PERP2=NotConnected(),
+    PERN2=NotConnected(),
+    PETP3=NotConnected(),
+    PETN3=NotConnected(),
+    PERP3=NotConnected(),
+    PERN3=NotConnected(),
     # Reference Clock
-    REFCLKp=pcie_c.REFCLK.P,
-    REFCLKn=pcie_c.REFCLK.N,
+    REFCLKP=PCIE_C.REFCLK.P,
+    REFCLKN=PCIE_C.REFCLK.N,
     # Power
-    VDD=m2_3v3,
-    GND=io_gnd,
+    VDD=M2_3V3,
+    GND=GND,
     # Other signals
-    DAS_DSS_LED1=das_dss_led1,
+    DAS_DSS_LED1=DAS_DSS_LED1,
     PEDET=NotConnected(),
-    SUSCLK=susclk,
+    SUSCLK=SUSCLK,
     # Not connected
     NC=NotConnected(),
 )
@@ -90,7 +89,7 @@ Standoff(
     name="M_2_Standoff",
     thread="M2.5",
     height="1.5mm",
-    P1=io_gnd,
+    P1=GND,
 )
 
 LED_V_F = "2V"
@@ -107,44 +106,42 @@ Led(
     color="green",
     forward_voltage=LED_V_F,
     forward_current=LED_I_F,
-    A=m2_3v3,
-    K=r_activity,
+    A=M2_3V3,
+    K=R_ACTIVITY,
 )
 
 Resistor(
     name="R_Activity",
     package="0402",
-    value=led_current_limit_resistance(m2_3v3.voltage.max, LED_V_F, LED_I_F),
-    P1=das_dss_led1,
-    P2=r_activity,
+    value=led_current_limit_resistance(M2_3V3.voltage.max, LED_V_F, LED_I_F),
+    P1=DAS_DSS_LED1,
+    P2=R_ACTIVITY,
 )
 
 Crystal(
     name="Crystal",
-    VDD=m2_3v3,
-    TRI_STATE=m2_3v3,
-    GND=io_gnd,
-    OUTPUT=susclk,
+    VDD=M2_3V3,
+    TRI_STATE=M2_3V3,
+    GND=GND,
+    OUTPUT=SUSCLK,
 )
 
 Buck(
     name="Buck",
-    vin=io_5v,
-    vout=m2_3v3,
-    gnd=io_gnd,
-    pg=Net("NC"),
-    enable=pcie_pwr_en,
-    properties={
-        "collapse": "true",
-    },
+    VIN=V5,
+    VOUT=M2_3V3,
+    GND=GND,
+    PG=NotConnected(),
+    ENABLE=PCIE_PWR_EN,
+    schematic="collapse",
 )
 
 Resistor(
     name="R_EN",
     value="100kohms",
     package="0402",
-    P1=pcie_pwr_en,
-    P2=io_gnd,
+    P1=PCIE_PWR_EN,
+    P2=GND,
 )
 
 Capacitor(
@@ -153,8 +150,8 @@ Capacitor(
     package="0805",
     voltage="16V",
     dielectric="X7R",
-    P1=io_5v,
-    P2=io_gnd,
+    P1=V5,
+    P2=GND,
 )
 
 Capacitor(
@@ -163,8 +160,8 @@ Capacitor(
     package="0805",
     voltage="16V",
     dielectric="X7R",
-    P1=m2_3v3,
-    P2=io_gnd,
+    P1=M2_3V3,
+    P2=GND,
 )
 
 Capacitor(
@@ -173,8 +170,8 @@ Capacitor(
     package="0805",
     voltage="16V",
     dielectric="X7R",
-    P1=m2_3v3,
-    P2=io_gnd,
+    P1=M2_3V3,
+    P2=GND,
 )
 
 Capacitor(
@@ -183,8 +180,8 @@ Capacitor(
     package="0805",
     voltage="16V",
     dielectric="X7R",
-    P1=m2_3v3,
-    P2=io_gnd,
+    P1=M2_3V3,
+    P2=GND,
 )
 
 Capacitor(
@@ -193,8 +190,8 @@ Capacitor(
     package="0402",
     voltage="16V",
     dielectric="X7R",
-    P1=m2_3v3,
-    P2=io_gnd,
+    P1=M2_3V3,
+    P2=GND,
 )
 
 # pcb:sch Buck x=-812.8000 y=520.7000 rot=0
@@ -208,10 +205,10 @@ Capacitor(
 # pcb:sch PCIe_Connector.1-2199119-3 x=62.5000 y=49.8000 rot=0
 # pcb:sch R_Activity.R x=649.2400 y=405.4000 rot=180
 # pcb:sch R_EN.R x=-887.4600 y=608.6000 rot=0
-# pcb:sch io_5v.1 x=-1075.4200 y=481.6000 rot=0
-# pcb:sch gnd.1 x=303.8000 y=1040.4000 rot=0
-# pcb:sch gnd.2 x=608.6000 y=862.6000 rot=0
-# pcb:sch gnd.3 x=-763.0000 y=722.9000 rot=0
-# pcb:sch m2_3v3.1 x=308.8800 y=-51.8000 rot=0
-# pcb:sch m2_3v3.2 x=1070.8800 y=697.5000 rot=0
-# pcb:sch m2_3v3.3 x=-288.0200 y=494.3000 rot=0
+# pcb:sch 5V.1 x=-1075.4200 y=481.6000 rot=0
+# pcb:sch GND.1 x=303.8000 y=1040.4000 rot=0
+# pcb:sch GND.2 x=608.6000 y=862.6000 rot=0
+# pcb:sch GND.3 x=-763.0000 y=722.9000 rot=0
+# pcb:sch M2_3V3.1 x=308.8800 y=-51.8000 rot=0
+# pcb:sch M2_3V3.2 x=1070.8800 y=697.5000 rot=0
+# pcb:sch M2_3V3.3 x=-288.0200 y=494.3000 rot=0

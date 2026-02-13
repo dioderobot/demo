@@ -8,7 +8,7 @@
 # ----------------------------------------------------------------------------
 
 load("@stdlib/units.zen", "Voltage", "Current", "Capacitance", "Inductance", "Frequency", "Resistance")
-load("@stdlib/interfaces.zen", "CanTtl", "I2c", "Power", "Spi", "Swd", "Uart", "Usb2", "Ground")
+load("@stdlib/interfaces.zen", "CanTtl", "I2c", "Power", "Spi", "Swd", "Uart", "Usb2", "Ground", "NotConnected")
 # ----------------------------------------------------------------------------
 # Component Modules
 # ----------------------------------------------------------------------------
@@ -48,8 +48,6 @@ CAN_L = Net("CAN_L")
 JST_5V = Net("JST_5V")
 S1 = Net("S1")
 FUSE = Net("FUSE")
-NC_MP1 = Net("NC_MP1")
-NC_MP2 = Net("NC_MP2")
 
 # ---------------------------------------------------------------------------
 # Components
@@ -57,8 +55,8 @@ NC_MP2 = Net("NC_MP2")
 
 JstHeader(
     name="JST_CAN",
-    MP1=NC_MP1,
-    MP2=NC_MP2,
+    MP1=NotConnected(),
+    MP2=NotConnected(),
     P1=JST_5V,
     P2=V3V3,
     P3=CAN_H,
@@ -66,9 +64,7 @@ JstHeader(
     P5=GND,
 )
 
-CanSwitch(
-    name="FSA5157L6X", VCC=V3V3, GND=GND, A=CAN_H, S=CAN_TERM, B0=Net("NC_B0"), B1=S1, properties={"collapse": "true"}
-)
+CanSwitch(name="FSA5157L6X", VCC=V3V3, GND=GND, A=CAN_H, S=CAN_TERM, B0=NotConnected(), B1=S1, schematic="collapse")
 
 CanTransceiver(
     name="TCAN330DCNT",
@@ -79,7 +75,7 @@ CanTransceiver(
     CAN_H=CAN_H,
     CAN_L=CAN_L,
     SHDN=CAN_SHDN,
-    properties={"collapse": "true"},
+    schematic="collapse",
 )
 
 Fuse(name="Fuse", P1=FUSE, P2=JST_5V)

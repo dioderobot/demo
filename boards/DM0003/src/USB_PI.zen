@@ -7,7 +7,6 @@ Author: Nasheed Ur Rehman
 # Libraries & Dependencies
 # ----------------------------------------------------------------------------
 
-load("@stdlib/config.zen", "config_properties")
 load("@stdlib/interfaces.zen", "Power", "Usb2", "Ground")
 load("@stdlib/properties.zen", "Layout")
 load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "Resistance", "Voltage")
@@ -28,12 +27,12 @@ VoltageClamp = Module("github.com/dioderobot/demo/components/Semtech_Corporation
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-io_5v = io("io_5v", Power)
-io_gnd = io("io_gnd", Ground)
-usb2c = io("USB_PI", Usb2)
+V5 = io("5V", Power)
+GND = io("GND", Ground)
+USB2C = io("USB_PI", Usb2)
 
-io_CC1 = io("CC1", Net)
-io_CC2 = io("CC2", Net)
+CC1 = io("CC1", Net)
+CC2 = io("CC2", Net)
 
 # ----------------------------------------------------------------------------
 # local nets
@@ -48,15 +47,15 @@ Component(
     symbol=Symbol(library="@kicad-symbols/Connector.kicad_sym", name="USB_C_Receptacle_USB2.0_16P"),
     footprint=File("@kicad-footprints/Connector_USB.pretty/USB_C_Receptacle_G-Switch_GT-USB-7010ASV.kicad_mod"),
     pins={
-        "CC1": io_CC1,
-        "CC2": io_CC2,
-        "D-": usb2c.D.N,
-        "D+": usb2c.D.P,
-        "SHIELD": io_gnd,
-        "GND": io_gnd,
-        "SBU1": Net("sbu1"),
-        "SBU2": Net("sbu2"),
-        "VBUS": io_5v,
+        "CC1": CC1,
+        "CC2": CC2,
+        "D-": USB2C.D.N,
+        "D+": USB2C.D.P,
+        "SHIELD": GND,
+        "GND": GND,
+        "SBU1": Net("SBU1"),
+        "SBU2": Net("SBU2"),
+        "VBUS": V5,
     },
     mpn="GT-USB-7010ASV",
     properties={
@@ -73,17 +72,17 @@ Component(
 
 VoltageClamp(
     name="Voltage_Clamp",
-    K1=usb2c.D.N,
-    K2=usb2c.D.P,
-    A=io_gnd,
+    K1=USB2C.D.N,
+    K2=USB2C.D.P,
+    A=GND,
 )
 
 Resistor(
     name="R_VBUS",
     value="2.2kohms",
     package="0402",
-    P1=io_5v,
-    P2=io_gnd,
+    P1=V5,
+    P2=GND,
 )
 
 Capacitor(
@@ -92,8 +91,8 @@ Capacitor(
     package="0402",
     voltage="16V",
     dielectric="X7R",
-    P1=io_5v,
-    P2=io_gnd,
+    P1=V5,
+    P2=GND,
 )
 
 Capacitor(
@@ -102,8 +101,8 @@ Capacitor(
     package="0402",
     voltage="16V",
     dielectric="X7R",
-    P1=io_5v,
-    P2=io_gnd,
+    P1=V5,
+    P2=GND,
 )
 
 # pcb:sch C_VBUS1.C x=1261.3800 y=202.2000 rot=0
@@ -111,5 +110,5 @@ Capacitor(
 # pcb:sch R_VBUS.R x=1106.4400 y=202.2000 rot=0
 # pcb:sch USB_Connector x=583.2000 y=37.1000 rot=0
 # pcb:sch Voltage_Clamp.RCLAMP0502BATCT x=913.4000 y=354.6000 rot=270
-# pcb:sch io_5v.1 x=956.5800 y=-51.8000 rot=0
-# pcb:sch io_gnd.1 x=951.5000 y=507.0000 rot=0
+# pcb:sch 5V.1 x=956.5800 y=-51.8000 rot=0
+# pcb:sch GND.1 x=951.5000 y=507.0000 rot=0

@@ -7,7 +7,6 @@ Author: Nasheed Ur Rehman
 # Libraries & Dependencies
 # ----------------------------------------------------------------------------
 
-load("@stdlib/config.zen", "config_properties")
 load(
     "@stdlib/interfaces.zen",
     "Ethernet_Phy",
@@ -17,6 +16,7 @@ load(
     "Mipi",
     "PcieGen3x1Lane",
     "Power",
+    "NotConnected",
     "Spi",
     "Usb2",
     "Usb3",
@@ -41,64 +41,64 @@ JST_BATT = Module(
 # ----------------------------------------------------------------------------
 
 # Power Pins
-io_5V_IN = io("CM5_5V_IN", Net)
-io_3V3_CM5 = io("CM5_3V3", Net)
-io_1V8_CM5 = io("CM5_1V8", Net)
-io_GND = io("GND", Net)
-io_GPIO_VREF = io("GPIO_VREF", Net)
+V5V_IN = io("CM5_5V_IN", Net)
+V3V3_CM5 = io("CM5_3V3", Net)
+V1V8_CM5 = io("CM5_1V8", Net)
+GND = io("GND", Ground)
+GPIO_VREF = io("GPIO_VREF", Net)
 
 # MIPI Interface
-mipi_pi = io("DPHY0_P", Mipi)
+MIPI0_C = io("DPHY0_P", Mipi)
 
 # HDMI Interface
-hdmi_pi = io("HDMI_PI", Hdmi)
+HDMI_PI = io("HDMI_PI", Hdmi)
 
 # USB2 Interface
-usb3p = io("USB3P", Usb3)
-usb_pi = io("USB_PI", Usb2)
-io_USBOTG_ID = io("USBOTG_ID", Net)
+USB3P = io("USB3P", Usb3)
+USB_PI = io("USB_PI", Usb2)
+USBOTG_ID = io("USBOTG_ID", Net)
 
 # PCIe Interface
-pcie = io("PCIE_PI", PcieGen3x1Lane)
-pcie_pwr_en = io("PCIE_PI_PWR_EN", Net)
+PCIE_PI = io("PCIE_PI", PcieGen3x1Lane)
+PCIE_PI_PWR_EN = io("PCIE_PI_PWR_EN", Net)
 
 # SPI Interface
-spi_pi = io("SPI_PI", Spi)
+SPI_PI = io("SPI_PI", Spi)
 
 # I2C/SPI Interfaces
-i2c0 = io("I2C0", I2c)
-i2c1 = io("I2C1", I2c)
+I2C0 = io("I2C0", I2c)
+I2C1 = io("I2C1", I2c)
 
 # GPIO Pins
-io_DC_GPI25 = io("DC_GPI25", Net)
-io_BL_GPIO24 = io("BL_GPIO24", Net)
-io_RST_GPIO27 = io("RST_GPIO27", Net)
+DC_GPI25 = io("DC_GPI25", Net)
+BL_GPIO24 = io("BL_GPIO24", Net)
+RST_GPIO27 = io("RST_GPIO27", Net)
 
 # ID Pins
-io_ID_SC = io("ID_SC", Net)
-io_ID_SD = io("ID_SD", Net)
+ID_SC = io("ID_SC", Net)
+ID_SD = io("ID_SD", Net)
 
 # Ethernet Interface
-eth_pi = io("ETH_PI", Ethernet_Phy)
-io_ETH_nLED_ACTIVITY = io("ETH_nLED_ACTIVITY", Net)
-io_nLED_SPEED_100_1000 = io("nLED_SPEED_100_1000", Net)
+ETH_PI = io("ETH_PI", Ethernet_Phy)
+ETH_NLED_ACTIVITY = io("ETH_NLED_ACTIVITY", Net)
+N_LED_SPEED_100_1000 = io("N_LED_SPEED_100_1000", Net)
 
 # Camera Control
-io_CAM_GPIO0 = io("CAM_GPIO0", Net)
-io_CAM_GPIO1 = io("CAM_GPIO1", Net)
+CAM_GPIO0 = io("CAM_GPIO0", Net)
+CAM_GPIO1 = io("CAM_GPIO1", Net)
 
 # Other Interfaces
-io_CC1 = io("CC1", Net)
-io_CC2 = io("CC2", Net)
-io_EEPROM_nWP = io("EEPROM_nWP", Net)
-io_FAN_PWM = io("FAN_PWM", Net)
-io_FAN_TACHO = io("FAN_TACHO", Net)
-io_nLED_ACTIVITY = io("nLED_ACTIVITY", Net)
-io_PI_nLED_PWR = io("PI_nLED_PWR", Net)
-io_GLOBAL_EN = io("GLOBAL_EN", Net)
-io_PWR_BUT = io("PWR_BUT", Net)
-io_VBUS_EN = io("VBUS_EN", Net)
-io_nRPIBOOT = io("nRPIBOOT", Net)
+CC1 = io("CC1", Net)
+CC2 = io("CC2", Net)
+EEPROM_NWP = io("EEPROM_NWP", Net)
+FAN_PWM = io("FAN_PWM", Net)
+FAN_TACHO = io("FAN_TACHO", Net)
+N_LED_ACTIVITY = io("N_LED_ACTIVITY", Net)
+PI_NLED_PWR = io("PI_NLED_PWR", Net)
+GLOBAL_EN = io("GLOBAL_EN", Net)
+PWR_BUT = io("PWR_BUT", Net)
+VBUS_EN = io("VBUS_EN", Net)
+N_RPIBOOT = io("N_RPIBOOT", Net)
 
 # ----------------------------------------------------------------------------
 # Local Nets
@@ -112,171 +112,171 @@ BATT = Power("BATT")
 
 CM5IO(
     name="CM5IO",
-    GND=io_GND,
-    V1V8_Output=io_1V8_CM5,
-    V3V3_Output=io_3V3_CM5,
-    V5V_Input=io_5V_IN,
+    GND=GND,
+    V1V8_OUTPUT=V1V8_CM5,
+    V3V3_OUTPUT=V3V3_CM5,
+    V5V_INPUT=V5V_IN,
     # GPIO Interface
-    GPIO_VREF_1V8_3V3_Input=io_GPIO_VREF,
-    GPIO2=i2c1.SDA,
-    GPIO3=i2c1.SCL,
-    GPIO4=Net("NC"),
-    GPIO5=Net("NC"),
-    GPIO6=Net("NC"),
-    GPIO7=Net("NC"),
-    GPIO8=Net("NC"),
-    GPIO9=Net("NC"),
-    GPIO10=Net("NC"),
-    GPIO11=Net("NC"),
-    GPIO12=Net("NC"),
-    GPIO13=Net("NC"),
-    GPIO14=Net("NC"),
-    GPIO15=Net("NC"),
-    GPIO16=Net("NC"),
-    GPIO17=Net("NC"),
-    GPIO18=spi_pi.CS,
-    GPIO19=spi_pi.MISO,
-    GPIO20=spi_pi.MOSI,
-    GPIO21=spi_pi.CLK,
-    GPIO22=Net("NC"),
-    GPIO23=Net("NC"),
-    GPIO24=io_BL_GPIO24,
-    GPIO25=io_DC_GPI25,
-    GPIO26=Net("NC"),
-    GPIO27=io_RST_GPIO27,
+    GPIO_VREF_1V8_3V3_INPUT=GPIO_VREF,
+    GPIO2=I2C1.SDA,
+    GPIO3=I2C1.SCL,
+    GPIO4=NotConnected(),
+    GPIO5=NotConnected(),
+    GPIO6=NotConnected(),
+    GPIO7=NotConnected(),
+    GPIO8=NotConnected(),
+    GPIO9=NotConnected(),
+    GPIO10=NotConnected(),
+    GPIO11=NotConnected(),
+    GPIO12=NotConnected(),
+    GPIO13=NotConnected(),
+    GPIO14=NotConnected(),
+    GPIO15=NotConnected(),
+    GPIO16=NotConnected(),
+    GPIO17=NotConnected(),
+    GPIO18=SPI_PI.CS,
+    GPIO19=SPI_PI.MISO,
+    GPIO20=SPI_PI.MOSI,
+    GPIO21=SPI_PI.CLK,
+    GPIO22=NotConnected(),
+    GPIO23=NotConnected(),
+    GPIO24=BL_GPIO24,
+    GPIO25=DC_GPI25,
+    GPIO26=NotConnected(),
+    GPIO27=RST_GPIO27,
     VBAT=BATT,
     # Ethernet Interface
-    Ethernet_Pair0_N=eth_pi.TR0.N,
-    Ethernet_Pair0_P=eth_pi.TR0.P,
-    Ethernet_Pair1_N=eth_pi.TR1.N,
-    Ethernet_Pair1_P=eth_pi.TR1.P,
-    Ethernet_Pair2_N=eth_pi.TR2.N,
-    Ethernet_Pair2_P=eth_pi.TR2.P,
-    Ethernet_Pair3_N=eth_pi.TR3.N,
-    Ethernet_Pair3_P=eth_pi.TR3.P,
-    Ethernet_SYNC_OUT_3V3=Net("NC"),
-    Ethernet_nLED2_3V3=io_nLED_SPEED_100_1000,
-    Ethernet_nLED3_3V3=io_ETH_nLED_ACTIVITY,
+    ETHERNET_PAIR0_N=ETH_PI.TR0.N,
+    ETHERNET_PAIR0_P=ETH_PI.TR0.P,
+    ETHERNET_PAIR1_N=ETH_PI.TR1.N,
+    ETHERNET_PAIR1_P=ETH_PI.TR1.P,
+    ETHERNET_PAIR2_N=ETH_PI.TR2.N,
+    ETHERNET_PAIR2_P=ETH_PI.TR2.P,
+    ETHERNET_PAIR3_N=ETH_PI.TR3.N,
+    ETHERNET_PAIR3_P=ETH_PI.TR3.P,
+    ETHERNET_SYNC_OUT_3V3=NotConnected(),
+    ETHERNET_NLED2_3V3=N_LED_SPEED_100_1000,
+    ETHERNET_NLED3_3V3=ETH_NLED_ACTIVITY,
     # HDMI Interface
-    HDMI0_CEC=hdmi_pi.CEC,
-    HDMI0_CLK_N=hdmi_pi.CLK.N,
-    HDMI0_CLK_P=hdmi_pi.CLK.P,
-    HDMI0_HOTPLUG=hdmi_pi.HPD,
-    HDMI0_SCL=hdmi_pi.SCL,
-    HDMI0_SDA=hdmi_pi.SDA,
-    HDMI0_TX0_N=hdmi_pi.D0.N,
-    HDMI0_TX0_P=hdmi_pi.D0.P,
-    HDMI0_TX1_N=hdmi_pi.D1.N,
-    HDMI0_TX1_P=hdmi_pi.D1.P,
-    HDMI0_TX2_N=hdmi_pi.D2.N,
-    HDMI0_TX2_P=hdmi_pi.D2.P,
+    HDMI0_CEC=HDMI_PI.CEC,
+    HDMI0_CLK_N=HDMI_PI.CLK.N,
+    HDMI0_CLK_P=HDMI_PI.CLK.P,
+    HDMI0_HOTPLUG=HDMI_PI.HPD,
+    HDMI0_SCL=HDMI_PI.SCL,
+    HDMI0_SDA=HDMI_PI.SDA,
+    HDMI0_TX0_N=HDMI_PI.D0.N,
+    HDMI0_TX0_P=HDMI_PI.D0.P,
+    HDMI0_TX1_N=HDMI_PI.D1.N,
+    HDMI0_TX1_P=HDMI_PI.D1.P,
+    HDMI0_TX2_N=HDMI_PI.D2.N,
+    HDMI0_TX2_P=HDMI_PI.D2.P,
     # HDMI1 Interface
-    HDMI1_CEC=Net("NC"),
-    HDMI1_CLK_N=Net("NC"),
-    HDMI1_CLK_P=Net("NC"),
-    HDMI1_HOTPLUG=Net("NC"),
-    HDMI1_SCL=Net("NC"),
-    HDMI1_SDA=Net("NC"),
-    HDMI1_TX0_N=Net("NC"),
-    HDMI1_TX0_P=Net("NC"),
-    HDMI1_TX1_N=Net("NC"),
-    HDMI1_TX1_P=Net("NC"),
-    HDMI1_TX2_N=Net("NC"),
-    HDMI1_TX2_P=Net("NC"),
+    HDMI1_CEC=NotConnected(),
+    HDMI1_CLK_N=NotConnected(),
+    HDMI1_CLK_P=NotConnected(),
+    HDMI1_HOTPLUG=NotConnected(),
+    HDMI1_SCL=NotConnected(),
+    HDMI1_SDA=NotConnected(),
+    HDMI1_TX0_N=NotConnected(),
+    HDMI1_TX0_P=NotConnected(),
+    HDMI1_TX1_N=NotConnected(),
+    HDMI1_TX1_P=NotConnected(),
+    HDMI1_TX2_N=NotConnected(),
+    HDMI1_TX2_P=NotConnected(),
     # CC Interface
-    CC1=io_CC1,
-    CC2=io_CC2,
+    CC1=CC1,
+    CC2=CC2,
     # USB Interface
-    USB2_N=usb_pi.D.N,
-    USB2_P=usb_pi.D.P,
+    USB2_N=USB_PI.D.N,
+    USB2_P=USB_PI.D.P,
     # USB3 Interface
-    USB3_0_D_N=usb3p.D.N,
-    USB3_0_D_P=usb3p.D.P,
-    USB3_0_RX_N=usb3p.SSRX.N,
-    USB3_0_RX_P=usb3p.SSRX.P,
-    USB3_0_TX_N=usb3p.SSTX.N,
-    USB3_0_TX_P=usb3p.SSTX.P,
-    USB3_1_D_N=Net("NC"),
-    USB3_1_D_P=Net("NC"),
-    USB3_1_RX_N=Net("NC"),
-    USB3_1_RX_P=Net("NC"),
-    USB3_1_TX_N=Net("NC"),
-    USB3_1_TX_P=Net("NC"),
+    USB3_0_D_N=USB3P.D.N,
+    USB3_0_D_P=USB3P.D.P,
+    USB3_0_RX_N=USB3P.SSRX.N,
+    USB3_0_RX_P=USB3P.SSRX.P,
+    USB3_0_TX_N=USB3P.SSTX.N,
+    USB3_0_TX_P=USB3P.SSTX.P,
+    USB3_1_D_N=NotConnected(),
+    USB3_1_D_P=NotConnected(),
+    USB3_1_RX_N=NotConnected(),
+    USB3_1_RX_P=NotConnected(),
+    USB3_1_TX_N=NotConnected(),
+    USB3_1_TX_P=NotConnected(),
     # USB OTG Interface
-    USB_OTG_ID=io_USBOTG_ID,
+    USB_OTG_ID=USBOTG_ID,
     # PCIe Interface
-    PCIE_PWR_EN=pcie_pwr_en,
-    PCIE_nWAKE=pcie.WAKE_N,
-    PCIe_CLK_N=pcie.REFCLK.N,
-    PCIe_CLK_P=pcie.REFCLK.P,
-    PCIe_RX_N=pcie.RX.N,
-    PCIe_RX_P=pcie.RX.P,
-    PCIe_TX_N=pcie.TX.N,
-    PCIe_TX_P=pcie.TX.P,
-    PCIe_nCLKREQ=pcie.CLK_REQ_N,
-    PCIe_nRST=pcie.RESET_N,
+    PCIE_PWR_EN=PCIE_PI_PWR_EN,
+    PCIE_NWAKE=PCIE_PI.WAKE_N,
+    PCIE_CLK_N=PCIE_PI.REFCLK.N,
+    PCIE_CLK_P=PCIE_PI.REFCLK.P,
+    PCIE_RX_N=PCIE_PI.RX.N,
+    PCIE_RX_P=PCIE_PI.RX.P,
+    PCIE_TX_N=PCIE_PI.TX.N,
+    PCIE_TX_P=PCIE_PI.TX.P,
+    PCIE_NCLKREQ=PCIE_PI.CLK_REQ_N,
+    PCIE_NRST=PCIE_PI.RESET_N,
     # MIPI Interface
-    MIPI0_C_N=mipi_pi.CLK.N,
-    MIPI0_C_P=mipi_pi.CLK.P,
-    MIPI0_D0_N=mipi_pi.DATA0.N,
-    MIPI0_D0_P=mipi_pi.DATA0.P,
-    MIPI0_D1_N=mipi_pi.DATA1.N,
-    MIPI0_D1_P=mipi_pi.DATA1.P,
-    MIPI0_D2_N=mipi_pi.DATA2.N,
-    MIPI0_D2_P=mipi_pi.DATA2.P,
-    MIPI0_D3_N=mipi_pi.DATA3.N,
-    MIPI0_D3_P=mipi_pi.DATA3.P,
+    MIPI0_C_N=MIPI0_C.CLK.N,
+    MIPI0_C_P=MIPI0_C.CLK.P,
+    MIPI0_D0_N=MIPI0_C.DATA0.N,
+    MIPI0_D0_P=MIPI0_C.DATA0.P,
+    MIPI0_D1_N=MIPI0_C.DATA1.N,
+    MIPI0_D1_P=MIPI0_C.DATA1.P,
+    MIPI0_D2_N=MIPI0_C.DATA2.N,
+    MIPI0_D2_P=MIPI0_C.DATA2.P,
+    MIPI0_D3_N=MIPI0_C.DATA3.N,
+    MIPI0_D3_P=MIPI0_C.DATA3.P,
     # MIPI1 Interface
-    MIPI1_C_N=Net("NC"),
-    MIPI1_C_P=Net("NC"),
-    MIPI1_D0_N=Net("NC"),
-    MIPI1_D0_P=Net("NC"),
-    MIPI1_D1_N=Net("NC"),
-    MIPI1_D1_P=Net("NC"),
-    MIPI1_D2_N=Net("NC"),
-    MIPI1_D2_P=Net("NC"),
-    MIPI1_D3_N=Net("NC"),
-    MIPI1_D3_P=Net("NC"),
+    MIPI1_C_N=NotConnected(),
+    MIPI1_C_P=NotConnected(),
+    MIPI1_D0_N=NotConnected(),
+    MIPI1_D0_P=NotConnected(),
+    MIPI1_D1_N=NotConnected(),
+    MIPI1_D1_P=NotConnected(),
+    MIPI1_D2_N=NotConnected(),
+    MIPI1_D2_P=NotConnected(),
+    MIPI1_D3_N=NotConnected(),
+    MIPI1_D3_P=NotConnected(),
     # SD Interface
-    SD_CLK=Net("NC"),
-    SD_CMD=Net("NC"),
-    SD_DAT0=Net("NC"),
-    SD_DAT1=Net("NC"),
-    SD_DAT2=Net("NC"),
-    SD_DAT3=Net("NC"),
-    SD_DAT4=Net("NC"),
-    SD_DAT5=Net("NC"),
-    SD_DAT6=Net("NC"),
-    SD_DAT7=Net("NC"),
-    SD_PWR_ON=Net("NC"),
-    SD_VDD_Override=Net("NC"),
+    SD_CLK=NotConnected(),
+    SD_CMD=NotConnected(),
+    SD_DAT0=NotConnected(),
+    SD_DAT1=NotConnected(),
+    SD_DAT2=NotConnected(),
+    SD_DAT3=NotConnected(),
+    SD_DAT4=NotConnected(),
+    SD_DAT5=NotConnected(),
+    SD_DAT6=NotConnected(),
+    SD_DAT7=NotConnected(),
+    SD_PWR_ON=NotConnected(),
+    SD_VDD_OVERRIDE=NotConnected(),
     # Camera Interface
-    CAM_GPIO0=io_CAM_GPIO0,
-    CAM_GPIO1=io_CAM_GPIO1,
-    SCL0=i2c0.SCL,
-    SDA0=i2c0.SDA,
+    CAM_GPIO0=CAM_GPIO0,
+    CAM_GPIO1=CAM_GPIO1,
+    SCL0=I2C0.SCL,
+    SDA0=I2C0.SDA,
     # Other Interfaces
-    BT_nDisable=Net("NC"),
-    EEPROM_nWP=io_EEPROM_nWP,
-    FAN_PWM=io_FAN_PWM,
-    FAN_TACHO=io_FAN_TACHO,
-    ID_SC=io_ID_SC,
-    ID_SD=io_ID_SD,
-    LED_nACT=io_nLED_ACTIVITY,
-    LED_nPWR=io_PI_nLED_PWR,
-    PMIC_ENABLE=io_GLOBAL_EN,
-    PWR_BUT=io_PWR_BUT,
-    VBUS_EN=io_VBUS_EN,
-    WiFi_nDisable=Net("NC"),
-    nRPIBOOT=io_nRPIBOOT,
+    BT_NDISABLE=NotConnected(),
+    EEPROM_NWP=EEPROM_NWP,
+    FAN_PWM=FAN_PWM,
+    FAN_TACHO=FAN_TACHO,
+    ID_SC=ID_SC,
+    ID_SD=ID_SD,
+    LED_NACT=N_LED_ACTIVITY,
+    LED_NPWR=PI_NLED_PWR,
+    PMIC_ENABLE=GLOBAL_EN,
+    PWR_BUT=PWR_BUT,
+    VBUS_EN=VBUS_EN,
+    WIFI_NDISABLE=NotConnected(),
+    N_RPIBOOT=N_RPIBOOT,
 )
 
 JST_BATT(
     name="JST_BATT",
     P1=BATT,
-    P2=io_GND,
-    MP1=io_GND,
-    MP2=io_GND,
+    P2=GND,
+    MP1=GND,
+    MP2=GND,
 )
 
 # pcb:sch CM5IO x=88.9000 y=177.8000 rot=0

@@ -7,7 +7,7 @@
 # Libraries & Dependencies
 # ----------------------------------------------------------------------------
 
-load("@stdlib/interfaces.zen", "CanTtl", "I2c", "Power", "Spi", "Swd", "Uart", "Usb2", "Ground")
+load("@stdlib/interfaces.zen", "CanTtl", "I2c", "Power", "Spi", "Swd", "Uart", "Usb2", "Ground", "NotConnected")
 load("@stdlib/properties.zen", "Layout")
 load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "Resistance", "Voltage")
 load("@stdlib/board_config.zen", "Board")
@@ -79,7 +79,7 @@ UART2_RX = Uart2.RX  # UART2 Receive (PB4)
 # Unassigned pins
 PB5 = io("PB5", Net)
 PB10 = io("PB10", Net)
-nRST = io("nRST", Net)
+NRST = io("NRST", Net)
 
 # ----------------------------------------------------------------------------
 # Local Nets
@@ -133,8 +133,6 @@ R_STATUS_LED = Net("R_STATUS_LED")
 R_POWER_LED = Net("R_POWER_LED")
 
 PWM = Net("PWM")
-NC_PWM_MP1 = Net("NC_PWM_MP1")
-NC_PWM_MP2 = Net("NC_PWM_MP2")
 
 # ----------------------------------------------------------------------------
 # Components
@@ -147,9 +145,7 @@ Buck(
     VIN_BUCK=VPLUS,
     VOUT_BUCK=V10V,
     GND=GND,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
 )
 
 Ldo(
@@ -159,9 +155,7 @@ Ldo(
     GND=GND,
     fb_resistor_top="52.3kohms",
     fb_resistor_bottom="10kohms",
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
 )
 
 Ldo(
@@ -171,9 +165,7 @@ Ldo(
     GND=GND,
     fb_resistor_top="30.9kohms",
     fb_resistor_bottom="10kohms",
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
 )
 
 # Power Caps
@@ -182,9 +174,7 @@ PowerCaps(
     name="PowerCaps",
     VPLUS=VPLUS,
     GND=GND,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
 )
 
 # MCU
@@ -228,10 +218,8 @@ Mcu(
     PC13=TIM1_CH1N,  # Timer1 Channel 1N
     PC14_OSC32_IN=CAN_TERM,  # CAN Termination
     PC15_OSC32_OUT=STATUS,  # Status signal
-    nRST=nRST,
-    properties={
-        "collapse": "true",
-    },
+    NRST=NRST,
+    schematic="collapse",
 )
 
 # Hall Encoder
@@ -244,9 +232,7 @@ HallEncoder(
     A_PLUS_H1_OUT=A_PLUS_H1_OUT,
     B_PLUS_H2_OUT=B_PLUS_H2_OUT,
     Z_PLUS_H3_OUT=Z_PLUS_H3_OUT,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
 )
 
 # CAN
@@ -259,9 +245,7 @@ CanInterface(
     CAN_TX=CAN_TX,
     CAN_TERM=CAN_TERM,  # CAN Termination Resistor
     CAN_SHDN=CAN_SHDN,  # CAN Shutdown
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
 )
 
 # Phase Drivers
@@ -279,9 +263,7 @@ PhaseDriver(
     VSHUNTP=VSHUNTP_A,
     GPIO_BEMF=GPIO_BEMF,
     BEMF=BEMF1,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
 )
 
 # Phase B Driver
@@ -297,9 +279,7 @@ PhaseDriver(
     VSHUNTP=VSHUNTP_B,
     GPIO_BEMF=GPIO_BEMF,
     BEMF=BEMF2,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
 )
 
 # Phase C Driver
@@ -315,9 +295,7 @@ PhaseDriver(
     VSHUNTP=VSHUNTP_C,
     GPIO_BEMF=GPIO_BEMF,
     BEMF=BEMF3,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
 )
 
 # Shunt Sense
@@ -335,9 +313,7 @@ ShuntSense(
     CURR_FDBK2_OPAMP_MINUS=CURR_FDBK2_OPAMP_MINUS,
     CURR_FDBK3_OPAMP_PLUS=CURR_FDBK3_OPAMP_PLUS,
     CURR_FDBK3_OPAMP_MINUS=CURR_FDBK3_OPAMP_MINUS,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
 )
 
 # TagConnect for SWD debugging
@@ -347,7 +323,7 @@ TagConnect(
     tag_type="TC2030-IDC-NL-2x03",  # 6-pin Tag-Connect for SWD
     P1=V3V3,  # VCC
     P2=SWDIO,  # SWDIO
-    P3=nRST,  # Reset
+    P3=NRST,  # Reset
     P4=SWCLK,  # SWCLK
     P5=GND,  # GND
     P6=GND,  # SWO (not used, tied to GND)
@@ -357,16 +333,14 @@ TagConnect(
 
 PwmHeader(
     name="PwmHeader",
-    MP1=NC_PWM_MP1,
-    MP2=NC_PWM_MP2,
+    MP1=NotConnected(),
+    MP2=NotConnected(),
     P1=V5V,
     P2=UART2_TX,
     P3=UART2_RX,
     P4=PWM,
     P5=GND,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
 )
 
 # VBUS Sense

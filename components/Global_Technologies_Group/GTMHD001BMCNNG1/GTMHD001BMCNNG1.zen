@@ -3,25 +3,25 @@
 # Pins
 Pins = struct(
     CEC=io("CEC", Net),
-    DDC_CECGround=io("DDC_CECGround", Net),
+    DDC_CECGround=io("DDC_CECGROUND", Net),
     EH=io("EH", Net),
-    HotPlugDetect=io("HotPlugDetect", Net),
-    P5VPower=io("P5VPower", Net),
-    Reserved_N_C=io("Reserved_N_C", Net),
+    HotPlugDetect=io("HOTPLUGDETECT", Net),
+    P5VPower=io("P5VPOWER", Net),
+    Reserved_N_C=io("RESERVED_N_C", Net),
     SCL=io("SCL", Net),
     SDA=io("SDA", Net),
-    TMDSClockM=io("TMDSClockM", Net),
-    TMDSClockP=io("TMDSClockP", Net),
-    TMDSClockShield=io("TMDSClockShield", Net),
-    TMDSData0M=io("TMDSData0M", Net),
-    TMDSData0P=io("TMDSData0P", Net),
-    TMDSData0Shield=io("TMDSData0Shield", Net),
-    TMDSData1M=io("TMDSData1M", Net),
-    TMDSData1P=io("TMDSData1P", Net),
-    TMDSData1Shield=io("TMDSData1Shield", Net),
-    TMDSData2M=io("TMDSData2M", Net),
-    TMDSData2P=io("TMDSData2P", Net),
-    TMDSData2Shield=io("TMDSData2Shield", Net),
+    TMDSClockM=io("TMDSCLOCKM", Net),
+    TMDSClockP=io("TMDSCLOCKP", Net),
+    TMDSClockShield=io("TMDSCLOCKSHIELD", Net),
+    TMDSData0M=io("TMDSDATA0M", Net),
+    TMDSData0P=io("TMDSDATA0P", Net),
+    TMDSData0Shield=io("TMDSDATA0SHIELD", Net),
+    TMDSData1M=io("TMDSDATA1M", Net),
+    TMDSData1P=io("TMDSDATA1P", Net),
+    TMDSData1Shield=io("TMDSDATA1SHIELD", Net),
+    TMDSData2M=io("TMDSDATA2M", Net),
+    TMDSData2P=io("TMDSDATA2P", Net),
+    TMDSData2Shield=io("TMDSDATA2SHIELD", Net),
 )
 
 # Component
@@ -56,5 +56,3 @@ Component(
         "mpn": "GT-HD001B-CNNG1",
     },
 )
-
-add_property("layout_path", "build/preview")

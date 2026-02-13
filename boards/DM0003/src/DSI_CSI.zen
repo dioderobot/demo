@@ -7,7 +7,6 @@ Author: Nasheed Ur Rehman
 # Libraries & Dependencies
 # ----------------------------------------------------------------------------
 
-load("@stdlib/config.zen", "config_properties")
 load("@stdlib/interfaces.zen", "I2c", "Mipi", "Power", "Ground")
 load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "Resistance", "Voltage")
 
@@ -25,13 +24,13 @@ DSI_CSI_Connector = Module("github.com/dioderobot/demo/components/Hirose/FH12M22
 # io interfaces
 # ----------------------------------------------------------------------------
 
-io_3v3pi = io("io_3v3pi", Power)
-io_gnd = io("io_gnd", Ground)
+V3V3PI = io("3V3PI", Power)
+GND = io("GND", Ground)
 
 DPHY0_C = io("DPHY0_C", Mipi)
-i2c = io("i2c", I2c)
-io_cam_gpio0 = io("cam_gpio0", Net)
-io_cam_gpio1 = io("cam_gpio1", Net)
+I2C = io("I2C", I2c)
+CAM_GPIO0 = io("CAM_GPIO0", Net)
+CAM_GPIO1 = io("CAM_GPIO1", Net)
 
 # ----------------------------------------------------------------------------
 # Components
@@ -39,32 +38,32 @@ io_cam_gpio1 = io("cam_gpio1", Net)
 
 DSI_CSI_Connector(
     name="DSI_CSI_Connector",
-    P1=io_3v3pi,
-    P2=i2c.SDA,
-    P3=i2c.SCL,
-    P4=io_gnd,
-    P5=io_cam_gpio1,
-    P6=io_cam_gpio0,
-    P7=io_gnd,
+    P1=V3V3PI,
+    P2=I2C.SDA,
+    P3=I2C.SCL,
+    P4=GND,
+    P5=CAM_GPIO1,
+    P6=CAM_GPIO0,
+    P7=GND,
     P8=DPHY0_C.DATA3.P,
     P9=DPHY0_C.DATA3.N,
-    P10=io_gnd,
+    P10=GND,
     P11=DPHY0_C.DATA2.P,
     P12=DPHY0_C.DATA2.N,
-    P13=io_gnd,
+    P13=GND,
     P14=DPHY0_C.CLK.P,
     P15=DPHY0_C.CLK.N,
-    P16=io_gnd,
+    P16=GND,
     P17=DPHY0_C.DATA1.P,
     P18=DPHY0_C.DATA1.N,
-    P19=io_gnd,
+    P19=GND,
     P20=DPHY0_C.DATA0.P,
     P21=DPHY0_C.DATA0.N,
-    P22=io_gnd,
-    MP1=io_gnd,
-    MP2=io_gnd,
+    P22=GND,
+    MP1=GND,
+    MP2=GND,
 )
 
 # pcb:sch DSI_CSI_Connector.FH12M22SM0_5SH x=202.2000 y=-1.0000 rot=0
-# pcb:sch io_3v3pi.1 x=626.3800 y=-13.7000 rot=0
-# pcb:sch io_gnd.1 x=329.2000 y=634.0000 rot=0
+# pcb:sch 3V3PI.1 x=626.3800 y=-13.7000 rot=0
+# pcb:sch GND.1 x=329.2000 y=634.0000 rot=0

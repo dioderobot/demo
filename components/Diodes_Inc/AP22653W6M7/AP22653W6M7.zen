@@ -7,7 +7,7 @@ Pins = struct(
     ILIM=io("ILIM", Net),
     IN=io("IN", Net),
     OUT=io("OUT", Net),
-    n_FAULT=io("n_FAULT", Net),
+    n_FAULT=io("N_FAULT", Net),
 )
 
 # Component
@@ -34,5 +34,3 @@ Component(
         ],
     },
 )
-
-add_property("layout_path", "build/preview")

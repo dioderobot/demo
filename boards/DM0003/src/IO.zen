@@ -7,9 +7,8 @@ Author: Nasheed Ur Rehman
 # Libraries & Dependencies
 # ----------------------------------------------------------------------------
 
-load("@stdlib/config.zen", "config_properties")
 load("@stdlib/interfaces.zen", "I2c", "Power", "Spi", "Power", "Ground", "NotConnected")
-load("@stdlib/units.zen", "Capacitance", "Current", "Resistance", "Voltage", "VoltageRange")
+load("@stdlib/units.zen", "Capacitance", "Current", "Resistance", "Voltage")
 load("@stdlib/utils.zen", "e96")
 
 # ----------------------------------------------------------------------------
@@ -43,28 +42,28 @@ Power_Button = Module("github.com/dioderobot/demo/components/OMRON_Electronics/B
 # ----------------------------------------------------------------------------
 # io_interfaces
 # ----------------------------------------------------------------------------
-io_5v = io("io_5v", Power, default=Power("io_5v", voltage=VoltageRange("5V")))
-io_3v3pi = io("io_3v3pi", Power, default=Power("io_3v3pi", voltage=VoltageRange("3.3V")))
-io_gnd = io("io_gnd", Ground)
+V5 = io("5V", Power, default=Power("5V", voltage=Voltage("5V")))
+V3V3PI = io("3V3PI", Power, default=Power("3V3PI", voltage=Voltage("3.3V")))
+GND = io("GND", Ground)
 
-SPI = io("spi", Spi)
-I2C = io("i2c", I2c)
+SPI = io("SPI", Spi)
+I2C = io("I2C", I2c)
 
-io_bl = io("bl", Net)
-io_rst = io("rst", Net)
-io_dc = io("dc", Net)
+BL = io("BL", Net)
+RST = io("RST", Net)
+DC = io("DC", Net)
 
-io_fan_pwm = io("fan_pwm", Net)
-io_fan_tacho = io("fan_tacho", Net)
+FAN_PWM = io("FAN_PWM", Net)
+FAN_TACHO = io("FAN_TACHO", Net)
 
-io_nPWR_LED = io("nPWR_LED", Net)
-io_nLED_ACTIVITY = io("nLED_ACTIVITY", Net)
-io_nRESET = io("nRESET", Net)
-io_pwr_but = io("pwr_but", Net)
+N_PWR_LED = io("N_PWR_LED", Net)
+N_LED_ACTIVITY = io("N_LED_ACTIVITY", Net)
+N_RESET = io("N_RESET", Net)
+PWR_BUT = io("PWR_BUT", Net)
 
-r_led_activity = Net("r_led_activity")
-r_led_pwr = Net("r_led_pwr")
-led_pwr = Net("led_pwr")
+R_LED_ACTIVITY = Net("R_LED_ACTIVITY")
+R_LED_PWR = Net("R_LED_PWR")
+LED_PWR = Net("LED_PWR")
 
 # ----------------------------------------------------------------------------
 # Components
@@ -75,29 +74,29 @@ SPI_Connector(
     P1=SPI.MISO,
     P2=SPI.MOSI,
     P3=SPI.CLK,
-    P4=io_bl,
-    P5=io_gnd,
+    P4=BL,
+    P5=GND,
     P6=SPI.CS,
-    P7=io_rst,
-    P8=io_dc,
-    P9=io_gnd,
-    P10=io_3v3pi,
-    MP1=io_gnd,
-    MP2=io_gnd,
+    P7=RST,
+    P8=DC,
+    P9=GND,
+    P10=V3V3PI,
+    MP1=GND,
+    MP2=GND,
 )
 
 FAN_Connector(
     name="Fan_Connector",
-    P1=io_5v,
-    P2=io_fan_pwm,
-    P3=io_gnd,
-    P4=io_fan_tacho,
+    P1=V5,
+    P2=FAN_PWM,
+    P3=GND,
+    P4=FAN_TACHO,
 )
 
 I2C_Connector(
     name="I2C_Connector",
-    P1=io_gnd,
-    P2=io_3v3pi,
+    P1=GND,
+    P2=V3V3PI,
     P3=I2C.SDA,
     P4=I2C.SCL,
 )
@@ -107,7 +106,7 @@ Resistor(
     package="0402",
     value="2.2kohms",
     P1=I2C.SDA,
-    P2=io_3v3pi,
+    P2=V3V3PI,
 )
 
 Resistor(
@@ -115,7 +114,7 @@ Resistor(
     package="0402",
     value="2.2kohms",
     P1=I2C.SCL,
-    P2=io_3v3pi,
+    P2=V3V3PI,
 )
 
 Capacitor(
@@ -124,13 +123,13 @@ Capacitor(
     value="4.7uF",
     voltage="25V",
     dielectric="X7R",
-    P1=io_3v3pi,
-    P2=io_gnd,
+    P1=V3V3PI,
+    P2=GND,
 )
 
 ESD_Clamp(
     name="ESD_Clamp",
-    A=io_gnd,
+    A=GND,
     K1=I2C.SCL,
     K2=I2C.SDA,
 )
@@ -138,13 +137,11 @@ ESD_Clamp(
 LIS3DH(
     name="LIS3DH",
     interface="I2C",
-    vdd=io_3v3pi,
-    gnd=io_gnd,
-    sda=I2C.SDA,
-    scl=I2C.SCL,
-    properties={
-        "collapse": "true",
-    },
+    VDD=V3V3PI,
+    GND=GND,
+    SDA=I2C.SDA,
+    SCL=I2C.SCL,
+    schematic="collapse",
 )
 
 LED_V_F = "2V"
@@ -161,16 +158,16 @@ Led(
     color="green",
     forward_voltage=LED_V_F,
     forward_current=LED_I_F,
-    A=io_5v,
-    K=r_led_activity,
+    A=V5,
+    K=R_LED_ACTIVITY,
 )
 
 Resistor(
     name="R_ACTIVITY",
     package="0402",
-    value=led_current_limit_resistance(io_5v.voltage.max, LED_V_F, LED_I_F),
-    P1=r_led_activity,
-    P2=io_nLED_ACTIVITY,
+    value=led_current_limit_resistance(V5.voltage.max, LED_V_F, LED_I_F),
+    P1=R_LED_ACTIVITY,
+    P2=N_LED_ACTIVITY,
 )
 
 Led(
@@ -179,24 +176,24 @@ Led(
     color="red",
     forward_voltage=LED_V_F,
     forward_current=LED_I_F,
-    A=io_5v,
-    K=led_pwr,
+    A=V5,
+    K=LED_PWR,
 )
 
 Resistor(
     name="R_PWR",
     package="0402",
-    value=led_current_limit_resistance(io_5v.voltage.max, LED_V_F, LED_I_F),
-    P1=r_led_pwr,
-    P2=led_pwr,
+    value=led_current_limit_resistance(V5.voltage.max, LED_V_F, LED_I_F),
+    P1=R_LED_PWR,
+    P2=LED_PWR,
 )
 
 SN74LVC1G14DRLRG4(
     name="SN74LVC1G14DRLRG4",
-    A=io_nPWR_LED,
-    GND=io_gnd,
-    VCC=io_5v,
-    Y=r_led_pwr,
+    A=N_PWR_LED,
+    GND=GND,
+    VCC=V5,
+    Y=R_LED_PWR,
     N_C=NotConnected(),
 )
 
@@ -204,24 +201,24 @@ SN74LVC1G14DRLRG4(
 #     name = "R_RESET",
 #     package = "0402",
 #     value = "0ohms",
-#     P1 = io_3v3pi,
-#     P2 = io_nRESET,
+#     P1 = V3V3PI,
+#     P2 = N_RESET,
 #     do_not_populate = True,
 #     exclude_from_bom = True,
 # )
 
 # Reset_Button(
 #     name = "Reset_Button",
-#     A = io_nRESET,
-#     K = io_gnd,
+#     A = N_RESET,
+#     K = GND,
 #     do_not_populate = True,
 #     exclude_from_bom = True,
 # )
 
 Power_Button(
     name="Power_Button",
-    A=io_pwr_but,
-    K=io_gnd,
+    A=PWR_BUT,
+    K=GND,
 )
 
 # pcb:sch C_VDD.C x=1172.4800 y=341.9000 rot=0
@@ -240,18 +237,18 @@ Power_Button(
 # pcb:sch Reset_Button.B3U-1000P x=1307.1000 y=-128.0000 rot=0
 # pcb:sch SN74LVC1G14DRLRG4.SN74LVC1G14DRLRG4 x=849.9000 y=-128.0000 rot=0
 # pcb:sch SPI_Connector.BM10B-SURS-TF(LF)(SN) x=202.2000 y=-1.0000 rot=0
-# pcb:sch io_3v3pi.1 x=67.5800 y=214.9000 rot=0
-# pcb:sch io_3v3pi.2 x=-161.0200 y=189.5000 rot=0
-# pcb:sch io_3v3pi.3 x=1185.1800 y=100.6000 rot=0
-# pcb:sch io_3v3pi.4 x=1274.0800 y=-267.7000 rot=0
-# pcb:sch io_5v.1 x=435.8800 y=189.5000 rot=0
-# pcb:sch io_5v.2 x=486.6800 y=-13.7000 rot=0
-# pcb:sch io_5v.3 x=1185.1800 y=-432.8000 rot=0
-# pcb:sch io_gnd.1 x=341.9000 y=367.3000 rot=0
-# pcb:sch io_gnd.2 x=722.9000 y=329.2000 rot=0
-# pcb:sch io_gnd.3 x=-166.1000 y=341.9000 rot=0
-# pcb:sch io_gnd.4 x=824.5000 y=456.2000 rot=0
-# pcb:sch io_gnd.5 x=799.1000 y=11.7000 rot=0
-# pcb:sch io_gnd.6 x=1269.0000 y=-51.8000 rot=0
-# pcb:sch io_gnd.7 x=1180.1000 y=456.2000 rot=0
-# pcb:sch io_gnd.8 x=1294.4000 y=456.2000 rot=0
+# pcb:sch 3V3PI.1 x=67.5800 y=214.9000 rot=0
+# pcb:sch 3V3PI.2 x=-161.0200 y=189.5000 rot=0
+# pcb:sch 3V3PI.3 x=1185.1800 y=100.6000 rot=0
+# pcb:sch 3V3PI.4 x=1274.0800 y=-267.7000 rot=0
+# pcb:sch 5V.1 x=435.8800 y=189.5000 rot=0
+# pcb:sch 5V.2 x=486.6800 y=-13.7000 rot=0
+# pcb:sch 5V.3 x=1185.1800 y=-432.8000 rot=0
+# pcb:sch GND.1 x=341.9000 y=367.3000 rot=0
+# pcb:sch GND.2 x=722.9000 y=329.2000 rot=0
+# pcb:sch GND.3 x=-166.1000 y=341.9000 rot=0
+# pcb:sch GND.4 x=824.5000 y=456.2000 rot=0
+# pcb:sch GND.5 x=799.1000 y=11.7000 rot=0
+# pcb:sch GND.6 x=1269.0000 y=-51.8000 rot=0
+# pcb:sch GND.7 x=1180.1000 y=456.2000 rot=0
+# pcb:sch GND.8 x=1294.4000 y=456.2000 rot=0

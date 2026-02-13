@@ -46,8 +46,8 @@ check(i_led <= i_test, "LED current (%s) exceeds rated test current (%s)" % (i_l
 # ------------------------------------------------------------
 # External interfaces
 # ------------------------------------------------------------
-p1 = io("p1", Net)  # Connect to VCC for open-drain or MCU pin for push-pull
-p2 = io("p2", Net)  # Connect to MCU pin for open-drain or GND for push-pull
+p1 = io("P1", Net)  # Connect to VCC for open-drain or MCU pin for push-pull
+p2 = io("P2", Net)  # Connect to MCU pin for open-drain or GND for push-pull
 
 # Internal net between LED and resistor
 led_r_net = Net("LED_R_NET")

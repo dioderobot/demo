@@ -1,7 +1,5 @@
 """B3U-1000P Component"""
 
-load("@stdlib/config.zen", "config_properties")
-
 # Pins
 Pins = struct(
     A=io("A", Net),
@@ -22,5 +20,3 @@ Component(
         "mpn": "B3U-1000P",
     },
 )
-
-add_property("layout_path", "build/preview")

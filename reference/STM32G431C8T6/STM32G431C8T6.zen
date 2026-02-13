@@ -83,7 +83,7 @@ PC13 = io("PC13", Net)
 PC14_OSC32_IN = io("PC14_OSC32_IN", Net)
 PC15_OSC32_OUT = io("PC15_OSC32_OUT", Net)
 
-nRST = io("nRST", Net)
+NRST = io("NRST", Net)
 
 # ----------------------------------------------------------------------------
 # Local Nets
@@ -139,7 +139,7 @@ MCU(
     PC15_M_OSC32_OUT=PC15_OSC32_OUT,
     PF0_M_OSC_IN=R_XIN,
     PF1_M_OSC_OUT=XOUT,
-    PG10_M_NRST=nRST,
+    PG10_M_NRST=NRST,
     VBAT=V3V3,
     VDDA=VDDA,
     VDD_1=V3V3,
@@ -165,7 +165,7 @@ Capacitor(name="C_VDD4", value="100nF", package="0402", voltage="16V", dielectri
 
 # Reset Capacitor
 
-Capacitor(name="C_nRST", value="100nF", package="0402", voltage="16V", dielectric="X7R", P1=nRST, P2=GND)
+Capacitor(name="C_nRST", value="100nF", package="0402", voltage="16V", dielectric="X7R", P1=NRST, P2=GND)
 
 # Crystal Oscillator Circuit
 
@@ -207,7 +207,6 @@ FerriteBead(
 # Module Properties
 # ============================================================================
 
-add_property("datasheet", "github.com/dioderobot/demo/components/STMicroelectronics/STM32G431C8T6/STM32G431C8T6.pdf")
 
 # ============================================================================
 # PCB Schematic

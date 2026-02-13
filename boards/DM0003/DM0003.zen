@@ -7,7 +7,6 @@ Author: Nasheed Ur Rehman
 # Libraries & Dependencies
 # ----------------------------------------------------------------------------
 
-load("@stdlib/config.zen", "config_properties")
 load(
     "@stdlib/interfaces.zen",
     "Ethernet_Phy",
@@ -17,11 +16,12 @@ load(
     "PcieGen3x1Lane",
     "Power",
     "Ground",
+    "NotConnected",
     "Spi",
     "Usb2",
     "Usb3",
 )
-load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Resistance", "Voltage", "VoltageRange")
+load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Resistance", "Voltage")
 load("@stdlib/board_config.zen", "Board")
 
 # ----------------------------------------------------------------------------
@@ -54,25 +54,25 @@ Diode_Logo = Module("src/graphics/Diode_Logo.zen")
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-io_5v = io("io_5v", Power, default=Power("io_5v", voltage=VoltageRange("5V")))
-io_3v3pi = io("io_3v3pi", Power, default=Power("io_3v3pi", voltage=VoltageRange("3.3V")))
-io_1v8 = io("io_1v8", Power, default=Power("io_1v8", voltage=VoltageRange("1.8V")))
-io_gnd = io("io_gnd", Ground)
-io_gpio_vref = io("gpio_vref", Net)
+V5 = Power("5V", voltage=Voltage("5V"))
+V3V3PI = Power("3V3PI", voltage=Voltage("3.3V"))
+V1V8 = Power("1V8", voltage=Voltage("1.8V"))
+GND = Ground("GND")
+GPIO_VREF = Net("GPIO_VREF")
 
 DPHY0_P = io("DPHY0_P", Mipi)
 HDMI_PI = io("HDMI_PI", Hdmi)
 
 USB_3P = io("USB3P", Usb3)
 USB_PI = io("USB_PI", Usb2)
-USBOTG_ID = Net("NC")
+USBOTG_ID = NotConnected()
 
 PCIE_PI = io("PCIE_PI", PcieGen3x1Lane)
 PCIE_PI_PWR_EN = io("PCIE_PI_PWR_EN", Net)
 
 ETH_C = io("ETH_C", Ethernet_Phy)
-ETH_nLED_ACTIVITY = io("ETH_nLED_ACTIVITY", Net)
-nLED_SPEED_100_1000 = io("nLED_SPEED_100_1000", Net)
+ETH_NLED_ACTIVITY = io("ETH_NLED_ACTIVITY", Net)
+N_LED_SPEED_100_1000 = io("N_LED_SPEED_100_1000", Net)
 
 SPI_C = io("SPI_C", Spi)
 
@@ -83,8 +83,8 @@ DC_GPI25 = io("DC_GPI25", Net)
 BL_GPIO24 = io("BL_GPIO24", Net)
 RST_GPIO27 = io("RST_GPIO27", Net)
 
-ID_SC = Net("NC")
-ID_SD = Net("NC")
+ID_SC = NotConnected()
+ID_SD = NotConnected()
 
 CAM_GPIO0 = io("CAM_GPIO0", Net)
 CAM_GPIO1 = io("CAM_GPIO1", Net)
@@ -92,15 +92,15 @@ CAM_GPIO1 = io("CAM_GPIO1", Net)
 CC1 = io("CC1", Net)
 CC2 = io("CC2", Net)
 
-EEPROM_nWP = io("EEPROM_nWP", Net)
+EEPROM_NWP = io("EEPROM_NWP", Net)
 FAN_PWM = io("FAN_PWM", Net)
 FAN_TACHO = io("FAN_TACHO", Net)
-nLED_ACTIVITY = io("nLED_ACTIVITY", Net)
-PI_nLED_PWR = io("PI_nLED_PWR", Net)
+N_LED_ACTIVITY = io("N_LED_ACTIVITY", Net)
+PI_NLED_PWR = io("PI_NLED_PWR", Net)
 GLOBAL_EN = io("GLOBAL_EN", Net)
 PWR_BUT = io("PWR_BUT", Net)
 VBUS_EN = io("VBUS_EN", Net)
-nRPIBOOT = io("nRPIBOOT", Net)
+N_RPIBOOT = io("N_RPIBOOT", Net)
 
 CM5(
     name="CM5",
@@ -114,142 +114,119 @@ CM5(
     SPI_PI=SPI_C,
     I2C0=I2C0,
     I2C1=I2C1,
-    GND=io_gnd,
-    CM5_1V8=io_1v8,
-    CM5_3V3=io_3v3pi,
-    CM5_5V_IN=io_5v,
-    GPIO_VREF=io_gpio_vref,
+    GND=GND,
+    CM5_1V8=V1V8,
+    CM5_3V3=V3V3PI,
+    CM5_5V_IN=V5,
+    GPIO_VREF=GPIO_VREF,
     DC_GPI25=DC_GPI25,
     BL_GPIO24=BL_GPIO24,
     RST_GPIO27=RST_GPIO27,
     ID_SC=ID_SC,
     ID_SD=ID_SD,
     ETH_PI=ETH_C,
-    ETH_nLED_ACTIVITY=ETH_nLED_ACTIVITY,
-    nLED_SPEED_100_1000=nLED_SPEED_100_1000,
+    ETH_NLED_ACTIVITY=ETH_NLED_ACTIVITY,
+    N_LED_SPEED_100_1000=N_LED_SPEED_100_1000,
     CAM_GPIO0=CAM_GPIO0,
     CAM_GPIO1=CAM_GPIO1,
     CC1=CC1,
     CC2=CC2,
-    EEPROM_nWP=EEPROM_nWP,
+    EEPROM_NWP=EEPROM_NWP,
     FAN_PWM=FAN_PWM,
     FAN_TACHO=FAN_TACHO,
-    nLED_ACTIVITY=nLED_ACTIVITY,
-    PI_nLED_PWR=PI_nLED_PWR,
+    N_LED_ACTIVITY=N_LED_ACTIVITY,
+    PI_NLED_PWR=PI_NLED_PWR,
     GLOBAL_EN=GLOBAL_EN,
     PWR_BUT=PWR_BUT,
     VBUS_EN=VBUS_EN,
-    nRPIBOOT=nRPIBOOT,
-    properties={
-        "collapse": "true",
-    },
+    N_RPIBOOT=N_RPIBOOT,
+    schematic="collapse",
 )
 
 Ethernet(
     name="Ethernet",
     ETH_C=ETH_C,
-    io_3v3pi=io_3v3pi,
-    io_gnd=io_gnd,
-    nLed_G=ETH_nLED_ACTIVITY,
-    nLed_Y=nLED_SPEED_100_1000,
-    properties={
-        "collapse": "true",
-    },
+    NLED_G=ETH_NLED_ACTIVITY,
+    NLED_Y=N_LED_SPEED_100_1000,
+    schematic="collapse",
+    **{"3V3PI": V3V3PI, "GND": GND},
 )
 
 HDMI(
     name="HDMI",
-    io_5v=io_5v,
-    io_gnd=io_gnd,
     HDMI_C=HDMI_PI,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
+    **{"5V": V5, "GND": GND},
 )
 
 USBPI(
     name="USB_PI",
-    io_5v=io_5v,
-    io_gnd=io_gnd,
     USB_PI=USB_PI,
     CC1=CC1,
     CC2=CC2,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
+    **{"5V": V5, "GND": GND},
 )
 
 USB3PI(
     name="USB_3PI",
-    V5V=io_5v,
-    V3V3=io_3v3pi,
-    GND=io_gnd,
+    V5V=V5,
+    V3V3=V3V3PI,
+    GND=GND,
     VBUS_EN=VBUS_EN,
     USB_3PI=USB_3P,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
 )
 
 PCIe_M2(
     name="PCIE_M2",
-    io_5v=io_5v,
-    io_gnd=io_gnd,
     PCIE_C=PCIE_PI,
     PCIE_PWR_EN=PCIE_PI_PWR_EN,
-    properties={
-        "collapse": "true",
-    },
+    schematic="collapse",
+    **{"5V": V5, "GND": GND},
 )
 
 DSI_CSI(
     name="DSI_CSI",
-    io_3v3pi=io_3v3pi,
     DPHY0_C=DPHY0_P,
-    cam_gpio0=CAM_GPIO0,
-    cam_gpio1=CAM_GPIO1,
-    i2c=I2C0,
-    io_gnd=io_gnd,
-    properties={
-        "collapse": "true",
-    },
+    CAM_GPIO0=CAM_GPIO0,
+    CAM_GPIO1=CAM_GPIO1,
+    I2C=I2C0,
+    schematic="collapse",
+    **{"3V3PI": V3V3PI, "GND": GND},
 )
 
 IO(
     name="IO",
-    io_5v=io_5v,
-    io_3v3pi=io_3v3pi,
-    io_gnd=io_gnd,
-    spi=SPI_C,
-    i2c=I2C1,
-    bl=BL_GPIO24,
-    rst=RST_GPIO27,
-    dc=DC_GPI25,
-    fan_pwm=FAN_PWM,
-    fan_tacho=FAN_TACHO,
-    nPWR_LED=PI_nLED_PWR,
-    nLED_ACTIVITY=nLED_ACTIVITY,
-    nRESET=GLOBAL_EN,
-    pwr_but=PWR_BUT,
-    properties={
-        "collapse": "true",
-    },
+    SPI=SPI_C,
+    I2C=I2C1,
+    BL=BL_GPIO24,
+    RST=RST_GPIO27,
+    DC=DC_GPI25,
+    FAN_PWM=FAN_PWM,
+    FAN_TACHO=FAN_TACHO,
+    N_PWR_LED=PI_NLED_PWR,
+    N_LED_ACTIVITY=N_LED_ACTIVITY,
+    N_RESET=GLOBAL_EN,
+    PWR_BUT=PWR_BUT,
+    schematic="collapse",
+    **{"5V": V5, "3V3PI": V3V3PI, "GND": GND},
 )
 
 Resistor(
     name="R_EEPROM_WP",
     value="10kohms",
     package="0402",
-    P1=EEPROM_nWP,
-    P2=io_gnd,
+    P1=EEPROM_NWP,
+    P2=GND,
 )
 
 Resistor(
     name="R_GPIO_VREF_3V3",
     value="0ohms",
     package="0402",
-    P1=io_gpio_vref,
-    P2=io_3v3pi,
+    P1=GPIO_VREF,
+    P2=V3V3PI,
 )
 
 Resistor(
@@ -257,17 +234,17 @@ Resistor(
     value="0ohms",
     package="0402",
     dnp=True,
-    P1=io_gpio_vref,
-    P2=io_1v8,
+    P1=GPIO_VREF,
+    P2=V1V8,
 )
 
 Boot_Switch(
     name="BOOT_SWITCH",
-    COM=nRPIBOOT,
-    MP1=io_gnd,
-    MP2=io_gnd,
-    NO=io_gnd,
-    NC=Net("NC"),
+    COM=N_RPIBOOT,
+    MP1=GND,
+    MP2=GND,
+    NO=GND,
+    NC=NotConnected(),
 )
 
 # Graphics Components
@@ -307,19 +284,19 @@ Board(name="DM0003", layout_path="layout/DM0003", layers=6)
 # pcb:sch USB_3PI x=-1536.7000 y=558.8000 rot=0
 # pcb:sch USB_PI x=-1498.6000 y=381.0000 rot=0
 # pcb:sch Version.Version x=735.6000 y=862.6000 rot=0
-# pcb:sch io_1v8.1 x=-288.0200 y=87.9000 rot=0
-# pcb:sch io_3v3pi.1 x=-211.8200 y=62.5000 rot=0
-# pcb:sch io_3v3pi.2 x=550.1800 y=316.5000 rot=0
-# pcb:sch io_3v3pi.3 x=-1100.8200 y=862.6000 rot=0
-# pcb:sch io_3v3pi.4 x=-1634.2200 y=507.0000 rot=0
-# pcb:sch io_5v.1 x=-122.9200 y=37.1000 rot=0
-# pcb:sch io_5v.2 x=-1062.7200 y=291.1000 rot=0
-# pcb:sch io_5v.3 x=524.7800 y=278.4000 rot=0
-# pcb:sch io_5v.4 x=-1659.6200 y=341.9000 rot=0
-# pcb:sch io_gnd.1 x=-305.8000 y=405.4000 rot=0
-# pcb:sch io_gnd.2 x=570.5000 y=684.8000 rot=0
-# pcb:sch io_gnd.3 x=-1105.9000 y=989.6000 rot=0
-# pcb:sch io_gnd.4 x=-1042.4000 y=786.4000 rot=0
-# pcb:sch io_gnd.5 x=-1715.5000 y=684.8000 rot=0
-# pcb:sch io_gnd.6 x=507.0000 y=1180.1000 rot=0
-# pcb:sch io_gnd.7 x=-1410.7000 y=938.8000 rot=0
+# pcb:sch 1V8.1 x=-288.0200 y=87.9000 rot=0
+# pcb:sch 3V3PI.1 x=-211.8200 y=62.5000 rot=0
+# pcb:sch 3V3PI.2 x=550.1800 y=316.5000 rot=0
+# pcb:sch 3V3PI.3 x=-1100.8200 y=862.6000 rot=0
+# pcb:sch 3V3PI.4 x=-1634.2200 y=507.0000 rot=0
+# pcb:sch 5V.1 x=-122.9200 y=37.1000 rot=0
+# pcb:sch 5V.2 x=-1062.7200 y=291.1000 rot=0
+# pcb:sch 5V.3 x=524.7800 y=278.4000 rot=0
+# pcb:sch 5V.4 x=-1659.6200 y=341.9000 rot=0
+# pcb:sch GND.1 x=-305.8000 y=405.4000 rot=0
+# pcb:sch GND.2 x=570.5000 y=684.8000 rot=0
+# pcb:sch GND.3 x=-1105.9000 y=989.6000 rot=0
+# pcb:sch GND.4 x=-1042.4000 y=786.4000 rot=0
+# pcb:sch GND.5 x=-1715.5000 y=684.8000 rot=0
+# pcb:sch GND.6 x=507.0000 y=1180.1000 rot=0
+# pcb:sch GND.7 x=-1410.7000 y=938.8000 rot=0

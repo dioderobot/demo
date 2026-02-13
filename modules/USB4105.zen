@@ -4,9 +4,7 @@ USB 2.0 only connector with 16-pin top mount horizontal design
 """
 
 load("@stdlib/interfaces.zen", "Ground", "Power", "Usb2")
-load("@stdlib/units.zen", "VoltageRange")
-
-add_property("layout_path", "build/USB4105")
+load("@stdlib/units.zen", "Voltage")
 
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
@@ -21,7 +19,7 @@ HostCurrent = enum("default", "1.5A", "3A")
 mode = config("mode", UsbCMode, default=UsbCMode("device"))
 host_current = config("host_current", HostCurrent, default=HostCurrent("default"), optional=True)
 
-vbus = io("VBUS", Power, default=Power("VBUS", voltage=VoltageRange("4.5 to 5.5V")))
+vbus = io("VBUS", Power, default=Power("VBUS", voltage=Voltage("4.5 to 5.5V")))
 usb = io("USB", Usb2)
 gnd = io("GND", Ground)
 shield = io("SHIELD", Ground, optional=True, default=gnd)
@@ -63,7 +61,7 @@ Component(
 # VBUS TVS protection (5V unidirectional)
 Tvs(
     name="D_TVS_VBUS",
-    reverse_standoff_voltage=VoltageRange("5 to 6V"),
+    reverse_standoff_voltage=Voltage("5 to 6V"),
     package="DO-219AB",
     K=vbus,  # Cathode to protected line
     A=gnd,  # Anode to ground
