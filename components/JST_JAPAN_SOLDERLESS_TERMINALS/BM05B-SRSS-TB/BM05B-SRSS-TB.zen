@@ -7,40 +7,31 @@ Auto-generated using `pcb search`. Do not modify.
 mpn = config("mpn", str, optional=True, default="BM05B-SRSS-TB(LF)(SN)")
 
 Pins = struct(
-    MP1 = io("MP1", Net),
-    MP2 = io("MP2", Net),
-    P1 = io("P1", Net),
-    P2 = io("P2", Net),
-    P3 = io("P3", Net),
-    P4 = io("P4", Net),
-    P5 = io("P5", Net)
+    MP1=io("MP1", Net),
+    MP2=io("MP2", Net),
+    P1=io("P1", Net),
+    P2=io("P2", Net),
+    P3=io("P3", Net),
+    P4=io("P4", Net),
+    P5=io("P5", Net),
 )
 
 Component(
-    name = "BM05B-SRSS-TB",
-    mpn = mpn,
-    manufacturer = "JST (JAPAN SOLDERLESS TERMINALS)",
-    datasheet = File("BM05B-SRSS-TB.pdf"),
-    symbol = Symbol(library = "BM05B-SRSS-TB.kicad_sym"),
-    footprint = File("BM05BSRSSTB.kicad_mod"),
-    pins = {
-        "MP1": Pins.MP1,
-        "MP2": Pins.MP2,
-        "1": Pins.P1,
-        "2": Pins.P2,
-        "3": Pins.P3,
-        "4": Pins.P4,
-        "5": Pins.P5
-    },
-    properties = {
+    name="BM05B-SRSS-TB",
+    mpn=mpn,
+    manufacturer="JST (JAPAN SOLDERLESS TERMINALS)",
+    datasheet=File("BM05B-SRSS-TB.pdf"),
+    symbol=Symbol(library="BM05B-SRSS-TB.kicad_sym"),
+    footprint=File("BM05BSRSSTB.kicad_mod"),
+    pins={"MP1": Pins.MP1, "MP2": Pins.MP2, "1": Pins.P1, "2": Pins.P2, "3": Pins.P3, "4": Pins.P4, "5": Pins.P5},
+    properties={
         "value": "BM05B-SRSS-TB",
         "mpn": "BM05B-SRSS-TB",
         "manufacturer": "JST (JAPAN SOLDERLESS TERMINALS)",
         "datasheet": "http://media.digikey.com/pdf/Data%20Sheets/JST%20PDFs/SR%20Connector.pdf",
         "alternatives": [
-            { "mpn": "BM05B-SRSS-TB(LF)(SN)", "manufacturer": "JST (JAPAN SOLDERLESS TERMINALS)" },
-            { "mpn": "BM05B-SRSS-TBT(LF)(SN)", "manufacturer": "JST (JAPAN SOLDERLESS TERMINALS)" },
-
+            {"mpn": "BM05B-SRSS-TB(LF)(SN)", "manufacturer": "JST (JAPAN SOLDERLESS TERMINALS)"},
+            {"mpn": "BM05B-SRSS-TBT(LF)(SN)", "manufacturer": "JST (JAPAN SOLDERLESS TERMINALS)"},
         ],
-    }
+    },
 )

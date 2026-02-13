@@ -41,9 +41,9 @@ fb_resistor_bottom = config("fb_resistor_bottom", str, default="300ohms")
 # Global Power Interfaces
 # ---------------------------------------------------------------------------
 
-VIN_BUCK = io("VIN_BUCK", Net, default = Net("VIN_BUCK", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
-VOUT_BUCK = io("VOUT_BUCK", Net, default = Net("VOUT_BUCK", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
-GND = io("GND", Net, default = Net("GND", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+VIN_BUCK = io("VIN_BUCK", Net, default=Net("VIN_BUCK", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+VOUT_BUCK = io("VOUT_BUCK", Net, default=Net("VOUT_BUCK", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+GND = io("GND", Net, default=Net("GND", symbol=Symbol("@kicad-symbols/power.kicad_sym:GND")))
 
 
 # ----------------------------------------------------------------------------
@@ -64,42 +64,41 @@ R_SMALL_SIGNAL_2 = Net("R_SMALL_SIGNAL_2")
 
 
 Buck(
-    name = "L7986TR",
-    VCC_1 = VIN_BUCK,
-    VCC_2 = VIN_BUCK,
-    OUT_1 = OUT,
-    OUT_2 = OUT,
-    FB = FB,
-    COMP = COMP,
-    EN = VIN_BUCK,
-    FSW = FSW,
-    SYNCH = SYNCH,
-    GND = GND,
-    EP = GND,
-
+    name="L7986TR",
+    VCC_1=VIN_BUCK,
+    VCC_2=VIN_BUCK,
+    OUT_1=OUT,
+    OUT_2=OUT,
+    FB=FB,
+    COMP=COMP,
+    EN=VIN_BUCK,
+    FSW=FSW,
+    SYNCH=SYNCH,
+    GND=GND,
+    EP=GND,
 )
 
 
 Inductor(
-    name = "L_BUCK",
-    P1 = OUT,
-    P2 = VOUT_BUCK,
+    name="L_BUCK",
+    P1=OUT,
+    P2=VOUT_BUCK,
 )
 
 Resistor(
-    name = "R_FSW",
-    package = "0402",
-    value = "34.8kohms",
-    P1 = FSW,
-    P2 = GND,
+    name="R_FSW",
+    package="0402",
+    value="34.8kohms",
+    P1=FSW,
+    P2=GND,
 )
 
 SchottkyDiode(
-    name = "D1",
-    A = GND,
-    K_1 = OUT,
-    K_2 = OUT,
-    properties = {
+    name="D1",
+    A=GND,
+    K_1=OUT,
+    K_2=OUT,
+    properties={
         "collapse": "true",
     },
 )
@@ -118,115 +117,115 @@ SchottkyDiode(
 # Input Capacitor
 
 Capacitor(
-    name = "CINPUT1",
-    package = "1206",
-    value = "10uF",
-    voltage = "50V",
-    dielectric = "X7R",
-    mpn = "CL31B106KAHNNNE",
-    manufacturer = "Samsung Electro-Mechanics",
-    P1 = VIN_BUCK,
-    P2 = GND,
+    name="CINPUT1",
+    package="1206",
+    value="10uF",
+    voltage="50V",
+    dielectric="X7R",
+    mpn="CL31B106KAHNNNE",
+    manufacturer="Samsung Electro-Mechanics",
+    P1=VIN_BUCK,
+    P2=GND,
 )
 
 Capacitor(
-    name = "CINPUT2",
-    package = "0603",
-    value = "220nF",
-    voltage = "50V",
-    dielectric = "X7R",
-    P1 = VIN_BUCK,
-    P2 = GND,
+    name="CINPUT2",
+    package="0603",
+    value="220nF",
+    voltage="50V",
+    dielectric="X7R",
+    P1=VIN_BUCK,
+    P2=GND,
 )
 
 # Output Capacitor
 
 Capacitor(
-    name = "COUT1",
-    package = "1206",
-    value = "22uF",
-    voltage = output_cap_voltage,
-    mpn = "CL31A226MOCLNNC",
-    manufacturer = "Samsung Electro-Mechanics",
-    P1 = VOUT_BUCK,
-    P2 = GND,
+    name="COUT1",
+    package="1206",
+    value="22uF",
+    voltage=output_cap_voltage,
+    mpn="CL31A226MOCLNNC",
+    manufacturer="Samsung Electro-Mechanics",
+    P1=VOUT_BUCK,
+    P2=GND,
 )
 
 # Feedback Resistor
 
 Resistor(
-    name = "R_FB1",
-    package = "0402",
-    value = fb_resistor_top,
-    P1 = VOUT_BUCK,
-    P2 = FB,
-)  
+    name="R_FB1",
+    package="0402",
+    value=fb_resistor_top,
+    P1=VOUT_BUCK,
+    P2=FB,
+)
 
 Resistor(
-    name = "R_FB2",
-    package = "0402",
-    value = fb_resistor_bottom,
-    P1 = FB,
-    P2 = GND,
-)  
+    name="R_FB2",
+    package="0402",
+    value=fb_resistor_bottom,
+    P1=FB,
+    P2=GND,
+)
 
 # Comp Resistor
 
 Capacitor(
-    name = "C_COMP",
-    package = "0402",
-    value = "27pF",
-    voltage = "25V",
-    P1 = COMP,
-    P2 = FB,
+    name="C_COMP",
+    package="0402",
+    value="27pF",
+    voltage="25V",
+    P1=COMP,
+    P2=FB,
 )
 
 # Small Signal
 
 Resistor(
-    name = "R_SMALL_SIGNAL",
-    package = "0402",
-    value = "8.2kohms",
-    P1 = FB,
-    P2 = R_SMALL_SIGNAL,
+    name="R_SMALL_SIGNAL",
+    package="0402",
+    value="8.2kohms",
+    P1=FB,
+    P2=R_SMALL_SIGNAL,
 )
 
 Capacitor(
-    name = "C_SMALL_SIGNAL",
-    package = "0402",
-    value = "4.7nF",
-    voltage = "50V",
-    dielectric = "X7R",
-    mpn = "GRM155R71H472KA01D",
-    manufacturer = "Murata Electronics",
-    P1 = R_SMALL_SIGNAL,
-    P2 = COMP,
+    name="C_SMALL_SIGNAL",
+    package="0402",
+    value="4.7nF",
+    voltage="50V",
+    dielectric="X7R",
+    mpn="GRM155R71H472KA01D",
+    manufacturer="Murata Electronics",
+    P1=R_SMALL_SIGNAL,
+    P2=COMP,
 )
 
 
 Capacitor(
-    name = "C_SMALL_SIGNAL_2",
-    package = "0402",
-    value = "3.9nF",
-    voltage = "50V",
-    mpn = "CL05B392KB5NNNC",
-    manufacturer = "Samsung Electro-Mechanics",
-    P1 = VOUT_BUCK,
-    P2 = R_SMALL_SIGNAL_2,
-    properties = {
+    name="C_SMALL_SIGNAL_2",
+    package="0402",
+    value="3.9nF",
+    voltage="50V",
+    mpn="CL05B392KB5NNNC",
+    manufacturer="Samsung Electro-Mechanics",
+    P1=VOUT_BUCK,
+    P2=R_SMALL_SIGNAL_2,
+    properties={
         "alternatives": [
-            { "mpn": "GRM155R71H392KA01D", "manufacturer": "Murata Electronics" },
-            { "mpn": "CL05B392KB5NNNC", "manufacturer": "Samsung Electro-Mechanics" },
+            {"mpn": "GRM155R71H392KA01D", "manufacturer": "Murata Electronics"},
+            {"mpn": "CL05B392KB5NNNC", "manufacturer": "Samsung Electro-Mechanics"},
         ]
-    }
+    },
 )
 
 Resistor(
-    name = "R_SMALL_SIGNAL_2",
-    package = "0402",
-    value = "62ohms",
-    P1 = R_SMALL_SIGNAL_2,
-    P2 = FB,
+    name="R_SMALL_SIGNAL_2",
+    package="0402",
+    value="62ohms",
+    P1=R_SMALL_SIGNAL_2,
+    P2=FB,
 )
 
 add_property("datasheet", "github.com/dioderobot/demo/components/STMicroelectronics/L7986TR/L7986TR.pdf")

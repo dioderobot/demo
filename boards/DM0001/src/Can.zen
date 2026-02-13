@@ -16,7 +16,9 @@ load("@stdlib/interfaces.zen", "CanTtl", "I2c", "Power", "Spi", "Swd", "Uart", "
 CanSwitch = Module("github.com/dioderobot/demo/reference/FSA5157L6X/FSA5157L6X.zen")
 CanTransceiver = Module("github.com/dioderobot/demo/reference/TCAN330DCNT/TCAN330DCNT.zen")
 Fuse = Module("github.com/dioderobot/demo/components/Littelfuse/0435_250KRS/0435_250KRS.zen")
-JstHeader = Module("github.com/dioderobot/demo/components/JST_JAPAN_SOLDERLESS_TERMINALS/BM05B-SRSS-TB/BM05B-SRSS-TB.zen")
+JstHeader = Module(
+    "github.com/dioderobot/demo/components/JST_JAPAN_SOLDERLESS_TERMINALS/BM05B-SRSS-TB/BM05B-SRSS-TB.zen"
+)
 Resistor = Module("@stdlib/generics/Resistor.zen")
 SchottkyDiode = Module("@stdlib/generics/Diode.zen")
 
@@ -24,9 +26,9 @@ SchottkyDiode = Module("@stdlib/generics/Diode.zen")
 # Global Power Interfaces
 # ---------------------------------------------------------------------------
 
-V5V = io("V5V", Net, default = Net("V5V", symbol = Symbol("@kicad-symbols/power.kicad_sym:+5V")))
-V3V3 = io("V3V3", Net, default = Net("V3V3", symbol = Symbol("@kicad-symbols/power.kicad_sym:+3V3")))
-GND = io("GND", Net, default = Net("GND", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+V5V = io("V5V", Net, default=Net("V5V", symbol=Symbol("@kicad-symbols/power.kicad_sym:+5V")))
+V3V3 = io("V3V3", Net, default=Net("V3V3", symbol=Symbol("@kicad-symbols/power.kicad_sym:+3V3")))
+GND = io("GND", Net, default=Net("GND", symbol=Symbol("@kicad-symbols/power.kicad_sym:GND")))
 
 # ----------------------------------------------------------------------------
 # Global IO Nets
@@ -54,73 +56,58 @@ NC_MP2 = Net("NC_MP2")
 # ----------------------------------------------------------------------------
 
 JstHeader(
-    name = "JST_CAN",
-    MP1 = NC_MP1,
-    MP2 = NC_MP2,
-    P1 = JST_5V,
-    P2 = V3V3,
-    P3 = CAN_H,
-    P4 = CAN_L,
-    P5 = GND,
+    name="JST_CAN",
+    MP1=NC_MP1,
+    MP2=NC_MP2,
+    P1=JST_5V,
+    P2=V3V3,
+    P3=CAN_H,
+    P4=CAN_L,
+    P5=GND,
 )
 
 CanSwitch(
-    name = "FSA5157L6X",
-    VCC = V3V3,
-    GND = GND,
-    A = CAN_H,
-    S = CAN_TERM,
-    B0 = Net("NC_B0"),
-    B1 = S1,
-    properties = {
-        "collapse" : "true"
-    }
+    name="FSA5157L6X", VCC=V3V3, GND=GND, A=CAN_H, S=CAN_TERM, B0=Net("NC_B0"), B1=S1, properties={"collapse": "true"}
 )
 
 CanTransceiver(
-    name = "TCAN330DCNT",
-    VCC = V3V3,
-    GND = GND,
-    CAN_RX = CAN_RX,
-    CAN_TX = CAN_TX,
-    CAN_H = CAN_H,
-    CAN_L = CAN_L,
-    SHDN = CAN_SHDN,
-    properties = {
-        "collapse" : "true"
-    }
+    name="TCAN330DCNT",
+    VCC=V3V3,
+    GND=GND,
+    CAN_RX=CAN_RX,
+    CAN_TX=CAN_TX,
+    CAN_H=CAN_H,
+    CAN_L=CAN_L,
+    SHDN=CAN_SHDN,
+    properties={"collapse": "true"},
 )
 
-Fuse(
-    name = "Fuse",
-    P1 = FUSE,
-    P2 = JST_5V
-)
+Fuse(name="Fuse", P1=FUSE, P2=JST_5V)
 
 Resistor(
-    name = "R_CAN_TERM",
-    P1 = CAN_L,
-    P2 = S1,
-    value = "120ohm 1%",
-    package = "0402",
+    name="R_CAN_TERM",
+    P1=CAN_L,
+    P2=S1,
+    value="120ohm 1%",
+    package="0402",
 )
 
 SchottkyDiode(
-    name = "D_CAN",
-    package = "SOD-123",
-    variant = "Schottky",
-    mpn = "1N5817W",
-    manufacturer = "Shenzhen Slkormicro Semicon Co., Ltd.",
-    i_f = "1A",
-    v_r = "20V",
-    A = FUSE,
-    K = V5V,
-    properties = {
+    name="D_CAN",
+    package="SOD-123",
+    variant="Schottky",
+    mpn="1N5817W",
+    manufacturer="Shenzhen Slkormicro Semicon Co., Ltd.",
+    i_f="1A",
+    v_r="20V",
+    A=FUSE,
+    K=V5V,
+    properties={
         "alternatives": [
-            { "mpn": "1N5817W", "manufacturer": "Shenzhen Slkormicro Semicon Co., Ltd." },
-            { "mpn": "MBRX120LF-TP", "manufacturer": "MCC (Micro Commercial Components)" },
+            {"mpn": "1N5817W", "manufacturer": "Shenzhen Slkormicro Semicon Co., Ltd."},
+            {"mpn": "MBRX120LF-TP", "manufacturer": "MCC (Micro Commercial Components)"},
         ],
-    }
+    },
 )
 
 # pcb:sch D_CAN x=127.0000 y=-114.3000 rot=180

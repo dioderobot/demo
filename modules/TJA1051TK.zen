@@ -30,17 +30,16 @@ terminate = config("terminate", bool, default=False, optional=True)
 # CAN TTL interface (microcontroller side)
 can_ttl = io("can_ttl", CanTtl)
 
-# CAN bus interface (physical bus side)  
+# CAN bus interface (physical bus side)
 can_bus = io("can_bus", Can)
 
 # Power interfaces
-vcc = io("vcc", Power)        # Main supply (3.3V or 5V)
-vio = io("vio", Power)        # I/O supply for level translation
-gnd = io("gnd", Ground)       # Ground
+vcc = io("vcc", Power)  # Main supply (3.3V or 5V)
+vio = io("vio", Power)  # I/O supply for level translation
+gnd = io("gnd", Ground)  # Ground
 
 # Control interface
-silent = io("silent", Gpio, default = Gpio("silent"), optional=True)   # Silent mode control (active high)
-
+silent = io("silent", Gpio, default=Gpio("silent"), optional=True)  # Silent mode control (active high)
 
 
 # -----------------------------------------------------------------------------
@@ -65,28 +64,25 @@ if terminate:
 # -----------------------------------------------------------------------------
 
 Component(
-    name = "U",
-    symbol = Symbol(
-        library = "@kicad-symbols/Interface_CAN_LIN.kicad_sym", 
-        name = "TJA1051TK-3"
-    ),
-    footprint = File("@kicad-footprints/Package_SON.pretty/HVSON-8-1EP_3x3mm_P0.65mm_EP1.6x2.4mm.kicad_mod"),
-    prefix = "U",
-    mpn = "TJA1051TK/3,118",
-    manufacturer = "NXP",
-    description = "High-Speed CAN Transceiver",
-    pin_defs = {
-        "TXD": "1",      # CAN transmit data input
-        "GND": "2",      # Ground  
-        "VCC": "3",      # Supply voltage
-        "RXD": "4",      # CAN receive data output
-        "VIO": "5",      # I/O supply voltage
-        "CANL": "6",     # CAN bus low
-        "CANH": "7",     # CAN bus high
-        "S": "8",        # Silent mode control (active high)
-        "EP": "9",       # Exposed pad (ground)
+    name="U",
+    symbol=Symbol(library="@kicad-symbols/Interface_CAN_LIN.kicad_sym", name="TJA1051TK-3"),
+    footprint=File("@kicad-footprints/Package_SON.pretty/HVSON-8-1EP_3x3mm_P0.65mm_EP1.6x2.4mm.kicad_mod"),
+    prefix="U",
+    mpn="TJA1051TK/3,118",
+    manufacturer="NXP",
+    description="High-Speed CAN Transceiver",
+    pin_defs={
+        "TXD": "1",  # CAN transmit data input
+        "GND": "2",  # Ground
+        "VCC": "3",  # Supply voltage
+        "RXD": "4",  # CAN receive data output
+        "VIO": "5",  # I/O supply voltage
+        "CANL": "6",  # CAN bus low
+        "CANH": "7",  # CAN bus high
+        "S": "8",  # Silent mode control (active high)
+        "EP": "9",  # Exposed pad (ground)
     },
-    pins = {
+    pins={
         "TXD": can_ttl.TX,
         "GND": gnd.NET,
         "VCC": vcc.NET,
@@ -97,7 +93,7 @@ Component(
         "S": silent.NET,
         "EP": gnd.NET,
     },
-    properties = {
+    properties={
         "package": "HVSON-8",
         "supply_voltage": "3.0V-5.5V",
         "io_voltage": "1.65V-5.5V",

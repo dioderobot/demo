@@ -29,10 +29,10 @@ SchottkyDiode = Module("@stdlib/generics/Diode.zen")
 # Global Power Interfaces
 # ---------------------------------------------------------------------------
 
-VPLUS = io("VPLUS", Net, default = Net("VPLUS", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
-VCC = io("VCC", Net, default = Net("VCC", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
-V3V3 = io("V3V3", Net, default = Net("V3V3", symbol = Symbol("@kicad-symbols/power.kicad_sym:+3V3")))
-GND = io("GND", Net, default = Net("GND", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+VPLUS = io("VPLUS", Net, default=Net("VPLUS", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+VCC = io("VCC", Net, default=Net("VCC", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+V3V3 = io("V3V3", Net, default=Net("V3V3", symbol=Symbol("@kicad-symbols/power.kicad_sym:+3V3")))
+GND = io("GND", Net, default=Net("GND", symbol=Symbol("@kicad-symbols/power.kicad_sym:GND")))
 
 # ----------------------------------------------------------------------------
 # Global IO Nets
@@ -62,125 +62,117 @@ D_BEMF = Net("D_BEMF")  # Back EMF detection diode cathode
 
 # Gate driver reference module
 GateDriver(
-    name = "U1",
-    VCC = VCC,
-    GND = GND,
-    HIN = TIM_CHP,
-    LIN = TIM_CHN,
-    HVG = HVG,
-    LVG = LVG,
-    OUT = PHASEOUT,
-    decoupling_cap_voltage = "16V",
-    boot_cap_voltage = "25V",
-    decoupling_cap_value = "470nF",
-    boot_cap_value = "1uF",
-    properties = {
-        "collapse" : "true"
-    }
+    name="U1",
+    VCC=VCC,
+    GND=GND,
+    HIN=TIM_CHP,
+    LIN=TIM_CHN,
+    HVG=HVG,
+    LVG=LVG,
+    OUT=PHASEOUT,
+    decoupling_cap_voltage="16V",
+    boot_cap_voltage="25V",
+    decoupling_cap_value="470nF",
+    boot_cap_value="1uF",
+    properties={"collapse": "true"},
 )
 
 Nfet(
-    name = "Hi_Fet",
-    G = HI_GATE,
+    name="Hi_Fet",
+    G=HI_GATE,
     # Connect all drain pins to VPLUS
-    D_1 = VPLUS,
-    D_2 = VPLUS,
-    D_3 = VPLUS,
-    D_4 = VPLUS,
-    D_5 = VPLUS,
+    D_1=VPLUS,
+    D_2=VPLUS,
+    D_3=VPLUS,
+    D_4=VPLUS,
+    D_5=VPLUS,
     # Connect all source pins to PHASEOUT
-    S_1 = PHASEOUT,
-    S_2 = PHASEOUT,
-    S_3 = PHASEOUT,
-    properties = {
-        "collapse" : "true"
-    }
+    S_1=PHASEOUT,
+    S_2=PHASEOUT,
+    S_3=PHASEOUT,
+    properties={"collapse": "true"},
 )
 
 Nfet(
-    name = "Lo_Fet",
-    G = LO_GATE,
+    name="Lo_Fet",
+    G=LO_GATE,
     # Connect all drain pins to PHASEOUT
-    D_1 = PHASEOUT,
-    D_2 = PHASEOUT,
-    D_3 = PHASEOUT,
-    D_4 = PHASEOUT,
-    D_5 = PHASEOUT,
+    D_1=PHASEOUT,
+    D_2=PHASEOUT,
+    D_3=PHASEOUT,
+    D_4=PHASEOUT,
+    D_5=PHASEOUT,
     # Connect all source pins to GND
-    S_1 = VSHUNTP,
-    S_2 = VSHUNTP,
-    S_3 = VSHUNTP,
-    properties = {
-        "collapse" : "true"
-    }
-
+    S_1=VSHUNTP,
+    S_2=VSHUNTP,
+    S_3=VSHUNTP,
+    properties={"collapse": "true"},
 )
 
 # Shunt resistor
 Resistor(
-    name = "R_SHUNT",
-    value = "0.003ohm 1%",
-    package = "2512",
-    P1 = VSHUNTP,
-    P2 = GND,
-    properties = {
+    name="R_SHUNT",
+    value="0.003ohm 1%",
+    package="2512",
+    P1=VSHUNTP,
+    P2=GND,
+    properties={
         "power": "4W",
-    }
-
+    },
 )
 
 Resistor(
-    name = "R_Gate_Hi",
-    value = "33ohms",
-    package = "0603",
-    P1 = HVG,
-    P2 = HI_GATE,
+    name="R_Gate_Hi",
+    value="33ohms",
+    package="0603",
+    P1=HVG,
+    P2=HI_GATE,
 )
 
 Resistor(
-    name = "R_Gate_Hi_PD",
-    value = "10kohms",
-    package = "0402",
-    P1 = HI_GATE,
-    P2 = PHASEOUT,
+    name="R_Gate_Hi_PD",
+    value="10kohms",
+    package="0402",
+    P1=HI_GATE,
+    P2=PHASEOUT,
 )
 
 
 Resistor(
-    name = "R_Gate_Lo",
-    value = "33ohms",
-    package = "0603",
-    P1 = LVG,
-    P2 = LO_GATE,
+    name="R_Gate_Lo",
+    value="33ohms",
+    package="0603",
+    P1=LVG,
+    P2=LO_GATE,
 )
 
 Resistor(
-    name = "R_Gate_Lo_PD",
-    value = "10kohms",
-    package = "0402",
-    P1 = LO_GATE,
-    P2 = VSHUNTP,
+    name="R_Gate_Lo_PD",
+    value="10kohms",
+    package="0402",
+    P1=LO_GATE,
+    P2=VSHUNTP,
 )
 
 Resistor(
-    name = "R_Phase",
-    value = "1ohm",
-    package = "0805",
-    mpn = "RC0805JR-071RL",
-    manufacturer = "Yageo",
-    P1 = PHASEOUT,
-    P2 = RC_NODE,
+    name="R_Phase",
+    value="1ohm",
+    package="0805",
+    mpn="RC0805JR-071RL",
+    manufacturer="Yageo",
+    P1=PHASEOUT,
+    P2=RC_NODE,
 )
 
 Capacitor(
-    name = "C_Phase",
-    value = "1nF",
-    package = "0603",
-    voltage = "100V",
-    mpn = "GRM1885C1H102JA01D",
-    manufacturer = "Murata Electronics",
-    P1 = RC_NODE,
-    P2 = GND,
+    name="C_Phase",
+    value="1nF",
+    package="0603",
+    voltage="100V",
+    mpn="GRM1885C1H102JA01D",
+    manufacturer="Murata Electronics",
+    P1=RC_NODE,
+    P2=GND,
 )
 
 # ============================================================================
@@ -188,46 +180,34 @@ Capacitor(
 # ============================================================================
 
 SchottkyDiode(
-    name = "D_BEMF",
-    variant = "Schottky",
-    package = "SOD-523",
-    mpn = "BAT30KFILM",
-    manufacturer = "STMicroelectronics",
-    i_r = "300mA",
-    v_r = "30V",
-    A = D_BEMF,
-    K = GPIO_BEMF
+    name="D_BEMF",
+    variant="Schottky",
+    package="SOD-523",
+    mpn="BAT30KFILM",
+    manufacturer="STMicroelectronics",
+    i_r="300mA",
+    v_r="30V",
+    A=D_BEMF,
+    K=GPIO_BEMF,
 )
 
-Resistor(
-    name = "R_BEMF",
-    value = "2.2kohms",
-    package = "0402",
-    P1 = D_BEMF,
-    P2 = BEMF
-)
+Resistor(name="R_BEMF", value="2.2kohms", package="0402", P1=D_BEMF, P2=BEMF)
 
 SchottkyDiode(
-    name = "D_BEMF_CLAMP",
-    variant = "Schottky",
-    package = "SOD-523",
-    mpn = "BAT30KFILM",
-    manufacturer = "STMicroelectronics",
-    i_r = "300mA",
-    v_r = "30V",
-    A = BEMF,
-    K = V3V3
+    name="D_BEMF_CLAMP",
+    variant="Schottky",
+    package="SOD-523",
+    mpn="BAT30KFILM",
+    manufacturer="STMicroelectronics",
+    i_r="300mA",
+    v_r="30V",
+    A=BEMF,
+    K=V3V3,
 )
 
-Resistor(
-    name = "R_OUT",
-    value = "10kohms",
-    package = "0603",
-    P1 = PHASEOUT,
-    P2 = BEMF
-)
+Resistor(name="R_OUT", value="10kohms", package="0603", P1=PHASEOUT, P2=BEMF)
 
-Layout("layout", "layout/PhaseDriver_Long") 
+Layout("layout", "layout/PhaseDriver_Long")
 
 # ============================================================================
 # PCB Schematic

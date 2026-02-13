@@ -4,20 +4,20 @@ load("@stdlib/config.zen", "config_properties")
 
 # Pins
 Pins = struct(
-    A = io("A", Net),
-    K = io("K", Net),
+    A=io("A", Net),
+    K=io("K", Net),
 )
 
 # Component
 Component(
-    name = "B3U-1000P",
-    symbol = Symbol(library = "B3U-1000P.kicad_sym"),
-    footprint = File("B3U-1000P.kicad_mod"),
-    pins = {
+    name="B3U-1000P",
+    symbol=Symbol(library="B3U-1000P.kicad_sym"),
+    footprint=File("B3U-1000P.kicad_mod"),
+    pins={
         "A": Pins.A,
         "K": Pins.K,
     },
-    properties = {
+    properties={
         "value": "B3U-1000P",
         "mpn": "B3U-1000P",
     },

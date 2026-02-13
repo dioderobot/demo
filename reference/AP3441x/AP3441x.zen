@@ -8,7 +8,7 @@ Usage:
   Standard voltage outputs (automatic configuration):
     - Set config_vout_selection to one of: "1.0V", "1.2V", "1.5V", "1.8V", "2.5V", "2.8V", "3.3V"
     - Inductor and feedback resistors are automatically configured
-  
+
   Custom voltage output:
     - Set config_vout_selection to "Custom"
     - Override config_fb_resistance_top and config_fb_resistance_bottom for your desired Vout
@@ -33,8 +33,8 @@ Variant = enum("AP3441SHEM7B", "AP3441LSHEM7B")
 OutputVoltage = enum("1.0V", "1.2V", "1.5V", "1.8V", "2.5V", "2.8V", "3.3V", "Custom")
 Inductance = enum("1.0uH", "2.2uH")
 
-config_variant = config("variant", Variant, default = Variant("AP3441SHEM7B"))
-config_vout_selection = config("vout_selection", OutputVoltage, default = OutputVoltage("3.3V"))
+config_variant = config("variant", Variant, default=Variant("AP3441SHEM7B"))
+config_vout_selection = config("vout_selection", OutputVoltage, default=OutputVoltage("3.3V"))
 
 # Feedback resistor map for each output voltage
 # AP3441 has 0.6V reference voltage
@@ -69,8 +69,8 @@ variant_module_map = {
 }
 
 if config_vout_selection == OutputVoltage("Custom"):
-    fb_resistance_top = config("fb_resistance_top", str, default = "10kohms")
-    fb_resistance_bottom = config("fb_resistance_bottom", str, default = "10kohms")
+    fb_resistance_top = config("fb_resistance_top", str, default="10kohms")
+    fb_resistance_bottom = config("fb_resistance_bottom", str, default="10kohms")
 else:
     fb_resistance_top = feedback_resistor_map.get(config_vout_selection, "45.3kohms")
     fb_resistance_bottom = "10kohms"
@@ -100,11 +100,11 @@ Inductor = Module("github.com/dioderobot/demo/reference/XAL50xx/XAL50xx.zen")
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-io_vin = io("vin", Net, default = Net("vin", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+io_vin = io("vin", Net, default=Net("vin", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
 io_pg = io("pg", Net)
 io_enable = io("enable", Net)
-io_vout = io("vout", Net, default = Net("vout", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
-io_gnd = io("gnd", Net, default = Net("gnd", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+io_vout = io("vout", Net, default=Net("vout", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+io_gnd = io("gnd", Net, default=Net("gnd", symbol=Symbol("@kicad-symbols/power.kicad_sym:GND")))
 
 # ----------------------------------------------------------------------------
 # local nets
@@ -118,96 +118,96 @@ fb_node = Net("fb_node")
 # ----------------------------------------------------------------------------
 
 AP3441x(
-    name = config_variant.value,
-    VIN = io_vin,
-    FB = fb_node,
-    LX = lx_out,
-    PG = io_pg,
-    EN = io_enable,
-    NC = Net("nc"),
-    EP = io_gnd,
-    PGND = io_gnd,
-    SGND = io_gnd,
+    name=config_variant.value,
+    VIN=io_vin,
+    FB=fb_node,
+    LX=lx_out,
+    PG=io_pg,
+    EN=io_enable,
+    NC=Net("nc"),
+    EP=io_gnd,
+    PGND=io_gnd,
+    SGND=io_gnd,
 )
 
 # Output Inductor
 Inductor(
-    name = "L_OUT",
-    package = "5030",
-    inductance = inductance_5030,
-    P1 = lx_out,
-    P2 = io_vout,
+    name="L_OUT",
+    package="5030",
+    inductance=inductance_5030,
+    P1=lx_out,
+    P2=io_vout,
 )
 
 # Feedback Resistor Divider
 Resistor(
-    name = "R_FB_TOP",
-    value = fb_resistance_top,
-    package = "0402",
-    P1 = io_vout,
-    P2 = fb_node,
+    name="R_FB_TOP",
+    value=fb_resistance_top,
+    package="0402",
+    P1=io_vout,
+    P2=fb_node,
 )
 
 Resistor(
-    name = "R_FB_BOTTOM",
-    value = fb_resistance_bottom,
-    package = "0402",
-    P1 = fb_node,
-    P2 = io_gnd,
+    name="R_FB_BOTTOM",
+    value=fb_resistance_bottom,
+    package="0402",
+    P1=fb_node,
+    P2=io_gnd,
 )
 
 # Input Capacitors
 Capacitor(
-    name = "C_VIN_BULK",
-    value = "10uF",
-    package = "0805",
-    voltage = "16V",
-    dielectric = "X7R",
-    P1 = io_vin,
-    P2 = io_gnd,
+    name="C_VIN_BULK",
+    value="10uF",
+    package="0805",
+    voltage="16V",
+    dielectric="X7R",
+    P1=io_vin,
+    P2=io_gnd,
 )
 
 Capacitor(
-    name = "C_VIN_DECOUPLING",
-    value = "100nF",
-    package = "0402",
-    voltage = "16V",
-    dielectric = "X7R",
-    P1 = io_vin,
-    P2 = io_gnd,
+    name="C_VIN_DECOUPLING",
+    value="100nF",
+    package="0402",
+    voltage="16V",
+    dielectric="X7R",
+    P1=io_vin,
+    P2=io_gnd,
 )
 
 # Output Capacitors
 Capacitor(
-    name = "C_VOUT_BULK",
-    value = "10uF",
-    package = "0805",
-    voltage = "16V",
-    dielectric = "X5R",
-    P1 = io_vout,
-    P2 = io_gnd,
+    name="C_VOUT_BULK",
+    value="10uF",
+    package="0805",
+    voltage="16V",
+    dielectric="X5R",
+    P1=io_vout,
+    P2=io_gnd,
 )
 
 Capacitor(
-    name = "C_VOUT_DECOUPLING",
-    value = "100nF",
-    package = "0402",
-    voltage = "16V",
-    dielectric = "X7R",
-    P1 = io_vout,
-    P2 = io_gnd,
+    name="C_VOUT_DECOUPLING",
+    value="100nF",
+    package="0402",
+    voltage="16V",
+    dielectric="X7R",
+    P1=io_vout,
+    P2=io_gnd,
 )
 
 Capacitor(
-    name = "C_FB",
-    value = "4.7nF",
-    package = "0402",
-    voltage = "16V",
-    dielectric = "X5R",
-    P1 = io_vout,
-    P2 = fb_node,
-    mpn = "GRM155R71H472KA01D",
-    manufacturer = "Murata Electronics",
+    name="C_FB",
+    value="4.7nF",
+    package="0402",
+    voltage="16V",
+    dielectric="X5R",
+    P1=io_vout,
+    P2=fb_node,
+    mpn="GRM155R71H472KA01D",
+    manufacturer="Murata Electronics",
 )
 Layout("AP3441x", "layout_ap3441x")
 

@@ -10,8 +10,16 @@ Datasheet: https://www.st.com/resource/en/datasheet/lis3dh.pdf
 # ----------------------------------------------------------------------------
 
 load("@stdlib/config.zen", "config_properties")
-load("@stdlib/interfaces.zen", "Power","NotConnected")
-load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "Resistance", "Voltage", )
+load("@stdlib/interfaces.zen", "Power", "NotConnected")
+load(
+    "@stdlib/units.zen",
+    "Capacitance",
+    "Current",
+    "Frequency",
+    "Inductance",
+    "Resistance",
+    "Voltage",
+)
 
 # ----------------------------------------------------------------------------
 # Configuration
@@ -20,12 +28,12 @@ load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "
 InterfaceMode = enum("I2C", "SPI3W", "SPI4W")
 I2C_Address = enum("0x18", "0x19")
 
-config_interface = config("interface", InterfaceMode, default = InterfaceMode("I2C"))
+config_interface = config("interface", InterfaceMode, default=InterfaceMode("I2C"))
 if config_interface == InterfaceMode("I2C"):
-    config_i2c_address = config("i2c_address", I2C_Address, default = I2C_Address("0x18"))
-    config_add_i2c_pullups = config("add_i2c_pullups", bool, default = False)
+    config_i2c_address = config("i2c_address", I2C_Address, default=I2C_Address("0x18"))
+    config_add_i2c_pullups = config("add_i2c_pullups", bool, default=False)
 
-config_seperate_vddio = config("seperate_vddio", bool, default = False)
+config_seperate_vddio = config("seperate_vddio", bool, default=False)
 
 # ----------------------------------------------------------------------------
 # Component Modules
@@ -40,15 +48,15 @@ Resistor = Module("@stdlib/generics/Resistor.zen")
 # ----------------------------------------------------------------------------
 
 # Power IOs (always exposed)
-io_vdd = io("vdd", Net, default = Net("vdd", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+io_vdd = io("vdd", Net, default=Net("vdd", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
 
 # Optional separate VDDIO
 if config_seperate_vddio:
-    io_vddio = io("vddio", Net, default = Net("vddio", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+    io_vddio = io("vddio", Net, default=Net("vddio", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
 else:
     io_vddio = io_vdd
 
-io_gnd = io("gnd", Net, default = Net("gnd", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+io_gnd = io("gnd", Net, default=Net("gnd", symbol=Symbol("@kicad-symbols/power.kicad_sym:GND")))
 
 # I2C mode: SDA, SCL
 # Per datasheet: CS must be tied high for I2C mode
@@ -85,62 +93,62 @@ elif config_interface == InterfaceMode("SPI4W"):
     _sdo_sa0 = io_miso
 
 # Interrupt pins (optional)
-io_int1 = io("int1", Net, optional = True, default = Net("INT1"))
-io_int2 = io("int2", Net, optional = True, default = Net("INT2"))
+io_int1 = io("int1", Net, optional=True, default=Net("INT1"))
+io_int2 = io("int2", Net, optional=True, default=Net("INT2"))
 
 # ----------------------------------------------------------------------------
 # Components
 # ----------------------------------------------------------------------------
 
 LIS3DH(
-    name = "LIS3DH",
-    VDD = io_vdd,
-    VDD_IO = io_vddio,
-    GND = io_gnd,
-    CS = _cs,
-    SPC = _sclk,  # SPI clock pin
-    SDI = _sda_sdi_sdo,  # SPI/I2C data input
-    SDO = _sdo_sa0,  # SPI data output / I2C address select
-    INT1 = io_int1,
-    INT2 = io_int2,
-    ADC1 = Net("ADC1"),
-    ADC2 = Net("ADC2"),
-    ADC3 = Net("ADC3"),
-    NC = NotConnected(),
+    name="LIS3DH",
+    VDD=io_vdd,
+    VDD_IO=io_vddio,
+    GND=io_gnd,
+    CS=_cs,
+    SPC=_sclk,  # SPI clock pin
+    SDI=_sda_sdi_sdo,  # SPI/I2C data input
+    SDO=_sdo_sa0,  # SPI data output / I2C address select
+    INT1=io_int1,
+    INT2=io_int2,
+    ADC1=Net("ADC1"),
+    ADC2=Net("ADC2"),
+    ADC3=Net("ADC3"),
+    NC=NotConnected(),
     # Note: RES pin is internally connected to GND in the package
 )
 
 Capacitor(
-    name = "C_VDD",
-    value = "100nF",
-    package = "0402",
-    P1 = io_vdd,
-    P2 = io_gnd,
+    name="C_VDD",
+    value="100nF",
+    package="0402",
+    P1=io_vdd,
+    P2=io_gnd,
 )
 
 Capacitor(
-    name = "C_VDDIO",
-    value = "100nF",
-    package = "0402",
-    P1 = io_vddio,
-    P2 = io_gnd,
+    name="C_VDDIO",
+    value="100nF",
+    package="0402",
+    P1=io_vddio,
+    P2=io_gnd,
 )
 
 if config_interface == InterfaceMode("I2C") and config_add_i2c_pullups:
     Resistor(
-        name = "R_SDA",
-        value = "4.7kohms",
-        package = "0402",
-        P1 = io_sda,
-        P2 = io_vddio,
+        name="R_SDA",
+        value="4.7kohms",
+        package="0402",
+        P1=io_sda,
+        P2=io_vddio,
     )
 
     Resistor(
-        name = "R_SCL",
-        value = "4.7kohms",
-        package = "0402",
-        P1 = io_scl,
-        P2 = io_vddio,
+        name="R_SCL",
+        value="4.7kohms",
+        package="0402",
+        P1=io_scl,
+        P2=io_vddio,
     )
 
 # ----------------------------------------------------------------------------

@@ -5,11 +5,11 @@ Author: Generated
 
 # Component definition for Cat Logo
 Component(
-    name = "Cat_Logo",
-    symbol = Symbol(library = "heart/heart.kicad_sym"),
-    footprint = File("cat/cat.kicad_mod"),
-    pins = {},
-    properties = {
+    name="Cat_Logo",
+    symbol=Symbol(library="heart/heart.kicad_sym"),
+    footprint=File("cat/cat.kicad_mod"),
+    pins={},
+    properties={
         "dnp": "true",
         "skip_bom": "true",
         "skip_pos": "true",

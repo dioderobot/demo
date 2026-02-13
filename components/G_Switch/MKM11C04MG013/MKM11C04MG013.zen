@@ -2,26 +2,26 @@
 
 # Pins
 Pins = struct(
-    COM = io("COM", Net),
-    MP1 = io("MP1", Net),
-    MP2 = io("MP2", Net),
-    NC = io("NC", Net),
-    NO = io("NO", Net),
+    COM=io("COM", Net),
+    MP1=io("MP1", Net),
+    MP2=io("MP2", Net),
+    NC=io("NC", Net),
+    NO=io("NO", Net),
 )
 
 # Component
 Component(
-    name = "MK-11C04-G013",
-    symbol = Symbol(library = "MK-11C04-G013.kicad_sym"),
-    footprint = File("MK11C04G013.kicad_mod"),
-    pins = {
+    name="MK-11C04-G013",
+    symbol=Symbol(library="MK-11C04-G013.kicad_sym"),
+    footprint=File("MK11C04G013.kicad_mod"),
+    pins={
         "COM": Pins.COM,
         "MP1": Pins.MP1,
         "MP2": Pins.MP2,
         "NC": Pins.NC,
         "NO": Pins.NO,
     },
-    properties = {
+    properties={
         "value": "MK-11C04-G013",
         "mpn": "MK-11C04-G013",
     },

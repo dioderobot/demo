@@ -8,7 +8,7 @@ Author: Nasheed Ur Rehman
 # ----------------------------------------------------------------------------
 
 load("@stdlib/config.zen", "config_properties")
-load("@stdlib/interfaces.zen", "PcieGen3x1Lane", "Power", "Ground","NotConnected")
+load("@stdlib/interfaces.zen", "PcieGen3x1Lane", "Power", "Ground", "NotConnected")
 load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Resistance", "Voltage", "VoltageRange")
 load("@stdlib/utils.zen", "e96")
 
@@ -32,7 +32,7 @@ Led = Module("@stdlib/generics/Led.zen")
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-io_5v = io("io_5v", Power, default = Power(voltage = VoltageRange("5V")))
+io_5v = io("io_5v", Power, default=Power(voltage=VoltageRange("5V")))
 io_gnd = io("io_gnd", Ground)
 pcie_c = io("PCIE_C", PcieGen3x1Lane)
 pcie_pwr_en = io("PCIE_PWR_EN", Net)
@@ -41,7 +41,7 @@ pcie_pwr_en = io("PCIE_PWR_EN", Net)
 # local nets
 # ----------------------------------------------------------------------------
 
-m2_3v3 = Power("m2_3v3", voltage = VoltageRange("3.3V"))
+m2_3v3 = Power("m2_3v3", voltage=VoltageRange("3.3V"))
 das_dss_led1 = Net("DAS_DSS_LED1")
 r_activity = Net("R_Activity")
 susclk = Net("susclk")
@@ -51,151 +51,150 @@ susclk = Net("susclk")
 # ----------------------------------------------------------------------------
 
 PCIe_Connector(
-    name = "PCIe_Connector",
-    PERST = pcie_c.RESET_N,
-    CLKREQ = pcie_c.CLK_REQ_N,
-    PEWAKE = pcie_c.WAKE_N,
-    DEVSLP = NotConnected(),
-    PETp0_SATA_Aplus = pcie_c.TX.N,
-    PETn0_SATA_Aminus = pcie_c.TX.P,
-    PERp0_SATA_Bminus = pcie_c.RX.N,
-    PERn0_SATA_Bplus = pcie_c.RX.P,
-    PETp1 = NotConnected(),
-    PETn1 = NotConnected(),
-    PERp1 = NotConnected(),
-    PERn1 = NotConnected(),
-    PETp2 = NotConnected(),
-    PETn2 = NotConnected(),
-    PERp2 = NotConnected(),
-    PERn2 = NotConnected(),
-    PETp3 = NotConnected(),
-    PETn3 = NotConnected(),
-    PERp3 = NotConnected(),
-    PERn3 = NotConnected(),
-
+    name="PCIe_Connector",
+    PERST=pcie_c.RESET_N,
+    CLKREQ=pcie_c.CLK_REQ_N,
+    PEWAKE=pcie_c.WAKE_N,
+    DEVSLP=NotConnected(),
+    PETp0_SATA_Aplus=pcie_c.TX.N,
+    PETn0_SATA_Aminus=pcie_c.TX.P,
+    PERp0_SATA_Bminus=pcie_c.RX.N,
+    PERn0_SATA_Bplus=pcie_c.RX.P,
+    PETp1=NotConnected(),
+    PETn1=NotConnected(),
+    PERp1=NotConnected(),
+    PERn1=NotConnected(),
+    PETp2=NotConnected(),
+    PETn2=NotConnected(),
+    PERp2=NotConnected(),
+    PERn2=NotConnected(),
+    PETp3=NotConnected(),
+    PETn3=NotConnected(),
+    PERp3=NotConnected(),
+    PERn3=NotConnected(),
     # Reference Clock
-    REFCLKp = pcie_c.REFCLK.P,
-    REFCLKn = pcie_c.REFCLK.N,
-
+    REFCLKp=pcie_c.REFCLK.P,
+    REFCLKn=pcie_c.REFCLK.N,
     # Power
-    VDD = m2_3v3,
-    GND = io_gnd,
-
+    VDD=m2_3v3,
+    GND=io_gnd,
     # Other signals
-    DAS_DSS_LED1 = das_dss_led1,
-    PEDET = NotConnected(),
-    SUSCLK = susclk,
-
+    DAS_DSS_LED1=das_dss_led1,
+    PEDET=NotConnected(),
+    SUSCLK=susclk,
     # Not connected
-    NC = NotConnected(),
+    NC=NotConnected(),
 )
 
 Standoff(
-    name = "M_2_Standoff",
-    thread = "M2.5",
-    height = "1.5mm",
-    P1 = io_gnd,
+    name="M_2_Standoff",
+    thread="M2.5",
+    height="1.5mm",
+    P1=io_gnd,
 )
 
 LED_V_F = "2V"
 LED_I_F = "5mA"
+
+
 def led_current_limit_resistance(supply_voltage, forward_voltage, current_limit):
     return e96((Voltage(supply_voltage) - Voltage(forward_voltage)) / Current(current_limit))
 
+
 Led(
-    name = "LED_Activity",
-    package = "0402",
-    color = "green",
-    forward_voltage = LED_V_F,
-    forward_current = LED_I_F,
-    A = m2_3v3,
-    K = r_activity,
+    name="LED_Activity",
+    package="0402",
+    color="green",
+    forward_voltage=LED_V_F,
+    forward_current=LED_I_F,
+    A=m2_3v3,
+    K=r_activity,
 )
 
 Resistor(
-    name = "R_Activity",
-    package = "0402",
-    value = led_current_limit_resistance(m2_3v3.voltage.max, LED_V_F, LED_I_F),
-    P1 = das_dss_led1,
-    P2 = r_activity,
+    name="R_Activity",
+    package="0402",
+    value=led_current_limit_resistance(m2_3v3.voltage.max, LED_V_F, LED_I_F),
+    P1=das_dss_led1,
+    P2=r_activity,
 )
 
 Crystal(
-    name = "Crystal", 
-    VDD = m2_3v3,
-    TRI_STATE = m2_3v3,
-    GND = io_gnd,
-    OUTPUT = susclk,
+    name="Crystal",
+    VDD=m2_3v3,
+    TRI_STATE=m2_3v3,
+    GND=io_gnd,
+    OUTPUT=susclk,
 )
 
 Buck(
-    name = "Buck",
-    vin = io_5v,
-    vout = m2_3v3,
-    gnd = io_gnd,
-    pg = Net("NC"),
-    enable = pcie_pwr_en,
-    properties = {
+    name="Buck",
+    vin=io_5v,
+    vout=m2_3v3,
+    gnd=io_gnd,
+    pg=Net("NC"),
+    enable=pcie_pwr_en,
+    properties={
         "collapse": "true",
     },
 )
 
 Resistor(
-    name = "R_EN",
-    value = "100kohms",
-    package = "0402",
-    P1 = pcie_pwr_en,
-    P2 = io_gnd,
+    name="R_EN",
+    value="100kohms",
+    package="0402",
+    P1=pcie_pwr_en,
+    P2=io_gnd,
 )
 
 Capacitor(
-    name = "C_VIN",
-    value = "10uF",
-    package = "0805",
-    voltage = "16V",
-    dielectric = "X7R",
-    P1 = io_5v,
-    P2 = io_gnd,
+    name="C_VIN",
+    value="10uF",
+    package="0805",
+    voltage="16V",
+    dielectric="X7R",
+    P1=io_5v,
+    P2=io_gnd,
 )
 
 Capacitor(
-    name = "C_VOUT1",
-    value = "10uF",
-    package = "0805",
-    voltage = "16V",
-    dielectric = "X7R",
-    P1 = m2_3v3,
-    P2 = io_gnd,
+    name="C_VOUT1",
+    value="10uF",
+    package="0805",
+    voltage="16V",
+    dielectric="X7R",
+    P1=m2_3v3,
+    P2=io_gnd,
 )
 
 Capacitor(
-    name = "C_VOUT2",
-    value = "10uF",
-    package = "0805",
-    voltage = "16V",
-    dielectric = "X7R",
-    P1 = m2_3v3,
-    P2 = io_gnd,
+    name="C_VOUT2",
+    value="10uF",
+    package="0805",
+    voltage="16V",
+    dielectric="X7R",
+    P1=m2_3v3,
+    P2=io_gnd,
 )
 
 Capacitor(
-    name = "C_VOUT3",
-    value = "10uF",
-    package = "0805",
-    voltage = "16V",
-    dielectric = "X7R",
-    P1 = m2_3v3,
-    P2 = io_gnd,
+    name="C_VOUT3",
+    value="10uF",
+    package="0805",
+    voltage="16V",
+    dielectric="X7R",
+    P1=m2_3v3,
+    P2=io_gnd,
 )
 
 Capacitor(
-    name = "C_CRYSTAL",
-    value = "100nF",
-    package = "0402",
-    voltage = "16V",
-    dielectric = "X7R",
-    P1 = m2_3v3,
-    P2 = io_gnd,
+    name="C_CRYSTAL",
+    value="100nF",
+    package="0402",
+    voltage="16V",
+    dielectric="X7R",
+    P1=m2_3v3,
+    P2=io_gnd,
 )
 
 # pcb:sch Buck x=-812.8000 y=520.7000 rot=0

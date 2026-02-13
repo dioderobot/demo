@@ -25,9 +25,9 @@ for package in XAL50xx.PackageOptions.values():
 
         # Instantiate the component
         XAL50xx(
-            name = name,
-            package = package,
-            inductance = inductance,
-            P1 = Net(name + "_P1"),
-            P2 = Net(name + "_P2"),
+            name=name,
+            package=package,
+            inductance=inductance,
+            P1=Net(name + "_P1"),
+            P2=Net(name + "_P2"),
         )

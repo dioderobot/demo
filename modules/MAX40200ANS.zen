@@ -17,7 +17,7 @@ Resistor = Module("@stdlib/generics/Resistor.zen")
 #
 # Pin mapping (WLP-4):
 # A1 - VDD (Supply Input/Anode)
-# A2 - OUT (Ideal Diode Output/Cathode)  
+# A2 - OUT (Ideal Diode Output/Cathode)
 # B1 - EN (Active-High Enable Input)
 # B2 - GND (Circuit Ground)
 # -----------------------------------------------------------------------------
@@ -27,38 +27,38 @@ Resistor = Module("@stdlib/generics/Resistor.zen")
 # -----------------------------------------------------------------------------
 
 # Power connections
-vdd = io("vdd", Power)    # Supply input (anode)
-out = io("out", Power)    # Ideal diode output (cathode)
-gnd = io("gnd", Ground)   # Circuit ground
+vdd = io("vdd", Power)  # Supply input (anode)
+out = io("out", Power)  # Ideal diode output (cathode)
+gnd = io("gnd", Ground)  # Circuit ground
 
 # Control
-en = io("en", Gpio)       # Active-high enable input (with weak internal pullup)
+en = io("en", Gpio)  # Active-high enable input (with weak internal pullup)
 
 # -----------------------------------------------------------------------------
 # Component definition
 # -----------------------------------------------------------------------------
 
 Component(
-    name = "U",
-    symbol = Symbol(library = "@kicad-symbols/Analog_Switch.kicad_sym", name = "MAX40200ANS"),
-    footprint = File("@kicad-footprints/Package_BGA.pretty/WLP-4_0.728x0.728mm_Layout2x2_P0.35mm.kicad_mod"),
-    prefix = "U",
-    mpn = "MAX40200ANS+",
-    manufacturer = "Analog Devices (Maxim)",
-    description = "Ultra-Low Voltage Drop Ideal Diode",
-    datasheet = "https://datasheets.maximintegrated.com/en/ds/MAX40200.pdf",
-    properties = {
+    name="U",
+    symbol=Symbol(library="@kicad-symbols/Analog_Switch.kicad_sym", name="MAX40200ANS"),
+    footprint=File("@kicad-footprints/Package_BGA.pretty/WLP-4_0.728x0.728mm_Layout2x2_P0.35mm.kicad_mod"),
+    prefix="U",
+    mpn="MAX40200ANS+",
+    manufacturer="Analog Devices (Maxim)",
+    description="Ultra-Low Voltage Drop Ideal Diode",
+    datasheet="https://datasheets.maximintegrated.com/en/ds/MAX40200.pdf",
+    properties={
         "voltage_drop_typ": "43mV @ 500mA, 85mV @ 1A",
         "quiescent_current": "7µA typ, 18µA max",
         "thermal_protection": "154°C",
         "package": "WLP-4",
     },
-    pins = {
-        "VDD": vdd.NET,   # A1 - Supply Input (Anode)
-        "OUT": out.NET,   # A2 - Ideal Diode Output (Cathode)
-        "EN": en.NET,     # B1 - Active-High Enable Input
-        "GND": gnd.NET,   # B2 - Circuit Ground
-    }
+    pins={
+        "VDD": vdd.NET,  # A1 - Supply Input (Anode)
+        "OUT": out.NET,  # A2 - Ideal Diode Output (Cathode)
+        "EN": en.NET,  # B1 - Active-High Enable Input
+        "GND": gnd.NET,  # B2 - Circuit Ground
+    },
 )
 
 # -----------------------------------------------------------------------------
@@ -69,7 +69,7 @@ Component(
 # Datasheet: "minimum of 0.33μF on the VDD input" for stability
 Capacitor(name="C_IN", value="4.7uF", package="0402", voltage="10V", dielectric="X7R", P1=vdd, P2=gnd)
 
-# Output decoupling capacitor (OUT to GND)  
+# Output decoupling capacitor (OUT to GND)
 # Datasheet: "minimum of 0.33μF connected to the OUT output" for stability
 Capacitor(name="C_OUT", value="10uF", package="0402", voltage="10V", dielectric="X7R", P1=out, P2=gnd)
 

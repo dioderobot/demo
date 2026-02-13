@@ -2,20 +2,20 @@
 
 # Pins
 Pins = struct(
-    EN = io("EN", Net),
-    GND = io("GND", Net),
-    ILIM = io("ILIM", Net),
-    IN = io("IN", Net),
-    OUT = io("OUT", Net),
-    n_FAULT = io("n_FAULT", Net),
+    EN=io("EN", Net),
+    GND=io("GND", Net),
+    ILIM=io("ILIM", Net),
+    IN=io("IN", Net),
+    OUT=io("OUT", Net),
+    n_FAULT=io("n_FAULT", Net),
 )
 
 # Component
 Component(
-    name = "AP22653W6-7",
-    symbol = Symbol(library = "AP22653W6-7.kicad_sym"),
-    footprint = File("SOT95P280X145-6N.kicad_mod"),
-    pins = {
+    name="AP22653W6-7",
+    symbol=Symbol(library="AP22653W6-7.kicad_sym"),
+    footprint=File("SOT95P280X145-6N.kicad_mod"),
+    pins={
         "EN": Pins.EN,
         "GND": Pins.GND,
         "ILIM": Pins.ILIM,
@@ -23,14 +23,14 @@ Component(
         "OUT": Pins.OUT,
         "~{FAULT}": Pins.n_FAULT,
     },
-    properties = {
+    properties={
         "value": "AP22653W6-7",
         "mpn": "AP22653W6-7",
         "description": "Diodes Incorporated - AP22653W6-7 - Active High High Side Switch, 2.1A, 3V~5.5V, 65mΩ, Short-Circuit Protection, SOT-26",
         "manufacturer": "Diodes Incorporated",
-        "LCSC Part" : "C2158037",
+        "LCSC Part": "C2158037",
         "alternatives": [
-            { "mpn": "AP22653W6-7", "manufacturer": "Diodes Incorporated" },
+            {"mpn": "AP22653W6-7", "manufacturer": "Diodes Incorporated"},
         ],
     },
 )

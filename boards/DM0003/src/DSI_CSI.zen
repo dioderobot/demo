@@ -25,8 +25,8 @@ DSI_CSI_Connector = Module("github.com/dioderobot/demo/components/Hirose/FH12M22
 # io interfaces
 # ----------------------------------------------------------------------------
 
-io_3v3pi = io("io_3v3pi", Net, default = Net("io_3v3pi", symbol = Symbol("@kicad-symbols/power.kicad_sym:VDD")))
-io_gnd = io("io_gnd", Net, default = Net("io_gnd", symbol = Symbol("@kicad-symbols/power.kicad_sym:GND")))
+io_3v3pi = io("io_3v3pi", Net, default=Net("io_3v3pi", symbol=Symbol("@kicad-symbols/power.kicad_sym:VDD")))
+io_gnd = io("io_gnd", Net, default=Net("io_gnd", symbol=Symbol("@kicad-symbols/power.kicad_sym:GND")))
 
 DPHY0_C = io("DPHY0_C", Mipi)
 i2c = io("i2c", I2c)
@@ -38,31 +38,31 @@ io_cam_gpio1 = io("cam_gpio1", Net)
 # ----------------------------------------------------------------------------
 
 DSI_CSI_Connector(
-    name = "DSI_CSI_Connector",
-    P1 = io_3v3pi,
-    P2 = i2c.SDA,
-    P3 = i2c.SCL,
-    P4 = io_gnd,
-    P5 = io_cam_gpio1,
-    P6 = io_cam_gpio0,
-    P7 = io_gnd,
-    P8 = DPHY0_C.DATA3.P,
-    P9 = DPHY0_C.DATA3.N,
-    P10 = io_gnd,
-    P11 = DPHY0_C.DATA2.P,
-    P12 = DPHY0_C.DATA2.N,
-    P13 = io_gnd,
-    P14 = DPHY0_C.CLK.P,
-    P15 = DPHY0_C.CLK.N,
-    P16 = io_gnd,
-    P17 = DPHY0_C.DATA1.P,
-    P18 = DPHY0_C.DATA1.N,
-    P19 = io_gnd,
-    P20 = DPHY0_C.DATA0.P,
-    P21 = DPHY0_C.DATA0.N,
-    P22 = io_gnd,
-    MP1 = io_gnd,
-    MP2 = io_gnd,
+    name="DSI_CSI_Connector",
+    P1=io_3v3pi,
+    P2=i2c.SDA,
+    P3=i2c.SCL,
+    P4=io_gnd,
+    P5=io_cam_gpio1,
+    P6=io_cam_gpio0,
+    P7=io_gnd,
+    P8=DPHY0_C.DATA3.P,
+    P9=DPHY0_C.DATA3.N,
+    P10=io_gnd,
+    P11=DPHY0_C.DATA2.P,
+    P12=DPHY0_C.DATA2.N,
+    P13=io_gnd,
+    P14=DPHY0_C.CLK.P,
+    P15=DPHY0_C.CLK.N,
+    P16=io_gnd,
+    P17=DPHY0_C.DATA1.P,
+    P18=DPHY0_C.DATA1.N,
+    P19=io_gnd,
+    P20=DPHY0_C.DATA0.P,
+    P21=DPHY0_C.DATA0.N,
+    P22=io_gnd,
+    MP1=io_gnd,
+    MP2=io_gnd,
 )
 
 # pcb:sch DSI_CSI_Connector.FH12M22SM0_5SH x=202.2000 y=-1.0000 rot=0

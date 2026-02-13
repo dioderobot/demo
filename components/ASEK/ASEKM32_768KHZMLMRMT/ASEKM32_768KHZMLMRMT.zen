@@ -2,29 +2,29 @@
 
 # Pins
 Pins = struct(
-    GND = io("GND", Net),
-    OUTPUT = io("OUTPUT", Net),
-    TRI_STATE = io("TRI_STATE", Net),
-    VDD = io("VDD", Net),
+    GND=io("GND", Net),
+    OUTPUT=io("OUTPUT", Net),
+    TRI_STATE=io("TRI_STATE", Net),
+    VDD=io("VDD", Net),
 )
 
 # Component
 Component(
-    name = "ASEK_32_768KHZ_L_R_T",
-    symbol = Symbol(library = "ASEK-32_768KHZ-L-R-T.kicad_sym"),
-    footprint = File("ASEK32768KHZLRT.kicad_mod"),
-    pins = {
+    name="ASEK_32_768KHZ_L_R_T",
+    symbol=Symbol(library="ASEK-32_768KHZ-L-R-T.kicad_sym"),
+    footprint=File("ASEK32768KHZLRT.kicad_mod"),
+    pins={
         "GND": Pins.GND,
         "OUTPUT": Pins.OUTPUT,
         "TRI-STATE": Pins.TRI_STATE,
         "VDD": Pins.VDD,
     },
-    properties = {
+    properties={
         "value": "ASEK-32.768KHZ-LRT",
         "mpn": "ASEK-32.768KHZ-LRT",
         "description": "ASEK - ASEK-32.768KHZ-LRT - 32.768KHz Crystal Oscillator",
         "manufacturer": "ASEK",
-        "LCSC Part" : "C2650753",
+        "LCSC Part": "C2650753",
         "package": "SMD3225-4P",
     },
 )

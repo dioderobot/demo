@@ -2,26 +2,26 @@
 
 # Pins
 Pins = struct(
-    EN = io("EN", Net),
-    FAULT = io("FAULT", Net),
-    GND = io("GND", Net),
-    IN = io("IN", Net),
-    OUT = io("OUT", Net),
+    EN=io("EN", Net),
+    FAULT=io("FAULT", Net),
+    GND=io("GND", Net),
+    IN=io("IN", Net),
+    OUT=io("OUT", Net),
 )
 
 # Component
 Component(
-    name = "STMPS2151STR",
-    symbol = Symbol(library = "STMPS2151STR.kicad_sym"),
-    footprint = File("SOT95P280X145-5N.kicad_mod"),
-    pins = {
+    name="STMPS2151STR",
+    symbol=Symbol(library="STMPS2151STR.kicad_sym"),
+    footprint=File("SOT95P280X145-5N.kicad_mod"),
+    pins={
         "EN": Pins.EN,
         "FAULT": Pins.FAULT,
         "GND": Pins.GND,
         "IN": Pins.IN,
         "OUT": Pins.OUT,
     },
-    properties = {
+    properties={
         "value": "STMPS2151STR",
         "mpn": "STMPS2151STR",
     },

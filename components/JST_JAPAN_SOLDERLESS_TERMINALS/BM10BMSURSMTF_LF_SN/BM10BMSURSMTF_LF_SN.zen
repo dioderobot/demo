@@ -2,26 +2,26 @@
 
 # Pins
 Pins = struct(
-    P1 = io("P1", Net),
-    P10 = io("P10", Net),
-    MP1 = io("MP1", Net),
-    MP2 = io("MP2", Net),
-    P2 = io("P2", Net),
-    P3 = io("P3", Net),
-    P4 = io("P4", Net),
-    P5 = io("P5", Net),
-    P6 = io("P6", Net),
-    P7 = io("P7", Net),
-    P8 = io("P8", Net),
-    P9 = io("P9", Net),
+    P1=io("P1", Net),
+    P10=io("P10", Net),
+    MP1=io("MP1", Net),
+    MP2=io("MP2", Net),
+    P2=io("P2", Net),
+    P3=io("P3", Net),
+    P4=io("P4", Net),
+    P5=io("P5", Net),
+    P6=io("P6", Net),
+    P7=io("P7", Net),
+    P8=io("P8", Net),
+    P9=io("P9", Net),
 )
 
 # Component
 Component(
-    name = "BM10B-SURS-TF(LF)(SN)",
-    symbol = Symbol(library = "C5306166.kicad_sym"),
-    footprint = File("CONN-SMD_10P-P0.80_BM10B-SURS-TF.kicad_mod"),
-    pins = {
+    name="BM10B-SURS-TF(LF)(SN)",
+    symbol=Symbol(library="C5306166.kicad_sym"),
+    footprint=File("CONN-SMD_10P-P0.80_BM10B-SURS-TF.kicad_mod"),
+    pins={
         "1": Pins.P1,
         "10": Pins.P10,
         "11": Pins.MP1,
@@ -35,7 +35,7 @@ Component(
         "8": Pins.P8,
         "9": Pins.P9,
     },
-    properties = {
+    properties={
         "value": "BM10B-SURS-TF(LF)(SN)",
         "mpn": "BM10B-SURS-TF(LF)(SN)",
         "manufacturer": "JST (JAPAN SOLDERLESS TERMINALS)",

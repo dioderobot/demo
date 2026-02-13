@@ -2,20 +2,20 @@
 
 # Pins
 Pins = struct(
-    P1 = io("P1", Net),
-    P2 = io("P2", Net),
+    P1=io("P1", Net),
+    P2=io("P2", Net),
 )
 
 # Component
 Component(
-    name = "XAL5050-822MEC",
-    symbol = Symbol(library = "XAL5050-822MEC.kicad_sym"),
-    footprint = File("@kicad-footprints/Inductor_SMD.pretty/L_Coilcraft_XAL5050-XXX.kicad_mod"),
-    pins = {
+    name="XAL5050-822MEC",
+    symbol=Symbol(library="XAL5050-822MEC.kicad_sym"),
+    footprint=File("@kicad-footprints/Inductor_SMD.pretty/L_Coilcraft_XAL5050-XXX.kicad_mod"),
+    pins={
         "1": Pins.P1,
         "2": Pins.P2,
     },
-    properties = {
+    properties={
         "value": "XAL5050-822MEC",
         "mpn": "XAL5050-822MEC",
         "inductance": "8.2uH",
