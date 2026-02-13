@@ -7,6 +7,11 @@
 		(legacy_teardrops no)
 	)
 	(paper "A4")
+	(title_block
+		(title "${PCB_NAME}")
+		(date "${CURRENT_DATE}")
+		(rev "${PCB_VERSION}")
+	)
 	(layers
 		(0 "F.Cu" signal)
 		(2 "B.Cu" signal)
@@ -78,14 +83,14 @@
 		)
 	)
 	(net 0 "")
-	(net 1 "vout")
-	(net 2 "fb_node")
-	(net 3 "gnd")
-	(net 4 "nc")
-	(net 5 "pg")
-	(net 6 "enable")
-	(net 7 "vin")
-	(net 8 "lx_out")
+	(net 1 "VOUT")
+	(net 2 "FB_NODE")
+	(net 3 "GND")
+	(net 4 "AP3441SHEM7B.NC_AP3441SHE-7B_NC")
+	(net 5 "PG")
+	(net 6 "ENABLE")
+	(net 7 "VIN")
+	(net 8 "LX_OUT")
 	(footprint "C_0805_2012Metric:C_0805_2012Metric"
 		(layer "F.Cu")
 		(uuid "3cc7ae4f-1e59-45ec-b721-b026dd43906c")
@@ -104,7 +109,7 @@
 				)
 			)
 		)
-		(property "Value" "10uF 16V X5R"
+		(property "Value" "GRM21BZ71E106KE15K"
 			(at 0 1.68 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -129,7 +134,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10uF 16V X5R"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -171,18 +176,6 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "f828ad3f-ea55-47a9-a6e9-5665a13fb641")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/nasheed-x/Library/Caches/pcb/gitlab/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "cb77507d-a22a-4b8a-9a97-c7ec7f3cf2a0")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -250,11 +243,59 @@
 				)
 			)
 		)
-		(property "__symbol_value" "(symbol\n  \"C\"\n  (pin_numbers\n    (hide yes)\n  )\n  (pin_names\n    (offset 0.254)\n  )\n  (exclude_from_sim no)\n  (in_bom yes)\n  (on_board yes)\n  (property\n    \"Reference\"\n    \"C\"\n    (at 0.635 2.54 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left)\n    )\n  )\n  (property\n    \"Value\"\n    \"C\"\n    (at 0.635 -2.54 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left)\n    )\n  )\n  (property\n    \"Footprint\"\n    \"\"\n    (at 0.9652 -3.81 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Datasheet\"\n    \"~\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Description\"\n    \"Unpolarized capacitor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_keywords\"\n    \"cap capacitor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_fp_filters\"\n    \"C_*\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (symbol\n    \"C_0_1\"\n    (polyline\n      (pts\n        (xy -2.032 0.762)\n        (xy 2.032 0.762)\n      )\n      (stroke\n        (width 0.508)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n    (polyline\n      (pts\n        (xy -2.032 -0.762)\n        (xy 2.032 -0.762)\n      )\n      (stroke\n        (width 0.508)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n  )\n  (symbol\n    \"C_1_1\"\n    (pin\n      passive\n      line\n      (at 0 3.81 270)\n      (length 2.794)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"1\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 0 -3.81 90)\n      (length 2.794)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"2\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n  )\n  (embedded_fonts no)\n)"
+		(property "Alternatives" "{\"mpn\": \"GRM21BZ71E106KE15L\", \"manufacturer\": \"Murata Electronics\"}"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "6ee68914-15de-42d5-8fd4-1eeac77922bd")
+			(uuid "1da1644e-ac59-440d-baf8-96e78aaf1e6a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ce0170f7-cb58-424b-b012-7b5a870ec00f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "9f15f33c-297a-4bca-915d-66269fe05949")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GRM21BZ71E106KE15K"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d9ff3c6f-7ce0-47e0-9a19-37a6ee14c650")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "1af8513d-a4dd-43f3-b16d-30b4c9944048")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -380,7 +421,7 @@
 			(size 1 1.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 1 "vout")
+			(net 1 "VOUT")
 			(uuid "f7b275fc-fe03-4d06-8a75-fe6b6c24e235")
 		)
 		(pad "2" smd roundrect
@@ -388,7 +429,7 @@
 			(size 1 1.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 3 "gnd")
+			(net 3 "GND")
 			(uuid "a1a36cac-04a8-4a28-82bb-7474a26fa1b9")
 		)
 		(embedded_fonts no)
@@ -422,7 +463,7 @@
 				)
 			)
 		)
-		(property "Value" "100nF 16V X7R"
+		(property "Value" "GCM155R71H104KE02D"
 			(at 0 1.16 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -447,7 +488,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF 16V X7R"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -496,18 +537,6 @@
 				)
 			)
 		)
-		(property "__symbol_value" "(symbol\n  \"C\"\n  (pin_numbers\n    (hide yes)\n  )\n  (pin_names\n    (offset 0.254)\n  )\n  (exclude_from_sim no)\n  (in_bom yes)\n  (on_board yes)\n  (property\n    \"Reference\"\n    \"C\"\n    (at 0.635 2.54 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left)\n    )\n  )\n  (property\n    \"Value\"\n    \"C\"\n    (at 0.635 -2.54 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left)\n    )\n  )\n  (property\n    \"Footprint\"\n    \"\"\n    (at 0.9652 -3.81 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Datasheet\"\n    \"~\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Description\"\n    \"Unpolarized capacitor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_keywords\"\n    \"cap capacitor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_fp_filters\"\n    \"C_*\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (symbol\n    \"C_0_1\"\n    (polyline\n      (pts\n        (xy -2.032 0.762)\n        (xy 2.032 0.762)\n      )\n      (stroke\n        (width 0.508)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n    (polyline\n      (pts\n        (xy -2.032 -0.762)\n        (xy 2.032 -0.762)\n      )\n      (stroke\n        (width 0.508)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n  )\n  (symbol\n    \"C_1_1\"\n    (pin\n      passive\n      line\n      (at 0 3.81 270)\n      (length 2.794)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"1\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 0 -3.81 90)\n      (length 2.794)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"2\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n  )\n  (embedded_fonts no)\n)"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "5d41660e-34f8-49e7-b5cd-82cba9ee56c9")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Voltage" "16V"
 			(at 0 0 0)
 			(layer "F.SilkS")
@@ -544,18 +573,6 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/nasheed-x/Library/Caches/pcb/gitlab/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "cfcac29f-e44e-42ab-b8ac-53464c6a8ccd")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Dielectric" "X7R"
 			(at 0 0 0)
 			(layer "F.SilkS")
@@ -573,6 +590,66 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "bae190b4-ff6a-40dd-9fb4-59985c6b38c1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GCM155R71H104KE02J\", \"manufacturer\": \"Murata Electronics\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "cf4763fc-fc06-4047-bfb1-4ccd969feeed")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "2a0a4b33-c373-4a0b-b094-834d3f12a139")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "9696fcec-0a9e-4c24-8d7e-481bbee888f4")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GCM155R71H104KE02D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "0720f35d-ae32-4e53-b839-192f1b00a080")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "56ddc397-733e-4ae4-bb77-05dd4a20c946")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -698,7 +775,7 @@
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 1 "vout")
+			(net 1 "VOUT")
 			(uuid "239c9284-bfa4-4224-bc2b-cf893e2888c1")
 		)
 		(pad "2" smd roundrect
@@ -706,7 +783,7 @@
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 3 "gnd")
+			(net 3 "GND")
 			(uuid "6650e510-7517-435b-beae-3953d528d9d9")
 		)
 		(embedded_fonts no)
@@ -728,7 +805,7 @@
 		(at 141.1875 106.5 90)
 		(descr "Inductor, Coilcraft, XAL5030-XXX, 5.48x5.68x3.1mm, (https://www.coilcraft.com/getmedia/49bc46c8-4b2c-45b9-9b6c-2eaa235ea698/xal50xx.pdf), generated with kicad-footprint-generator gen_inductor.py")
 		(tags "Inductor xal")
-		(property "Reference" "U2"
+		(property "Reference" "L1"
 			(at 0 -3.84 90)
 			(layer "F.SilkS")
 			(hide yes)
@@ -752,7 +829,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.coilcraft.com/getmedia/49bc46c8-4b2c-45b9-9b6c-2eaa235ea698/xal50xx.pdf"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -764,7 +841,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "XAL5030-222MEC"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -860,35 +937,11 @@
 				)
 			)
 		)
-		(property "__symbol_value" "(symbol\n  \"XAL5030-222MEC\"\n  (pin_names\n    (hide yes)\n  )\n  (exclude_from_sim no)\n  (in_bom yes)\n  (on_board yes)\n  (property\n    \"Reference\"\n    \"L\"\n    (at 16.51 6.35 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n    )\n  )\n  (property\n    \"Value\"\n    \"XAL5030-222MEC\"\n    (at 16.51 3.81 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n    )\n  )\n  (property\n    \"Footprint\"\n    \"XAL5030222MEC\"\n    (at 16.51 -96.19 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n      (hide yes)\n    )\n  )\n  (property\n    \"Datasheet\"\n    \"https://www.coilcraft.com/getmedia/49bc46c8-4b2c-45b9-9b6c-2eaa235ea698/xal50xx.pdf\"\n    (at 16.51 -196.19 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n      (hide yes)\n    )\n  )\n  (property\n    \"Description\"\n    \"INDUCTOR, 2.2UH, 9.2A, 20%, PWR, 38MHZ\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Height\"\n    \"3.1\"\n    (at 16.51 -396.19 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n      (hide yes)\n    )\n  )\n  (property\n    \"Manufacturer_Name\"\n    \"COILCRAFT\"\n    (at 16.51 -496.19 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n      (hide yes)\n    )\n  )\n  (property\n    \"Manufacturer_Part_Number\"\n    \"XAL5030-222MEC\"\n    (at 16.51 -596.19 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n      (hide yes)\n    )\n  )\n  (property\n    \"Mouser Part Number\"\n    \"994-XAL5030-222MEC\"\n    (at 16.51 -696.19 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n      (hide yes)\n    )\n  )\n  (property\n    \"Mouser Price/Stock\"\n    \"https://www.mouser.co.uk/ProductDetail/Coilcraft/XAL5030-222MEC?qs=zCSbvcPd3pamMZlPWCpd5A%3D%3D\"\n    (at 16.51 -796.19 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n      (hide yes)\n    )\n  )\n  (property\n    \"Arrow Part Number\"\n    \"\"\n    (at 16.51 -896.19 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n      (hide yes)\n    )\n  )\n  (property\n    \"Arrow Price/Stock\"\n    \"\"\n    (at 16.51 -996.19 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n      (hide yes)\n    )\n  )\n  (symbol\n    \"XAL5030-222MEC_1_1\"\n    (arc\n      (start\n        5.08\n        0\n      )\n      (mid\n        6.35\n        1.219\n      )\n      (end\n        7.62\n        0\n      )\n      (stroke\n        (width 0.254)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n    (arc\n      (start\n        7.62\n        0\n      )\n      (mid\n        8.89\n        1.219\n      )\n      (end\n        10.16\n        0\n      )\n      (stroke\n        (width 0.254)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n    (arc\n      (start\n        10.16\n        0\n      )\n      (mid\n        11.43\n        1.219\n      )\n      (end\n        12.7\n        0\n      )\n      (stroke\n        (width 0.254)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n    (arc\n      (start\n        12.7\n        0\n      )\n      (mid\n        13.97\n        1.219\n      )\n      (end\n        15.24\n        0\n      )\n      (stroke\n        (width 0.254)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n    (pin\n      passive\n      line\n      (at 0 0 0)\n      (length 5.08)\n      (name\n        \"1\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"1\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 20.32 0 180)\n      (length 5.08)\n      (name\n        \"2\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"2\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n  )\n  (embedded_fonts no)\n)"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "9c0f5965-6a4f-49ec-b82e-bfee1f2c14a7")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "srf_typ" "38MHz"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "bdf5adfd-5429-423c-bc26-e0c689af7cd2")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/nasheed-x/Documents/GitHub/ZenCarrier-5/components/XAL5030M222MEC/XAL5030-222MEC.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "c6c46164-9001-4cae-ae74-565a3fdce351")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -937,6 +990,138 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "a8d71680-320b-4d92-b01d-3350aecd85fd")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Dcr Max" "14.50mohms"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "9ad07224-936f-432a-828d-f54a99ef725b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Dcr Typ" "13.20mohms"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "24565c8e-581c-42fd-9bc0-2329c6dd7d13")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Inductance" "2.2uH"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "12534726-33cf-4508-b446-b6df324bf88f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Irms 20C" "7.2A"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "83c7ab5c-141d-49b0-b6ae-107a19d7c362")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Irms 40C" "9.7A"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "bbd45dfa-4a32-4c76-ad9e-0539733e6a42")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Isat" "9.2A"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "873ff9b7-b17f-4f18-bf6d-1883e378b535")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "COILCRAFT"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "56d41e8f-4106-44fc-92d6-42317f4203e1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "XAL5030-222MEC"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "48dfabe4-bcb5-439f-a54d-1eee05a5b398")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "L"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "266e7c05-3c8f-4253-b6e5-b4c7b9542dd8")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Srf Typ" "38MHz"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b32fe25b-a41a-473d-ab63-f7d0ce8dbf1f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Tolerance" "20%"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "da83d0bc-7cdb-4599-874e-f9a4a7be7907")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1102,7 +1287,7 @@
 			(size 1.18 4.7)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.211864)
-			(net 8 "lx_out")
+			(net 8 "LX_OUT")
 			(uuid "fd28b916-08d4-4d81-86ba-838bbb8255be")
 		)
 		(pad "2" smd roundrect
@@ -1110,7 +1295,7 @@
 			(size 1.18 4.7)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.211864)
-			(net 1 "vout")
+			(net 1 "VOUT")
 			(uuid "4e757c07-7b66-4e10-82a2-f9104cc6e127")
 		)
 		(embedded_fonts no)
@@ -1144,7 +1329,7 @@
 				)
 			)
 		)
-		(property "Value" "10k"
+		(property "Value" "ERJ-2RKF1002X"
 			(at 0 1.17 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -1169,7 +1354,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10k"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1199,18 +1384,6 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "be703315-d9d3-4356-a6b3-9bce798f0498")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "__symbol_value" "(symbol\n  \"R\"\n  (pin_numbers\n    (hide yes)\n  )\n  (pin_names\n    (offset 0)\n  )\n  (exclude_from_sim no)\n  (in_bom yes)\n  (on_board yes)\n  (property\n    \"Reference\"\n    \"R\"\n    (at 2.032 0 90)\n    (effects\n      (font (size 1.27 1.27))\n    )\n  )\n  (property\n    \"Value\"\n    \"R\"\n    (at 0 0 90)\n    (effects\n      (font (size 1.27 1.27))\n    )\n  )\n  (property\n    \"Footprint\"\n    \"\"\n    (at -1.778 0 90)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Datasheet\"\n    \"~\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Description\"\n    \"Resistor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_keywords\"\n    \"R res resistor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_fp_filters\"\n    \"R_*\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (symbol\n    \"R_0_1\"\n    (rectangle\n      (start\n        -1.016\n        -2.54\n      )\n      (end\n        1.016\n        2.54\n      )\n      (stroke\n        (width 0.254)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n  )\n  (symbol\n    \"R_1_1\"\n    (pin\n      passive\n      line\n      (at 0 3.81 270)\n      (length 1.27)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"1\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 0 -3.81 90)\n      (length 1.27)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"2\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n  )\n  (embedded_fonts no)\n)"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "d614b490-bda0-4027-8ae4-de9e9cc98855")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1254,11 +1427,11 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/nasheed-x/Library/Caches/pcb/gitlab/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+		(property "symbol_name" "R"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "24b590a5-5001-4273-9221-0f76f5b7d4ea")
+			(uuid "1feeadae-4aec-44b4-814e-c274548ba181")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1266,11 +1439,59 @@
 				)
 			)
 		)
-		(property "symbol_name" "R"
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F1002X\", \"manufacturer\": \"Panasonic Electronic Components\"},{\"mpn\": \"0402WGF1002TCE\", \"manufacturer\": \"Panasonic Electronic Components\"}"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "1feeadae-4aec-44b4-814e-c274548ba181")
+			(uuid "fb26a503-1c93-49ef-917e-27f733dc469a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Electronic Components"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d11f1cf5-5288-4ecf-8c05-3f8432e21477")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3187fbeb-989a-4274-8031-fa3991fa7e47")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF1002X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "cddf6c1a-2c27-487c-be7d-31dba63dcf78")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "41d6105b-3771-4506-bbe4-3c1f74e3964d")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1396,7 +1617,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 2 "fb_node")
+			(net 2 "FB_NODE")
 			(uuid "b4464bab-48e9-41b6-aeb4-7538ee7246a6")
 		)
 		(pad "2" smd roundrect
@@ -1404,7 +1625,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 3 "gnd")
+			(net 3 "GND")
 			(uuid "b163ebd0-80de-440d-bfc2-8532b5ea82f2")
 		)
 		(embedded_fonts no)
@@ -1438,7 +1659,7 @@
 				)
 			)
 		)
-		(property "Value" "100nF 16V X7R"
+		(property "Value" "GCM155R71H104KE02D"
 			(at 0 1.16 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -1463,7 +1684,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100nF 16V X7R"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1548,18 +1769,6 @@
 				)
 			)
 		)
-		(property "__symbol_value" "(symbol\n  \"C\"\n  (pin_numbers\n    (hide yes)\n  )\n  (pin_names\n    (offset 0.254)\n  )\n  (exclude_from_sim no)\n  (in_bom yes)\n  (on_board yes)\n  (property\n    \"Reference\"\n    \"C\"\n    (at 0.635 2.54 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left)\n    )\n  )\n  (property\n    \"Value\"\n    \"C\"\n    (at 0.635 -2.54 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left)\n    )\n  )\n  (property\n    \"Footprint\"\n    \"\"\n    (at 0.9652 -3.81 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Datasheet\"\n    \"~\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Description\"\n    \"Unpolarized capacitor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_keywords\"\n    \"cap capacitor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_fp_filters\"\n    \"C_*\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (symbol\n    \"C_0_1\"\n    (polyline\n      (pts\n        (xy -2.032 0.762)\n        (xy 2.032 0.762)\n      )\n      (stroke\n        (width 0.508)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n    (polyline\n      (pts\n        (xy -2.032 -0.762)\n        (xy 2.032 -0.762)\n      )\n      (stroke\n        (width 0.508)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n  )\n  (symbol\n    \"C_1_1\"\n    (pin\n      passive\n      line\n      (at 0 3.81 270)\n      (length 2.794)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"1\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 0 -3.81 90)\n      (length 2.794)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"2\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n  )\n  (embedded_fonts no)\n)"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "3c6d88fb-6b19-4b71-a533-5a7f0e2f499d")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Voltage" "16V"
 			(at 0 0 0)
 			(layer "F.SilkS")
@@ -1572,11 +1781,11 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/nasheed-x/Library/Caches/pcb/gitlab/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
+		(property "prefix" "C"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "37fc3e52-f058-4b87-aae9-0c93ec5800ec")
+			(uuid "dbd7a522-7c4e-4c85-ae0b-077bfff5e820")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1584,11 +1793,59 @@
 				)
 			)
 		)
-		(property "prefix" "C"
+		(property "Alternatives" "{\"mpn\": \"GCM155R71H104KE02J\", \"manufacturer\": \"Murata Electronics\"}"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "dbd7a522-7c4e-4c85-ae0b-077bfff5e820")
+			(uuid "15b3d1eb-d15a-46dc-b908-f36f2032bc3d")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "539375a7-c884-405e-bdfe-f100832c344a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "656f6993-ea28-42f7-bffc-a683f60e1db0")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GCM155R71H104KE02D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5e929ed4-9817-44cf-94da-c5ccd7f2357e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "8f3e7069-bb4f-497c-b948-09100162a911")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1714,7 +1971,7 @@
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 7 "vin")
+			(net 7 "VIN")
 			(uuid "84f57e8b-05fd-455c-977b-28c7f71adc45")
 		)
 		(pad "2" smd roundrect
@@ -1722,7 +1979,7 @@
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 3 "gnd")
+			(net 3 "GND")
 			(uuid "f771a9cb-0610-4794-99b4-f216684c79e1")
 		)
 		(embedded_fonts no)
@@ -1756,7 +2013,7 @@
 				)
 			)
 		)
-		(property "Value" "4.7nF 16V X5R"
+		(property "Value" "GRM155R71H472KA01D"
 			(at 0 1.16 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -1781,7 +2038,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "4.7nF 16V X5R"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1823,18 +2080,6 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "993c0c4a-5bf6-429b-9c02-98f9817a1c00")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/nasheed-x/Library/Caches/pcb/gitlab/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "73111f02-6145-4fad-9ec6-d9cb3e2b8013")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1902,11 +2147,35 @@
 				)
 			)
 		)
-		(property "__symbol_value" "(symbol\n  \"C\"\n  (pin_numbers\n    (hide yes)\n  )\n  (pin_names\n    (offset 0.254)\n  )\n  (exclude_from_sim no)\n  (in_bom yes)\n  (on_board yes)\n  (property\n    \"Reference\"\n    \"C\"\n    (at 0.635 2.54 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left)\n    )\n  )\n  (property\n    \"Value\"\n    \"C\"\n    (at 0.635 -2.54 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left)\n    )\n  )\n  (property\n    \"Footprint\"\n    \"\"\n    (at 0.9652 -3.81 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Datasheet\"\n    \"~\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Description\"\n    \"Unpolarized capacitor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_keywords\"\n    \"cap capacitor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_fp_filters\"\n    \"C_*\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (symbol\n    \"C_0_1\"\n    (polyline\n      (pts\n        (xy -2.032 0.762)\n        (xy 2.032 0.762)\n      )\n      (stroke\n        (width 0.508)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n    (polyline\n      (pts\n        (xy -2.032 -0.762)\n        (xy 2.032 -0.762)\n      )\n      (stroke\n        (width 0.508)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n  )\n  (symbol\n    \"C_1_1\"\n    (pin\n      passive\n      line\n      (at 0 3.81 270)\n      (length 2.794)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"1\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 0 -3.81 90)\n      (length 2.794)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"2\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n  )\n  (embedded_fonts no)\n)"
+		(property "Manufacturer" "Murata Electronics"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "169d8f5f-80b5-4bd5-91b5-bb6ed3c6cf7a")
+			(uuid "0034a64c-05d1-47a2-94ca-7918c3464ce8")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GRM155R71H472KA01D"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ed56fe6a-63ae-4d59-9a17-cc23fc586c86")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c036ddf9-984b-4cf0-aaa5-6de0afe478bb")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2032,7 +2301,7 @@
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 1 "vout")
+			(net 1 "VOUT")
 			(uuid "ed21848b-f0e9-498d-a818-1b2f1f79f2a2")
 		)
 		(pad "2" smd roundrect
@@ -2040,7 +2309,7 @@
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 2 "fb_node")
+			(net 2 "FB_NODE")
 			(uuid "831fa252-3a9d-4d8b-898b-eb0941c2790e")
 		)
 		(embedded_fonts no)
@@ -2062,7 +2331,7 @@
 		(at 145.75 106.9375 -90)
 		(descr "U-DFN2020-8")
 		(tags "Integrated Circuit")
-		(property "Reference" "U1"
+		(property "Reference" "IC1"
 			(at 0 0 90)
 			(layer "F.SilkS")
 			(hide yes)
@@ -2086,7 +2355,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.diodes.com//assets/Datasheets/AP3441-L.pdf"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -2098,7 +2367,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "AP3441SHE-7B"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -2158,11 +2427,11 @@
 				)
 			)
 		)
-		(property "__symbol_value" "(symbol\n  \"AP3441SHE-7B\"\n  (exclude_from_sim no)\n  (in_bom yes)\n  (on_board yes)\n  (property\n    \"Reference\"\n    \"IC\"\n    (at 26.67 7.62 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n    )\n  )\n  (property\n    \"Value\"\n    \"AP3441SHE-7B\"\n    (at 26.67 5.08 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n    )\n  )\n  (property\n    \"Footprint\"\n    \"SON50P201X201X60-9N-D\"\n    (at 26.67 -94.92 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n      (hide yes)\n    )\n  )\n  (property\n    \"Datasheet\"\n    \"https://www.diodes.com//assets/Datasheets/AP3441-L.pdf\"\n    (at 26.67 -194.92 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n      (hide yes)\n    )\n  )\n  (property\n    \"Description\"\n    \"Switching Voltage Regulators DCDC Conv LV Buck\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Height\"\n    \"0.6\"\n    (at 26.67 -394.92 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n      (hide yes)\n    )\n  )\n  (property\n    \"Manufacturer_Name\"\n    \"Diodes Incorporated\"\n    (at 26.67 -494.92 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n      (hide yes)\n    )\n  )\n  (property\n    \"Manufacturer_Part_Number\"\n    \"AP3441SHE-7B\"\n    (at 26.67 -594.92 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n      (hide yes)\n    )\n  )\n  (property\n    \"Mouser Part Number\"\n    \"621-AP3441SHE-7B\"\n    (at 26.67 -694.92 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n      (hide yes)\n    )\n  )\n  (property\n    \"Mouser Price/Stock\"\n    \"https://www.mouser.co.uk/ProductDetail/Diodes-Incorporated/AP3441SHE-7B?qs=wUXugUrL1qwsM8sMU6r4Ag%3D%3D\"\n    (at 26.67 -794.92 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n      (hide yes)\n    )\n  )\n  (property\n    \"Arrow Part Number\"\n    \"AP3441SHE-7B\"\n    (at 26.67 -894.92 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n      (hide yes)\n    )\n  )\n  (property\n    \"Arrow Price/Stock\"\n    \"https://www.arrow.com/en/products/ap3441she-7b/diodes-incorporated?utm_currency=USD&region=asia\"\n    (at 26.67 -994.92 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left top)\n      (hide yes)\n    )\n  )\n  (symbol\n    \"AP3441SHE-7B_1_1\"\n    (rectangle\n      (start\n        5.08\n        2.54\n      )\n      (end\n        25.4\n        -15.24\n      )\n      (stroke\n        (width 0.254)\n        (type default)\n      )\n      (fill\n        (type background)\n      )\n    )\n    (pin\n      passive\n      line\n      (at 0 0 0)\n      (length 5.08)\n      (name\n        \"FB\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"1\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 0 -2.54 0)\n      (length 5.08)\n      (name\n        \"PG\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"2\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 0 -5.08 0)\n      (length 5.08)\n      (name\n        \"VIN\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"3\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 0 -7.62 0)\n      (length 5.08)\n      (name\n        \"PGND\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"4\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 15.24 -20.32 90)\n      (length 5.08)\n      (name\n        \"EP\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"9\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 30.48 0 180)\n      (length 5.08)\n      (name\n        \"SGND\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"8\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 30.48 -2.54 180)\n      (length 5.08)\n      (name\n        \"EN\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"7\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 30.48 -5.08 180)\n      (length 5.08)\n      (name\n        \"LX\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"6\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      no_connect\n      line\n      (at 30.48 -7.62 180)\n      (length 5.08)\n      (name\n        \"NC\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"5\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n  )\n  (embedded_fonts no)\n)"
+		(property "Manufacturer" "Diodes Incorporated"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "bc4816d1-b2c4-47ce-9f58-256dc856cdd8")
+			(uuid "d2c8caf4-ffb3-4b8c-8c43-addc27528b37")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2170,11 +2439,23 @@
 				)
 			)
 		)
-		(property "symbol_path" "/Users/nasheed-x/Documents/GitHub/ZenCarrier-5/components/AP3441SHEM7B/AP3441SHE-7B.kicad_sym"
+		(property "Mpn" "AP3441SHE-7B"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "1868de76-565b-40d2-b627-5c6a87a213bc")
+			(uuid "8ca06ce1-e838-42ee-8cd6-00aa930dde2a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "IC"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "41e8446a-6a7a-4993-94ac-69ff8b67b4db")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2300,63 +2581,64 @@
 			(at -1.05 -0.75)
 			(size 0.3 0.7)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 2 "fb_node")
+			(net 2 "FB_NODE")
 			(uuid "43b9c2ce-027b-4e43-966f-e6693e925fe6")
 		)
 		(pad "2" smd rect
 			(at -1.05 -0.25)
 			(size 0.3 0.7)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 5 "pg")
+			(net 5 "PG")
 			(uuid "a3a2a9bf-0598-4ff6-9bda-850bacc1a33c")
 		)
 		(pad "3" smd rect
 			(at -1.05 0.25)
 			(size 0.3 0.7)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 7 "vin")
+			(net 7 "VIN")
 			(uuid "27f5d504-406e-471d-ba31-24d1a863e10e")
 		)
 		(pad "4" smd rect
 			(at -1.05 0.75)
 			(size 0.3 0.7)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 3 "gnd")
+			(net 3 "GND")
 			(uuid "53802cab-759c-4524-828f-090171d7ebe5")
 		)
 		(pad "5" smd rect
 			(at 1.05 0.75)
 			(size 0.3 0.7)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 4 "nc")
+			(net 4 "AP3441SHEM7B.NC_AP3441SHE-7B_NC")
+			(pintype "no_connect")
 			(uuid "09e73568-ec86-434c-aa94-6f1d7368e4d2")
 		)
 		(pad "6" smd rect
 			(at 1.05 0.25)
 			(size 0.3 0.7)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 8 "lx_out")
+			(net 8 "LX_OUT")
 			(uuid "a8fd7f28-8961-46a0-a0a0-66025959c672")
 		)
 		(pad "7" smd rect
 			(at 1.05 -0.25)
 			(size 0.3 0.7)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 6 "enable")
+			(net 6 "ENABLE")
 			(uuid "7383fef4-b7f6-487d-8142-83023a0209d4")
 		)
 		(pad "8" smd rect
 			(at 1.05 -0.75)
 			(size 0.3 0.7)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 3 "gnd")
+			(net 3 "GND")
 			(uuid "2d15d67e-f7a3-4fa0-8e8e-b5931076486e")
 		)
 		(pad "9" smd rect
 			(at 0 0 270)
 			(size 1 1.8)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net 3 "gnd")
+			(net 3 "GND")
 			(uuid "b4ed4394-9e4e-4652-bbfc-b83bd0d29f82")
 		)
 		(embedded_fonts no)
@@ -2397,7 +2679,7 @@
 				)
 			)
 		)
-		(property "Value" "45.3k"
+		(property "Value" "ERJ-2RKF4532X"
 			(at 0 1.17 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -2422,7 +2704,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "45.3k"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -2471,35 +2753,11 @@
 				)
 			)
 		)
-		(property "__symbol_value" "(symbol\n  \"R\"\n  (pin_numbers\n    (hide yes)\n  )\n  (pin_names\n    (offset 0)\n  )\n  (exclude_from_sim no)\n  (in_bom yes)\n  (on_board yes)\n  (property\n    \"Reference\"\n    \"R\"\n    (at 2.032 0 90)\n    (effects\n      (font (size 1.27 1.27))\n    )\n  )\n  (property\n    \"Value\"\n    \"R\"\n    (at 0 0 90)\n    (effects\n      (font (size 1.27 1.27))\n    )\n  )\n  (property\n    \"Footprint\"\n    \"\"\n    (at -1.778 0 90)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Datasheet\"\n    \"~\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Description\"\n    \"Resistor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_keywords\"\n    \"R res resistor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_fp_filters\"\n    \"R_*\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (symbol\n    \"R_0_1\"\n    (rectangle\n      (start\n        -1.016\n        -2.54\n      )\n      (end\n        1.016\n        2.54\n      )\n      (stroke\n        (width 0.254)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n  )\n  (symbol\n    \"R_1_1\"\n    (pin\n      passive\n      line\n      (at 0 3.81 270)\n      (length 1.27)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"1\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 0 -3.81 90)\n      (length 1.27)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"2\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n  )\n  (embedded_fonts no)\n)"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "d1a88484-9aa6-4db5-919b-25a6e689d1de")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "prefix" "R"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "b4b80931-993b-46be-934e-02bd5b50216c")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/nasheed-x/Library/Caches/pcb/gitlab/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "400d45f6-e674-4889-8f75-052ea4cc1604")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2524,6 +2782,66 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "c0592235-dc0d-41ec-9c4f-1a86328ac7bf")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"ERJ-PA2F4532X\", \"manufacturer\": \"Panasonic Electronic Components\"},{\"mpn\": \"0402WGF4532TCE\", \"manufacturer\": \"Panasonic Electronic Components\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "6c0c7da9-a56e-4e81-a6c1-79610209b6f0")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Panasonic Electronic Components"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b0143bd8-5138-42ab-8c6f-0f1ab9a3964a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_resistor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "28983abf-dd75-4563-9c45-dcec6c342682")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "ERJ-2RKF4532X"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "9fc8bc82-ced8-4053-b689-33845945b47c")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "R"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "327ebeaa-de16-42f9-a4eb-cf9e405d393a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2649,7 +2967,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 1 "vout")
+			(net 1 "VOUT")
 			(uuid "531f2688-a54f-4231-a2f1-dc1c48fb1b26")
 		)
 		(pad "2" smd roundrect
@@ -2657,7 +2975,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 2 "fb_node")
+			(net 2 "FB_NODE")
 			(uuid "0d4beaee-0ae4-431e-a0b2-442a3a8ef6ff")
 		)
 		(embedded_fonts no)
@@ -2691,7 +3009,7 @@
 				)
 			)
 		)
-		(property "Value" "10uF 16V X7R"
+		(property "Value" "GRM21BZ71E106KE15K"
 			(at 0 1.68 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -2716,7 +3034,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10uF 16V X7R"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -2734,18 +3052,6 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "515a140f-1a12-4a1a-aaa2-7255c6b21372")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "symbol_path" "/Users/nasheed-x/Library/Caches/pcb/gitlab/kicad/libraries/kicad-symbols/9.0.0/Device.kicad_sym"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "ee62f105-3421-4a40-ad68-4e5984560bf3")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2782,18 +3088,6 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "b82ebd5b-5040-4e8a-ad49-4e53ba2fe78d")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "__symbol_value" "(symbol\n  \"C\"\n  (pin_numbers\n    (hide yes)\n  )\n  (pin_names\n    (offset 0.254)\n  )\n  (exclude_from_sim no)\n  (in_bom yes)\n  (on_board yes)\n  (property\n    \"Reference\"\n    \"C\"\n    (at 0.635 2.54 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left)\n    )\n  )\n  (property\n    \"Value\"\n    \"C\"\n    (at 0.635 -2.54 0)\n    (effects\n      (font (size 1.27 1.27))\n      (justify left)\n    )\n  )\n  (property\n    \"Footprint\"\n    \"\"\n    (at 0.9652 -3.81 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Datasheet\"\n    \"~\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"Description\"\n    \"Unpolarized capacitor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_keywords\"\n    \"cap capacitor\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (property\n    \"ki_fp_filters\"\n    \"C_*\"\n    (at 0 0 0)\n    (effects\n      (font (size 1.27 1.27))\n      (hide yes)\n    )\n  )\n  (symbol\n    \"C_0_1\"\n    (polyline\n      (pts\n        (xy -2.032 0.762)\n        (xy 2.032 0.762)\n      )\n      (stroke\n        (width 0.508)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n    (polyline\n      (pts\n        (xy -2.032 -0.762)\n        (xy 2.032 -0.762)\n      )\n      (stroke\n        (width 0.508)\n        (type default)\n      )\n      (fill\n        (type none)\n      )\n    )\n  )\n  (symbol\n    \"C_1_1\"\n    (pin\n      passive\n      line\n      (at 0 3.81 270)\n      (length 2.794)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"1\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n    (pin\n      passive\n      line\n      (at 0 -3.81 90)\n      (length 2.794)\n      (name\n        \"~\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n      (number\n        \"2\"\n        (effects\n          (font (size 1.27 1.27))\n        )\n      )\n    )\n  )\n  (embedded_fonts no)\n)"
-			(at 0 0 0)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "2239e4e6-13f0-4bdb-89c8-90a557629ae1")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2842,6 +3136,66 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "e777f110-9f9b-4f69-a496-575c3a16ceb7")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Alternatives" "{\"mpn\": \"GRM21BZ71E106KE15L\", \"manufacturer\": \"Murata Electronics\"}"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "413e3e85-4357-4162-aac9-61869fe56875")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "bfd1d5e2-e29e-4d5b-8aa3-38c877db4769")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Matcher" "assign_house_capacitor"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "56351100-8a41-4982-9a41-3eaf2e9f96f5")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Mpn" "GRM21BZ71E106KE15K"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d65468e8-758c-4cc9-999b-c3bdf0aa5671")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Prefix" "C"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "235fec76-e0e9-41de-98b0-39f4e2bd299b")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2967,7 +3321,7 @@
 			(size 1 1.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 7 "vin")
+			(net 7 "VIN")
 			(uuid "68a72aee-9e12-4e96-ba59-b022c8d2b1a1")
 		)
 		(pad "2" smd roundrect
@@ -2975,7 +3329,7 @@
 			(size 1 1.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 3 "gnd")
+			(net 3 "GND")
 			(uuid "a18a7b83-ad47-4213-9416-959baaecedf9")
 		)
 		(embedded_fonts no)
