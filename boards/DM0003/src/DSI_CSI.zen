@@ -25,8 +25,8 @@ DSI_CSI_Connector = Module("github.com/dioderobot/demo/components/Hirose/FH12M22
 # io interfaces
 # ----------------------------------------------------------------------------
 
-io_3v3pi = io("io_3v3pi", Power)
-io_gnd = io("io_gnd", Ground)
+io_3v3pi = io("3v3pi", Power)
+io_gnd = io("gnd", Ground)
 
 DPHY0_C = io("DPHY0_C", Mipi)
 i2c = io("i2c", I2c)
@@ -66,5 +66,5 @@ DSI_CSI_Connector(
 )
 
 # pcb:sch DSI_CSI_Connector.FH12M22SM0_5SH x=202.2000 y=-1.0000 rot=0
-# pcb:sch io_3v3pi.1 x=626.3800 y=-13.7000 rot=0
-# pcb:sch io_gnd.1 x=329.2000 y=634.0000 rot=0
+# pcb:sch 3v3pi.1 x=626.3800 y=-13.7000 rot=0
+# pcb:sch gnd.1 x=329.2000 y=634.0000 rot=0

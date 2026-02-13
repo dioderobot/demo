@@ -28,8 +28,8 @@ VoltageClamp = Module("github.com/dioderobot/demo/components/Semtech_Corporation
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-io_5v = io("io_5v", Power)
-io_gnd = io("io_gnd", Ground)
+io_5v = io("5v", Power)
+io_gnd = io("gnd", Ground)
 usb2c = io("USB_PI", Usb2)
 
 io_CC1 = io("CC1", Net)
@@ -111,5 +111,5 @@ Capacitor(
 # pcb:sch R_VBUS.R x=1106.4400 y=202.2000 rot=0
 # pcb:sch USB_Connector x=583.2000 y=37.1000 rot=0
 # pcb:sch Voltage_Clamp.RCLAMP0502BATCT x=913.4000 y=354.6000 rot=270
-# pcb:sch io_5v.1 x=956.5800 y=-51.8000 rot=0
-# pcb:sch io_gnd.1 x=951.5000 y=507.0000 rot=0
+# pcb:sch 5v.1 x=956.5800 y=-51.8000 rot=0
+# pcb:sch gnd.1 x=951.5000 y=507.0000 rot=0

@@ -24,8 +24,8 @@ Current_Limit_Switch = Module("github.com/dioderobot/demo/reference/STMPS2151STR
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-io_5v = io("io_5v", Power)
-io_gnd = io("io_gnd", Ground)
+io_5v = io("5v", Power)
+io_gnd = io("gnd", Ground)
 hdmi_c = io("HDMI_C", Hdmi)
 
 # ----------------------------------------------------------------------------
@@ -107,6 +107,6 @@ Layout("layout", "layout_HDMI/")
 # pcb:sch ESD_Protection_2.PUSB3F96X x=3885.2000 y=-26.4000 rot=0
 # pcb:sch ESD_Protection_3.PUSB3F96X x=3885.2000 y=164.1000 rot=0
 # pcb:sch HDMI_Connector.HDMI-101S x=4507.5000 y=-204.2000 rot=0
-# pcb:sch io_5v.1 x=3598.1800 y=100.6000 rot=0
-# pcb:sch io_gnd.1 x=4024.9000 y=380.0000 rot=0
-# pcb:sch io_gnd.2 x=4609.1000 y=405.4000 rot=0
+# pcb:sch 5v.1 x=3598.1800 y=100.6000 rot=0
+# pcb:sch gnd.1 x=4024.9000 y=380.0000 rot=0
+# pcb:sch gnd.2 x=4609.1000 y=405.4000 rot=0

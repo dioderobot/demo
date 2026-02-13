@@ -54,10 +54,10 @@ Diode_Logo = Module("src/graphics/Diode_Logo.zen")
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-io_5v = Power("io_5v", voltage=VoltageRange("5V"))
-io_3v3pi = Power("io_3v3pi", voltage=VoltageRange("3.3V"))
-io_1v8 = Power("io_1v8", voltage=VoltageRange("1.8V"))
-io_gnd = Ground("io_gnd")
+io_5v = Power("5v", voltage=VoltageRange("5V"))
+io_3v3pi = Power("3v3pi", voltage=VoltageRange("3.3V"))
+io_1v8 = Power("1v8", voltage=VoltageRange("1.8V"))
+io_gnd = Ground("gnd")
 io_gpio_vref = Net("gpio_vref")
 
 DPHY0_P = io("DPHY0_P", Mipi)
@@ -148,35 +148,32 @@ CM5(
 Ethernet(
     name="Ethernet",
     ETH_C=ETH_C,
-    io_3v3pi=io_3v3pi,
-    io_gnd=io_gnd,
     nLed_G=ETH_nLED_ACTIVITY,
     nLed_Y=nLED_SPEED_100_1000,
     properties={
         "collapse": "true",
     },
+    **{"3v3pi": io_3v3pi, "gnd": io_gnd},
 )
 
 HDMI(
     name="HDMI",
-    io_5v=io_5v,
-    io_gnd=io_gnd,
     HDMI_C=HDMI_PI,
     properties={
         "collapse": "true",
     },
+    **{"5v": io_5v, "gnd": io_gnd},
 )
 
 USBPI(
     name="USB_PI",
-    io_5v=io_5v,
-    io_gnd=io_gnd,
     USB_PI=USB_PI,
     CC1=CC1,
     CC2=CC2,
     properties={
         "collapse": "true",
     },
+    **{"5v": io_5v, "gnd": io_gnd},
 )
 
 USB3PI(
@@ -193,33 +190,28 @@ USB3PI(
 
 PCIe_M2(
     name="PCIE_M2",
-    io_5v=io_5v,
-    io_gnd=io_gnd,
     PCIE_C=PCIE_PI,
     PCIE_PWR_EN=PCIE_PI_PWR_EN,
     properties={
         "collapse": "true",
     },
+    **{"5v": io_5v, "gnd": io_gnd},
 )
 
 DSI_CSI(
     name="DSI_CSI",
-    io_3v3pi=io_3v3pi,
     DPHY0_C=DPHY0_P,
     cam_gpio0=CAM_GPIO0,
     cam_gpio1=CAM_GPIO1,
     i2c=I2C0,
-    io_gnd=io_gnd,
     properties={
         "collapse": "true",
     },
+    **{"3v3pi": io_3v3pi, "gnd": io_gnd},
 )
 
 IO(
     name="IO",
-    io_5v=io_5v,
-    io_3v3pi=io_3v3pi,
-    io_gnd=io_gnd,
     spi=SPI_C,
     i2c=I2C1,
     bl=BL_GPIO24,
@@ -234,6 +226,7 @@ IO(
     properties={
         "collapse": "true",
     },
+    **{"5v": io_5v, "3v3pi": io_3v3pi, "gnd": io_gnd},
 )
 
 Resistor(
@@ -307,19 +300,19 @@ Board(name="DM0003", layout_path="layout/DM0003", layers=6)
 # pcb:sch USB_3PI x=-1536.7000 y=558.8000 rot=0
 # pcb:sch USB_PI x=-1498.6000 y=381.0000 rot=0
 # pcb:sch Version.Version x=735.6000 y=862.6000 rot=0
-# pcb:sch io_1v8.1 x=-288.0200 y=87.9000 rot=0
-# pcb:sch io_3v3pi.1 x=-211.8200 y=62.5000 rot=0
-# pcb:sch io_3v3pi.2 x=550.1800 y=316.5000 rot=0
-# pcb:sch io_3v3pi.3 x=-1100.8200 y=862.6000 rot=0
-# pcb:sch io_3v3pi.4 x=-1634.2200 y=507.0000 rot=0
-# pcb:sch io_5v.1 x=-122.9200 y=37.1000 rot=0
-# pcb:sch io_5v.2 x=-1062.7200 y=291.1000 rot=0
-# pcb:sch io_5v.3 x=524.7800 y=278.4000 rot=0
-# pcb:sch io_5v.4 x=-1659.6200 y=341.9000 rot=0
-# pcb:sch io_gnd.1 x=-305.8000 y=405.4000 rot=0
-# pcb:sch io_gnd.2 x=570.5000 y=684.8000 rot=0
-# pcb:sch io_gnd.3 x=-1105.9000 y=989.6000 rot=0
-# pcb:sch io_gnd.4 x=-1042.4000 y=786.4000 rot=0
-# pcb:sch io_gnd.5 x=-1715.5000 y=684.8000 rot=0
-# pcb:sch io_gnd.6 x=507.0000 y=1180.1000 rot=0
-# pcb:sch io_gnd.7 x=-1410.7000 y=938.8000 rot=0
+# pcb:sch 1v8.1 x=-288.0200 y=87.9000 rot=0
+# pcb:sch 3v3pi.1 x=-211.8200 y=62.5000 rot=0
+# pcb:sch 3v3pi.2 x=550.1800 y=316.5000 rot=0
+# pcb:sch 3v3pi.3 x=-1100.8200 y=862.6000 rot=0
+# pcb:sch 3v3pi.4 x=-1634.2200 y=507.0000 rot=0
+# pcb:sch 5v.1 x=-122.9200 y=37.1000 rot=0
+# pcb:sch 5v.2 x=-1062.7200 y=291.1000 rot=0
+# pcb:sch 5v.3 x=524.7800 y=278.4000 rot=0
+# pcb:sch 5v.4 x=-1659.6200 y=341.9000 rot=0
+# pcb:sch gnd.1 x=-305.8000 y=405.4000 rot=0
+# pcb:sch gnd.2 x=570.5000 y=684.8000 rot=0
+# pcb:sch gnd.3 x=-1105.9000 y=989.6000 rot=0
+# pcb:sch gnd.4 x=-1042.4000 y=786.4000 rot=0
+# pcb:sch gnd.5 x=-1715.5000 y=684.8000 rot=0
+# pcb:sch gnd.6 x=507.0000 y=1180.1000 rot=0
+# pcb:sch gnd.7 x=-1410.7000 y=938.8000 rot=0

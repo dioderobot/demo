@@ -43,9 +43,9 @@ Power_Button = Module("github.com/dioderobot/demo/components/OMRON_Electronics/B
 # ----------------------------------------------------------------------------
 # io_interfaces
 # ----------------------------------------------------------------------------
-io_5v = io("io_5v", Power, default=Power("io_5v", voltage=VoltageRange("5V")))
-io_3v3pi = io("io_3v3pi", Power, default=Power("io_3v3pi", voltage=VoltageRange("3.3V")))
-io_gnd = io("io_gnd", Ground)
+io_5v = io("5v", Power, default=Power("5v", voltage=VoltageRange("5V")))
+io_3v3pi = io("3v3pi", Power, default=Power("3v3pi", voltage=VoltageRange("3.3V")))
+io_gnd = io("gnd", Ground)
 
 SPI = io("spi", Spi)
 I2C = io("i2c", I2c)
@@ -240,18 +240,18 @@ Power_Button(
 # pcb:sch Reset_Button.B3U-1000P x=1307.1000 y=-128.0000 rot=0
 # pcb:sch SN74LVC1G14DRLRG4.SN74LVC1G14DRLRG4 x=849.9000 y=-128.0000 rot=0
 # pcb:sch SPI_Connector.BM10B-SURS-TF(LF)(SN) x=202.2000 y=-1.0000 rot=0
-# pcb:sch io_3v3pi.1 x=67.5800 y=214.9000 rot=0
-# pcb:sch io_3v3pi.2 x=-161.0200 y=189.5000 rot=0
-# pcb:sch io_3v3pi.3 x=1185.1800 y=100.6000 rot=0
-# pcb:sch io_3v3pi.4 x=1274.0800 y=-267.7000 rot=0
-# pcb:sch io_5v.1 x=435.8800 y=189.5000 rot=0
-# pcb:sch io_5v.2 x=486.6800 y=-13.7000 rot=0
-# pcb:sch io_5v.3 x=1185.1800 y=-432.8000 rot=0
-# pcb:sch io_gnd.1 x=341.9000 y=367.3000 rot=0
-# pcb:sch io_gnd.2 x=722.9000 y=329.2000 rot=0
-# pcb:sch io_gnd.3 x=-166.1000 y=341.9000 rot=0
-# pcb:sch io_gnd.4 x=824.5000 y=456.2000 rot=0
-# pcb:sch io_gnd.5 x=799.1000 y=11.7000 rot=0
-# pcb:sch io_gnd.6 x=1269.0000 y=-51.8000 rot=0
-# pcb:sch io_gnd.7 x=1180.1000 y=456.2000 rot=0
-# pcb:sch io_gnd.8 x=1294.4000 y=456.2000 rot=0
+# pcb:sch 3v3pi.1 x=67.5800 y=214.9000 rot=0
+# pcb:sch 3v3pi.2 x=-161.0200 y=189.5000 rot=0
+# pcb:sch 3v3pi.3 x=1185.1800 y=100.6000 rot=0
+# pcb:sch 3v3pi.4 x=1274.0800 y=-267.7000 rot=0
+# pcb:sch 5v.1 x=435.8800 y=189.5000 rot=0
+# pcb:sch 5v.2 x=486.6800 y=-13.7000 rot=0
+# pcb:sch 5v.3 x=1185.1800 y=-432.8000 rot=0
+# pcb:sch gnd.1 x=341.9000 y=367.3000 rot=0
+# pcb:sch gnd.2 x=722.9000 y=329.2000 rot=0
+# pcb:sch gnd.3 x=-166.1000 y=341.9000 rot=0
+# pcb:sch gnd.4 x=824.5000 y=456.2000 rot=0
+# pcb:sch gnd.5 x=799.1000 y=11.7000 rot=0
+# pcb:sch gnd.6 x=1269.0000 y=-51.8000 rot=0
+# pcb:sch gnd.7 x=1180.1000 y=456.2000 rot=0
+# pcb:sch gnd.8 x=1294.4000 y=456.2000 rot=0

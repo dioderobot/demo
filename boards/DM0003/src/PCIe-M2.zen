@@ -32,8 +32,8 @@ Led = Module("@stdlib/generics/Led.zen")
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-io_5v = io("io_5v", Power, default=Power(voltage=VoltageRange("5V")))
-io_gnd = io("io_gnd", Ground)
+io_5v = io("5v", Power, default=Power(voltage=VoltageRange("5V")))
+io_gnd = io("gnd", Ground)
 pcie_c = io("PCIE_C", PcieGen3x1Lane)
 pcie_pwr_en = io("PCIE_PWR_EN", Net)
 
@@ -208,7 +208,7 @@ Capacitor(
 # pcb:sch PCIe_Connector.1-2199119-3 x=62.5000 y=49.8000 rot=0
 # pcb:sch R_Activity.R x=649.2400 y=405.4000 rot=180
 # pcb:sch R_EN.R x=-887.4600 y=608.6000 rot=0
-# pcb:sch io_5v.1 x=-1075.4200 y=481.6000 rot=0
+# pcb:sch 5v.1 x=-1075.4200 y=481.6000 rot=0
 # pcb:sch gnd.1 x=303.8000 y=1040.4000 rot=0
 # pcb:sch gnd.2 x=608.6000 y=862.6000 rot=0
 # pcb:sch gnd.3 x=-763.0000 y=722.9000 rot=0
