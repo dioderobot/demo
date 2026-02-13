@@ -6,8 +6,6 @@ USB 2.0 only connector with 16-pin top mount horizontal design
 load("@stdlib/interfaces.zen", "Ground", "Power", "Usb2")
 load("@stdlib/units.zen", "Voltage")
 
-add_property("layout_path", "build/USB4105")
-
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 Tvs = Module("@stdlib/generics/Tvs.zen")

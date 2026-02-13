@@ -82,8 +82,6 @@ Resistor(name="R_FB_TOP", value=fb_resistor_top, package="0402", P1=VOUT_LDO, P2
 Resistor(name="R_FB_BOTTOM", value=fb_resistor_bottom, package="0402", P1=ADJ_NC, P2=GND)
 
 
-add_property("datasheet", "github.com/dioderobot/demo/components/STMicroelectronics/LDFPVR/LDFPVR.pdf")
-
 # ----------------------------------------------------------------------------
 # PCB Schematic
 # ----------------------------------------------------------------------------

@@ -12,8 +12,6 @@ W25Q16JVUXIQ = Module("W25Q16JVUXIQ.zen")
 Button = Module("Button.zen")
 Oscillator = Module("Oscillator.zen")
 
-add_property("layout_path", "build/RP2040")
-
 # Public interfaces
 vdd_3v3 = io("vdd_3v3", Power)
 gnd = io("gnd", Ground)

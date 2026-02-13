@@ -154,7 +154,6 @@ if config_interface == InterfaceMode("I2C") and config_add_i2c_pullups:
 # Datasheet
 # ----------------------------------------------------------------------------
 
-add_property("datasheet", "github.com/dioderobot/demo/components/STMicroelectronics/LIS3DH/LIS3DH.pdf")
 
 # pcb:sch vddio.1 x=1604.2800 y=-242.3000 rot=0
 # pcb:sch C_VDD_BULK.C x=1883.6800 y=-64.5000 rot=0
