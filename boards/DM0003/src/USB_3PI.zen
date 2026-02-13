@@ -8,7 +8,6 @@ Author: Nasheed Ur Rehman
 # ----------------------------------------------------------------------------
 
 load("@stdlib/interfaces.zen", "Ground", "Power", "Usb2", "Usb3", "UsbTypeC")
-load("@stdlib/config.zen", "config_properties")
 load("@stdlib/properties.zen", "Layout")
 load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "Resistance", "Voltage")
 

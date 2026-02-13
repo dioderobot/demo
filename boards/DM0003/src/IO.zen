@@ -7,7 +7,6 @@ Author: Nasheed Ur Rehman
 # Libraries & Dependencies
 # ----------------------------------------------------------------------------
 
-load("@stdlib/config.zen", "config_properties")
 load("@stdlib/interfaces.zen", "I2c", "Power", "Spi", "Power", "Ground", "NotConnected")
 load("@stdlib/units.zen", "Capacitance", "Current", "Resistance", "Voltage", "VoltageRange")
 load("@stdlib/utils.zen", "e96")
