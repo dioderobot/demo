@@ -10,9 +10,9 @@ Capacitor = Module("@stdlib/generics/Capacitor.zen")
 add_pullups = config("add_pullups", bool, default=True)
 
 # External interfaces
-vcc = io("vcc", Power)
-gnd = io("gnd", Ground)
-qspi = io("qspi", Qspi)
+VCC = io("VCC", Power)
+GND = io("GND", Ground)
+QSPI = io("QSPI", Qspi)
 
 Component(
     name="W25Q16JVUXIQ",
@@ -25,21 +25,21 @@ Component(
         "package": "8-USON (2x3)",
     },
     pins={
-        "~{CS}": qspi.CS,
-        "CLK": qspi.CLK,
-        "DI/IO_{0}": qspi.IO0,
-        "DO/IO_{1}": qspi.IO1,
-        "~{WP}/IO_{2}": qspi.IO2,
-        "~{HOLD}/~{RESET}/IO_{3}": qspi.IO3,
-        "VCC": vcc,
-        "GND": gnd,
+        "~{CS}": QSPI.CS,
+        "CLK": QSPI.CLK,
+        "DI/IO_{0}": QSPI.IO0,
+        "DO/IO_{1}": QSPI.IO1,
+        "~{WP}/IO_{2}": QSPI.IO2,
+        "~{HOLD}/~{RESET}/IO_{3}": QSPI.IO3,
+        "VCC": VCC,
+        "GND": GND,
     },
 )
 
-Capacitor(name="C_FLASH_DEC", package="0402", value="100nF", P1=vcc, P2=gnd)
-Resistor(name="R_FLASH_CS", package="0402", value="10kohm", P1=qspi.CS, P2=vcc)
+Capacitor(name="C_FLASH_DEC", package="0402", value="100nF", P1=VCC, P2=GND)
+Resistor(name="R_FLASH_CS", package="0402", value="10kohm", P1=QSPI.CS, P2=VCC)
 
 # Optional pull-ups on IO2/IO3 for reliable boot (IO2=~WP, IO3=~HOLD)
 if add_pullups:
-    Resistor(name="R_FLASH_IO2", package="0402", value="10kohm", P1=vcc, P2=qspi.IO2)
-    Resistor(name="R_FLASH_IO3", package="0402", value="10kohm", P1=vcc, P2=qspi.IO3)
+    Resistor(name="R_FLASH_IO2", package="0402", value="10kohm", P1=VCC, P2=QSPI.IO2)
+    Resistor(name="R_FLASH_IO3", package="0402", value="10kohm", P1=VCC, P2=QSPI.IO3)

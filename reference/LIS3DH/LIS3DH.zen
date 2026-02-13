@@ -47,53 +47,53 @@ Resistor = Module("@stdlib/generics/Resistor.zen")
 # ----------------------------------------------------------------------------
 
 # Power IOs (always exposed)
-io_vdd = io("vdd", Power)
+VDD = io("VDD", Power)
 
 # Optional separate VDDIO
 if config_seperate_vddio:
-    io_vddio = io("vddio", Power)
+    VDD_IO = io("VDDIO", Power)
 else:
-    io_vddio = io_vdd
+    VDD_IO = VDD
 
-io_gnd = io("gnd", Ground)
+GND = io("GND", Ground)
 
 # I2C mode: SDA, SCL
 # Per datasheet: CS must be tied high for I2C mode
 if config_interface == InterfaceMode("I2C"):
-    io_sda = io("sda", Net)
-    io_scl = io("scl", Net)
+    SDA = io("SDA", Net)
+    SCL = io("SCL", Net)
 
-    _cs = io_vddio
-    _sclk = io_scl
-    _sda_sdi_sdo = io_sda
-    _sdo_sa0 = io_gnd if config_i2c_address == I2C_Address("0x18") else io_vddio
+    _cs = VDD_IO
+    _sclk = SCL
+    _sda_sdi_sdo = SDA
+    _sdo_sa0 = GND if config_i2c_address == I2C_Address("0x18") else VDD_IO
 
     # 3-wire SPI: CS, SCLK, SDIO (bidirectional data)
 elif config_interface == InterfaceMode("SPI3W"):
-    io_cs = io("cs", Net)
-    io_sclk = io("sclk", Net)
-    io_sdio = io("sdio", Net)
+    CS = io("CS", Net)
+    SCLK = io("SCLK", Net)
+    SDIO = io("SDIO", Net)
 
-    _cs = io_cs
-    _sclk = io_sclk
-    _sda_sdi_sdo = io_sdio
-    _sdo_sa0 = io_sdio
+    _cs = CS
+    _sclk = SCLK
+    _sda_sdi_sdo = SDIO
+    _sdo_sa0 = SDIO
 
     # 4-wire SPI: CS, SCLK, MOSI, MISO
 elif config_interface == InterfaceMode("SPI4W"):
-    io_cs = io("cs", Net)
-    io_sclk = io("sclk", Net)
-    io_mosi = io("mosi", Net)
-    io_miso = io("miso", Net)
+    CS = io("CS", Net)
+    SCLK = io("SCLK", Net)
+    MOSI = io("MOSI", Net)
+    MISO = io("MISO", Net)
 
-    _cs = io_cs
-    _sclk = io_sclk
-    _sda_sdi_sdo = io_mosi
-    _sdo_sa0 = io_miso
+    _cs = CS
+    _sclk = SCLK
+    _sda_sdi_sdo = MOSI
+    _sdo_sa0 = MISO
 
 # Interrupt pins (optional)
-io_int1 = io("int1", Net, optional=True, default=Net("INT1"))
-io_int2 = io("int2", Net, optional=True, default=Net("INT2"))
+INT1 = io("INT1", Net, optional=True, default=Net("INT1"))
+INT2 = io("INT2", Net, optional=True, default=Net("INT2"))
 
 # ----------------------------------------------------------------------------
 # Components
@@ -101,15 +101,15 @@ io_int2 = io("int2", Net, optional=True, default=Net("INT2"))
 
 LIS3DH(
     name="LIS3DH",
-    VDD=io_vdd,
-    VDD_IO=io_vddio,
-    GND=io_gnd,
+    VDD=VDD,
+    VDD_IO=VDD_IO,
+    GND=GND,
     CS=_cs,
     SPC=_sclk,  # SPI clock pin
     SDI=_sda_sdi_sdo,  # SPI/I2C data input
     SDO=_sdo_sa0,  # SPI data output / I2C address select
-    INT1=io_int1,
-    INT2=io_int2,
+    INT1=INT1,
+    INT2=INT2,
     ADC1=Net("ADC1"),
     ADC2=Net("ADC2"),
     ADC3=Net("ADC3"),
@@ -121,16 +121,16 @@ Capacitor(
     name="C_VDD",
     value="100nF",
     package="0402",
-    P1=io_vdd,
-    P2=io_gnd,
+    P1=VDD,
+    P2=GND,
 )
 
 Capacitor(
     name="C_VDDIO",
     value="100nF",
     package="0402",
-    P1=io_vddio,
-    P2=io_gnd,
+    P1=VDD_IO,
+    P2=GND,
 )
 
 if config_interface == InterfaceMode("I2C") and config_add_i2c_pullups:
@@ -138,16 +138,16 @@ if config_interface == InterfaceMode("I2C") and config_add_i2c_pullups:
         name="R_SDA",
         value="4.7kohms",
         package="0402",
-        P1=io_sda,
-        P2=io_vddio,
+        P1=SDA,
+        P2=VDD_IO,
     )
 
     Resistor(
         name="R_SCL",
         value="4.7kohms",
         package="0402",
-        P1=io_scl,
-        P2=io_vddio,
+        P1=SCL,
+        P2=VDD_IO,
     )
 
 # ----------------------------------------------------------------------------
@@ -155,12 +155,12 @@ if config_interface == InterfaceMode("I2C") and config_add_i2c_pullups:
 # ----------------------------------------------------------------------------
 
 
-# pcb:sch vddio.1 x=1604.2800 y=-242.3000 rot=0
+# pcb:sch VDDIO.1 x=1604.2800 y=-242.3000 rot=0
 # pcb:sch C_VDD_BULK.C x=1883.6800 y=-64.5000 rot=0
 # pcb:sch R_SCL.R x=1436.6400 y=-115.3000 rot=180
 # pcb:sch R_SDA.R x=1373.1400 y=-115.3000 rot=180
 # pcb:sch C_VDD.C x=1896.3800 y=-64.5000 rot=0
 # pcb:sch C_VDDIO.C x=1997.9800 y=-64.5000 rot=0
 # pcb:sch LIS3DH.LIS3DH x=1561.1000 y=-153.4000 rot=0
-# pcb:sch gnd.1 x=1675.4000 y=176.8000 rot=0
-# pcb:sch vdd.1 x=1705.8800 y=-229.6000 rot=0
+# pcb:sch GND.1 x=1675.4000 y=176.8000 rot=0
+# pcb:sch VDD.1 x=1705.8800 y=-229.6000 rot=0

@@ -28,18 +28,18 @@ terminate = config("terminate", bool, default=False, optional=True)
 # -----------------------------------------------------------------------------
 
 # CAN TTL interface (microcontroller side)
-can_ttl = io("can_ttl", CanTtl)
+CAN_TTL = io("CAN_TTL", CanTtl)
 
 # CAN bus interface (physical bus side)
-can_bus = io("can_bus", Can)
+CAN_BUS = io("CAN_BUS", Can)
 
 # Power interfaces
-vcc = io("vcc", Power)  # Main supply (3.3V or 5V)
-vio = io("vio", Power)  # I/O supply for level translation
-gnd = io("gnd", Ground)  # Ground
+VCC = io("VCC", Power)  # Main supply (3.3V or 5V)
+VIO = io("VIO", Power)  # I/O supply for level translation
+GND = io("GND", Ground)  # Ground
 
 # Control interface
-silent = io("silent", Gpio, default=Gpio("silent"), optional=True)  # Silent mode control (active high)
+SILENT = io("SILENT", Gpio, default=Gpio("SILENT"), optional=True)  # Silent mode control (active high)
 
 
 # -----------------------------------------------------------------------------
@@ -47,14 +47,14 @@ silent = io("silent", Gpio, default=Gpio("silent"), optional=True)  # Silent mod
 # -----------------------------------------------------------------------------
 
 # Decoupling capacitors
-Capacitor(name="C1", value="100nF", package="0402", voltage="16V", P1=vcc, P2=gnd)
-Capacitor(name="C2", value="100nF", package="0402", voltage="16V", P1=vio, P2=gnd)
+Capacitor(name="C1", value="100nF", package="0402", voltage="16V", P1=VCC, P2=GND)
+Capacitor(name="C2", value="100nF", package="0402", voltage="16V", P1=VIO, P2=GND)
 
 # CAN bus termination (120 ohm split termination with capacitor for better EMC)
 if terminate:
-    Resistor(name="R_TERM1", value="60Ohm", package="0402", P1=can_bus.CAN_H, P2=Net("CAN_TERM_MID"))
-    Resistor(name="R_TERM2", value="60Ohm", package="0402", P1=Net("CAN_TERM_MID"), P2=can_bus.CAN_L)
-    Capacitor(name="C_TERM", value="4.7nF", package="0402", voltage="16V", P1=Net("CAN_TERM_MID"), P2=gnd)
+    Resistor(name="R_TERM1", value="60Ohm", package="0402", P1=CAN_BUS.CAN_H, P2=Net("CAN_TERM_MID"))
+    Resistor(name="R_TERM2", value="60Ohm", package="0402", P1=Net("CAN_TERM_MID"), P2=CAN_BUS.CAN_L)
+    Capacitor(name="C_TERM", value="4.7nF", package="0402", voltage="16V", P1=Net("CAN_TERM_MID"), P2=GND)
 
 # Note: Silent pin (S) has internal pull-down per datasheet section 7.2.2
 # External pull-down not required but can be added for extra assurance
@@ -83,15 +83,15 @@ Component(
         "EP": "9",  # Exposed pad (ground)
     },
     pins={
-        "TXD": can_ttl.TX,
-        "GND": gnd,
-        "VCC": vcc,
-        "RXD": can_ttl.RX,
-        "VIO": vio,
-        "CANL": can_bus.CAN_L,
-        "CANH": can_bus.CAN_H,
-        "S": silent,
-        "EP": gnd,
+        "TXD": CAN_TTL.TX,
+        "GND": GND,
+        "VCC": VCC,
+        "RXD": CAN_TTL.RX,
+        "VIO": VIO,
+        "CANL": CAN_BUS.CAN_L,
+        "CANH": CAN_BUS.CAN_H,
+        "S": SILENT,
+        "EP": GND,
     },
     properties={
         "package": "HVSON-8",

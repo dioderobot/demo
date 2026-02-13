@@ -34,9 +34,9 @@ SSMUX = Module("github.com/dioderobot/demo/components/Texas_Instruments/HD3SS321
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-io_5v = io("V5V", Power)
-io_3v3 = io("V3V3", Power)
-io_gnd = io("GND", Ground)
+V5 = io("V5V", Power)
+V3V3 = io("V3V3", Power)
+GND = io("GND", Ground)
 
 USB3P = io("USB_3PI", Usb3)
 VBUS_EN = io("VBUS_EN", Net)
@@ -54,8 +54,8 @@ USB_TypeC_Connector(
     CC2=USB_Connector.CC2,
     DM=USB3P.D.N,
     DP=USB3P.D.P,
-    GND=io_gnd,
-    EP=io_gnd,
+    GND=GND,
+    EP=GND,
     SUB1=Net("NC"),
     SUB2=Net("NC"),
     RX1M=USB_Connector.SSRX0.N,
@@ -73,7 +73,7 @@ ESD(
     D1P=USB_Connector.CC1,
     D2P=USB3P.D.N,
     D2M=USB3P.D.P,
-    GND=io_gnd,
+    GND=GND,
 )
 
 ESD(
@@ -82,7 +82,7 @@ ESD(
     D1P=USB_Connector.SSRX0.N,
     D2M=USB_Connector.SSTX0.P,
     D2P=USB_Connector.SSTX0.N,
-    GND=io_gnd,
+    GND=GND,
 )
 
 ESD(
@@ -91,13 +91,13 @@ ESD(
     D1P=USB_Connector.SSRX1.P,
     D2M=USB_Connector.SSTX1.N,
     D2P=USB_Connector.SSTX1.P,
-    GND=io_gnd,
+    GND=GND,
 )
 
 TUSB321RWBR(
     name="TUSB321RWBR",
     VDD=VBUS,
-    GND=io_gnd,
+    GND=GND,
     CC1=USB_Connector.CC1,
     CC2=USB_Connector.CC2,
     OUT1=Net("NC"),
@@ -105,7 +105,7 @@ TUSB321RWBR(
     PORT=PORT,
     ID=Net("NC"),
     DIR=DIR,
-    CURRENT_MODE=io_gnd,
+    CURRENT_MODE=GND,
     VBUS_DET=VBUS_DET,
     n_VCONN_FAULT=Net("NC"),
 )
@@ -117,7 +117,7 @@ Capacitor(
     voltage="16V",
     dielectric="X7R",
     P1=VBUS,
-    P2=io_gnd,
+    P2=GND,
 )
 
 Resistor(
@@ -142,16 +142,16 @@ Capacitor(
     package="0402",
     voltage="16V",
     dielectric="X7R",
-    P1=io_3v3,
-    P2=io_gnd,
+    P1=V3V3,
+    P2=GND,
 )
 
 SSMUX(
     name="SSMUX",
-    VCC=io_3v3,
-    GND_1=io_gnd,
-    GND_2=io_gnd,
-    GND_3=io_gnd,
+    VCC=V3V3,
+    GND_1=GND,
+    GND_2=GND,
+    GND_3=GND,
     A0N=USB3P.SSRX.N,
     A0P=USB3P.SSRX.P,
     A1N=USB3P.SSTX.N,
@@ -164,8 +164,8 @@ SSMUX(
     C1P=USB_Connector.SSTX0.N,
     C0N=USB_Connector.SSRX0.P,
     C0P=USB_Connector.SSRX0.N,
-    EPAD=io_gnd,
-    OEN=io_gnd,
+    EPAD=GND,
+    OEN=GND,
     RSVD1=Net("NC"),
     RSVD2=Net("NC"),
     SEL=DIR,
@@ -173,11 +173,11 @@ SSMUX(
 
 Current_Limit_Switch(
     name="Current_Limit_Switch",
-    vin=io_5v,
-    vout=VBUS,
-    gnd=io_gnd,
-    enable=VBUS_EN,
-    nfault=Net("nfault"),
+    VIN=V5,
+    VOUT=VBUS,
+    GND=GND,
+    ENABLE=VBUS_EN,
+    NFAULT=Net("NFAULT"),
     current_limit="1750mA",
     schematic="collapse",
 )
@@ -188,7 +188,7 @@ Component(
     footprint=File("@kicad-footprints/Capacitor_Tantalum_SMD.pretty/CP_EIA-3528-21_Kemet-B.kicad_mod"),
     pins={
         "1": VBUS,
-        "2": io_gnd,
+        "2": GND,
     },
     mpn="TAJB107K006RNJ",
     properties={

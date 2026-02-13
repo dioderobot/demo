@@ -79,7 +79,7 @@ UART2_RX = Uart2.RX  # UART2 Receive (PB4)
 # Unassigned pins
 PB5 = io("PB5", Net)
 PB10 = io("PB10", Net)
-nRST = io("nRST", Net)
+NRST = io("NRST", Net)
 
 # ----------------------------------------------------------------------------
 # Local Nets
@@ -220,7 +220,7 @@ Mcu(
     PC13=TIM1_CH1N,  # Timer1 Channel 1N
     PC14_OSC32_IN=CAN_TERM,  # CAN Termination
     PC15_OSC32_OUT=STATUS,  # Status signal
-    nRST=nRST,
+    NRST=NRST,
     schematic="collapse",
 )
 
@@ -325,7 +325,7 @@ TagConnect(
     tag_type="TC2030-IDC-NL-2x03",  # 6-pin Tag-Connect for SWD
     P1=V3V3,  # VCC
     P2=SWDIO,  # SWDIO
-    P3=nRST,  # Reset
+    P3=NRST,  # Reset
     P4=SWCLK,  # SWCLK
     P5=GND,  # GND
     P6=GND,  # SWO (not used, tied to GND)

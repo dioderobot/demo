@@ -104,7 +104,7 @@ Resistor(name="R_USB_DM", package="0402", value="27ohm", P1=usb_internal.D.N, P2
 Button(name="SW_BOOTSEL", P1=qspi.CS, P2=gnd)
 
 # QSPI Flash Memory
-W25Q16JVUXIQ(name="FLASH", vcc=vdd_3v3, gnd=gnd, qspi=qspi)
+W25Q16JVUXIQ(name="FLASH", VCC=vdd_3v3, GND=gnd, QSPI=qspi)
 
 # Crystal Oscillator (12MHz)
 Oscillator(name="XO", frequency="12MHz", VCC=vdd_3v3, GND=gnd, OUT=osc.XIN)

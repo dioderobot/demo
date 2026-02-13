@@ -69,12 +69,12 @@ Capacitor = Module("@stdlib/generics/Capacitor.zen")
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-io_vin = io("vin", Power)
-io_enable = io("enable", Net)
-io_gnd = io("gnd", Ground)
-io_vout = io("vout", Power)
+VIN = io("VIN", Power)
+ENABLE = io("ENABLE", Net)
+GND = io("GND", Ground)
+VOUT = io("VOUT", Power)
 
-io_nfault = io("nfault", Net)
+NFAULT = io("NFAULT", Net)
 
 # ----------------------------------------------------------------------------
 # local nets
@@ -89,12 +89,12 @@ ilim = Net("ilim")
 
 AP22653W6M7(
     name="AP22653W6M7",
-    IN=io_vin,
-    OUT=io_vout,
-    EN=io_enable,
+    IN=VIN,
+    OUT=VOUT,
+    EN=ENABLE,
     ILIM=ilim,
-    n_FAULT=io_nfault,
-    GND=io_gnd,
+    n_FAULT=NFAULT,
+    GND=GND,
 )
 
 Resistor(
@@ -102,7 +102,7 @@ Resistor(
     value=config_ilim_resistance,
     package="0402",
     P1=ilim,
-    P2=io_gnd,
+    P2=GND,
 )
 
 Capacitor(
@@ -111,8 +111,8 @@ Capacitor(
     voltage="10V",
     dielectric="X7R",
     package="0805",
-    P1=io_vin,
-    P2=io_gnd,
+    P1=VIN,
+    P2=GND,
 )
 
 Capacitor(
@@ -121,8 +121,8 @@ Capacitor(
     voltage="10V",
     dielectric="X7R",
     package="0805",
-    P1=io_vout,
-    P2=io_gnd,
+    P1=VOUT,
+    P2=GND,
 )
 
 # ----------------------------------------------------------------------------
@@ -134,6 +134,6 @@ Capacitor(
 # pcb:sch AP22653W6M7.AP22653W6-7 x=570.5000 y=87.9000 rot=0
 # pcb:sch C_IN.C x=359.6800 y=138.7000 rot=0
 # pcb:sch C_OUT.C x=994.6800 y=138.7000 rot=0
-# pcb:sch gnd.1 x=697.5000 y=265.7000 rot=0
-# pcb:sch vin.1 x=372.3800 y=62.5000 rot=0
-# pcb:sch vout.1 x=1007.3800 y=62.5000 rot=0
+# pcb:sch GND.1 x=697.5000 y=265.7000 rot=0
+# pcb:sch VIN.1 x=372.3800 y=62.5000 rot=0
+# pcb:sch VOUT.1 x=1007.3800 y=62.5000 rot=0

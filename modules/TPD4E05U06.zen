@@ -5,11 +5,11 @@ Automotive-grade USB 2.0 ESD protection diode
 
 load("@stdlib/interfaces.zen", "Ground", "Power", "Usb2")
 
-gnd = io("GND", Ground)
-d1p = io("D1P", Net)
-d1m = io("D1M", Net)
-d2p = io("D2P", Net)
-d2m = io("D2M", Net)
+GND = io("GND", Ground)
+D1P = io("D1P", Net)
+D1M = io("D1M", Net)
+D2P = io("D2P", Net)
+D2M = io("D2M", Net)
 
 Component(
     name="TVS",
@@ -29,16 +29,16 @@ Component(
         "NC.4": "10",
     },
     pins={
-        "GND.1": gnd,
-        "GND.2": gnd,
-        "D1+": d1p,
-        "D1-": d1m,
-        "D2+": d2p,
-        "D2-": d2m,
-        "NC.4": d1p,
-        "NC.3": d1m,
-        "NC.2": d2p,
-        "NC.1": d2m,
+        "GND.1": GND,
+        "GND.2": GND,
+        "D1+": D1P,
+        "D1-": D1M,
+        "D2+": D2P,
+        "D2-": D2M,
+        "NC.4": D1P,
+        "NC.3": D1M,
+        "NC.2": D2P,
+        "NC.1": D2M,
     },
     mpn="TPD4E05U06QDQARQ1",
     manufacturer="Texas Instruments",

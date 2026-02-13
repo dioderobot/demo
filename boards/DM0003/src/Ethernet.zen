@@ -25,25 +25,25 @@ Led = Module("@stdlib/generics/Led.zen")
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-io_3v3pi = io("3v3pi", Power)
-io_gnd = io("gnd", Ground)
+V3V3PI = io("3V3PI", Power)
+GND = io("GND", Ground)
 
-eth_c = io("ETH_C", Ethernet_Phy)
+ETH_C = io("ETH_C", Ethernet_Phy)
 
-nLed_Y = io("nLed_Y", Net)
-nLed_G = io("nLed_G", Net)
+NLED_Y = io("NLED_Y", Net)
+NLED_G = io("NLED_G", Net)
 
 # ----------------------------------------------------------------------------
 # local nets
 # ----------------------------------------------------------------------------
 
-vcc = Net("vcc")
-mp = Net("mp")
+VCC = Net("VCC")
+MP = Net("MP")
 
-a_green = Net("a_green")
-a_yellow = Net("a_yellow")
-k_green = Net("k_green")
-k_yellow = Net("k_yellow")
+ETHERNET_A_GREEN = Net("A_GREEN")
+ETHERNET_A_YELLOW = Net("A_YELLOW")
+ETHERNET_K_GREEN = Net("K_GREEN")
+ETHERNET_K_YELLOW = Net("K_YELLOW")
 
 # ----------------------------------------------------------------------------
 # Component Instances
@@ -51,48 +51,48 @@ k_yellow = Net("k_yellow")
 
 Ethernet(
     name="ETH",
-    A_GREEN=io_3v3pi,
-    A_YELLOW=io_3v3pi,
-    K_GREEN=k_green,
-    K_YELLOW=k_yellow,
-    MH1=mp,
-    MH2=mp,
+    A_GREEN=V3V3PI,
+    A_YELLOW=V3V3PI,
+    K_GREEN=ETHERNET_K_GREEN,
+    K_YELLOW=ETHERNET_K_YELLOW,
+    MH1=MP,
+    MH2=MP,
     NC_1=Net(),
     NC_2=Net(),
-    TRD0P=eth_c.TR0.P,
-    TRD0M=eth_c.TR0.N,
-    TRD1P=eth_c.TR1.P,
-    TRD1M=eth_c.TR1.N,
-    TRD2P=eth_c.TR2.P,
-    TRD2M=eth_c.TR2.N,
-    TRD3P=eth_c.TR3.P,
-    TRD3M=eth_c.TR3.N,
+    TRD0P=ETH_C.TR0.P,
+    TRD0M=ETH_C.TR0.N,
+    TRD1P=ETH_C.TR1.P,
+    TRD1M=ETH_C.TR1.N,
+    TRD2P=ETH_C.TR2.P,
+    TRD2M=ETH_C.TR2.N,
+    TRD3P=ETH_C.TR3.P,
+    TRD3M=ETH_C.TR3.N,
 )
 
 QuadTVS(
     name="TVS_0",
-    D1M=eth_c.TR0.N,
-    D1P=eth_c.TR0.P,
-    D2M=eth_c.TR1.N,
-    D2P=eth_c.TR1.P,
-    GND=io_gnd,
+    D1M=ETH_C.TR0.N,
+    D1P=ETH_C.TR0.P,
+    D2M=ETH_C.TR1.N,
+    D2P=ETH_C.TR1.P,
+    GND=GND,
 )
 
 QuadTVS(
     name="TVS_1",
-    D1M=eth_c.TR2.N,
-    D1P=eth_c.TR2.P,
-    D2M=eth_c.TR3.N,
-    D2P=eth_c.TR3.P,
-    GND=io_gnd,
+    D1M=ETH_C.TR2.N,
+    D1P=ETH_C.TR2.P,
+    D2M=ETH_C.TR3.N,
+    D2P=ETH_C.TR3.P,
+    GND=GND,
 )
 
 Resistor(
     name="R1",
     value="0ohms",
     package="0402",
-    P1=mp,
-    P2=io_gnd,
+    P1=MP,
+    P2=GND,
 )
 
 # Capacitor(
@@ -107,16 +107,16 @@ Resistor(
     name="R_LED_Y",
     value="470ohms",
     package="0402",
-    P1=k_green,
-    P2=nLed_Y,
+    P1=ETHERNET_K_GREEN,
+    P2=NLED_Y,
 )
 
 Resistor(
     name="R_LED_G",
     value="470ohms",
     package="0402",
-    P1=k_yellow,
-    P2=nLed_G,
+    P1=ETHERNET_K_YELLOW,
+    P2=NLED_G,
 )
 
 Layout("layout", "layout_Ethernet/")
@@ -132,6 +132,6 @@ Layout("layout", "layout_Ethernet/")
 # pcb:sch R_LED_Y.R x=674.6400 y=341.9000 rot=270
 # pcb:sch TVS_0.TPD4EUSB30DQAR x=-204.2000 y=468.9000 rot=180
 # pcb:sch TVS_1.TPD4EUSB30DQAR x=-204.2000 y=265.7000 rot=180
-# pcb:sch 3v3pi.1 x=588.2800 y=164.1000 rot=0
-# pcb:sch gnd.1 x=-382.0000 y=583.2000 rot=0
-# pcb:sch gnd.2 x=278.4000 y=519.7000 rot=0
+# pcb:sch 3V3PI.1 x=588.2800 y=164.1000 rot=0
+# pcb:sch GND.1 x=-382.0000 y=583.2000 rot=0
+# pcb:sch GND.2 x=278.4000 y=519.7000 rot=0
