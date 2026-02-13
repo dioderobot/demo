@@ -1,1 +1,0 @@
-extern const char test[30];
