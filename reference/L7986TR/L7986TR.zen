@@ -9,7 +9,7 @@
 # ----------------------------------------------------------------------------
 
 load("@stdlib/units.zen", "Voltage", "Current", "Capacitance", "Inductance", "Frequency", "Resistance")
-load("@stdlib/interfaces.zen", "Power", "Ground")
+load("@stdlib/interfaces.zen", "Power", "Ground", "NotConnected")
 
 # ----------------------------------------------------------------------------
 # Component Modules
@@ -54,7 +54,6 @@ COMP = Net("COMP")
 FB = Net("FB")
 FSW = Net("FSW")
 OUT = Net("OUT")
-SYNCH = Net("NC_SYNC")
 R_SMALL_SIGNAL = Net("R_SMALL_SIGNAL")
 R_SMALL_SIGNAL_2 = Net("R_SMALL_SIGNAL_2")
 
@@ -73,7 +72,7 @@ Buck(
     COMP=COMP,
     EN=VIN_BUCK,
     FSW=FSW,
-    SYNCH=SYNCH,
+    SYNCH=NotConnected(),
     GND=GND,
     EP=GND,
 )

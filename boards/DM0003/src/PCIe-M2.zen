@@ -131,7 +131,7 @@ Buck(
     VIN=V5,
     VOUT=M2_3V3,
     GND=GND,
-    PG=Net("NC"),
+    PG=NotConnected(),
     ENABLE=PCIE_PWR_EN,
     schematic="collapse",
 )

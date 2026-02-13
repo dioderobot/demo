@@ -7,7 +7,7 @@ Author: Nasheed Ur Rehman
 # Libraries & Dependencies
 # ----------------------------------------------------------------------------
 
-load("@stdlib/interfaces.zen", "Ground", "Power", "Usb2", "Usb3", "UsbTypeC")
+load("@stdlib/interfaces.zen", "Ground", "Power", "Usb2", "Usb3", "UsbTypeC", "NotConnected")
 load("@stdlib/properties.zen", "Layout")
 load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "Resistance", "Voltage")
 
@@ -56,8 +56,8 @@ USB_TypeC_Connector(
     DP=USB3P.D.P,
     GND=GND,
     EP=GND,
-    SUB1=Net("NC"),
-    SUB2=Net("NC"),
+    SUB1=NotConnected(),
+    SUB2=NotConnected(),
     RX1M=USB_Connector.SSRX0.N,
     RX2M=USB_Connector.SSRX1.N,
     RX1P=USB_Connector.SSRX0.P,
@@ -100,14 +100,14 @@ TUSB321RWBR(
     GND=GND,
     CC1=USB_Connector.CC1,
     CC2=USB_Connector.CC2,
-    OUT1=Net("NC"),
-    OUT2=Net("NC"),
+    OUT1=NotConnected(),
+    OUT2=NotConnected(),
     PORT=PORT,
-    ID=Net("NC"),
+    ID=NotConnected(),
     DIR=DIR,
     CURRENT_MODE=GND,
     VBUS_DET=VBUS_DET,
-    N_VCONN_FAULT=Net("NC"),
+    N_VCONN_FAULT=NotConnected(),
 )
 
 Capacitor(
@@ -166,8 +166,8 @@ SSMUX(
     C0P=USB_Connector.SSRX0.N,
     EPAD=GND,
     OEN=GND,
-    RSVD1=Net("NC"),
-    RSVD2=Net("NC"),
+    RSVD1=NotConnected(),
+    RSVD2=NotConnected(),
     SEL=DIR,
 )
 

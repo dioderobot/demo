@@ -7,7 +7,7 @@
 # Libraries & Dependencies
 # ----------------------------------------------------------------------------
 
-load("@stdlib/interfaces.zen", "CanTtl", "I2c", "Power", "Spi", "Swd", "Uart", "Usb2", "Ground")
+load("@stdlib/interfaces.zen", "CanTtl", "I2c", "Power", "Spi", "Swd", "Uart", "Usb2", "Ground", "NotConnected")
 load("@stdlib/properties.zen", "Layout")
 load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "Resistance", "Voltage")
 load("@stdlib/board_config.zen", "Board")
@@ -133,8 +133,6 @@ R_STATUS_LED = Net("R_STATUS_LED")
 R_POWER_LED = Net("R_POWER_LED")
 
 PWM = Net("PWM")
-NC_PWM_MP1 = Net("NC_PWM_MP1")
-NC_PWM_MP2 = Net("NC_PWM_MP2")
 
 # ----------------------------------------------------------------------------
 # Components
@@ -335,8 +333,8 @@ TagConnect(
 
 PwmHeader(
     name="PwmHeader",
-    MP1=NC_PWM_MP1,
-    MP2=NC_PWM_MP2,
+    MP1=NotConnected(),
+    MP2=NotConnected(),
     P1=V5V,
     P2=UART2_TX,
     P3=UART2_RX,

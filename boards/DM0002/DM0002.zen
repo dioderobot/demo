@@ -1,4 +1,4 @@
-load("@stdlib/interfaces.zen", "Analog", "Gpio", "Ground", "Power", "Swd", "Uart", "Usb2")
+load("@stdlib/interfaces.zen", "Analog", "Gpio", "Ground", "Power", "Swd", "Uart", "Usb2", "NotConnected")
 load("@stdlib/board_config.zen", "Board")
 load("@stdlib/units.zen", "Voltage")
 
@@ -97,7 +97,7 @@ idc_header = PinHeader(
     P4=target_swd.SWCLK,
     P5=gnd,
     P6=target_uart.RX,
-    P7=Net("NC"),
+    P7=NotConnected(),
     P8=target_uart.TX,
     P9=target_gnd_detect,
     P10=target_reset,

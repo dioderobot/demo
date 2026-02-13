@@ -3,7 +3,7 @@ TLV758P Adjustable LDO Regulator Module
 0.5A Low-Dropout Voltage Regulator in WSON-6 package
 """
 
-load("@stdlib/interfaces.zen", "Gpio", "Ground", "Power")
+load("@stdlib/interfaces.zen", "Gpio", "Ground", "Power", "NotConnected")
 load("@stdlib/units.zen", "Resistance", "unit")
 
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
@@ -114,7 +114,7 @@ Component(
         "FB": FB,
         "GND": GND,
         "EN": EN,
-        "DNC": Net("NC"),  # Do not connect
+        "DNC": NotConnected(),  # Do not connect
         "PAD": GND,  # Connect thermal pad to ground
     },
     mpn="TLV75801PDRVR",

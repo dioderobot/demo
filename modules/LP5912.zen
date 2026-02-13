@@ -75,7 +75,7 @@ Component(
     },
     pins={
         "OUT": vout,
-        "NC": NotConnected("NC"),
+        "NC": NotConnected(),
         "PG": pg,
         "EN": en,
         "GND": gnd,

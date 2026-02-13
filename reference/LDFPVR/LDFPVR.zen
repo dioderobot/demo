@@ -9,7 +9,7 @@
 # ----------------------------------------------------------------------------
 
 load("@stdlib/units.zen", "Voltage", "Current", "Capacitance", "Inductance", "Frequency", "Resistance")
-load("@stdlib/interfaces.zen", "Power", "Ground")
+load("@stdlib/interfaces.zen", "Power", "Ground", "NotConnected")
 
 # ----------------------------------------------------------------------------
 # Component Modules
@@ -45,13 +45,12 @@ GND = io("GND", Ground)
 
 ADJ_NC = Net("ADJ_NC")
 EN = Net("EN")
-NC_PG = Net("NC_PG")
 
 # ============================================================================
 # Components
 # ============================================================================
 
-Ldo(name="LDFPVR", ADJ_NC=ADJ_NC, EN=VIN_LDO, GND_1=GND, GND_2=GND, PG=NC_PG, VIN=VIN_LDO, VOUT=VOUT_LDO)
+Ldo(name="LDFPVR", ADJ_NC=ADJ_NC, EN=VIN_LDO, GND_1=GND, GND_2=GND, PG=NotConnected(), VIN=VIN_LDO, VOUT=VOUT_LDO)
 
 # Input Capacitor
 Capacitor(

@@ -16,6 +16,7 @@ load(
     "PcieGen3x1Lane",
     "Power",
     "Ground",
+    "NotConnected",
     "Spi",
     "Usb2",
     "Usb3",
@@ -64,7 +65,7 @@ HDMI_PI = io("HDMI_PI", Hdmi)
 
 USB_3P = io("USB3P", Usb3)
 USB_PI = io("USB_PI", Usb2)
-USBOTG_ID = Net("NC")
+USBOTG_ID = NotConnected()
 
 PCIE_PI = io("PCIE_PI", PcieGen3x1Lane)
 PCIE_PI_PWR_EN = io("PCIE_PI_PWR_EN", Net)
@@ -82,8 +83,8 @@ DC_GPI25 = io("DC_GPI25", Net)
 BL_GPIO24 = io("BL_GPIO24", Net)
 RST_GPIO27 = io("RST_GPIO27", Net)
 
-ID_SC = Net("NC")
-ID_SD = Net("NC")
+ID_SC = NotConnected()
+ID_SD = NotConnected()
 
 CAM_GPIO0 = io("CAM_GPIO0", Net)
 CAM_GPIO1 = io("CAM_GPIO1", Net)
@@ -243,7 +244,7 @@ Boot_Switch(
     MP1=GND,
     MP2=GND,
     NO=GND,
-    NC=Net("NC"),
+    NC=NotConnected(),
 )
 
 # Graphics Components
