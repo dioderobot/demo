@@ -83,14 +83,14 @@ jobs:
           version: ${{ env.PCB_VERSION }}
 
       - name: Build board
-        run: pcb build ${{ matrix.board.path }} -S layout.drc --locked
+        run: pcb build ${{ matrix.board.path }} -S layout --locked
 
       - name: Run pcb publish
         id: release
         shell: bash
         run: |
           short_sha=$(git rev-parse --short HEAD)
-          pcb publish ${{ matrix.board.path }} -S layout.drc
+          pcb publish ${{ matrix.board.path }} -S layout
           archive_path=".pcb/releases/${{ matrix.board.name }}-$short_sha.zip"
           echo "archive_path=$archive_path" >> "$GITHUB_OUTPUT"
           echo "short_sha=$short_sha" >> "$GITHUB_OUTPUT"
