@@ -3,5 +3,6 @@ name = "DM0002"
 description = "RP2040-based CMSIS-DAP debug probe. Supports SWD, UART, and USB passthrough."
 
 [dependencies]
+"github.com/dioderobot/demo/components/Texas_Instruments/LMV321IDBVR" = "0.1.0"
 "github.com/dioderobot/demo/components/logo/eda" = "0.1.0"
 "github.com/dioderobot/demo/modules" = "0.1.0"
