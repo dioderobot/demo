@@ -1,0 +1,46 @@
+# TLV9001 Op Amp Module
+#
+# Wraps the TLV9001IDBVR op amp (power-off input protection)
+# with a 100nF bypass capacitor.
+#
+# The TLV9001 inputs go high-impedance when VCC is unpowered,
+# preventing back-power through the MCU's ESD clamp diodes.
+#
+# Exposed pins:
+#   IN_POS – non-inverting input
+#   IN_NEG – inverting input
+#   OUT    – output
+#   VCC    – positive supply (1.8V to 5.5V)
+#   GND    – ground
+
+load("@stdlib/interfaces.zen", "Analog", "Ground", "Power")
+
+TLV9001_Component = Module("github.com/dioderobot/demo/components/Texas_Instruments/TLV9001IDBVR/TLV9001IDBVR.zen")
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+
+# External interfaces
+in_pos = io("IN_POS", Net)
+in_neg = io("IN_NEG", Net)
+output = io("OUT", Net)
+vcc = io("VCC", Power)
+gnd = io("GND", Ground)
+
+# Op amp
+TLV9001_Component(
+    name="U",
+    **{
+        "IN+": in_pos,
+        "IN-": in_neg,
+        "OUT": output,
+        "V+": vcc,
+        "GND": gnd,
+    }
+)
+
+# Supply bypass capacitor
+Capacitor(name="C_BYPASS", package="0402", value="100nF", P1=vcc, P2=gnd)
+
+# pcb:sch C_BYPASS.C x=-21.3200 y=-496.3000 rot=0
+# pcb:sch GND.0 x=-64.5000 y=-229.6000 rot=0
+# pcb:sch GND.1 x=-13.7000 y=-407.4000 rot=0
+# pcb:sch U.TLV9001IDBVR x=-140.7000 y=-394.7000 rot=0

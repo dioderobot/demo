@@ -1,0 +1,26 @@
+"""TLV9001IDBVR Component - Low-Power RRIO 1-MHz Op Amp with Power-Off Input Protection"""
+
+Pins = struct(
+    IN_POS=io("IN+", Net),
+    GND=io("GND", Net),
+    IN_NEG=io("IN-", Net),
+    OUT=io("OUT", Net),
+    VCC=io("V+", Net),
+)
+
+Component(
+    name="TLV9001IDBVR",
+    symbol=Symbol(library="TLV9001IDBVR.kicad_sym"),
+    footprint=File("SOT95P280X145-5N.kicad_mod"),
+    pins={
+        "IN+": Pins.IN_POS,
+        "GND": Pins.GND,
+        "IN-": Pins.IN_NEG,
+        "OUT": Pins.OUT,
+        "V+": Pins.VCC,
+    },
+    properties={
+        "value": "TLV9001IDBVR",
+        "mpn": "TLV9001IDBVR",
+    },
+)
