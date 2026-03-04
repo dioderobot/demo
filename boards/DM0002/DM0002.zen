@@ -1,3 +1,12 @@
+# ============================================================================
+# Debug board based on RP2040
+# Version 0.2 
+# March 2026 Updates: 
+# - TO DO : Resolve back power issue by adding xxxxxxxxxx
+# - TO DO:  Added polyfuse on VBUS (0.75A): Protects USB host if target shorts 3.3V rail
+# - TO DO : Added ferrite bead for analog 3.3V rail: Reduces digital switching noise on sensitive circuits
+# ============================================================================
+
 load("@stdlib/interfaces.zen", "Analog", "Gpio", "Ground", "Power", "Swd", "Uart", "Usb2", "NotConnected")
 load("@stdlib/board_config.zen", "Board")
 load("@stdlib/units.zen", "Voltage")
