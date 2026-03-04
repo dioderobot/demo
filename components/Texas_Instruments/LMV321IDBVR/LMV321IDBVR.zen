@@ -1,0 +1,26 @@
+"""LMV321IDBVR Component - Single Low-Voltage Rail-to-Rail Output Op Amp"""
+
+Pins = struct(
+    IN_POS=io("IN+", Net),
+    GND=io("GND", Net),
+    IN_NEG=io("IN-", Net),
+    OUT=io("OUT", Net),
+    VCC=io("V+", Net),
+)
+
+Component(
+    name="LMV321IDBVR",
+    symbol=Symbol(library="LMV321IDBVR.kicad_sym"),
+    footprint=File("SOT95P280X145-5N.kicad_mod"),
+    pins={
+        "IN+": Pins.IN_POS,
+        "GND": Pins.GND,
+        "IN-": Pins.IN_NEG,
+        "OUT": Pins.OUT,
+        "V+": Pins.VCC,
+    },
+    properties={
+        "value": "LMV321IDBVR",
+        "mpn": "LMV321IDBVR",
+    },
+)
