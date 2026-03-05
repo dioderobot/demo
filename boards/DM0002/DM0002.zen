@@ -1,8 +1,7 @@
 # ============================================================================
 # General purpose debug board based on RP2040
 # March 2026 Updates: 
-# - TO DO:  Added polyfuse on VBUS (0.75A): Protects USB host if target shorts 3.3V rail
-# - TO DO : Added ferrite bead for analog 3.3V rail: Reduces digital switching noise on sensitive circuits
+# - TO DO:  add level shifter for when the target is 1.8V logic level 
 # LAYOUT todo: add diode logo & version number in silkscreen 
 
 #  DONE: Resolve back power issue by adding current limiting resistor plus unity gain follower with power-off input protection
@@ -252,7 +251,7 @@ Component(
 # pcb:sch MCU.VDD_1V1.1 x=-34.0200 y=-966.2000 rot=0
 # pcb:sch MCU.XO.C_OSC.C x=-580.1200 y=-229.6000 rot=0
 # pcb:sch MCU.XO.OSC x=-458.2000 y=-280.4000 rot=0
-# pcb:sch R_BYPASS.R x=865.1400 y=75.2000 rot=-270
+# pcb:sch R_BYPASS.R x=776.2400 y=367.3000 rot=-90
 # pcb:sch R_VBUF_IN.R x=890.5400 y=-39.1000 rot=-270
 # pcb:sch R_VBUS_DIV_H.R x=560.3400 y=-432.8000 rot=0
 # pcb:sch R_VBUS_DIV_L.R x=560.3400 y=-305.8000 rot=0
