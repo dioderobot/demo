@@ -1,0 +1,38 @@
+"""Logo Module
+
+Adds decorative logos to PCB silkscreen.
+Currently supports: Diode logo
+"""
+
+Logo = enum("Diode")
+
+logo = config("logo", Logo, default=Logo("Diode"))
+
+
+# Function to map logo enum to footprint path
+def logo_footprint(logo: Logo) -> str:
+    return {
+        Logo("Diode"): "./DIODE_LOGO.kicad_mod",
+    }[logo]
+
+
+Component(
+    name="GL",
+    symbol=Symbol(definition=[]),
+    footprint=File(logo_footprint(logo)),
+    pins={},
+    properties={
+        "value": logo.value,
+    },
+    dnp=True,
+    skip_bom=True,
+    skip_pos=True,
+)
+
+# Layout
+load("@stdlib/properties.zen", "Layout")
+
+Layout(
+    name="Logo",
+    path="layout/Logo",
+)
