@@ -16,7 +16,6 @@ Board(
     name="DM0002",
     layers=4,
     layout_path="layout",
-    color = 'red'
 )
 
 RP2040 = Module("github.com/dioderobot/demo/modules/RP2040.zen")
@@ -28,7 +27,6 @@ TLV9001 = Module("github.com/dioderobot/demo/modules/TLV9001.zen")
 TXB0102 = Module("github.com/dioderobot/demo/components/Texas_Instruments/TXB0102DCUR/TXB0102DCUR.zen")
 FTSH105 = Module("github.com/dioderobot/demo/components/Samtec_Inc/FTSH-105-01-L-DV-K-A-P-TR/FTSH-105-01-L-DV-K-A-P-TR.zen")
 
-# moved("FTSH-105-01-L-DV-K-A", FTSH-105-01-L-DV-K-A-P-TR)
 
 Version = Module("@stdlib/generics/Version.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
@@ -52,12 +50,12 @@ target_reset = Gpio("TARGET_RESET")
 # MCU-side SWD signals (3.3V domain, before level shifter)
 mcu_swclk = Gpio("MCU_SWCLK")
 mcu_swdio = Gpio("MCU_SWDIO")
-swd_ls_oe = Gpio("SWD_LS_OE")
+swd_ls_oe = Net("SWD_LS_OE")
 
 # MCU-side UART signals (3.3V domain, before level shifter)
 mcu_uart_rx = Analog("MCU_UART_RX")
 mcu_uart_tx = Analog("MCU_UART_TX")
-uart_ls_oe = Gpio("UART_LS_OE")
+uart_ls_oe = Net("UART_LS_OE")
 
 # GPIO assignments for RP2040
 vbus_det = Gpio("VBUS_DET")
@@ -102,8 +100,6 @@ mcu = RP2040(
     GPIO18=target_reset,
     GPIO19=mcu_swclk,
     GPIO20=mcu_swdio,
-    GPIO10=swd_ls_oe,
-    GPIO11=uart_ls_oe,
     GPIO26_ADC0=target_vddio_buf,
     GPIO27_ADC1=target_gnd_detect,
     GPIO28_ADC2=mcu_uart_rx,
@@ -162,43 +158,40 @@ TLV9001(
 # 0Ω bypass jumper: shorts J1 pin 1 directly to MCU pin 38 (DNP)
 Resistor(name="R_BYPASS", package="0402", value="0Ohm", P1=target_vddio, P2=target_vddio_buf, dnp=True)
 
-# SWD level shifter: MCU 3.3V domain (A) ↔ target voltage domain (B)
-# VCCB powered from target_vddio so it matches the target's logic level.
-# OE tied to VCCA (always enabled).
+# SWD level shifter: target voltage domain (A) ↔ MCU 3.3V domain (B)
+# VCCA must not exceed VCCB. Target may be 1.8V, so target goes on A (lower).
 TXB0102(
     name="U_SWD_LS",
-    VCCA=vdd_3v3,
-    VCCB=target_vddio,
+    VCCA=target_vddio,
+    VCCB=vdd_3v3,
     GND=gnd,
     OE=swd_ls_oe,
-    A1=mcu_swdio,
-    A2=mcu_swclk,
-    B1=Gpio(NET=target_swd.SWDIO),
-    B2=Gpio(NET=target_swd.SWCLK),
+    A1=Gpio(NET=target_swd.SWDIO),
+    A2=Gpio(NET=target_swd.SWCLK),
+    B1=mcu_swdio,
+    B2=mcu_swclk,
 )
-# level shifter port A is from 1.2-3.6V, port B is 1.65-5.5V 
-# this allows for 
-# VCCA MUST NOT EXCEED VCCB 
 
-Capacitor(name="C_LS_VCCA", package="0402", value="100nF", P1=vdd_3v3, P2=gnd)
-Capacitor(name="C_LS_VCCB", package="0402", value="100nF", P1=target_vddio, P2=gnd)
-Resistor(name="R_LS_OE", package="0402", value="10kOhm", P1=vdd_3v3, P2=swd_ls_oe)
 
-# UART level shifter: MCU 3.3V domain (A) ↔ target voltage domain (B)
+Capacitor(name="C_LS_VCCA", package="0402", value="100nF", P1=target_vddio, P2=gnd)
+Capacitor(name="C_LS_VCCB", package="0402", value="100nF", P1=vdd_3v3, P2=gnd)
+Resistor(name="R_LS_OE", package="0402", value="10kOhm", P1=target_vddio, P2=swd_ls_oe)
+
+# UART level shifter: target voltage domain (A) ↔ MCU 3.3V domain (B)
 TXB0102(
     name="U_UART_LS",
-    VCCA=vdd_3v3,
-    VCCB=target_vddio,
+    VCCA=target_vddio,
+    VCCB=vdd_3v3,
     GND=gnd,
     OE=uart_ls_oe,
-    A1=mcu_uart_rx,
-    A2=mcu_uart_tx,
-    B1=Analog(NET=target_uart.RX),
-    B2=Analog(NET=target_uart.TX),
+    A1=Analog(NET=target_uart.RX),
+    A2=Analog(NET=target_uart.TX),
+    B1=mcu_uart_rx,
+    B2=mcu_uart_tx,
 )
-Capacitor(name="C_ULS_VCCA", package="0402", value="100nF", P1=vdd_3v3, P2=gnd)
-Capacitor(name="C_ULS_VCCB", package="0402", value="100nF", P1=target_vddio, P2=gnd)
-Resistor(name="R_ULS_OE", package="0402", value="10kOhm", P1=vdd_3v3, P2=uart_ls_oe)
+Capacitor(name="C_ULS_VCCA", package="0402", value="100nF", P1=target_vddio, P2=gnd)
+Capacitor(name="C_ULS_VCCB", package="0402", value="100nF", P1=vdd_3v3, P2=gnd)
+Resistor(name="R_ULS_OE", package="0402", value="10kOhm", P1=target_vddio, P2=uart_ls_oe)
 
 # Diode Logo
 Component(
@@ -216,9 +209,9 @@ Component(
 # Version number silkscreen
 Version(name="Version")
 
-# pcb:sch C_LS_VCCA.C x=1655.0800 y=-64.5000 rot=0
-# pcb:sch C_LS_VCCB.C x=1959.8800 y=-64.5000 rot=0
-# pcb:sch C_ULS_VCCA.C x=1667.7800 y=646.7000 rot=0
+# pcb:sch C_LS_VCCA.C x=1655.0800 y=-51.8000 rot=0
+# pcb:sch C_LS_VCCB.C x=2010.6800 y=-39.1000 rot=0
+# pcb:sch C_ULS_VCCA.C x=1667.7800 y=621.3000 rot=0
 # pcb:sch C_ULS_VCCB.C x=1972.5800 y=621.3000 rot=0
 # pcb:sch GND.0 x=684.8000 y=151.4000 rot=0
 # pcb:sch GND.1 x=87.9000 y=240.3000 rot=0
@@ -258,7 +251,7 @@ Version(name="Version")
 # pcb:sch GND.35 x=1103.9000 y=-343.9000 rot=0
 # pcb:sch GND.36 x=1662.7000 y=37.1000 rot=0
 # pcb:sch GND.37 x=1942.1000 y=240.3000 rot=0
-# pcb:sch GND.38 x=1967.5000 y=24.4000 rot=0
+# pcb:sch GND.38 x=2018.3000 y=49.8000 rot=0
 # pcb:sch GND.39 x=1675.4000 y=722.9000 rot=0
 # pcb:sch GND.40 x=1942.1000 y=926.1000 rot=0
 # pcb:sch GND.41 x=1980.2000 y=710.2000 rot=0
@@ -316,9 +309,10 @@ Version(name="Version")
 # pcb:sch R_VBUS_DIV_H.R x=560.3400 y=-432.8000 rot=0
 # pcb:sch R_VBUS_DIV_L.R x=560.3400 y=-305.8000 rot=0
 # pcb:sch SWD_HEADER.FTSH-105-01-L-DV-K-A x=1180.1000 y=37.1000 rot=0
+# pcb:sch SWD_HEADER.FTSH-105-01-L-DV-K-A-P-TR x=1091.2000 y=-26.4000 rot=0
 # pcb:sch SWD_HEADER.PH x=1078.5000 y=-13.7000 rot=0
-# pcb:sch TARGET_VDDIO.0 x=1985.2800 y=570.5000 rot=0
-# pcb:sch TARGET_VDDIO.1 x=1972.5800 y=-115.3000 rot=0
+# pcb:sch TARGET_VDDIO.0 x=1604.2800 y=570.5000 rot=0
+# pcb:sch TARGET_VDDIO.1 x=1705.8800 y=-128.0000 rot=0
 # pcb:sch TARGET_VDDIO.2 x=969.2800 y=-89.9000 rot=0
 # pcb:sch TARGET_V_SENSE.0 x=1870.9800 y=-128.0000 rot=0
 # pcb:sch TARGET_V_SENSE.1 x=1032.7800 y=-64.5000 rot=0
@@ -346,11 +340,9 @@ Version(name="Version")
 # pcb:sch VDD_3V3.3 x=-567.4200 y=-394.7000 rot=0
 # pcb:sch VDD_3V3.4 x=258.0800 y=-953.5000 rot=0
 # pcb:sch VDD_3V3.5 x=-618.2200 y=-1182.1000 rot=0
-# pcb:sch VDD_3V3.6 x=1667.7800 y=-115.3000 rot=0
-# pcb:sch VDD_3V3.7 x=1515.3800 y=49.8000 rot=0
+# pcb:sch VDD_3V3.6 x=1959.8800 y=-102.6000 rot=0
 # pcb:sch VDD_3V3.8 x=-326.1200 y=-648.7000 rot=0
-# pcb:sch VDD_3V3.9 x=1680.4800 y=583.2000 rot=0
-# pcb:sch VDD_3V3.10 x=1528.0800 y=735.6000 rot=0
+# pcb:sch VDD_3V3.9 x=1947.1800 y=570.5000 rot=0
 # pcb:sch VDD_3V3.11 x=-973.8200 y=-1169.4000 rot=0
 # pcb:sch VDD_3V3.15 x=-415.0200 y=-826.5000 rot=0
 # pcb:sch Version.Version x=-191.5000 y=-1182.1000 rot=0
