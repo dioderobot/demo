@@ -153,6 +153,9 @@ TLV9001(
     GND=gnd,
 )
 
+# 0Ω bypass jumper: shorts J1 pin 1 directly to MCU pin 38 (DNP)
+Resistor(name="R_BYPASS", package="0402", value="0Ohm", P1=target_v_sense, P2=target_v_sense_buf, dnp=True)
+
 # Diode Logo
 Component(
     name="LOGO",
@@ -249,6 +252,7 @@ Component(
 # pcb:sch MCU.VDD_1V1.1 x=-34.0200 y=-966.2000 rot=0
 # pcb:sch MCU.XO.C_OSC.C x=-580.1200 y=-229.6000 rot=0
 # pcb:sch MCU.XO.OSC x=-458.2000 y=-280.4000 rot=0
+# pcb:sch R_BYPASS.R x=865.1400 y=75.2000 rot=-270
 # pcb:sch R_VBUF_IN.R x=890.5400 y=-39.1000 rot=-270
 # pcb:sch R_VBUS_DIV_H.R x=560.3400 y=-432.8000 rot=0
 # pcb:sch R_VBUS_DIV_L.R x=560.3400 y=-305.8000 rot=0
