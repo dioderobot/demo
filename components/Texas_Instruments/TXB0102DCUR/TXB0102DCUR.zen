@@ -1,0 +1,32 @@
+"""TXB0102DCUR - 2-Bit Bidirectional Voltage-Level Translator, Auto-Direction Sensing"""
+
+Pins = struct(
+    A1=io("A1", Net),
+    A2=io("A2", Net),
+    VCCA=io("VCCA", Net),
+    GND=io("GND", Net),
+    B2=io("B2", Net),
+    B1=io("B1", Net),
+    VCCB=io("VCCB", Net),
+    OE=io("OE", Net),
+)
+
+Component(
+    name="TXB0102DCUR",
+    symbol=Symbol(library="TXB0102DCUR.kicad_sym"),
+    footprint=File("SOP65P250X110-8N.kicad_mod"),
+    pins={
+        "A1": Pins.A1,
+        "A2": Pins.A2,
+        "VCCA": Pins.VCCA,
+        "GND": Pins.GND,
+        "B2": Pins.B2,
+        "B1": Pins.B1,
+        "VCCB": Pins.VCCB,
+        "OE": Pins.OE,
+    },
+    properties={
+        "value": "TXB0102DCUR",
+        "mpn": "TXB0102DCUR",
+    },
+)
