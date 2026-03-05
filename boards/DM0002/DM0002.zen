@@ -1,9 +1,10 @@
 # ============================================================================
 # General purpose debug board based on RP2040
-# March 2026 Updates: 
-  # DONE: added diode logo & version number in silkscreen & soldermask 
-  # DONE: resolved back power issue by adding current limiting resistor plus unity gain follower with power-off input protection
-  # DONE : added level shifter for when the target is 1.8V logic level 
+# March 2026 Updates:
+# DONE: added diode logo & version number in silkscreen & soldermask
+# DONE: resolved back power issue by adding current limiting resistor plus unity gain follower with power-off input protection
+# DONE : added level shifter for when the target is 1.8V logic level
+# in progress: change SWD header to SMT part for simpler MFG flow
 # ============================================================================
 
 load("@stdlib/interfaces.zen", "Analog", "Gpio", "Ground", "Power", "Swd", "Uart", "Usb2", "NotConnected")
@@ -23,9 +24,9 @@ Led = Module("github.com/dioderobot/demo/modules/Led.zen")
 LMV321 = Module("github.com/dioderobot/demo/modules/LMV321.zen")
 TLV9001 = Module("github.com/dioderobot/demo/modules/TLV9001.zen")
 TXB0102 = Module("github.com/dioderobot/demo/components/Texas_Instruments/TXB0102DCUR/TXB0102DCUR.zen")
+FTSH105 = Module("github.com/dioderobot/demo/components/Samtec/FTSH-105-01-L-DV-K-A/FTSH-105-01-L-DV-K-A.zen")
 
 Version = Module("@stdlib/generics/Version.zen")
-PinHeader = Module("@stdlib/generics/PinHeader.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 TestPoint = Module("@stdlib/generics/TestPoint.zen")
 Resistor = Module("@stdlib/generics/Resistor.zen")
@@ -105,13 +106,8 @@ mcu = RP2040(
     GPIO29_ADC3=mcu_uart_tx,
 )
 
-idc_header = PinHeader(
+idc_header = FTSH105(
     name="SWD_HEADER",
-    mount="THT",
-    pins=5,
-    rows=2,
-    pitch="1.27mm",
-    orientation="Vertical",
     P1=target_vddio,
     P2=target_swd.SWDIO,
     P3=gnd,
@@ -146,7 +142,7 @@ Led(name="LED_PWR", color="red", supply_voltage=Voltage("3.3V"), P1=vdd_3v3, P2=
 
 # Unity gain buffer for target voltage sense
 # TLV9001 has power-off input protection — no back-power through ESD clamps.
-# 10kΩ series input resistor provides additional current limiting. 3v @ 10k is far under 10mA limit of TLV9001 
+# 10kΩ series input resistor provides additional current limiting. 3v @ 10k is far under 10mA limit of TLV9001
 target_vddio_r = Net("TARGET_V_SENSE_R")
 Resistor(name="R_VBUF_IN", package="0402", value="10kOhm", P1=target_vddio, P2=target_vddio_r)
 
