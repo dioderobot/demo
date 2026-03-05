@@ -16,6 +16,7 @@ Board(
     name="DM0002",
     layers=4,
     layout_path="layout",
+    color = 'red'
 )
 
 RP2040 = Module("github.com/dioderobot/demo/modules/RP2040.zen")
