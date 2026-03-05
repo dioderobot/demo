@@ -25,7 +25,9 @@ Led = Module("github.com/dioderobot/demo/modules/Led.zen")
 LMV321 = Module("github.com/dioderobot/demo/modules/LMV321.zen")
 TLV9001 = Module("github.com/dioderobot/demo/modules/TLV9001.zen")
 TXB0102 = Module("github.com/dioderobot/demo/components/Texas_Instruments/TXB0102DCUR/TXB0102DCUR.zen")
-FTSH105 = Module("github.com/dioderobot/demo/components/Samtec/FTSH-105-01-L-DV-K-A/FTSH-105-01-L-DV-K-A.zen")
+FTSH105 = Module("github.com/dioderobot/demo/components/Samtec_Inc/FTSH-105-01-L-DV-K-A-P-TR/FTSH-105-01-L-DV-K-A-P-TR.zen")
+
+# moved("FTSH-105-01-L-DV-K-A", FTSH-105-01-L-DV-K-A-P-TR)
 
 Version = Module("@stdlib/generics/Version.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
