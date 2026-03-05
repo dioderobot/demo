@@ -1,11 +1,9 @@
 # ============================================================================
 # General purpose debug board based on RP2040
 # March 2026 Updates: 
-# - TO DO:  add level shifter for when the target is 1.8V logic level 
-# LAYOUT todo: add diode logo & version number in silkscreen 
-
-#  DONE: Resolve back power issue by adding current limiting resistor plus unity gain follower with power-off input protection
-
+  # DONE: added diode logo & version number in silkscreen & soldermask 
+  # DONE: resolved back power issue by adding current limiting resistor plus unity gain follower with power-off input protection
+  # DONE : added level shifter for when the target is 1.8V logic level 
 # ============================================================================
 
 load("@stdlib/interfaces.zen", "Analog", "Gpio", "Ground", "Power", "Swd", "Uart", "Usb2", "NotConnected")
@@ -18,11 +16,6 @@ Board(
     layout_path="layout",
 )
 
-# TODO: Hardware improvements
-# - Add polyfuse on VBUS (0.75A): Protects USB host if target shorts 3.3V rail
-# - Add ferrite bead for analog 3.3V rail: Reduces digital switching noise on sensitive circuits
-# - Resolve back power issue  by adding series resistor plus unity gain follower with power-off input protection
-
 RP2040 = Module("github.com/dioderobot/demo/modules/RP2040.zen")
 USB4105 = Module("github.com/dioderobot/demo/modules/USB4105.zen")
 TLV758P = Module("github.com/dioderobot/demo/modules/TLV758P.zen")
@@ -31,6 +24,7 @@ LMV321 = Module("github.com/dioderobot/demo/modules/LMV321.zen")
 TLV9001 = Module("github.com/dioderobot/demo/modules/TLV9001.zen")
 TXB0102 = Module("github.com/dioderobot/demo/components/Texas_Instruments/TXB0102DCUR/TXB0102DCUR.zen")
 
+Version = Module("@stdlib/generics/Version.zen")
 PinHeader = Module("@stdlib/generics/PinHeader.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 TestPoint = Module("@stdlib/generics/TestPoint.zen")
@@ -215,6 +209,9 @@ Component(
     skip_pos=True,
 )
 
+# Version number silkscreen
+Version(name="Version")
+
 # pcb:sch C_LS_VCCA.C x=1655.0800 y=-64.5000 rot=0
 # pcb:sch C_LS_VCCB.C x=1959.8800 y=-64.5000 rot=0
 # pcb:sch C_ULS_VCCA.C x=1667.7800 y=646.7000 rot=0
@@ -351,3 +348,4 @@ Component(
 # pcb:sch VDD_3V3.10 x=1528.0800 y=735.6000 rot=0
 # pcb:sch VDD_3V3.11 x=-973.8200 y=-1169.4000 rot=0
 # pcb:sch VDD_3V3.15 x=-415.0200 y=-826.5000 rot=0
+# pcb:sch Version.Version x=-191.5000 y=-1182.1000 rot=0
