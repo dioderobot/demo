@@ -95,9 +95,9 @@ mcu = RP2040(
     USB=usb,
     # GPIO assignments
     GPIO12=gpio_12_led_orange,
-    GPIO13=vbus_det,
-    GPIO14=gpio_14_led_orange,
-    GPIO15=gpio_15_led_orange,
+    GPIO5=vbus_det,
+    GPIO13=gpio_14_led_orange,
+    GPIO14=gpio_15_led_orange,
     GPIO16=gpio_16_led_green,
     GPIO17=gpio_17_led_blue,
     GPIO18=target_reset,
@@ -135,7 +135,7 @@ TestPoint(name="TP_VBUS", variant="Pad_D1.5mm", P1=vbus_5v0)
 TestPoint(name="TP_3V3", variant="Pad_D1.5mm", P1=vdd_3v3)
 TestPoint(name="TP_GND", variant="Pad_D1.5mm", P1=gnd)
 
-# VBUS detection voltage divider (5V -> 2.94V for GPIO 13)
+# VBUS detection voltage divider (5V -> 2.94V for GPIO 5)
 # Using 33k + 47k resistors for 5V * 47k/(33k+47k) = 2.94V > VIH(2.31V)
 Resistor(name="R_VBUS_DIV_H", package="0402", value="33kOhm", P1=vbus_5v0, P2=vbus_det)
 Resistor(name="R_VBUS_DIV_L", package="0402", value="47kOhm", P1=vbus_det, P2=gnd)
