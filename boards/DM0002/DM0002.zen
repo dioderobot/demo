@@ -5,7 +5,7 @@
 # DONE: resolved back power issue by adding current limiting resistor plus unity gain follower with power-off input protection
 # DONE : added level shifter for when the target is 1.8V logic level
 # DONE: change SWD header to SMT part for simpler MFG flow
-# DONE: level shifter ports to be switched b/c port A can't exceed port B 
+# DONE: level shifter ports to be switched b/c port A can't exceed port B
 # ============================================================================
 
 load("@stdlib/interfaces.zen", "Analog", "Gpio", "Ground", "Power", "Swd", "Uart", "Usb2", "NotConnected")
@@ -26,6 +26,7 @@ LMV321 = Module("github.com/dioderobot/demo/modules/LMV321.zen")
 TLV9001 = Module("github.com/dioderobot/demo/modules/TLV9001.zen")
 TXB0102 = Module("github.com/dioderobot/demo/components/Texas_Instruments/TXB0102DCUR/TXB0102DCUR.zen")
 FTSH105 = Module("github.com/dioderobot/demo/components/Samtec_Inc/FTSH-105-01-L-DV-K-A-P-TR/FTSH-105-01-L-DV-K-A-P-TR.zen")
+LevelShiftFet = Module("github.com/diodeinc/registry/modules/LevelShiftFet/LevelShiftFet.zen")
 
 
 Version = Module("@stdlib/generics/Version.zen")
@@ -46,6 +47,9 @@ target_vddio = Power("TARGET_VDDIO")
 target_vddio_buf = Analog("TARGET_V_SENSE_BUFFER")
 target_gnd_detect = Analog("TARGET_GND_DETECT")
 target_reset = Gpio("TARGET_RESET")
+
+# MCU-side reset signal (3.3V domain, after level shifter)
+mcu_reset = Gpio("MCU_RESET")
 
 # MCU-side SWD signals (3.3V domain, before level shifter)
 mcu_swclk = Gpio("MCU_SWCLK")
@@ -97,7 +101,7 @@ mcu = RP2040(
     GPIO14=gpio_15_led_orange,
     GPIO16=gpio_16_led_green,
     GPIO17=gpio_17_led_blue,
-    GPIO18=target_reset,
+    GPIO18=mcu_reset,
     GPIO19=mcu_swclk,
     GPIO20=mcu_swdio,
     GPIO26_ADC0=target_vddio_buf,
@@ -193,6 +197,16 @@ Capacitor(name="C_ULS_VCCA", package="0402", value="100nF", P1=target_vddio, P2=
 Capacitor(name="C_ULS_VCCB", package="0402", value="100nF", P1=vdd_3v3, P2=gnd)
 Resistor(name="R_ULS_OE", package="0402", value="10kOhm", P1=target_vddio, P2=uart_ls_oe)
 
+# Reset level shifter: BSS138 open-drain bidirectional (1.8V target ↔ 3.3V MCU)
+# GPIO18 must be configured as open-drain to allow bidirectional reset control.
+LevelShiftFet(
+    name="U_RST_LS",
+    SIGNAL_LOWER=target_reset,
+    SIGNAL_UPPER=mcu_reset,
+    POWER_LOWER=target_vddio,
+    POWER_UPPER=vdd_3v3,
+)
+
 # Diode Logo
 Component(
     name="LOGO",
@@ -209,10 +223,10 @@ Component(
 # Version number silkscreen
 Version(name="Version")
 
-# pcb:sch C_LS_VCCA.C x=1655.0800 y=-51.8000 rot=0
-# pcb:sch C_LS_VCCB.C x=2010.6800 y=-39.1000 rot=0
-# pcb:sch C_ULS_VCCA.C x=1667.7800 y=621.3000 rot=0
-# pcb:sch C_ULS_VCCB.C x=1972.5800 y=621.3000 rot=0
+# pcb:sch C_LS_VCCA.C x=1185.1800 y=341.9000 rot=0
+# pcb:sch C_LS_VCCB.C x=1540.7800 y=354.6000 rot=0
+# pcb:sch C_ULS_VCCA.C x=1185.1800 y=824.5000 rot=0
+# pcb:sch C_ULS_VCCB.C x=1489.9800 y=824.5000 rot=0
 # pcb:sch GND.0 x=684.8000 y=151.4000 rot=0
 # pcb:sch GND.1 x=87.9000 y=240.3000 rot=0
 # pcb:sch GND.2 x=-216.9000 y=214.9000 rot=0
@@ -241,7 +255,7 @@ Version(name="Version")
 # pcb:sch GND.25 x=-140.7000 y=-775.7000 rot=0
 # pcb:sch GND.26 x=-420.1000 y=-521.7000 rot=0
 # pcb:sch GND.27 x=-255.0000 y=-775.7000 rot=0
-# pcb:sch GND.28 x=1027.7000 y=113.3000 rot=0
+# pcb:sch GND.28 x=1802.4000 y=113.3000 rot=0
 # pcb:sch GND.29 x=-572.5000 y=-521.7000 rot=0
 # pcb:sch GND.30 x=1421.4000 y=-343.9000 rot=0
 # pcb:sch GND.31 x=748.3000 y=-102.6000 rot=0
@@ -249,12 +263,12 @@ Version(name="Version")
 # pcb:sch GND.33 x=799.1000 y=-356.6000 rot=0
 # pcb:sch GND.34 x=1256.3000 y=-343.9000 rot=0
 # pcb:sch GND.35 x=1103.9000 y=-343.9000 rot=0
-# pcb:sch GND.36 x=1662.7000 y=37.1000 rot=0
-# pcb:sch GND.37 x=1942.1000 y=240.3000 rot=0
-# pcb:sch GND.38 x=2018.3000 y=49.8000 rot=0
-# pcb:sch GND.39 x=1675.4000 y=722.9000 rot=0
-# pcb:sch GND.40 x=1942.1000 y=926.1000 rot=0
-# pcb:sch GND.41 x=1980.2000 y=710.2000 rot=0
+# pcb:sch GND.36 x=1192.8000 y=430.8000 rot=0
+# pcb:sch GND.37 x=1472.2000 y=634.0000 rot=0
+# pcb:sch GND.38 x=1548.4000 y=443.5000 rot=0
+# pcb:sch GND.39 x=1192.8000 y=926.1000 rot=0
+# pcb:sch GND.40 x=1459.5000 y=1129.3000 rot=0
+# pcb:sch GND.41 x=1497.6000 y=913.4000 rot=0
 # pcb:sch LDO_3V3.C_IN.C x=-1456.4200 y=-1029.7000 rot=0
 # pcb:sch LDO_3V3.C_OUT.C x=-630.9200 y=-1029.7000 rot=0
 # pcb:sch LDO_3V3.R_EN_PU.R x=-1255.7600 y=-1105.9000 rot=0
@@ -302,18 +316,21 @@ Version(name="Version")
 # pcb:sch MCU.VDD_1V1.1 x=-34.0200 y=-966.2000 rot=0
 # pcb:sch MCU.XO.C_OSC.C x=-580.1200 y=-229.6000 rot=0
 # pcb:sch MCU.XO.OSC x=-458.2000 y=-280.4000 rot=0
+# pcb:sch Q_RST_LS.BSS138-7-F x=989.6000 y=900.7000 rot=0
 # pcb:sch R_BYPASS.R x=712.7400 y=227.6000 rot=-270
-# pcb:sch R_LS_OE.R x=1512.8400 y=113.3000 rot=0
-# pcb:sch R_ULS_OE.R x=1525.5400 y=786.4000 rot=0
+# pcb:sch R_LS_OE.R x=1042.9400 y=507.0000 rot=0
+# pcb:sch R_ULS_OE.R x=1042.9400 y=989.6000 rot=0
 # pcb:sch R_VBUF_IN.R x=890.5400 y=-39.1000 rot=-270
 # pcb:sch R_VBUS_DIV_H.R x=560.3400 y=-432.8000 rot=0
 # pcb:sch R_VBUS_DIV_L.R x=560.3400 y=-305.8000 rot=0
 # pcb:sch SWD_HEADER.FTSH-105-01-L-DV-K-A x=1180.1000 y=37.1000 rot=0
-# pcb:sch SWD_HEADER.FTSH-105-01-L-DV-K-A-P-TR x=1091.2000 y=-26.4000 rot=0
+# pcb:sch SWD_HEADER.FTSH-105-01-L-DV-K-A-P-TR x=1865.9000 y=-26.4000 rot=0
 # pcb:sch SWD_HEADER.PH x=1078.5000 y=-13.7000 rot=0
-# pcb:sch TARGET_VDDIO.0 x=1604.2800 y=570.5000 rot=0
-# pcb:sch TARGET_VDDIO.1 x=1705.8800 y=-128.0000 rot=0
+# pcb:sch TARGET_VDDIO.0 x=1121.6800 y=773.7000 rot=0
+# pcb:sch TARGET_VDDIO.1 x=1235.9800 y=265.7000 rot=0
 # pcb:sch TARGET_VDDIO.2 x=969.2800 y=-89.9000 rot=0
+# pcb:sch TARGET_VDDIO.3 x=1134.3800 y=-89.9000 rot=0
+# pcb:sch TARGET_VDDIO.4 x=1807.4800 y=-102.6000 rot=0
 # pcb:sch TARGET_V_SENSE.0 x=1870.9800 y=-128.0000 rot=0
 # pcb:sch TARGET_V_SENSE.1 x=1032.7800 y=-64.5000 rot=0
 # pcb:sch TARGET_V_SENSE.2 x=1921.7800 y=570.5000 rot=0
@@ -325,12 +342,15 @@ Version(name="Version")
 # pcb:sch USB_C.R_CC2.R x=-963.6600 y=-636.0000 rot=270
 # pcb:sch USB_C.TVS.TVS x=-1118.6000 y=-382.0000 rot=90
 # pcb:sch USB_C.USB_C x=-1359.9000 y=-712.2000 rot=0
-# pcb:sch U_SWD_LS.TXB0102DCUR x=1726.2000 y=62.5000 rot=0
-# pcb:sch U_UART_LS.TXB0102DCUR x=1738.9000 y=735.6000 rot=0
+# pcb:sch U_RST_LS.level_shift_fet_tx.BSS138-7-F x=1319.8000 y=-64.5000 rot=-270
+# pcb:sch U_RST_LS.pullup_drain.R x=1500.1400 y=-13.7000 rot=0
+# pcb:sch U_RST_LS.pullup_source.R x=1131.8400 y=-1.0000 rot=0
+# pcb:sch U_SWD_LS.TXB0102DCUR x=1256.3000 y=456.2000 rot=0
+# pcb:sch U_UART_LS.TXB0102DCUR x=1256.3000 y=938.8000 rot=0
 # pcb:sch U_VBUF.C_BYPASS.C x=740.6800 y=-191.5000 rot=0
 # pcb:sch U_VBUF.LMV321IDBVR x=684.8000 y=62.5000 rot=0
 # pcb:sch U_VBUF.U.LMV321IDBVR x=621.3000 y=-51.8000 rot=0
-# pcb:sch U_VBUF.U.TLV9001IDBVR x=608.6000 y=-51.8000 rot=0
+# pcb:sch U_VBUF.U.TLV9001IDBVR x=608.6000 y=-51.8000 rot=0 mirror=y
 # pcb:sch VBUS_5V0.1 x=-1062.7200 y=-775.7000 rot=0
 # pcb:sch VBUS_5V0.2 x=562.8800 y=-496.3000 rot=0
 # pcb:sch VBUS_5V0.5 x=-1253.2200 y=-1169.4000 rot=0
@@ -340,9 +360,12 @@ Version(name="Version")
 # pcb:sch VDD_3V3.3 x=-567.4200 y=-394.7000 rot=0
 # pcb:sch VDD_3V3.4 x=258.0800 y=-953.5000 rot=0
 # pcb:sch VDD_3V3.5 x=-618.2200 y=-1182.1000 rot=0
-# pcb:sch VDD_3V3.6 x=1959.8800 y=-102.6000 rot=0
+# pcb:sch VDD_3V3.6 x=1489.9800 y=291.1000 rot=0
+# pcb:sch VDD_3V3.7 x=-148.3200 y=-699.5000 rot=0
 # pcb:sch VDD_3V3.8 x=-326.1200 y=-648.7000 rot=0
-# pcb:sch VDD_3V3.9 x=1947.1800 y=570.5000 rot=0
+# pcb:sch VDD_3V3.9 x=1464.5800 y=773.7000 rot=0
+# pcb:sch VDD_3V3.10 x=1172.4800 y=-966.2000 rot=0
 # pcb:sch VDD_3V3.11 x=-973.8200 y=-1169.4000 rot=0
+# pcb:sch VDD_3V3.12 x=1502.6800 y=-89.9000 rot=0
 # pcb:sch VDD_3V3.15 x=-415.0200 y=-826.5000 rot=0
-# pcb:sch Version.Version x=-191.5000 y=-1182.1000 rot=0
+# pcb:sch Version.Version x=24.4000 y=-1131.3000 rot=0

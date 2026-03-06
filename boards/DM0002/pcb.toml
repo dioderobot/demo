@@ -3,6 +3,7 @@ name = "DM0002"
 description = "RP2040-based CMSIS-DAP debug probe. Supports SWD, UART, and USB passthrough."
 
 [dependencies]
+"github.com/diodeinc/registry/modules/LevelShiftFet" = "0.5.2"
 "github.com/diodeinc/registry/modules/Logo" = "0.4.2"
 "github.com/dioderobot/demo/components/Samtec/FTSH-105-01-L-DV-K-A" = "0.1.0"
 "github.com/dioderobot/demo/components/Samtec_Inc/FTSH-105-01-L-DV-K-A-P-TR" = "0.1.0"
