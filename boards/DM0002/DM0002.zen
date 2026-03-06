@@ -9,14 +9,72 @@
 # ============================================================================
 
 load("@stdlib/interfaces.zen", "Analog", "Gpio", "Ground", "Power", "Swd", "Uart", "Usb2", "NotConnected")
-load("@stdlib/board_config.zen", "Board")
-load("@stdlib/units.zen", "Voltage")
+# load("@stdlib/board_config.zen", "Board")
+# load("@stdlib/units.zen", "Voltage")
+load("@stdlib/board_config.zen", "Board", "BoardConfig", "Constraints", "Copper", "DesignRules", "NetClass", "Silkscreen")
+load("@stdlib/units.zen", "Impedance", "Voltage")
+
+# Board(
+#     name="DM0002",
+#     layers=4,
+#     layout_path="layout", 
+    
+# )
+
 
 Board(
     name="DM0002",
-    layers=4,
-    layout_path="layout",
+     layers=4,
+     layout_path="layout", 
+    config=BoardConfig(
+        design_rules=DesignRules(
+            constraints=Constraints(
+                copper=Copper(
+                    minimum_annular_width=0.05,
+                ),
+                silkscreen=Silkscreen(
+                    minimum_item_clearance=0.05,
+                    minimum_text_height=0.3,
+                ),
+            ),
+            netclasses=[
+                # Default netclass
+                NetClass(
+                    name="Default",
+                    clearance=0.1,
+                    track_width=0.1,
+                    via_diameter=0.5,
+                    via_drill=0.3,
+                    diff_pair_width=0.127,
+                    diff_pair_gap=0.2,
+                ),
+                # 85Ohm Differential (PCIe)
+                NetClass(
+                    name="85Ohm Diff",
+                    clearance=0.2,
+                    track_width=0.1588,
+                    diff_pair_width=0.1588,
+                    diff_pair_gap=0.127,
+                    color="#C200C2FF",
+                    differential_pair_impedance=Impedance("85ohm"),
+                ),
+                # 100Ohm Differential (M-LVDS)
+                NetClass(
+                    name="100Ohm Diff",
+                    clearance=0.2,
+                    track_width=0.127,
+                    diff_pair_width=0.127,
+                    diff_pair_gap=0.1778,
+                    color="#C2C200FF",
+                    differential_pair_impedance=Impedance("100ohm"),
+                ),
+            ],
+        ),
+    ),
 )
+
+
+
 
 RP2040 = Module("github.com/dioderobot/demo/modules/RP2040.zen")
 USB4105 = Module("github.com/dioderobot/demo/modules/USB4105.zen")
