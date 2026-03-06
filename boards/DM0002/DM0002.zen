@@ -26,7 +26,7 @@ LMV321 = Module("github.com/dioderobot/demo/modules/LMV321.zen")
 TLV9001 = Module("github.com/dioderobot/demo/modules/TLV9001.zen")
 TXB0102 = Module("github.com/dioderobot/demo/components/Texas_Instruments/TXB0102DCUR/TXB0102DCUR.zen")
 FTSH105 = Module("github.com/dioderobot/demo/components/Samtec_Inc/FTSH-105-01-L-DV-K-A-P-TR/FTSH-105-01-L-DV-K-A-P-TR.zen")
-LevelShiftFet = Module("github.com/diodeinc/registry/modules/LevelShiftFet/LevelShiftFet.zen")
+LevelShiftFet = Module("github.com/dioderobot/demo/modules/LevelShiftFet/LevelShiftFet.zen")
 
 
 Version = Module("@stdlib/generics/Version.zen")
@@ -199,12 +199,14 @@ Resistor(name="R_ULS_OE", package="0402", value="10kOhm", P1=target_vddio, P2=ua
 
 # Reset level shifter: BSS138 open-drain bidirectional (1.8V target ↔ 3.3V MCU)
 # GPIO18 must be configured as open-drain to allow bidirectional reset control.
+# Low-side pull-up is DNP — place if there is no pullup on the target.
 LevelShiftFet(
     name="U_RST_LS",
     SIGNAL_LOWER=target_reset,
     SIGNAL_UPPER=mcu_reset,
     POWER_LOWER=target_vddio,
     POWER_UPPER=vdd_3v3,
+    dnp_pullup_source=True,
 )
 
 # Diode Logo

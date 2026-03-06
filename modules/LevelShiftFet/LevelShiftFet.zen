@@ -7,6 +7,7 @@ Resistor = Module("@stdlib/generics/Resistor.zen")
 # bidirectional level shifter for low voltage logic.
 
 pullup_value = config("pullup_value", str, default="10kohm 10%", optional=True)
+dnp_pullup_source = config("dnp_pullup_source", bool, default=False, optional=True)
 
 SIGNAL_LOWER = io("SIGNAL_LOWER", Net)
 SIGNAL_UPPER = io("SIGNAL_UPPER", Net)
@@ -25,6 +26,7 @@ Resistor(
     package="0402",
     P1=POWER_LOWER,
     P2=SIGNAL_LOWER,
+    dnp=dnp_pullup_source,
 )
 Resistor(
     name="pullup_drain",
