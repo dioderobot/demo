@@ -5,7 +5,7 @@
 # DONE: resolved back power issue by adding current limiting resistor plus unity gain follower with power-off input protection
 # DONE : added level shifter for when the target is 1.8V logic level
 # DONE: change SWD header to SMT part for simpler MFG flow
-# TODO: level shifter ports to be switched b/c port A can't exceed port B 
+# DONE: level shifter ports to be switched b/c port A can't exceed port B 
 # ============================================================================
 
 load("@stdlib/interfaces.zen", "Analog", "Gpio", "Ground", "Power", "Swd", "Uart", "Usb2", "NotConnected")
