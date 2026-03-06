@@ -169,12 +169,12 @@
         "min_microvia_diameter": 0.15,
         "min_microvia_drill": 0.1,
         "min_resolved_spokes": 2,
-        "min_silk_clearance": 0.1,
-        "min_text_height": 0.8,
+        "min_silk_clearance": 0.05,
+        "min_text_height": 0.3,
         "min_text_thickness": 0.08,
         "min_through_hole_diameter": 0.15,
         "min_track_width": 0.09,
-        "min_via_annular_width": 0.075,
+        "min_via_annular_width": 0.05,
         "min_via_diameter": 0.25,
         "solder_mask_clearance": 0.0,
         "solder_mask_min_width": 0.0,
@@ -314,10 +314,10 @@
     "classes": [
       {
         "bus_width": 12,
-        "clearance": 0.16,
+        "clearance": 0.1,
         "diff_pair_gap": 0.2,
         "diff_pair_via_gap": 0.25,
-        "diff_pair_width": 0.2,
+        "diff_pair_width": 0.127,
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
@@ -325,20 +325,20 @@
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 2147483647,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.16,
+        "track_width": 0.1,
         "via_diameter": 0.5,
         "via_drill": 0.3,
         "wire_width": 6
       },
       {
         "clearance": 0.2,
-        "diff_pair_gap": 0.127,
-        "diff_pair_width": 0.1334,
+        "diff_pair_gap": 0.1778,
+        "diff_pair_width": 0.127,
         "name": "100Ohm Diff",
         "pcb_color": "rgb(194, 194, 0)",
         "priority": -1,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.1334
+        "track_width": 0.127
       },
       {
         "clearance": 0.2,
@@ -351,12 +351,12 @@
       {
         "clearance": 0.2,
         "diff_pair_gap": 0.127,
-        "diff_pair_width": 0.2235,
+        "diff_pair_width": 0.1588,
         "name": "85Ohm Diff",
         "pcb_color": "rgb(194, 0, 194)",
         "priority": -1,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.2235
+        "track_width": 0.1588
       },
       {
         "clearance": 0.2,
