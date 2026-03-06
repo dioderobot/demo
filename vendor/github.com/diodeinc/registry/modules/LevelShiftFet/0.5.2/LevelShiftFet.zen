@@ -1,0 +1,46 @@
+load("@stdlib/interfaces.zen", "Power")
+load("@stdlib/properties.zen", "Layout")
+
+BSS138_7_F = Module("github.com/diodeinc/registry/components/BSS138-7-F/BSS138-7-F.zen")
+Resistor = Module("@stdlib/generics/Resistor.zen")
+
+# bidirectional level shifter for low voltage logic.
+
+pullup_value = config("pullup_value", str, default="10kohm 10%", optional=True)
+
+SIGNAL_LOWER = io("SIGNAL_LOWER", Net)
+SIGNAL_UPPER = io("SIGNAL_UPPER", Net)
+POWER_UPPER = io("POWER_UPPER", Power)
+POWER_LOWER = io("POWER_LOWER", Power)
+
+BSS138_7_F(
+    name="level_shift_fet_tx",
+    G=POWER_LOWER,
+    D=SIGNAL_UPPER,
+    S=SIGNAL_LOWER,
+)
+Resistor(
+    name="pullup_source",
+    value=pullup_value,
+    package="0402",
+    P1=POWER_LOWER,
+    P2=SIGNAL_LOWER,
+)
+Resistor(
+    name="pullup_drain",
+    value=pullup_value,
+    package="0402",
+    P1=POWER_UPPER,
+    P2=SIGNAL_UPPER,
+)
+
+Layout(
+    name="LevelShiftFet",
+    path="layout/LevelShiftFet",
+)
+
+# pcb:sch level_shift_fet_tx.BSS138-7-F x=456.2000 y=62.5000 rot=270
+# pcb:sch pullup_drain.R x=230.1400 y=-1.0000 rot=0
+# pcb:sch pullup_source.R x=547.6400 y=-1.0000 rot=0
+# pcb:sch power_lower_VCC.1 x=613.6800 y=-102.6000 rot=0
+# pcb:sch power_upper_VCC.1 x=232.6800 y=-115.3000 rot=0
