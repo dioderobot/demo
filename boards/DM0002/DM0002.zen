@@ -49,7 +49,7 @@ target_gnd_detect = Analog("TARGET_GND_DETECT")
 target_reset = Gpio("TARGET_RESET")
 
 # MCU-side reset signal (3.3V domain, after level shifter)
-mcu_reset = Gpio("MCU_RESET")
+mcu_reset = Gpio("TARGET_RESET_TO_MCU")
 
 # MCU-side SWD signals (3.3V domain, before level shifter)
 mcu_swclk = Gpio("MCU_SWCLK")
