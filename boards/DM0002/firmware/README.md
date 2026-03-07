@@ -1,8 +1,8 @@
 # DM0002 Debug Probe Firmware
 
-Board-local firmware for [`boards/DM0002`](../../../), derived from [`diodeinc/debugprobe`](https://github.com/diodeinc/debugprobe) at commit `8335b35c9cf264f13b268ef51850dd433fa64174`.
+Board-local firmware for [`boards/DM0002`](../), derived from [`diodeinc/debugprobe`](https://github.com/diodeinc/debugprobe) at commit `8335b35c9cf264f13b268ef51850dd433fa64174`.
 
-This copy is trimmed into the board bringup tree so `DM0002` can be built and iterated without depending on a separate firmware checkout.
+This copy sits at the board level so `DM0002` can keep one firmware source tree while individual bringup folders capture versioned artifacts.
 
 ## DM0002 pin map
 
@@ -20,12 +20,14 @@ This copy is trimmed into the board bringup tree so `DM0002` can be built and it
 
 ## Building
 
-From [`boards/DM0002/bringup/v3.0.0`](../):
+From [`boards/DM0002/bringup/v3.0.0`](../bringup/v3.0.0):
 
 ```bash
 just build
-just uf2
+just artifacts
 ```
+
+That invokes the bringup-local `justfile`, builds this source tree, and snapshots the UF2/bin/hex artifacts into the versioned bringup folder.
 
 The firmware uses `pico_sdk_import.cmake`, so if `PICO_SDK_PATH` is unset CMake will fetch a compatible Pico SDK automatically.
 

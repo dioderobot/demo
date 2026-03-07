@@ -1,18 +1,32 @@
 set shell := ["zsh", "-cu"]
 
-build_dir := "firmware/build"
+source_dir := "../../firmware"
+build_dir := "../../firmware/build"
+artifacts_dir := "artifacts"
+artifact_base := "dm0002-debugprobe-v3.0.0"
+boot_drive := "/Volumes/RPI-RP2"
 
 default:
     @just --list
 
 configure:
-    cmake -S firmware -B {{build_dir}} -G Ninja -DPICO_BOARD=pico -DPICO_PLATFORM=rp2040
+    cmake -S {{source_dir}} -B {{build_dir}} -G Ninja -DPICO_BOARD=pico -DPICO_PLATFORM=rp2040
 
 build: configure
     cmake --build {{build_dir}}
 
-uf2: build
-    @echo "{{build_dir}}/dm0002-debugprobe.uf2"
+artifacts: build
+    mkdir -p {{artifacts_dir}}
+    cp {{build_dir}}/dm0002-debugprobe.uf2 {{artifacts_dir}}/{{artifact_base}}.uf2
+    cp {{build_dir}}/dm0002-debugprobe.bin {{artifacts_dir}}/{{artifact_base}}.bin
+    cp {{build_dir}}/dm0002-debugprobe.hex {{artifacts_dir}}/{{artifact_base}}.hex
+    (cd {{artifacts_dir}} && shasum -a 256 {{artifact_base}}.uf2 {{artifact_base}}.bin {{artifact_base}}.hex > SHA256SUMS)
+
+uf2: artifacts
+    @echo "{{artifacts_dir}}/{{artifact_base}}.uf2"
+
+flash mount=boot_drive: artifacts
+    cp {{artifacts_dir}}/{{artifact_base}}.uf2 {{mount}}/
 
 clean:
     rm -rf {{build_dir}}
