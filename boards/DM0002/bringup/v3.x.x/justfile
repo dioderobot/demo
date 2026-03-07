@@ -1,6 +1,6 @@
 set shell := ["zsh", "-cu"]
 
-version := env_var_or_default("DM0002_FW_VERSION", "v2")
+version := env_var_or_default("DM0002_FW_VERSION", "v3")
 source_dir := "../../firmware"
 build_dir := "../../firmware/build"
 artifacts_dir := "artifacts"

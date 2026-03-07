@@ -4,6 +4,8 @@ This bringup bundle captures the `v3.0.0` firmware artifacts for `DM0002` and ex
 
 The reusable firmware source now lives in [boards/DM0002/firmware](/Users/davide/src/diodeinc/customers/demo/boards/DM0002/firmware#L1). Versioned binaries for this bringup live in [boards/DM0002/bringup/v3.0.0/artifacts](/Users/davide/src/diodeinc/customers/demo/boards/DM0002/bringup/v3.0.0/artifacts#L1).
 
+The bringup `justfile` exports the firmware version through `DM0002_FW_VERSION`, which is also embedded into the USB product string. The default in this directory is `v3.0.0`.
+
 ## Bringup
 
 1. Connect the host PC to [USB_C](pcb://USB_C).
@@ -19,6 +21,12 @@ just artifacts
 ```
 
 That builds from `boards/DM0002/firmware` and refreshes the checked-in outputs in `artifacts/`.
+
+To override the stamped version explicitly:
+
+```bash
+DM0002_FW_VERSION=v3.0.0 just artifacts
+```
 
 ## UF2 Update Mode
 

@@ -29,6 +29,11 @@ just artifacts
 
 That invokes the bringup-local `justfile`, builds this source tree, and snapshots the UF2/bin/hex artifacts into the versioned bringup folder.
 
+Each bringup directory sets `DM0002_FW_VERSION` before configuring CMake. That version string is used in:
+
+- artifact filenames such as `dm0002-debugprobe-v3.0.0.uf2`
+- the USB product string exposed by the probe
+
 The firmware uses `pico_sdk_import.cmake`, so if `PICO_SDK_PATH` is unset CMake will fetch a compatible Pico SDK automatically.
 
 ## Notes

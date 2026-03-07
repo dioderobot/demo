@@ -29,6 +29,11 @@
 // USB / identification
 #define PROBE_USB_CONNECTED_PIN 5
 #define PROBE_MANUFACTURER_STRING "Diode Inc"
-#define PROBE_PRODUCT_STRING "DM0002 Debug Probe (CMSIS-DAP)"
+
+#ifndef PROBE_FW_VERSION
+#define PROBE_FW_VERSION "dev"
+#endif
+
+#define PROBE_PRODUCT_STRING "Diode Probe " PROBE_FW_VERSION
 
 #endif // BOARD_DM0002_CONFIG_H_

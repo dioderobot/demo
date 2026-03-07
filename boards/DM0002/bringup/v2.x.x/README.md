@@ -1,8 +1,10 @@
 # DM0002 Bringup v2.x.x
 
-This bringup bundle captures the `v3.0.0` firmware artifacts for `DM0002` and exposes a local `justfile` entry point to rebuild or flash them.
+This bringup bundle captures the `v2.x.x` firmware artifacts for `DM0002` and exposes a local `justfile` entry point to rebuild or flash them.
 
-The reusable firmware source now lives in [boards/DM0002/firmware](/Users/davide/src/diodeinc/customers/demo/boards/DM0002/firmware#L1). Versioned binaries for this bringup live in [boards/DM0002/bringup/v3.0.0/artifacts](/Users/davide/src/diodeinc/customers/demo/boards/DM0002/bringup/v3.0.0/artifacts#L1).
+The reusable firmware source now lives in [boards/DM0002/firmware](/Users/davide/src/diodeinc/customers/demo/boards/DM0002/firmware#L1). Versioned binaries for this bringup live in [boards/DM0002/bringup/v2.x.x/artifacts](/Users/davide/src/diodeinc/customers/demo/boards/DM0002/bringup/v2.x.x/artifacts#L1).
+
+The bringup `justfile` exports the firmware version through `DM0002_FW_VERSION`, which is also embedded into the USB product string. The default in this directory is `v2.x.x`.
 
 ## Bringup
 
@@ -20,6 +22,12 @@ just artifacts
 
 That builds from `boards/DM0002/firmware` and refreshes the checked-in outputs in `artifacts/`.
 
+To override the stamped version explicitly:
+
+```bash
+DM0002_FW_VERSION=v2.x.x just artifacts
+```
+
 ## UF2 Update Mode
 
 To force the RP2040 into UF2 bootloader mode:
@@ -29,7 +37,7 @@ To force the RP2040 into UF2 bootloader mode:
 3. While holding the button, reconnect USB to [USB_C](pcb://USB_C).
 4. Release the button after the board enumerates as a USB mass-storage device.
 
-Then either copy `artifacts/dm0002-debugprobe-v3.0.0.uf2` to the mounted UF2 drive manually, or run:
+Then either copy `artifacts/dm0002-debugprobe-v2.x.x.uf2` to the mounted UF2 drive manually, or run:
 
 ```bash
 just flash

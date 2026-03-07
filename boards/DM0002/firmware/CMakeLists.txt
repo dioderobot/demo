@@ -14,6 +14,8 @@ project(dm0002_debugprobe)
 
 pico_sdk_init()
 
+set(DM0002_FW_VERSION "dev" CACHE STRING "DM0002 firmware version string")
+
 if (${PICO_SDK_VERSION_MAJOR} LESS 2)
 	message(SEND_ERROR "Version 2 of the Pico SDK is required to compile this project. Please update your installation at ${PICO_SDK_PATH}")
 endif ()
@@ -52,6 +54,7 @@ target_include_directories(dm0002_debugprobe PRIVATE src)
 
 target_compile_definitions (dm0002_debugprobe PRIVATE
 	PICO_RP2040_USB_DEVICE_ENUMERATION_FIX=1
+    PROBE_FW_VERSION=\"${DM0002_FW_VERSION}\"
 )
 
 set_target_properties(dm0002_debugprobe PROPERTIES
