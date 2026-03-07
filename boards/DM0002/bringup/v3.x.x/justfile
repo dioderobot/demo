@@ -1,0 +1,36 @@
+set shell := ["zsh", "-cu"]
+
+version := env_var_or_default("DM0002_FW_VERSION", "v3")
+source_dir := "../../firmware"
+build_dir := "../../firmware/build"
+artifacts_dir := "artifacts"
+boot_drive := "/Volumes/RPI-RP2"
+
+default:
+    @just --list
+
+configure:
+    cmake -S {{source_dir}} -B {{build_dir}} -G Ninja -DPICO_BOARD=pico -DPICO_PLATFORM=rp2040 -DDM0002_FW_VERSION={{version}}
+
+build: configure
+    cmake --build {{build_dir}}
+
+artifacts: build
+    mkdir -p {{artifacts_dir}}
+    rm -f {{artifacts_dir}}/dm0002-debugprobe-*.uf2
+    rm -f {{artifacts_dir}}/dm0002-debugprobe-*.bin
+    rm -f {{artifacts_dir}}/dm0002-debugprobe-*.hex
+    rm -f {{artifacts_dir}}/SHA256SUMS
+    cp {{build_dir}}/dm0002-debugprobe.uf2 {{artifacts_dir}}/dm0002-debugprobe-{{version}}.uf2
+    cp {{build_dir}}/dm0002-debugprobe.bin {{artifacts_dir}}/dm0002-debugprobe-{{version}}.bin
+    cp {{build_dir}}/dm0002-debugprobe.hex {{artifacts_dir}}/dm0002-debugprobe-{{version}}.hex
+    (cd {{artifacts_dir}} && shasum -a 256 dm0002-debugprobe-{{version}}.uf2 dm0002-debugprobe-{{version}}.bin dm0002-debugprobe-{{version}}.hex > SHA256SUMS)
+
+uf2: artifacts
+    @echo "{{artifacts_dir}}/dm0002-debugprobe-{{version}}.uf2"
+
+flash mount=boot_drive: artifacts
+    cp {{artifacts_dir}}/dm0002-debugprobe-{{version}}.uf2 {{mount}}/
+
+clean:
+    rm -rf {{build_dir}}
