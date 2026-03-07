@@ -2,22 +2,6 @@
 
 Raspberry Pi CM5 carrier board v2.0.1 requires 2 reworks before bringup. Both are design issues that will be fixed in a future revision.
 
-## Reworks
-
-### 1. GPIO voltage reference resistor selection
-
-The board ships with [R_GPIO_VREF_3V3](pcb://R_GPIO_VREF_3V3) (0Ω 0402) populated, tying GPIO_VREF to the 3.3V rail. [R_GPIO_VREF_1V8](pcb://R_GPIO_VREF_1V8) is DNP. If your CM5 module or peripherals require 1.8V GPIO levels, you must swap the population: remove [R_GPIO_VREF_3V3](pcb://R_GPIO_VREF_3V3) and populate [R_GPIO_VREF_1V8](pcb://R_GPIO_VREF_1V8) with a 0Ω 0402 jumper.
-
-Symptom: I2C or SPI peripherals on the IO connectors fail to communicate when using 1.8V logic devices.
-
-### 2. EEPROM write-protect pulldown too strong for I2C recovery
-
-The 10kΩ pulldown [R_EEPROM_WP](pcb://R_EEPROM_WP) on EEPROM_nWP permanently enables write protection. If you need to flash the HAT EEPROM for device tree configuration, cut or remove [R_EEPROM_WP](pcb://R_EEPROM_WP) and bodge a 0Ω jumper from EEPROM_nWP to 3.3V to disable write protection during programming.
-
-Symptom: EEPROM writes fail silently. `eepromutils` reports success but readback does not match.
-
-After programming, restore [R_EEPROM_WP](pcb://R_EEPROM_WP) to re-enable write protection.
-
 ## Power-On Sequence
 
 1. Insert CM5 module into the carrier board connectors [CM5IO.J1_CM5](pcb://CM5IO.J1_CM5) and [CM5IO.J2_CM5](pcb://CM5IO.J2_CM5)
