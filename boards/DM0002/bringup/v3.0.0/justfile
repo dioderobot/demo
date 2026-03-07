@@ -1,0 +1,18 @@
+set shell := ["zsh", "-cu"]
+
+build_dir := "firmware/build"
+
+default:
+    @just --list
+
+configure:
+    cmake -S firmware -B {{build_dir}} -G Ninja -DPICO_BOARD=pico -DPICO_PLATFORM=rp2040
+
+build: configure
+    cmake --build {{build_dir}}
+
+uf2: build
+    @echo "{{build_dir}}/dm0002-debugprobe.uf2"
+
+clean:
+    rm -rf {{build_dir}}
