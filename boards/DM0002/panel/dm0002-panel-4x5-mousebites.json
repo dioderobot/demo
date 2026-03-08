@@ -1,0 +1,57 @@
+{
+  "layout": {
+    "type": "grid",
+    "rows": 4,
+    "cols": 5,
+    "hspace": "4mm",
+    "vspace": "2mm",
+    "rotation": "0deg",
+    "alternation": "none"
+  },
+  "tabs": {
+    "type": "fixed",
+    "hcount": 4,
+    "vcount": 0,
+    "hwidth": "4mm",
+    "vwidth": "4mm",
+    "mindistance": "0mm",
+    "fillet": "0mm"
+  },
+  "cuts": {
+    "type": "mousebites",
+    "drill": "0.5mm",
+    "spacing": "1mm",
+    "offset": "0.2mm",
+    "prolong": "0.5mm"
+  },
+  "framing": {
+    "type": "frame",
+    "width": "8mm",
+    "space": "4mm",
+    "cuts": "both"
+  },
+  "tooling": {
+    "type": "3hole",
+    "hoffset": "2.5mm",
+    "voffset": "2.5mm",
+    "size": "1.5mm"
+  },
+  "fiducials": {
+    "type": "4fid",
+    "hoffset": "6mm",
+    "voffset": "6mm",
+    "coppersize": "2mm",
+    "opening": "1mm"
+  },
+  "text": {
+    "type": "simple",
+    "text": "DM0002 panel",
+    "anchor": "mt",
+    "voffset": "2.5mm",
+    "hjustify": "center",
+    "vjustify": "center"
+  },
+  "post": {
+    "millradius": "1mm"
+  }
+}

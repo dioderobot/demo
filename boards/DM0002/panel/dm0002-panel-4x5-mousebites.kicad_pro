@@ -1,0 +1,7243 @@
+{
+  "board": {
+    "3dviewports": [],
+    "design_settings": {
+      "defaults": {
+        "apply_defaults_to_fp_fields": false,
+        "apply_defaults_to_fp_shapes": false,
+        "apply_defaults_to_fp_text": false,
+        "board_outline_line_width": 0.05,
+        "copper_line_width": 0.2,
+        "copper_text_italic": false,
+        "copper_text_size_h": 1.5,
+        "copper_text_size_v": 1.5,
+        "copper_text_thickness": 0.3,
+        "copper_text_upright": false,
+        "courtyard_line_width": 0.05,
+        "dimension_precision": 4,
+        "dimension_units": 3,
+        "dimensions": {
+          "arrow_length": 1270000,
+          "extension_offset": 500000,
+          "keep_text_aligned": true,
+          "suppress_zeroes": true,
+          "text_position": 0,
+          "units_format": 0
+        },
+        "fab_line_width": 0.1,
+        "fab_text_italic": false,
+        "fab_text_size_h": 1.0,
+        "fab_text_size_v": 1.0,
+        "fab_text_thickness": 0.15,
+        "fab_text_upright": false,
+        "other_line_width": 0.1,
+        "other_text_italic": false,
+        "other_text_size_h": 191.032552,
+        "other_text_size_v": 1.0,
+        "other_text_thickness": 0.15,
+        "other_text_upright": false,
+        "pads": {
+          "drill": 0.0,
+          "height": 0.64,
+          "width": 0.54
+        },
+        "silk_line_width": 0.1,
+        "silk_text_italic": false,
+        "silk_text_size_h": 0.8,
+        "silk_text_size_v": 0.8,
+        "silk_text_thickness": 0.1,
+        "silk_text_upright": false,
+        "zones": {
+          "min_clearance": 0.15
+        }
+      },
+      "diff_pair_dimensions": [
+        {
+          "gap": 0.0,
+          "via_gap": 0.0,
+          "width": 0.0
+        }
+      ],
+      "drc_exclusions": [],
+      "meta": {
+        "version": 2
+      },
+      "rule_severities": {
+        "annular_width": "error",
+        "clearance": "warning",
+        "connection_width": "warning",
+        "copper_edge_clearance": "error",
+        "copper_sliver": "warning",
+        "courtyards_overlap": "ignore",
+        "creepage": "error",
+        "diff_pair_gap_out_of_range": "error",
+        "diff_pair_uncoupled_length_too_long": "error",
+        "drill_out_of_range": "error",
+        "duplicate_footprints": "warning",
+        "extra_footprint": "warning",
+        "footprint": "error",
+        "footprint_filters_mismatch": "ignore",
+        "footprint_symbol_mismatch": "warning",
+        "footprint_type_mismatch": "ignore",
+        "hole_clearance": "ignore",
+        "hole_to_hole": "warning",
+        "holes_co_located": "warning",
+        "invalid_outline": "error",
+        "isolated_copper": "warning",
+        "item_on_disabled_layer": "error",
+        "items_not_allowed": "error",
+        "length_out_of_range": "error",
+        "lib_footprint_issues": "warning",
+        "lib_footprint_mismatch": "warning",
+        "malformed_courtyard": "error",
+        "microvia_drill_out_of_range": "error",
+        "mirrored_text_on_front_layer": "warning",
+        "missing_courtyard": "ignore",
+        "missing_footprint": "warning",
+        "net_conflict": "warning",
+        "nonmirrored_text_on_back_layer": "warning",
+        "npth_inside_courtyard": "ignore",
+        "padstack": "warning",
+        "pth_inside_courtyard": "ignore",
+        "shorting_items": "error",
+        "silk_edge_clearance": "warning",
+        "silk_over_copper": "warning",
+        "silk_overlap": "ignore",
+        "skew_out_of_range": "error",
+        "solder_mask_bridge": "error",
+        "starved_thermal": "error",
+        "text_height": "warning",
+        "text_on_edge_cuts": "error",
+        "text_thickness": "warning",
+        "through_hole_pad_without_hole": "error",
+        "too_many_vias": "error",
+        "track_angle": "error",
+        "track_dangling": "warning",
+        "track_segment_length": "error",
+        "track_width": "error",
+        "tracks_crossing": "error",
+        "unconnected_items": "error",
+        "unresolved_variable": "error",
+        "via_dangling": "warning",
+        "zones_intersect": "error"
+      },
+      "rules": {
+        "max_error": 0.005,
+        "min_clearance": 0.09,
+        "min_connection": 0.0,
+        "min_copper_edge_clearance": 0.3,
+        "min_groove_width": 0.0,
+        "min_hole_clearance": 0.2,
+        "min_hole_to_hole": 0.2,
+        "min_microvia_diameter": 0.15,
+        "min_microvia_drill": 0.1,
+        "min_resolved_spokes": 2,
+        "min_silk_clearance": 0.05,
+        "min_text_height": 0.3,
+        "min_text_thickness": 0.08,
+        "min_through_hole_diameter": 0.15,
+        "min_track_width": 0.09,
+        "min_via_annular_width": 0.05,
+        "min_via_diameter": 0.25,
+        "solder_mask_clearance": 0.0,
+        "solder_mask_min_width": 0.0,
+        "solder_mask_to_copper_clearance": 0.0,
+        "use_height_for_length_calcs": true
+      },
+      "teardrop_options": [
+        {
+          "td_onpthpad": true,
+          "td_onroundshapesonly": false,
+          "td_onsmdpad": true,
+          "td_ontrackend": false,
+          "td_onvia": true
+        }
+      ],
+      "teardrop_parameters": [
+        {
+          "td_allow_use_two_tracks": true,
+          "td_curve_segcount": 0,
+          "td_height_ratio": 1.0,
+          "td_length_ratio": 0.5,
+          "td_maxheight": 2.0,
+          "td_maxlen": 1.0,
+          "td_on_pad_in_zone": false,
+          "td_target_name": "td_round_shape",
+          "td_width_to_size_filter_ratio": 0.9
+        },
+        {
+          "td_allow_use_two_tracks": true,
+          "td_curve_segcount": 0,
+          "td_height_ratio": 1.0,
+          "td_length_ratio": 0.5,
+          "td_maxheight": 2.0,
+          "td_maxlen": 1.0,
+          "td_on_pad_in_zone": false,
+          "td_target_name": "td_rect_shape",
+          "td_width_to_size_filter_ratio": 0.9
+        },
+        {
+          "td_allow_use_two_tracks": true,
+          "td_curve_segcount": 0,
+          "td_height_ratio": 1.0,
+          "td_length_ratio": 0.5,
+          "td_maxheight": 2.0,
+          "td_maxlen": 1.0,
+          "td_on_pad_in_zone": false,
+          "td_target_name": "td_track_end",
+          "td_width_to_size_filter_ratio": 0.9
+        }
+      ],
+      "track_widths": [
+        0.0,
+        0.127,
+        0.16,
+        0.2,
+        0.4,
+        0.8
+      ],
+      "tuning_pattern_settings": {
+        "diff_pair_defaults": {
+          "corner_radius_percentage": 80,
+          "corner_style": 1,
+          "max_amplitude": 1.0,
+          "min_amplitude": 0.2,
+          "single_sided": false,
+          "spacing": 1.0
+        },
+        "diff_pair_skew_defaults": {
+          "corner_radius_percentage": 80,
+          "corner_style": 1,
+          "max_amplitude": 1.0,
+          "min_amplitude": 0.2,
+          "single_sided": false,
+          "spacing": 0.6
+        },
+        "single_track_defaults": {
+          "corner_radius_percentage": 80,
+          "corner_style": 1,
+          "max_amplitude": 1.0,
+          "min_amplitude": 0.2,
+          "single_sided": false,
+          "spacing": 0.6
+        }
+      },
+      "via_dimensions": [
+        {
+          "diameter": 0.0,
+          "drill": 0.0
+        },
+        {
+          "diameter": 0.4,
+          "drill": 0.2
+        },
+        {
+          "diameter": 0.5,
+          "drill": 0.3
+        },
+        {
+          "diameter": 0.25,
+          "drill": 0.15
+        },
+        {
+          "diameter": 0.45,
+          "drill": 0.2
+        },
+        {
+          "diameter": 0.6,
+          "drill": 0.3
+        }
+      ],
+      "zones_allow_external_fillets": false
+    },
+    "ipc2581": {
+      "dist": "",
+      "distpn": "",
+      "internal_id": "",
+      "mfg": "",
+      "mpn": ""
+    },
+    "layer_pairs": [],
+    "layer_presets": [],
+    "viewports": []
+  },
+  "boards": [],
+  "cvpcb": {
+    "equivalence_files": []
+  },
+  "libraries": {
+    "pinned_footprint_libs": [],
+    "pinned_symbol_libs": []
+  },
+  "meta": {
+    "filename": "dm0002-panel-5x2-long-side-only.kicad_pro",
+    "version": 3
+  },
+  "net_settings": {
+    "classes": [
+      {
+        "bus_width": 12,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.2,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.127,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1,
+        "via_diameter": 0.5,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.1778,
+        "diff_pair_width": 0.127,
+        "name": "100Ohm Diff",
+        "pcb_color": "rgb(194, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.127
+      },
+      {
+        "clearance": 0.2,
+        "name": "50Ohm SE",
+        "pcb_color": "rgb(0, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2908
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1588,
+        "name": "85Ohm Diff",
+        "pcb_color": "rgb(194, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1588
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1867,
+        "name": "90Ohm Diff",
+        "pcb_color": "rgb(0, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1867
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.1778,
+        "diff_pair_width": 0.127,
+        "name": "Board_0-100Ohm Diff",
+        "pcb_color": "rgb(194, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.127
+      },
+      {
+        "clearance": 0.2,
+        "name": "Board_0-50Ohm SE",
+        "pcb_color": "rgb(0, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2908
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1588,
+        "name": "Board_0-85Ohm Diff",
+        "pcb_color": "rgb(194, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1588
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1867,
+        "name": "Board_0-90Ohm Diff",
+        "pcb_color": "rgb(0, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1867
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.2,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.127,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Board_0-Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1,
+        "via_diameter": 0.5,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.1778,
+        "diff_pair_width": 0.127,
+        "name": "Board_1-100Ohm Diff",
+        "pcb_color": "rgb(194, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.127
+      },
+      {
+        "clearance": 0.2,
+        "name": "Board_1-50Ohm SE",
+        "pcb_color": "rgb(0, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2908
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1588,
+        "name": "Board_1-85Ohm Diff",
+        "pcb_color": "rgb(194, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1588
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1867,
+        "name": "Board_1-90Ohm Diff",
+        "pcb_color": "rgb(0, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1867
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.2,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.127,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Board_1-Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1,
+        "via_diameter": 0.5,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.1778,
+        "diff_pair_width": 0.127,
+        "name": "Board_10-100Ohm Diff",
+        "pcb_color": "rgb(194, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.127
+      },
+      {
+        "clearance": 0.2,
+        "name": "Board_10-50Ohm SE",
+        "pcb_color": "rgb(0, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2908
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1588,
+        "name": "Board_10-85Ohm Diff",
+        "pcb_color": "rgb(194, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1588
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1867,
+        "name": "Board_10-90Ohm Diff",
+        "pcb_color": "rgb(0, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1867
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.2,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.127,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Board_10-Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1,
+        "via_diameter": 0.5,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.1778,
+        "diff_pair_width": 0.127,
+        "name": "Board_11-100Ohm Diff",
+        "pcb_color": "rgb(194, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.127
+      },
+      {
+        "clearance": 0.2,
+        "name": "Board_11-50Ohm SE",
+        "pcb_color": "rgb(0, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2908
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1588,
+        "name": "Board_11-85Ohm Diff",
+        "pcb_color": "rgb(194, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1588
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1867,
+        "name": "Board_11-90Ohm Diff",
+        "pcb_color": "rgb(0, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1867
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.2,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.127,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Board_11-Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1,
+        "via_diameter": 0.5,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.1778,
+        "diff_pair_width": 0.127,
+        "name": "Board_12-100Ohm Diff",
+        "pcb_color": "rgb(194, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.127
+      },
+      {
+        "clearance": 0.2,
+        "name": "Board_12-50Ohm SE",
+        "pcb_color": "rgb(0, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2908
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1588,
+        "name": "Board_12-85Ohm Diff",
+        "pcb_color": "rgb(194, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1588
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1867,
+        "name": "Board_12-90Ohm Diff",
+        "pcb_color": "rgb(0, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1867
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.2,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.127,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Board_12-Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1,
+        "via_diameter": 0.5,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.1778,
+        "diff_pair_width": 0.127,
+        "name": "Board_13-100Ohm Diff",
+        "pcb_color": "rgb(194, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.127
+      },
+      {
+        "clearance": 0.2,
+        "name": "Board_13-50Ohm SE",
+        "pcb_color": "rgb(0, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2908
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1588,
+        "name": "Board_13-85Ohm Diff",
+        "pcb_color": "rgb(194, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1588
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1867,
+        "name": "Board_13-90Ohm Diff",
+        "pcb_color": "rgb(0, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1867
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.2,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.127,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Board_13-Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1,
+        "via_diameter": 0.5,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.1778,
+        "diff_pair_width": 0.127,
+        "name": "Board_14-100Ohm Diff",
+        "pcb_color": "rgb(194, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.127
+      },
+      {
+        "clearance": 0.2,
+        "name": "Board_14-50Ohm SE",
+        "pcb_color": "rgb(0, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2908
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1588,
+        "name": "Board_14-85Ohm Diff",
+        "pcb_color": "rgb(194, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1588
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1867,
+        "name": "Board_14-90Ohm Diff",
+        "pcb_color": "rgb(0, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1867
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.2,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.127,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Board_14-Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1,
+        "via_diameter": 0.5,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.1778,
+        "diff_pair_width": 0.127,
+        "name": "Board_15-100Ohm Diff",
+        "pcb_color": "rgb(194, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.127
+      },
+      {
+        "clearance": 0.2,
+        "name": "Board_15-50Ohm SE",
+        "pcb_color": "rgb(0, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2908
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1588,
+        "name": "Board_15-85Ohm Diff",
+        "pcb_color": "rgb(194, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1588
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1867,
+        "name": "Board_15-90Ohm Diff",
+        "pcb_color": "rgb(0, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1867
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.2,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.127,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Board_15-Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1,
+        "via_diameter": 0.5,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.1778,
+        "diff_pair_width": 0.127,
+        "name": "Board_16-100Ohm Diff",
+        "pcb_color": "rgb(194, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.127
+      },
+      {
+        "clearance": 0.2,
+        "name": "Board_16-50Ohm SE",
+        "pcb_color": "rgb(0, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2908
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1588,
+        "name": "Board_16-85Ohm Diff",
+        "pcb_color": "rgb(194, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1588
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1867,
+        "name": "Board_16-90Ohm Diff",
+        "pcb_color": "rgb(0, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1867
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.2,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.127,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Board_16-Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1,
+        "via_diameter": 0.5,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.1778,
+        "diff_pair_width": 0.127,
+        "name": "Board_17-100Ohm Diff",
+        "pcb_color": "rgb(194, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.127
+      },
+      {
+        "clearance": 0.2,
+        "name": "Board_17-50Ohm SE",
+        "pcb_color": "rgb(0, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2908
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1588,
+        "name": "Board_17-85Ohm Diff",
+        "pcb_color": "rgb(194, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1588
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1867,
+        "name": "Board_17-90Ohm Diff",
+        "pcb_color": "rgb(0, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1867
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.2,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.127,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Board_17-Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1,
+        "via_diameter": 0.5,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.1778,
+        "diff_pair_width": 0.127,
+        "name": "Board_18-100Ohm Diff",
+        "pcb_color": "rgb(194, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.127
+      },
+      {
+        "clearance": 0.2,
+        "name": "Board_18-50Ohm SE",
+        "pcb_color": "rgb(0, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2908
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1588,
+        "name": "Board_18-85Ohm Diff",
+        "pcb_color": "rgb(194, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1588
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1867,
+        "name": "Board_18-90Ohm Diff",
+        "pcb_color": "rgb(0, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1867
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.2,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.127,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Board_18-Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1,
+        "via_diameter": 0.5,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.1778,
+        "diff_pair_width": 0.127,
+        "name": "Board_19-100Ohm Diff",
+        "pcb_color": "rgb(194, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.127
+      },
+      {
+        "clearance": 0.2,
+        "name": "Board_19-50Ohm SE",
+        "pcb_color": "rgb(0, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2908
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1588,
+        "name": "Board_19-85Ohm Diff",
+        "pcb_color": "rgb(194, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1588
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1867,
+        "name": "Board_19-90Ohm Diff",
+        "pcb_color": "rgb(0, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1867
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.2,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.127,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Board_19-Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1,
+        "via_diameter": 0.5,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.1778,
+        "diff_pair_width": 0.127,
+        "name": "Board_2-100Ohm Diff",
+        "pcb_color": "rgb(194, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.127
+      },
+      {
+        "clearance": 0.2,
+        "name": "Board_2-50Ohm SE",
+        "pcb_color": "rgb(0, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2908
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1588,
+        "name": "Board_2-85Ohm Diff",
+        "pcb_color": "rgb(194, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1588
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1867,
+        "name": "Board_2-90Ohm Diff",
+        "pcb_color": "rgb(0, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1867
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.2,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.127,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Board_2-Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1,
+        "via_diameter": 0.5,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.1778,
+        "diff_pair_width": 0.127,
+        "name": "Board_3-100Ohm Diff",
+        "pcb_color": "rgb(194, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.127
+      },
+      {
+        "clearance": 0.2,
+        "name": "Board_3-50Ohm SE",
+        "pcb_color": "rgb(0, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2908
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1588,
+        "name": "Board_3-85Ohm Diff",
+        "pcb_color": "rgb(194, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1588
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1867,
+        "name": "Board_3-90Ohm Diff",
+        "pcb_color": "rgb(0, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1867
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.2,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.127,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Board_3-Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1,
+        "via_diameter": 0.5,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.1778,
+        "diff_pair_width": 0.127,
+        "name": "Board_4-100Ohm Diff",
+        "pcb_color": "rgb(194, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.127
+      },
+      {
+        "clearance": 0.2,
+        "name": "Board_4-50Ohm SE",
+        "pcb_color": "rgb(0, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2908
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1588,
+        "name": "Board_4-85Ohm Diff",
+        "pcb_color": "rgb(194, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1588
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1867,
+        "name": "Board_4-90Ohm Diff",
+        "pcb_color": "rgb(0, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1867
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.2,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.127,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Board_4-Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1,
+        "via_diameter": 0.5,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.1778,
+        "diff_pair_width": 0.127,
+        "name": "Board_5-100Ohm Diff",
+        "pcb_color": "rgb(194, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.127
+      },
+      {
+        "clearance": 0.2,
+        "name": "Board_5-50Ohm SE",
+        "pcb_color": "rgb(0, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2908
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1588,
+        "name": "Board_5-85Ohm Diff",
+        "pcb_color": "rgb(194, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1588
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1867,
+        "name": "Board_5-90Ohm Diff",
+        "pcb_color": "rgb(0, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1867
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.2,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.127,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Board_5-Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1,
+        "via_diameter": 0.5,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.1778,
+        "diff_pair_width": 0.127,
+        "name": "Board_6-100Ohm Diff",
+        "pcb_color": "rgb(194, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.127
+      },
+      {
+        "clearance": 0.2,
+        "name": "Board_6-50Ohm SE",
+        "pcb_color": "rgb(0, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2908
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1588,
+        "name": "Board_6-85Ohm Diff",
+        "pcb_color": "rgb(194, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1588
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1867,
+        "name": "Board_6-90Ohm Diff",
+        "pcb_color": "rgb(0, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1867
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.2,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.127,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Board_6-Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1,
+        "via_diameter": 0.5,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.1778,
+        "diff_pair_width": 0.127,
+        "name": "Board_7-100Ohm Diff",
+        "pcb_color": "rgb(194, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.127
+      },
+      {
+        "clearance": 0.2,
+        "name": "Board_7-50Ohm SE",
+        "pcb_color": "rgb(0, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2908
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1588,
+        "name": "Board_7-85Ohm Diff",
+        "pcb_color": "rgb(194, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1588
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1867,
+        "name": "Board_7-90Ohm Diff",
+        "pcb_color": "rgb(0, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1867
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.2,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.127,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Board_7-Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1,
+        "via_diameter": 0.5,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.1778,
+        "diff_pair_width": 0.127,
+        "name": "Board_8-100Ohm Diff",
+        "pcb_color": "rgb(194, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.127
+      },
+      {
+        "clearance": 0.2,
+        "name": "Board_8-50Ohm SE",
+        "pcb_color": "rgb(0, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2908
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1588,
+        "name": "Board_8-85Ohm Diff",
+        "pcb_color": "rgb(194, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1588
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1867,
+        "name": "Board_8-90Ohm Diff",
+        "pcb_color": "rgb(0, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1867
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.2,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.127,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Board_8-Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1,
+        "via_diameter": 0.5,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.1778,
+        "diff_pair_width": 0.127,
+        "name": "Board_9-100Ohm Diff",
+        "pcb_color": "rgb(194, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.127
+      },
+      {
+        "clearance": 0.2,
+        "name": "Board_9-50Ohm SE",
+        "pcb_color": "rgb(0, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2908
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1588,
+        "name": "Board_9-85Ohm Diff",
+        "pcb_color": "rgb(194, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1588
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1867,
+        "name": "Board_9-90Ohm Diff",
+        "pcb_color": "rgb(0, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1867
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.2,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.127,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Board_9-Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1,
+        "via_diameter": 0.5,
+        "via_drill": 0.3,
+        "wire_width": 6
+      }
+    ],
+    "meta": {
+      "version": 4
+    },
+    "net_colors": null,
+    "netclass_assignments": null,
+    "netclass_patterns": [
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-SWD_LS_OE"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-MCU.GPIO24"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-VBUS_5V0"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-MCU_UART_RX"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-MCU.VDD_1V1"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LDO_3V3.LDO_FB"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-MCU_SWDIO"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-TARGET_RESET_TO_MCU"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-TARGET_V_SENSE_R"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-MCU.GPIO8"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_O1.LED_R_NET"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_G"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-MCU.USB_MCU_D_N"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_O3"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-USB_C.SBU1"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_O3.LED_R_NET"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-VDD_3V3"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-TARGET_GND_DETECT"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_O1"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_O2.LED_R_NET"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-MCU_UART_TX"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-MCU.GPIO11"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-MCU.GPIO2"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-MCU.GPIO23"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-MCU.GPIO6"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-MCU.SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_PWR.LED_R_NET"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-MCU_SWCLK"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-SWD_HEADER.NC_FTSH-105-01-L-DV-K-A-P-TR_7"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-TARGET_UART_TX"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-USB_C.CC1"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-MCU.GPIO22"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_B"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LDO_3V3.NC_U_LDO_DNC"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-MCU.GPIO3"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-MCU.GPIO21"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-UART_LS_OE"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-MCU.USB_MCU_D_P"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-TARGET_RESET"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-MCU.RUN"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_G.LED_R_NET"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-MCU.GPIO15"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-MCU.SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-TARGET_VDDIO"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-TARGET_V_SENSE_BUFFER"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-USB_C.SBU2"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-MCU.XO_XIN"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-USB_C.CC2"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-VBUS_DET"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-MCU.GPIO9"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-MCU.GPIO1"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_B.LED_R_NET"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-MCU.GPIO0"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-MCU.GPIO25"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LDO_3V3.EN"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-MCU.XO_XOUT"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-GND"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-TARGET_UART_RX"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-MCU.GPIO7"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-MCU.GPIO4"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-MCU.GPIO10"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_O2"
+      },
+      {
+        "netclass": "Board_0-50Ohm SE",
+        "pattern": "Board_0-MCU.QSPI_CLK"
+      },
+      {
+        "netclass": "Board_0-50Ohm SE",
+        "pattern": "Board_0-MCU.QSPI_CS"
+      },
+      {
+        "netclass": "Board_0-50Ohm SE",
+        "pattern": "Board_0-MCU.QSPI_IO0"
+      },
+      {
+        "netclass": "Board_0-50Ohm SE",
+        "pattern": "Board_0-MCU.QSPI_IO1"
+      },
+      {
+        "netclass": "Board_0-50Ohm SE",
+        "pattern": "Board_0-MCU.QSPI_IO2"
+      },
+      {
+        "netclass": "Board_0-50Ohm SE",
+        "pattern": "Board_0-MCU.QSPI_IO3"
+      },
+      {
+        "netclass": "Board_0-90Ohm Diff",
+        "pattern": "Board_0-USB_D_N"
+      },
+      {
+        "netclass": "Board_0-90Ohm Diff",
+        "pattern": "Board_0-USB_D_P"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-SWD_HEADER.NC_FTSH-105-01-L-DV-K-A-P-TR_7"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-MCU.GPIO24"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-LED_O2.LED_R_NET"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-MCU.RUN"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-MCU_SWCLK"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-MCU_UART_TX"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-TARGET_UART_RX"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-USB_C.SBU1"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-VBUS_5V0"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-LED_G.LED_R_NET"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-VDD_3V3"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-MCU.GPIO1"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-MCU.GPIO6"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-MCU.GPIO2"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-MCU.SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-MCU.GPIO25"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-VBUS_DET"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-MCU_UART_RX"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-LED_G"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-MCU.XO_XOUT"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-LDO_3V3.NC_U_LDO_DNC"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-TARGET_VDDIO"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-LED_O3.LED_R_NET"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-MCU.GPIO22"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-MCU.GPIO4"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-MCU.USB_MCU_D_N"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-USB_C.CC2"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-MCU.GPIO0"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-LED_PWR.LED_R_NET"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-MCU.GPIO15"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-MCU.VDD_1V1"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-MCU.GPIO11"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-MCU.GPIO8"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-MCU.XO_XIN"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-SWD_LS_OE"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-MCU.GPIO21"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-MCU.GPIO23"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-TARGET_V_SENSE_R"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-LED_O1"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-MCU.GPIO10"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-MCU.GPIO7"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-MCU_SWDIO"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-LED_O1.LED_R_NET"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-LDO_3V3.LDO_FB"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-MCU.SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-LED_O2"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-TARGET_UART_TX"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-MCU.USB_MCU_D_P"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-TARGET_GND_DETECT"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-USB_C.SBU2"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-TARGET_V_SENSE_BUFFER"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-MCU.GPIO9"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-UART_LS_OE"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-TARGET_RESET"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-TARGET_RESET_TO_MCU"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-LED_O3"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-LED_B"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-LED_B.LED_R_NET"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-MCU.GPIO3"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-USB_C.CC1"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-LDO_3V3.EN"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_1-Default",
+        "pattern": "Board_1-GND"
+      },
+      {
+        "netclass": "Board_1-50Ohm SE",
+        "pattern": "Board_1-MCU.QSPI_CLK"
+      },
+      {
+        "netclass": "Board_1-50Ohm SE",
+        "pattern": "Board_1-MCU.QSPI_CS"
+      },
+      {
+        "netclass": "Board_1-50Ohm SE",
+        "pattern": "Board_1-MCU.QSPI_IO0"
+      },
+      {
+        "netclass": "Board_1-50Ohm SE",
+        "pattern": "Board_1-MCU.QSPI_IO1"
+      },
+      {
+        "netclass": "Board_1-50Ohm SE",
+        "pattern": "Board_1-MCU.QSPI_IO2"
+      },
+      {
+        "netclass": "Board_1-50Ohm SE",
+        "pattern": "Board_1-MCU.QSPI_IO3"
+      },
+      {
+        "netclass": "Board_1-90Ohm Diff",
+        "pattern": "Board_1-USB_D_N"
+      },
+      {
+        "netclass": "Board_1-90Ohm Diff",
+        "pattern": "Board_1-USB_D_P"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-VBUS_DET"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-MCU_UART_TX"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-MCU.USB_MCU_D_P"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-LED_B"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-MCU_SWDIO"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-USB_C.CC1"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-TARGET_UART_RX"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-MCU.GPIO9"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-MCU.GPIO11"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-MCU.GPIO7"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-MCU.VDD_1V1"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-MCU.XO_XOUT"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-SWD_LS_OE"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-MCU.RUN"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-GND"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-LDO_3V3.NC_U_LDO_DNC"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-LED_O3"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-TARGET_RESET"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-TARGET_VDDIO"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-MCU.USB_MCU_D_N"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-MCU.GPIO23"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-USB_C.SBU1"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-MCU.GPIO2"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-USB_C.SBU2"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-MCU.GPIO1"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-TARGET_V_SENSE_BUFFER"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-LED_O1"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-MCU.GPIO25"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-VBUS_5V0"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-MCU.GPIO3"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-LDO_3V3.EN"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-LED_B.LED_R_NET"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-MCU.GPIO8"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-MCU.SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-MCU.GPIO22"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-MCU.GPIO6"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-LED_O3.LED_R_NET"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-UART_LS_OE"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-TARGET_GND_DETECT"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-LED_O1.LED_R_NET"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-MCU.GPIO10"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-MCU.GPIO21"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-LED_O2"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-MCU_SWCLK"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-SWD_HEADER.NC_FTSH-105-01-L-DV-K-A-P-TR_7"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-TARGET_UART_TX"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-TARGET_V_SENSE_R"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-USB_C.CC2"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-MCU.GPIO4"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-MCU.SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-VDD_3V3"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-LED_PWR.LED_R_NET"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-LDO_3V3.LDO_FB"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-MCU.GPIO0"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-MCU.GPIO15"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-LED_O2.LED_R_NET"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-LED_G"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-MCU.GPIO24"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-MCU.XO_XIN"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-MCU_UART_RX"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-TARGET_RESET_TO_MCU"
+      },
+      {
+        "netclass": "Board_2-Default",
+        "pattern": "Board_2-LED_G.LED_R_NET"
+      },
+      {
+        "netclass": "Board_2-50Ohm SE",
+        "pattern": "Board_2-MCU.QSPI_CLK"
+      },
+      {
+        "netclass": "Board_2-50Ohm SE",
+        "pattern": "Board_2-MCU.QSPI_CS"
+      },
+      {
+        "netclass": "Board_2-50Ohm SE",
+        "pattern": "Board_2-MCU.QSPI_IO0"
+      },
+      {
+        "netclass": "Board_2-50Ohm SE",
+        "pattern": "Board_2-MCU.QSPI_IO1"
+      },
+      {
+        "netclass": "Board_2-50Ohm SE",
+        "pattern": "Board_2-MCU.QSPI_IO2"
+      },
+      {
+        "netclass": "Board_2-50Ohm SE",
+        "pattern": "Board_2-MCU.QSPI_IO3"
+      },
+      {
+        "netclass": "Board_2-90Ohm Diff",
+        "pattern": "Board_2-USB_D_N"
+      },
+      {
+        "netclass": "Board_2-90Ohm Diff",
+        "pattern": "Board_2-USB_D_P"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-MCU.GPIO0"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-MCU.GPIO15"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-LED_G"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-UART_LS_OE"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-USB_C.SBU2"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-MCU.GPIO1"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-LED_G.LED_R_NET"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-TARGET_UART_RX"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-MCU.GPIO3"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-USB_C.CC2"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-LDO_3V3.NC_U_LDO_DNC"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-MCU.GPIO4"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-MCU.GPIO2"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-MCU.GPIO23"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-MCU.GPIO6"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-TARGET_VDDIO"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-VBUS_5V0"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-MCU.GPIO7"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-MCU_UART_TX"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-LED_PWR.LED_R_NET"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-LED_B"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-LED_O3"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-MCU.XO_XIN"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-LED_O2.LED_R_NET"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-MCU.GPIO24"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-TARGET_V_SENSE_R"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-MCU.GPIO10"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-MCU.GPIO21"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-TARGET_RESET"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-LDO_3V3.EN"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-LED_B.LED_R_NET"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-TARGET_RESET_TO_MCU"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-MCU_SWCLK"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-TARGET_GND_DETECT"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-MCU.RUN"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-MCU.GPIO8"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-LDO_3V3.LDO_FB"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-MCU.USB_MCU_D_P"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-MCU.VDD_1V1"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-LED_O1"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-MCU_SWDIO"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-TARGET_UART_TX"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-GND"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-MCU.SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-MCU.GPIO9"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-MCU.XO_XOUT"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-USB_C.SBU1"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-LED_O3.LED_R_NET"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-MCU.GPIO25"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-SWD_HEADER.NC_FTSH-105-01-L-DV-K-A-P-TR_7"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-MCU.GPIO11"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-MCU.USB_MCU_D_N"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-MCU_UART_RX"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-SWD_LS_OE"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-MCU.GPIO22"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-MCU.SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-VBUS_DET"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-LED_O2"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-USB_C.CC1"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-LED_O1.LED_R_NET"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-TARGET_V_SENSE_BUFFER"
+      },
+      {
+        "netclass": "Board_3-Default",
+        "pattern": "Board_3-VDD_3V3"
+      },
+      {
+        "netclass": "Board_3-50Ohm SE",
+        "pattern": "Board_3-MCU.QSPI_CLK"
+      },
+      {
+        "netclass": "Board_3-50Ohm SE",
+        "pattern": "Board_3-MCU.QSPI_CS"
+      },
+      {
+        "netclass": "Board_3-50Ohm SE",
+        "pattern": "Board_3-MCU.QSPI_IO0"
+      },
+      {
+        "netclass": "Board_3-50Ohm SE",
+        "pattern": "Board_3-MCU.QSPI_IO1"
+      },
+      {
+        "netclass": "Board_3-50Ohm SE",
+        "pattern": "Board_3-MCU.QSPI_IO2"
+      },
+      {
+        "netclass": "Board_3-50Ohm SE",
+        "pattern": "Board_3-MCU.QSPI_IO3"
+      },
+      {
+        "netclass": "Board_3-90Ohm Diff",
+        "pattern": "Board_3-USB_D_N"
+      },
+      {
+        "netclass": "Board_3-90Ohm Diff",
+        "pattern": "Board_3-USB_D_P"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-MCU_SWDIO"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-MCU.RUN"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-MCU.GPIO8"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-MCU.GPIO21"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-MCU.GPIO9"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-LED_O3"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-LED_PWR.LED_R_NET"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-MCU.VDD_1V1"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-LED_G.LED_R_NET"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-MCU.GPIO7"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-SWD_LS_OE"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-TARGET_VDDIO"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-USB_C.SBU2"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-MCU.GPIO11"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-LED_B.LED_R_NET"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-TARGET_V_SENSE_BUFFER"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-LED_B"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-USB_C.SBU1"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-MCU.GPIO6"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-LED_O1"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-GND"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-MCU.GPIO24"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-VBUS_5V0"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-UART_LS_OE"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-MCU.GPIO23"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-MCU_SWCLK"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-MCU.GPIO1"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-LDO_3V3.LDO_FB"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-USB_C.CC1"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-LDO_3V3.EN"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-MCU.GPIO4"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-LED_G"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-LDO_3V3.NC_U_LDO_DNC"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-TARGET_RESET_TO_MCU"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-MCU.GPIO10"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-MCU.SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-TARGET_UART_RX"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-VDD_3V3"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-LED_O2.LED_R_NET"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-VBUS_DET"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-SWD_HEADER.NC_FTSH-105-01-L-DV-K-A-P-TR_7"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-MCU.GPIO0"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-LED_O3.LED_R_NET"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-MCU.SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-TARGET_UART_TX"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-MCU.USB_MCU_D_P"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-MCU_UART_RX"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-MCU.GPIO2"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-MCU.GPIO3"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-MCU.GPIO22"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-MCU.XO_XOUT"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-MCU.GPIO25"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-TARGET_RESET"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-LED_O2"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-MCU.USB_MCU_D_N"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-TARGET_GND_DETECT"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-MCU_UART_TX"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-USB_C.CC2"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-TARGET_V_SENSE_R"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-MCU.XO_XIN"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-LED_O1.LED_R_NET"
+      },
+      {
+        "netclass": "Board_4-Default",
+        "pattern": "Board_4-MCU.GPIO15"
+      },
+      {
+        "netclass": "Board_4-50Ohm SE",
+        "pattern": "Board_4-MCU.QSPI_CLK"
+      },
+      {
+        "netclass": "Board_4-50Ohm SE",
+        "pattern": "Board_4-MCU.QSPI_CS"
+      },
+      {
+        "netclass": "Board_4-50Ohm SE",
+        "pattern": "Board_4-MCU.QSPI_IO0"
+      },
+      {
+        "netclass": "Board_4-50Ohm SE",
+        "pattern": "Board_4-MCU.QSPI_IO1"
+      },
+      {
+        "netclass": "Board_4-50Ohm SE",
+        "pattern": "Board_4-MCU.QSPI_IO2"
+      },
+      {
+        "netclass": "Board_4-50Ohm SE",
+        "pattern": "Board_4-MCU.QSPI_IO3"
+      },
+      {
+        "netclass": "Board_4-90Ohm Diff",
+        "pattern": "Board_4-USB_D_N"
+      },
+      {
+        "netclass": "Board_4-90Ohm Diff",
+        "pattern": "Board_4-USB_D_P"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-MCU.GPIO25"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-MCU.GPIO21"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-TARGET_RESET_TO_MCU"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-MCU.GPIO11"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-MCU.GPIO1"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-LED_PWR.LED_R_NET"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-MCU_UART_RX"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-LDO_3V3.LDO_FB"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-SWD_LS_OE"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-LED_O3"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-MCU.GPIO24"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-TARGET_V_SENSE_BUFFER"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-LDO_3V3.NC_U_LDO_DNC"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-MCU.SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-MCU.USB_MCU_D_P"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-MCU.GPIO3"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-LED_O2.LED_R_NET"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-TARGET_V_SENSE_R"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-MCU_UART_TX"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-LED_O3.LED_R_NET"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-LDO_3V3.EN"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-MCU.GPIO0"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-MCU.GPIO15"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-UART_LS_OE"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-MCU.GPIO7"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-VBUS_DET"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-VDD_3V3"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-LED_O1"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-TARGET_UART_TX"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-MCU_SWCLK"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-MCU.GPIO22"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-MCU.GPIO23"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-MCU.XO_XOUT"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-MCU.VDD_1V1"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-GND"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-LED_O1.LED_R_NET"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-LED_O2"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-MCU.GPIO4"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-TARGET_UART_RX"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-USB_C.SBU1"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-VBUS_5V0"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-MCU.USB_MCU_D_N"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-MCU.GPIO10"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-USB_C.CC2"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-MCU.RUN"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-MCU.GPIO2"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-USB_C.SBU2"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-MCU.GPIO6"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-TARGET_GND_DETECT"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-LED_G.LED_R_NET"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-TARGET_RESET"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-MCU.XO_XIN"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-SWD_HEADER.NC_FTSH-105-01-L-DV-K-A-P-TR_7"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-LED_G"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-MCU.GPIO8"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-LED_B"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-MCU.SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-MCU_SWDIO"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-TARGET_VDDIO"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-LED_B.LED_R_NET"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-USB_C.CC1"
+      },
+      {
+        "netclass": "Board_5-Default",
+        "pattern": "Board_5-MCU.GPIO9"
+      },
+      {
+        "netclass": "Board_5-50Ohm SE",
+        "pattern": "Board_5-MCU.QSPI_CLK"
+      },
+      {
+        "netclass": "Board_5-50Ohm SE",
+        "pattern": "Board_5-MCU.QSPI_CS"
+      },
+      {
+        "netclass": "Board_5-50Ohm SE",
+        "pattern": "Board_5-MCU.QSPI_IO0"
+      },
+      {
+        "netclass": "Board_5-50Ohm SE",
+        "pattern": "Board_5-MCU.QSPI_IO1"
+      },
+      {
+        "netclass": "Board_5-50Ohm SE",
+        "pattern": "Board_5-MCU.QSPI_IO2"
+      },
+      {
+        "netclass": "Board_5-50Ohm SE",
+        "pattern": "Board_5-MCU.QSPI_IO3"
+      },
+      {
+        "netclass": "Board_5-90Ohm Diff",
+        "pattern": "Board_5-USB_D_N"
+      },
+      {
+        "netclass": "Board_5-90Ohm Diff",
+        "pattern": "Board_5-USB_D_P"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-MCU.XO_XIN"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-MCU.GPIO15"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-MCU.RUN"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-LED_B.LED_R_NET"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-TARGET_VDDIO"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-USB_C.SBU1"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-MCU.GPIO6"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-USB_C.SBU2"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-LED_O2"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-MCU.GPIO8"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-TARGET_V_SENSE_R"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-VBUS_5V0"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-MCU.GPIO10"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-MCU_SWDIO"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-MCU.GPIO0"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-TARGET_RESET"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-MCU.SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-LED_B"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-TARGET_UART_TX"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-VBUS_DET"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-MCU_UART_RX"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-MCU.GPIO9"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-MCU.USB_MCU_D_P"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-MCU.VDD_1V1"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-SWD_HEADER.NC_FTSH-105-01-L-DV-K-A-P-TR_7"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-MCU_UART_TX"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-MCU_SWCLK"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-MCU.GPIO23"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-MCU.GPIO3"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-MCU.SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-LED_PWR.LED_R_NET"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-LED_O1"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-USB_C.CC1"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-TARGET_V_SENSE_BUFFER"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-LED_O3.LED_R_NET"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-LED_O1.LED_R_NET"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-TARGET_RESET_TO_MCU"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-LDO_3V3.NC_U_LDO_DNC"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-MCU.XO_XOUT"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-LDO_3V3.EN"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-UART_LS_OE"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-MCU.GPIO22"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-MCU.GPIO11"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-GND"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-SWD_LS_OE"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-LED_G.LED_R_NET"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-TARGET_GND_DETECT"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-LED_O3"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-USB_C.CC2"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-MCU.GPIO2"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-MCU.GPIO21"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-LDO_3V3.LDO_FB"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-MCU.GPIO7"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-MCU.USB_MCU_D_N"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-MCU.GPIO4"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-TARGET_UART_RX"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-VDD_3V3"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-LED_G"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-MCU.GPIO24"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-MCU.GPIO25"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-LED_O2.LED_R_NET"
+      },
+      {
+        "netclass": "Board_6-Default",
+        "pattern": "Board_6-MCU.GPIO1"
+      },
+      {
+        "netclass": "Board_6-50Ohm SE",
+        "pattern": "Board_6-MCU.QSPI_CLK"
+      },
+      {
+        "netclass": "Board_6-50Ohm SE",
+        "pattern": "Board_6-MCU.QSPI_CS"
+      },
+      {
+        "netclass": "Board_6-50Ohm SE",
+        "pattern": "Board_6-MCU.QSPI_IO0"
+      },
+      {
+        "netclass": "Board_6-50Ohm SE",
+        "pattern": "Board_6-MCU.QSPI_IO1"
+      },
+      {
+        "netclass": "Board_6-50Ohm SE",
+        "pattern": "Board_6-MCU.QSPI_IO2"
+      },
+      {
+        "netclass": "Board_6-50Ohm SE",
+        "pattern": "Board_6-MCU.QSPI_IO3"
+      },
+      {
+        "netclass": "Board_6-90Ohm Diff",
+        "pattern": "Board_6-USB_D_N"
+      },
+      {
+        "netclass": "Board_6-90Ohm Diff",
+        "pattern": "Board_6-USB_D_P"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-LED_O1"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-TARGET_V_SENSE_BUFFER"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-MCU_SWCLK"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-USB_C.SBU1"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-LDO_3V3.NC_U_LDO_DNC"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-LED_O1.LED_R_NET"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-LED_O2"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-LED_O3.LED_R_NET"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-MCU.GPIO4"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-GND"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-MCU.GPIO10"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-MCU_SWDIO"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-USB_C.CC1"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-USB_C.SBU2"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-TARGET_UART_TX"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-UART_LS_OE"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-MCU.VDD_1V1"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-MCU.GPIO25"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-TARGET_RESET_TO_MCU"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-LED_PWR.LED_R_NET"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-LED_G"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-MCU.GPIO0"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-MCU.USB_MCU_D_N"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-VBUS_5V0"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-LED_B.LED_R_NET"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-TARGET_GND_DETECT"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-VDD_3V3"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-MCU.GPIO24"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-LED_O2.LED_R_NET"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-MCU.GPIO2"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-MCU.GPIO1"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-USB_C.CC2"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-TARGET_UART_RX"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-MCU.XO_XOUT"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-MCU.GPIO3"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-MCU.SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-TARGET_RESET"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-MCU.USB_MCU_D_P"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-LED_B"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-LDO_3V3.EN"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-LED_G.LED_R_NET"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-MCU.GPIO15"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-MCU.GPIO8"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-MCU.RUN"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-MCU.GPIO21"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-MCU.XO_XIN"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-MCU_UART_TX"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-LED_O3"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-MCU.GPIO23"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-MCU.SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-MCU.GPIO11"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-SWD_LS_OE"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-TARGET_VDDIO"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-MCU_UART_RX"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-SWD_HEADER.NC_FTSH-105-01-L-DV-K-A-P-TR_7"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-LDO_3V3.LDO_FB"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-MCU.GPIO7"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-TARGET_V_SENSE_R"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-VBUS_DET"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-MCU.GPIO9"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-MCU.GPIO6"
+      },
+      {
+        "netclass": "Board_7-Default",
+        "pattern": "Board_7-MCU.GPIO22"
+      },
+      {
+        "netclass": "Board_7-50Ohm SE",
+        "pattern": "Board_7-MCU.QSPI_CLK"
+      },
+      {
+        "netclass": "Board_7-50Ohm SE",
+        "pattern": "Board_7-MCU.QSPI_CS"
+      },
+      {
+        "netclass": "Board_7-50Ohm SE",
+        "pattern": "Board_7-MCU.QSPI_IO0"
+      },
+      {
+        "netclass": "Board_7-50Ohm SE",
+        "pattern": "Board_7-MCU.QSPI_IO1"
+      },
+      {
+        "netclass": "Board_7-50Ohm SE",
+        "pattern": "Board_7-MCU.QSPI_IO2"
+      },
+      {
+        "netclass": "Board_7-50Ohm SE",
+        "pattern": "Board_7-MCU.QSPI_IO3"
+      },
+      {
+        "netclass": "Board_7-90Ohm Diff",
+        "pattern": "Board_7-USB_D_N"
+      },
+      {
+        "netclass": "Board_7-90Ohm Diff",
+        "pattern": "Board_7-USB_D_P"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-MCU.XO_XOUT"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-MCU_UART_TX"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-MCU.VDD_1V1"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-VBUS_5V0"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-MCU.USB_MCU_D_P"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-MCU_SWDIO"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-MCU_UART_RX"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-LED_O1"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-MCU.USB_MCU_D_N"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-LED_B.LED_R_NET"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-TARGET_V_SENSE_BUFFER"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-MCU.GPIO4"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-MCU.GPIO6"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-LED_O2"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-MCU.GPIO25"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-TARGET_RESET"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-LED_G"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-USB_C.SBU2"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-SWD_HEADER.NC_FTSH-105-01-L-DV-K-A-P-TR_7"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-MCU.GPIO1"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-MCU.GPIO23"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-GND"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-MCU.GPIO22"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-MCU.GPIO7"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-USB_C.CC1"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-USB_C.CC2"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-MCU.GPIO2"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-LED_PWR.LED_R_NET"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-LED_O1.LED_R_NET"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-MCU.GPIO24"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-MCU.GPIO0"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-SWD_LS_OE"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-TARGET_RESET_TO_MCU"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-MCU.GPIO11"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-TARGET_UART_RX"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-LDO_3V3.NC_U_LDO_DNC"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-UART_LS_OE"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-VBUS_DET"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-LED_G.LED_R_NET"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-LED_B"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-MCU.SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-MCU.XO_XIN"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-TARGET_VDDIO"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-TARGET_V_SENSE_R"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-MCU.GPIO21"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-LDO_3V3.EN"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-MCU.GPIO8"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-LDO_3V3.LDO_FB"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-LED_O3.LED_R_NET"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-MCU.GPIO15"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-MCU.GPIO3"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-MCU.SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-TARGET_UART_TX"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-VDD_3V3"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-USB_C.SBU1"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-LED_O3"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-LED_O2.LED_R_NET"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-MCU.GPIO9"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-TARGET_GND_DETECT"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-MCU.GPIO10"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-MCU.RUN"
+      },
+      {
+        "netclass": "Board_8-Default",
+        "pattern": "Board_8-MCU_SWCLK"
+      },
+      {
+        "netclass": "Board_8-50Ohm SE",
+        "pattern": "Board_8-MCU.QSPI_CLK"
+      },
+      {
+        "netclass": "Board_8-50Ohm SE",
+        "pattern": "Board_8-MCU.QSPI_CS"
+      },
+      {
+        "netclass": "Board_8-50Ohm SE",
+        "pattern": "Board_8-MCU.QSPI_IO0"
+      },
+      {
+        "netclass": "Board_8-50Ohm SE",
+        "pattern": "Board_8-MCU.QSPI_IO1"
+      },
+      {
+        "netclass": "Board_8-50Ohm SE",
+        "pattern": "Board_8-MCU.QSPI_IO2"
+      },
+      {
+        "netclass": "Board_8-50Ohm SE",
+        "pattern": "Board_8-MCU.QSPI_IO3"
+      },
+      {
+        "netclass": "Board_8-90Ohm Diff",
+        "pattern": "Board_8-USB_D_N"
+      },
+      {
+        "netclass": "Board_8-90Ohm Diff",
+        "pattern": "Board_8-USB_D_P"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-MCU.GPIO23"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-MCU.GPIO2"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-USB_C.SBU2"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-MCU.XO_XIN"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-USB_C.SBU1"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-LDO_3V3.NC_U_LDO_DNC"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-LED_O3"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-MCU.USB_MCU_D_N"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-TARGET_UART_TX"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-MCU.RUN"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-LDO_3V3.EN"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-MCU.GPIO10"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-MCU.SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-MCU.GPIO24"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-UART_LS_OE"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-MCU.GPIO25"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-TARGET_RESET"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-LED_G"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-MCU_SWCLK"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-MCU.GPIO6"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-MCU.SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-MCU.GPIO4"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-MCU.VDD_1V1"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-TARGET_V_SENSE_R"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-SWD_HEADER.NC_FTSH-105-01-L-DV-K-A-P-TR_7"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-TARGET_RESET_TO_MCU"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-LDO_3V3.LDO_FB"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-MCU_UART_RX"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-USB_C.CC2"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-TARGET_UART_RX"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-MCU_UART_TX"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-TARGET_GND_DETECT"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-LED_O3.LED_R_NET"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-MCU.GPIO8"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-MCU.XO_XOUT"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-VBUS_5V0"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-VDD_3V3"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-MCU_SWDIO"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-LED_O1.LED_R_NET"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-MCU.GPIO21"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-TARGET_V_SENSE_BUFFER"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-MCU.GPIO3"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-MCU.USB_MCU_D_P"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-MCU.GPIO22"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-TARGET_VDDIO"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-LED_O1"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-MCU.GPIO11"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-MCU.GPIO1"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-MCU.GPIO9"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-VBUS_DET"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-MCU.GPIO0"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-LED_B.LED_R_NET"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-MCU.GPIO7"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-USB_C.CC1"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-GND"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-LED_O2"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-LED_O2.LED_R_NET"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-SWD_LS_OE"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-LED_B"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-LED_G.LED_R_NET"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-MCU.GPIO15"
+      },
+      {
+        "netclass": "Board_9-Default",
+        "pattern": "Board_9-LED_PWR.LED_R_NET"
+      },
+      {
+        "netclass": "Board_9-50Ohm SE",
+        "pattern": "Board_9-MCU.QSPI_CLK"
+      },
+      {
+        "netclass": "Board_9-50Ohm SE",
+        "pattern": "Board_9-MCU.QSPI_CS"
+      },
+      {
+        "netclass": "Board_9-50Ohm SE",
+        "pattern": "Board_9-MCU.QSPI_IO0"
+      },
+      {
+        "netclass": "Board_9-50Ohm SE",
+        "pattern": "Board_9-MCU.QSPI_IO1"
+      },
+      {
+        "netclass": "Board_9-50Ohm SE",
+        "pattern": "Board_9-MCU.QSPI_IO2"
+      },
+      {
+        "netclass": "Board_9-50Ohm SE",
+        "pattern": "Board_9-MCU.QSPI_IO3"
+      },
+      {
+        "netclass": "Board_9-90Ohm Diff",
+        "pattern": "Board_9-USB_D_N"
+      },
+      {
+        "netclass": "Board_9-90Ohm Diff",
+        "pattern": "Board_9-USB_D_P"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-MCU.XO_XIN"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-MCU.GPIO8"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-MCU.USB_MCU_D_N"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-TARGET_GND_DETECT"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-LED_O2.LED_R_NET"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-MCU.GPIO23"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-MCU.GPIO6"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-LED_O3.LED_R_NET"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-MCU.GPIO15"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-LED_O3"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-LED_PWR.LED_R_NET"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-MCU.GPIO2"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-MCU.GPIO22"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-MCU.SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-TARGET_UART_TX"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-MCU.GPIO11"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-UART_LS_OE"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-MCU.GPIO24"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-SWD_HEADER.NC_FTSH-105-01-L-DV-K-A-P-TR_7"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-MCU.GPIO25"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-LED_O2"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-MCU.GPIO4"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-LED_B"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-LDO_3V3.NC_U_LDO_DNC"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-MCU.GPIO10"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-LDO_3V3.EN"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-MCU.GPIO9"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-MCU.VDD_1V1"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-MCU_SWCLK"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-USB_C.CC1"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-MCU.USB_MCU_D_P"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-LED_G.LED_R_NET"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-MCU_UART_TX"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-TARGET_RESET"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-TARGET_V_SENSE_R"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-VBUS_DET"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-TARGET_V_SENSE_BUFFER"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-LED_G"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-MCU.GPIO7"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-LED_O1"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-MCU.XO_XOUT"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-GND"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-MCU.GPIO21"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-MCU.GPIO1"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-MCU_UART_RX"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-LDO_3V3.LDO_FB"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-MCU_SWDIO"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-VBUS_5V0"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-TARGET_RESET_TO_MCU"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-USB_C.SBU1"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-MCU.GPIO3"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-MCU.SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-TARGET_VDDIO"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-USB_C.CC2"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-VDD_3V3"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-LED_O1.LED_R_NET"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-MCU.RUN"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-USB_C.SBU2"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-MCU.GPIO0"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-SWD_LS_OE"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-LED_B.LED_R_NET"
+      },
+      {
+        "netclass": "Board_10-Default",
+        "pattern": "Board_10-TARGET_UART_RX"
+      },
+      {
+        "netclass": "Board_10-50Ohm SE",
+        "pattern": "Board_10-MCU.QSPI_CLK"
+      },
+      {
+        "netclass": "Board_10-50Ohm SE",
+        "pattern": "Board_10-MCU.QSPI_CS"
+      },
+      {
+        "netclass": "Board_10-50Ohm SE",
+        "pattern": "Board_10-MCU.QSPI_IO0"
+      },
+      {
+        "netclass": "Board_10-50Ohm SE",
+        "pattern": "Board_10-MCU.QSPI_IO1"
+      },
+      {
+        "netclass": "Board_10-50Ohm SE",
+        "pattern": "Board_10-MCU.QSPI_IO2"
+      },
+      {
+        "netclass": "Board_10-50Ohm SE",
+        "pattern": "Board_10-MCU.QSPI_IO3"
+      },
+      {
+        "netclass": "Board_10-90Ohm Diff",
+        "pattern": "Board_10-USB_D_N"
+      },
+      {
+        "netclass": "Board_10-90Ohm Diff",
+        "pattern": "Board_10-USB_D_P"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-MCU.GPIO10"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-LED_O1.LED_R_NET"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-MCU.GPIO11"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-LED_G.LED_R_NET"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-MCU.GPIO2"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-MCU.GPIO15"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-VBUS_5V0"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-MCU_UART_TX"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-USB_C.SBU2"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-LED_O3"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-USB_C.CC1"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-LDO_3V3.NC_U_LDO_DNC"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-MCU.GPIO25"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-LED_O2"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-LDO_3V3.EN"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-TARGET_V_SENSE_R"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-UART_LS_OE"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-SWD_HEADER.NC_FTSH-105-01-L-DV-K-A-P-TR_7"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-MCU.SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-TARGET_VDDIO"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-VBUS_DET"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-MCU_SWDIO"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-MCU.SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-MCU.GPIO3"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-MCU.GPIO4"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-MCU.GPIO9"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-MCU.RUN"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-MCU.GPIO8"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-MCU.USB_MCU_D_N"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-TARGET_GND_DETECT"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-TARGET_RESET_TO_MCU"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-TARGET_UART_TX"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-TARGET_UART_RX"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-LED_G"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-USB_C.CC2"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-MCU_UART_RX"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-LED_B"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-USB_C.SBU1"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-MCU.USB_MCU_D_P"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-SWD_LS_OE"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-MCU_SWCLK"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-MCU.GPIO1"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-LED_B.LED_R_NET"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-MCU.GPIO23"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-MCU.GPIO24"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-LED_O2.LED_R_NET"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-MCU.XO_XOUT"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-VDD_3V3"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-MCU.GPIO7"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-MCU.GPIO22"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-MCU.GPIO6"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-LED_O3.LED_R_NET"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-MCU.GPIO0"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-MCU.GPIO21"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-TARGET_V_SENSE_BUFFER"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-GND"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-LDO_3V3.LDO_FB"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-MCU.XO_XIN"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-LED_O1"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-MCU.VDD_1V1"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-LED_PWR.LED_R_NET"
+      },
+      {
+        "netclass": "Board_11-Default",
+        "pattern": "Board_11-TARGET_RESET"
+      },
+      {
+        "netclass": "Board_11-50Ohm SE",
+        "pattern": "Board_11-MCU.QSPI_CLK"
+      },
+      {
+        "netclass": "Board_11-50Ohm SE",
+        "pattern": "Board_11-MCU.QSPI_CS"
+      },
+      {
+        "netclass": "Board_11-50Ohm SE",
+        "pattern": "Board_11-MCU.QSPI_IO0"
+      },
+      {
+        "netclass": "Board_11-50Ohm SE",
+        "pattern": "Board_11-MCU.QSPI_IO1"
+      },
+      {
+        "netclass": "Board_11-50Ohm SE",
+        "pattern": "Board_11-MCU.QSPI_IO2"
+      },
+      {
+        "netclass": "Board_11-50Ohm SE",
+        "pattern": "Board_11-MCU.QSPI_IO3"
+      },
+      {
+        "netclass": "Board_11-90Ohm Diff",
+        "pattern": "Board_11-USB_D_N"
+      },
+      {
+        "netclass": "Board_11-90Ohm Diff",
+        "pattern": "Board_11-USB_D_P"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-LDO_3V3.EN"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-LED_B.LED_R_NET"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-MCU.GPIO1"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-TARGET_RESET_TO_MCU"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-MCU.GPIO7"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-LDO_3V3.NC_U_LDO_DNC"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-MCU.XO_XOUT"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-LED_O3.LED_R_NET"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-LDO_3V3.LDO_FB"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-LED_O2.LED_R_NET"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-MCU.GPIO10"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-MCU_SWCLK"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-MCU.RUN"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-VBUS_DET"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-TARGET_UART_TX"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-TARGET_VDDIO"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-MCU.USB_MCU_D_P"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-LED_B"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-MCU_UART_RX"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-MCU.GPIO3"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-MCU.GPIO6"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-TARGET_GND_DETECT"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-MCU.XO_XIN"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-LED_O1.LED_R_NET"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-MCU.GPIO2"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-MCU.GPIO8"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-MCU.GPIO9"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-MCU_UART_TX"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-LED_O3"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-USB_C.CC1"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-USB_C.CC2"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-USB_C.SBU1"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-MCU_SWDIO"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-TARGET_V_SENSE_R"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-LED_PWR.LED_R_NET"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-USB_C.SBU2"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-MCU.GPIO23"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-MCU.GPIO22"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-SWD_LS_OE"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-MCU.SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-MCU.USB_MCU_D_N"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-VBUS_5V0"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-MCU.GPIO11"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-UART_LS_OE"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-SWD_HEADER.NC_FTSH-105-01-L-DV-K-A-P-TR_7"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-LED_G.LED_R_NET"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-MCU.GPIO4"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-TARGET_RESET"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-MCU.GPIO21"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-MCU.GPIO25"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-VDD_3V3"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-LED_G"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-LED_O2"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-MCU.VDD_1V1"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-TARGET_V_SENSE_BUFFER"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-MCU.SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-MCU.GPIO15"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-MCU.GPIO0"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-MCU.GPIO24"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-LED_O1"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-GND"
+      },
+      {
+        "netclass": "Board_12-Default",
+        "pattern": "Board_12-TARGET_UART_RX"
+      },
+      {
+        "netclass": "Board_12-50Ohm SE",
+        "pattern": "Board_12-MCU.QSPI_CLK"
+      },
+      {
+        "netclass": "Board_12-50Ohm SE",
+        "pattern": "Board_12-MCU.QSPI_CS"
+      },
+      {
+        "netclass": "Board_12-50Ohm SE",
+        "pattern": "Board_12-MCU.QSPI_IO0"
+      },
+      {
+        "netclass": "Board_12-50Ohm SE",
+        "pattern": "Board_12-MCU.QSPI_IO1"
+      },
+      {
+        "netclass": "Board_12-50Ohm SE",
+        "pattern": "Board_12-MCU.QSPI_IO2"
+      },
+      {
+        "netclass": "Board_12-50Ohm SE",
+        "pattern": "Board_12-MCU.QSPI_IO3"
+      },
+      {
+        "netclass": "Board_12-90Ohm Diff",
+        "pattern": "Board_12-USB_D_N"
+      },
+      {
+        "netclass": "Board_12-90Ohm Diff",
+        "pattern": "Board_12-USB_D_P"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-MCU.GPIO25"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-TARGET_UART_TX"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-MCU.GPIO4"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-LDO_3V3.LDO_FB"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-MCU.GPIO1"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-MCU_SWDIO"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-USB_C.SBU2"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-TARGET_UART_RX"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-LED_O1"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-MCU_UART_RX"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-MCU.GPIO21"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-LED_B.LED_R_NET"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-MCU_UART_TX"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-MCU.GPIO7"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-LED_PWR.LED_R_NET"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-LED_O3.LED_R_NET"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-MCU.RUN"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-MCU.GPIO3"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-LED_O2"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-VBUS_5V0"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-MCU.XO_XOUT"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-VDD_3V3"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-LED_O1.LED_R_NET"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-USB_C.CC2"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-LED_B"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-SWD_LS_OE"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-MCU.SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-LED_O2.LED_R_NET"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-LED_G"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-MCU_SWCLK"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-GND"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-MCU.GPIO9"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-LDO_3V3.NC_U_LDO_DNC"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-MCU.GPIO22"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-MCU.SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-MCU.XO_XIN"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-TARGET_RESET_TO_MCU"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-USB_C.SBU1"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-MCU.GPIO8"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-MCU.GPIO0"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-TARGET_V_SENSE_BUFFER"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-SWD_HEADER.NC_FTSH-105-01-L-DV-K-A-P-TR_7"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-TARGET_GND_DETECT"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-MCU.GPIO6"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-USB_C.CC1"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-MCU.GPIO24"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-MCU.GPIO10"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-MCU.VDD_1V1"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-TARGET_VDDIO"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-LED_O3"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-MCU.GPIO2"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-TARGET_V_SENSE_R"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-UART_LS_OE"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-LED_G.LED_R_NET"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-MCU.GPIO15"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-MCU.USB_MCU_D_P"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-MCU.GPIO23"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-VBUS_DET"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-LDO_3V3.EN"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-MCU.USB_MCU_D_N"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-TARGET_RESET"
+      },
+      {
+        "netclass": "Board_13-Default",
+        "pattern": "Board_13-MCU.GPIO11"
+      },
+      {
+        "netclass": "Board_13-50Ohm SE",
+        "pattern": "Board_13-MCU.QSPI_CLK"
+      },
+      {
+        "netclass": "Board_13-50Ohm SE",
+        "pattern": "Board_13-MCU.QSPI_CS"
+      },
+      {
+        "netclass": "Board_13-50Ohm SE",
+        "pattern": "Board_13-MCU.QSPI_IO0"
+      },
+      {
+        "netclass": "Board_13-50Ohm SE",
+        "pattern": "Board_13-MCU.QSPI_IO1"
+      },
+      {
+        "netclass": "Board_13-50Ohm SE",
+        "pattern": "Board_13-MCU.QSPI_IO2"
+      },
+      {
+        "netclass": "Board_13-50Ohm SE",
+        "pattern": "Board_13-MCU.QSPI_IO3"
+      },
+      {
+        "netclass": "Board_13-90Ohm Diff",
+        "pattern": "Board_13-USB_D_N"
+      },
+      {
+        "netclass": "Board_13-90Ohm Diff",
+        "pattern": "Board_13-USB_D_P"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-MCU.GPIO25"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-MCU.USB_MCU_D_P"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-TARGET_RESET_TO_MCU"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-MCU.VDD_1V1"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-GND"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-SWD_LS_OE"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-SWD_HEADER.NC_FTSH-105-01-L-DV-K-A-P-TR_7"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-MCU.USB_MCU_D_N"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-MCU_UART_RX"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-MCU_SWCLK"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-USB_C.SBU2"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-MCU.GPIO24"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-LED_B.LED_R_NET"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-LED_O1"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-VBUS_5V0"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-MCU.GPIO8"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-TARGET_UART_RX"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-TARGET_UART_TX"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-USB_C.SBU1"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-MCU.GPIO23"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-MCU.GPIO11"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-TARGET_RESET"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-TARGET_V_SENSE_R"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-TARGET_GND_DETECT"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-LED_PWR.LED_R_NET"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-MCU_SWDIO"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-UART_LS_OE"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-MCU.XO_XOUT"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-MCU.RUN"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-MCU_UART_TX"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-MCU.GPIO3"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-LED_O2.LED_R_NET"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-MCU.GPIO4"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-LED_G"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-USB_C.CC2"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-MCU.GPIO0"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-MCU.GPIO7"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-LED_O2"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-USB_C.CC1"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-MCU.GPIO1"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-LDO_3V3.LDO_FB"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-MCU.SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-VBUS_DET"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-MCU.GPIO21"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-LED_O3.LED_R_NET"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-MCU.GPIO22"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-MCU.GPIO2"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-TARGET_VDDIO"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-LED_B"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-MCU.GPIO10"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-MCU.GPIO9"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-LED_O3"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-LDO_3V3.NC_U_LDO_DNC"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-LED_O1.LED_R_NET"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-TARGET_V_SENSE_BUFFER"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-MCU.GPIO6"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-LED_G.LED_R_NET"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-MCU.SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-LDO_3V3.EN"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-VDD_3V3"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-MCU.GPIO15"
+      },
+      {
+        "netclass": "Board_14-Default",
+        "pattern": "Board_14-MCU.XO_XIN"
+      },
+      {
+        "netclass": "Board_14-50Ohm SE",
+        "pattern": "Board_14-MCU.QSPI_CLK"
+      },
+      {
+        "netclass": "Board_14-50Ohm SE",
+        "pattern": "Board_14-MCU.QSPI_CS"
+      },
+      {
+        "netclass": "Board_14-50Ohm SE",
+        "pattern": "Board_14-MCU.QSPI_IO0"
+      },
+      {
+        "netclass": "Board_14-50Ohm SE",
+        "pattern": "Board_14-MCU.QSPI_IO1"
+      },
+      {
+        "netclass": "Board_14-50Ohm SE",
+        "pattern": "Board_14-MCU.QSPI_IO2"
+      },
+      {
+        "netclass": "Board_14-50Ohm SE",
+        "pattern": "Board_14-MCU.QSPI_IO3"
+      },
+      {
+        "netclass": "Board_14-90Ohm Diff",
+        "pattern": "Board_14-USB_D_N"
+      },
+      {
+        "netclass": "Board_14-90Ohm Diff",
+        "pattern": "Board_14-USB_D_P"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-LED_O1"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-MCU.GPIO10"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-MCU.GPIO8"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-USB_C.CC1"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-TARGET_V_SENSE_BUFFER"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-TARGET_RESET_TO_MCU"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-LED_G.LED_R_NET"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-LDO_3V3.LDO_FB"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-LED_G"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-MCU.GPIO7"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-LDO_3V3.EN"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-MCU.GPIO25"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-MCU.GPIO11"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-TARGET_RESET"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-MCU.USB_MCU_D_N"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-MCU.XO_XIN"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-MCU.XO_XOUT"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-MCU.GPIO4"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-MCU.GPIO9"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-SWD_LS_OE"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-LED_O2.LED_R_NET"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-MCU.GPIO3"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-TARGET_GND_DETECT"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-TARGET_UART_TX"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-UART_LS_OE"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-USB_C.CC2"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-LED_O2"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-MCU_SWDIO"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-MCU.VDD_1V1"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-VBUS_5V0"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-SWD_HEADER.NC_FTSH-105-01-L-DV-K-A-P-TR_7"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-TARGET_UART_RX"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-MCU_UART_TX"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-LED_PWR.LED_R_NET"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-GND"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-LED_O1.LED_R_NET"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-LDO_3V3.NC_U_LDO_DNC"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-MCU.GPIO23"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-MCU.GPIO6"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-MCU.GPIO24"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-VBUS_DET"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-MCU.GPIO2"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-MCU.SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-MCU.RUN"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-TARGET_V_SENSE_R"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-LED_O3.LED_R_NET"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-LED_B.LED_R_NET"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-MCU.GPIO21"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-LED_O3"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-TARGET_VDDIO"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-LED_B"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-MCU.GPIO1"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-MCU.GPIO0"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-MCU.GPIO22"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-MCU.USB_MCU_D_P"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-VDD_3V3"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-MCU.GPIO15"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-MCU_UART_RX"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-USB_C.SBU1"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-USB_C.SBU2"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-MCU.SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_15-Default",
+        "pattern": "Board_15-MCU_SWCLK"
+      },
+      {
+        "netclass": "Board_15-50Ohm SE",
+        "pattern": "Board_15-MCU.QSPI_CLK"
+      },
+      {
+        "netclass": "Board_15-50Ohm SE",
+        "pattern": "Board_15-MCU.QSPI_CS"
+      },
+      {
+        "netclass": "Board_15-50Ohm SE",
+        "pattern": "Board_15-MCU.QSPI_IO0"
+      },
+      {
+        "netclass": "Board_15-50Ohm SE",
+        "pattern": "Board_15-MCU.QSPI_IO1"
+      },
+      {
+        "netclass": "Board_15-50Ohm SE",
+        "pattern": "Board_15-MCU.QSPI_IO2"
+      },
+      {
+        "netclass": "Board_15-50Ohm SE",
+        "pattern": "Board_15-MCU.QSPI_IO3"
+      },
+      {
+        "netclass": "Board_15-90Ohm Diff",
+        "pattern": "Board_15-USB_D_N"
+      },
+      {
+        "netclass": "Board_15-90Ohm Diff",
+        "pattern": "Board_15-USB_D_P"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-LED_O2.LED_R_NET"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-MCU.GPIO22"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-MCU.VDD_1V1"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-MCU_SWDIO"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-MCU_UART_TX"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-LED_O1.LED_R_NET"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-VBUS_5V0"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-MCU.GPIO9"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-TARGET_RESET_TO_MCU"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-USB_C.CC1"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-LED_B.LED_R_NET"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-LED_O3.LED_R_NET"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-MCU.SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-MCU.GPIO6"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-LED_B"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-MCU.USB_MCU_D_P"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-MCU_SWCLK"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-TARGET_VDDIO"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-MCU.GPIO4"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-MCU.XO_XIN"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-MCU.GPIO0"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-LED_G.LED_R_NET"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-MCU.GPIO3"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-MCU_UART_RX"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-MCU.GPIO21"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-TARGET_V_SENSE_BUFFER"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-VBUS_DET"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-UART_LS_OE"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-LED_O1"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-MCU.GPIO25"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-MCU.GPIO7"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-MCU.GPIO8"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-MCU.USB_MCU_D_N"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-MCU.GPIO1"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-SWD_HEADER.NC_FTSH-105-01-L-DV-K-A-P-TR_7"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-TARGET_UART_RX"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-MCU.GPIO11"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-VDD_3V3"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-TARGET_UART_TX"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-TARGET_V_SENSE_R"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-LED_O2"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-LDO_3V3.LDO_FB"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-MCU.GPIO2"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-MCU.RUN"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-SWD_LS_OE"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-LDO_3V3.EN"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-MCU.GPIO15"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-TARGET_RESET"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-MCU.GPIO23"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-MCU.XO_XOUT"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-TARGET_GND_DETECT"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-LDO_3V3.NC_U_LDO_DNC"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-LED_O3"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-USB_C.SBU1"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-GND"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-USB_C.SBU2"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-USB_C.CC2"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-MCU.SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-LED_G"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-LED_PWR.LED_R_NET"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-MCU.GPIO10"
+      },
+      {
+        "netclass": "Board_16-Default",
+        "pattern": "Board_16-MCU.GPIO24"
+      },
+      {
+        "netclass": "Board_16-50Ohm SE",
+        "pattern": "Board_16-MCU.QSPI_CLK"
+      },
+      {
+        "netclass": "Board_16-50Ohm SE",
+        "pattern": "Board_16-MCU.QSPI_CS"
+      },
+      {
+        "netclass": "Board_16-50Ohm SE",
+        "pattern": "Board_16-MCU.QSPI_IO0"
+      },
+      {
+        "netclass": "Board_16-50Ohm SE",
+        "pattern": "Board_16-MCU.QSPI_IO1"
+      },
+      {
+        "netclass": "Board_16-50Ohm SE",
+        "pattern": "Board_16-MCU.QSPI_IO2"
+      },
+      {
+        "netclass": "Board_16-50Ohm SE",
+        "pattern": "Board_16-MCU.QSPI_IO3"
+      },
+      {
+        "netclass": "Board_16-90Ohm Diff",
+        "pattern": "Board_16-USB_D_N"
+      },
+      {
+        "netclass": "Board_16-90Ohm Diff",
+        "pattern": "Board_16-USB_D_P"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-TARGET_UART_RX"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-LED_G.LED_R_NET"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-TARGET_RESET_TO_MCU"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-MCU.GPIO9"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-TARGET_UART_TX"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-SWD_LS_OE"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-LED_O2.LED_R_NET"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-LED_PWR.LED_R_NET"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-LED_O1"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-MCU.GPIO10"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-MCU_UART_TX"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-VDD_3V3"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-MCU.SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-MCU.GPIO24"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-TARGET_V_SENSE_R"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-MCU_SWCLK"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-MCU.GPIO6"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-LDO_3V3.LDO_FB"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-MCU.XO_XOUT"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-MCU.GPIO21"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-LED_O3.LED_R_NET"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-USB_C.SBU2"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-GND"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-MCU.GPIO8"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-TARGET_GND_DETECT"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-TARGET_V_SENSE_BUFFER"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-MCU.RUN"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-MCU_UART_RX"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-MCU.GPIO2"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-LED_O2"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-LED_O1.LED_R_NET"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-LDO_3V3.NC_U_LDO_DNC"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-USB_C.CC1"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-MCU.GPIO0"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-LED_O3"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-MCU.GPIO7"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-MCU_SWDIO"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-USB_C.CC2"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-MCU.USB_MCU_D_P"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-LED_B"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-MCU.USB_MCU_D_N"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-MCU.GPIO11"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-MCU.GPIO15"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-SWD_HEADER.NC_FTSH-105-01-L-DV-K-A-P-TR_7"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-LED_G"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-VBUS_DET"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-LED_B.LED_R_NET"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-MCU.VDD_1V1"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-MCU.GPIO1"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-MCU.GPIO23"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-MCU.GPIO25"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-MCU.SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-TARGET_VDDIO"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-VBUS_5V0"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-TARGET_RESET"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-LDO_3V3.EN"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-MCU.GPIO3"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-USB_C.SBU1"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-MCU.GPIO22"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-MCU.GPIO4"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-UART_LS_OE"
+      },
+      {
+        "netclass": "Board_17-Default",
+        "pattern": "Board_17-MCU.XO_XIN"
+      },
+      {
+        "netclass": "Board_17-50Ohm SE",
+        "pattern": "Board_17-MCU.QSPI_CLK"
+      },
+      {
+        "netclass": "Board_17-50Ohm SE",
+        "pattern": "Board_17-MCU.QSPI_CS"
+      },
+      {
+        "netclass": "Board_17-50Ohm SE",
+        "pattern": "Board_17-MCU.QSPI_IO0"
+      },
+      {
+        "netclass": "Board_17-50Ohm SE",
+        "pattern": "Board_17-MCU.QSPI_IO1"
+      },
+      {
+        "netclass": "Board_17-50Ohm SE",
+        "pattern": "Board_17-MCU.QSPI_IO2"
+      },
+      {
+        "netclass": "Board_17-50Ohm SE",
+        "pattern": "Board_17-MCU.QSPI_IO3"
+      },
+      {
+        "netclass": "Board_17-90Ohm Diff",
+        "pattern": "Board_17-USB_D_N"
+      },
+      {
+        "netclass": "Board_17-90Ohm Diff",
+        "pattern": "Board_17-USB_D_P"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-MCU.GPIO23"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-USB_C.CC1"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-MCU.SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-LED_O3"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-MCU.GPIO25"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-TARGET_RESET_TO_MCU"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-LED_B"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-LED_O2"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-LDO_3V3.EN"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-LED_O2.LED_R_NET"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-MCU.GPIO15"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-LED_B.LED_R_NET"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-MCU.VDD_1V1"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-GND"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-LDO_3V3.NC_U_LDO_DNC"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-LDO_3V3.LDO_FB"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-VBUS_5V0"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-LED_O3.LED_R_NET"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-MCU.GPIO10"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-VBUS_DET"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-MCU.GPIO6"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-TARGET_UART_TX"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-MCU.GPIO9"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-LED_O1.LED_R_NET"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-TARGET_RESET"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-MCU.XO_XIN"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-MCU_SWCLK"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-LED_G.LED_R_NET"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-MCU.GPIO7"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-LED_PWR.LED_R_NET"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-MCU.RUN"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-USB_C.CC2"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-TARGET_VDDIO"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-TARGET_GND_DETECT"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-UART_LS_OE"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-USB_C.SBU2"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-MCU.SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-USB_C.SBU1"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-SWD_HEADER.NC_FTSH-105-01-L-DV-K-A-P-TR_7"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-TARGET_V_SENSE_BUFFER"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-MCU.GPIO0"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-MCU_UART_TX"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-SWD_LS_OE"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-MCU.GPIO21"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-MCU.GPIO8"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-MCU.GPIO3"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-MCU.USB_MCU_D_P"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-MCU.GPIO2"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-MCU_SWDIO"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-MCU_UART_RX"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-MCU.GPIO22"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-MCU.GPIO1"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-LED_O1"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-MCU.GPIO24"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-MCU.USB_MCU_D_N"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-MCU.GPIO11"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-MCU.GPIO4"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-TARGET_UART_RX"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-TARGET_V_SENSE_R"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-MCU.XO_XOUT"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-LED_G"
+      },
+      {
+        "netclass": "Board_18-Default",
+        "pattern": "Board_18-VDD_3V3"
+      },
+      {
+        "netclass": "Board_18-50Ohm SE",
+        "pattern": "Board_18-MCU.QSPI_CLK"
+      },
+      {
+        "netclass": "Board_18-50Ohm SE",
+        "pattern": "Board_18-MCU.QSPI_CS"
+      },
+      {
+        "netclass": "Board_18-50Ohm SE",
+        "pattern": "Board_18-MCU.QSPI_IO0"
+      },
+      {
+        "netclass": "Board_18-50Ohm SE",
+        "pattern": "Board_18-MCU.QSPI_IO1"
+      },
+      {
+        "netclass": "Board_18-50Ohm SE",
+        "pattern": "Board_18-MCU.QSPI_IO2"
+      },
+      {
+        "netclass": "Board_18-50Ohm SE",
+        "pattern": "Board_18-MCU.QSPI_IO3"
+      },
+      {
+        "netclass": "Board_18-90Ohm Diff",
+        "pattern": "Board_18-USB_D_N"
+      },
+      {
+        "netclass": "Board_18-90Ohm Diff",
+        "pattern": "Board_18-USB_D_P"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-MCU.GPIO15"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-MCU.GPIO3"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-GND"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-MCU.GPIO1"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-USB_C.CC1"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-MCU.GPIO2"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-LED_PWR.LED_R_NET"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-LDO_3V3.NC_U_LDO_DNC"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-LED_B.LED_R_NET"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-MCU.GPIO0"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-MCU.GPIO7"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-MCU.RUN"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-LED_O1.LED_R_NET"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-TARGET_V_SENSE_R"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-TARGET_RESET"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-LDO_3V3.LDO_FB"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-USB_C.SBU2"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-LDO_3V3.EN"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-MCU.GPIO23"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-MCU.SWD_SWDIO"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-LED_O1"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-MCU_UART_RX"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-MCU.GPIO11"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-VBUS_DET"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-LED_O2"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-LED_O3.LED_R_NET"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-MCU.GPIO8"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-LED_G"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-MCU_SWDIO"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-USB_C.SBU1"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-MCU.USB_MCU_D_N"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-MCU_SWCLK"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-UART_LS_OE"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-LED_B"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-MCU.VDD_1V1"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-MCU.GPIO24"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-MCU_UART_TX"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-TARGET_GND_DETECT"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-MCU.GPIO10"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-TARGET_VDDIO"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-MCU.SWD_SWCLK"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-MCU.USB_MCU_D_P"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-MCU.GPIO25"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-LED_O2.LED_R_NET"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-TARGET_UART_TX"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-VDD_3V3"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-USB_C.CC2"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-MCU.GPIO9"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-MCU.GPIO6"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-MCU.XO_XIN"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-MCU.GPIO21"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-MCU.GPIO4"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-SWD_HEADER.NC_FTSH-105-01-L-DV-K-A-P-TR_7"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-MCU.XO_XOUT"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-SWD_LS_OE"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-TARGET_V_SENSE_BUFFER"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-TARGET_RESET_TO_MCU"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-LED_G.LED_R_NET"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-LED_O3"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-TARGET_UART_RX"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-MCU.GPIO22"
+      },
+      {
+        "netclass": "Board_19-Default",
+        "pattern": "Board_19-VBUS_5V0"
+      },
+      {
+        "netclass": "Board_19-50Ohm SE",
+        "pattern": "Board_19-MCU.QSPI_CLK"
+      },
+      {
+        "netclass": "Board_19-50Ohm SE",
+        "pattern": "Board_19-MCU.QSPI_CS"
+      },
+      {
+        "netclass": "Board_19-50Ohm SE",
+        "pattern": "Board_19-MCU.QSPI_IO0"
+      },
+      {
+        "netclass": "Board_19-50Ohm SE",
+        "pattern": "Board_19-MCU.QSPI_IO1"
+      },
+      {
+        "netclass": "Board_19-50Ohm SE",
+        "pattern": "Board_19-MCU.QSPI_IO2"
+      },
+      {
+        "netclass": "Board_19-50Ohm SE",
+        "pattern": "Board_19-MCU.QSPI_IO3"
+      },
+      {
+        "netclass": "Board_19-90Ohm Diff",
+        "pattern": "Board_19-USB_D_N"
+      },
+      {
+        "netclass": "Board_19-90Ohm Diff",
+        "pattern": "Board_19-USB_D_P"
+      }
+    ]
+  },
+  "pcbnew": {
+    "last_paths": {
+      "gencad": "",
+      "idf": "",
+      "netlist": "",
+      "plot": "",
+      "pos_files": "",
+      "specctra_dsn": "",
+      "step": "",
+      "svg": "",
+      "vrml": ""
+    },
+    "page_layout_descr_file": ""
+  },
+  "schematic": {
+    "legacy_lib_dir": "",
+    "legacy_lib_list": []
+  },
+  "sheets": [],
+  "text_variables": {}
+}
