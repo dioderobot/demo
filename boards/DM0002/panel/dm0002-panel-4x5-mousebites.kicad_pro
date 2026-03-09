@@ -59,106 +59,406 @@
         }
       ],
       "drc_exclusions": [
-        "lib_footprint_mismatch|67000000|35945000|512579f9-ec17-4fb8-9d25-b7462a93a291|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|69612500|68095000|035a810f-a6dc-4097-bb35-8c27f98d2583|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|61462500|70595000|59993ad0-f6e0-41bc-821d-48fc78b7ae12|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|62762500|70595000|2d195a8c-d5c1-4c56-b477-7580fae279a4|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|64062500|70595000|87234688-447e-48ea-80e5-86b27dce0480|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|86000000|35945000|d1791509-eb45-40dd-b6b2-97d5a2d9f27e|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|88612500|68095000|994ac7f4-0332-4916-b255-1bf1d3550047|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|80462500|70595000|595d6f2a-6469-421f-a2bd-bdc620a42d65|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|81762500|70595000|f724ca57-b688-4110-a368-9fe39ffd8de0|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|83062500|70595000|d8042dc0-3f4f-485f-90ca-7f1da1452786|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|105000000|35945000|b8e1c155-7aec-46ac-ad30-f1d0ac5f5495|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|107612500|68095000|d5ff2e3e-05c8-42b4-b37f-1e1b4fe3c76c|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|99462500|70595000|03f833e2-58f7-4373-9fb6-492c60b93d17|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|100762500|70595000|8c62caad-3f62-4be6-a924-9cf900c44321|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|102062500|70595000|60281284-4763-44ca-843e-385b2197b590|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|124000000|35945000|48b5d3fd-4bd5-48c5-a62d-1091dfce1026|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|126612500|68095000|d70041af-5819-4608-87a5-6cecac7fe529|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|118462500|70595000|c349ab1e-9b2b-40ae-aa24-583a514b419a|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|119762500|70595000|2e85a989-3fda-4a66-904d-e35f2ab2c987|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|121062500|70595000|256edceb-41a2-442f-9150-7d120072fe39|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|143000000|35945000|22359e5f-1f25-48b5-8869-6c56bef3f81a|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|145612500|68095000|4b69ad71-b4ac-4a45-bb71-9b6e1cf7cc26|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|137462500|70595000|44c9bcbd-ad7b-47ba-9316-118a1bee233a|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|138762500|70595000|4bf752e0-ecab-4e87-ad7b-1748da029c0d|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|140062500|70595000|baf80714-64e5-4cab-94a2-97012156b666|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|67000000|89045000|ac245107-8715-4f20-b4d0-13b9e57956fb|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|69612500|121195000|acbb5150-8d30-4d11-ba7d-3a64ed8352be|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|61462500|123695000|687fde72-6cef-4e03-b066-ebff7fe7ca78|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|62762500|123695000|9260685c-8d25-4eec-917b-dc47139705aa|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|64062500|123695000|0bea7a40-50fa-453a-832b-1631af8effc1|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|86000000|89045000|269cc0df-3faa-40fa-8fb3-2b07194c219b|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|88612500|121195000|afb760cb-d8b0-4da6-a072-95b715aebeb4|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|80462500|123695000|2a1af229-c426-4d53-aff1-611605779f38|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|81762500|123695000|6690ed93-68e0-43e5-92b6-b0f820925f44|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|83062500|123695000|b3f8f2d2-17e4-4cbf-a4b1-3f225bbf22bd|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|105000000|89045000|9bc0241c-9921-4cea-98ff-b4b5faae360b|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|107612500|121195000|d2580743-17b6-483e-99f0-98bdf974b478|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|99462500|123695000|647ac6f5-92ee-4c2b-89ef-8021d5fca5fd|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|100762500|123695000|77a86c74-7a75-4e51-b986-84b2abc841b5|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|102062500|123695000|0183fbbb-bfe0-4546-8bd8-be905db75c9d|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|124000000|89045000|9d6b5991-95ea-4ac6-a9e4-57e6e53b9ebb|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|126612500|121195000|4127a07c-594b-4b04-adfa-fa6a46eb6b7e|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|118462500|123695000|353decf9-074d-4a20-99dd-2dcf35a4a828|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|119762500|123695000|9c7765c5-70ff-4c2a-a47d-7c31092ff950|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|121062500|123695000|7c38e1bb-3a7c-4a4f-8138-44f1cf5e053d|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|143000000|89045000|6d9055bc-1591-4f84-92a0-9975b48dd8bc|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|145612500|121195000|57318d1a-201c-4e47-98ad-6a50e2bb2427|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|137462500|123695000|3aa5a5e0-315e-40d3-bcd5-6aabb03d21c7|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|138762500|123695000|e0697225-81da-41fa-84f5-b3aaf4efe29d|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|140062500|123695000|83b06e61-0926-489c-a239-3b41ed97200d|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|67000000|142145000|fd81acd7-3cea-4edf-a554-e61785524d6c|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|69612500|174295000|8ee9b037-fd01-4f6e-b78b-5354696968b4|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|61462500|176795000|b0ae1977-59fb-4c67-8ac2-a1362e7d108f|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|62762500|176795000|c4f7ba5c-bd2b-402e-8182-93a9d19f6bed|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|64062500|176795000|a6baaaf1-4cc3-4989-b0df-98c433822a0f|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|86000000|142145000|7b307940-5c09-4c92-9ac9-898590577e61|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|88612500|174295000|adf318a2-6397-483f-981c-7d3df3ea89b1|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|80462500|176795000|0eb59712-9c4c-4e38-89ce-040b54340fcc|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|81762500|176795000|f10db0cf-ff5c-42ff-a38c-4edb8e6e4eae|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|83062500|176795000|76ae1914-f596-4a6f-a725-ccee5b97cb79|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|105000000|142145000|f7da3b0c-71d0-4135-af71-aa0e9c74455c|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|107612500|174295000|b729a3d1-8a1b-4c26-960d-4a9fdd995433|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|99462500|176795000|ef55eaa5-c52b-492e-95b2-e7736baed780|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|100762500|176795000|11172150-d15b-4d57-86d2-7e5fa404eed0|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|102062500|176795000|e933cfa8-3631-45d5-ab69-81bab2505845|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|124000000|142145000|64432acb-6e20-4253-96db-09cf7896c75d|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|126612500|174295000|a69f889e-c1f2-4b4b-b26d-5ff0ed56d356|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|118462500|176795000|49c57956-a49e-40db-a6a5-ee86586e74f1|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|119762500|176795000|8985c543-50e3-456f-b633-ba7a72b5c674|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|121062500|176795000|be04107f-7f5a-4393-8e54-5b0ae9c1b09e|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|143000000|142145000|d0420c33-56ee-48ff-b733-926b0f14ff8a|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|145612500|174295000|8738cd7d-22a8-4063-bcf0-f120ab97629c|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|137462500|176795000|817fb6f9-91cc-4060-9c93-e9408fd92677|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|138762500|176795000|0d087a47-9b29-4517-830d-c44ea4899e08|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|140062500|176795000|e6cd68b0-16bf-481f-b856-74c7997a4abb|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|67000000|195245000|54a53184-c992-464a-98b7-7fb20d3bb1d6|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|69612500|227395000|751db65f-411f-43ac-965b-3da72c5eb549|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|61462500|229895000|6ae7f366-18bf-4901-ab3f-81d3e0727754|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|62762500|229895000|fa5d0eeb-791a-4e0c-9ae1-9a8485b2b007|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|64062500|229895000|12b882ba-95ff-4c3a-a257-e0a45a68ebdd|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|86000000|195245000|94e4c383-66f4-451b-a083-573d2554a786|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|88612500|227395000|c630d3da-2f89-4d09-97fa-206ad0e3a17a|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|80462500|229895000|559235b4-a88a-4cf3-9b5b-8331e12e5569|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|81762500|229895000|5e1f65cf-97e3-4696-9617-c9ab9b490ec4|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|83062500|229895000|ce17e3ed-6b70-48e3-94dc-2895d7beab20|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|105000000|195245000|b9c00c75-9e85-4276-a94c-701426706f81|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|107612500|227395000|38e23d20-09ce-4c10-a8ad-2aa17bfab601|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|99462500|229895000|16ec800c-59bf-4b01-b28d-923018ebb106|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|100762500|229895000|497b07c7-dc7e-468c-ba98-37737ed3e543|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|102062500|229895000|cac89f49-832e-4d33-bab5-d2bd204a6662|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|124000000|195245000|1d2c1e1c-7170-4909-8e10-a6d50df4ba1e|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|126612500|227395000|acb78d1e-6c8a-46dd-8af0-a96c9859c446|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|118462500|229895000|60524f14-a89c-4ce6-90ca-e0d436d1ec45|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|119762500|229895000|2793c9cb-1d25-4eb6-9f57-5b534b37196c|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|121062500|229895000|9c447852-87bf-4811-aa44-3acfb99dfc59|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|143000000|195245000|7d6199c9-1a81-4239-b4c2-7940497f43c5|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|145612500|227395000|9afefea1-3050-4603-94b6-3e24a34b8309|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|137462500|229895000|fbcb731f-945a-466d-93c7-79686032e681|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|138762500|229895000|b233e181-199c-4af5-9c0a-9f23d45f1706|00000000-0000-0000-0000-000000000000",
-        "unresolved_variable|140062500|229895000|a693258e-1796-4a51-b27d-612312a63d10|00000000-0000-0000-0000-000000000000"
+        [
+          "lib_footprint_mismatch|105000000|142145000|f7da3b0c-71d0-4135-af71-aa0e9c74455c|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|105000000|195245000|b9c00c75-9e85-4276-a94c-701426706f81|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|105000000|35945000|b8e1c155-7aec-46ac-ad30-f1d0ac5f5495|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|105000000|89045000|9bc0241c-9921-4cea-98ff-b4b5faae360b|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|107612500|121195000|d2580743-17b6-483e-99f0-98bdf974b478|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|107612500|174295000|b729a3d1-8a1b-4c26-960d-4a9fdd995433|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|107612500|227395000|38e23d20-09ce-4c10-a8ad-2aa17bfab601|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|107612500|68095000|d5ff2e3e-05c8-42b4-b37f-1e1b4fe3c76c|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|124000000|142145000|64432acb-6e20-4253-96db-09cf7896c75d|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|124000000|195245000|1d2c1e1c-7170-4909-8e10-a6d50df4ba1e|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|124000000|35945000|48b5d3fd-4bd5-48c5-a62d-1091dfce1026|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|124000000|89045000|9d6b5991-95ea-4ac6-a9e4-57e6e53b9ebb|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|126612500|121195000|4127a07c-594b-4b04-adfa-fa6a46eb6b7e|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|126612500|174295000|a69f889e-c1f2-4b4b-b26d-5ff0ed56d356|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|126612500|227395000|acb78d1e-6c8a-46dd-8af0-a96c9859c446|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|126612500|68095000|d70041af-5819-4608-87a5-6cecac7fe529|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|143000000|142145000|d0420c33-56ee-48ff-b733-926b0f14ff8a|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|143000000|195245000|7d6199c9-1a81-4239-b4c2-7940497f43c5|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|143000000|35945000|22359e5f-1f25-48b5-8869-6c56bef3f81a|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|143000000|89045000|6d9055bc-1591-4f84-92a0-9975b48dd8bc|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|145612500|121195000|57318d1a-201c-4e47-98ad-6a50e2bb2427|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|145612500|174295000|8738cd7d-22a8-4063-bcf0-f120ab97629c|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|145612500|227395000|9afefea1-3050-4603-94b6-3e24a34b8309|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|145612500|68095000|4b69ad71-b4ac-4a45-bb71-9b6e1cf7cc26|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|67000000|142145000|fd81acd7-3cea-4edf-a554-e61785524d6c|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|67000000|195245000|54a53184-c992-464a-98b7-7fb20d3bb1d6|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|67000000|35945000|512579f9-ec17-4fb8-9d25-b7462a93a291|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|67000000|89045000|ac245107-8715-4f20-b4d0-13b9e57956fb|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|69612500|121195000|acbb5150-8d30-4d11-ba7d-3a64ed8352be|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|69612500|174295000|8ee9b037-fd01-4f6e-b78b-5354696968b4|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|69612500|227395000|751db65f-411f-43ac-965b-3da72c5eb549|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|69612500|68095000|035a810f-a6dc-4097-bb35-8c27f98d2583|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|86000000|142145000|7b307940-5c09-4c92-9ac9-898590577e61|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|86000000|195245000|94e4c383-66f4-451b-a083-573d2554a786|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|86000000|35945000|d1791509-eb45-40dd-b6b2-97d5a2d9f27e|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|86000000|89045000|269cc0df-3faa-40fa-8fb3-2b07194c219b|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|88612500|121195000|afb760cb-d8b0-4da6-a072-95b715aebeb4|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|88612500|174295000|adf318a2-6397-483f-981c-7d3df3ea89b1|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|88612500|227395000|c630d3da-2f89-4d09-97fa-206ad0e3a17a|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|88612500|68095000|994ac7f4-0332-4916-b255-1bf1d3550047|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|100762500|123695000|77a86c74-7a75-4e51-b986-84b2abc841b5|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|100762500|176795000|11172150-d15b-4d57-86d2-7e5fa404eed0|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|100762500|229895000|497b07c7-dc7e-468c-ba98-37737ed3e543|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|100762500|70595000|8c62caad-3f62-4be6-a924-9cf900c44321|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|102062500|123695000|0183fbbb-bfe0-4546-8bd8-be905db75c9d|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|102062500|176795000|e933cfa8-3631-45d5-ab69-81bab2505845|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|102062500|229895000|cac89f49-832e-4d33-bab5-d2bd204a6662|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|102062500|70595000|60281284-4763-44ca-843e-385b2197b590|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|118462500|123695000|353decf9-074d-4a20-99dd-2dcf35a4a828|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|118462500|176795000|49c57956-a49e-40db-a6a5-ee86586e74f1|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|118462500|229895000|60524f14-a89c-4ce6-90ca-e0d436d1ec45|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|118462500|70595000|c349ab1e-9b2b-40ae-aa24-583a514b419a|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|119762500|123695000|9c7765c5-70ff-4c2a-a47d-7c31092ff950|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|119762500|176795000|8985c543-50e3-456f-b633-ba7a72b5c674|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|119762500|229895000|2793c9cb-1d25-4eb6-9f57-5b534b37196c|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|119762500|70595000|2e85a989-3fda-4a66-904d-e35f2ab2c987|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|121062500|123695000|7c38e1bb-3a7c-4a4f-8138-44f1cf5e053d|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|121062500|176795000|be04107f-7f5a-4393-8e54-5b0ae9c1b09e|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|121062500|229895000|9c447852-87bf-4811-aa44-3acfb99dfc59|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|121062500|70595000|256edceb-41a2-442f-9150-7d120072fe39|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|137462500|123695000|3aa5a5e0-315e-40d3-bcd5-6aabb03d21c7|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|137462500|176795000|817fb6f9-91cc-4060-9c93-e9408fd92677|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|137462500|229895000|fbcb731f-945a-466d-93c7-79686032e681|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|137462500|70595000|44c9bcbd-ad7b-47ba-9316-118a1bee233a|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|138762500|123695000|e0697225-81da-41fa-84f5-b3aaf4efe29d|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|138762500|176795000|0d087a47-9b29-4517-830d-c44ea4899e08|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|138762500|229895000|b233e181-199c-4af5-9c0a-9f23d45f1706|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|138762500|70595000|4bf752e0-ecab-4e87-ad7b-1748da029c0d|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|140062500|123695000|83b06e61-0926-489c-a239-3b41ed97200d|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|140062500|176795000|e6cd68b0-16bf-481f-b856-74c7997a4abb|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|140062500|229895000|a693258e-1796-4a51-b27d-612312a63d10|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|140062500|70595000|baf80714-64e5-4cab-94a2-97012156b666|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|61462500|123695000|687fde72-6cef-4e03-b066-ebff7fe7ca78|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|61462500|176795000|b0ae1977-59fb-4c67-8ac2-a1362e7d108f|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|61462500|229895000|6ae7f366-18bf-4901-ab3f-81d3e0727754|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|61462500|70595000|59993ad0-f6e0-41bc-821d-48fc78b7ae12|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|62762500|123695000|9260685c-8d25-4eec-917b-dc47139705aa|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|62762500|176795000|c4f7ba5c-bd2b-402e-8182-93a9d19f6bed|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|62762500|229895000|fa5d0eeb-791a-4e0c-9ae1-9a8485b2b007|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|62762500|70595000|2d195a8c-d5c1-4c56-b477-7580fae279a4|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|64062500|123695000|0bea7a40-50fa-453a-832b-1631af8effc1|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|64062500|176795000|a6baaaf1-4cc3-4989-b0df-98c433822a0f|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|64062500|229895000|12b882ba-95ff-4c3a-a257-e0a45a68ebdd|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|64062500|70595000|87234688-447e-48ea-80e5-86b27dce0480|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|80462500|123695000|2a1af229-c426-4d53-aff1-611605779f38|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|80462500|176795000|0eb59712-9c4c-4e38-89ce-040b54340fcc|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|80462500|229895000|559235b4-a88a-4cf3-9b5b-8331e12e5569|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|80462500|70595000|595d6f2a-6469-421f-a2bd-bdc620a42d65|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|81762500|123695000|6690ed93-68e0-43e5-92b6-b0f820925f44|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|81762500|176795000|f10db0cf-ff5c-42ff-a38c-4edb8e6e4eae|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|81762500|229895000|5e1f65cf-97e3-4696-9617-c9ab9b490ec4|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|81762500|70595000|f724ca57-b688-4110-a368-9fe39ffd8de0|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|83062500|123695000|b3f8f2d2-17e4-4cbf-a4b1-3f225bbf22bd|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|83062500|176795000|76ae1914-f596-4a6f-a725-ccee5b97cb79|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|83062500|229895000|ce17e3ed-6b70-48e3-94dc-2895d7beab20|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|83062500|70595000|d8042dc0-3f4f-485f-90ca-7f1da1452786|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|99462500|123695000|647ac6f5-92ee-4c2b-89ef-8021d5fca5fd|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|99462500|176795000|ef55eaa5-c52b-492e-95b2-e7736baed780|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|99462500|229895000|16ec800c-59bf-4b01-b28d-923018ebb106|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "unresolved_variable|99462500|70595000|03f833e2-58f7-4373-9fb6-492c60b93d17|00000000-0000-0000-0000-000000000000",
+          ""
+        ]
       ],
       "meta": {
         "version": 2
@@ -433,24 +733,6 @@
         "track_width": 0.1867
       },
       {
-        "bus_width": 12,
-        "clearance": 0.1,
-        "diff_pair_gap": 0.2,
-        "diff_pair_via_gap": 0.25,
-        "diff_pair_width": 0.127,
-        "line_style": 0,
-        "microvia_diameter": 0.3,
-        "microvia_drill": 0.1,
-        "name": "Board_0-Default",
-        "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 2147483647,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.1,
-        "via_diameter": 0.5,
-        "via_drill": 0.3,
-        "wire_width": 6
-      },
-      {
         "clearance": 0.2,
         "diff_pair_gap": 0.1778,
         "diff_pair_width": 0.127,
@@ -497,7 +779,7 @@
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
-        "name": "Board_1-Default",
+        "name": "Board_0-Default",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 2147483647,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
@@ -553,455 +835,7 @@
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
-        "name": "Board_2-Default",
-        "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 2147483647,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.1,
-        "via_diameter": 0.5,
-        "via_drill": 0.3,
-        "wire_width": 6
-      },
-      {
-        "clearance": 0.2,
-        "diff_pair_gap": 0.1778,
-        "diff_pair_width": 0.127,
-        "name": "Board_2-100Ohm Diff",
-        "pcb_color": "rgb(194, 194, 0)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.127
-      },
-      {
-        "clearance": 0.2,
-        "name": "Board_2-50Ohm SE",
-        "pcb_color": "rgb(0, 0, 194)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.2908
-      },
-      {
-        "clearance": 0.2,
-        "diff_pair_gap": 0.127,
-        "diff_pair_width": 0.1588,
-        "name": "Board_2-85Ohm Diff",
-        "pcb_color": "rgb(194, 0, 194)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.1588
-      },
-      {
-        "clearance": 0.2,
-        "diff_pair_gap": 0.127,
-        "diff_pair_width": 0.1867,
-        "name": "Board_2-90Ohm Diff",
-        "pcb_color": "rgb(0, 194, 0)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.1867
-      },
-      {
-        "bus_width": 12,
-        "clearance": 0.1,
-        "diff_pair_gap": 0.2,
-        "diff_pair_via_gap": 0.25,
-        "diff_pair_width": 0.127,
-        "line_style": 0,
-        "microvia_diameter": 0.3,
-        "microvia_drill": 0.1,
-        "name": "Board_3-Default",
-        "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 2147483647,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.1,
-        "via_diameter": 0.5,
-        "via_drill": 0.3,
-        "wire_width": 6
-      },
-      {
-        "clearance": 0.2,
-        "diff_pair_gap": 0.1778,
-        "diff_pair_width": 0.127,
-        "name": "Board_3-100Ohm Diff",
-        "pcb_color": "rgb(194, 194, 0)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.127
-      },
-      {
-        "clearance": 0.2,
-        "name": "Board_3-50Ohm SE",
-        "pcb_color": "rgb(0, 0, 194)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.2908
-      },
-      {
-        "clearance": 0.2,
-        "diff_pair_gap": 0.127,
-        "diff_pair_width": 0.1588,
-        "name": "Board_3-85Ohm Diff",
-        "pcb_color": "rgb(194, 0, 194)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.1588
-      },
-      {
-        "clearance": 0.2,
-        "diff_pair_gap": 0.127,
-        "diff_pair_width": 0.1867,
-        "name": "Board_3-90Ohm Diff",
-        "pcb_color": "rgb(0, 194, 0)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.1867
-      },
-      {
-        "bus_width": 12,
-        "clearance": 0.1,
-        "diff_pair_gap": 0.2,
-        "diff_pair_via_gap": 0.25,
-        "diff_pair_width": 0.127,
-        "line_style": 0,
-        "microvia_diameter": 0.3,
-        "microvia_drill": 0.1,
-        "name": "Board_4-Default",
-        "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 2147483647,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.1,
-        "via_diameter": 0.5,
-        "via_drill": 0.3,
-        "wire_width": 6
-      },
-      {
-        "clearance": 0.2,
-        "diff_pair_gap": 0.1778,
-        "diff_pair_width": 0.127,
-        "name": "Board_4-100Ohm Diff",
-        "pcb_color": "rgb(194, 194, 0)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.127
-      },
-      {
-        "clearance": 0.2,
-        "name": "Board_4-50Ohm SE",
-        "pcb_color": "rgb(0, 0, 194)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.2908
-      },
-      {
-        "clearance": 0.2,
-        "diff_pair_gap": 0.127,
-        "diff_pair_width": 0.1588,
-        "name": "Board_4-85Ohm Diff",
-        "pcb_color": "rgb(194, 0, 194)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.1588
-      },
-      {
-        "clearance": 0.2,
-        "diff_pair_gap": 0.127,
-        "diff_pair_width": 0.1867,
-        "name": "Board_4-90Ohm Diff",
-        "pcb_color": "rgb(0, 194, 0)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.1867
-      },
-      {
-        "bus_width": 12,
-        "clearance": 0.1,
-        "diff_pair_gap": 0.2,
-        "diff_pair_via_gap": 0.25,
-        "diff_pair_width": 0.127,
-        "line_style": 0,
-        "microvia_diameter": 0.3,
-        "microvia_drill": 0.1,
-        "name": "Board_5-Default",
-        "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 2147483647,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.1,
-        "via_diameter": 0.5,
-        "via_drill": 0.3,
-        "wire_width": 6
-      },
-      {
-        "clearance": 0.2,
-        "diff_pair_gap": 0.1778,
-        "diff_pair_width": 0.127,
-        "name": "Board_5-100Ohm Diff",
-        "pcb_color": "rgb(194, 194, 0)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.127
-      },
-      {
-        "clearance": 0.2,
-        "name": "Board_5-50Ohm SE",
-        "pcb_color": "rgb(0, 0, 194)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.2908
-      },
-      {
-        "clearance": 0.2,
-        "diff_pair_gap": 0.127,
-        "diff_pair_width": 0.1588,
-        "name": "Board_5-85Ohm Diff",
-        "pcb_color": "rgb(194, 0, 194)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.1588
-      },
-      {
-        "clearance": 0.2,
-        "diff_pair_gap": 0.127,
-        "diff_pair_width": 0.1867,
-        "name": "Board_5-90Ohm Diff",
-        "pcb_color": "rgb(0, 194, 0)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.1867
-      },
-      {
-        "bus_width": 12,
-        "clearance": 0.1,
-        "diff_pair_gap": 0.2,
-        "diff_pair_via_gap": 0.25,
-        "diff_pair_width": 0.127,
-        "line_style": 0,
-        "microvia_diameter": 0.3,
-        "microvia_drill": 0.1,
-        "name": "Board_6-Default",
-        "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 2147483647,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.1,
-        "via_diameter": 0.5,
-        "via_drill": 0.3,
-        "wire_width": 6
-      },
-      {
-        "clearance": 0.2,
-        "diff_pair_gap": 0.1778,
-        "diff_pair_width": 0.127,
-        "name": "Board_6-100Ohm Diff",
-        "pcb_color": "rgb(194, 194, 0)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.127
-      },
-      {
-        "clearance": 0.2,
-        "name": "Board_6-50Ohm SE",
-        "pcb_color": "rgb(0, 0, 194)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.2908
-      },
-      {
-        "clearance": 0.2,
-        "diff_pair_gap": 0.127,
-        "diff_pair_width": 0.1588,
-        "name": "Board_6-85Ohm Diff",
-        "pcb_color": "rgb(194, 0, 194)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.1588
-      },
-      {
-        "clearance": 0.2,
-        "diff_pair_gap": 0.127,
-        "diff_pair_width": 0.1867,
-        "name": "Board_6-90Ohm Diff",
-        "pcb_color": "rgb(0, 194, 0)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.1867
-      },
-      {
-        "bus_width": 12,
-        "clearance": 0.1,
-        "diff_pair_gap": 0.2,
-        "diff_pair_via_gap": 0.25,
-        "diff_pair_width": 0.127,
-        "line_style": 0,
-        "microvia_diameter": 0.3,
-        "microvia_drill": 0.1,
-        "name": "Board_7-Default",
-        "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 2147483647,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.1,
-        "via_diameter": 0.5,
-        "via_drill": 0.3,
-        "wire_width": 6
-      },
-      {
-        "clearance": 0.2,
-        "diff_pair_gap": 0.1778,
-        "diff_pair_width": 0.127,
-        "name": "Board_7-100Ohm Diff",
-        "pcb_color": "rgb(194, 194, 0)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.127
-      },
-      {
-        "clearance": 0.2,
-        "name": "Board_7-50Ohm SE",
-        "pcb_color": "rgb(0, 0, 194)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.2908
-      },
-      {
-        "clearance": 0.2,
-        "diff_pair_gap": 0.127,
-        "diff_pair_width": 0.1588,
-        "name": "Board_7-85Ohm Diff",
-        "pcb_color": "rgb(194, 0, 194)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.1588
-      },
-      {
-        "clearance": 0.2,
-        "diff_pair_gap": 0.127,
-        "diff_pair_width": 0.1867,
-        "name": "Board_7-90Ohm Diff",
-        "pcb_color": "rgb(0, 194, 0)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.1867
-      },
-      {
-        "bus_width": 12,
-        "clearance": 0.1,
-        "diff_pair_gap": 0.2,
-        "diff_pair_via_gap": 0.25,
-        "diff_pair_width": 0.127,
-        "line_style": 0,
-        "microvia_diameter": 0.3,
-        "microvia_drill": 0.1,
-        "name": "Board_8-Default",
-        "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 2147483647,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.1,
-        "via_diameter": 0.5,
-        "via_drill": 0.3,
-        "wire_width": 6
-      },
-      {
-        "clearance": 0.2,
-        "diff_pair_gap": 0.1778,
-        "diff_pair_width": 0.127,
-        "name": "Board_8-100Ohm Diff",
-        "pcb_color": "rgb(194, 194, 0)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.127
-      },
-      {
-        "clearance": 0.2,
-        "name": "Board_8-50Ohm SE",
-        "pcb_color": "rgb(0, 0, 194)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.2908
-      },
-      {
-        "clearance": 0.2,
-        "diff_pair_gap": 0.127,
-        "diff_pair_width": 0.1588,
-        "name": "Board_8-85Ohm Diff",
-        "pcb_color": "rgb(194, 0, 194)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.1588
-      },
-      {
-        "clearance": 0.2,
-        "diff_pair_gap": 0.127,
-        "diff_pair_width": 0.1867,
-        "name": "Board_8-90Ohm Diff",
-        "pcb_color": "rgb(0, 194, 0)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.1867
-      },
-      {
-        "bus_width": 12,
-        "clearance": 0.1,
-        "diff_pair_gap": 0.2,
-        "diff_pair_via_gap": 0.25,
-        "diff_pair_width": 0.127,
-        "line_style": 0,
-        "microvia_diameter": 0.3,
-        "microvia_drill": 0.1,
-        "name": "Board_9-Default",
-        "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 2147483647,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.1,
-        "via_diameter": 0.5,
-        "via_drill": 0.3,
-        "wire_width": 6
-      },
-      {
-        "clearance": 0.2,
-        "diff_pair_gap": 0.1778,
-        "diff_pair_width": 0.127,
-        "name": "Board_9-100Ohm Diff",
-        "pcb_color": "rgb(194, 194, 0)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.127
-      },
-      {
-        "clearance": 0.2,
-        "name": "Board_9-50Ohm SE",
-        "pcb_color": "rgb(0, 0, 194)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.2908
-      },
-      {
-        "clearance": 0.2,
-        "diff_pair_gap": 0.127,
-        "diff_pair_width": 0.1588,
-        "name": "Board_9-85Ohm Diff",
-        "pcb_color": "rgb(194, 0, 194)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.1588
-      },
-      {
-        "clearance": 0.2,
-        "diff_pair_gap": 0.127,
-        "diff_pair_width": 0.1867,
-        "name": "Board_9-90Ohm Diff",
-        "pcb_color": "rgb(0, 194, 0)",
-        "priority": -1,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.1867
-      },
-      {
-        "bus_width": 12,
-        "clearance": 0.1,
-        "diff_pair_gap": 0.2,
-        "diff_pair_via_gap": 0.25,
-        "diff_pair_width": 0.127,
-        "line_style": 0,
-        "microvia_diameter": 0.3,
-        "microvia_drill": 0.1,
-        "name": "Board_10-Default",
+        "name": "Board_1-Default",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 2147483647,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
@@ -1057,7 +891,7 @@
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
-        "name": "Board_11-Default",
+        "name": "Board_10-Default",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 2147483647,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
@@ -1113,7 +947,7 @@
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
-        "name": "Board_12-Default",
+        "name": "Board_11-Default",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 2147483647,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
@@ -1169,7 +1003,7 @@
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
-        "name": "Board_13-Default",
+        "name": "Board_12-Default",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 2147483647,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
@@ -1225,7 +1059,7 @@
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
-        "name": "Board_14-Default",
+        "name": "Board_13-Default",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 2147483647,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
@@ -1281,7 +1115,7 @@
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
-        "name": "Board_15-Default",
+        "name": "Board_14-Default",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 2147483647,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
@@ -1337,7 +1171,7 @@
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
-        "name": "Board_16-Default",
+        "name": "Board_15-Default",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 2147483647,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
@@ -1393,7 +1227,7 @@
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
-        "name": "Board_17-Default",
+        "name": "Board_16-Default",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 2147483647,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
@@ -1449,7 +1283,7 @@
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
-        "name": "Board_18-Default",
+        "name": "Board_17-Default",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 2147483647,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
@@ -1505,7 +1339,7 @@
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
-        "name": "Board_19-Default",
+        "name": "Board_18-Default",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 2147483647,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
@@ -1551,6 +1385,472 @@
         "priority": -1,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.1867
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.2,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.127,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Board_19-Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1,
+        "via_diameter": 0.5,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.1778,
+        "diff_pair_width": 0.127,
+        "name": "Board_2-100Ohm Diff",
+        "pcb_color": "rgb(194, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.127
+      },
+      {
+        "clearance": 0.2,
+        "name": "Board_2-50Ohm SE",
+        "pcb_color": "rgb(0, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2908
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1588,
+        "name": "Board_2-85Ohm Diff",
+        "pcb_color": "rgb(194, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1588
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1867,
+        "name": "Board_2-90Ohm Diff",
+        "pcb_color": "rgb(0, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1867
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.2,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.127,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Board_2-Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1,
+        "via_diameter": 0.5,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.1778,
+        "diff_pair_width": 0.127,
+        "name": "Board_3-100Ohm Diff",
+        "pcb_color": "rgb(194, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.127
+      },
+      {
+        "clearance": 0.2,
+        "name": "Board_3-50Ohm SE",
+        "pcb_color": "rgb(0, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2908
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1588,
+        "name": "Board_3-85Ohm Diff",
+        "pcb_color": "rgb(194, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1588
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1867,
+        "name": "Board_3-90Ohm Diff",
+        "pcb_color": "rgb(0, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1867
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.2,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.127,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Board_3-Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1,
+        "via_diameter": 0.5,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.1778,
+        "diff_pair_width": 0.127,
+        "name": "Board_4-100Ohm Diff",
+        "pcb_color": "rgb(194, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.127
+      },
+      {
+        "clearance": 0.2,
+        "name": "Board_4-50Ohm SE",
+        "pcb_color": "rgb(0, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2908
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1588,
+        "name": "Board_4-85Ohm Diff",
+        "pcb_color": "rgb(194, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1588
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1867,
+        "name": "Board_4-90Ohm Diff",
+        "pcb_color": "rgb(0, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1867
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.2,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.127,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Board_4-Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1,
+        "via_diameter": 0.5,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.1778,
+        "diff_pair_width": 0.127,
+        "name": "Board_5-100Ohm Diff",
+        "pcb_color": "rgb(194, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.127
+      },
+      {
+        "clearance": 0.2,
+        "name": "Board_5-50Ohm SE",
+        "pcb_color": "rgb(0, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2908
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1588,
+        "name": "Board_5-85Ohm Diff",
+        "pcb_color": "rgb(194, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1588
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1867,
+        "name": "Board_5-90Ohm Diff",
+        "pcb_color": "rgb(0, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1867
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.2,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.127,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Board_5-Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1,
+        "via_diameter": 0.5,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.1778,
+        "diff_pair_width": 0.127,
+        "name": "Board_6-100Ohm Diff",
+        "pcb_color": "rgb(194, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.127
+      },
+      {
+        "clearance": 0.2,
+        "name": "Board_6-50Ohm SE",
+        "pcb_color": "rgb(0, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2908
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1588,
+        "name": "Board_6-85Ohm Diff",
+        "pcb_color": "rgb(194, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1588
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1867,
+        "name": "Board_6-90Ohm Diff",
+        "pcb_color": "rgb(0, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1867
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.2,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.127,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Board_6-Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1,
+        "via_diameter": 0.5,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.1778,
+        "diff_pair_width": 0.127,
+        "name": "Board_7-100Ohm Diff",
+        "pcb_color": "rgb(194, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.127
+      },
+      {
+        "clearance": 0.2,
+        "name": "Board_7-50Ohm SE",
+        "pcb_color": "rgb(0, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2908
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1588,
+        "name": "Board_7-85Ohm Diff",
+        "pcb_color": "rgb(194, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1588
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1867,
+        "name": "Board_7-90Ohm Diff",
+        "pcb_color": "rgb(0, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1867
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.2,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.127,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Board_7-Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1,
+        "via_diameter": 0.5,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.1778,
+        "diff_pair_width": 0.127,
+        "name": "Board_8-100Ohm Diff",
+        "pcb_color": "rgb(194, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.127
+      },
+      {
+        "clearance": 0.2,
+        "name": "Board_8-50Ohm SE",
+        "pcb_color": "rgb(0, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2908
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1588,
+        "name": "Board_8-85Ohm Diff",
+        "pcb_color": "rgb(194, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1588
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1867,
+        "name": "Board_8-90Ohm Diff",
+        "pcb_color": "rgb(0, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1867
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.2,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.127,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Board_8-Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1,
+        "via_diameter": 0.5,
+        "via_drill": 0.3,
+        "wire_width": 6
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.1778,
+        "diff_pair_width": 0.127,
+        "name": "Board_9-100Ohm Diff",
+        "pcb_color": "rgb(194, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.127
+      },
+      {
+        "clearance": 0.2,
+        "name": "Board_9-50Ohm SE",
+        "pcb_color": "rgb(0, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2908
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1588,
+        "name": "Board_9-85Ohm Diff",
+        "pcb_color": "rgb(194, 0, 194)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1588
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.127,
+        "diff_pair_width": 0.1867,
+        "name": "Board_9-90Ohm Diff",
+        "pcb_color": "rgb(0, 194, 0)",
+        "priority": -1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1867
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.2,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.127,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "Board_9-Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2147483647,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.1,
+        "via_diameter": 0.5,
+        "via_drill": 0.3,
+        "wire_width": 6
       }
     ],
     "meta": {
