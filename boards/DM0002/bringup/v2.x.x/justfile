@@ -32,5 +32,8 @@ uf2: artifacts
 flash mount=boot_drive: artifacts
     cp {{artifacts_dir}}/dm0002-debugprobe-{{version}}.uf2 {{mount}}/
 
+burn mount=boot_drive:
+    cp {{artifacts_dir}}/dm0002-debugprobe-{{version}}.uf2 {{mount}}/
+
 clean:
     rm -rf {{build_dir}}
