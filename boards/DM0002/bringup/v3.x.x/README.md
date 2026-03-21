@@ -1,65 +1,84 @@
 # DM0002 Bringup v3.0.0
 
-This bringup bundle captures the `v3.0.0` firmware artifacts for `DM0002` and exposes a local `justfile` entry point to rebuild or flash them.
+This directory contains pre-built firmware for the DM0002 board and provides commands to quickly flash it onto the RP2040.
 
-The reusable firmware source now lives in [boards/DM0002/firmware](/Users/davide/src/diodeinc/customers/demo/boards/DM0002/firmware#L1). Versioned binaries for this bringup live in [boards/DM0002/bringup/v3.0.0/artifacts](/Users/davide/src/diodeinc/customers/demo/boards/DM0002/bringup/v3.0.0/artifacts#L1).
+## Quick Start
 
-The bringup `justfile` exports the firmware version through `DM0002_FW_VERSION`, which is also embedded into the USB product string. The default in this directory is `v3.0.0`.
+### 1. Hardware Setup
 
-## Bringup
+First, verify the board is powered correctly:
 
-1. Connect the host PC to [USB_C](pcb://USB_C).
-2. Verify 5V is present on [TP_VBUS](pcb://TP_VBUS).
-3. Verify the onboard regulator [LDO_3V3](pcb://LDO_3V3) is producing 3.3V on [TP_3V3](pcb://TP_3V3).
-4. If you are probing a target, connect it to [SWD_HEADER](pcb://SWD_HEADER).
+1. Connect the host PC to [USB_C](pcb://USB_C)
+2. Verify 5V is present on [TP_VBUS](pcb://TP_VBUS)
+3. Verify [LDO_3V3](pcb://LDO_3V3) is producing 3.3V on [TP_3V3](pcb://TP_3V3)
+4. If you're probing a target, connect it to [SWD_HEADER](pcb://SWD_HEADER)
 
-From this directory, run:
+### 2. Enter UF2 Bootloader Mode
+
+Put the RP2040 into UF2 bootloader mode so it appears as a USB mass-storage device:
+
+1. Disconnect USB from [USB_C](pcb://USB_C)
+2. Press and hold [MCU.SW_BOOTSEL](pcb://MCU.SW_BOOTSEL)
+3. While holding the button, reconnect USB to [USB_C](pcb://USB_C)
+4. Release the button after the board enumerates as a USB mass-storage device (typically `/Volumes/RPI-RP2` on macOS)
+
+### 3. Flash the Firmware
+
+Choose one of two methods:
+
+**Method A: Drag and Drop (Easiest)**
+- Open the `artifacts/` folder
+- Drag `dm0002-debugprobe-v3.0.0.uf2` onto the mounted RPI-RP2 drive
+
+**Method B: Command Line**
+```bash
+just burn
+```
+
+The board will reboot with the new firmware loaded.
+
+## Status Indication
+
+Once running, you can verify the board is working:
+
+- [LED_PWR](pcb://LED_PWR) should light when 3.3V is present
+- [LED_B](pcb://LED_B), [LED_G](pcb://LED_G), [LED_O1](pcb://LED_O1), [LED_O2](pcb://LED_O2), and [LED_O3](pcb://LED_O3) indicate firmware status
+
+## Advanced
+
+### Rebuild Firmware
+
+To rebuild from source:
 
 ```bash
 just build
 just artifacts
 ```
 
-That builds from `boards/DM0002/firmware` and refreshes the checked-in outputs in `artifacts/`.
+This builds from [boards/DM0002/firmware](../../../firmware/) and updates the binaries in `artifacts/`.
 
-To override the stamped version explicitly:
+### Custom Version Stamp
 
-```bash
-DM0002_FW_VERSION=v3.0.0 just artifacts
-```
-
-## UF2 Update Mode
-
-To force the RP2040 into UF2 bootloader mode:
-
-1. Disconnect USB from [USB_C](pcb://USB_C).
-2. Press and hold [MCU.SW_BOOTSEL](pcb://MCU.SW_BOOTSEL).
-3. While holding the button, reconnect USB to [USB_C](pcb://USB_C).
-4. Release the button after the board enumerates as a USB mass-storage device.
-
-Then either copy `artifacts/dm0002-debugprobe-v3.0.0.uf2` to the mounted UF2 drive manually, or run:
+To rebuild with a custom version:
 
 ```bash
-just flash
-```
-
-`just flash` defaults to `/Volumes/RPI-RP2`. To use a different mount point:
-
-```bash
-just flash /path/to/mount
-```
-
-Status indication during bringup:
-
-- [LED_PWR](pcb://LED_PWR) should light when 3.3V is present.
-- [LED_B](pcb://LED_B), [LED_G](pcb://LED_G), [LED_O1](pcb://LED_O1), [LED_O2](pcb://LED_O2), and [LED_O3](pcb://LED_O3) are firmware-controlled status LEDs.
-
-If you want to rebuild from scratch first, run:
-
-```bash
-just clean
-just build
+DM0002_FW_VERSION=custom just build
 just artifacts
 ```
 
-For firmware-specific details, see [boards/DM0002/firmware/README.md](/Users/davide/src/diodeinc/customers/demo/boards/DM0002/firmware/README.md#L1).
+### Development Workflow
+
+For repeated flashing during development without recompiling:
+
+```bash
+# Edit firmware, compile once
+just build
+just artifacts
+
+# Then flash repeatedly without recompiling
+just burn
+just burn
+# ... repeat as needed
+```
+
+For firmware-specific implementation details, see [boards/DM0002/firmware/README.md](../../../firmware/README.md).
