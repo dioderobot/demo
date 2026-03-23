@@ -1,224 +1,38 @@
-(footprint "SON65P200X200X100-7N-D"
-	(version 20241229)
-	(generator "pcbnew")
-	(generator_version "9.0")
-	(layer "F.Cu")
-	(descr "DFN6 (2x2)+1")
-	(tags "Integrated Circuit")
-	(property "Reference" "IC**"
-		(at 0 0 0)
-		(layer "F.SilkS")
-		(uuid "1dc6e028-f28e-4e65-a400-5bded3e65079")
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.254)
-			)
-		)
-	)
-	(property "Value" "SON65P200X200X100-7N-D"
-		(at 0 0 0)
-		(layer "F.SilkS")
-		(hide yes)
-		(uuid "1a2ab107-2b53-425c-bf00-25c50715cf31")
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.254)
-			)
-		)
-	)
-	(property "Datasheet" ""
-		(at 0 0 0)
-		(layer "F.Fab")
-		(hide yes)
-		(uuid "a3d01745-3aae-4d76-af59-15ba7404926d")
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.15)
-			)
-		)
-	)
-	(property "Description" ""
-		(at 0 0 0)
-		(layer "F.Fab")
-		(hide yes)
-		(uuid "f84235bb-6f6f-490b-b6c8-c6daf32aa835")
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.15)
-			)
-		)
-	)
-	(attr smd)
-	(fp_circle
-		(center -1.425 -1.325)
-		(end -1.425 -1.2)
-		(stroke
-			(width 0.25)
-			(type solid)
-		)
-		(fill no)
-		(layer "F.SilkS")
-		(uuid "f0a7a0ab-890f-47c4-8204-5eed911cc594")
-	)
-	(fp_line
-		(start -1.65 -1.25)
-		(end 1.65 -1.25)
-		(stroke
-			(width 0.05)
-			(type solid)
-		)
-		(layer "F.CrtYd")
-		(uuid "bc6659b0-898a-4fbb-8f55-0408ab7b85cc")
-	)
-	(fp_line
-		(start -1.65 1.25)
-		(end -1.65 -1.25)
-		(stroke
-			(width 0.05)
-			(type solid)
-		)
-		(layer "F.CrtYd")
-		(uuid "83092103-f2dd-4282-b8ae-d449a3260a21")
-	)
-	(fp_line
-		(start 1.65 -1.25)
-		(end 1.65 1.25)
-		(stroke
-			(width 0.05)
-			(type solid)
-		)
-		(layer "F.CrtYd")
-		(uuid "6cae86b3-cef7-4620-a34d-589c03186485")
-	)
-	(fp_line
-		(start 1.65 1.25)
-		(end -1.65 1.25)
-		(stroke
-			(width 0.05)
-			(type solid)
-		)
-		(layer "F.CrtYd")
-		(uuid "7398980c-8175-4522-b1e6-0aa555cbda88")
-	)
-	(fp_line
-		(start -1 -1)
-		(end 1 -1)
-		(stroke
-			(width 0.1)
-			(type solid)
-		)
-		(layer "F.Fab")
-		(uuid "7bee903d-b845-4eab-ac03-cdb681e957ea")
-	)
-	(fp_line
-		(start -1 -0.5)
-		(end -0.5 -1)
-		(stroke
-			(width 0.1)
-			(type solid)
-		)
-		(layer "F.Fab")
-		(uuid "8c81e3f2-598c-4546-950e-761d388ccd72")
-	)
-	(fp_line
-		(start -1 1)
-		(end -1 -1)
-		(stroke
-			(width 0.1)
-			(type solid)
-		)
-		(layer "F.Fab")
-		(uuid "8e78bcd4-b68e-4809-b6f7-80d6a04e9024")
-	)
-	(fp_line
-		(start 1 -1)
-		(end 1 1)
-		(stroke
-			(width 0.1)
-			(type solid)
-		)
-		(layer "F.Fab")
-		(uuid "3c71cbf9-b97e-43aa-aa07-8858c2e83c11")
-	)
-	(fp_line
-		(start 1 1)
-		(end -1 1)
-		(stroke
-			(width 0.1)
-			(type solid)
-		)
-		(layer "F.Fab")
-		(uuid "1ed63e13-e549-4a16-a69c-7331e36c1709")
-	)
-	(fp_text user "${REFERENCE}"
-		(at 0 0 0)
-		(layer "F.Fab")
-		(uuid "0d1eca4d-2001-461d-a9ea-b0b115ff5958")
-		(effects
-			(font
-				(size 1.27 1.27)
-				(thickness 0.254)
-			)
-		)
-	)
-	(pad "1" smd rect
-		(at -1.1 -0.65 90)
-		(size 0.35 0.65)
-		(layers "F.Cu" "F.Mask" "F.Paste")
-		(uuid "d85fc15d-32b8-4da5-b168-36f842f724ff")
-	)
-	(pad "2" smd rect
-		(at -1.1 0 90)
-		(size 0.35 0.65)
-		(layers "F.Cu" "F.Mask" "F.Paste")
-		(uuid "fc0d67e8-be48-4131-8ba1-2a23379d259e")
-	)
-	(pad "3" smd rect
-		(at -1.1 0.65 90)
-		(size 0.35 0.65)
-		(layers "F.Cu" "F.Mask" "F.Paste")
-		(uuid "c2f675a0-cda9-450d-a739-acb963eaf072")
-	)
-	(pad "4" smd rect
-		(at 1.1 0.65 90)
-		(size 0.35 0.65)
-		(layers "F.Cu" "F.Mask" "F.Paste")
-		(uuid "9eae2ac5-36d2-4514-8a99-9c885904b690")
-	)
-	(pad "5" smd rect
-		(at 1.1 0 90)
-		(size 0.35 0.65)
-		(layers "F.Cu" "F.Mask" "F.Paste")
-		(uuid "dbf5e7fc-cc71-47ca-8ec5-c72b96983e52")
-	)
-	(pad "6" smd rect
-		(at 1.1 -0.65 90)
-		(size 0.35 0.65)
-		(layers "F.Cu" "F.Mask" "F.Paste")
-		(uuid "47b076b1-9bcd-4962-bf46-381d3b894fb5")
-	)
-	(pad "7" smd rect
-		(at 0 0)
-		(size 1.1 1.7)
-		(layers "F.Cu" "F.Mask" "F.Paste")
-		(uuid "fb6b481f-2b8b-4dc3-ba79-45e17304cf48")
-	)
-	(embedded_fonts no)
-	(model "kicad-embed://LDFPVR.step"
-		(offset
-			(xyz 0 0 0)
-		)
-		(scale
-			(xyz 1 1 1)
-		)
-		(rotate
-			(xyz 0 0 0)
-		)
-	)
+(module "SON65P200X200X100-7N-D" (layer F.Cu)
+  (descr "DFN6 (2x2)+1")
+  (tags "Integrated Circuit")
+  (attr smd)
+  (fp_text reference IC** (at 0 0) (layer F.SilkS)
+    (effects (font (size 1.27 1.27) (thickness 0.254)))
+  )
+  (fp_text user %R (at 0 0) (layer F.Fab)
+    (effects (font (size 1.27 1.27) (thickness 0.254)))
+  )
+  (fp_text value "SON65P200X200X100-7N-D" (at 0 0) (layer F.SilkS) hide
+    (effects (font (size 1.27 1.27) (thickness 0.254)))
+  )
+  (fp_line (start -1.65 -1.25) (end 1.65 -1.25) (layer F.CrtYd) (width 0.05))
+  (fp_line (start 1.65 -1.25) (end 1.65 1.25) (layer F.CrtYd) (width 0.05))
+  (fp_line (start 1.65 1.25) (end -1.65 1.25) (layer F.CrtYd) (width 0.05))
+  (fp_line (start -1.65 1.25) (end -1.65 -1.25) (layer F.CrtYd) (width 0.05))
+  (fp_line (start -1 -1) (end 1 -1) (layer F.Fab) (width 0.1))
+  (fp_line (start 1 -1) (end 1 1) (layer F.Fab) (width 0.1))
+  (fp_line (start 1 1) (end -1 1) (layer F.Fab) (width 0.1))
+  (fp_line (start -1 1) (end -1 -1) (layer F.Fab) (width 0.1))
+  (fp_line (start -1 -0.5) (end -0.5 -1) (layer F.Fab) (width 0.1))
+  (fp_circle (center -1.425 -1.325) (end -1.425 -1.2) (layer F.SilkS) (width 0.25))
+  (pad 1 smd rect (at -1.1 -0.65 90) (size 0.35 0.65) (layers F.Cu F.Paste F.Mask))
+  (pad 2 smd rect (at -1.1 0 90) (size 0.35 0.65) (layers F.Cu F.Paste F.Mask))
+  (pad 3 smd rect (at -1.1 0.65 90) (size 0.35 0.65) (layers F.Cu F.Paste F.Mask))
+  (pad 4 smd rect (at 1.1 0.65 90) (size 0.35 0.65) (layers F.Cu F.Paste F.Mask))
+  (pad 5 smd rect (at 1.1 0 90) (size 0.35 0.65) (layers F.Cu F.Paste F.Mask))
+  (pad 6 smd rect (at 1.1 -0.65 90) (size 0.35 0.65) (layers F.Cu F.Paste F.Mask))
+  (pad 7 smd rect (at 0 0 0) (size 1.1 1.7) (layers F.Cu F.Paste F.Mask))
+  (model LDFPVR.stp
+    (at (xyz 0 0 0))
+    (scale (xyz 1 1 1))
+    (rotate (xyz 0 0 0))
+  )
 	(embedded_files
 		(file
 			(name LDFPVR.step)
@@ -625,4 +439,6 @@
 			(checksum "2860be3cd66656f35bb74701b8fc2f3daf6a55e39d42662a30e80af9e3e08a82")
 		)
 	)
+
+	(model kicad-embed://LDFPVR.step)
 )

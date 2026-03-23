@@ -1,0 +1,100 @@
+"""
+Type: Voltage Regulator
+Description: STMicroelectronics LDFPVR - 1A very low drop voltage regulator with adjustable output from 0.8V to 12V.
+Features:
+- Input voltage: 2.6V to 16V
+- Very low dropout voltage: 500mV max at 1A load
+- Low quiescent current: 200µA typical at 1A load
+- 1A guaranteed output current
+- Adjustable output voltage from 0.8V
+- Logic-controlled electronic shutdown (EN pin)
+- Power Good output (PG pin)
+- Internal current and thermal protection
+- Operating temperature: -40°C to 125°C
+- DFN6 package (2x2mm or 3x3mm)
+- Fast dynamic response to line and load changes
+"""
+
+load("@stdlib/interfaces.zen", "Gpio", "Analog")
+
+Resistor = Module("@stdlib/generics/Resistor.zen")
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+
+LDFPVR = Module("github.com/diodeinc/registry/components/LDFPVR/LDFPVR.zen")
+
+ImplementationType = enum("NO_PASSIVES", "3V3", "5V0", "ADJUSTABLE")
+implementation_type = config("implementation_type", ImplementationType)
+properties = config("properties", dict, optional=True)
+
+# For adjustable mode, allow custom resistor values
+rfb_top_value = config("rfb_top_value", str, default="30.9kohms 1%", optional=True)  # Top resistor in voltage divider
+rfb_bot_value = config("rfb_bot_value", str, default="10kohms 1%", optional=True)  # Bottom resistor in voltage divider
+
+VIN = io("VIN", Power)
+VOUT = io("VOUT", Power)
+GND = io("GND", Ground)
+EN = io("EN", Net)
+PG = io("PG", Net)
+
+_ADJ = Net("_ADJ")
+
+
+# Helper function to get resistor values for desired output voltage
+def get_resistor_values():
+    """Get R1 and R2 values based on configuration
+    VOUT = VADJ * (1 + RFB_TOP/RFB_BOT), where VADJ = 0.8V
+    """
+    if implementation_type == ImplementationType("3V3"):
+        # For 3.3V: RFB_TOP = 30.9k, RFB_BOT = 10k gives VOUT = 0.8 * (1 + 30.9/10) = 3.27V
+        return ("30.9kohms 1%", "10kohms 1%")
+    elif implementation_type == ImplementationType("5V0"):
+        # For 5.0V: RFB_TOP = 52.3k, RFB_BOT = 10k gives VOUT = 0.8 * (1 + 52.3/10) = 5.0V
+        return ("52.3kohms 1%", "10kohms 1%")
+    else:  # ADJUSTABLE
+        return (rfb_top_value, rfb_bot_value)
+
+
+# Create the main regulator component
+LDFPVR(
+    name="LDFPVR",
+    VOUT=VOUT,
+    ADJ_NC=_ADJ,
+    PG=PG,
+    GND=GND,
+    EN=EN,
+    VIN=VIN,
+)
+
+# Add external components if not in raw mode
+if implementation_type != ImplementationType("NO_PASSIVES"):
+    # Input capacitor (required for stability)
+    # Minimum 1µF ceramic capacitor close to VIN pin
+    Capacitor(name="C_IN", value="1uF 10%", voltage="25V", package="0402", P1=VIN, P2=GND)
+
+    # Output capacitor (required for stability)
+    # Minimum 2.2µF ceramic capacitor for stability
+    Capacitor(name="C_OUT", value="2.2uF 10%", voltage="16V", package="0402", P1=VOUT, P2=GND)
+
+    # Power Good pull-up resistor (open drain output)
+    # Typical values 10k to 100k ohms
+    Resistor(name="R_PG", value="47kohms 1%", package="0402", P1=PG, P2=VIN)
+
+    # Voltage divider for output voltage setting
+    rfb_top_val, rfb_bot_val = get_resistor_values()
+    Resistor(name="RFB_TOP", value=f"{rfb_top_val}", package="0402", P1=VOUT, P2=_ADJ)
+    Resistor(name="RFB_BOT", value=f"{rfb_bot_val}", package="0402", P1=_ADJ, P2=GND)
+
+Layout(
+    name="LDFPVR",
+    path="elec/layout/default",
+)
+
+# layout_hint("Place input capacitor (C_IN) as close as possible to VIN pin")
+# layout_hint("Place output capacitor (C_OUT) as close as possible to VOUT pin")
+# layout_hint("Keep voltage divider resistors (RFB_TOP, RFB_BOT) close to ADJ pin")
+# layout_hint("Use wide traces for VIN and VOUT to handle 1A current")
+# layout_hint("Connect both GND pins (GND_1 and GND_2) to ground plane")
+# layout_hint("Ensure good thermal connection to ground plane for heat dissipation")
+# layout_hint("Keep switching signals away from ADJ pin to minimize noise")
+# layout_hint("Place power good pull-up resistor close to PG pin")
+# layout_hint("Consider copper pour under IC for better thermal performance")

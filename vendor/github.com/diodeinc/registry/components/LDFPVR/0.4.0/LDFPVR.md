@@ -1,15 +1,5 @@
 # 1 A very low drop voltage regulator 
 
-![img-0.jpeg](./images/img-0.jpeg)
-
-DFN6 ( $2 \times 2$ )
-
-DFN6 ( $3 \times 3$ )
-
-## Maturity status link
-
-LDF
-
 ## Features
 
 - Input voltage from 2.6 to 16 V
@@ -26,6 +16,10 @@ LDF
 
 
 ## Applications
+
+## Maturity status link
+
+LDF
 
 - Computer and laptop
 - Battery-powered equipments
@@ -44,8 +38,8 @@ Enable logic control pin and Power Good output are featured on DFN package.
 Current and thermal protection are provided.1 Block diagram
 
 Figure 1. Block diagram
-![img-1.jpeg](./images/img-1.jpeg)Figure 2. Pin connection (top view)
-![img-2.jpeg](./images/img-2.jpeg)
+![img-0.jpeg](img-0.jpeg)Figure 2. Pin connection (top view)
+![img-1.jpeg](img-1.jpeg)
 
 DFN6
 
@@ -153,49 +147,49 @@ C_{I N}=C_{\text {OUT }}=1 \mu \mathrm{~F}, V_{\text {IN }}=V_{\text {OUT }}+1 \
 $$
 
 Figure 3. Line regulation vs. temperature
-![img-3.jpeg](./images/img-3.jpeg)
+![img-2.jpeg](img-2.jpeg)
 
 Figure 4. Load regulation vs. temperature
-![img-4.jpeg](./images/img-4.jpeg)
+![img-3.jpeg](img-3.jpeg)
 
 Figure 5. Short-circuit current vs. dropout
-![img-5.jpeg](./images/img-5.jpeg)
+![img-4.jpeg](img-4.jpeg)
 
 Figure 6. Dropout voltage vs. temperature
-![img-6.jpeg](./images/img-6.jpeg)
+![img-5.jpeg](img-5.jpeg)
 
 Figure 7. Quiescent current vs. temperature, $\mathrm{I}_{\text {OUT }}=\mathbf{1 0} \mathrm{mA}$
-![img-7.jpeg](./images/img-7.jpeg)
+![img-6.jpeg](img-6.jpeg)
 
 Figure 8. Quiescent current vs. temperature, $\mathrm{I}_{\text {OUT }}=\mathbf{1} \mathrm{A}$
-![img-8.jpeg](./images/img-8.jpeg)Figure 9. Shutdown current vs. temperature
-![img-9.jpeg](./images/img-9.jpeg)
+![img-7.jpeg](img-7.jpeg)Figure 9. Shutdown current vs. temperature
+![img-8.jpeg](img-8.jpeg)
 
 Figure 10. Enable pin current vs. temperature
-![img-10.jpeg](./images/img-10.jpeg)
+![img-9.jpeg](img-9.jpeg)
 
 Figure 11. Enable high threshold vs. temperature
-![img-11.jpeg](./images/img-11.jpeg)
+![img-10.jpeg](img-10.jpeg)
 
 Figure 12. Enable low threshold vs. temperature
-![img-12.jpeg](./images/img-12.jpeg)
+![img-11.jpeg](img-11.jpeg)
 
 Figure 13. Output voltage vs. temperature, adjustable version
-![img-13.jpeg](./images/img-13.jpeg)
+![img-12.jpeg](img-12.jpeg)
 
 Figure 14. Load transient $\left(\mathrm{V}_{\text {OUT }}=\mathrm{V}_{\text {ADJ }}\right)$
-![img-14.jpeg](./images/img-14.jpeg)Figure 15. SVR vs. frequency $\left(\mathrm{V}_{\text {OUT }}=\mathrm{V}_{\text {ADJ }}\right)$
-![img-15.jpeg](./images/img-15.jpeg)
+![img-13.jpeg](img-13.jpeg)Figure 15. SVR vs. frequency $\left(\mathrm{V}_{\text {OUT }}=\mathrm{V}_{\text {ADJ }}\right)$
+![img-14.jpeg](img-14.jpeg)
 
 Figure 16. Stability plane ADJ ( $\mathrm{C}_{\text {OUT }}$. ESR)
-![img-16.jpeg](./images/img-16.jpeg)# 7 Package information 
+![img-15.jpeg](img-15.jpeg)# 7 Package information 
 
 To meet environmental requirements, ST offers these devices in different grades of ECOPACK packages, depending on their level of environmental compliance. ECOPACK specifications, grade definitions, and product status are available at: www.st.com. ECOPACK is an ST trademark.
 
 ### 7.1 DFN6 (3x3) package information
 
 Figure 17. DFN6 (3x3) package outline
-![img-17.jpeg](./images/img-17.jpeg)# Table 5. DFN6 (3x3) mechanical data
+![img-16.jpeg](img-16.jpeg)# Table 5. DFN6 (3x3) mechanical data
 
 |  Dim. | mm |  |   |
 | --- | --- | --- | --- |
@@ -215,10 +209,10 @@ Figure 17. DFN6 (3x3) package outline
 
 ## FOOTPRINT RECOMMENDED
 
-![img-18.jpeg](./images/img-18.jpeg)# 7.3 DFN6 (2x2x0,90) package information 
+![img-17.jpeg](img-17.jpeg)# 7.3 DFN6 (2x2x0,90) package information 
 
 Figure 19. DFN6 (2x2) package outline
-![img-19.jpeg](./images/img-19.jpeg)Table 6. DFN6 (2x2) mechanical data
+![img-18.jpeg](img-18.jpeg)Table 6. DFN6 (2x2) mechanical data
 
 |  Dim. | mm |  |   |
 | --- | --- | --- | --- |
@@ -239,7 +233,7 @@ Figure 19. DFN6 (2x2) package outline
 |  ddd |  | 0.05 |   |
 |  eee |  | 0.08 |   |
 |  N |  | 6 |   |Figure 20. DFN6 (2x2) recommended footprint
-![img-20.jpeg](./images/img-20.jpeg)
+![img-19.jpeg](img-19.jpeg)
 
 Notes:
 

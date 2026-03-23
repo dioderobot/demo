@@ -1,0 +1,28 @@
+"""LDFPVR Component"""
+
+Pins = struct(
+    ADJ_NC=io("ADJ_NC", Net),
+    EN=io("EN", Net),
+    GND=io("GND", Net),
+    PG=io("PG", Net),
+    VIN=io("VIN", Net),
+    VOUT=io("VOUT", Net),
+)
+
+Component(
+    name="LDFPVR",
+    symbol=Symbol(library="LDFPVR.kicad_sym"),
+    datasheet=File("LDFPVR.pdf"),
+    pins={
+        "ADJ/NC": Pins.ADJ_NC,
+        "EN": Pins.EN,
+        "GND": Pins.GND,
+        "PG": Pins.PG,
+        "VIN": Pins.VIN,
+        "VOUT": Pins.VOUT,
+    },
+    properties={
+        "value": "LDFPVR",
+        "mpn": "LDFPVR",
+    },
+)
