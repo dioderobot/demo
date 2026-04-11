@@ -1,7 +1,8 @@
 """LDFPVR Component"""
 
+# Pins
 Pins = struct(
-    ADJ_NC=io("ADJ_NC", Net),
+    ADJ=io("ADJ", Net),
     EN=io("EN", Net),
     GND=io("GND", Net),
     PG=io("PG", Net),
@@ -9,12 +10,13 @@ Pins = struct(
     VOUT=io("VOUT", Net),
 )
 
+# Component
 Component(
     name="LDFPVR",
     symbol=Symbol(library="LDFPVR.kicad_sym"),
     datasheet=File("LDFPVR.pdf"),
     pins={
-        "ADJ/NC": Pins.ADJ_NC,
+        "ADJ": Pins.ADJ,
         "EN": Pins.EN,
         "GND": Pins.GND,
         "PG": Pins.PG,
@@ -26,3 +28,5 @@ Component(
         "mpn": "LDFPVR",
     },
 )
+
+# pcb:sch LDFPVR x=-255.0000 y=-509.0000 rot=0

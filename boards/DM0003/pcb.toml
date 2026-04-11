@@ -3,6 +3,7 @@ name = "DM0003"
 description = "Raspberry Pi CM5 carrier board. Features HDMI, PCIe M.2, USB-C PD, and Gigabit Ethernet."
 
 [dependencies]
+"github.com/diodeinc/registry/components/SkyMirr/CRJ009-ML4-TH" = "0.1.4"
 "github.com/dioderobot/demo/components/ASEK/ASEKM32_768KHZMLMRMT" = "0.1.0"
 "github.com/dioderobot/demo/components/G_Switch/MKM11C04MG013" = "0.1.0"
 "github.com/dioderobot/demo/components/Hirose/FH12M22SM0_5SH" = "0.1.0"
@@ -12,7 +13,6 @@ description = "Raspberry Pi CM5 carrier board. Features HDMI, PCIe M.2, USB-C PD
 "github.com/dioderobot/demo/components/Nexperia/PUSB3F96X" = "0.1.0"
 "github.com/dioderobot/demo/components/OMRON_Electronics/B3UM1000P" = "0.1.0"
 "github.com/dioderobot/demo/components/SHOUHAN/TYPE-C24PQT" = "0.1.0"
-"github.com/diodeinc/registry/components/SkyMirr/CRJ009-ML4-TH" = "0.1.0"
 "github.com/dioderobot/demo/components/Semtech_Corporation/RCLAMP0502BATCT" = "0.1.0"
 "github.com/dioderobot/demo/components/TE_Connectivity/1M2199119M3" = "0.1.0"
 "github.com/dioderobot/demo/components/Texas_Instruments/HD3SS3212IRKSR" = "0.1.0"

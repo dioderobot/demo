@@ -155,7 +155,7 @@ Ldo(
     GND=GND,
     EN=V10V,
     PG=NotConnected(),
-    implementation_type="5V0",
+    voltage_out="5V",
     schematic="collapse",
 )
 
@@ -166,7 +166,7 @@ Ldo(
     GND=GND,
     EN=V5V,
     PG=NotConnected(),
-    implementation_type="3V3",
+    voltage_out="3V",
     schematic="collapse",
 )
 

@@ -31,7 +31,6 @@ Component(
     manufacturer="SkyMirr",
     datasheet=File("CRJ009-ML4-TH.pdf"),
     symbol=Symbol(library="CRJ009-ML4-TH.kicad_sym"),
-    footprint=File("CRJ009-ML4-TH.kicad_mod"),
     pins={
         "A_GREEN": Pins.A_GREEN,
         "A_YELLOW": Pins.A_YELLOW,
@@ -49,10 +48,5 @@ Component(
         "TRD2+": Pins.TRD2_POS,
         "TRD3-": Pins.TRD3_NEG,
         "TRD3+": Pins.TRD3_POS,
-    },
-    properties={
-        "alternatives": [
-            {"mpn": "HR911130C", "manufacturer": "HANRUN"},
-        ]
     },
 )

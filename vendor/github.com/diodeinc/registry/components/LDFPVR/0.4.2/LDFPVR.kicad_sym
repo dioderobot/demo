@@ -1,0 +1,323 @@
+(kicad_symbol_lib
+  (version 20211014)
+  (generator "SamacSys_ECAD_Model")
+  (generator_version "1.0")
+  (symbol
+    "LDFPVR"
+    (exclude_from_sim no)
+    (in_bom yes)
+    (on_board yes)
+    (property
+      "Reference"
+      "U"
+      (at 0 5.08 0)
+      (effects
+        (font (size 1.27 1.27))
+        (justify left)
+      )
+    )
+    (property
+      "Value"
+      "LDFPVR"
+      (at 0 -5.08 0)
+      (effects
+        (font (size 1.27 1.27))
+        (justify left)
+      )
+    )
+    (property
+      "Footprint"
+      "SON65P200X200X100-7N-D:SON65P200X200X100-7N-D"
+      (at 0 -7.62 0)
+      (effects
+        (font (size 1.27 1.27))
+        (justify left)
+        (hide yes)
+      )
+    )
+    (property
+      "Datasheet"
+      "https://www.st.com/resource/en/datasheet/ldfpvr.pdf"
+      (at 0 -10.16 0)
+      (effects
+        (font (size 1.27 1.27))
+        (justify left)
+        (hide yes)
+      )
+    )
+    (property
+      "Description"
+      "1A Very Low Dropout Voltage Regulator, Adjustable 0.8-12V Output, 2.6-16V Input, Power Good, DFN6-2x2"
+      (at 0 -12.7 0)
+      (effects
+        (font (size 1.27 1.27))
+        (justify left)
+        (hide yes)
+      )
+    )
+    (property
+      "ki_keywords"
+      "ldo voltage-regulator low-dropout adjustable power-good LDF"
+      (at 0 -15.24 0)
+      (effects
+        (font (size 1.27 1.27))
+        (justify left)
+        (hide yes)
+      )
+    )
+    (property
+      "ki_locked"
+      "~"
+      (at 0 -17.78 0)
+      (effects
+        (font (size 1.27 1.27))
+        (justify left)
+      )
+    )
+    (symbol
+      "LDFPVR_1_1"
+      (rectangle
+        (start
+          -17.78
+          15.24
+        )
+        (end
+          17.78
+          -15.24
+        )
+        (stroke
+          (width 0.254)
+          (type default)
+        )
+        (fill
+          (type background)
+        )
+      )
+      (circle
+        (center
+          0
+          8.128
+        )
+        (radius 3.302)
+        (stroke
+          (width 0.254)
+          (type default)
+        )
+        (fill
+          (type none)
+        )
+      )
+      (circle
+        (center
+          0
+          8.128
+        )
+        (radius 2.921)
+        (stroke
+          (width 0.254)
+          (type default)
+        )
+        (fill
+          (type none)
+        )
+      )
+      (text
+        "ST"
+        (at 0 8.128 0)
+        (effects
+          (font (size 2.286 2.286))
+        )
+      )
+      (text
+        "ST"
+        (at 0.0762 8.128 0)
+        (effects
+          (font (size 2.286 2.286))
+        )
+      )
+      (text
+        "LDF"
+        (at 0 3.048 0)
+        (effects
+          (font (size 2.032 2.032))
+        )
+      )
+      (text
+        "LDF"
+        (at 0.0762 3.048 0)
+        (effects
+          (font (size 2.032 2.032))
+        )
+      )
+      (text
+        "2.6-16V IN"
+        (at 0 0 0)
+        (effects
+          (font (size 1.3970000000000002 1.3970000000000002))
+        )
+      )
+      (text
+        "2.6-16V IN"
+        (at 0.0762 0 0)
+        (effects
+          (font (size 1.3970000000000002 1.3970000000000002))
+        )
+      )
+      (text
+        "ADJ 0.8-12V OUT"
+        (at 0 -2.54 0)
+        (effects
+          (font (size 1.3970000000000002 1.3970000000000002))
+        )
+      )
+      (text
+        "ADJ 0.8-12V OUT"
+        (at 0.0762 -2.54 0)
+        (effects
+          (font (size 1.3970000000000002 1.3970000000000002))
+        )
+      )
+      (text
+        "1A LDO"
+        (at 0 -5.08 0)
+        (effects
+          (font (size 1.3970000000000002 1.3970000000000002))
+        )
+      )
+      (text
+        "1A LDO"
+        (at 0.0762 -5.08 0)
+        (effects
+          (font (size 1.3970000000000002 1.3970000000000002))
+        )
+      )
+      (pin
+        power_in
+        line
+        (at -20.32 5.08 0)
+        (length 2.54)
+        (name
+          "VIN"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "6"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        input
+        line
+        (at -20.32 -5.08 0)
+        (length 2.54)
+        (name
+          "EN"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "5"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        power_out
+        line
+        (at 20.32 5.08 180)
+        (length 2.54)
+        (name
+          "VOUT"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "1"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        input
+        line
+        (at 20.32 -5.08 180)
+        (length 2.54)
+        (name
+          "ADJ"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "2"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        open_collector
+        line
+        (at 20.32 0 180)
+        (length 2.54)
+        (name
+          "PG"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "3"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        power_in
+        line
+        (at 0 -17.78 90)
+        (length 2.54)
+        (name
+          "GND"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "4"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+      (pin
+        passive
+        line
+        (at 0 -17.78 90)
+        (length 2.54)
+        (hide yes)
+        (name
+          "GND"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+        (number
+          "7"
+          (effects
+            (font (size 1.27 1.27))
+          )
+        )
+      )
+    )
+  )
+)

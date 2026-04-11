@@ -1,13 +1,11 @@
 """BSS138-7-F Component"""
 
-# Pins
 Pins = struct(
     D=io("D", Net),
     G=io("G", Net),
     S=io("S", Net),
 )
 
-# Component
 Component(
     name="BSS138-7-F",
     symbol=Symbol(library="BSS138-7-F.kicad_sym"),
