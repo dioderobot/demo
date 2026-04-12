@@ -1,0 +1,750 @@
+{
+  "sources": {
+    "board_zen": "boards/DM0001/DM0001.zen",
+    "mcu_datasheet_markdown": "components/STMicroelectronics/STM32G431CBU6/STM32G431CBU6.md",
+    "gate_driver_markdown": "components/STMicroelectronics/L6387ED/L6387ED.md"
+  },
+  "mcu": {
+    "board_declared_part": "STM32G431C8T6",
+    "board_docs_part": "STM32G431CBU6",
+    "firmware_target_family": "STM32G431CB",
+    "package_note": "Board sources disagree on exact SKU. Firmware uses STM32G431CB family assumptions because the BOM/docs and local datasheet point to the 128 KiB CBU6 device.",
+    "pins": {
+      "PA0": {
+        "net": "VBUS",
+        "comment": "VBUS sensing"
+      },
+      "PA1": {
+        "net": "CURR_FDBK1_OPAMP_PLUS",
+        "comment": "Current feedback 1 OpAmp+"
+      },
+      "PA2": {
+        "net": "OP1_OUT",
+        "comment": "OpAmp 1 output"
+      },
+      "PA3": {
+        "net": "CURR_FDBK1_OPAMP_MINUS",
+        "comment": "Current feedback 1 OpAmp-"
+      },
+      "PA4": {
+        "net": "BEMF1",
+        "comment": "BEMF phase 1"
+      },
+      "PA5": {
+        "net": "CURR_FDBK2_OPAMP_MINUS",
+        "comment": "Current feedback 2 OpAmp-"
+      },
+      "PA6": {
+        "net": "OP2_OUT",
+        "comment": "OpAmp 2 output"
+      },
+      "PA7": {
+        "net": "CURR_FDBK2_OPAMP_PLUS",
+        "comment": "Current feedback 2 OpAmp+"
+      },
+      "PA8": {
+        "net": "TIM1_CH1",
+        "comment": "Timer1 Channel 1"
+      },
+      "PA9": {
+        "net": "TIM1_CH2",
+        "comment": "Timer1 Channel 2"
+      },
+      "PA10": {
+        "net": "TIM1_CH3",
+        "comment": "Timer1 Channel 3"
+      },
+      "PA11": {
+        "net": "CAN_RX",
+        "comment": "CAN Receive"
+      },
+      "PA12": {
+        "net": "TIM1_CH2N",
+        "comment": "Timer1 Channel 2N"
+      },
+      "PA13": {
+        "net": "SWDIO",
+        "comment": "SWD Data"
+      },
+      "PA14": {
+        "net": "SWCLK",
+        "comment": "SWD Clock"
+      },
+      "PA15": {
+        "net": "PWM",
+        "comment": ""
+      },
+      "PB0": {
+        "net": "CURR_FDBK3_OPAMP_PLUS",
+        "comment": "Current feedback 3 OpAmp+"
+      },
+      "PB1": {
+        "net": "OP3_OUT",
+        "comment": "OpAmp 3 output"
+      },
+      "PB2": {
+        "net": "CURR_FDBK3_OPAMP_MINUS",
+        "comment": "Current feedback 3 OpAmp-"
+      },
+      "PB3": {
+        "net": "UART2_TX",
+        "comment": "UART2 Transmit"
+      },
+      "PB4": {
+        "net": "UART2_RX",
+        "comment": "UART2 Receive"
+      },
+      "PB5": {
+        "net": "GPIO_BEMF",
+        "comment": "GPIO for BEMF"
+      },
+      "PB6": {
+        "net": "A_PLUS_H1_OUT",
+        "comment": "Hall A / Encoder A"
+      },
+      "PB7": {
+        "net": "B_PLUS_H2_OUT",
+        "comment": "Hall B / Encoder B"
+      },
+      "PB8_BOOT0": {
+        "net": "Z_PLUS_H3_OUT",
+        "comment": "Hall C / Encoder Z (shares with BOOT0)"
+      },
+      "PB9": {
+        "net": "CAN_TX",
+        "comment": "CAN Transmit"
+      },
+      "PB10": {
+        "net": "PB10",
+        "comment": "Unassigned"
+      },
+      "PB11": {
+        "net": "BEMF3",
+        "comment": "BEMF phase 3"
+      },
+      "PB12": {
+        "net": "BEMF2",
+        "comment": "BEMF phase 2 (ADC capable)"
+      },
+      "PB13": {
+        "net": "CAN_SHDN",
+        "comment": "CAN Shutdown (remapped from PC11)"
+      },
+      "PB14": {
+        "net": "TEMP_FEEDBACK",
+        "comment": "Temperature feedback"
+      },
+      "PB15": {
+        "net": "TIM1_CH3N",
+        "comment": "Timer1 Channel 3N"
+      },
+      "PC13": {
+        "net": "TIM1_CH1N",
+        "comment": "Timer1 Channel 1N"
+      },
+      "PC14_OSC32_IN": {
+        "net": "CAN_TERM",
+        "comment": "CAN Termination"
+      },
+      "PC15_OSC32_OUT": {
+        "net": "STATUS",
+        "comment": "Status signal"
+      },
+      "NRST": {
+        "net": "NRST",
+        "comment": ""
+      }
+    }
+  },
+  "pwm": {
+    "timer": "TIM1",
+    "phases": {
+      "A": {
+        "high": {
+          "pin": "PA8",
+          "net": "TIM1_CH1",
+          "comment": "Timer1 Channel 1",
+          "functions": [
+            "TIM1_CH1",
+            "I2C3_SCL",
+            "I2C2_SDA",
+            "USART1_CK"
+          ]
+        },
+        "low": {
+          "pin": "PC13",
+          "net": "TIM1_CH1N",
+          "comment": "Timer1 Channel 1N",
+          "functions": [
+            "TIM1_BKIN",
+            "TIM1_CH1N",
+            "TIM8_CH4N"
+          ]
+        },
+        "phase_net": "PHASE_A",
+        "gate_driver": "L6387ED"
+      },
+      "B": {
+        "high": {
+          "pin": "PA9",
+          "net": "TIM1_CH2",
+          "comment": "Timer1 Channel 2",
+          "functions": [
+            "TIM1_CH2",
+            "I2C3_SMBA",
+            "I2C2_SCL",
+            "USART1_TX"
+          ]
+        },
+        "low": {
+          "pin": "PA12",
+          "net": "TIM1_CH2N",
+          "comment": "Timer1 Channel 2N",
+          "functions": [
+            "TIM1_CH2N",
+            "FDCAN1_TX",
+            "TIM1_ETR",
+            "TIM16_CH1"
+          ]
+        },
+        "phase_net": "PHASE_B",
+        "gate_driver": "L6387ED"
+      },
+      "C": {
+        "high": {
+          "pin": "PA10",
+          "net": "TIM1_CH3",
+          "comment": "Timer1 Channel 3",
+          "functions": [
+            "TIM1_CH3",
+            "SPI2_MISO",
+            "USART1_RX",
+            "TIM2_CH4"
+          ]
+        },
+        "low": {
+          "pin": "PB15",
+          "net": "TIM1_CH3N",
+          "comment": "Timer1 Channel 3N",
+          "adc_channel": "ADC2_IN15",
+          "functions": [
+            "TIM15_CH2",
+            "TIM15_CH1N",
+            "TIM1_CH3N",
+            "SPI2_MOSI"
+          ]
+        },
+        "phase_net": "PHASE_C",
+        "gate_driver": "L6387ED"
+      }
+    },
+    "safety_note": "L6387 HIN/LIN inputs have internal pulldowns. Initial bringup should keep PWM pins as GPIO/Hi-Z until TIM1 is configured and outputs are explicitly enabled."
+  },
+  "adc": {
+    "bus_voltage": {
+      "pin": "PA0",
+      "net": "VBUS",
+      "comment": "VBUS sensing",
+      "adc_channel": "ADC12_IN1",
+      "functions": [
+        "TIM2_CH1",
+        "USART2_CTS",
+        "TIM8_BKIN",
+        "TIM8_ETR"
+      ]
+    },
+    "phase_voltage": {
+      "A": {
+        "pin": "PA4",
+        "net": "BEMF1",
+        "comment": "BEMF phase 1",
+        "adc_channel": "ADC2_IN17",
+        "functions": [
+          "TIM3_CH2",
+          "SPI1_NSS",
+          "SPI3_NSS",
+          "USART2_CK"
+        ]
+      },
+      "B": {
+        "pin": "PB12",
+        "net": "BEMF2",
+        "comment": "BEMF phase 2 (ADC capable)",
+        "adc_channel": "ADC1_IN11",
+        "functions": [
+          "I2C2_SMBA",
+          "SPI2_NSS",
+          "TIM1_BKIN",
+          "USART3_CK"
+        ]
+      },
+      "C": {
+        "pin": "PB11",
+        "net": "BEMF3",
+        "comment": "BEMF phase 3",
+        "adc_channel": "ADC12_IN14",
+        "functions": [
+          "TIM2_CH4",
+          "USART3_RX",
+          "LPUART1_TX"
+        ]
+      }
+    },
+    "temperature": {
+      "board_ntc": {
+        "pin": "PB14",
+        "net": "TEMP_FEEDBACK",
+        "comment": "Temperature feedback",
+        "adc_channel": "ADC1_IN5",
+        "functions": [
+          "TIM15_CH1",
+          "SPI2_MISO",
+          "TIM1_CH2N",
+          "USART3_RTS_DE"
+        ]
+      },
+      "mcu_internal": {
+        "adc_channel": "ADC1_IN16",
+        "name": "TS"
+      }
+    },
+    "current_raw_inputs": {
+      "A": {
+        "pin": "PA1",
+        "net": "CURR_FDBK1_OPAMP_PLUS",
+        "comment": "Current feedback 1 OpAmp+",
+        "adc_channel": "ADC12_IN2",
+        "functions": [
+          "TIM2_CH2",
+          "USART2_RTS_DE",
+          "TIM15_CH1N",
+          "OPAMP1_VINP"
+        ]
+      },
+      "B": {
+        "pin": "PA7",
+        "net": "CURR_FDBK2_OPAMP_PLUS",
+        "comment": "Current feedback 2 OpAmp+",
+        "adc_channel": "ADC2_IN4",
+        "functions": [
+          "TIM17_CH1",
+          "TIM3_CH2",
+          "SPI1_MOSI",
+          "TIM1_CH1N",
+          "OPAMP2_VINP"
+        ]
+      },
+      "C": {
+        "pin": "PB0",
+        "net": "CURR_FDBK3_OPAMP_PLUS",
+        "comment": "Current feedback 3 OpAmp+",
+        "adc_channel": "ADC1_IN15",
+        "functions": [
+          "TIM3_CH3",
+          "TIM8_CH2N",
+          "TIM1_CH2N",
+          "OPAMP3_VINP"
+        ]
+      }
+    },
+    "current_opamp_outputs": {
+      "A": {
+        "pin": "PA2",
+        "net": "OP1_OUT",
+        "comment": "OpAmp 1 output",
+        "adc_channel": "ADC1_IN3",
+        "functions": [
+          "TIM2_CH3",
+          "USART2_TX",
+          "TIM15_CH1",
+          "OPAMP1_VOUT"
+        ]
+      },
+      "B": {
+        "pin": "PA6",
+        "net": "OP2_OUT",
+        "comment": "OpAmp 2 output",
+        "adc_channel": "ADC2_IN3",
+        "functions": [
+          "TIM16_CH1",
+          "TIM3_CH1",
+          "SPI1_MISO",
+          "TIM1_BKIN",
+          "OPAMP2_VOUT"
+        ]
+      },
+      "C": {
+        "pin": "PB1",
+        "net": "OP3_OUT",
+        "comment": "OpAmp 3 output",
+        "adc_channel": "ADC1_IN12",
+        "functions": [
+          "TIM3_CH4",
+          "TIM8_CH3N",
+          "TIM1_CH3N",
+          "OPAMP3_VOUT"
+        ]
+      }
+    },
+    "internal": {
+      "vrefint": {
+        "adc_channel": "ADC1_IN18"
+      },
+      "vbat_internal_div3": {
+        "adc_channel": "ADC1_IN17",
+        "note": "Available on STM32, not used by DM0001 power tree."
+      }
+    }
+  },
+  "temp": {
+    "board_ntc": {
+      "pin": "PB14",
+      "net": "TEMP_FEEDBACK",
+      "adc_channel": "ADC1_IN5",
+      "sensor": "TDK NTCG103JF103FT1",
+      "pullup_ohms": 10000,
+      "pulldown_ohms": 4700,
+      "filter_cap_nF": 10,
+      "note": "Use as a raw divider voltage first; convert to temperature after validating the exact thermistor beta against the part datasheet or calibration data."
+    },
+    "internal": {
+      "adc_channel": "ADC1_IN16",
+      "note": "Use factory TS_CAL1/TS_CAL2 constants for MCU die temperature."
+    }
+  },
+  "current": {
+    "architecture": "3x low-side shunt, buffered/amplified by STM32 internal OPAMP1/2/3",
+    "shunt_resistor_ohms": 0.003,
+    "channels": {
+      "A": {
+        "shunt_net": "VSHUNTP_A",
+        "opamp_input": {
+          "pin": "PA1",
+          "net": "CURR_FDBK1_OPAMP_PLUS",
+          "comment": "Current feedback 1 OpAmp+",
+          "adc_channel": "ADC12_IN2",
+          "functions": [
+            "TIM2_CH2",
+            "USART2_RTS_DE",
+            "TIM15_CH1N",
+            "OPAMP1_VINP"
+          ]
+        },
+        "opamp_output": {
+          "pin": "PA2",
+          "net": "OP1_OUT",
+          "comment": "OpAmp 1 output",
+          "adc_channel": "ADC1_IN3",
+          "functions": [
+            "TIM2_CH3",
+            "USART2_TX",
+            "TIM15_CH1",
+            "OPAMP1_VOUT"
+          ]
+        },
+        "opamp_instance": "OPAMP1"
+      },
+      "B": {
+        "shunt_net": "VSHUNTP_B",
+        "opamp_input": {
+          "pin": "PA7",
+          "net": "CURR_FDBK2_OPAMP_PLUS",
+          "comment": "Current feedback 2 OpAmp+",
+          "adc_channel": "ADC2_IN4",
+          "functions": [
+            "TIM17_CH1",
+            "TIM3_CH2",
+            "SPI1_MOSI",
+            "TIM1_CH1N",
+            "OPAMP2_VINP"
+          ]
+        },
+        "opamp_output": {
+          "pin": "PA6",
+          "net": "OP2_OUT",
+          "comment": "OpAmp 2 output",
+          "adc_channel": "ADC2_IN3",
+          "functions": [
+            "TIM16_CH1",
+            "TIM3_CH1",
+            "SPI1_MISO",
+            "TIM1_BKIN",
+            "OPAMP2_VOUT"
+          ]
+        },
+        "opamp_instance": "OPAMP2"
+      },
+      "C": {
+        "shunt_net": "VSHUNTP_C",
+        "opamp_input": {
+          "pin": "PB0",
+          "net": "CURR_FDBK3_OPAMP_PLUS",
+          "comment": "Current feedback 3 OpAmp+",
+          "adc_channel": "ADC1_IN15",
+          "functions": [
+            "TIM3_CH3",
+            "TIM8_CH2N",
+            "TIM1_CH2N",
+            "OPAMP3_VINP"
+          ]
+        },
+        "opamp_output": {
+          "pin": "PB1",
+          "net": "OP3_OUT",
+          "comment": "OpAmp 3 output",
+          "adc_channel": "ADC1_IN12",
+          "functions": [
+            "TIM3_CH4",
+            "TIM8_CH3N",
+            "TIM1_CH3N",
+            "OPAMP3_VOUT"
+          ]
+        },
+        "opamp_instance": "OPAMP3"
+      }
+    },
+    "front_end": {
+      "bias_network": {
+        "top_to_vdda_ohms": 22000,
+        "bottom_to_gnd_ohms": 2200,
+        "feedback_from_shunt_ohms": 1500
+      },
+      "firmware_inference": {
+        "mode": "non_inverting_pga",
+        "gain": 16.0,
+        "reason": "The external resistor network only produces a usable ADC range if the internal OPAMP PGA is enabled. Follower mode would leave the current signal too small for practical telemetry."
+      },
+      "estimated_zero_current_output_volts": 2.057143,
+      "estimated_output_sensitivity_volts_per_amp": 0.027429,
+      "estimated_current_formula_amps": {
+        "expression": "(v_opamp - v_zero) / volts_per_amp",
+        "v_zero": 2.057143,
+        "volts_per_amp": 0.027429
+      }
+    }
+  },
+  "voltage": {
+    "bus": {
+      "pin": "PA0",
+      "net": "VBUS",
+      "adc_channel": "ADC12_IN1",
+      "divider_top_ohms": 169000,
+      "divider_bottom_ohms": 18000,
+      "scale_to_input": 10.388889,
+      "clamp_to_vdda": true,
+      "max_linear_input_volts_at_vdda_3v3": 34.283
+    },
+    "phase": {
+      "A": {
+        "pin": "PA4",
+        "net": "BEMF1",
+        "adc_channel": "ADC2_IN17"
+      },
+      "B": {
+        "pin": "PB12",
+        "net": "BEMF2",
+        "adc_channel": "ADC1_IN11"
+      },
+      "C": {
+        "pin": "PB11",
+        "net": "BEMF3",
+        "adc_channel": "ADC12_IN14"
+      },
+      "frontend": {
+        "series_from_phase_ohms": 10000,
+        "pull_to_gpio_bemf_ohms": 2200,
+        "clamp_to_vdda": true,
+        "note": "These are clamped back-EMF sense nodes, not full-range divided phase-voltage channels. Treat them as protected BEMF telemetry and expect saturation near VDDA."
+      }
+    },
+    "supply_rail": {
+      "method": "ADC1_IN18 VREFINT-based VDDA estimate",
+      "note": "Use factory VREFINT calibration to infer the actual 3V3 analog rail."
+    }
+  },
+  "enable": {
+    "power_stage_enable": null,
+    "kill_signal": null,
+    "can_shutdown": {
+      "pin": "PB13",
+      "net": "CAN_SHDN"
+    },
+    "status_led": {
+      "pin": "PC15_OSC32_OUT",
+      "net": "STATUS"
+    },
+    "note": "No dedicated global motor-enable net is defined in DM0001. Safe bringup depends on keeping TIM1 outputs disabled until explicitly commanded."
+  },
+  "gate_driver": {
+    "type": "3x L6387ED half-bridge drivers",
+    "gpio_bemf_or": {
+      "pin": "PB5",
+      "net": "GPIO_BEMF",
+      "note": "Shared diode-OR style BEMF GPIO from the three phase-driver subcircuits."
+    }
+  },
+  "digital_inputs": {
+    "hall": {
+      "A": {
+        "pin": "PB6",
+        "net": "A_PLUS_H1_OUT",
+        "comment": "Hall A / Encoder A",
+        "functions": [
+          "TIM16_CH1N",
+          "TIM4_CH1",
+          "TIM8_CH1",
+          "USART1_TX",
+          "LPTIM1_ETR"
+        ]
+      },
+      "B": {
+        "pin": "PB7",
+        "net": "B_PLUS_H2_OUT",
+        "comment": "Hall B / Encoder B",
+        "functions": [
+          "TIM17_CH1N",
+          "TIM4_CH2",
+          "I2C1_SDA",
+          "USART1_RX",
+          "TIM3_CH4",
+          "LPTIM1_IN2"
+        ]
+      },
+      "Z": {
+        "pin": "PB8_BOOT0",
+        "net": "Z_PLUS_H3_OUT",
+        "comment": "Hall C / Encoder Z (shares with BOOT0)",
+        "functions": [
+          "TIM16_CH1",
+          "TIM4_CH3",
+          "I2C1_SCL",
+          "USART3_RX",
+          "FDCAN1_RX",
+          "TIM8_CH2",
+          "TIM1_BKIN"
+        ]
+      }
+    }
+  },
+  "interfaces": {
+    "can": {
+      "rx": {
+        "pin": "PA11",
+        "net": "CAN_RX",
+        "comment": "CAN Receive",
+        "functions": [
+          "TIM1_CH1N",
+          "FDCAN1_RX",
+          "TIM1_CH4",
+          "TIM1_BKIN2"
+        ]
+      },
+      "tx": {
+        "pin": "PB9",
+        "net": "CAN_TX",
+        "comment": "CAN Transmit",
+        "functions": [
+          "TIM17_CH1",
+          "TIM4_CH4",
+          "I2C1_SDA",
+          "USART3_TX",
+          "FDCAN1_TX",
+          "TIM8_CH3",
+          "TIM1_CH3N"
+        ]
+      },
+      "shutdown": {
+        "pin": "PB13",
+        "net": "CAN_SHDN",
+        "comment": "CAN Shutdown (remapped from PC11)",
+        "functions": [
+          "SPI2_SCK",
+          "TIM1_CH1N",
+          "USART3_CTS"
+        ]
+      },
+      "termination_select": {
+        "pin": "PC14_OSC32_IN",
+        "net": "CAN_TERM",
+        "comment": "CAN Termination",
+        "functions": [
+          "RTC_OSC32_IN"
+        ]
+      }
+    },
+    "uart2": {
+      "tx": {
+        "pin": "PB3",
+        "net": "UART2_TX",
+        "comment": "UART2 Transmit",
+        "functions": [
+          "TRACE_SWO",
+          "TIM2_CH2",
+          "TIM4_ETR",
+          "SPI1_SCK",
+          "SPI3_SCK",
+          "USART2_TX"
+        ]
+      },
+      "rx": {
+        "pin": "PB4",
+        "net": "UART2_RX",
+        "comment": "UART2 Receive",
+        "functions": [
+          "JTRST",
+          "TIM16_CH1",
+          "TIM3_CH1",
+          "SPI1_MISO",
+          "SPI3_MISO",
+          "USART2_RX"
+        ]
+      },
+      "pwm_header_input": {
+        "pin": "PA15",
+        "net": "PWM",
+        "comment": "",
+        "functions": [
+          "TIM2_CH1",
+          "TIM8_CH1",
+          "SPI1_NSS",
+          "SPI3_NSS",
+          "USART2_RX",
+          "TIM1_BKIN"
+        ]
+      }
+    },
+    "swd": {
+      "swdio": {
+        "pin": "PA13",
+        "net": "SWDIO",
+        "comment": "SWD Data",
+        "functions": [
+          "SWDIO",
+          "TIM16_CH1N",
+          "I2C1_SCL",
+          "USART3_CTS"
+        ]
+      },
+      "swclk": {
+        "pin": "PA14",
+        "net": "SWCLK",
+        "comment": "SWD Clock",
+        "functions": [
+          "SWCLK",
+          "TIM1_BKIN",
+          "I2C1_SDA",
+          "USART2_TX"
+        ]
+      },
+      "nrst": {
+        "pin": "NRST",
+        "net": "NRST",
+        "comment": "",
+        "functions": [
+          "NRST"
+        ]
+      }
+    },
+    "i2c_spi_sensors": []
+  }
+}

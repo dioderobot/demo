@@ -1,0 +1,23 @@
+[build]
+target = "thumbv7em-none-eabihf"
+
+[target.thumbv7em-none-eabihf]
+runner = [
+  "probe-rs",
+  "run",
+  "--chip",
+  "STM32G431C8",
+  "--log-format",
+  "{t} {L} {s}",
+]
+rustflags = [
+  "-C",
+  "link-arg=--nmagic",
+  "-C",
+  "link-arg=-Tlink.x",
+  "-C",
+  "link-arg=-Tdefmt.x",
+]
+
+[env]
+DEFMT_LOG = "info"
