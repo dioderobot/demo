@@ -14,10 +14,10 @@ use embassy_stm32::opamp::{OpAmp, OpAmpGain, OpAmpSpeed};
 use embassy_stm32::rcc::mux::Adcsel;
 use embassy_stm32::rcc::{AHBPrescaler, APBPrescaler, Sysclk};
 use embassy_stm32::time::Hertz;
+use embassy_stm32::timer::Channel;
 use embassy_stm32::timer::complementary_pwm::{ComplementaryPwm, ComplementaryPwmPin};
 use embassy_stm32::timer::low_level::CountingMode;
 use embassy_stm32::timer::simple_pwm::PwmPin;
-use embassy_stm32::timer::Channel;
 use embassy_stm32::{Peri, peripherals};
 use panic_probe as _;
 
@@ -342,9 +342,7 @@ async fn main(_spawner: Spawner) {
     let align_duty_counts = max_duty * ALIGN_DUTY_PERCENT / 100;
     info!(
         "alignment_start step={} duty_pct={} hold_us={}",
-        ALIGN_STEP,
-        ALIGN_DUTY_PERCENT,
-        ALIGN_HOLD_US
+        ALIGN_STEP, ALIGN_DUTY_PERCENT, ALIGN_HOLD_US
     );
     apply_commutation_step(&mut pwm, ALIGN_STEP, align_duty_counts);
     let align_frame = measure_frame(
@@ -389,8 +387,18 @@ async fn main(_spawner: Spawner) {
         PWM_FREQ_HZ
     );
     for spin_index in 0..SPIN_STEPS {
-        let duty_pct = interpolate(SPIN_DUTY_START_PERCENT, SPIN_DUTY_END_PERCENT, spin_index, SPIN_STEPS);
-        let dwell_us = interpolate(SPIN_START_DWELL_US, SPIN_END_DWELL_US, spin_index, SPIN_STEPS);
+        let duty_pct = interpolate(
+            SPIN_DUTY_START_PERCENT,
+            SPIN_DUTY_END_PERCENT,
+            spin_index,
+            SPIN_STEPS,
+        );
+        let dwell_us = interpolate(
+            SPIN_START_DWELL_US,
+            SPIN_END_DWELL_US,
+            spin_index,
+            SPIN_STEPS,
+        );
         let duty_counts = max_duty * duty_pct / 100;
         let comm_step = (spin_index + ALIGN_STEP + 1) % 6;
         let verbose_step = spin_index % TELEMETRY_EVERY_STEPS == 0 || spin_index + 1 == SPIN_STEPS;
@@ -398,11 +406,7 @@ async fn main(_spawner: Spawner) {
         if verbose_step {
             info!(
                 "comm_step_apply idx={} step={} duty_pct={} duty_counts={} dwell_us={}",
-                spin_index,
-                comm_step,
-                duty_pct,
-                duty_counts,
-                dwell_us
+                spin_index, comm_step, duty_pct, duty_counts, dwell_us
             );
         }
         apply_commutation_step(&mut pwm, comm_step, duty_counts);
@@ -489,7 +493,11 @@ async fn main(_spawner: Spawner) {
     }
 }
 
-fn apply_commutation_step(pwm: &mut ComplementaryPwm<'_, peripherals::TIM1>, step: usize, duty_counts: u32) {
+fn apply_commutation_step(
+    pwm: &mut ComplementaryPwm<'_, peripherals::TIM1>,
+    step: usize,
+    duty_counts: u32,
+) {
     disable_all_channels(pwm);
     match step {
         0 => {
@@ -545,10 +553,22 @@ fn calibrate_current_offsets(
     let mut sum_c_uv = 0i64;
 
     for _ in 0..CURRENT_ZERO_CAL_SAMPLES {
-        let vdda_mv = estimate_vdda_mv(adc1.blocking_read(vrefint, SAMPLE_TIME), calibration.vrefint);
-        sum_a_uv += i64::from(adc_raw_to_uv(adc1.blocking_read(current_a, SAMPLE_TIME), vdda_mv));
-        sum_b_uv += i64::from(adc_raw_to_uv(adc2.blocking_read(current_b, SAMPLE_TIME), vdda_mv));
-        sum_c_uv += i64::from(adc_raw_to_uv(adc1.blocking_read(current_c, SAMPLE_TIME), vdda_mv));
+        let vdda_mv = estimate_vdda_mv(
+            adc1.blocking_read(vrefint, SAMPLE_TIME),
+            calibration.vrefint,
+        );
+        sum_a_uv += i64::from(adc_raw_to_uv(
+            adc1.blocking_read(current_a, SAMPLE_TIME),
+            vdda_mv,
+        ));
+        sum_b_uv += i64::from(adc_raw_to_uv(
+            adc2.blocking_read(current_b, SAMPLE_TIME),
+            vdda_mv,
+        ));
+        sum_c_uv += i64::from(adc_raw_to_uv(
+            adc1.blocking_read(current_c, SAMPLE_TIME),
+            vdda_mv,
+        ));
     }
 
     CurrentCalibration {
@@ -655,7 +675,10 @@ fn measure_frame(
     current_calibration: CurrentCalibration,
     calibration: FactoryCalibration,
 ) -> TelemetryFrame {
-    let vdda_mv = estimate_vdda_mv(adc1.blocking_read(vrefint, SAMPLE_TIME), calibration.vrefint);
+    let vdda_mv = estimate_vdda_mv(
+        adc1.blocking_read(vrefint, SAMPLE_TIME),
+        calibration.vrefint,
+    );
     let bus_raw = adc1.blocking_read(vbus, SAMPLE_TIME);
     let bemf_a_raw = adc2.blocking_read(bemf_a, SAMPLE_TIME);
     let bemf_b_raw = adc1.blocking_read(bemf_b, SAMPLE_TIME);
@@ -677,9 +700,21 @@ fn measure_frame(
         bemf_a_mv: adc_raw_to_mv(bemf_a_raw, vdda_mv),
         bemf_b_mv: adc_raw_to_mv(bemf_b_raw, vdda_mv),
         bemf_c_mv: adc_raw_to_mv(bemf_c_raw, vdda_mv),
-        current_a_ma: estimate_phase_current_ma(current_a_raw, vdda_mv, current_calibration.zero_a_uv),
-        current_b_ma: estimate_phase_current_ma(current_b_raw, vdda_mv, current_calibration.zero_b_uv),
-        current_c_ma: estimate_phase_current_ma(current_c_raw, vdda_mv, current_calibration.zero_c_uv),
+        current_a_ma: estimate_phase_current_ma(
+            current_a_raw,
+            vdda_mv,
+            current_calibration.zero_a_uv,
+        ),
+        current_b_ma: estimate_phase_current_ma(
+            current_b_raw,
+            vdda_mv,
+            current_calibration.zero_b_uv,
+        ),
+        current_c_ma: estimate_phase_current_ma(
+            current_c_raw,
+            vdda_mv,
+            current_calibration.zero_c_uv,
+        ),
         current_a_output_mv: adc_raw_to_mv(current_a_raw, vdda_mv),
         current_b_output_mv: adc_raw_to_mv(current_b_raw, vdda_mv),
         current_c_output_mv: adc_raw_to_mv(current_c_raw, vdda_mv),
@@ -713,7 +748,8 @@ fn estimate_mcu_temp_mc(raw: u16, vdda_mv: u32, calibration: FactoryCalibration)
     }
 
     TS_CAL1_TEMP_MC
-        + (TS_CAL2_TEMP_MC - TS_CAL1_TEMP_MC) * (compensated - i32::from(calibration.ts_cal1)) / cal_span
+        + (TS_CAL2_TEMP_MC - TS_CAL1_TEMP_MC) * (compensated - i32::from(calibration.ts_cal1))
+            / cal_span
 }
 
 fn estimate_ntc_ohms(raw: u16) -> i32 {
