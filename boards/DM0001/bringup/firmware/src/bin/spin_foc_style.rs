@@ -9,39 +9,56 @@ use defmt::{info, warn};
 use defmt_rtt as _;
 use embassy_executor::Spawner;
 use embassy_stm32::adc::{Adc, AdcConfig, SampleTime, VREF_CALIB_MV};
+use embassy_stm32::bind_interrupts;
 use embassy_stm32::gpio::{Input, Level, Output, OutputType, Pull, Speed};
 use embassy_stm32::opamp::{OpAmp, OpAmpGain, OpAmpSpeed};
 use embassy_stm32::rcc::mux::Adcsel;
-use embassy_stm32::rcc::{AHBPrescaler, APBPrescaler, Sysclk};
+use embassy_stm32::rcc::{AHBPrescaler, APBPrescaler, Pll, PllMul, PllPreDiv, PllRDiv, PllSource, Sysclk};
 use embassy_stm32::time::Hertz;
 use embassy_stm32::timer::Channel;
 use embassy_stm32::timer::complementary_pwm::{ComplementaryPwm, ComplementaryPwmPin};
 use embassy_stm32::timer::low_level::CountingMode;
+use embassy_stm32::timer::pwm_input::PwmInput;
 use embassy_stm32::timer::simple_pwm::PwmPin;
-use embassy_stm32::{Peri, peripherals};
+use embassy_stm32::{Peri, peripherals, timer};
 use panic_probe as _;
 
 static DEFMT_TICKS: AtomicU32 = AtomicU32::new(0);
+
+bind_interrupts!(struct Irqs {
+    TIM2 => timer::CaptureCompareInterruptHandler<peripherals::TIM2>;
+});
 
 const ADC_FULL_SCALE: u32 = 4095;
 const AUTO_ARM_AT_BOOT: bool = false;
 const ARM_DELAY_MS: u32 = 2_000;
 const ARM_IDLE_CURRENT_LIMIT_MA: i32 = 1_500;
-const ARM_LOG_PERIOD_MS: u32 = 500;
+const ARM_LOG_PERIOD_MS: u32 = 250;
 const ARM_VBUS_MAX_MV: u32 = 16_500;
 const ARM_VBUS_MIN_MV: u32 = 7_000;
 const BEMF_FLUX_SHIFT_IDX: u8 = 64;
 const BOOTSTRAP_PRECHARGE_US: u32 = 8_000;
 const BUS_ABORT_DROOP_MV: u32 = 2_500;
 const BUS_BACKOFF_DROOP_MV: u32 = 1_250;
-const CONTROL_UPDATE_HZ: u32 = 8_000;
+const CONTROL_UPDATE_HZ: u32 = 40_000;
 const CONTROL_UPDATE_US: u32 = 1_000_000 / CONTROL_UPDATE_HZ;
-const CPU_HZ: u32 = 16_000_000;
+const CPU_HZ: u32 = 170_000_000;
 const CURRENT_OUTPUT_UV_PER_AMP: i32 = 27_429;
 const CURRENT_ZERO_CAL_SAMPLES: usize = 64;
 const CURRENT_ZERO_UV_NOMINAL: i32 = 2_057_143;
 const CURRENT_ZERO_UV_TOLERANCE: i32 = 250_000;
 const DEADTIME_TICKS: u16 = 8;
+const ESC_ARMING_HOLD_MS: u32 = 500;
+const ESC_CAPTURE_HZ: u32 = 1_000_000;
+const ESC_MAX_SPEED_RPM: u32 = 12_000;
+const ESC_MIN_SPEED_RPM: u32 = 1_000;
+const ESC_POLE_PAIRS: u32 = 7;
+const ESC_PWM_MAX_US: u32 = 1_860;
+const ESC_PWM_MIN_US: u32 = 1_060;
+const ESC_PWM_ARMING_US: u32 = 800;
+const ESC_PWM_PERIOD_MAX_US: u32 = 2_500;
+const ESC_PWM_PERIOD_MIN_US: u32 = 1_500;
+const ESC_STOP_TICKS: u16 = 500;
 const ELECTRICAL_FREQ_START_HZ_X100: u32 = 2_000;
 const FOC_ALIGN_HOLD_US: u32 = 250_000;
 const FOC_ALIGN_ID_REF_MA: i32 = 1_400;
@@ -64,7 +81,7 @@ const OBSERVER_PLL_INTEGRAL_DIV: i32 = 64;
 const OBSERVER_PLL_KI_NUM: i32 = 1;
 const OBSERVER_PLL_KP_NUM: i32 = 4;
 const OBSERVER_UNLOCK_CYCLES: u16 = 24;
-const PWM_FREQ_HZ: u32 = 20_000;
+const PWM_FREQ_HZ: u32 = 40_000;
 const SAMPLE_TIME: SampleTime = SampleTime::CYCLES640_5;
 const SPEED_LOOP_DIVIDER: usize = (CONTROL_UPDATE_HZ / 1_000) as usize;
 const SPEED_LOOP_MIN_TARGET_HZ_X100: u32 = 4_000;
@@ -169,11 +186,24 @@ struct MotorSample {
     hall_c: bool,
 }
 
+#[derive(Clone, Copy, Default)]
+struct EscCommand {
+    valid: bool,
+    width_us: u32,
+    period_us: u32,
+    arming_request: bool,
+    throttle_active: bool,
+    speed_target_hz_x100: u32,
+}
+
 #[derive(Clone, Copy)]
 struct TelemetryFrame {
     seq: u32,
     state: ControlState,
     arm_ready: bool,
+    esc_valid: bool,
+    esc_width_us: u32,
+    esc_period_us: u32,
     observer_locked: bool,
     theta_cmd_idx: u8,
     theta_obs_idx: u8,
@@ -307,16 +337,25 @@ async fn main(_spawner: Spawner) {
     let mut config = embassy_stm32::Config::default();
     config.rcc.hsi = true;
     config.rcc.hsi48 = None;
-    config.rcc.pll = None;
-    config.rcc.sys = Sysclk::HSI;
+    config.rcc.pll = Some(Pll {
+        source: PllSource::HSI,
+        prediv: PllPreDiv::DIV4,
+        mul: PllMul::MUL85,
+        divp: None,
+        divq: None,
+        divr: Some(PllRDiv::DIV2),
+    });
+    config.rcc.sys = Sysclk::PLL1_R;
     config.rcc.ahb_pre = AHBPrescaler::DIV1;
     config.rcc.apb1_pre = APBPrescaler::DIV1;
     config.rcc.apb2_pre = APBPrescaler::DIV1;
+    config.rcc.boost = true;
     config.rcc.mux.adc12sel = Adcsel::SYS;
 
     let p = embassy_stm32::init(config);
 
-    let arm_input = Input::new(p.PA15, Pull::Down);
+    let mut esc_input = PwmInput::new_ch1(p.TIM2, p.PA15, Irqs, Pull::Down, Hertz::hz(ESC_CAPTURE_HZ));
+    esc_input.enable();
     let bemf_gpio = Input::new(p.PB5, Pull::None);
     let hall_a = Input::new(p.PB6, Pull::None);
     let hall_b = Input::new(p.PB7, Pull::None);
@@ -393,6 +432,19 @@ async fn main(_spawner: Spawner) {
         calibration,
     );
 
+    let mut esc_command = if AUTO_ARM_AT_BOOT {
+        EscCommand {
+            valid: true,
+            width_us: ESC_PWM_MIN_US,
+            period_us: 2_041,
+            arming_request: true,
+            throttle_active: true,
+            speed_target_hz_x100: FOC_CLOSED_LOOP_TARGET_HZ_X100,
+        }
+    } else {
+        read_esc_command(&esc_input)
+    };
+
     let arm_ready = current_calibration.is_plausible()
         && (ARM_VBUS_MIN_MV..=ARM_VBUS_MAX_MV).contains(&sample.bus_mv)
         && sample.phase_current_ma[0].abs() <= ARM_IDLE_CURRENT_LIMIT_MA
@@ -404,10 +456,13 @@ async fn main(_spawner: Spawner) {
         seq: 0,
         state: ControlState::Disarmed,
         arm_ready,
+        esc_valid: esc_command.valid,
+        esc_width_us: esc_command.width_us,
+        esc_period_us: esc_command.period_us,
         observer_locked: false,
         theta_cmd_idx: 0,
         theta_obs_idx: 0,
-        speed_target_hz_x100: 0,
+        speed_target_hz_x100: esc_command.speed_target_hz_x100,
         speed_est_hz_x100: 0,
         id_ref_ma: 0,
         iq_ref_ma: 0,
@@ -464,14 +519,18 @@ async fn main(_spawner: Spawner) {
                 current_calibration,
                 calibration,
             );
+            esc_command = read_esc_command(&esc_input);
             log_telemetry(TelemetryFrame {
                 seq: 0,
                 state: ControlState::Disarmed,
                 arm_ready: false,
+                esc_valid: esc_command.valid,
+                esc_width_us: esc_command.width_us,
+                esc_period_us: esc_command.period_us,
                 observer_locked: false,
                 theta_cmd_idx: 0,
                 theta_obs_idx: 0,
-                speed_target_hz_x100: 0,
+                speed_target_hz_x100: esc_command.speed_target_hz_x100,
                 speed_est_hz_x100: 0,
                 id_ref_ma: 0,
                 iq_ref_ma: 0,
@@ -503,8 +562,89 @@ async fn main(_spawner: Spawner) {
     }
 
     if !AUTO_ARM_AT_BOOT {
-        info!("waiting_for_arm_request source=PA15 mode=digital_gate");
-        while !arm_request_active(&arm_input) {
+        let mut arming_hold_ms = 0u32;
+        info!("waiting_for_arm_request source=PA15 mode=esc_pwm");
+        loop {
+            esc_command = read_esc_command(&esc_input);
+            let sample = sample_motor(
+                &mut adc1,
+                &mut adc2,
+                &mut vbus,
+                &mut bemf_a,
+                &mut bemf_b,
+                &mut bemf_c,
+                &mut board_ntc,
+                &mut current_a,
+                &mut current_b,
+                &mut current_c,
+                &mut mcu_temp,
+                &mut vrefint,
+                &bemf_gpio,
+                &hall_a,
+                &hall_b,
+                &hall_c,
+                current_calibration,
+                calibration,
+            );
+
+            if esc_command.valid && esc_command.arming_request {
+                arming_hold_ms = arming_hold_ms.saturating_add(ARM_LOG_PERIOD_MS);
+            } else {
+                arming_hold_ms = 0;
+            }
+
+            log_telemetry(TelemetryFrame {
+                seq: 0,
+                state: ControlState::Disarmed,
+                arm_ready: true,
+                esc_valid: esc_command.valid,
+                esc_width_us: esc_command.width_us,
+                esc_period_us: esc_command.period_us,
+                observer_locked: false,
+                theta_cmd_idx: 0,
+                theta_obs_idx: 0,
+                speed_target_hz_x100: esc_command.speed_target_hz_x100,
+                speed_est_hz_x100: 0,
+                id_ref_ma: 0,
+                iq_ref_ma: 0,
+                id_ma: 0,
+                iq_ma: 0,
+                vd_counts: 0,
+                vq_counts: 0,
+                alpha_counts: 0,
+                beta_counts: 0,
+                vector_limit_pct: 0,
+                vdda_mv: sample.vdda_mv,
+                bus_mv: sample.bus_mv,
+                bemf_mv: sample.bemf_phase_mv,
+                bemf_mag_mv: sample.bemf_mag_mv,
+                current_ma: sample.phase_current_ma,
+                current_out_mv: sample.current_output_mv,
+                duty_pct: [0, 0, 0],
+                ntc_mv: sample.ntc_mv,
+                ntc_ohms: sample.ntc_ohms,
+                mcu_temp_mc: sample.mcu_temp_mc,
+                bemf_gpio: sample.bemf_gpio,
+                hall_a: sample.hall_a,
+                hall_b: sample.hall_b,
+                hall_c: sample.hall_c,
+                fault: FaultReason::ArmRequestMissing,
+            });
+
+            if arming_hold_ms >= ESC_ARMING_HOLD_MS {
+                info!(
+                    "esc_armed width_us={} period_us={} arming_hold_ms={}",
+                    esc_command.width_us, esc_command.period_us, arming_hold_ms
+                );
+                break;
+            }
+
+            hold_disarmed(&mut status_led, ARM_LOG_PERIOD_MS);
+        }
+
+        info!("waiting_for_throttle_above_min source=PA15");
+        while !esc_command.throttle_active {
+            esc_command = read_esc_command(&esc_input);
             let sample = sample_motor(
                 &mut adc1,
                 &mut adc2,
@@ -527,12 +667,15 @@ async fn main(_spawner: Spawner) {
             );
             log_telemetry(TelemetryFrame {
                 seq: 0,
-                state: ControlState::Disarmed,
+                state: ControlState::Armed,
                 arm_ready: true,
+                esc_valid: esc_command.valid,
+                esc_width_us: esc_command.width_us,
+                esc_period_us: esc_command.period_us,
                 observer_locked: false,
                 theta_cmd_idx: 0,
                 theta_obs_idx: 0,
-                speed_target_hz_x100: 0,
+                speed_target_hz_x100: esc_command.speed_target_hz_x100,
                 speed_est_hz_x100: 0,
                 id_ref_ma: 0,
                 iq_ref_ma: 0,
@@ -664,10 +807,13 @@ async fn main(_spawner: Spawner) {
                 seq,
                 state: ControlState::Aligning,
                 arm_ready: true,
+                esc_valid: esc_command.valid,
+                esc_width_us: esc_command.width_us,
+                esc_period_us: esc_command.period_us,
                 observer_locked: false,
                 theta_cmd_idx: 0,
                 theta_obs_idx: 0,
-                speed_target_hz_x100: 0,
+                speed_target_hz_x100: esc_command.speed_target_hz_x100,
                 speed_est_hz_x100: 0,
                 id_ref_ma: FOC_ALIGN_ID_REF_MA,
                 iq_ref_ma: 0,
@@ -722,13 +868,33 @@ async fn main(_spawner: Spawner) {
 
     let mut fault = FaultReason::None;
     let mut closed_loop_entered = false;
-    let mut speed_target_hz_x100 = SPEED_LOOP_MIN_TARGET_HZ_X100;
+    let mut speed_target_hz_x100 = esc_command
+        .speed_target_hz_x100
+        .clamp(SPEED_LOOP_MIN_TARGET_HZ_X100, FOC_CLOSED_LOOP_TARGET_HZ_X100);
     let mut iq_ref_ma = FOC_REVUP_IQ_START_MA;
+    let mut esc_stop_counter = 0u16;
 
     for update_index in 0..FOC_REVUP_DURATION_UPDATES {
+        if update_index % SPEED_LOOP_DIVIDER == 0 {
+            esc_command = read_esc_command(&esc_input);
+            if esc_command.valid && esc_command.throttle_active {
+                esc_stop_counter = 0;
+            } else {
+                esc_stop_counter = esc_stop_counter.saturating_add(1);
+                if esc_stop_counter >= ESC_STOP_TICKS {
+                    fault = FaultReason::ArmRequestMissing;
+                    warn!("esc_stop_request stage=rev_up idx={}", update_index);
+                    break;
+                }
+            }
+        }
+
+        let commanded_target_hz_x100 = esc_command
+            .speed_target_hz_x100
+            .clamp(SPEED_LOOP_MIN_TARGET_HZ_X100, FOC_REVUP_END_HZ_X100);
         let open_loop_hz_x100 = interpolate(
             ELECTRICAL_FREQ_START_HZ_X100,
-            FOC_REVUP_END_HZ_X100,
+            commanded_target_hz_x100,
             update_index,
             FOC_REVUP_DURATION_UPDATES,
         );
@@ -822,6 +988,9 @@ async fn main(_spawner: Spawner) {
                 seq,
                 state: ControlState::RevUp,
                 arm_ready: true,
+                esc_valid: esc_command.valid,
+                esc_width_us: esc_command.width_us,
+                esc_period_us: esc_command.period_us,
                 observer_locked: observer.locked,
                 theta_cmd_idx: (theta_cmd_q8 >> 8) as u8,
                 theta_obs_idx: (observer.theta_q8 >> 8) as u8,
@@ -867,6 +1036,23 @@ async fn main(_spawner: Spawner) {
     if fault == FaultReason::None {
         info!("state_transition state={}", ControlState::ClosedLoop.as_str());
         for update_index in 0..FOC_CLOSED_LOOP_HOLD_UPDATES {
+            if update_index % SPEED_LOOP_DIVIDER == 0 {
+                esc_command = read_esc_command(&esc_input);
+                if esc_command.valid && esc_command.throttle_active {
+                    esc_stop_counter = 0;
+                    speed_target_hz_x100 = esc_command
+                        .speed_target_hz_x100
+                        .clamp(SPEED_LOOP_MIN_TARGET_HZ_X100, FOC_CLOSED_LOOP_TARGET_HZ_X100);
+                } else {
+                    esc_stop_counter = esc_stop_counter.saturating_add(1);
+                    if esc_stop_counter >= ESC_STOP_TICKS {
+                        fault = FaultReason::ArmRequestMissing;
+                        warn!("esc_stop_request stage=closed_loop idx={}", update_index);
+                        break;
+                    }
+                }
+            }
+
             let sample = sample_motor(
                 &mut adc1,
                 &mut adc2,
@@ -917,10 +1103,9 @@ async fn main(_spawner: Spawner) {
             }
 
             if update_index % SPEED_LOOP_DIVIDER == 0 {
-                let speed_error = i32::try_from(FOC_CLOSED_LOOP_TARGET_HZ_X100).unwrap_or(i32::MAX)
+                let speed_error = i32::try_from(speed_target_hz_x100).unwrap_or(i32::MAX)
                     - i32::try_from(observer.estimated_hz_x100).unwrap_or_default();
                 iq_ref_ma = speed_pi.update(speed_error).clamp(FOC_MIN_IQ_REF_MA, FOC_MAX_IQ_REF_MA);
-                speed_target_hz_x100 = FOC_CLOSED_LOOP_TARGET_HZ_X100;
             }
 
             let limit_pct = if sample.bus_mv < bus_backoff_mv {
@@ -949,6 +1134,9 @@ async fn main(_spawner: Spawner) {
                     seq,
                     state: ControlState::ClosedLoop,
                     arm_ready: true,
+                    esc_valid: esc_command.valid,
+                    esc_width_us: esc_command.width_us,
+                    esc_period_us: esc_command.period_us,
                     observer_locked: observer.locked,
                     theta_cmd_idx: (observer.theta_q8 >> 8) as u8,
                     theta_obs_idx: (observer.theta_q8 >> 8) as u8,
@@ -1022,6 +1210,9 @@ async fn main(_spawner: Spawner) {
             seq,
             state: final_state,
             arm_ready: false,
+            esc_valid: esc_command.valid,
+            esc_width_us: esc_command.width_us,
+            esc_period_us: esc_command.period_us,
             observer_locked: observer.locked,
             theta_cmd_idx: 0,
             theta_obs_idx: (observer.theta_q8 >> 8) as u8,
@@ -1061,8 +1252,33 @@ fn align_updates() -> usize {
     (FOC_ALIGN_HOLD_US as usize / CONTROL_UPDATE_US as usize).max(1)
 }
 
-fn arm_request_active(arm_input: &Input<'_>) -> bool {
-    AUTO_ARM_AT_BOOT || arm_input.is_high()
+fn read_esc_command(esc_input: &PwmInput<'_, peripherals::TIM2>) -> EscCommand {
+    let period_us = esc_input.get_period_ticks();
+    let width_us = esc_input.get_width_ticks();
+    let valid = (ESC_PWM_PERIOD_MIN_US..=ESC_PWM_PERIOD_MAX_US).contains(&period_us)
+        && (ESC_PWM_ARMING_US..=ESC_PWM_MAX_US).contains(&width_us);
+    let arming_request = valid && (ESC_PWM_ARMING_US..ESC_PWM_MIN_US).contains(&width_us);
+    let throttle_active = valid && width_us >= ESC_PWM_MIN_US;
+
+    let speed_target_hz_x100 = if throttle_active {
+        let clipped_width_us = width_us.min(ESC_PWM_MAX_US);
+        let mech_rpm = ((clipped_width_us - ESC_PWM_MIN_US)
+            * (ESC_MAX_SPEED_RPM - ESC_MIN_SPEED_RPM)
+            / (ESC_PWM_MAX_US - ESC_PWM_MIN_US))
+            + ESC_MIN_SPEED_RPM;
+        mech_rpm * ESC_POLE_PAIRS * 100 / 60
+    } else {
+        0
+    };
+
+    EscCommand {
+        valid,
+        width_us,
+        period_us,
+        arming_request,
+        throttle_active,
+        speed_target_hz_x100,
+    }
 }
 
 fn calibrate_current_offsets(
@@ -1258,10 +1474,13 @@ fn limit_phase_vector(alpha: i32, beta: i32, limit_counts: i32) -> (i32, i32) {
 
 fn log_telemetry(frame: TelemetryFrame) {
     info!(
-        "telemetry={{seq:{},state:{},arm_ready:{},obs_locked:{},theta_cmd_idx:{},theta_obs_idx:{},speed_target_hz_x100:{},speed_est_hz_x100:{},id_ref_ma:{},iq_ref_ma:{},id_ma:{},iq_ma:{},vd_counts:{},vq_counts:{},ab_counts:[{},{}],vector_limit_pct:{},vdda_mv:{},bus_mv:{},bemf_mv:[{},{},{}],bemf_mag_mv:{},current_ma:[{},{},{}],current_out_mv:[{},{},{}],duty_pct:[{},{},{}],ntc_mv:{},ntc_ohms:{},mcu_temp_mc:{},bemf_gpio:{},hall:[{},{},{}],fault:{}}}",
+        "telemetry={{seq:{},state:{},arm_ready:{},esc_valid:{},esc_width_us:{},esc_period_us:{},obs_locked:{},theta_cmd_idx:{},theta_obs_idx:{},speed_target_hz_x100:{},speed_est_hz_x100:{},id_ref_ma:{},iq_ref_ma:{},id_ma:{},iq_ma:{},vd_counts:{},vq_counts:{},ab_counts:[{},{}],vector_limit_pct:{},vdda_mv:{},bus_mv:{},bemf_mv:[{},{},{}],bemf_mag_mv:{},current_ma:[{},{},{}],current_out_mv:[{},{},{}],duty_pct:[{},{},{}],ntc_mv:{},ntc_ohms:{},mcu_temp_mc:{},bemf_gpio:{},hall:[{},{},{}],fault:{}}}",
         frame.seq,
         frame.state.as_str(),
         frame.arm_ready,
+        frame.esc_valid,
+        frame.esc_width_us,
+        frame.esc_period_us,
         frame.observer_locked,
         frame.theta_cmd_idx,
         frame.theta_obs_idx,

@@ -12,6 +12,6 @@ cortex-m-rt = "0.7.5"
 defmt = "1.0.1"
 defmt-rtt = "1.1.0"
 embassy-executor = { version = "0.10.0", features = ["defmt"] }
-embassy-stm32 = { version = "0.6.0", features = ["defmt", "executor-thread", "memory-x", "stm32g431c8", "time-driver-tim2"] }
+embassy-stm32 = { version = "0.6.0", features = ["defmt", "executor-thread", "memory-x", "stm32g431c8", "time-driver-tim15"] }
 embassy-time = { version = "0.5.1", features = ["defmt"] }
 panic-probe = { version = "1.0.0", features = ["print-defmt"] }
