@@ -1,10 +1,11 @@
-Current best DM0001 motor-control path is the patched ST MCSDK project, not the Rust bringup binaries.
+Current best DM0001 motor-control path is the ST MCSDK project vendored in-repo, not the Rust bringup binaries.
 
 Use this as the starting point:
-- ST source clone: `/tmp/eirbot-B-G431B-ESC1-guide/project/NEWMCSDK`
-- repo snapshot of the working delta: [st_mcsdk/dm0001_mcsdk_working.patch](/Users/nasheed/GitHub/demo/boards/DM0001/bringup/st_mcsdk/dm0001_mcsdk_working.patch:1)
-- rebuild script: [tools/build_st_mcsdk.sh](/Users/nasheed/GitHub/demo/boards/DM0001/bringup/tools/build_st_mcsdk.sh:1)
-- live speed sampler: [tools/sample_mcsdk_speed.py](/Users/nasheed/GitHub/demo/boards/DM0001/bringup/tools/sample_mcsdk_speed.py:1)
+- vendored ST source: `boards/DM0001/bringup/st_mcsdk/vendor/NEWMCSDK`
+- historical patch snapshot: `boards/DM0001/bringup/st_mcsdk/dm0001_mcsdk_working.patch`
+- recovered working image metadata: `boards/DM0001/bringup/st_mcsdk/WORKING_BASELINE.md`
+- rebuild script: `boards/DM0001/bringup/tools/build_st_mcsdk.sh`
+- live speed sampler: `boards/DM0001/bringup/tools/sample_mcsdk_speed.py`
 
 What is known-good:
 - Clocking is HSE-based from the checked-in Zener/module source.
@@ -12,6 +13,16 @@ What is known-good:
 - TIM1 break inputs from `COMP1/2/4` are temporarily disabled in the ST build. This was required to stop repeated startup fault/retry comb behavior.
 - Working bench supply setting is `12.0 V / 5.0 A`.
 - Best observed run so far stayed in `RUN` with zero MCSDK faults and the observer reported about `4.58k RPM`.
+
+What changed after that:
+- The earlier workflow depended on a mutable ST clone in `/tmp`, which made the controller state non-reproducible.
+- The ST project is now vendored into the repo and the build script defaults to that path.
+- The recovered working baseline also depends on the `11.3.1` Arm toolchain family; GCC 15 rebuilds were not equivalent on hardware.
+- The current vendored `mc_app_hooks.c` is intentionally in single-shot debug mode:
+  - one delayed startup attempt
+  - speed refresh only while in `RUN`
+  - no automatic restart after a drop or fault
+- If the board is currently behaving well, restore from `WORKING_BASELINE.md` before changing hooks again.
 
 What not to assume:
 - There are no usable Hall sensors in this setup for control.
@@ -34,17 +45,12 @@ Safe flash / run sequence:
 
 Useful commands:
 ```bash
-PATH=/Users/nasheed/.local/ArmGNUToolchain/bin:$PATH \
-ARM_GCC=/Users/nasheed/.local/ArmGNUToolchain/bin/arm-none-eabi-gcc \
-ARM_SIZE=/Users/nasheed/.local/ArmGNUToolchain/bin/arm-none-eabi-size \
-ARM_OBJDUMP=/Users/nasheed/.local/ArmGNUToolchain/bin/arm-none-eabi-objdump \
-bash boards/DM0001/bringup/tools/build_st_mcsdk.sh \
-  /tmp/eirbot-B-G431B-ESC1-guide/project/NEWMCSDK
+bash boards/DM0001/bringup/tools/build_st_mcsdk.sh
 ```
 
 ```bash
 python3 boards/DM0001/bringup/tools/sample_mcsdk_speed.py \
-  --elf /tmp/eirbot-B-G431B-ESC1-guide/project/NEWMCSDK/STM32CubeIDE/DM0001Build/NEWMCSDK-dm0001.elf \
+  --elf boards/DM0001/bringup/st_mcsdk/vendor/NEWMCSDK/STM32CubeIDE/DM0001Build/NEWMCSDK-dm0001.elf \
   --duration 8 --period 0.1 --attach-timeout 4
 ```
 
@@ -65,6 +71,7 @@ Current repo state caveat:
 - unrelated dirty files still exist in:
   - `boards/DM0001/bringup/firmware/src/bin/spin_am32_style.rs`
   - `boards/DM0001/bringup/firmware/src/bin/spin_foc_style.rs`
+  - `boards/DM0001/bringup/tools/sample_mcsdk_speed.py`
   - `boards/DM0001/layout/fp-lib-table`
   - `boards/DM0001/layout/layout.kicad_pcb`
 - do not revert those accidentally when making commits

@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 import argparse
+import os
 import re
+import shutil
 import struct
 import subprocess
 import sys
@@ -27,10 +29,22 @@ def run(cmd: list[str]) -> str:
     return subprocess.check_output(cmd, text=True)
 
 
+def tool(name: str, env_var: str, fallback: str | None = None) -> str:
+    if env_var in os.environ:
+        return os.environ[env_var]
+    found = shutil.which(name)
+    if found:
+        return found
+    if fallback:
+        return fallback
+    raise SystemExit(f"missing required tool: {name}")
+
+
 def symbol_addresses(elf: str) -> dict[str, int]:
+    nm = tool("arm-none-eabi-nm", "ARM_NM")
     out = run(
         [
-            "/Users/nasheed/.local/ArmGNUToolchain/bin/arm-none-eabi-nm",
+            nm,
             "-n",
             elf,
         ]
@@ -55,7 +69,7 @@ def symbol_addresses(elf: str) -> dict[str, int]:
     return addrs
 
 
-def probe_read(chip: str, address: int, count: int) -> bytes:
+def probe_read(chip: str, address: int, count: int, speed_khz: int) -> bytes:
     out = run(
         [
             "probe-rs",
@@ -64,6 +78,8 @@ def probe_read(chip: str, address: int, count: int) -> bytes:
             chip,
             "--protocol",
             "swd",
+            "--speed",
+            str(speed_khz),
             "b8",
             hex(address),
             str(count),
@@ -96,6 +112,7 @@ def main() -> int:
     ap.add_argument("--duration", type=float, default=6.0)
     ap.add_argument("--period", type=float, default=0.1)
     ap.add_argument("--attach-timeout", type=float, default=3.0)
+    ap.add_argument("--speed-khz", type=int, default=100)
     args = ap.parse_args()
 
     addrs = symbol_addresses(args.elf)
@@ -121,7 +138,7 @@ def main() -> int:
             break
 
         try:
-            blob = probe_read(args.chip, base, span)
+            blob = probe_read(args.chip, base, span, args.speed_khz)
         except subprocess.CalledProcessError as exc:
             if now < attach_deadline:
                 time.sleep(min(args.period, 0.1))

@@ -19,7 +19,9 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_ELF = ROOT / "firmware/target/thumbv7em-none-eabihf/release/dm0001-bringup"
-DEFAULT_PSU_MODULE = Path("/Users/nasheed/GitHub/dps150_api")
+DEFAULT_PSU_MODULE = Path(
+    os.environ.get("DPS150_API_DIR", str(Path.home() / "GitHub" / "dps150_api"))
+)
 DEFAULT_PSU_PORT = "/dev/cu.usbmodem065AD9D205B31"
 DEFAULT_POLL_S = 2.0
 TELEMETRY_RE = re.compile(r"telemetry=(\{.*\})")

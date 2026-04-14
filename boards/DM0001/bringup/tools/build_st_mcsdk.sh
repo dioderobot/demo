@@ -1,14 +1,27 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PROJECT_DIR="${1:-/tmp/eirbot-B-G431B-ESC1-guide/project/NEWMCSDK}"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DEFAULT_PROJECT_DIR="$(cd "$SCRIPT_DIR/../st_mcsdk/vendor/NEWMCSDK" && pwd)"
+
+PROJECT_DIR="${1:-$DEFAULT_PROJECT_DIR}"
 BUILD_DIR="${BUILD_DIR:-$PROJECT_DIR/STM32CubeIDE/DM0001Build}"
-DEBUG_DIR="$PROJECT_DIR/STM32CubeIDE/Debug"
 LINKER_SCRIPT="$PROJECT_DIR/STM32CubeIDE/STM32G431CBUX_FLASH.ld"
 
-ARM_GCC="${ARM_GCC:-arm-none-eabi-gcc}"
-ARM_SIZE="${ARM_SIZE:-arm-none-eabi-size}"
-ARM_OBJDUMP="${ARM_OBJDUMP:-arm-none-eabi-objdump}"
+XPACK_BIN_DEFAULT="${HOME}/.local/xpack-arm-none-eabi-gcc-11.3.1-1.1/bin"
+if [[ -x "$XPACK_BIN_DEFAULT/arm-none-eabi-gcc" ]]; then
+  ARM_GCC_DEFAULT="$XPACK_BIN_DEFAULT/arm-none-eabi-gcc"
+  ARM_SIZE_DEFAULT="$XPACK_BIN_DEFAULT/arm-none-eabi-size"
+  ARM_OBJDUMP_DEFAULT="$XPACK_BIN_DEFAULT/arm-none-eabi-objdump"
+else
+  ARM_GCC_DEFAULT="arm-none-eabi-gcc"
+  ARM_SIZE_DEFAULT="arm-none-eabi-size"
+  ARM_OBJDUMP_DEFAULT="arm-none-eabi-objdump"
+fi
+
+ARM_GCC="${ARM_GCC:-$ARM_GCC_DEFAULT}"
+ARM_SIZE="${ARM_SIZE:-$ARM_SIZE_DEFAULT}"
+ARM_OBJDUMP="${ARM_OBJDUMP:-$ARM_OBJDUMP_DEFAULT}"
 
 MCLIB_DIR="$PROJECT_DIR/MCSDK_v6.2.0-Full/MotorControl/MCSDK/MCLib"
 LIBMP_DIR="$PROJECT_DIR/MCSDK_v6.2.0-Full/MotorControl/libMP"
@@ -65,6 +78,19 @@ compile_c() {
     -o "$obj"
 }
 
+compile_s() {
+  local src="$1"
+  local obj="$2"
+  mkdir -p "$(dirname "$obj")"
+  "$ARM_GCC" \
+    "${COMMON_FLAGS[@]}" \
+    "${DEFS[@]}" \
+    "${INCLUDES[@]}" \
+    -x assembler-with-cpp \
+    -c "$src" \
+    -o "$obj"
+}
+
 find_mclib_source() {
   local base="$1"
   find "$MCLIB_DIR" -path "*/Src/$base.c" | head -n 1
@@ -91,6 +117,7 @@ USER_SRCS=(
   "$PROJECT_DIR/Src/stm32g4xx_hal_msp.c"
   "$PROJECT_DIR/Src/stm32g4xx_it.c"
   "$PROJECT_DIR/Src/stm32g4xx_mc_it.c"
+  "$PROJECT_DIR/Src/system_stm32g4xx.c"
   "$PROJECT_DIR/Src/usart_aspep_driver.c"
 )
 
@@ -114,6 +141,44 @@ MCLIB_BASENAMES=(
   virtual_speed_sensor
 )
 
+HAL_BASENAMES=(
+  stm32g4xx_hal
+  stm32g4xx_hal_adc
+  stm32g4xx_hal_adc_ex
+  stm32g4xx_hal_comp
+  stm32g4xx_hal_cordic
+  stm32g4xx_hal_cortex
+  stm32g4xx_hal_dac
+  stm32g4xx_hal_dac_ex
+  stm32g4xx_hal_dma
+  stm32g4xx_hal_dma_ex
+  stm32g4xx_hal_exti
+  stm32g4xx_hal_flash
+  stm32g4xx_hal_flash_ex
+  stm32g4xx_hal_flash_ramfunc
+  stm32g4xx_hal_gpio
+  stm32g4xx_hal_opamp
+  stm32g4xx_hal_opamp_ex
+  stm32g4xx_hal_pwr
+  stm32g4xx_hal_pwr_ex
+  stm32g4xx_hal_rcc
+  stm32g4xx_hal_rcc_ex
+  stm32g4xx_hal_tim
+  stm32g4xx_hal_tim_ex
+  stm32g4xx_hal_uart
+  stm32g4xx_hal_uart_ex
+  stm32g4xx_ll_adc
+)
+
+SUPPORT_C_SRCS=(
+  "$PROJECT_DIR/STM32CubeIDE/Application/User/syscalls.c"
+  "$PROJECT_DIR/STM32CubeIDE/Application/User/sysmem.c"
+)
+
+SUPPORT_ASM_SRCS=(
+  "$PROJECT_DIR/STM32CubeIDE/Application/Startup/startup_stm32g431cbux.s"
+)
+
 USER_OBJS=()
 for src in "${USER_SRCS[@]}"; do
   obj="$BUILD_DIR/Application/User/$(basename "${src%.c}").o"
@@ -133,20 +198,29 @@ for base in "${MCLIB_BASENAMES[@]}"; do
   MCLIB_OBJS+=("$obj")
 done
 
-DRIVER_OBJS=()
-while IFS= read -r obj; do
-  DRIVER_OBJS+=("$obj")
-done < <(find "$DEBUG_DIR/Drivers" -name '*.o' | sort)
-
 SUPPORT_OBJS=()
-while IFS= read -r obj; do
+for base in "${HAL_BASENAMES[@]}"; do
+  src="$PROJECT_DIR/Drivers/STM32G4xx_HAL_Driver/Src/$base.c"
+  if [[ ! -f "$src" ]]; then
+    echo "missing HAL source for $base" >&2
+    exit 1
+  fi
+  obj="$BUILD_DIR/Drivers/$(basename "${src%.c}").o"
+  compile_c "$src" "$obj"
   SUPPORT_OBJS+=("$obj")
-done < <(
-  {
-    find "$DEBUG_DIR/Application/Startup" -name '*.o'
-    find "$DEBUG_DIR/Application/User" \( -name 'syscalls.o' -o -name 'sysmem.o' \)
-  } | sort
-)
+done
+
+for src in "${SUPPORT_C_SRCS[@]}"; do
+  obj="$BUILD_DIR/Application/User/$(basename "${src%.c}").o"
+  compile_c "$src" "$obj"
+  SUPPORT_OBJS+=("$obj")
+done
+
+for src in "${SUPPORT_ASM_SRCS[@]}"; do
+  obj="$BUILD_DIR/Application/Startup/$(basename "${src%.s}").o"
+  compile_s "$src" "$obj"
+  SUPPORT_OBJS+=("$obj")
+done
 
 ELF="$BUILD_DIR/NEWMCSDK-dm0001.elf"
 MAP="$BUILD_DIR/NEWMCSDK-dm0001.map"
@@ -156,7 +230,6 @@ LIST="$BUILD_DIR/NEWMCSDK-dm0001.list"
   -o "$ELF" \
   "${USER_OBJS[@]}" \
   "${MCLIB_OBJS[@]}" \
-  "${DRIVER_OBJS[@]}" \
   "${SUPPORT_OBJS[@]}" \
   -mcpu=cortex-m4 \
   -mthumb \
