@@ -1,0 +1,289 @@
+diff --git a/project/NEWMCSDK/Inc/drive_parameters.h b/project/NEWMCSDK/Inc/drive_parameters.h
+index d00e44e..69ad612 100644
+--- a/project/NEWMCSDK/Inc/drive_parameters.h
++++ b/project/NEWMCSDK/Inc/drive_parameters.h
+@@ -31,7 +31,7 @@
+ /******** MAIN AND AUXILIARY SPEED/POSITION SENSOR(S) SETTINGS SECTION ********/
+ 
+ /*** Speed measurement settings ***/
+-#define MAX_APPLICATION_SPEED_RPM       4908 /*!< rpm, mechanical */
++#define MAX_APPLICATION_SPEED_RPM       9000 /*!< rpm, mechanical */
+ #define MIN_APPLICATION_SPEED_RPM       0 /*!< rpm, mechanical,
+                                                            absolute value */
+ #define M1_SS_MEAS_ERRORS_BEFORE_FAULTS 3 /*!< Number of speed
+@@ -129,19 +129,19 @@
+ /* USER CODE END PID_SPEED_INTEGRAL_INIT_DIV */
+ 
+ #define SPD_DIFFERENTIAL_TERM_ENABLING DISABLE
+-#define IQMAX_A                          6
++#define IQMAX_A                          3
+ 
+ /* Default settings */
+ #define DEFAULT_CONTROL_MODE           MCM_SPEED_MODE
+-#define DEFAULT_TARGET_SPEED_RPM       1037
++#define DEFAULT_TARGET_SPEED_RPM       2500
+ #define DEFAULT_TARGET_SPEED_UNIT      (DEFAULT_TARGET_SPEED_RPM*SPEED_UNIT/U_RPM)
+ #define DEFAULT_TORQUE_COMPONENT_A       0
+ #define DEFAULT_FLUX_COMPONENT_A         0
+ 
+ /**************************    FIRMWARE PROTECTIONS SECTION   *****************/
+-#define OV_VOLTAGE_THRESHOLD_V          28 /*!< Over-voltage
++#define OV_VOLTAGE_THRESHOLD_V          16 /*!< Over-voltage
+                                                          threshold */
+-#define UD_VOLTAGE_THRESHOLD_V          8 /*!< Under-voltage
++#define UD_VOLTAGE_THRESHOLD_V          6 /*!< Under-voltage
+                                                           threshold */
+ #ifdef NOT_IMPLEMENTED
+ 
+@@ -168,48 +168,48 @@
+ /******************************   START-UP PARAMETERS   **********************/
+ 
+ /* Phase 1 */
+-#define PHASE1_DURATION                500 /*milliseconds */
++#define PHASE1_DURATION                300 /*milliseconds */
+ #define PHASE1_FINAL_SPEED_UNIT         (0*SPEED_UNIT/U_RPM)
+-#define PHASE1_FINAL_CURRENT_A           6
++#define PHASE1_FINAL_CURRENT_A           1
+ /* Phase 2 */
+-#define PHASE2_DURATION                500 /*milliseconds */
+-#define PHASE2_FINAL_SPEED_UNIT         (570*SPEED_UNIT/U_RPM)
+-#define PHASE2_FINAL_CURRENT_A           6
++#define PHASE2_DURATION                400 /*milliseconds */
++#define PHASE2_FINAL_SPEED_UNIT         (400*SPEED_UNIT/U_RPM)
++#define PHASE2_FINAL_CURRENT_A           2
+ /* Phase 3 */
+ #define PHASE3_DURATION                500 /*milliseconds */
+-#define PHASE3_FINAL_SPEED_UNIT         (1152*SPEED_UNIT/U_RPM)
+-#define PHASE3_FINAL_CURRENT_A           6
++#define PHASE3_FINAL_SPEED_UNIT         (900*SPEED_UNIT/U_RPM)
++#define PHASE3_FINAL_CURRENT_A           2
+ /* Phase 4 */
+-#define PHASE4_DURATION                0 /*milliseconds */
+-#define PHASE4_FINAL_SPEED_UNIT         (1152*SPEED_UNIT/U_RPM)
+-#define PHASE4_FINAL_CURRENT_A           6
++#define PHASE4_DURATION                600 /*milliseconds */
++#define PHASE4_FINAL_SPEED_UNIT         (1600*SPEED_UNIT/U_RPM)
++#define PHASE4_FINAL_CURRENT_A           3
+ /* Phase 5 */
+-#define PHASE5_DURATION                0 /* milliseconds */
+-#define PHASE5_FINAL_SPEED_UNIT         (1152*SPEED_UNIT/U_RPM)
+-#define PHASE5_FINAL_CURRENT_A           6
++#define PHASE5_DURATION                700 /* milliseconds */
++#define PHASE5_FINAL_SPEED_UNIT         (2200*SPEED_UNIT/U_RPM)
++#define PHASE5_FINAL_CURRENT_A           2
+ 
+-#define ENABLE_SL_ALGO_FROM_PHASE      2
++#define ENABLE_SL_ALGO_FROM_PHASE      3
+ /* Sensor-less rev-up sequence */
+ #define STARTING_ANGLE_DEG             0  /*!< degrees [0...359] */
+ /* Observer start-up output conditions  */
+-#define OBS_MINIMUM_SPEED_RPM          1037
++#define OBS_MINIMUM_SPEED_RPM          900
+ 
+-#define NB_CONSECUTIVE_TESTS           2 /* corresponding to
++#define NB_CONSECUTIVE_TESTS           4 /* corresponding to
+                                                          former NB_CONSECUTIVE_TESTS/
+                                                          (TF_REGULATION_RATE/
+                                                          MEDIUM_FREQUENCY_TASK_RATE) */
+-#define SPEED_BAND_UPPER_LIMIT         17 /*!< It expresses how much
++#define SPEED_BAND_UPPER_LIMIT         24 /*!< It expresses how much
+                                                             estimated speed can exceed
+                                                             forced stator electrical
+                                                             without being considered wrong.
+                                                             In 1/16 of forced speed */
+-#define SPEED_BAND_LOWER_LIMIT         15  /*!< It expresses how much
++#define SPEED_BAND_LOWER_LIMIT         10  /*!< It expresses how much
+                                                              estimated speed can be below
+                                                              forced stator electrical
+                                                              without being considered wrong.
+                                                              In 1/16 of forced speed */
+ 
+-#define TRANSITION_DURATION            25  /* Switch over duration, ms */
++#define TRANSITION_DURATION            100  /* Switch over duration, ms */
+ 
+ /******************************   BUS VOLTAGE Motor 1  **********************/
+ #define  M1_VBUS_SAMPLING_TIME  LL_ADC_SAMPLING_CYCLE(47)
+diff --git a/project/NEWMCSDK/Inc/pmsm_motor_parameters.h b/project/NEWMCSDK/Inc/pmsm_motor_parameters.h
+index eaa747a..d50d6d4 100644
+--- a/project/NEWMCSDK/Inc/pmsm_motor_parameters.h
++++ b/project/NEWMCSDK/Inc/pmsm_motor_parameters.h
+@@ -28,9 +28,9 @@
+  ************************/
+ 
+ /***************** MOTOR ELECTRICAL PARAMETERS  ******************************/
+-#define POLE_PAIR_NUM           8 /* Number of motor pole pairs */
+-#define RS                      0.26 /* Stator resistance , ohm*/
+-#define LS                      0.000133 /* Stator inductance, H
++#define POLE_PAIR_NUM           7 /* Number of motor pole pairs */
++#define RS                      0.12 /* Stator resistance , ohm*/
++#define LS                      0.000040 /* Stator inductance, H
+                                                  For I-PMSM it is equal to Lq */
+ 
+ /* When using Id = 0, NOMINAL_CURRENT is utilized to saturate the output of the
+@@ -41,11 +41,11 @@
+                                    *Amplifying network gain)/(MCU supply voltage/2)
+ */
+ 
+-#define MOTOR_MAX_SPEED_RPM     4908 /*!< Maximum rated speed  */
+-#define MOTOR_VOLTAGE_CONSTANT  3.4 /*!< Volts RMS ph-ph /kRPM */
+-#define NOMINAL_CURRENT_A       6
++#define MOTOR_MAX_SPEED_RPM     10000 /*!< Maximum rated speed  */
++#define MOTOR_VOLTAGE_CONSTANT  1.1 /*!< Volts RMS ph-ph /kRPM */
++#define NOMINAL_CURRENT_A       3
+ 
+-#define ID_DEMAG_A              (int16_t)-6 /*!< Demagnetization current */
++#define ID_DEMAG_A              (int16_t)-3 /*!< Demagnetization current */
+ 
+ /***************** MOTOR SENSORS PARAMETERS  ******************************/
+ /* Motor sensors parameters are always generated but really meaningful only
+diff --git a/project/NEWMCSDK/Inc/power_stage_parameters.h b/project/NEWMCSDK/Inc/power_stage_parameters.h
+index d1e2b24..41b5143 100644
+--- a/project/NEWMCSDK/Inc/power_stage_parameters.h
++++ b/project/NEWMCSDK/Inc/power_stage_parameters.h
+@@ -37,7 +37,7 @@
+                                                        much the Vbus is attenuated
+                                                        before being converted into
+                                                        digital value */
+-#define NOMINAL_BUS_VOLTAGE_V         24
++#define NOMINAL_BUS_VOLTAGE_V         12
+ /******** Current reading parameters section ******/
+ /*** Topology ***/
+ #define THREE_SHUNT
+diff --git a/project/NEWMCSDK/Src/main.c b/project/NEWMCSDK/Src/main.c
+index b6304d5..00ce5c9 100644
+--- a/project/NEWMCSDK/Src/main.c
++++ b/project/NEWMCSDK/Src/main.c
+@@ -21,7 +21,6 @@
+ 
+ /* Private includes ----------------------------------------------------------*/
+ /* USER CODE BEGIN Includes */
+-
+ /* USER CODE END Includes */
+ 
+ /* Private typedef -----------------------------------------------------------*/
+@@ -139,7 +138,6 @@ int main(void)
+   /* Initialize interrupts */
+   MX_NVIC_Init();
+   /* USER CODE BEGIN 2 */
+-
+   /* USER CODE END 2 */
+ 
+   /* Infinite loop */
+@@ -723,23 +721,6 @@ static void MX_TIM1_Init(void)
+   {
+     Error_Handler();
+   }
+-  sBreakInputConfig.Source = TIM_BREAKINPUTSOURCE_COMP1;
+-  sBreakInputConfig.Enable = TIM_BREAKINPUTSOURCE_ENABLE;
+-  sBreakInputConfig.Polarity = TIM_BREAKINPUTSOURCE_POLARITY_HIGH;
+-  if (HAL_TIMEx_ConfigBreakInput(&htim1, TIM_BREAKINPUT_BRK, &sBreakInputConfig) != HAL_OK)
+-  {
+-    Error_Handler();
+-  }
+-  sBreakInputConfig.Source = TIM_BREAKINPUTSOURCE_COMP2;
+-  if (HAL_TIMEx_ConfigBreakInput(&htim1, TIM_BREAKINPUT_BRK, &sBreakInputConfig) != HAL_OK)
+-  {
+-    Error_Handler();
+-  }
+-  sBreakInputConfig.Source = TIM_BREAKINPUTSOURCE_COMP4;
+-  if (HAL_TIMEx_ConfigBreakInput(&htim1, TIM_BREAKINPUT_BRK, &sBreakInputConfig) != HAL_OK)
+-  {
+-    Error_Handler();
+-  }
+   sConfigOC.OCMode = TIM_OCMODE_PWM1;
+   sConfigOC.Pulse = ((PWM_PERIOD_CYCLES) / 4);
+   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+@@ -769,7 +750,7 @@ static void MX_TIM1_Init(void)
+   sBreakDeadTimeConfig.OffStateIDLEMode = TIM_OSSI_ENABLE;
+   sBreakDeadTimeConfig.LockLevel = TIM_LOCKLEVEL_OFF;
+   sBreakDeadTimeConfig.DeadTime = ((DEAD_TIME_COUNTS) / 2);
+-  sBreakDeadTimeConfig.BreakState = TIM_BREAK_ENABLE;
++  sBreakDeadTimeConfig.BreakState = TIM_BREAK_DISABLE;
+   sBreakDeadTimeConfig.BreakPolarity = TIM_BREAKPOLARITY_HIGH;
+   sBreakDeadTimeConfig.BreakFilter = 3;
+   sBreakDeadTimeConfig.BreakAFMode = TIM_BREAK_AFMODE_INPUT;
+@@ -974,4 +955,3 @@ void assert_failed(uint8_t *file, uint32_t line)
+   /* USER CODE END 6 */
+ }
+ #endif /* USE_FULL_ASSERT */
+-
+diff --git a/project/NEWMCSDK/Src/mc_app_hooks.c b/project/NEWMCSDK/Src/mc_app_hooks.c
+index 2c91b18..559cd27 100644
+--- a/project/NEWMCSDK/Src/mc_app_hooks.c
++++ b/project/NEWMCSDK/Src/mc_app_hooks.c
+@@ -22,8 +22,16 @@
+ /* Includes ------------------------------------------------------------------*/
+ #include "mc_type.h"
+ #include "mc_app_hooks.h"
++#include "mc_api.h"
+ #include "mc_config.h"
+-#include "esc.h"
++
++#define AUTORUN_START_DELAY_TICKS 300U
++#define AUTORUN_RETRY_DELAY_TICKS 500U
++#define AUTORUN_TARGET_SPEED_RPM  2500.0f
++#define AUTORUN_RAMP_MS           2500U
++
++static uint16_t s_delay_ticks = AUTORUN_START_DELAY_TICKS;
++static uint16_t s_refresh_ticks = 0U;
+ 
+ /** @addtogroup MCSDK
+   * @{
+@@ -49,8 +57,9 @@
+  */
+ __weak void MC_APP_BootHook(void)
+ {
+-  esc_boot(&ESC_M1);
+ /* USER CODE BEGIN BootHook */
++  s_delay_ticks = AUTORUN_START_DELAY_TICKS;
++  s_refresh_ticks = 0U;
+ 
+ /* USER CODE END BootHook */
+ }
+@@ -63,8 +72,45 @@ __weak void MC_APP_BootHook(void)
+  */
+ __weak void MC_APP_PostMediumFrequencyHook_M1(void)
+ {
+-  esc_pwm_control(&ESC_M1);
+ /* USER SECTION BEGIN PostMediumFrequencyHookM1 */
++  MCI_State_t state = MC_GetSTMStateMotor1();
++
++  if ((state == FAULT_NOW) || (state == FAULT_OVER))
++  {
++    (void)MC_AcknowledgeFaultMotor1();
++    s_delay_ticks = AUTORUN_RETRY_DELAY_TICKS;
++    s_refresh_ticks = 0U;
++    return;
++  }
++
++  if (s_delay_ticks > 0U)
++  {
++    s_delay_ticks--;
++    return;
++  }
++
++  if (state == IDLE)
++  {
++    MC_ProgramSpeedRampMotor1_F(AUTORUN_TARGET_SPEED_RPM, AUTORUN_RAMP_MS);
++    (void)MC_StartMotor1();
++    s_delay_ticks = AUTORUN_RETRY_DELAY_TICKS;
++    s_refresh_ticks = 0U;
++    return;
++  }
++
++  if (state == RUN)
++  {
++    if (s_refresh_ticks == 0U)
++    {
++      MC_ProgramSpeedRampMotor1_F(AUTORUN_TARGET_SPEED_RPM, 200U);
++      s_refresh_ticks = 50U;
++    }
++    else
++    {
++      s_refresh_ticks--;
++    }
++    s_delay_ticks = 0U;
++  }
+ 
+ /* USER SECTION END PostMediumFrequencyHookM1 */
+ }
