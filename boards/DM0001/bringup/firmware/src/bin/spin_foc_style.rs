@@ -8,12 +8,16 @@ use cortex_m::asm;
 use defmt::{info, warn};
 use defmt_rtt as _;
 use embassy_executor::Spawner;
-use embassy_stm32::adc::{Adc, AdcConfig, SampleTime, VREF_CALIB_MV};
+use embassy_stm32::adc::{
+    Adc, AdcChannel, AdcConfig, Exten, InjectedAdc, InjectedTrigger, SampleTime, VREF_CALIB_MV,
+};
 use embassy_stm32::bind_interrupts;
 use embassy_stm32::gpio::{Input, Level, Output, OutputType, Pull, Speed};
 use embassy_stm32::opamp::{OpAmp, OpAmpGain, OpAmpSpeed};
 use embassy_stm32::rcc::mux::Adcsel;
-use embassy_stm32::rcc::{AHBPrescaler, APBPrescaler, Pll, PllMul, PllPreDiv, PllRDiv, PllSource, Sysclk};
+use embassy_stm32::rcc::{
+    AHBPrescaler, APBPrescaler, Pll, PllMul, PllPreDiv, PllRDiv, PllSource, Sysclk,
+};
 use embassy_stm32::time::Hertz;
 use embassy_stm32::timer::Channel;
 use embassy_stm32::timer::complementary_pwm::{ComplementaryPwm, ComplementaryPwmPin};
@@ -30,7 +34,8 @@ bind_interrupts!(struct Irqs {
 });
 
 const ADC_FULL_SCALE: u32 = 4095;
-const AUTO_ARM_AT_BOOT: bool = false;
+const ADC_JEXT_TIM1_CC4_SIGNAL: u8 = 1;
+const AUTO_ARM_AT_BOOT: bool = true;
 const ARM_DELAY_MS: u32 = 2_000;
 const ARM_IDLE_CURRENT_LIMIT_MA: i32 = 1_500;
 const ARM_LOG_PERIOD_MS: u32 = 250;
@@ -63,16 +68,16 @@ const ELECTRICAL_FREQ_START_HZ_X100: u32 = 2_000;
 const FOC_ALIGN_HOLD_US: u32 = 250_000;
 const FOC_ALIGN_ID_REF_MA: i32 = 1_400;
 const FOC_ALIGN_VECTOR_LIMIT_PCT: u32 = 8;
-const FOC_CLOSED_LOOP_HOLD_UPDATES: usize = CONTROL_UPDATE_HZ as usize * 8;
-const FOC_CLOSED_LOOP_TARGET_HZ_X100: u32 = 32_000;
-const FOC_CLOSED_LOOP_VECTOR_LIMIT_PCT: u32 = 18;
+const FOC_CLOSED_LOOP_HOLD_UPDATES: usize = CONTROL_UPDATE_HZ as usize * 20;
+const FOC_CLOSED_LOOP_TARGET_HZ_X100: u32 = 110_000;
+const FOC_CLOSED_LOOP_VECTOR_LIMIT_PCT: u32 = 26;
 const FOC_MIN_IQ_REF_MA: i32 = 700;
-const FOC_MAX_IQ_REF_MA: i32 = 3_200;
-const FOC_REVUP_DURATION_UPDATES: usize = CONTROL_UPDATE_HZ as usize * 2;
-const FOC_REVUP_END_HZ_X100: u32 = 20_000;
-const FOC_REVUP_IQ_END_MA: i32 = 2_200;
-const FOC_REVUP_IQ_START_MA: i32 = 1_200;
-const FOC_REVUP_VECTOR_LIMIT_PCT: u32 = 14;
+const FOC_MAX_IQ_REF_MA: i32 = 4_600;
+const FOC_REVUP_DURATION_UPDATES: usize = CONTROL_UPDATE_HZ as usize * 4;
+const FOC_REVUP_END_HZ_X100: u32 = 80_000;
+const FOC_REVUP_IQ_END_MA: i32 = 3_400;
+const FOC_REVUP_IQ_START_MA: i32 = 1_600;
+const FOC_REVUP_VECTOR_LIMIT_PCT: u32 = 20;
 const NTC_PULLDOWN_OHMS: u32 = 4_700;
 const OBSERVER_LOCK_BEMF_MIN_MV: u32 = 180;
 const OBSERVER_LOCK_CYCLES: u16 = 96;
@@ -94,19 +99,18 @@ const TS_CAL1_ADDR: *const u16 = 0x1FFF_75A8 as *const u16;
 const TS_CAL2_ADDR: *const u16 = 0x1FFF_75CA as *const u16;
 
 const SINE_TABLE: [u8; 256] = [
-    127, 130, 133, 136, 139, 143, 146, 149, 152, 155, 158, 161, 164, 167, 170, 173, 176, 178,
-    181, 184, 187, 190, 192, 195, 198, 200, 203, 205, 208, 210, 212, 215, 217, 219, 221, 223,
-    225, 227, 229, 231, 233, 234, 236, 238, 239, 240, 242, 243, 244, 245, 247, 248, 249, 249,
-    250, 251, 252, 252, 253, 253, 253, 254, 254, 254, 254, 254, 254, 254, 253, 253, 253, 252,
-    252, 251, 250, 249, 249, 248, 247, 245, 244, 243, 242, 240, 239, 238, 236, 234, 233, 231,
-    229, 227, 225, 223, 221, 219, 217, 215, 212, 210, 208, 205, 203, 200, 198, 195, 192, 190,
-    187, 184, 181, 178, 176, 173, 170, 167, 164, 161, 158, 155, 152, 149, 146, 143, 139, 136,
-    133, 130, 127, 124, 121, 118, 115, 111, 108, 105, 102, 99, 96, 93, 90, 87, 84, 81, 78, 76, 73,
-    70, 67, 64, 62, 59, 56, 54, 51, 49, 46, 44, 42, 39, 37, 35, 33, 31, 29, 27, 25, 23, 21, 20, 18,
-    16, 15, 14, 12, 11, 10, 9, 7, 6, 5, 5, 4, 3, 2, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 2,
-    2, 3, 4, 5, 5, 6, 7, 9, 10, 11, 12, 14, 15, 16, 18, 20, 21, 23, 25, 27, 29, 31, 33, 35, 37,
-    39, 42, 44, 46, 49, 51, 54, 56, 59, 62, 64, 67, 70, 73, 76, 78, 81, 84, 87, 90, 93, 96, 99,
-    102, 105, 108, 111, 115, 118, 121, 124,
+    127, 130, 133, 136, 139, 143, 146, 149, 152, 155, 158, 161, 164, 167, 170, 173, 176, 178, 181,
+    184, 187, 190, 192, 195, 198, 200, 203, 205, 208, 210, 212, 215, 217, 219, 221, 223, 225, 227,
+    229, 231, 233, 234, 236, 238, 239, 240, 242, 243, 244, 245, 247, 248, 249, 249, 250, 251, 252,
+    252, 253, 253, 253, 254, 254, 254, 254, 254, 254, 254, 253, 253, 253, 252, 252, 251, 250, 249,
+    249, 248, 247, 245, 244, 243, 242, 240, 239, 238, 236, 234, 233, 231, 229, 227, 225, 223, 221,
+    219, 217, 215, 212, 210, 208, 205, 203, 200, 198, 195, 192, 190, 187, 184, 181, 178, 176, 173,
+    170, 167, 164, 161, 158, 155, 152, 149, 146, 143, 139, 136, 133, 130, 127, 124, 121, 118, 115,
+    111, 108, 105, 102, 99, 96, 93, 90, 87, 84, 81, 78, 76, 73, 70, 67, 64, 62, 59, 56, 54, 51, 49,
+    46, 44, 42, 39, 37, 35, 33, 31, 29, 27, 25, 23, 21, 20, 18, 16, 15, 14, 12, 11, 10, 9, 7, 6, 5,
+    5, 4, 3, 2, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 2, 2, 3, 4, 5, 5, 6, 7, 9, 10, 11, 12,
+    14, 15, 16, 18, 20, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 42, 44, 46, 49, 51, 54, 56, 59, 62,
+    64, 67, 70, 73, 76, 78, 81, 84, 87, 90, 93, 96, 99, 102, 105, 108, 111, 115, 118, 121, 124,
 ];
 
 defmt::timestamp!("{=u32}", DEFMT_TICKS.fetch_add(1, Ordering::Relaxed));
@@ -185,6 +189,31 @@ struct MotorSample {
     hall_b: bool,
     hall_c: bool,
 }
+
+#[derive(Clone, Copy)]
+struct AuxSample {
+    vdda_mv: u32,
+    ntc_mv: u32,
+    ntc_ohms: i32,
+    mcu_temp_mc: i32,
+}
+
+#[derive(Clone, Copy, Default)]
+struct CurrentSenseSample {
+    phase_current_ma: [i32; 3],
+    current_alpha_ma: i32,
+    current_beta_ma: i32,
+    current_output_mv: [u32; 3],
+}
+
+struct InjectedCurrentSampler<'a> {
+    adc1: InjectedAdc<'a, peripherals::ADC1, 2>,
+    adc2: InjectedAdc<'a, peripherals::ADC2, 1>,
+    calibration: CurrentCalibration,
+}
+
+#[derive(Clone, Copy)]
+struct Tim1InjectedTrigger;
 
 #[derive(Clone, Copy, Default)]
 struct EscCommand {
@@ -294,6 +323,52 @@ impl CurrentCalibration {
     }
 }
 
+impl<'a> InjectedCurrentSampler<'a> {
+    fn new(
+        adc1: InjectedAdc<'a, peripherals::ADC1, 2>,
+        adc2: InjectedAdc<'a, peripherals::ADC2, 1>,
+        calibration: CurrentCalibration,
+    ) -> Self {
+        Self {
+            adc1,
+            adc2,
+            calibration,
+        }
+    }
+
+    fn read(&mut self, vdda_mv: u32) -> CurrentSenseSample {
+        let adc1_samples = self.adc1.read_injected_samples();
+        let adc2_samples = self.adc2.read_injected_samples();
+
+        let current_a_raw = adc1_samples[0];
+        let current_c_raw = adc1_samples[1];
+        let current_b_raw = adc2_samples[0];
+
+        let phase_current_ma = center_i32_triplet([
+            estimate_phase_current_ma(current_a_raw, vdda_mv, self.calibration.zero_a_uv),
+            estimate_phase_current_ma(current_b_raw, vdda_mv, self.calibration.zero_b_uv),
+            estimate_phase_current_ma(current_c_raw, vdda_mv, self.calibration.zero_c_uv),
+        ]);
+
+        CurrentSenseSample {
+            phase_current_ma,
+            current_alpha_ma: phase_current_ma[0],
+            current_beta_ma: clarke_beta(phase_current_ma[1], phase_current_ma[2]),
+            current_output_mv: [
+                adc_raw_to_mv(current_a_raw, vdda_mv),
+                adc_raw_to_mv(current_b_raw, vdda_mv),
+                adc_raw_to_mv(current_c_raw, vdda_mv),
+            ],
+        }
+    }
+}
+
+impl<T: embassy_stm32::adc::Instance> InjectedTrigger<T> for Tim1InjectedTrigger {
+    fn signal(&self) -> u8 {
+        ADC_JEXT_TIM1_CC4_SIGNAL
+    }
+}
+
 impl PiController {
     const fn new(
         kp_num: i32,
@@ -354,7 +429,8 @@ async fn main(_spawner: Spawner) {
 
     let p = embassy_stm32::init(config);
 
-    let mut esc_input = PwmInput::new_ch1(p.TIM2, p.PA15, Irqs, Pull::Down, Hertz::hz(ESC_CAPTURE_HZ));
+    let mut esc_input =
+        PwmInput::new_ch1(p.TIM2, p.PA15, Irqs, Pull::Down, Hertz::hz(ESC_CAPTURE_HZ));
     esc_input.enable();
     let bemf_gpio = Input::new(p.PB5, Pull::None);
     let hall_a = Input::new(p.PB6, Pull::None);
@@ -734,6 +810,29 @@ async fn main(_spawner: Spawner) {
 
     let max_duty = u32::from(pwm.get_max_duty());
     let center_counts = max_duty / 2;
+    configure_tim1_injected_sampling(&mut pwm, center_counts);
+
+    let mut current_sampler = InjectedCurrentSampler::new(
+        Adc::new(unsafe { peripherals::ADC1::steal() }, AdcConfig::default())
+            .setup_injected_conversions(
+                [
+                    (current_a.degrade_adc(), SAMPLE_TIME),
+                    (current_c.degrade_adc(), SAMPLE_TIME),
+                ],
+                Tim1InjectedTrigger,
+                Exten::RISING_EDGE,
+                false,
+            ),
+        Adc::new(unsafe { peripherals::ADC2::steal() }, AdcConfig::default())
+            .setup_injected_conversions(
+                [(current_b.degrade_adc(), SAMPLE_TIME)],
+                Tim1InjectedTrigger,
+                Exten::RISING_EDGE,
+                false,
+            ),
+        current_calibration,
+    );
+
     let mut seq = 1u32;
     let initial_bus_mv = sample.bus_mv;
     let bus_backoff_mv = initial_bus_mv.saturating_sub(BUS_BACKOFF_DROOP_MV);
@@ -744,9 +843,9 @@ async fn main(_spawner: Spawner) {
         omega_q8: electrical_hz_x100_to_phase_step_q8(ELECTRICAL_FREQ_START_HZ_X100) as i32,
         ..Default::default()
     };
-    let mut speed_pi = PiController::new(1, 8, 1, 256, FOC_MIN_IQ_REF_MA, FOC_MAX_IQ_REF_MA);
-    let mut id_pi = PiController::new(-1, 18, 1, 160, -120, 120);
-    let mut iq_pi = PiController::new(1, 20, 1, 128, -180, 180);
+    let mut speed_pi = PiController::new(1, 6, 1, 192, FOC_MIN_IQ_REF_MA, FOC_MAX_IQ_REF_MA);
+    let mut id_pi = PiController::new(-1, 16, 1, 128, -160, 160);
+    let mut iq_pi = PiController::new(1, 16, 1, 96, -260, 260);
 
     pwm.set_master_output_enable(true);
     pwm.enable(Channel::Ch1);
@@ -755,6 +854,16 @@ async fn main(_spawner: Spawner) {
     pwm.set_duty(Channel::Ch1, center_counts);
     pwm.set_duty(Channel::Ch2, center_counts);
     pwm.set_duty(Channel::Ch3, center_counts);
+    pwm.set_duty(Channel::Ch4, center_counts);
+
+    delay_us(CONTROL_UPDATE_US);
+    let mut aux_sample = sample_aux(
+        &mut adc1,
+        &mut board_ntc,
+        &mut mcu_temp,
+        &mut vrefint,
+        calibration,
+    );
 
     info!(
         "bootstrap_precharge_start duration_us={} mode=6pwm_centered",
@@ -766,25 +875,28 @@ async fn main(_spawner: Spawner) {
     info!("state_transition state={}", ControlState::Aligning.as_str());
     let mut last_step = ControlStepResult::default();
     for update_index in 0..align_updates() {
-        let sample = sample_motor(
+        if update_index % TELEMETRY_EVERY_UPDATES == 0 {
+            aux_sample = sample_aux(
+                &mut adc1,
+                &mut board_ntc,
+                &mut mcu_temp,
+                &mut vrefint,
+                calibration,
+            );
+        }
+        let sample = sample_motor_injected(
             &mut adc1,
             &mut adc2,
             &mut vbus,
             &mut bemf_a,
             &mut bemf_b,
             &mut bemf_c,
-            &mut board_ntc,
-            &mut current_a,
-            &mut current_b,
-            &mut current_c,
-            &mut mcu_temp,
-            &mut vrefint,
             &bemf_gpio,
             &hall_a,
             &hall_b,
             &hall_c,
-            current_calibration,
-            calibration,
+            aux_sample,
+            current_sampler.read(aux_sample.vdda_mv),
         );
 
         let step = run_current_loop(
@@ -868,23 +980,45 @@ async fn main(_spawner: Spawner) {
 
     let mut fault = FaultReason::None;
     let mut closed_loop_entered = false;
-    let mut speed_target_hz_x100 = esc_command
-        .speed_target_hz_x100
-        .clamp(SPEED_LOOP_MIN_TARGET_HZ_X100, FOC_CLOSED_LOOP_TARGET_HZ_X100);
+    let mut speed_target_hz_x100 = esc_command.speed_target_hz_x100.clamp(
+        SPEED_LOOP_MIN_TARGET_HZ_X100,
+        FOC_CLOSED_LOOP_TARGET_HZ_X100,
+    );
     let mut iq_ref_ma = FOC_REVUP_IQ_START_MA;
     let mut esc_stop_counter = 0u16;
 
     for update_index in 0..FOC_REVUP_DURATION_UPDATES {
+        if update_index % TELEMETRY_EVERY_UPDATES == 0 {
+            aux_sample = sample_aux(
+                &mut adc1,
+                &mut board_ntc,
+                &mut mcu_temp,
+                &mut vrefint,
+                calibration,
+            );
+        }
         if update_index % SPEED_LOOP_DIVIDER == 0 {
-            esc_command = read_esc_command(&esc_input);
-            if esc_command.valid && esc_command.throttle_active {
+            if AUTO_ARM_AT_BOOT {
+                esc_command = EscCommand {
+                    valid: true,
+                    width_us: ESC_PWM_MIN_US,
+                    period_us: 2_041,
+                    arming_request: true,
+                    throttle_active: true,
+                    speed_target_hz_x100: FOC_CLOSED_LOOP_TARGET_HZ_X100,
+                };
                 esc_stop_counter = 0;
             } else {
-                esc_stop_counter = esc_stop_counter.saturating_add(1);
-                if esc_stop_counter >= ESC_STOP_TICKS {
-                    fault = FaultReason::ArmRequestMissing;
-                    warn!("esc_stop_request stage=rev_up idx={}", update_index);
-                    break;
+                esc_command = read_esc_command(&esc_input);
+                if esc_command.valid && esc_command.throttle_active {
+                    esc_stop_counter = 0;
+                } else {
+                    esc_stop_counter = esc_stop_counter.saturating_add(1);
+                    if esc_stop_counter >= ESC_STOP_TICKS {
+                        fault = FaultReason::ArmRequestMissing;
+                        warn!("esc_stop_request stage=rev_up idx={}", update_index);
+                        break;
+                    }
                 }
             }
         }
@@ -909,25 +1043,19 @@ async fn main(_spawner: Spawner) {
         open_loop_step_q8 = electrical_hz_x100_to_phase_step_q8(open_loop_hz_x100);
         theta_cmd_q8 = theta_cmd_q8.wrapping_add(open_loop_step_q8);
 
-        let sample = sample_motor(
+        let sample = sample_motor_injected(
             &mut adc1,
             &mut adc2,
             &mut vbus,
             &mut bemf_a,
             &mut bemf_b,
             &mut bemf_c,
-            &mut board_ntc,
-            &mut current_a,
-            &mut current_b,
-            &mut current_c,
-            &mut mcu_temp,
-            &mut vrefint,
             &bemf_gpio,
             &hall_a,
             &hall_b,
             &hall_c,
-            current_calibration,
-            calibration,
+            aux_sample,
+            current_sampler.read(aux_sample.vdda_mv),
         );
 
         if sample.bus_mv < bus_abort_mv {
@@ -1028,85 +1156,135 @@ async fn main(_spawner: Spawner) {
         delay_us(CONTROL_UPDATE_US);
     }
 
-    if fault == FaultReason::None && !observer.locked {
-        fault = FaultReason::ObserverNeverLocked;
-        warn!("observer_never_locked by_end_of_revup");
-    }
-
+    let mut open_loop_fallback = false;
     if fault == FaultReason::None {
-        info!("state_transition state={}", ControlState::ClosedLoop.as_str());
+        if !observer.locked {
+            open_loop_fallback = true;
+            warn!("observer_never_locked_fallback_open_loop");
+        }
+        info!(
+            "state_transition state={}",
+            ControlState::ClosedLoop.as_str()
+        );
         for update_index in 0..FOC_CLOSED_LOOP_HOLD_UPDATES {
+            if update_index % TELEMETRY_EVERY_UPDATES == 0 {
+                aux_sample = sample_aux(
+                    &mut adc1,
+                    &mut board_ntc,
+                    &mut mcu_temp,
+                    &mut vrefint,
+                    calibration,
+                );
+            }
             if update_index % SPEED_LOOP_DIVIDER == 0 {
-                esc_command = read_esc_command(&esc_input);
-                if esc_command.valid && esc_command.throttle_active {
+                if AUTO_ARM_AT_BOOT {
+                    esc_command = EscCommand {
+                        valid: true,
+                        width_us: ESC_PWM_MIN_US,
+                        period_us: 2_041,
+                        arming_request: true,
+                        throttle_active: true,
+                        speed_target_hz_x100: FOC_CLOSED_LOOP_TARGET_HZ_X100,
+                    };
                     esc_stop_counter = 0;
-                    speed_target_hz_x100 = esc_command
-                        .speed_target_hz_x100
-                        .clamp(SPEED_LOOP_MIN_TARGET_HZ_X100, FOC_CLOSED_LOOP_TARGET_HZ_X100);
+                    speed_target_hz_x100 = FOC_CLOSED_LOOP_TARGET_HZ_X100;
                 } else {
-                    esc_stop_counter = esc_stop_counter.saturating_add(1);
-                    if esc_stop_counter >= ESC_STOP_TICKS {
-                        fault = FaultReason::ArmRequestMissing;
-                        warn!("esc_stop_request stage=closed_loop idx={}", update_index);
-                        break;
+                    esc_command = read_esc_command(&esc_input);
+                    if esc_command.valid && esc_command.throttle_active {
+                        esc_stop_counter = 0;
+                        speed_target_hz_x100 = esc_command.speed_target_hz_x100.clamp(
+                            SPEED_LOOP_MIN_TARGET_HZ_X100,
+                            FOC_CLOSED_LOOP_TARGET_HZ_X100,
+                        );
+                    } else {
+                        esc_stop_counter = esc_stop_counter.saturating_add(1);
+                        if esc_stop_counter >= ESC_STOP_TICKS {
+                            fault = FaultReason::ArmRequestMissing;
+                            warn!("esc_stop_request stage=closed_loop idx={}", update_index);
+                            break;
+                        }
                     }
                 }
             }
 
-            let sample = sample_motor(
+            let sample = sample_motor_injected(
                 &mut adc1,
                 &mut adc2,
                 &mut vbus,
                 &mut bemf_a,
                 &mut bemf_b,
                 &mut bemf_c,
-                &mut board_ntc,
-                &mut current_a,
-                &mut current_b,
-                &mut current_c,
-                &mut mcu_temp,
-                &mut vrefint,
                 &bemf_gpio,
                 &hall_a,
                 &hall_b,
                 &hall_c,
-                current_calibration,
-                calibration,
+                aux_sample,
+                current_sampler.read(aux_sample.vdda_mv),
             );
 
             if sample.bus_mv < bus_abort_mv {
                 fault = FaultReason::BusAbort;
                 warn!(
                     "bus_abort stage=closed_loop idx={} bus_mv={} speed_est_hz_x100={}",
-                    update_index, sample.bus_mv, observer.estimated_hz_x100
+                    update_index,
+                    sample.bus_mv,
+                    if open_loop_fallback {
+                        speed_target_hz_x100
+                    } else {
+                        observer.estimated_hz_x100
+                    }
                 );
                 break;
             }
 
-            let observer_theta_q8 = observer.theta_q8;
-            let observer_omega_q8 = observer.omega_q8.max(32) as u32;
-            update_observer(
-                &mut observer,
-                sample.bemf_alpha_mv,
-                sample.bemf_beta_mv,
-                observer_theta_q8,
-                observer_omega_q8,
-            );
-
-            if !observer.locked {
-                fault = FaultReason::ObserverUnlock;
-                warn!(
-                    "observer_unlock idx={} speed_est_hz_x100={} bemf_mag_mv={}",
-                    update_index, observer.estimated_hz_x100, observer.bemf_mag_mv
+            let theta_for_control = if open_loop_fallback {
+                let fallback_target_hz_x100 = interpolate(
+                    FOC_REVUP_END_HZ_X100,
+                    speed_target_hz_x100,
+                    update_index,
+                    FOC_CLOSED_LOOP_HOLD_UPDATES,
                 );
-                break;
-            }
+                open_loop_step_q8 = electrical_hz_x100_to_phase_step_q8(fallback_target_hz_x100);
+                theta_cmd_q8 = theta_cmd_q8.wrapping_add(open_loop_step_q8);
+                iq_ref_ma = interpolate_i32(
+                    FOC_REVUP_IQ_END_MA,
+                    FOC_MAX_IQ_REF_MA,
+                    update_index,
+                    (FOC_CLOSED_LOOP_HOLD_UPDATES / 2).max(1),
+                )
+                .clamp(FOC_MIN_IQ_REF_MA, FOC_MAX_IQ_REF_MA);
+                observer.estimated_hz_x100 = fallback_target_hz_x100;
+                theta_cmd_q8
+            } else {
+                let observer_theta_q8 = observer.theta_q8;
+                let observer_omega_q8 = observer.omega_q8.max(32) as u32;
+                update_observer(
+                    &mut observer,
+                    sample.bemf_alpha_mv,
+                    sample.bemf_beta_mv,
+                    observer_theta_q8,
+                    observer_omega_q8,
+                );
 
-            if update_index % SPEED_LOOP_DIVIDER == 0 {
-                let speed_error = i32::try_from(speed_target_hz_x100).unwrap_or(i32::MAX)
-                    - i32::try_from(observer.estimated_hz_x100).unwrap_or_default();
-                iq_ref_ma = speed_pi.update(speed_error).clamp(FOC_MIN_IQ_REF_MA, FOC_MAX_IQ_REF_MA);
-            }
+                if !observer.locked {
+                    fault = FaultReason::ObserverUnlock;
+                    warn!(
+                        "observer_unlock idx={} speed_est_hz_x100={} bemf_mag_mv={}",
+                        update_index, observer.estimated_hz_x100, observer.bemf_mag_mv
+                    );
+                    break;
+                }
+
+                if update_index % SPEED_LOOP_DIVIDER == 0 {
+                    let speed_error = i32::try_from(speed_target_hz_x100).unwrap_or(i32::MAX)
+                        - i32::try_from(observer.estimated_hz_x100).unwrap_or_default();
+                    iq_ref_ma = speed_pi
+                        .update(speed_error)
+                        .clamp(FOC_MIN_IQ_REF_MA, FOC_MAX_IQ_REF_MA);
+                }
+
+                observer.theta_q8
+            };
 
             let limit_pct = if sample.bus_mv < bus_backoff_mv {
                 FOC_CLOSED_LOOP_VECTOR_LIMIT_PCT.saturating_sub(2)
@@ -1118,7 +1296,7 @@ async fn main(_spawner: Spawner) {
                 &mut pwm,
                 max_duty,
                 center_counts,
-                observer.theta_q8,
+                theta_for_control,
                 0,
                 iq_ref_ma,
                 vector_limit_counts(max_duty, limit_pct),
@@ -1138,7 +1316,7 @@ async fn main(_spawner: Spawner) {
                     esc_width_us: esc_command.width_us,
                     esc_period_us: esc_command.period_us,
                     observer_locked: observer.locked,
-                    theta_cmd_idx: (observer.theta_q8 >> 8) as u8,
+                    theta_cmd_idx: (theta_for_control >> 8) as u8,
                     theta_obs_idx: (observer.theta_q8 >> 8) as u8,
                     speed_target_hz_x100,
                     speed_est_hz_x100: observer.estimated_hz_x100,
@@ -1186,25 +1364,26 @@ async fn main(_spawner: Spawner) {
     info!("state_transition state={}", final_state.as_str());
 
     loop {
-        let sample = sample_motor(
+        aux_sample = sample_aux(
+            &mut adc1,
+            &mut board_ntc,
+            &mut mcu_temp,
+            &mut vrefint,
+            calibration,
+        );
+        let sample = sample_motor_injected(
             &mut adc1,
             &mut adc2,
             &mut vbus,
             &mut bemf_a,
             &mut bemf_b,
             &mut bemf_c,
-            &mut board_ntc,
-            &mut current_a,
-            &mut current_b,
-            &mut current_c,
-            &mut mcu_temp,
-            &mut vrefint,
             &bemf_gpio,
             &hall_a,
             &hall_b,
             &hall_c,
-            current_calibration,
-            calibration,
+            aux_sample,
+            current_sampler.read(aux_sample.vdda_mv),
         );
         log_telemetry(TelemetryFrame {
             seq,
@@ -1337,11 +1516,7 @@ fn center_i32_triplet(values: [i32; 3]) -> [i32; 3] {
     ]
 }
 
-fn compute_phase_duty(
-    phase_counts: i32,
-    center_counts: u32,
-    max_duty: u32,
-) -> u16 {
+fn compute_phase_duty(phase_counts: i32, center_counts: u32, max_duty: u32) -> u16 {
     let duty = i32::try_from(center_counts).unwrap_or_default() + phase_counts;
     duty.clamp(0, i32::try_from(max_duty).unwrap_or(i32::MAX)) as u16
 }
@@ -1349,6 +1524,13 @@ fn compute_phase_duty(
 fn delay_us(us: u32) {
     let cycles = ((u64::from(CPU_HZ) * u64::from(us)) / 1_000_000) as u32;
     asm::delay(cycles.max(1));
+}
+
+fn configure_tim1_injected_sampling(
+    pwm: &mut ComplementaryPwm<'_, peripherals::TIM1>,
+    sample_counts: u32,
+) {
+    pwm.set_duty(Channel::Ch4, sample_counts);
 }
 
 fn disable_all_channels(pwm: &mut ComplementaryPwm<'_, peripherals::TIM1>) {
@@ -1442,10 +1624,8 @@ fn interpolate_i32(start: i32, end: i32, index: usize, len: usize) -> i32 {
 
 fn inverse_park(vd: i32, vq: i32, angle_idx: u8) -> (i32, i32) {
     let (sin_theta, cos_theta) = sin_cos_q7(angle_idx);
-    let alpha = (i64::from(vd) * i64::from(cos_theta) - i64::from(vq) * i64::from(sin_theta))
-        / 127;
-    let beta = (i64::from(vd) * i64::from(sin_theta) + i64::from(vq) * i64::from(cos_theta))
-        / 127;
+    let alpha = (i64::from(vd) * i64::from(cos_theta) - i64::from(vq) * i64::from(sin_theta)) / 127;
+    let beta = (i64::from(vd) * i64::from(sin_theta) + i64::from(vq) * i64::from(cos_theta)) / 127;
     (alpha as i32, beta as i32)
 }
 
@@ -1526,8 +1706,7 @@ fn park_transform(alpha: i32, beta: i32, angle_idx: u8) -> (i32, i32) {
     let d =
         (i64::from(alpha) * i64::from(cos_theta) + i64::from(beta) * i64::from(sin_theta)) / 127;
     let q =
-        (-i64::from(alpha) * i64::from(sin_theta) + i64::from(beta) * i64::from(cos_theta))
-            / 127;
+        (-i64::from(alpha) * i64::from(sin_theta) + i64::from(beta) * i64::from(cos_theta)) / 127;
     (d as i32, q as i32)
 }
 
@@ -1560,13 +1739,7 @@ fn run_current_loop(
     let (alpha_counts, beta_counts) = inverse_park(vd_counts, vq_counts, theta_idx);
     let (alpha_counts, beta_counts) =
         limit_phase_vector(alpha_counts, beta_counts, vector_limit_counts);
-    let duty_pct = set_phase_vector_duties(
-        pwm,
-        alpha_counts,
-        beta_counts,
-        center_counts,
-        max_duty,
-    );
+    let duty_pct = set_phase_vector_duties(pwm, alpha_counts, beta_counts, center_counts, max_duty);
 
     ControlStepResult {
         duty_pct,
@@ -1600,53 +1773,150 @@ fn sample_motor(
     current_calibration: CurrentCalibration,
     calibration: FactoryCalibration,
 ) -> MotorSample {
-    let vdda_mv = estimate_vdda_mv(
-        adc1.blocking_read(vrefint, SAMPLE_TIME),
-        calibration.vrefint,
-    );
+    let aux = sample_aux(adc1, board_ntc, mcu_temp, vrefint, calibration);
     let bus_raw = adc1.blocking_read(vbus, SAMPLE_TIME);
     let bemf_a_raw = adc2.blocking_read(bemf_a, SAMPLE_TIME);
     let bemf_b_raw = adc1.blocking_read(bemf_b, SAMPLE_TIME);
     let bemf_c_raw = adc2.blocking_read(bemf_c, SAMPLE_TIME);
+    let current = sample_blocking_currents(
+        adc1,
+        adc2,
+        current_a,
+        current_b,
+        current_c,
+        aux.vdda_mv,
+        current_calibration,
+    );
+
+    build_motor_sample(
+        aux,
+        bus_raw,
+        [bemf_a_raw, bemf_b_raw, bemf_c_raw],
+        current,
+        bemf_gpio,
+        hall_a,
+        hall_b,
+        hall_c,
+    )
+}
+
+fn sample_aux(
+    adc1: &mut Adc<'_, embassy_stm32::peripherals::ADC1>,
+    board_ntc: &mut Peri<'_, peripherals::PB14>,
+    mcu_temp: &mut embassy_stm32::adc::Temperature,
+    vrefint: &mut embassy_stm32::adc::VrefInt,
+    calibration: FactoryCalibration,
+) -> AuxSample {
+    let vdda_mv = estimate_vdda_mv(
+        adc1.blocking_read(vrefint, SAMPLE_TIME),
+        calibration.vrefint,
+    );
     let ntc_raw = adc1.blocking_read(board_ntc, SAMPLE_TIME);
+    let mcu_temp_raw = adc1.blocking_read(mcu_temp, SAMPLE_TIME);
+
+    AuxSample {
+        vdda_mv,
+        ntc_mv: adc_raw_to_mv(ntc_raw, vdda_mv),
+        ntc_ohms: estimate_ntc_ohms(ntc_raw),
+        mcu_temp_mc: estimate_mcu_temp_mc(mcu_temp_raw, vdda_mv, calibration),
+    }
+}
+
+fn sample_blocking_currents(
+    adc1: &mut Adc<'_, embassy_stm32::peripherals::ADC1>,
+    adc2: &mut Adc<'_, embassy_stm32::peripherals::ADC2>,
+    current_a: &mut embassy_stm32::opamp::OpAmpOutput<'_, peripherals::OPAMP1>,
+    current_b: &mut embassy_stm32::opamp::OpAmpOutput<'_, peripherals::OPAMP2>,
+    current_c: &mut embassy_stm32::opamp::OpAmpOutput<'_, peripherals::OPAMP3>,
+    vdda_mv: u32,
+    current_calibration: CurrentCalibration,
+) -> CurrentSenseSample {
     let current_a_raw = adc1.blocking_read(current_a, SAMPLE_TIME);
     let current_b_raw = adc2.blocking_read(current_b, SAMPLE_TIME);
     let current_c_raw = adc1.blocking_read(current_c, SAMPLE_TIME);
-    let mcu_temp_raw = adc1.blocking_read(mcu_temp, SAMPLE_TIME);
 
-    let bemf_phase_mv = center_i32_triplet([
-        adc_raw_to_mv(bemf_a_raw, vdda_mv) as i32,
-        adc_raw_to_mv(bemf_b_raw, vdda_mv) as i32,
-        adc_raw_to_mv(bemf_c_raw, vdda_mv) as i32,
-    ]);
     let phase_current_ma = center_i32_triplet([
         estimate_phase_current_ma(current_a_raw, vdda_mv, current_calibration.zero_a_uv),
         estimate_phase_current_ma(current_b_raw, vdda_mv, current_calibration.zero_b_uv),
         estimate_phase_current_ma(current_c_raw, vdda_mv, current_calibration.zero_c_uv),
     ]);
-    let bemf_alpha_mv = bemf_phase_mv[0];
-    let bemf_beta_mv = clarke_beta(bemf_phase_mv[1], bemf_phase_mv[2]);
-    let current_alpha_ma = phase_current_ma[0];
-    let current_beta_ma = clarke_beta(phase_current_ma[1], phase_current_ma[2]);
 
-    MotorSample {
-        vdda_mv,
-        bus_mv: estimate_bus_mv(bus_raw, vdda_mv),
-        bemf_phase_mv,
-        bemf_alpha_mv,
-        bemf_beta_mv,
-        bemf_mag_mv: approx_vector_mag(bemf_alpha_mv, bemf_beta_mv),
+    CurrentSenseSample {
         phase_current_ma,
-        current_alpha_ma,
-        current_beta_ma,
+        current_alpha_ma: phase_current_ma[0],
+        current_beta_ma: clarke_beta(phase_current_ma[1], phase_current_ma[2]),
         current_output_mv: [
             adc_raw_to_mv(current_a_raw, vdda_mv),
             adc_raw_to_mv(current_b_raw, vdda_mv),
             adc_raw_to_mv(current_c_raw, vdda_mv),
         ],
-        ntc_mv: adc_raw_to_mv(ntc_raw, vdda_mv),
-        ntc_ohms: estimate_ntc_ohms(ntc_raw),
-        mcu_temp_mc: estimate_mcu_temp_mc(mcu_temp_raw, vdda_mv, calibration),
+    }
+}
+
+#[allow(clippy::too_many_arguments)]
+fn sample_motor_injected(
+    adc1: &mut Adc<'_, embassy_stm32::peripherals::ADC1>,
+    adc2: &mut Adc<'_, embassy_stm32::peripherals::ADC2>,
+    vbus: &mut Peri<'_, peripherals::PA0>,
+    bemf_a: &mut Peri<'_, peripherals::PA4>,
+    bemf_b: &mut Peri<'_, peripherals::PB12>,
+    bemf_c: &mut Peri<'_, peripherals::PB11>,
+    bemf_gpio: &Input<'_>,
+    hall_a: &Input<'_>,
+    hall_b: &Input<'_>,
+    hall_c: &Input<'_>,
+    aux: AuxSample,
+    current: CurrentSenseSample,
+) -> MotorSample {
+    let bus_raw = adc1.blocking_read(vbus, SAMPLE_TIME);
+    let bemf_a_raw = adc2.blocking_read(bemf_a, SAMPLE_TIME);
+    let bemf_b_raw = adc1.blocking_read(bemf_b, SAMPLE_TIME);
+    let bemf_c_raw = adc2.blocking_read(bemf_c, SAMPLE_TIME);
+
+    build_motor_sample(
+        aux,
+        bus_raw,
+        [bemf_a_raw, bemf_b_raw, bemf_c_raw],
+        current,
+        bemf_gpio,
+        hall_a,
+        hall_b,
+        hall_c,
+    )
+}
+
+fn build_motor_sample(
+    aux: AuxSample,
+    bus_raw: u16,
+    bemf_raw: [u16; 3],
+    current: CurrentSenseSample,
+    bemf_gpio: &Input<'_>,
+    hall_a: &Input<'_>,
+    hall_b: &Input<'_>,
+    hall_c: &Input<'_>,
+) -> MotorSample {
+    let bemf_phase_mv = center_i32_triplet([
+        adc_raw_to_mv(bemf_raw[0], aux.vdda_mv) as i32,
+        adc_raw_to_mv(bemf_raw[1], aux.vdda_mv) as i32,
+        adc_raw_to_mv(bemf_raw[2], aux.vdda_mv) as i32,
+    ]);
+    let bemf_alpha_mv = bemf_phase_mv[0];
+    let bemf_beta_mv = clarke_beta(bemf_phase_mv[1], bemf_phase_mv[2]);
+
+    MotorSample {
+        vdda_mv: aux.vdda_mv,
+        bus_mv: estimate_bus_mv(bus_raw, aux.vdda_mv),
+        bemf_phase_mv,
+        bemf_alpha_mv,
+        bemf_beta_mv,
+        bemf_mag_mv: approx_vector_mag(bemf_alpha_mv, bemf_beta_mv),
+        phase_current_ma: current.phase_current_ma,
+        current_alpha_ma: current.current_alpha_ma,
+        current_beta_ma: current.current_beta_ma,
+        current_output_mv: current.current_output_mv,
+        ntc_mv: aux.ntc_mv,
+        ntc_ohms: aux.ntc_ohms,
+        mcu_temp_mc: aux.mcu_temp_mc,
         bemf_gpio: bemf_gpio.is_high(),
         hall_a: hall_a.is_high(),
         hall_b: hall_b.is_high(),
@@ -1693,7 +1963,9 @@ fn sin_cos_q7(angle_idx: u8) -> (i32, i32) {
 }
 
 fn vector_limit_counts(max_duty: u32, limit_pct: u32) -> i32 {
-    i32::try_from((max_duty * limit_pct / 100) / 2).unwrap_or_default().max(1)
+    i32::try_from((max_duty * limit_pct / 100) / 2)
+        .unwrap_or_default()
+        .max(1)
 }
 
 fn approx_vector_mag(alpha: i32, beta: i32) -> u32 {
@@ -1772,7 +2044,9 @@ fn update_observer(
         open_loop_step_q8 as i32
     };
     let corrected_step = clamp_i32(
-        base_step + angle_error_idx * OBSERVER_PLL_KP_NUM + observer.integral / OBSERVER_PLL_INTEGRAL_DIV,
+        base_step
+            + angle_error_idx * OBSERVER_PLL_KP_NUM
+            + observer.integral / OBSERVER_PLL_INTEGRAL_DIV,
         32,
         8_192,
     );

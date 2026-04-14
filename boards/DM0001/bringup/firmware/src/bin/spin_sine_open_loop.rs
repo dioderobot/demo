@@ -27,7 +27,7 @@ const ADC_FULL_SCALE: u32 = 4095;
 const ARM_DELAY_MS: u32 = 2_000;
 const ARMED_HOLD_MS: u32 = 1_000;
 const ARM_IDLE_CURRENT_LIMIT_MA: i32 = 1_500;
-const ARM_VBUS_MAX_MV: u32 = 16_500;
+const ARM_VBUS_MAX_MV: u32 = 16_800;
 const ARM_VBUS_MIN_MV: u32 = 7_000;
 const ALIGN_AMPLITUDE_PERCENT: u32 = 8;
 const ALIGN_ANGLE_IDX: u8 = 0;
@@ -200,19 +200,17 @@ struct RampProfile {
     end_freq_hz_x100: u32,
 }
 
-const RAMP_PROFILES: [RampProfile; 1] = [
-    RampProfile {
-        name: "limit_slow",
-        launch_amp_pct: 10,
-        launch_freq_end_hz_x100: 18_000,
-        launch_updates: 6_000,
-        mid_amp_pct: 13,
-        mid_freq_end_hz_x100: 90_000,
-        mid_updates: 30_000,
-        end_amp_pct: 20,
-        end_freq_hz_x100: 140_000,
-    },
-];
+const RAMP_PROFILES: [RampProfile; 1] = [RampProfile {
+    name: "limit_edge",
+    launch_amp_pct: 13,
+    launch_freq_end_hz_x100: 28_000,
+    launch_updates: 6_000,
+    mid_amp_pct: 18,
+    mid_freq_end_hz_x100: 125_000,
+    mid_updates: 30_000,
+    end_amp_pct: 26,
+    end_freq_hz_x100: 200_000,
+}];
 
 #[embassy_executor::main(
     executor = "embassy_stm32::executor::Executor",
