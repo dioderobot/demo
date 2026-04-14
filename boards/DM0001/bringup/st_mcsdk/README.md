@@ -25,7 +25,7 @@ Latest bench result:
 - `12.0 V / 5.0 A`
 - MCSDK state stayed `RUN`
 - `fault_now = 0`, `fault_past = 0`
-- observer peak about `4.43k RPM`
+- observer peak about `4.58k RPM`
 
 Clock note:
 - The checked-in DM0001 Zener source references the STM32 module at `reference/STM32G431C8T6/STM32G431C8T6.zen`.

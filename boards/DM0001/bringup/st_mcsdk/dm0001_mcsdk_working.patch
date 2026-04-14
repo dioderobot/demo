@@ -1,5 +1,5 @@
 diff --git a/project/NEWMCSDK/Inc/drive_parameters.h b/project/NEWMCSDK/Inc/drive_parameters.h
-index d00e44e..84d5e7c 100644
+index d00e44e..a8edc6d 100644
 --- a/project/NEWMCSDK/Inc/drive_parameters.h
 +++ b/project/NEWMCSDK/Inc/drive_parameters.h
 @@ -31,7 +31,7 @@
@@ -7,10 +7,21 @@ index d00e44e..84d5e7c 100644
  
  /*** Speed measurement settings ***/
 -#define MAX_APPLICATION_SPEED_RPM       4908 /*!< rpm, mechanical */
-+#define MAX_APPLICATION_SPEED_RPM       9000 /*!< rpm, mechanical */
++#define MAX_APPLICATION_SPEED_RPM       12000 /*!< rpm, mechanical */
  #define MIN_APPLICATION_SPEED_RPM       0 /*!< rpm, mechanical,
                                                             absolute value */
  #define M1_SS_MEAS_ERRORS_BEFORE_FAULTS 3 /*!< Number of speed
+@@ -114,8 +114,8 @@
+ #define SPEED_LOOP_FREQUENCY_HZ       ( uint16_t )1000 /*!<Execution rate of speed
+                                                       regulation loop (Hz) */
+ 
+-#define PID_SPEED_KP_DEFAULT          3000/(SPEED_UNIT/10) /* Workbench compute the gain for 01Hz unit*/
+-#define PID_SPEED_KI_DEFAULT          2/(SPEED_UNIT/10) /* Workbench compute the gain for 01Hz unit*/
++#define PID_SPEED_KP_DEFAULT          3200/(SPEED_UNIT/10) /* Workbench compute the gain for 01Hz unit*/
++#define PID_SPEED_KI_DEFAULT          6/(SPEED_UNIT/10) /* Workbench compute the gain for 01Hz unit*/
+ #define PID_SPEED_KD_DEFAULT          0/(SPEED_UNIT/10) /* Workbench compute the gain for 01Hz unit*/
+ /* Speed PID parameter dividers */
+ #define SP_KPDIV                      1024
 @@ -129,19 +129,19 @@
  /* USER CODE END PID_SPEED_INTEGRAL_INIT_DIV */
  
@@ -21,7 +32,7 @@ index d00e44e..84d5e7c 100644
  /* Default settings */
  #define DEFAULT_CONTROL_MODE           MCM_SPEED_MODE
 -#define DEFAULT_TARGET_SPEED_RPM       1037
-+#define DEFAULT_TARGET_SPEED_RPM       3800
++#define DEFAULT_TARGET_SPEED_RPM       4200
  #define DEFAULT_TARGET_SPEED_UNIT      (DEFAULT_TARGET_SPEED_RPM*SPEED_UNIT/U_RPM)
  #define DEFAULT_TORQUE_COMPONENT_A       0
  #define DEFAULT_FLUX_COMPONENT_A         0
@@ -62,14 +73,14 @@ index d00e44e..84d5e7c 100644
 -#define PHASE4_FINAL_SPEED_UNIT         (1152*SPEED_UNIT/U_RPM)
 -#define PHASE4_FINAL_CURRENT_A           6
 +#define PHASE4_DURATION                700 /*milliseconds */
-+#define PHASE4_FINAL_SPEED_UNIT         (2200*SPEED_UNIT/U_RPM)
++#define PHASE4_FINAL_SPEED_UNIT         (2400*SPEED_UNIT/U_RPM)
 +#define PHASE4_FINAL_CURRENT_A           4
  /* Phase 5 */
 -#define PHASE5_DURATION                0 /* milliseconds */
 -#define PHASE5_FINAL_SPEED_UNIT         (1152*SPEED_UNIT/U_RPM)
 -#define PHASE5_FINAL_CURRENT_A           6
-+#define PHASE5_DURATION                1000 /* milliseconds */
-+#define PHASE5_FINAL_SPEED_UNIT         (3500*SPEED_UNIT/U_RPM)
++#define PHASE5_DURATION                1100 /* milliseconds */
++#define PHASE5_FINAL_SPEED_UNIT         (3800*SPEED_UNIT/U_RPM)
 +#define PHASE5_FINAL_CURRENT_A           5
  
 -#define ENABLE_SL_ALGO_FROM_PHASE      2
@@ -208,7 +219,7 @@ index b6304d5..00ce5c9 100644
  #endif /* USE_FULL_ASSERT */
 -
 diff --git a/project/NEWMCSDK/Src/mc_app_hooks.c b/project/NEWMCSDK/Src/mc_app_hooks.c
-index 2c91b18..77dbb14 100644
+index 2c91b18..bb962cc 100644
 --- a/project/NEWMCSDK/Src/mc_app_hooks.c
 +++ b/project/NEWMCSDK/Src/mc_app_hooks.c
 @@ -22,8 +22,16 @@
@@ -221,8 +232,8 @@ index 2c91b18..77dbb14 100644
 +
 +#define AUTORUN_START_DELAY_TICKS 300U
 +#define AUTORUN_RETRY_DELAY_TICKS 500U
-+#define AUTORUN_TARGET_SPEED_RPM  3800.0f
-+#define AUTORUN_RAMP_MS           3400U
++#define AUTORUN_TARGET_SPEED_RPM  4200.0f
++#define AUTORUN_RAMP_MS           3600U
 +
 +static uint16_t s_delay_ticks = AUTORUN_START_DELAY_TICKS;
 +static uint16_t s_refresh_ticks = 0U;
