@@ -45,7 +45,7 @@ const BEMF_FLUX_SHIFT_IDX: u8 = 64;
 const BOOTSTRAP_PRECHARGE_US: u32 = 8_000;
 const BUS_ABORT_DROOP_MV: u32 = 2_500;
 const BUS_BACKOFF_DROOP_MV: u32 = 1_250;
-const CONTROL_UPDATE_HZ: u32 = 40_000;
+const CONTROL_UPDATE_HZ: u32 = 20_000;
 const CONTROL_UPDATE_US: u32 = 1_000_000 / CONTROL_UPDATE_HZ;
 const CPU_HZ: u32 = 170_000_000;
 const CURRENT_OUTPUT_UV_PER_AMP: i32 = 27_429;
@@ -69,15 +69,18 @@ const FOC_ALIGN_HOLD_US: u32 = 250_000;
 const FOC_ALIGN_ID_REF_MA: i32 = 1_400;
 const FOC_ALIGN_VECTOR_LIMIT_PCT: u32 = 8;
 const FOC_CLOSED_LOOP_HOLD_UPDATES: usize = CONTROL_UPDATE_HZ as usize * 20;
-const FOC_CLOSED_LOOP_TARGET_HZ_X100: u32 = 110_000;
-const FOC_CLOSED_LOOP_VECTOR_LIMIT_PCT: u32 = 26;
+const FOC_CLOSED_LOOP_TARGET_HZ_X100: u32 = 95_000;
+const FOC_CLOSED_LOOP_VECTOR_LIMIT_PCT: u32 = 24;
+const FOC_FALLBACK_MAX_IQ_REF_MA: i32 = 3_400;
+const FOC_FALLBACK_TARGET_HZ_X100: u32 = 90_000;
+const FOC_FALLBACK_VECTOR_LIMIT_PCT: u32 = 22;
 const FOC_MIN_IQ_REF_MA: i32 = 700;
-const FOC_MAX_IQ_REF_MA: i32 = 4_600;
+const FOC_MAX_IQ_REF_MA: i32 = 3_800;
 const FOC_REVUP_DURATION_UPDATES: usize = CONTROL_UPDATE_HZ as usize * 4;
-const FOC_REVUP_END_HZ_X100: u32 = 80_000;
-const FOC_REVUP_IQ_END_MA: i32 = 3_400;
+const FOC_REVUP_END_HZ_X100: u32 = 70_000;
+const FOC_REVUP_IQ_END_MA: i32 = 3_000;
 const FOC_REVUP_IQ_START_MA: i32 = 1_600;
-const FOC_REVUP_VECTOR_LIMIT_PCT: u32 = 20;
+const FOC_REVUP_VECTOR_LIMIT_PCT: u32 = 18;
 const NTC_PULLDOWN_OHMS: u32 = 4_700;
 const OBSERVER_LOCK_BEMF_MIN_MV: u32 = 180;
 const OBSERVER_LOCK_CYCLES: u16 = 96;
@@ -86,8 +89,8 @@ const OBSERVER_PLL_INTEGRAL_DIV: i32 = 64;
 const OBSERVER_PLL_KI_NUM: i32 = 1;
 const OBSERVER_PLL_KP_NUM: i32 = 4;
 const OBSERVER_UNLOCK_CYCLES: u16 = 24;
-const PWM_FREQ_HZ: u32 = 40_000;
-const SAMPLE_TIME: SampleTime = SampleTime::CYCLES640_5;
+const PWM_FREQ_HZ: u32 = 20_000;
+const SAMPLE_TIME: SampleTime = SampleTime::CYCLES92_5;
 const SPEED_LOOP_DIVIDER: usize = (CONTROL_UPDATE_HZ / 1_000) as usize;
 const SPEED_LOOP_MIN_TARGET_HZ_X100: u32 = 4_000;
 const SQRT3_HALF_Q15: i32 = 28_378;
@@ -810,28 +813,6 @@ async fn main(_spawner: Spawner) {
 
     let max_duty = u32::from(pwm.get_max_duty());
     let center_counts = max_duty / 2;
-    configure_tim1_injected_sampling(&mut pwm, center_counts);
-
-    let mut current_sampler = InjectedCurrentSampler::new(
-        Adc::new(unsafe { peripherals::ADC1::steal() }, AdcConfig::default())
-            .setup_injected_conversions(
-                [
-                    (current_a.degrade_adc(), SAMPLE_TIME),
-                    (current_c.degrade_adc(), SAMPLE_TIME),
-                ],
-                Tim1InjectedTrigger,
-                Exten::RISING_EDGE,
-                false,
-            ),
-        Adc::new(unsafe { peripherals::ADC2::steal() }, AdcConfig::default())
-            .setup_injected_conversions(
-                [(current_b.degrade_adc(), SAMPLE_TIME)],
-                Tim1InjectedTrigger,
-                Exten::RISING_EDGE,
-                false,
-            ),
-        current_calibration,
-    );
 
     let mut seq = 1u32;
     let initial_bus_mv = sample.bus_mv;
@@ -854,16 +835,6 @@ async fn main(_spawner: Spawner) {
     pwm.set_duty(Channel::Ch1, center_counts);
     pwm.set_duty(Channel::Ch2, center_counts);
     pwm.set_duty(Channel::Ch3, center_counts);
-    pwm.set_duty(Channel::Ch4, center_counts);
-
-    delay_us(CONTROL_UPDATE_US);
-    let mut aux_sample = sample_aux(
-        &mut adc1,
-        &mut board_ntc,
-        &mut mcu_temp,
-        &mut vrefint,
-        calibration,
-    );
 
     info!(
         "bootstrap_precharge_start duration_us={} mode=6pwm_centered",
@@ -875,28 +846,25 @@ async fn main(_spawner: Spawner) {
     info!("state_transition state={}", ControlState::Aligning.as_str());
     let mut last_step = ControlStepResult::default();
     for update_index in 0..align_updates() {
-        if update_index % TELEMETRY_EVERY_UPDATES == 0 {
-            aux_sample = sample_aux(
-                &mut adc1,
-                &mut board_ntc,
-                &mut mcu_temp,
-                &mut vrefint,
-                calibration,
-            );
-        }
-        let sample = sample_motor_injected(
+        let sample = sample_motor(
             &mut adc1,
             &mut adc2,
             &mut vbus,
             &mut bemf_a,
             &mut bemf_b,
             &mut bemf_c,
+            &mut board_ntc,
+            &mut current_a,
+            &mut current_b,
+            &mut current_c,
+            &mut mcu_temp,
+            &mut vrefint,
             &bemf_gpio,
             &hall_a,
             &hall_b,
             &hall_c,
-            aux_sample,
-            current_sampler.read(aux_sample.vdda_mv),
+            current_calibration,
+            calibration,
         );
 
         let step = run_current_loop(
@@ -988,15 +956,6 @@ async fn main(_spawner: Spawner) {
     let mut esc_stop_counter = 0u16;
 
     for update_index in 0..FOC_REVUP_DURATION_UPDATES {
-        if update_index % TELEMETRY_EVERY_UPDATES == 0 {
-            aux_sample = sample_aux(
-                &mut adc1,
-                &mut board_ntc,
-                &mut mcu_temp,
-                &mut vrefint,
-                calibration,
-            );
-        }
         if update_index % SPEED_LOOP_DIVIDER == 0 {
             if AUTO_ARM_AT_BOOT {
                 esc_command = EscCommand {
@@ -1043,19 +1002,25 @@ async fn main(_spawner: Spawner) {
         open_loop_step_q8 = electrical_hz_x100_to_phase_step_q8(open_loop_hz_x100);
         theta_cmd_q8 = theta_cmd_q8.wrapping_add(open_loop_step_q8);
 
-        let sample = sample_motor_injected(
+        let sample = sample_motor(
             &mut adc1,
             &mut adc2,
             &mut vbus,
             &mut bemf_a,
             &mut bemf_b,
             &mut bemf_c,
+            &mut board_ntc,
+            &mut current_a,
+            &mut current_b,
+            &mut current_c,
+            &mut mcu_temp,
+            &mut vrefint,
             &bemf_gpio,
             &hall_a,
             &hall_b,
             &hall_c,
-            aux_sample,
-            current_sampler.read(aux_sample.vdda_mv),
+            current_calibration,
+            calibration,
         );
 
         if sample.bus_mv < bus_abort_mv {
@@ -1167,15 +1132,6 @@ async fn main(_spawner: Spawner) {
             ControlState::ClosedLoop.as_str()
         );
         for update_index in 0..FOC_CLOSED_LOOP_HOLD_UPDATES {
-            if update_index % TELEMETRY_EVERY_UPDATES == 0 {
-                aux_sample = sample_aux(
-                    &mut adc1,
-                    &mut board_ntc,
-                    &mut mcu_temp,
-                    &mut vrefint,
-                    calibration,
-                );
-            }
             if update_index % SPEED_LOOP_DIVIDER == 0 {
                 if AUTO_ARM_AT_BOOT {
                     esc_command = EscCommand {
@@ -1207,19 +1163,25 @@ async fn main(_spawner: Spawner) {
                 }
             }
 
-            let sample = sample_motor_injected(
+            let sample = sample_motor(
                 &mut adc1,
                 &mut adc2,
                 &mut vbus,
                 &mut bemf_a,
                 &mut bemf_b,
                 &mut bemf_c,
+                &mut board_ntc,
+                &mut current_a,
+                &mut current_b,
+                &mut current_c,
+                &mut mcu_temp,
+                &mut vrefint,
                 &bemf_gpio,
                 &hall_a,
                 &hall_b,
                 &hall_c,
-                aux_sample,
-                current_sampler.read(aux_sample.vdda_mv),
+                current_calibration,
+                calibration,
             );
 
             if sample.bus_mv < bus_abort_mv {
@@ -1238,9 +1200,11 @@ async fn main(_spawner: Spawner) {
             }
 
             let theta_for_control = if open_loop_fallback {
+                let fallback_speed_target_hz_x100 =
+                    speed_target_hz_x100.min(FOC_FALLBACK_TARGET_HZ_X100);
                 let fallback_target_hz_x100 = interpolate(
                     FOC_REVUP_END_HZ_X100,
-                    speed_target_hz_x100,
+                    fallback_speed_target_hz_x100,
                     update_index,
                     FOC_CLOSED_LOOP_HOLD_UPDATES,
                 );
@@ -1248,11 +1212,11 @@ async fn main(_spawner: Spawner) {
                 theta_cmd_q8 = theta_cmd_q8.wrapping_add(open_loop_step_q8);
                 iq_ref_ma = interpolate_i32(
                     FOC_REVUP_IQ_END_MA,
-                    FOC_MAX_IQ_REF_MA,
+                    FOC_FALLBACK_MAX_IQ_REF_MA,
                     update_index,
                     (FOC_CLOSED_LOOP_HOLD_UPDATES / 2).max(1),
                 )
-                .clamp(FOC_MIN_IQ_REF_MA, FOC_MAX_IQ_REF_MA);
+                .clamp(FOC_MIN_IQ_REF_MA, FOC_FALLBACK_MAX_IQ_REF_MA);
                 observer.estimated_hz_x100 = fallback_target_hz_x100;
                 theta_cmd_q8
             } else {
@@ -1286,10 +1250,16 @@ async fn main(_spawner: Spawner) {
                 observer.theta_q8
             };
 
-            let limit_pct = if sample.bus_mv < bus_backoff_mv {
-                FOC_CLOSED_LOOP_VECTOR_LIMIT_PCT.saturating_sub(2)
+            let base_limit_pct = if open_loop_fallback {
+                FOC_FALLBACK_VECTOR_LIMIT_PCT
             } else {
                 FOC_CLOSED_LOOP_VECTOR_LIMIT_PCT
+            };
+
+            let limit_pct = if sample.bus_mv < bus_backoff_mv {
+                base_limit_pct.saturating_sub(2)
+            } else {
+                base_limit_pct
             };
 
             let step = run_current_loop(
@@ -1364,26 +1334,25 @@ async fn main(_spawner: Spawner) {
     info!("state_transition state={}", final_state.as_str());
 
     loop {
-        aux_sample = sample_aux(
-            &mut adc1,
-            &mut board_ntc,
-            &mut mcu_temp,
-            &mut vrefint,
-            calibration,
-        );
-        let sample = sample_motor_injected(
+        let sample = sample_motor(
             &mut adc1,
             &mut adc2,
             &mut vbus,
             &mut bemf_a,
             &mut bemf_b,
             &mut bemf_c,
+            &mut board_ntc,
+            &mut current_a,
+            &mut current_b,
+            &mut current_c,
+            &mut mcu_temp,
+            &mut vrefint,
             &bemf_gpio,
             &hall_a,
             &hall_b,
             &hall_c,
-            aux_sample,
-            current_sampler.read(aux_sample.vdda_mv),
+            current_calibration,
+            calibration,
         );
         log_telemetry(TelemetryFrame {
             seq,

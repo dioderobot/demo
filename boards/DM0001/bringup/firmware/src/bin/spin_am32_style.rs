@@ -718,9 +718,8 @@ async fn main(_spawner: Spawner) {
                     ZC_BLANKING_US,
                     control.comm_interval_us.saturating_mul(window_open_pct) / 100,
                 );
-                let mut window_close_us = control.comm_interval_us
-                    .saturating_mul(window_close_pct)
-                    / 100;
+                let mut window_close_us =
+                    control.comm_interval_us.saturating_mul(window_close_pct) / 100;
                 window_close_us = clamp_u32(
                     window_close_us,
                     window_open_us.saturating_add(MIN_WAIT_AFTER_ZC_US),
