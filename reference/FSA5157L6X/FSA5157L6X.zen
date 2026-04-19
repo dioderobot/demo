@@ -23,26 +23,26 @@ Capacitor = Module("@stdlib/generics/Capacitor.zen")
 # ----------------------------------------------------------------------------
 
 # Capacitor voltage ratings
-decoupling_cap_voltage = config("decoupling_cap_voltage", str, default="16V")
+decoupling_cap_voltage = config(str, default="16V")
 
 # Capacitor values
-decoupling_cap_value = config("decoupling_cap_value", str, default="100nF")
+decoupling_cap_value = config(str, default="100nF")
 
 # ----------------------------------------------------------------------------
 # Global Power Interfaces
 # ----------------------------------------------------------------------------
 
-VCC = io("VCC", Power)
-GND = io("GND", Ground)
+VCC = io(Power)
+GND = io(Ground)
 
 # ----------------------------------------------------------------------------
 # Global IO Nets
 # ----------------------------------------------------------------------------
 
-A = io("A", Net)
-S = io("S", Net)
-B0 = io("B0", Net)
-B1 = io("B1", Net)
+A = io(Net)
+S = io(Net)
+B0 = io(Net)
+B1 = io(Net)
 
 # ----------------------------------------------------------------------------
 # Components

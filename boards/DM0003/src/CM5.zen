@@ -44,67 +44,67 @@ JST_BATT = Module(
 V5V_IN = io("CM5_5V_IN", Net)
 V3V3_CM5 = io("CM5_3V3", Net)
 V1V8_CM5 = io("CM5_1V8", Net)
-GND = io("GND", Ground)
-GPIO_VREF = io("GPIO_VREF", Net)
+GND = io(Ground)
+GPIO_VREF = io(Net)
 
 # MIPI Interface
 MIPI0_C = io("DPHY0_P", Mipi)
 
 # HDMI Interface
-HDMI_PI = io("HDMI_PI", Hdmi)
+HDMI_PI = io(Hdmi)
 
 # USB2 Interface
-USB3P = io("USB3P", Usb3)
-USB_PI = io("USB_PI", Usb2)
-USBOTG_ID = io("USBOTG_ID", Net)
+USB3P = io(Usb3)
+USB_PI = io(Usb2)
+USBOTG_ID = io(Net)
 
 # PCIe Interface
-PCIE_PI = io("PCIE_PI", PcieGen3x1Lane)
-PCIE_PI_PWR_EN = io("PCIE_PI_PWR_EN", Net)
+PCIE_PI = io(PcieGen3x1Lane)
+PCIE_PI_PWR_EN = io(Net)
 
 # SPI Interface
-SPI_PI = io("SPI_PI", Spi)
+SPI_PI = io(Spi)
 
 # I2C/SPI Interfaces
-I2C0 = io("I2C0", I2c)
-I2C1 = io("I2C1", I2c)
+I2C0 = io(I2c)
+I2C1 = io(I2c)
 
 # GPIO Pins
-DC_GPI25 = io("DC_GPI25", Net)
-BL_GPIO24 = io("BL_GPIO24", Net)
-RST_GPIO27 = io("RST_GPIO27", Net)
+DC_GPI25 = io(Net)
+BL_GPIO24 = io(Net)
+RST_GPIO27 = io(Net)
 
 # ID Pins
-ID_SC = io("ID_SC", Net)
-ID_SD = io("ID_SD", Net)
+ID_SC = io(Net)
+ID_SD = io(Net)
 
 # Ethernet Interface
-ETH_PI = io("ETH_PI", Ethernet_Phy)
-ETH_NLED_ACTIVITY = io("ETH_NLED_ACTIVITY", Net)
-N_LED_SPEED_100_1000 = io("N_LED_SPEED_100_1000", Net)
+ETH_PI = io(Ethernet_Phy)
+ETH_NLED_ACTIVITY = io(Net)
+N_LED_SPEED_100_1000 = io(Net)
 
 # Camera Control
-CAM_GPIO0 = io("CAM_GPIO0", Net)
-CAM_GPIO1 = io("CAM_GPIO1", Net)
+CAM_GPIO0 = io(Net)
+CAM_GPIO1 = io(Net)
 
 # Other Interfaces
-CC1 = io("CC1", Net)
-CC2 = io("CC2", Net)
-EEPROM_NWP = io("EEPROM_NWP", Net)
-FAN_PWM = io("FAN_PWM", Net)
-FAN_TACHO = io("FAN_TACHO", Net)
-N_LED_ACTIVITY = io("N_LED_ACTIVITY", Net)
-PI_NLED_PWR = io("PI_NLED_PWR", Net)
-GLOBAL_EN = io("GLOBAL_EN", Net)
-PWR_BUT = io("PWR_BUT", Net)
-VBUS_EN = io("VBUS_EN", Net)
-N_RPIBOOT = io("N_RPIBOOT", Net)
+CC1 = io(Net)
+CC2 = io(Net)
+EEPROM_NWP = io(Net)
+FAN_PWM = io(Net)
+FAN_TACHO = io(Net)
+N_LED_ACTIVITY = io(Net)
+PI_NLED_PWR = io(Net)
+GLOBAL_EN = io(Net)
+PWR_BUT = io(Net)
+VBUS_EN = io(Net)
+N_RPIBOOT = io(Net)
 
 # ----------------------------------------------------------------------------
 # Local Nets
 # ----------------------------------------------------------------------------
 
-BATT = Power("BATT")
+BATT = Power()
 
 # ----------------------------------------------------------------------------
 # ComponentS

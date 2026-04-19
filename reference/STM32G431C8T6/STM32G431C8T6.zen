@@ -37,64 +37,64 @@ osc_series_resistance = config("crystal_series_resistance", Resistance, default=
 # Global Power Interfaces
 # ----------------------------------------------------------------------------
 
-V3V3 = io("V3V3", Power)
-GND = io("GND", Ground)
+V3V3 = io(Power)
+GND = io(Ground)
 
 # ----------------------------------------------------------------------------
 # Global IO Nets
 # ----------------------------------------------------------------------------
 
-PA0 = io("PA0", Net)
-PA1 = io("PA1", Net)
-PA2 = io("PA2", Net)
-PA3 = io("PA3", Net)
-PA4 = io("PA4", Net)
-PA5 = io("PA5", Net)
-PA6 = io("PA6", Net)
-PA7 = io("PA7", Net)
-PA8 = io("PA8", Net)
-PA9 = io("PA9", Net)
-PA10 = io("PA10", Net)
-PA11 = io("PA11", Net)
-PA12 = io("PA12", Net)
-PA13 = io("PA13", Net)
-PA14 = io("PA14", Net)
-PA15 = io("PA15", Net)
+PA0 = io(Net)
+PA1 = io(Net)
+PA2 = io(Net)
+PA3 = io(Net)
+PA4 = io(Net)
+PA5 = io(Net)
+PA6 = io(Net)
+PA7 = io(Net)
+PA8 = io(Net)
+PA9 = io(Net)
+PA10 = io(Net)
+PA11 = io(Net)
+PA12 = io(Net)
+PA13 = io(Net)
+PA14 = io(Net)
+PA15 = io(Net)
 
-PB0 = io("PB0", Net)
-PB1 = io("PB1", Net)
-PB2 = io("PB2", Net)
-PB3 = io("PB3", Net)
-PB4 = io("PB4", Net)
-PB5 = io("PB5", Net)
-PB6 = io("PB6", Net)
-PB7 = io("PB7", Net)
-PB8_BOOT0 = io("PB8_BOOT0", Net)
-PB9 = io("PB9", Net)
-PB10 = io("PB10", Net)
-PB11 = io("PB11", Net)
-PB12 = io("PB12", Net)
-PB13 = io("PB13", Net)
-PB14 = io("PB14", Net)
-PB15 = io("PB15", Net)
+PB0 = io(Net)
+PB1 = io(Net)
+PB2 = io(Net)
+PB3 = io(Net)
+PB4 = io(Net)
+PB5 = io(Net)
+PB6 = io(Net)
+PB7 = io(Net)
+PB8_BOOT0 = io(Net)
+PB9 = io(Net)
+PB10 = io(Net)
+PB11 = io(Net)
+PB12 = io(Net)
+PB13 = io(Net)
+PB14 = io(Net)
+PB15 = io(Net)
 
 # Note: STM32G431C8T6 doesn't have PC4, PC6, PC10, PC11 pins (only in CBU6 package)
-PC13 = io("PC13", Net)
-PC14_OSC32_IN = io("PC14_OSC32_IN", Net)
-PC15_OSC32_OUT = io("PC15_OSC32_OUT", Net)
+PC13 = io(Net)
+PC14_OSC32_IN = io(Net)
+PC15_OSC32_OUT = io(Net)
 
-NRST = io("NRST", Net)
+NRST = io(Net)
 
 # ----------------------------------------------------------------------------
 # Local Nets
 # ----------------------------------------------------------------------------
 
-VDDA = Net("VDDA")
-VREFP = Net("VREFP")
+VDDA = Net()
+VREFP = Net()
 
-XIN = Net("XIN")
-XOUT = Net("XOUT")
-R_XIN = Net("R_XIN")
+XIN = Net()
+XOUT = Net()
+R_XIN = Net()
 
 # ============================================================================
 # Components

@@ -28,32 +28,32 @@ FerriteBead = Module("@stdlib/generics/FerriteBead.zen")
 # ----------------------------------------------------------------------------
 
 # Capacitor voltage ratings
-input_cap_voltage = config("input_cap_voltage", str, default="50V")
-output_cap_voltage = config("output_cap_voltage", str, default="25V")
+input_cap_voltage = config(str, default="50V")
+output_cap_voltage = config(str, default="25V")
 
 # Feedback resistors
-fb_resistor_top = config("fb_resistor_top", str, default="4.7kohms")
-fb_resistor_bottom = config("fb_resistor_bottom", str, default="300ohms")
+fb_resistor_top = config(str, default="4.7kohms")
+fb_resistor_bottom = config(str, default="300ohms")
 
 # ----------------------------------------------------------------------------
 # Global Power Interfaces
 # ---------------------------------------------------------------------------
 
-VIN_BUCK = io("VIN_BUCK", Power)
-VOUT_BUCK = io("VOUT_BUCK", Power)
-GND = io("GND", Ground)
+VIN_BUCK = io(Power)
+VOUT_BUCK = io(Power)
+GND = io(Ground)
 
 
 # ----------------------------------------------------------------------------
 # Local Nets
 # ----------------------------------------------------------------------------
 
-COMP = Net("COMP")
-FB = Net("FB")
-FSW = Net("FSW")
-OUT = Net("OUT")
-R_SMALL_SIGNAL = Net("R_SMALL_SIGNAL")
-R_SMALL_SIGNAL_2 = Net("R_SMALL_SIGNAL_2")
+COMP = Net()
+FB = Net()
+FSW = Net()
+OUT = Net()
+R_SMALL_SIGNAL = Net()
+R_SMALL_SIGNAL_2 = Net()
 
 # ----------------------------------------------------------------------------
 # Component Instance

@@ -4,7 +4,7 @@ STM32G431C8T6
 Auto-generated using `pcb search`. Do not modify.
 """
 
-mpn = config("mpn", str, optional=True, default="STM32G431C8T6")
+mpn = config(str, optional=True, default="STM32G431C8T6")
 
 Pins = struct(
     PA0=io("PA0", Net),

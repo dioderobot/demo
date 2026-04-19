@@ -20,18 +20,18 @@ SMM4F26A = Module("github.com/dioderobot/demo/components/STMicroelectronics/SMM4
 # Configuration Parameters
 # ----------------------------------------------------------------------------
 
-no_of_power_caps = config("no_of_power_caps", int, default=11)
-capacitor_value = config("capacitor_value", str, default="22uF")
-capacitor_voltage = config("capacitor_voltage", str, default="35V")
-capacitor_dielectric = config("capacitor_dielectric", str, default="X5R")
-capacitor_package = config("capacitor_package", str, default="0805")
+no_of_power_caps = config(int, default=11)
+capacitor_value = config(str, default="22uF")
+capacitor_voltage = config(str, default="35V")
+capacitor_dielectric = config(str, default="X5R")
+capacitor_package = config(str, default="0805")
 
 # ----------------------------------------------------------------------------
 # Global Power Interfaces
 # ----------------------------------------------------------------------------
 
-VPLUS = io("VPLUS", Power)
-GND = io("GND", Ground)
+VPLUS = io(Power)
+GND = io(Ground)
 
 # ----------------------------------------------------------------------------
 # Power Caps

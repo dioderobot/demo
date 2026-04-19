@@ -18,8 +18,8 @@ InputVoltage = enum("3.3V", "5V")
 OutputVoltage = enum("1.8V", "3.3V")
 
 # Required
-input_voltage = config("input_voltage", InputVoltage, default=InputVoltage("5V"))
-output_voltage = config("output_voltage", OutputVoltage, default=OutputVoltage("3.3V"))
+input_voltage = config(InputVoltage, default=InputVoltage("5V"))
+output_voltage = config(OutputVoltage, default=OutputVoltage("3.3V"))
 
 # Pre-determined resistor values for valid combinations
 # VOUT = VREF * (1 + R1/R2) where VREF = 0.6V
@@ -82,10 +82,10 @@ calculated_vout = check_vout_with_tolerance(r1_value, r2_value, output_voltage, 
 # IO ports
 # -----------------------------------------------------------------------------
 
-VIN = io("VIN", Power)
-VOUT = io("VOUT", Power)
-GND = io("GND", Ground)
-EN = io("EN", Gpio, optional=True)
+VIN = io(Power)
+VOUT = io(Power)
+GND = io(Ground)
+EN = io(Gpio, optional=True)
 
 # Internal nets
 FB = Net("LDO_FB")

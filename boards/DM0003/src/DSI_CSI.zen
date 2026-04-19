@@ -25,12 +25,12 @@ DSI_CSI_Connector = Module("github.com/dioderobot/demo/components/Hirose/FH12M22
 # ----------------------------------------------------------------------------
 
 V3V3PI = io("3V3PI", Power)
-GND = io("GND", Ground)
+GND = io(Ground)
 
-DPHY0_C = io("DPHY0_C", Mipi)
-I2C = io("I2C", I2c)
-CAM_GPIO0 = io("CAM_GPIO0", Net)
-CAM_GPIO1 = io("CAM_GPIO1", Net)
+DPHY0_C = io(Mipi)
+I2C = io(I2c)
+CAM_GPIO0 = io(Net)
+CAM_GPIO1 = io(Net)
 
 # ----------------------------------------------------------------------------
 # Components

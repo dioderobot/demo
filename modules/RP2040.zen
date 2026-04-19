@@ -13,11 +13,11 @@ Button = Module("Button.zen")
 Oscillator = Module("Oscillator.zen")
 
 # Public interfaces
-vdd_3v3 = io("VDD_3V3", Power)
-gnd = io("GND", Ground)
-swd = io("SWD", Swd, optional=True)
-usb = io("USB", Usb2, optional=True)
-run = io("RUN", Net, optional=True)
+VDD_3V3 = io(Power)
+GND = io(Ground)
+SWD = io(Swd, optional=True)
+USB = io(Usb2, optional=True)
+RUN = io(Net, optional=True)
 
 # Internal interfaces
 vdd_1v1 = Power("VDD_1V1")
@@ -27,24 +27,24 @@ usb_internal = Usb2("USB_MCU")  # Internal USB interface (before series resistor
 
 # Build pins dictionary
 pins = {
-    "ADC_AVDD": vdd_3v3,
+    "ADC_AVDD": VDD_3V3,
     "DVDD": vdd_1v1,
-    "GND": gnd,
-    "IOVDD": vdd_3v3,
+    "GND": GND,
+    "IOVDD": VDD_3V3,
     "QSPI_SCLK": qspi.CLK,
     "QSPI_SD0": qspi.IO0,
     "QSPI_SD1": qspi.IO1,
     "QSPI_SD2": qspi.IO2,
     "QSPI_SD3": qspi.IO3,
     "QSPI_SS": qspi.CS,
-    "RUN": run,
-    "SWCLK": swd.SWCLK,
-    "SWD": swd.SWDIO,
-    "TESTEN": gnd,
+    "RUN": RUN,
+    "SWCLK": SWD.SWCLK,
+    "SWD": SWD.SWDIO,
+    "TESTEN": GND,
     "USB_DM": usb_internal.D.N,
     "USB_DP": usb_internal.D.P,
-    "USB_VDD": vdd_3v3,
-    "VREG_IN": vdd_3v3,
+    "USB_VDD": VDD_3V3,
+    "VREG_IN": VDD_3V3,
     "VREG_VOUT": vdd_1v1,
     "XIN": osc.XIN,
     "XOUT": osc.XOUT,
@@ -52,13 +52,13 @@ pins = {
 
 # Add GPIO pins 0-25 using loop
 for i in range(26):
-    gpio = io("GPIO%d" % i, Gpio, optional=True)
-    pins["GPIO%d" % i] = gpio
+    GPIO = io("GPIO%d" % i, Gpio, optional=True)
+    pins["GPIO%d" % i] = GPIO
 
 # Add ADC GPIO pins 26-29 using loop
 for i in range(4):
-    adc = io("GPIO%d_ADC%d" % (26 + i, i), Analog, optional=True)
-    pins["GPIO%d_ADC%d" % (26 + i, i)] = adc
+    ADC = io("GPIO%d_ADC%d" % (26 + i, i), Analog, optional=True)
+    pins["GPIO%d_ADC%d" % (26 + i, i)] = ADC
 
 Component(
     name="RP2040",
@@ -80,35 +80,35 @@ Component(
 # Decoupling capacitors (0402, 100nF typical)
 # DVDD: 2 pins (23, 50) - need 2 caps
 for i in range(2):
-    Capacitor(name="C_DVDD_%d" % (i + 1), package="0402", value="100nF", P1=vdd_1v1, P2=gnd)
+    Capacitor(name="C_DVDD_%d" % (i + 1), package="0402", value="100nF", P1=vdd_1v1, P2=GND)
 
 # IOVDD: 6 pins (1, 10, 22, 33, 42, 49) - need 6 caps
 for i in range(6):
-    Capacitor(name="C_IOVDD_%d" % (i + 1), package="0402", value="100nF", P1=vdd_3v3, P2=gnd)
+    Capacitor(name="C_IOVDD_%d" % (i + 1), package="0402", value="100nF", P1=VDD_3V3, P2=GND)
 
 # Single pin VDD nets - 1 cap each
-Capacitor(name="C_ADC_AVDD", package="0402", value="100nF", P1=vdd_3v3, P2=gnd)
-Capacitor(name="C_USB_VDD", package="0402", value="100nF", P1=vdd_3v3, P2=gnd)
-Capacitor(name="C_VREG_IN", package="0402", value="1uF", P1=vdd_3v3, P2=gnd)
-Capacitor(name="C_VREG_VOUT", package="0402", value="1uF", P1=vdd_1v1, P2=gnd)
+Capacitor(name="C_ADC_AVDD", package="0402", value="100nF", P1=VDD_3V3, P2=GND)
+Capacitor(name="C_USB_VDD", package="0402", value="100nF", P1=VDD_3V3, P2=GND)
+Capacitor(name="C_VREG_IN", package="0402", value="1uF", P1=VDD_3V3, P2=GND)
+Capacitor(name="C_VREG_VOUT", package="0402", value="1uF", P1=vdd_1v1, P2=GND)
 
 # RUN pin reset circuit
-Resistor(name="R_RUN_PU", package="0402", value="10kohm", P1=vdd_3v3, P2=run)
-Capacitor(name="C_RUN_POR", package="0402", value="100nF", P1=run, P2=gnd)
+Resistor(name="R_RUN_PU", package="0402", value="10kohm", P1=VDD_3V3, P2=RUN)
+Capacitor(name="C_RUN_POR", package="0402", value="100nF", P1=RUN, P2=GND)
 
 # USB series resistors (27R as per Pi Pico reference design)
-Resistor(name="R_USB_DP", package="0402", value="27ohm", P1=usb_internal.D.P, P2=usb.D.P)
-Resistor(name="R_USB_DM", package="0402", value="27ohm", P1=usb_internal.D.N, P2=usb.D.N)
+Resistor(name="R_USB_DP", package="0402", value="27ohm", P1=usb_internal.D.P, P2=USB.D.P)
+Resistor(name="R_USB_DM", package="0402", value="27ohm", P1=usb_internal.D.N, P2=USB.D.N)
 
 # BOOTSEL button
-Button(name="SW_BOOTSEL", P1=qspi.CS, P2=gnd)
+Button(name="SW_BOOTSEL", P1=qspi.CS, P2=GND)
 
 # QSPI Flash Memory
-W25Q16JVUXIQ(name="FLASH", VCC=vdd_3v3, GND=gnd, QSPI=qspi)
+W25Q16JVUXIQ(name="FLASH", VCC=VDD_3V3, GND=GND, QSPI=qspi)
 
 # Crystal Oscillator (12MHz)
-Oscillator(name="XO", frequency="12MHz", VCC=vdd_3v3, GND=gnd, OUT=osc.XIN)
+Oscillator(name="XO", frequency="12MHz", VCC=VDD_3V3, GND=GND, OUT=osc.XIN)
 
 # SWD Test Points (1.5mm diameter pads for probing)
-TestPoint(name="TP_SWDIO", variant="Pad_D1.5mm", P1=swd.SWDIO)
-TestPoint(name="TP_SWCLK", variant="Pad_D1.5mm", P1=swd.SWCLK)
+TestPoint(name="TP_SWDIO", variant="Pad_D1.5mm", P1=SWD.SWDIO)
+TestPoint(name="TP_SWCLK", variant="Pad_D1.5mm", P1=SWD.SWCLK)

@@ -4,7 +4,7 @@ CSTNE8M00GH5C000R0
 Auto-generated using `pcb search`. Do not modify.
 """
 
-mpn = config("mpn", str, optional=True, default="CSTNE8M00GH5C000R0")
+mpn = config(str, optional=True, default="CSTNE8M00GH5C000R0")
 
 Pins = struct(GND=io("GND", Net), INPUT=io("INPUT", Net), OUTPUT=io("OUTPUT", Net))
 

@@ -35,17 +35,17 @@ SSMUX = Module("github.com/dioderobot/demo/components/Texas_Instruments/HD3SS321
 # ----------------------------------------------------------------------------
 
 V5 = io("V5V", Power)
-V3V3 = io("V3V3", Power)
-GND = io("GND", Ground)
+V3V3 = io(Power)
+GND = io(Ground)
 
 USB3P = io("USB_3PI", Usb3)
-VBUS_EN = io("VBUS_EN", Net)
+VBUS_EN = io(Net)
 
 USB_Connector = UsbTypeC("USB_C")
-VBUS = Power("VBUS")
-PORT = Net("PORT")
-VBUS_DET = Net("VBUS_DET")
-DIR = Net("DIR")
+VBUS = Power()
+PORT = Net()
+VBUS_DET = Net()
+DIR = Net()
 
 USB_TypeC_Connector(
     name="USB_PD",

@@ -7,12 +7,12 @@ Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 
 # Configuration
-add_pullups = config("add_pullups", bool, default=True)
+add_pullups = config(bool, default=True)
 
 # External interfaces
-VCC = io("VCC", Power)
-GND = io("GND", Ground)
-QSPI = io("QSPI", Qspi)
+VCC = io(Power)
+GND = io(Ground)
+QSPI = io(Qspi)
 
 Component(
     name="W25Q16JVUXIQ",

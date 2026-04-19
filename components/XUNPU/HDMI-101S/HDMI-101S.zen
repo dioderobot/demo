@@ -4,7 +4,7 @@ HDMI-101S
 Auto-generated using `pcb search`. Do not modify.
 """
 
-mpn = config("mpn", str, optional=True, default="685119248123")
+mpn = config(str, optional=True, default="685119248123")
 
 Pins = struct(
     CEC=io("CEC", Net),

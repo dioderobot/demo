@@ -26,12 +26,12 @@ Capacitor = Module("@stdlib/generics/Capacitor.zen")
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-VIN = io("VIN", Power)
-VOUT = io("VOUT", Power)
-GND = io("GND", Ground)
+VIN = io(Power)
+VOUT = io(Power)
+GND = io(Ground)
 
-ENABLE = io("ENABLE", Net)
-FAULT = io("FAULT", Net)
+ENABLE = io(Net)
+FAULT = io(Net)
 
 # ----------------------------------------------------------------------------
 # Componenta

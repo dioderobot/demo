@@ -1,5 +1,5 @@
 # Optional parameters
-mpn = config("mpn", str, default="KMR231G LFS", optional=True)
+mpn = config(str, default="KMR231G LFS", optional=True)
 
 
 # MPN to footprint mapping
@@ -14,8 +14,8 @@ def _get_footprint(part_number: str):
     return footprint_map[part_number]
 
 
-P1 = io("P1", Net)
-P2 = io("P2", Net)
+P1 = io(Net)
+P2 = io(Net)
 
 Component(
     name="SW",

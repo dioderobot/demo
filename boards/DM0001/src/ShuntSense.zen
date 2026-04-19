@@ -19,22 +19,21 @@ Resistor = Module("@stdlib/generics/Resistor.zen")
 # Global Power Interfaces
 # ---------------------------------------------------------------------------
 
-V3V3 = io("V3V3", Power)
-GND = io("GND", Ground)
+V3V3 = io(Power)
+GND = io(Ground)
 
 # ----------------------------------------------------------------------------
 # Global IO Nets
 # ---------------------------------------------------------------------------
 
 # Shunt Voltage
-VSHUNTP_A = io("VSHUNTP_A", Net)
-VSHUNTP_B = io("VSHUNTP_B", Net)
-VSHUNTP_C = io("VSHUNTP_C", Net)
+VSHUNTP_A = io(Net)
+VSHUNTP_B = io(Net)
+VSHUNTP_C = io(Net)
 
-CURR_FDBK1_OPAMP_PLUS = io("CURR_FDBK1_OPAMP_PLUS", Net)
-CURR_FDBK2_OPAMP_PLUS = io("CURR_FDBK2_OPAMP_PLUS", Net)
-CURR_FDBK3_OPAMP_PLUS = io("CURR_FDBK3_OPAMP_PLUS", Net)
-
+CURR_FDBK1_OPAMP_PLUS = io(Net)
+CURR_FDBK2_OPAMP_PLUS = io(Net)
+CURR_FDBK3_OPAMP_PLUS = io(Net)
 
 
 # ----------------------------------------------------------------------------

@@ -67,8 +67,8 @@ variant_module_map = {
 }
 
 if config_vout_selection == OutputVoltage("Custom"):
-    fb_resistance_top = config("fb_resistance_top", str, default="10kohms")
-    fb_resistance_bottom = config("fb_resistance_bottom", str, default="10kohms")
+    fb_resistance_top = config(str, default="10kohms")
+    fb_resistance_bottom = config(str, default="10kohms")
 else:
     fb_resistance_top = feedback_resistor_map.get(config_vout_selection, "45.3kohms")
     fb_resistance_bottom = "10kohms"
@@ -98,18 +98,18 @@ Inductor = Module("github.com/dioderobot/demo/reference/XAL50xx/XAL50xx.zen")
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-VIN = io("VIN", Power)
-PG = io("PG", Net)
-ENABLE = io("ENABLE", Net)
-VOUT = io("VOUT", Power)
-GND = io("GND", Ground)
+VIN = io(Power)
+PG = io(Net)
+ENABLE = io(Net)
+VOUT = io(Power)
+GND = io(Ground)
 
 # ----------------------------------------------------------------------------
 # local nets
 # ----------------------------------------------------------------------------
 
-LX_OUT = Net("LX_OUT")
-FB_NODE = Net("FB_NODE")
+LX_OUT = Net()
+FB_NODE = Net()
 
 # ----------------------------------------------------------------------------
 # Components

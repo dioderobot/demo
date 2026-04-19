@@ -44,25 +44,25 @@ Power_Button = Module("github.com/dioderobot/demo/components/OMRON_Electronics/B
 # ----------------------------------------------------------------------------
 V5 = io("5V", Power("5V", voltage=Voltage("5V")))
 V3V3PI = io("3V3PI", Power("3V3PI", voltage=Voltage("3.3V")))
-GND = io("GND", Ground)
+GND = io(Ground)
 
-SPI = io("SPI", Spi)
-I2C = io("I2C", I2c)
+SPI = io(Spi)
+I2C = io(I2c)
 
-BL = io("BL", Net)
-RST = io("RST", Net)
-DC = io("DC", Net)
+BL = io(Net)
+RST = io(Net)
+DC = io(Net)
 
-FAN_PWM = io("FAN_PWM", Net)
-FAN_TACHO = io("FAN_TACHO", Net)
+FAN_PWM = io(Net)
+FAN_TACHO = io(Net)
 
-N_PWR_LED = io("N_PWR_LED", Net)
-N_LED_ACTIVITY = io("N_LED_ACTIVITY", Net)
-PWR_BUT = io("PWR_BUT", Net)
+N_PWR_LED = io(Net)
+N_LED_ACTIVITY = io(Net)
+PWR_BUT = io(Net)
 
-R_LED_ACTIVITY = Net("R_LED_ACTIVITY")
-R_LED_PWR = Net("R_LED_PWR")
-LED_PWR = Net("LED_PWR")
+R_LED_ACTIVITY = Net()
+R_LED_PWR = Net()
+LED_PWR = Net()
 
 # ----------------------------------------------------------------------------
 # Components

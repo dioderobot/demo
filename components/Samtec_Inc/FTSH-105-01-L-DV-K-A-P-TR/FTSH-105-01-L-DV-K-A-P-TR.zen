@@ -4,9 +4,9 @@ FTSH-105-01-L-DV-K-A-P-TR
 Auto-generated using `pcb search`.
 """
 
-mpn = config("mpn", str, optional=True, default="FTSH-105-01-L-DV-K-A-P-TR")
-manufacturer = config("manufacturer", str, optional=True, default="Samtec Inc.")
-alternatives = config("alternatives", list, default=[])
+mpn = config(str, optional=True, default="FTSH-105-01-L-DV-K-A-P-TR")
+manufacturer = config(str, optional=True, default="Samtec Inc.")
+alternatives = config(list, default=[])
 
 Pins = struct(
     P1=io("P1", Net),

@@ -32,18 +32,18 @@ Led = Module("@stdlib/generics/Led.zen")
 # ----------------------------------------------------------------------------
 
 V5 = io("5V", Power("5V", voltage=Voltage("5V")))
-GND = io("GND", Ground)
-PCIE_C = io("PCIE_C", PcieGen3x1Lane)
-PCIE_PWR_EN = io("PCIE_PWR_EN", Net)
+GND = io(Ground)
+PCIE_C = io(PcieGen3x1Lane)
+PCIE_PWR_EN = io(Net)
 
 # ----------------------------------------------------------------------------
 # local nets
 # ----------------------------------------------------------------------------
 
-M2_3V3 = Power("M2_3V3", voltage=Voltage("3.3V"))
-DAS_DSS_LED1 = Net("DAS_DSS_LED1")
-R_ACTIVITY = Net("R_ACTIVITY")
-SUSCLK = Net("SUSCLK")
+M2_3V3 = Power(voltage=Voltage("3.3V"))
+DAS_DSS_LED1 = Net()
+R_ACTIVITY = Net()
+SUSCLK = Net()
 
 # ----------------------------------------------------------------------------
 # Components

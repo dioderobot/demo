@@ -42,72 +42,72 @@ TagConnect = Module("github.com/diodeinc/registry/connectors/TagConnect/TC2030-N
 # Global Power Interfaces
 # ----------------------------------------------------------------------------
 
-VPLUS = Power("VPLUS")
-V10V = Power("V10V", voltage=Voltage("10V"), symbol=Symbol("@kicad-symbols/power.kicad_sym:+10V"))
-V5V = Power("V5V", voltage=Voltage("5V"), symbol=Symbol("@kicad-symbols/power.kicad_sym:+5V"))
-V3V3 = Power("V3V3", voltage=Voltage("3.3V"), symbol=Symbol("@kicad-symbols/power.kicad_sym:+3V3"))
-GND = Ground("GND")
+VPLUS = Power()
+V10V = Power(voltage=Voltage("10V"), symbol=Symbol("@kicad-symbols/power.kicad_sym:+10V"))
+V5V = Power(voltage=Voltage("5V"), symbol=Symbol("@kicad-symbols/power.kicad_sym:+5V"))
+V3V3 = Power(voltage=Voltage("3.3V"), symbol=Symbol("@kicad-symbols/power.kicad_sym:+3V3"))
+GND = Ground()
 
 # ----------------------------------------------------------------------------
 # Global Communication Interfaces
 # ----------------------------------------------------------------------------
 
-Swd = io("SWD", Swd)
-Can = io("CAN", CanTtl)
-Uart2 = io("UART2", Uart)
+SWD = io(Swd)
+CAN = io(CanTtl)
+UART2 = io(Uart)
 
 # ----------------------------------------------------------------------------
 # Global IO Nets
 # ----------------------------------------------------------------------------
 
 # Motor Outputs
-PHASE_A = io("PHASE_A", Net)
-PHASE_B = io("PHASE_B", Net)
-PHASE_C = io("PHASE_C", Net)
+PHASE_A = io(Net)
+PHASE_B = io(Net)
+PHASE_C = io(Net)
 
 # Communication Interfaces
-CAN_RX = Can.RX  # CAN Receive (PA11)
-CAN_TX = Can.TX  # CAN Transmit (PB9)
-UART2_TX = Uart2.TX  # UART2 Transmit (PB3)
-UART2_RX = Uart2.RX  # UART2 Receive (PB4)
+CAN_RX = CAN.RX  # CAN Receive (PA11)
+CAN_TX = CAN.TX  # CAN Transmit (PB9)
+UART2_TX = UART2.TX  # UART2 Transmit (PB3)
+UART2_RX = UART2.RX  # UART2 Receive (PB4)
 
 # Unassigned pins
-PB10 = io("PB10", Net)
-NRST = io("NRST", Net)
+PB10 = io(Net)
+NRST = io(Net)
 
 # ----------------------------------------------------------------------------
 # Local Nets
 # ----------------------------------------------------------------------------
 
 # Timer/PWM Signals
-TIM1_CH1 = Net("TIM1_CH1")
-TIM1_CH2 = Net("TIM1_CH2")
-TIM1_CH3 = Net("TIM1_CH3")
-TIM1_CH1N = Net("TIM1_CH1N")
-TIM1_CH2N = Net("TIM1_CH2N")
-TIM1_CH3N = Net("TIM1_CH3N")
+TIM1_CH1 = Net()
+TIM1_CH2 = Net()
+TIM1_CH3 = Net()
+TIM1_CH1N = Net()
+TIM1_CH2N = Net()
+TIM1_CH3N = Net()
 
 # BEMF Sensing
-BEMF1 = Net("BEMF1")
-BEMF2 = Net("BEMF2")
-BEMF3 = Net("BEMF3")
-GPIO_BEMF = Net("GPIO_BEMF")
+BEMF1 = Net()
+BEMF2 = Net()
+BEMF3 = Net()
+GPIO_BEMF = Net()
 
 # Current Feedback OpAmp Signals
 CURR_FDBK1_OPAMP_PLUS = Net("CURR_FDBK1_OPAMP+")
 CURR_FDBK1_OPAMP_MINUS = GND
-OP1_OUT = Net("OP1_OUT")
+OP1_OUT = Net()
 CURR_FDBK2_OPAMP_PLUS = Net("CURR_FDBK2_OPAMP+")
 CURR_FDBK2_OPAMP_MINUS = GND
-OP2_OUT = Net("OP2_OUT")
+OP2_OUT = Net()
 CURR_FDBK3_OPAMP_PLUS = Net("CURR_FDBK3_OPAMP+")
 CURR_FDBK3_OPAMP_MINUS = GND
-OP3_OUT = Net("OP3_OUT")
+OP3_OUT = Net()
 
 # Other Signals
-VBUS = Net("VBUS")
-STATUS = Net("STATUS")
-TEMP_FEEDBACK = Net("TEMP_FEEDBACK")
+VBUS = Net()
+STATUS = Net()
+TEMP_FEEDBACK = Net()
 
 # Hall Encoder Signals
 A_PLUS_H1_OUT = Net("A_PLUS_H1")
@@ -115,18 +115,18 @@ B_PLUS_H2_OUT = Net("B_PLUS_H2")
 Z_PLUS_H3_OUT = Net("Z_PLUS_H3")
 
 # Shunt Voltage
-VSHUNTP_A = Net("VSHUNTP_A")
-VSHUNTP_B = Net("VSHUNTP_B")
-VSHUNTP_C = Net("VSHUNTP_C")
+VSHUNTP_A = Net()
+VSHUNTP_B = Net()
+VSHUNTP_C = Net()
 
 # CAN Interface
-CAN_TERM = Net("CAN_TERM")
-CAN_SHDN = Net("CAN_SHDN")
+CAN_TERM = Net()
+CAN_SHDN = Net()
 
-R_STATUS_LED = Net("R_STATUS_LED")
-R_POWER_LED = Net("R_POWER_LED")
+R_STATUS_LED = Net()
+R_POWER_LED = Net()
 
-PWM = Net("PWM")
+PWM = Net()
 
 # ----------------------------------------------------------------------------
 # Components
@@ -192,8 +192,8 @@ Mcu(
     PA10=TIM1_CH3,  # Timer1 Channel 3
     PA11=CAN_RX,  # CAN Receive
     PA12=TIM1_CH2N,  # Timer1 Channel 2N
-    PA13=Swd.SWDIO,  # SWD Data
-    PA14=Swd.SWCLK,  # SWD Clock
+    PA13=SWD.SWDIO,  # SWD Data
+    PA14=SWD.SWCLK,  # SWD Clock
     PA15=PWM,
     PB0=CURR_FDBK3_OPAMP_PLUS,  # Current feedback 3 OpAmp+
     PB1=OP3_OUT,  # OpAmp 3 output
@@ -314,7 +314,7 @@ ShuntSense(
 TagConnect(
     name="TagConnect",
     VSENSE=V3V3,
-    SWD=Swd,
+    SWD=SWD,
     NRST=NRST,
     GND=GND,
     SWO=NotConnected(),

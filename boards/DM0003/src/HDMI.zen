@@ -24,14 +24,14 @@ Current_Limit_Switch = Module("github.com/dioderobot/demo/reference/STMPS2151STR
 # ----------------------------------------------------------------------------
 
 V5 = io("5V", Power)
-GND = io("GND", Ground)
-HDMI_C = io("HDMI_C", Hdmi)
+GND = io(Ground)
+HDMI_C = io(Hdmi)
 
 # ----------------------------------------------------------------------------
 # Local nets
 # ----------------------------------------------------------------------------
 
-HDMI_5V = Power("HDMI_5V")
+HDMI_5V = Power()
 
 # ----------------------------------------------------------------------------
 # Components
