@@ -15,26 +15,26 @@ LMV321_Component = Module("github.com/dioderobot/demo/components/Texas_Instrumen
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 
 # External interfaces
-in_pos = io("IN_POS", Net)
-in_neg = io("IN_NEG", Net)
-output = io("OUT", Net)
-vcc = io("VCC", Power)
-gnd = io("GND", Ground)
+IN_POS = io(Net)
+IN_NEG = io(Net)
+OUT = io(Net)
+VCC = io(Power)
+GND = io(Ground)
 
 # Op amp
 LMV321_Component(
     name="U",
     **{
-        "IN+": in_pos,
-        "IN-": in_neg,
-        "OUT": output,
-        "V+": vcc,
-        "GND": gnd,
-    }
+        "IN+": IN_POS,
+        "IN-": IN_NEG,
+        "OUT": OUT,
+        "V+": VCC,
+        "GND": GND,
+    },
 )
 
 # Supply bypass capacitor (place close to VCC/GND pins)
-Capacitor(name="C_BYPASS", package="0402", value="100nF", P1=vcc, P2=gnd)
+Capacitor(name="C_BYPASS", package="0402", value="100nF", P1=VCC, P2=GND)
 
 # pcb:sch C_BYPASS.C x=-8.6200 y=-737.6000 rot=0
 # pcb:sch GND.0 x=75.2000 y=-470.9000 rot=0

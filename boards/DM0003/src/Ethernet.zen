@@ -26,19 +26,19 @@ Led = Module("@stdlib/generics/Led.zen")
 # ----------------------------------------------------------------------------
 
 V3V3PI = io("3V3PI", Power)
-GND = io("GND", Ground)
+GND = io(Ground)
 
-ETH_C = io("ETH_C", Ethernet_Phy)
+ETH_C = io(Ethernet_Phy)
 
-NLED_Y = io("NLED_Y", Net)
-NLED_G = io("NLED_G", Net)
+NLED_Y = io(Net)
+NLED_G = io(Net)
 
 # ----------------------------------------------------------------------------
 # local nets
 # ----------------------------------------------------------------------------
 
-VCC = Net("VCC")
-MP = Net("MP")
+VCC = Net()
+MP = Net()
 
 ETHERNET_A_GREEN = Net("A_GREEN")
 ETHERNET_A_YELLOW = Net("A_YELLOW")

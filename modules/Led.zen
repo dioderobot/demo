@@ -15,8 +15,8 @@ Resistor = Module("@stdlib/generics/Resistor.zen")
 # ------------------------------------------------------------
 # User parameters
 # ------------------------------------------------------------
-color = config("color", Led.Color, default="red")
-supply_voltage = config("supply_voltage", Voltage, default=Voltage("3.3V"))
+color = config(Led.Color, default="red")
+supply_voltage = config(Voltage, default=Voltage("3.3V"))
 
 # ------------------------------------------------------------
 # Static part database (0402 LEDs from Vishay + series R)
@@ -45,8 +45,8 @@ check(i_led <= i_test, "LED current (%s) exceeds rated test current (%s)" % (i_l
 # ------------------------------------------------------------
 # External interfaces
 # ------------------------------------------------------------
-p1 = io("P1", Net)  # Connect to VCC for open-drain or MCU pin for push-pull
-p2 = io("P2", Net)  # Connect to MCU pin for open-drain or GND for push-pull
+P1 = io(Net)  # Connect to VCC for open-drain or MCU pin for push-pull
+P2 = io(Net)  # Connect to MCU pin for open-drain or GND for push-pull
 
 # Internal net between LED and resistor
 led_r_net = Net("LED_R_NET")
@@ -60,14 +60,14 @@ Led(
     color=color,
     forward_voltage=vf,
     forward_current=i_led,
-    A=led_r_net,  # Anode to p1 (VCC for open-drain)
-    K=p2,  # Cathode to internal net
+    A=led_r_net,  # Anode to P1 (VCC for open-drain)
+    K=P2,  # Cathode to internal net
 )
 
 Resistor(
     name="R_D",
     package="0402",
     value=r_ohm,
-    P1=p1,  # From LED cathode
-    P2=led_r_net,  # To p2 (MCU pin for open-drain)
+    P1=P1,  # From LED cathode
+    P2=led_r_net,  # To P2 (MCU pin for open-drain)
 )

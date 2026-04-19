@@ -4,7 +4,7 @@ SN74LVC1G14DRLRG4
 Auto-generated using `pcb search`. Do not modify.
 """
 
-mpn = config("mpn", str, optional=True, default="SN74LVC1G14DRLR")
+mpn = config(str, optional=True, default="SN74LVC1G14DRLR")
 
 Pins = struct(A=io("A", Net), GND=io("GND", Ground), VCC=io("VCC", Power), Y=io("Y", Net))
 

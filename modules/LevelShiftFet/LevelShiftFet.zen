@@ -5,13 +5,13 @@ Resistor = Module("@stdlib/generics/Resistor.zen")
 
 # bidirectional level shifter for low voltage logic.
 
-pullup_value = config("pullup_value", str, default="10kohm 10%", optional=True)
-dnp_pullup_source = config("dnp_pullup_source", bool, default=False, optional=True)
+pullup_value = config(str, default="10kohm 10%", optional=True)
+dnp_pullup_source = config(bool, default=False, optional=True)
 
-SIGNAL_LOWER = io("SIGNAL_LOWER", Net)
-SIGNAL_UPPER = io("SIGNAL_UPPER", Net)
-POWER_UPPER = io("POWER_UPPER", Power)
-POWER_LOWER = io("POWER_LOWER", Power)
+SIGNAL_LOWER = io(Net)
+SIGNAL_UPPER = io(Net)
+POWER_UPPER = io(Power)
+POWER_LOWER = io(Power)
 
 BSS138_7_F(
     name="level_shift_fet_tx",

@@ -25,28 +25,28 @@ SchottkyDiode = Module("@stdlib/generics/Rectifier.zen")
 # Global Power Interfaces
 # ---------------------------------------------------------------------------
 
-V5V = io("V5V", Power)
-V3V3 = io("V3V3", Power)
-GND = io("GND", Ground)
+V5V = io(Power)
+V3V3 = io(Power)
+GND = io(Ground)
 
 # ----------------------------------------------------------------------------
 # Global IO Nets
 # ----------------------------------------------------------------------------
 
-CAN_RX = io("CAN_RX", Net)
-CAN_TX = io("CAN_TX", Net)
-CAN_TERM = io("CAN_TERM", Net)
-CAN_SHDN = io("CAN_SHDN", Net)
+CAN_RX = io(Net)
+CAN_TX = io(Net)
+CAN_TERM = io(Net)
+CAN_SHDN = io(Net)
 
 # ----------------------------------------------------------------------------
 # Local Nets
 # ----------------------------------------------------------------------------
 
-CAN_H = Net("CAN_H")
-CAN_L = Net("CAN_L")
-JST_5V = Net("JST_5V")
-S1 = Net("S1")
-FUSE = Net("FUSE")
+CAN_H = Net()
+CAN_L = Net()
+JST_5V = Net()
+S1 = Net()
+FUSE = Net()
 
 # ---------------------------------------------------------------------------
 # Components

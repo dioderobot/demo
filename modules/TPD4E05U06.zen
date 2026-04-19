@@ -5,11 +5,11 @@ Automotive-grade USB 2.0 ESD protection diode
 
 load("@stdlib/interfaces.zen", "Usb2")
 
-GND = io("GND", Ground)
-D1P = io("D1P", Net)
-D1M = io("D1M", Net)
-D2P = io("D2P", Net)
-D2M = io("D2M", Net)
+GND = io(Ground)
+D1P = io(Net)
+D1M = io(Net)
+D2P = io(Net)
+D2M = io(Net)
 
 Component(
     name="TVS",

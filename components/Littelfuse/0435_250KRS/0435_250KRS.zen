@@ -4,7 +4,7 @@
 Auto-generated using `pcb search`. Do not modify.
 """
 
-mpn = config("mpn", str, optional=True, default="0435.250KRS")
+mpn = config(str, optional=True, default="0435.250KRS")
 
 Pins = struct(P1=io("P1", Net), P2=io("P2", Net))
 

@@ -28,32 +28,32 @@ SchottkyDiode = Module("@stdlib/generics/Rectifier.zen")
 # Global Power Interfaces
 # ---------------------------------------------------------------------------
 
-VPLUS = io("VPLUS", Power)
-VCC = io("VCC", Power)
-V3V3 = io("V3V3", Power)
-GND = io("GND", Ground)
+VPLUS = io(Power)
+VCC = io(Power)
+V3V3 = io(Power)
+GND = io(Ground)
 
 # ----------------------------------------------------------------------------
 # Global IO Nets
 # ---------------------------------------------------------------------------
 
-TIM_CHN = io("TIM_CHN", Net)
-TIM_CHP = io("TIM_CHP", Net)
-PHASEOUT = io("PHASEOUT", Net)
-VSHUNTP = io("VSHUNTP", Net)
-GPIO_BEMF = io("GPIO_BEMF", Net)
-BEMF = io("BEMF", Net)
+TIM_CHN = io(Net)
+TIM_CHP = io(Net)
+PHASEOUT = io(Net)
+VSHUNTP = io(Net)
+GPIO_BEMF = io(Net)
+BEMF = io(Net)
 
 # ----------------------------------------------------------------------------
 # Local Nets
 # ---------------------------------------------------------------------------
 
-HVG = Net("HVG")  # Gate driver high-side output
-LVG = Net("LVG")  # Gate driver low-side output
-HI_GATE = Net("HI_GATE")  # High-side FET gate (after resistor)
-LO_GATE = Net("LO_GATE")  # Low-side FET gate (after resistor)
-RC_NODE = Net("RC_NODE")  # RC snubber connection node
-D_BEMF = Net("D_BEMF")  # Back EMF detection diode cathode
+HVG = Net()  # Gate driver high-side output
+LVG = Net()  # Gate driver low-side output
+HI_GATE = Net()  # High-side FET gate (after resistor)
+LO_GATE = Net()  # Low-side FET gate (after resistor)
+RC_NODE = Net()  # RC snubber connection node
+D_BEMF = Net()  # Back EMF detection diode cathode
 
 # ============================================================================
 # Components

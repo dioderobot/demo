@@ -11,21 +11,16 @@
 load("@stdlib/interfaces.zen", "Analog", "Gpio", "Swd", "Uart", "Usb2")
 # load("@stdlib/board_config.zen", "Board")
 # load("@stdlib/units.zen", "Voltage")
-load("@stdlib/board_config.zen", "Board", "BoardConfig", "Constraints", "Copper", "DesignRules", "NetClass", "Silkscreen")
+load(
+    "@stdlib/board_config.zen", "Board", "BoardConfig", "Constraints", "Copper", "DesignRules", "NetClass", "Silkscreen"
+)
 load("@stdlib/units.zen", "Impedance", "Voltage")
-
-# Board(
-#     name="DM0002",
-#     layers=4,
-#     layout_path="layout", 
-    
-# )
 
 
 Board(
     name="DM0002",
-     layers=4,
-     layout_path="layout", 
+    layers=4,
+    layout_path="layout",
     config=BoardConfig(
         design_rules=DesignRules(
             constraints=Constraints(
@@ -74,8 +69,6 @@ Board(
 )
 
 
-
-
 RP2040 = Module("github.com/dioderobot/demo/modules/RP2040.zen")
 USB4105 = Module("github.com/dioderobot/demo/modules/USB4105.zen")
 TLV758P = Module("github.com/dioderobot/demo/modules/TLV758P.zen")
@@ -83,7 +76,9 @@ Led = Module("github.com/dioderobot/demo/modules/Led.zen")
 LMV321 = Module("github.com/dioderobot/demo/modules/LMV321.zen")
 TLV9001 = Module("github.com/dioderobot/demo/modules/TLV9001.zen")
 TXB0102 = Module("github.com/dioderobot/demo/components/Texas_Instruments/TXB0102DCUR/TXB0102DCUR.zen")
-FTSH105 = Module("github.com/dioderobot/demo/components/Samtec_Inc/FTSH-105-01-L-DV-K-A-P-TR/FTSH-105-01-L-DV-K-A-P-TR.zen")
+FTSH105 = Module(
+    "github.com/dioderobot/demo/components/Samtec_Inc/FTSH-105-01-L-DV-K-A-P-TR/FTSH-105-01-L-DV-K-A-P-TR.zen"
+)
 LevelShiftFet = Module("github.com/dioderobot/demo/modules/LevelShiftFet/LevelShiftFet.zen")
 
 

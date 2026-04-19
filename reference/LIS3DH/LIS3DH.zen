@@ -46,7 +46,7 @@ Resistor = Module("@stdlib/generics/Resistor.zen")
 # ----------------------------------------------------------------------------
 
 # Power IOs (always exposed)
-VDD = io("VDD", Power)
+VDD = io(Power)
 
 # Optional separate VDDIO
 if config_seperate_vddio:
@@ -54,13 +54,13 @@ if config_seperate_vddio:
 else:
     VDD_IO = VDD
 
-GND = io("GND", Ground)
+GND = io(Ground)
 
 # I2C mode: SDA, SCL
 # Per datasheet: CS must be tied high for I2C mode
 if config_interface == InterfaceMode("I2C"):
-    SDA = io("SDA", Net)
-    SCL = io("SCL", Net)
+    SDA = io(Net)
+    SCL = io(Net)
 
     _cs = VDD_IO
     _sclk = SCL
@@ -69,9 +69,9 @@ if config_interface == InterfaceMode("I2C"):
 
     # 3-wire SPI: CS, SCLK, SDIO (bidirectional data)
 elif config_interface == InterfaceMode("SPI3W"):
-    CS = io("CS", Net)
-    SCLK = io("SCLK", Net)
-    SDIO = io("SDIO", Net)
+    CS = io(Net)
+    SCLK = io(Net)
+    SDIO = io(Net)
 
     _cs = CS
     _sclk = SCLK
@@ -80,10 +80,10 @@ elif config_interface == InterfaceMode("SPI3W"):
 
     # 4-wire SPI: CS, SCLK, MOSI, MISO
 elif config_interface == InterfaceMode("SPI4W"):
-    CS = io("CS", Net)
-    SCLK = io("SCLK", Net)
-    MOSI = io("MOSI", Net)
-    MISO = io("MISO", Net)
+    CS = io(Net)
+    SCLK = io(Net)
+    MOSI = io(Net)
+    MISO = io(Net)
 
     _cs = CS
     _sclk = SCLK

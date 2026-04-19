@@ -16,11 +16,11 @@ UsbCMode = enum("host", "device", "external")
 HostCurrent = enum("default", "1.5A", "3A")
 
 # Configuration
-mode = config("mode", UsbCMode, default=UsbCMode("device"))
-host_current = config("host_current", HostCurrent, default=HostCurrent("default"), optional=True)
+mode = config(UsbCMode, default=UsbCMode("device"))
+host_current = config(HostCurrent, default=HostCurrent("default"), optional=True)
 
 VBUS = io(Power("VBUS", voltage=Voltage("4.5 to 5.5V")))
-USB = io("USB", Usb2)
+USB = io(Usb2)
 GND = io(Ground())
 SHIELD = io(Ground(GND), optional=True)
 CC1 = io(Net(), optional=True)

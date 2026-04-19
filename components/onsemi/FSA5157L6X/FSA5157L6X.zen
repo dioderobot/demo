@@ -4,7 +4,7 @@ FSA5157L6X
 Auto-generated using `pcb search`. Do not modify.
 """
 
-mpn = config("mpn", str, optional=True, default="FSA5157L6X")
+mpn = config(str, optional=True, default="FSA5157L6X")
 
 Pins = struct(
     A=io("A", Net), B0=io("B0", Net), B1=io("B1", Net), GND=io("GND", Net), S=io("S", Net), VCC=io("VCC", Net)

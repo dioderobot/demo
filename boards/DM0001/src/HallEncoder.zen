@@ -25,30 +25,30 @@ Capacitor = Module("@stdlib/generics/Capacitor.zen")
 # Global Power Interfaces
 # ---------------------------------------------------------------------------
 
-V5V = io("V5V", Power)
-V3V3 = io("V3V3", Power)
-GND = io("GND", Ground)
+V5V = io(Power)
+V3V3 = io(Power)
+GND = io(Ground)
 
 # ----------------------------------------------------------------------------
 # Global IO Nets
 # ----------------------------------------------------------------------------
 
 # To MCU
-A_PLUS_H1_OUT = io("A_PLUS_H1_OUT", Net)
-B_PLUS_H2_OUT = io("B_PLUS_H2_OUT", Net)
-Z_PLUS_H3_OUT = io("Z_PLUS_H3_OUT", Net)
+A_PLUS_H1_OUT = io(Net)
+B_PLUS_H2_OUT = io(Net)
+Z_PLUS_H3_OUT = io(Net)
 
 # ----------------------------------------------------------------------------
 # Local Nets
 # ----------------------------------------------------------------------------
 
 # From JST Header
-A_PLUS_H1_IN = Net("A_PLUS_H1_IN")
-B_PLUS_H2_IN = Net("B_PLUS_H2_IN")
-Z_PLUS_H3_IN = Net("Z_PLUS_H3_IN")
+A_PLUS_H1_IN = Net()
+B_PLUS_H2_IN = Net()
+Z_PLUS_H3_IN = Net()
 
-MP1 = Net("MP1")
-MP2 = Net("MP2")
+MP1 = Net()
+MP2 = Net()
 
 # ============================================================================
 # Components

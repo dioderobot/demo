@@ -28,11 +28,11 @@ VoltageClamp = Module("github.com/dioderobot/demo/components/Semtech_Corporation
 # ----------------------------------------------------------------------------
 
 V5 = io("5V", Power)
-GND = io("GND", Ground)
+GND = io(Ground)
 USB2C = io("USB_PI", Usb2)
 
-CC1 = io("CC1", Net)
-CC2 = io("CC2", Net)
+CC1 = io(Net)
+CC2 = io(Net)
 
 # ----------------------------------------------------------------------------
 # local nets
