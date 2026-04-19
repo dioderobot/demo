@@ -3,6 +3,7 @@ name = "DM0001"
 description = "Compact 3-phase BLDC motor controller. Features STM32G4, CAN bus, and hall encoder support."
 
 [dependencies]
+"github.com/diodeinc/registry/connectors/TagConnect" = "0.1.3"
 "github.com/diodeinc/registry/reference/LDFPVR" = "0.9.0"
 "github.com/dioderobot/demo/components/Coilcraft/LPS4018-333MRC" = "0.1.0"
 "github.com/dioderobot/demo/components/JST_JAPAN_SOLDERLESS_TERMINALS/BM05B-SRSS-TB" = "0.1.0"

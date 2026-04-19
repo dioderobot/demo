@@ -32,7 +32,7 @@ Led = Module("@stdlib/generics/Led.zen")
 PwmHeader = Module(
     "github.com/dioderobot/demo/components/JST_JAPAN_SOLDERLESS_TERMINALS/SM05B-SRSS-TB/SM05B-SRSS-TB.zen"
 )
-TagConnect = Module("@stdlib/kicad/TagConnect.zen")
+TagConnect = Module("github.com/diodeinc/registry/connectors/TagConnect/TC2030-NL_SWD.zen")
 
 # ----------------------------------------------------------------------------
 # Configuration Parameters
@@ -68,8 +68,6 @@ PHASE_C = io("PHASE_C", Net)
 # Communication Interfaces
 CAN_RX = Can.RX  # CAN Receive (PA11)
 CAN_TX = Can.TX  # CAN Transmit (PB9)
-SWDIO = Swd.SWDIO  # SWD Data I/O (PA13)
-SWCLK = Swd.SWCLK  # SWD Clock (PA14)
 UART2_TX = Uart2.TX  # UART2 Transmit (PB3)
 UART2_RX = Uart2.RX  # UART2 Receive (PB4)
 
@@ -194,8 +192,8 @@ Mcu(
     PA10=TIM1_CH3,  # Timer1 Channel 3
     PA11=CAN_RX,  # CAN Receive
     PA12=TIM1_CH2N,  # Timer1 Channel 2N
-    PA13=SWDIO,  # SWD Data
-    PA14=SWCLK,  # SWD Clock
+    PA13=Swd.SWDIO,  # SWD Data
+    PA14=Swd.SWCLK,  # SWD Clock
     PA15=PWM,
     PB0=CURR_FDBK3_OPAMP_PLUS,  # Current feedback 3 OpAmp+
     PB1=OP3_OUT,  # OpAmp 3 output
@@ -315,13 +313,11 @@ ShuntSense(
 
 TagConnect(
     name="TagConnect",
-    tag_type="TC2030-IDC-NL-2x03",  # 6-pin Tag-Connect for SWD
-    P1=V3V3,  # VCC
-    P2=SWDIO,  # SWDIO
-    P3=NRST,  # Reset
-    P4=SWCLK,  # SWCLK
-    P5=GND,  # GND
-    P6=GND,  # SWO (not used, tied to GND)
+    VSENSE=V3V3,
+    SWD=Swd,
+    NRST=NRST,
+    GND=GND,
+    SWO=NotConnected(),
 )
 
 # PWM Header
@@ -464,13 +460,12 @@ Board(
 # pcb:sch GND.3 x=1294.4000 y=87.9000 rot=0
 # pcb:sch GND.4 x=1675.4000 y=494.3000 rot=0
 # pcb:sch GND.5 x=1611.9000 y=646.7000 rot=0
-# pcb:sch GND.6 x=2589.8000 y=748.3000 rot=0
+# pcb:sch GND.6 x=2361.2000 y=468.9000 rot=0
 # pcb:sch GND.7 x=710.2000 y=214.9000 rot=0
 # pcb:sch GND.8 x=621.3000 y=659.4000 rot=0
 # pcb:sch GND.9 x=1408.7000 y=468.9000 rot=0
 # pcb:sch GND.10 x=1345.2000 y=824.5000 rot=0
 # pcb:sch GND.11 x=2475.5000 y=138.7000 rot=0
-# pcb:sch GND.12 x=2399.3000 y=341.9000 rot=0
 # pcb:sch GND.13 x=341.9000 y=214.9000 rot=0
 # pcb:sch HallEncoder x=342.9000 y=406.4000 rot=0
 # pcb:sch Ldo_3V3 x=381.0000 y=241.3000 rot=0
@@ -489,7 +484,7 @@ Board(
 # pcb:sch STM32G431C8T6 x=787.4000 y=-12.7000 rot=0
 # pcb:sch ShuntSense x=1727.2000 y=571.5000 rot=0
 # pcb:sch Status_LED.LED x=1103.9000 y=743.2200 rot=270
-# pcb:sch TagConnect.TAG_CONNECT x=2348.5000 y=227.6000 rot=0
+# pcb:sch TagConnect.J x=2348.5000 y=227.6000 rot=0
 # pcb:sch Thermistor.TH x=1326.1500 y=608.6000 rot=0
 # pcb:sch V3V3.1 x=245.3800 y=253.0000 rot=0
 # pcb:sch V3V3.2 x=715.2800 y=-26.4000 rot=0
@@ -500,7 +495,7 @@ Board(
 # pcb:sch V3V3.7 x=1616.9800 y=557.8000 rot=0
 # pcb:sch V3V3.8 x=1528.0800 y=189.5000 rot=0
 # pcb:sch V3V3.9 x=1350.2800 y=557.8000 rot=0
-# pcb:sch V3V3.10 x=2315.4800 y=189.5000 rot=0
+# pcb:sch V3V3.10 x=2366.2800 y=176.8000 rot=0
 # pcb:sch V5V.0 x=512.0800 y=227.6000 rot=0
 # pcb:sch V5V.1 x=283.4800 y=138.7000 rot=0
 # pcb:sch V5V.2 x=1362.9800 y=-51.8000 rot=0
