@@ -13,7 +13,7 @@
 #   VCC    – positive supply (1.8V to 5.5V)
 #   GND    – ground
 
-load("@stdlib/interfaces.zen", "Analog", "Ground", "Power")
+load("@stdlib/interfaces.zen", "Analog")
 
 TLV9001_Component = Module("github.com/dioderobot/demo/components/Texas_Instruments/TLV9001IDBVR/TLV9001IDBVR.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")

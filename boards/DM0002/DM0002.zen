@@ -8,7 +8,7 @@
 # DONE: level shifter ports to be switched b/c port A can't exceed port B
 # ============================================================================
 
-load("@stdlib/interfaces.zen", "Analog", "Gpio", "Ground", "Power", "Swd", "Uart", "Usb2", "NotConnected")
+load("@stdlib/interfaces.zen", "Analog", "Gpio", "Swd", "Uart", "Usb2")
 # load("@stdlib/board_config.zen", "Board")
 # load("@stdlib/units.zen", "Voltage")
 load("@stdlib/board_config.zen", "Board", "BoardConfig", "Constraints", "Copper", "DesignRules", "NetClass", "Silkscreen")
@@ -228,8 +228,8 @@ TXB0102(
     VCCB=vdd_3v3,
     GND=gnd,
     OE=swd_ls_oe,
-    A1=Gpio(NET=target_swd.SWDIO),
-    A2=Gpio(NET=target_swd.SWCLK),
+    A1=Gpio(target_swd.SWDIO),
+    A2=Gpio(target_swd.SWCLK),
     B1=mcu_swdio,
     B2=mcu_swclk,
 )
@@ -246,8 +246,8 @@ TXB0102(
     VCCB=vdd_3v3,
     GND=gnd,
     OE=uart_ls_oe,
-    A1=Analog(NET=target_uart.RX),
-    A2=Analog(NET=target_uart.TX),
+    A1=Analog(target_uart.RX),
+    A2=Analog(target_uart.TX),
     B1=mcu_uart_rx,
     B2=mcu_uart_tx,
 )

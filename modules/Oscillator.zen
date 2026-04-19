@@ -1,4 +1,3 @@
-load("@stdlib/interfaces.zen", "Ground", "Power")
 load("@stdlib/units.zen", "Frequency")
 
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
@@ -15,7 +14,7 @@ _active_osc_mpn_map = {
 VCC = io("VCC", Power)
 GND = io("GND", Ground)
 OUT = io("OUT", Net)
-EN = io("EN", Net, optional=True, default=VCC)  # Enable pin (HIGH=enable, LOW=disable)
+EN = io(Net(VCC), optional=True)
 
 Component(
     name="OSC",

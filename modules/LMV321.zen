@@ -9,7 +9,7 @@
 #   VCC    – positive supply (2.7V to 5.5V)
 #   GND    – ground
 
-load("@stdlib/interfaces.zen", "Analog", "Ground", "Power")
+load("@stdlib/interfaces.zen", "Analog")
 
 LMV321_Component = Module("github.com/dioderobot/demo/components/Texas_Instruments/LMV321IDBVR/LMV321IDBVR.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")

@@ -9,7 +9,6 @@
 # ----------------------------------------------------------------------------
 
 load("@stdlib/units.zen", "Voltage", "Current", "Capacitance", "Inductance", "Frequency", "Resistance")
-load("@stdlib/interfaces.zen", "Power", "Ground", "NotConnected")
 
 # ----------------------------------------------------------------------------
 # Component Modules
@@ -17,7 +16,6 @@ load("@stdlib/interfaces.zen", "Power", "Ground", "NotConnected")
 
 Buck = Module("github.com/dioderobot/demo/components/STMicroelectronics/L7986TR/L7986TR.zen")
 SchottkyDiode = Module("github.com/dioderobot/demo/components/STMicroelectronics/STPS1L40M/STPS1L40M.zen")
-Schottky = Module("@stdlib/generics/Diode.zen")
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 Crystal = Module("@stdlib/generics/Crystal.zen")
@@ -99,17 +97,6 @@ SchottkyDiode(
     K_2=OUT,
     schematic="collapse",
 )
-
-# Schottky(
-#     name = "D2",
-#     variant = "Schottky",
-#     package = "SOD-123",
-#     mpn = "1N5819HW-7-F",
-#     A = GND,
-#     K = OUT,
-#     i_f = "1A",
-#     v_r = "40V",
-# )
 
 # Input Capacitor
 

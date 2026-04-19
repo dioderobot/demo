@@ -7,7 +7,7 @@ Author: Nasheed Ur Rehman
 # Libraries & Dependencies
 # ----------------------------------------------------------------------------
 
-load("@stdlib/interfaces.zen", "Ground", "Power", "Usb2", "Usb3", "UsbTypeC", "NotConnected")
+load("@stdlib/interfaces.zen", "Usb2", "Usb3", "UsbTypeC")
 load("@stdlib/properties.zen", "Layout")
 load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "Resistance", "Voltage")
 

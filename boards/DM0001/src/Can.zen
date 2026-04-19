@@ -8,7 +8,6 @@
 # ----------------------------------------------------------------------------
 
 load("@stdlib/units.zen", "Voltage", "Current", "Capacitance", "Inductance", "Frequency", "Resistance")
-load("@stdlib/interfaces.zen", "CanTtl", "I2c", "Power", "Spi", "Swd", "Uart", "Usb2", "Ground", "NotConnected")
 # ----------------------------------------------------------------------------
 # Component Modules
 # ----------------------------------------------------------------------------
@@ -20,7 +19,7 @@ JstHeader = Module(
     "github.com/dioderobot/demo/components/JST_JAPAN_SOLDERLESS_TERMINALS/BM05B-SRSS-TB/BM05B-SRSS-TB.zen"
 )
 Resistor = Module("@stdlib/generics/Resistor.zen")
-SchottkyDiode = Module("@stdlib/generics/Diode.zen")
+SchottkyDiode = Module("@stdlib/generics/Rectifier.zen")
 
 # ----------------------------------------------------------------------------
 # Global Power Interfaces
@@ -91,19 +90,11 @@ Resistor(
 SchottkyDiode(
     name="D_CAN",
     package="SOD-123",
-    variant="Schottky",
-    mpn="1N5817W",
-    manufacturer="Shenzhen Slkormicro Semicon Co., Ltd.",
-    i_f="1A",
-    v_r="20V",
+    technology="Schottky",
+    forward_current="350mA",
+    reverse_voltage="20V",
     A=FUSE,
     K=V5V,
-    properties={
-        "alternatives": [
-            {"mpn": "1N5817W", "manufacturer": "Shenzhen Slkormicro Semicon Co., Ltd."},
-            {"mpn": "MBRX120LF-TP", "manufacturer": "MCC (Micro Commercial Components)"},
-        ],
-    },
 )
 
 # pcb:sch D_CAN x=127.0000 y=-114.3000 rot=180

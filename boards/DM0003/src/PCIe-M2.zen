@@ -7,7 +7,7 @@ Author: Nasheed Ur Rehman
 # Libraries & Dependencies
 # ----------------------------------------------------------------------------
 
-load("@stdlib/interfaces.zen", "PcieGen3x1Lane", "Power", "Ground", "NotConnected")
+load("@stdlib/interfaces.zen", "PcieGen3x1Lane")
 load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Resistance", "Voltage")
 load("@stdlib/utils.zen", "e96")
 
@@ -31,7 +31,7 @@ Led = Module("@stdlib/generics/Led.zen")
 # io_interfaces
 # ----------------------------------------------------------------------------
 
-V5 = io("5V", Power, default=Power("5V", voltage=Voltage("5V")))
+V5 = io("5V", Power("5V", voltage=Voltage("5V")))
 GND = io("GND", Ground)
 PCIE_C = io("PCIE_C", PcieGen3x1Lane)
 PCIE_PWR_EN = io("PCIE_PWR_EN", Net)
@@ -81,8 +81,6 @@ PCIe_Connector(
     DAS_DSS_LED1=DAS_DSS_LED1,
     PEDET=NotConnected(),
     SUSCLK=SUSCLK,
-    # Not connected
-    NC=NotConnected(),
 )
 
 Standoff(

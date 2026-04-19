@@ -2,10 +2,10 @@
 
 Pins = struct(
     IN_POS=io("IN+", Net),
-    GND=io("GND", Net),
+    GND=io("GND", Ground),
     IN_NEG=io("IN-", Net),
     OUT=io("OUT", Net),
-    VCC=io("V+", Net),
+    VCC=io("V+", Power),
 )
 
 Component(

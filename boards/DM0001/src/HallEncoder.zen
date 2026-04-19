@@ -9,7 +9,6 @@
 
 load("@stdlib/properties.zen", "Layout")
 load("@stdlib/units.zen", "Voltage", "Current", "Capacitance", "Inductance", "Frequency", "Resistance")
-load("@stdlib/interfaces.zen", "CanTtl", "I2c", "Power", "Spi", "Swd", "Uart", "Usb2", "Ground")
 
 # ----------------------------------------------------------------------------
 # Component Modules
@@ -18,7 +17,7 @@ load("@stdlib/interfaces.zen", "CanTtl", "I2c", "Power", "Spi", "Swd", "Uart", "
 JstHeader = Module(
     "github.com/dioderobot/demo/components/JST_JAPAN_SOLDERLESS_TERMINALS/BM05B-SRSS-TB/BM05B-SRSS-TB.zen"
 )
-SchottkyDiode = Module("@stdlib/generics/Diode.zen")
+SchottkyDiode = Module("@stdlib/generics/Rectifier.zen")
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 
@@ -59,36 +58,30 @@ JstHeader(name="JST_H1", MP1=MP1, MP2=MP2, P1=A_PLUS_H1_IN, P2=B_PLUS_H2_IN, P3=
 
 SchottkyDiode(
     name="D_A_PLUS_H1",
-    variant="Schottky",
+    technology="Schottky",
     package="SOD-523",
-    mpn="BAT30KFILM",
-    manufacturer="STMicroelectronics",
-    i_r="300mA",
-    v_r="30V",
+    forward_current="200mA",
+    reverse_voltage="30V",
     A=A_PLUS_H1_OUT,
     K=V3V3,
 )
 
 SchottkyDiode(
     name="D_B_PLUS_H2",
-    variant="Schottky",
+    technology="Schottky",
     package="SOD-523",
-    mpn="BAT30KFILM",
-    manufacturer="STMicroelectronics",
-    i_r="300mA",
-    v_r="30V",
+    forward_current="200mA",
+    reverse_voltage="30V",
     A=B_PLUS_H2_OUT,
     K=V3V3,
 )
 
 SchottkyDiode(
     name="D_Z_PLUS_H3",
-    variant="Schottky",
+    technology="Schottky",
     package="SOD-523",
-    mpn="BAT30KFILM",
-    manufacturer="STMicroelectronics",
-    i_r="300mA",
-    v_r="30V",
+    forward_current="200mA",
+    reverse_voltage="30V",
     A=Z_PLUS_H3_OUT,
     K=V3V3,
 )

@@ -12,7 +12,7 @@ Pins = struct(
     DM=io("DM", Net),
     DP=io("DP", Net),
     EP=io("EP", Net),
-    GND=io("GND", Net),
+    GND=io("GND", Ground),
     RX1M=io("RX1M", Net),
     RX1P=io("RX1P", Net),
     RX2M=io("RX2M", Net),
@@ -23,7 +23,7 @@ Pins = struct(
     TX1P=io("TX1P", Net),
     TX2M=io("TX2M", Net),
     TX2P=io("TX2P", Net),
-    VBUS=io("VBUS", Net),
+    VBUS=io("VBUS", Power),
 )
 
 Component(

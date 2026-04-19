@@ -1,7 +1,7 @@
 # W25Q16JVUXIQ - 16Mbit QSPI Flash Module
 # Winbond 16Mbit Serial Flash in USON-8 3x2mm package
 
-load("@stdlib/interfaces.zen", "Ground", "Power", "Qspi")
+load("@stdlib/interfaces.zen", "Qspi")
 
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")

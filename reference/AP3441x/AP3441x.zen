@@ -19,7 +19,6 @@ Usage:
 # Libraries & Dependencies
 # ----------------------------------------------------------------------------
 
-load("@stdlib/interfaces.zen", "Power", "Ground", "NotConnected")
 load("@stdlib/properties.zen", "Layout")
 load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "Resistance", "Voltage")
 
@@ -123,7 +122,6 @@ AP3441x(
     LX=LX_OUT,
     PG=PG,
     EN=ENABLE,
-    NC=NotConnected(),
     EP=GND,
     PGND=GND,
     SGND=GND,

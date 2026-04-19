@@ -7,7 +7,7 @@
 # Libraries & Dependencies
 # ----------------------------------------------------------------------------
 
-load("@stdlib/interfaces.zen", "CanTtl", "I2c", "Power", "Spi", "Swd", "Uart", "Usb2", "Ground", "NotConnected")
+load("@stdlib/interfaces.zen", "CanTtl", "Swd", "Uart")
 load("@stdlib/properties.zen", "Layout")
 load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "Resistance", "Voltage")
 load("@stdlib/board_config.zen", "Board")
@@ -25,7 +25,7 @@ CanInterface = Module("src/Can.zen")
 ShuntSense = Module("src/ShuntSense.zen")
 PowerCaps = Module("src/PowerCaps.zen")
 Resistor = Module("@stdlib/generics/Resistor.zen")
-SchottkyDiode = Module("@stdlib/generics/Diode.zen")
+SchottkyDiode = Module("@stdlib/generics/Rectifier.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 Thermistor = Module("@stdlib/generics/Thermistor.zen")
 Led = Module("@stdlib/generics/Led.zen")
@@ -52,9 +52,6 @@ GND = Ground("GND")
 # Global Communication Interfaces
 # ----------------------------------------------------------------------------
 
-Usb = io("USB", Usb2)
-Spi = io("SPI", Spi)
-I2c = io("I2C", I2c)
 Swd = io("SWD", Swd)
 Can = io("CAN", CanTtl)
 Uart2 = io("UART2", Uart)
@@ -77,7 +74,6 @@ UART2_TX = Uart2.TX  # UART2 Transmit (PB3)
 UART2_RX = Uart2.RX  # UART2 Receive (PB4)
 
 # Unassigned pins
-PB5 = io("PB5", Net)
 PB10 = io("PB10", Net)
 NRST = io("NRST", Net)
 
@@ -166,7 +162,7 @@ Ldo(
     GND=GND,
     EN=V5V,
     PG=NotConnected(),
-    voltage_out="3V",
+    voltage_out="3.3V",
     schematic="collapse",
 )
 
@@ -310,11 +306,8 @@ ShuntSense(
     VSHUNTP_B=VSHUNTP_B,
     VSHUNTP_C=VSHUNTP_C,
     CURR_FDBK1_OPAMP_PLUS=CURR_FDBK1_OPAMP_PLUS,
-    CURR_FDBK1_OPAMP_MINUS=CURR_FDBK1_OPAMP_MINUS,
     CURR_FDBK2_OPAMP_PLUS=CURR_FDBK2_OPAMP_PLUS,
-    CURR_FDBK2_OPAMP_MINUS=CURR_FDBK2_OPAMP_MINUS,
     CURR_FDBK3_OPAMP_PLUS=CURR_FDBK3_OPAMP_PLUS,
-    CURR_FDBK3_OPAMP_MINUS=CURR_FDBK3_OPAMP_MINUS,
     schematic="collapse",
 )
 
@@ -365,12 +358,10 @@ Resistor(
 
 SchottkyDiode(
     name="D_VBUS_Sense",
-    variant="Schottky",
+    technology="Schottky",
     package="SOD-523",
-    mpn="BAT30KFILM",
-    manufacturer="STMicroelectronics",
-    i_r="300mA",
-    v_r="30V",
+    forward_current="200mA",
+    reverse_voltage="30V",
     A=VBUS,
     K=V3V3,
 )

@@ -3,11 +3,11 @@
 Pins = struct(
     A1=io("A1", Net),
     A2=io("A2", Net),
-    VCCA=io("VCCA", Net),
-    GND=io("GND", Net),
+    VCCA=io("VCCA", Power),
+    GND=io("GND", Ground),
     B2=io("B2", Net),
     B1=io("B1", Net),
-    VCCB=io("VCCB", Net),
+    VCCB=io("VCCB", Power),
     OE=io("OE", Net),
 )
 

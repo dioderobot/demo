@@ -8,7 +8,6 @@
 # ----------------------------------------------------------------------------
 
 load("@stdlib/units.zen", "Voltage", "Current", "Capacitance", "Inductance", "Frequency", "Resistance")
-load("@stdlib/interfaces.zen", "Power", "Ground")
 
 # ----------------------------------------------------------------------------
 # Component Modules
@@ -36,13 +35,7 @@ CURR_FDBK1_OPAMP_PLUS = io("CURR_FDBK1_OPAMP_PLUS", Net)
 CURR_FDBK2_OPAMP_PLUS = io("CURR_FDBK2_OPAMP_PLUS", Net)
 CURR_FDBK3_OPAMP_PLUS = io("CURR_FDBK3_OPAMP_PLUS", Net)
 
-CURR_FDBK1_OPAMP_MINUS = io("CURR_FDBK1_OPAMP_MINUS", Net)
-CURR_FDBK2_OPAMP_MINUS = io("CURR_FDBK2_OPAMP_MINUS", Net)
-CURR_FDBK3_OPAMP_MINUS = io("CURR_FDBK3_OPAMP_MINUS", Net)
 
-CURR_FDBK1_OPAMP_MINUS = GND
-CURR_FDBK2_OPAMP_MINUS = GND
-CURR_FDBK3_OPAMP_MINUS = GND
 
 # ----------------------------------------------------------------------------
 # Local Nets

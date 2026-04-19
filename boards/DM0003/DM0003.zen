@@ -207,7 +207,6 @@ IO(
     FAN_TACHO=FAN_TACHO,
     N_PWR_LED=PI_NLED_PWR,
     N_LED_ACTIVITY=N_LED_ACTIVITY,
-    N_RESET=GLOBAL_EN,
     PWR_BUT=PWR_BUT,
     schematic="collapse",
     **{"5V": V5, "3V3PI": V3V3PI, "GND": GND},
@@ -244,7 +243,6 @@ Boot_Switch(
     MP1=GND,
     MP2=GND,
     NO=GND,
-    NC=NotConnected(),
 )
 
 # Graphics Components

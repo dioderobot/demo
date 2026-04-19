@@ -9,14 +9,13 @@
 # ----------------------------------------------------------------------------
 
 load("@stdlib/units.zen", "Voltage", "Current", "Capacitance", "Inductance", "Frequency", "Resistance")
-load("@stdlib/interfaces.zen", "Power", "Ground")
 
 # ----------------------------------------------------------------------------
 # Component Modules
 # ----------------------------------------------------------------------------
 
 L6387ED = Module("github.com/dioderobot/demo/components/STMicroelectronics/L6387ED/L6387ED.zen")
-SchottkyDiode = Module("@stdlib/generics/Diode.zen")
+SchottkyDiode = Module("@stdlib/generics/Rectifier.zen")
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 
@@ -82,15 +81,12 @@ Capacitor(name="C_HIN", value="100pF", voltage="10V", package="0402", P1=HIN, P2
 Capacitor(name="C_LIN", value="100pF", voltage="10V", package="0402", P1=LIN, P2=GND)
 
 
-# Bootstrap diode
 SchottkyDiode(
     name="D_BOOT",
-    variant="Schottky",
+    technology="Schottky",
     package="SOD-123",
-    mpn="STPS0560Z",
-    manufacturer="STMicroelectronics",
-    i_r="0.5A",
-    v_r="60V",
+    forward_current="100mA",
+    reverse_voltage="60V",
     A=VCC,
     K=BOOT,
 )
