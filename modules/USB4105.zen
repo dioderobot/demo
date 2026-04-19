@@ -19,12 +19,12 @@ HostCurrent = enum("default", "1.5A", "3A")
 mode = config("mode", UsbCMode, default=UsbCMode("device"))
 host_current = config("host_current", HostCurrent, default=HostCurrent("default"), optional=True)
 
-vbus = io("VBUS", Power, default=Power("VBUS", voltage=Voltage("4.5 to 5.5V")))
+vbus = io("VBUS", Power("VBUS", voltage=Voltage("4.5 to 5.5V")))
 usb = io("USB", Usb2)
 gnd = io("GND", Ground)
-shield = io("SHIELD", Ground, optional=True, default=gnd)
-cc1 = io("CC1", Net, optional=True, default=Net("CC1"))
-cc2 = io("CC2", Net, optional=True, default=Net("CC2"))
+shield = io("SHIELD", Ground(), optional=True)
+cc1 = io("CC1", Net("CC1"), optional=True)
+cc2 = io("CC2", Net("CC2"), optional=True)
 
 Component(
     name="USB_C",

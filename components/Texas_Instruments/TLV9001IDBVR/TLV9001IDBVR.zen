@@ -1,11 +1,13 @@
 """TLV9001IDBVR Component - Low-Power RRIO 1-MHz Op Amp with Power-Off Input Protection"""
 
+load("@stdlib/interfaces.zen", "Power", "Ground")
+
 Pins = struct(
     IN_POS=io("IN+", Net),
-    GND=io("GND", Net),
+    GND=io("GND", Ground),
     IN_NEG=io("IN-", Net),
     OUT=io("OUT", Net),
-    VCC=io("V+", Net),
+    VCC=io("V+", Power),
 )
 
 Component(
