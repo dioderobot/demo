@@ -9,7 +9,6 @@ Datasheet: https://www.st.com/resource/en/datasheet/lis3dh.pdf
 # Libraries & Dependencies
 # ----------------------------------------------------------------------------
 
-load("@stdlib/interfaces.zen", "Power", "NotConnected", "Ground")
 load(
     "@stdlib/units.zen",
     "Capacitance",

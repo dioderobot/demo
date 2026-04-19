@@ -1,7 +1,5 @@
 """LMV321IDBVR Component - Single Low-Voltage Rail-to-Rail Output Op Amp"""
 
-load("@stdlib/interfaces.zen", "Power", "Ground")
-
 Pins = struct(
     IN_POS=io("IN+", Net),
     GND=io("GND", Ground),

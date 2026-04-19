@@ -1,7 +1,5 @@
 """TXB0102DCUR - 2-Bit Bidirectional Voltage-Level Translator, Auto-Direction Sensing"""
 
-load("@stdlib/interfaces.zen", "Power", "Ground")
-
 Pins = struct(
     A1=io("A1", Net),
     A2=io("A2", Net),

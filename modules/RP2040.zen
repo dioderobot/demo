@@ -2,7 +2,7 @@
 RP2040 Microcontroller Module
 """
 
-load("@stdlib/interfaces.zen", "Analog", "Gpio", "Ground", "OscPair", "Power", "Qspi", "Swd", "Usb2")
+load("@stdlib/interfaces.zen", "Analog", "Gpio", "OscPair", "Qspi", "Swd", "Usb2")
 
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 Resistor = Module("@stdlib/generics/Resistor.zen")

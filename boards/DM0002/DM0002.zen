@@ -8,7 +8,7 @@
 # DONE: level shifter ports to be switched b/c port A can't exceed port B
 # ============================================================================
 
-load("@stdlib/interfaces.zen", "Analog", "Gpio", "Ground", "Power", "Swd", "Uart", "Usb2", "NotConnected")
+load("@stdlib/interfaces.zen", "Analog", "Gpio", "Swd", "Uart", "Usb2")
 # load("@stdlib/board_config.zen", "Board")
 # load("@stdlib/units.zen", "Voltage")
 load("@stdlib/board_config.zen", "Board", "BoardConfig", "Constraints", "Copper", "DesignRules", "NetClass", "Silkscreen")

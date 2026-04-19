@@ -8,7 +8,6 @@
 #   color – one of {"blue", "green", "orange", "red"}
 #   supply_voltage – supply voltage (e.g., "3.3V")
 
-load("@stdlib/interfaces.zen", "Power", "Ground")
 load("@stdlib/units.zen", "unit", "Voltage", "Resistance", "Current")
 Led = Module("@stdlib/generics/Led.zen")
 Resistor = Module("@stdlib/generics/Resistor.zen")

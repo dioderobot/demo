@@ -7,7 +7,7 @@ Author: Nasheed Ur Rehman
 # Libraries & Dependencies
 # ----------------------------------------------------------------------------
 
-load("@stdlib/interfaces.zen", "I2c", "Power", "Spi", "Power", "Ground", "NotConnected")
+load("@stdlib/interfaces.zen", "I2c", "Spi")
 load("@stdlib/units.zen", "Capacitance", "Current", "Resistance", "Voltage")
 load("@stdlib/utils.zen", "e96")
 

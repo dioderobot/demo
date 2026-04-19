@@ -7,7 +7,7 @@ Author: Nasheed Ur Rehman
 # Libraries & Dependencies
 # ----------------------------------------------------------------------------
 
-load("@stdlib/interfaces.zen", "Hdmi", "Power", "Ground", "NotConnected")
+load("@stdlib/interfaces.zen", "Hdmi")
 load("@stdlib/properties.zen", "Layout")
 load("@stdlib/units.zen", "Capacitance", "Current", "Frequency", "Inductance", "Resistance", "Voltage")
 

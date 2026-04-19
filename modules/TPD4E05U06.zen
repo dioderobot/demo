@@ -3,7 +3,7 @@ TPD4E05U06 4-Channel ESD Protection Array Module
 Automotive-grade USB 2.0 ESD protection diode
 """
 
-load("@stdlib/interfaces.zen", "Ground", "Power", "Usb2")
+load("@stdlib/interfaces.zen", "Usb2")
 
 GND = io("GND", Ground)
 D1P = io("D1P", Net)
