@@ -6,8 +6,8 @@ Pins = struct(
     EN=io("EN", Net),
     GND=io("GND", Net),
     PG=io("PG", Net),
-    VIN=io("VIN", Net),
-    VOUT=io("VOUT", Net),
+    VIN=io("VIN", Power),
+    VOUT=io("VOUT", Power),
 )
 
 # Component

@@ -48,10 +48,11 @@ def feedback_resistors(vout):
 # Configuration
 # ---------------------------------------------------------------------------
 
+
 voltage_out = config(
-    "voltage_out",
     Voltage,
     default=Voltage("3.3V"),
+    checks=voltage_within("0.8V – 12V"),
     help="Desired output voltage (0.8V to 12V). Feedback resistors are computed automatically.",
 )
 
@@ -60,36 +61,26 @@ voltage_out = config(
 # ---------------------------------------------------------------------------
 
 VIN = io(
-    "VIN",
-    Power,
-    checks=voltage_within("2.6V – 16V"),
-    default=Power("VIN", voltage=Voltage("5V")),
+    Power(voltage=Voltage("2.6V to 16V")),
     help="Input supply, 2.6V to 16V",
 )
-GND = io("GND", Ground)
+GND = io(Ground())
 VOUT = io(
-    "VOUT",
-    Power,
-    checks=voltage_within("0.8V – 12V"),
-    default=Power("VOUT", voltage=voltage_out),
+    Power(voltage=voltage_out),
     help="Regulated output, 1A max continuous",
 )
 EN = io(
-    "EN",
-    Net,
+    Net(VIN),
     optional=True,
-    default=Net(VIN),
     help="Active-high enable; default pulls up to VIN via 100k resistor (always-on)",
 )
 PG = io(
-    "PG",
-    Net,
+    Net(),
     optional=True,
-    default=Net("PG"),
     help="Open-drain power-good output; optional, no pull-up needed if unused",
 )
 
-_EN = Net("_EN")
+_EN = Net()
 
 # ---------------------------------------------------------------------------
 # Computed values

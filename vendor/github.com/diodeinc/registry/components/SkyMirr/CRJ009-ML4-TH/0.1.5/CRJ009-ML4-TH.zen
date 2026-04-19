@@ -4,7 +4,7 @@ CRJ009-ML4-TH
 Auto-generated using `pcb search`. Do not modify.
 """
 
-mpn = config("mpn", str, optional=True, default="CRJ009-ML4-TH")
+mpn = config(str, optional=True, default="CRJ009-ML4-TH")
 
 Pins = struct(
     A_GREEN=io("A_GREEN", Net),
