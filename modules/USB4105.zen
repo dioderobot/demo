@@ -19,12 +19,12 @@ HostCurrent = enum("default", "1.5A", "3A")
 mode = config("mode", UsbCMode, default=UsbCMode("device"))
 host_current = config("host_current", HostCurrent, default=HostCurrent("default"), optional=True)
 
-vbus = io("VBUS", Power("VBUS", voltage=Voltage("4.5 to 5.5V")))
-usb = io("USB", Usb2)
-gnd = io("GND", Ground)
-shield = io("SHIELD", Ground(), optional=True)
-cc1 = io("CC1", Net("CC1"), optional=True)
-cc2 = io("CC2", Net("CC2"), optional=True)
+VBUS = io(Power("VBUS", voltage=Voltage("4.5 to 5.5V")))
+USB = io("USB", Usb2)
+GND = io(Ground())
+SHIELD = io(Ground(), optional=True)
+CC1 = io(Net(), optional=True)
+CC2 = io(Net(), optional=True)
 
 Component(
     name="USB_C",
@@ -34,13 +34,13 @@ Component(
     ),
     prefix="J",
     pins={
-        "VBUS": vbus,
-        "D+": usb.D.P,
-        "D-": usb.D.N,
-        "CC1": cc1,
-        "CC2": cc2,
-        "GND": gnd,
-        "SHIELD": shield,
+        "VBUS": VBUS,
+        "D+": USB.D.P,
+        "D-": USB.D.N,
+        "CC1": CC1,
+        "CC2": CC2,
+        "GND": GND,
+        "SHIELD": SHIELD,
         "SBU1": Net("SBU1"),
         "SBU2": Net("SBU2"),
     },
@@ -63,14 +63,14 @@ Tvs(
     name="D_TVS_VBUS",
     reverse_standoff_voltage=Voltage("5 to 6V"),
     package="DO-219AB",
-    K=vbus,  # Cathode to protected line
-    A=gnd,  # Anode to ground
+    K=VBUS,  # Cathode to protected line
+    A=GND,  # Anode to ground
 )
 
 if mode == UsbCMode("device"):
     # Device mode: Rd pull-down resistors (5.1kΩ to GND)
-    Resistor(name="R_CC1", package="0402", value="5.1kOhm 5%", P1=cc1, P2=gnd)
-    Resistor(name="R_CC2", package="0402", value="5.1kOhm 5%", P1=cc2, P2=gnd)
+    Resistor(name="R_CC1", package="0402", value="5.1kOhm 5%", P1=CC1, P2=GND)
+    Resistor(name="R_CC2", package="0402", value="5.1kOhm 5%", P1=CC2, P2=GND)
 
     # Host mode: Rp pull-up resistors based on current capability
 elif mode == UsbCMode("host"):
@@ -82,8 +82,8 @@ elif mode == UsbCMode("host"):
     }
     rp_value = rp_values[host_current]
 
-    Resistor(name="R_CC1", package="0402", value=rp_value, P1=vbus, P2=cc1)
-    Resistor(name="R_CC2", package="0402", value=rp_value, P1=vbus, P2=cc2)
+    Resistor(name="R_CC1", package="0402", value=rp_value, P1=VBUS, P2=CC1)
+    Resistor(name="R_CC2", package="0402", value=rp_value, P1=VBUS, P2=CC2)
 
 # ESD protection
-TPD4E05U06(name="TVS", GND=gnd, D1P=usb.D.P, D1M=usb.D.N, D2P=cc1, D2M=cc2)
+TPD4E05U06(name="TVS", GND=GND, D1P=USB.D.P, D1M=USB.D.N, D2P=CC1, D2M=CC2)
