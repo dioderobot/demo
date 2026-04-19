@@ -34,8 +34,6 @@ Pins = struct(
     DAS_DSS_LED1=io("DAS_DSS_LED1", Net),
     PEDET=io("PEDET", Net),
     SUSCLK=io("SUSCLK", Net),
-    # Not connected
-    NC=io("NC", Net),
 )
 
 # Component
@@ -75,8 +73,6 @@ Component(
         "DAS/~{DSS}/~{LED1}": Pins.DAS_DSS_LED1,
         "PEDET": Pins.PEDET,
         "SUSCLK": Pins.SUSCLK,
-        # NC pins (not connected)
-        "NC": Pins.NC,
     },
     properties={
         "value": "1-2199119-3",

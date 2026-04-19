@@ -6,7 +6,7 @@ Auto-generated using `pcb search`. Do not modify.
 
 mpn = config("mpn", str, optional=True, default="SN74LVC1G14DRLR")
 
-Pins = struct(A=io("A", Net), GND=io("GND", Net), N_C=io("N_C", Net), VCC=io("VCC", Net), Y=io("Y", Net))
+Pins = struct(A=io("A", Net), GND=io("GND", Ground), VCC=io("VCC", Power), Y=io("Y", Net))
 
 Component(
     name="SN74LVC1G14DRLRG4",
@@ -15,7 +15,7 @@ Component(
     datasheet=File("SN74LVC1G14DRLRG4.pdf"),
     symbol=Symbol(library="SN74LVC1G14DRLRG4.kicad_sym"),
     footprint=File("SOTFL50P160X60-5N.kicad_mod"),
-    pins={"A": Pins.A, "GND": Pins.GND, "N.C.": Pins.N_C, "VCC": Pins.VCC, "Y": Pins.Y},
+    pins={"A": Pins.A, "GND": Pins.GND, "VCC": Pins.VCC, "Y": Pins.Y},
     properties={
         "value": "SN74LVC1G14DRLR",
         "mpn": "SN74LVC1G14DRLR",

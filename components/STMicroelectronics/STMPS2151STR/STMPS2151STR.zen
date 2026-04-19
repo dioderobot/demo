@@ -4,7 +4,7 @@
 Pins = struct(
     EN=io("EN", Net),
     FAULT=io("FAULT", Net),
-    GND=io("GND", Net),
+    GND=io("GND", Ground),
     IN=io("IN", Net),
     OUT=io("OUT", Net),
 )

@@ -6,15 +6,14 @@ Pins = struct(
     ADC2=io("ADC2", Net),
     ADC3=io("ADC3", Net),
     CS=io("CS", Net),
-    GND=io("GND", Net),
+    GND=io("GND", Ground),
     INT1=io("INT1", Net),
     INT2=io("INT2", Net),
-    NC=io("NC", Net),
     SPC=io("SPC", Net),
     SDI=io("SDI", Net),
     SDO=io("SDO", Net),
-    VDD=io("VDD", Net),
-    VDD_IO=io("VDD_IO", Net),
+    VDD=io("VDD", Power),
+    VDD_IO=io("VDD_IO", Power),
 )
 
 # Component
@@ -30,7 +29,6 @@ Component(
         "GND": Pins.GND,
         "INT1": Pins.INT1,
         "INT2": Pins.INT2,
-        "NC": Pins.NC,
         "SPC": Pins.SPC,
         "SDI": Pins.SDI,
         "SDO": Pins.SDO,

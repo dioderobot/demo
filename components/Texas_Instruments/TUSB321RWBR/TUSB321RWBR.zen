@@ -11,13 +11,13 @@ Pins = struct(
     CC2=io("CC2", Net),
     CURRENT_MODE=io("CURRENT_MODE", Net),
     DIR=io("DIR", Net),
-    GND=io("GND", Net),
+    GND=io("GND", Ground),
     ID=io("ID", Net),
     OUT1=io("OUT1", Net),
     OUT2=io("OUT2", Net),
     PORT=io("PORT", Net),
     VBUS_DET=io("VBUS_DET", Net),
-    VDD=io("VDD", Net),
+    VDD=io("VDD", Power),
     n_VCONN_FAULT=io("N_VCONN_FAULT", Net),
 )
 

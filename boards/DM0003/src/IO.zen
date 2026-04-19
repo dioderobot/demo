@@ -42,8 +42,8 @@ Power_Button = Module("github.com/dioderobot/demo/components/OMRON_Electronics/B
 # ----------------------------------------------------------------------------
 # io_interfaces
 # ----------------------------------------------------------------------------
-V5 = io("5V", Power, default=Power("5V", voltage=Voltage("5V")))
-V3V3PI = io("3V3PI", Power, default=Power("3V3PI", voltage=Voltage("3.3V")))
+V5 = io("5V", Power("5V", voltage=Voltage("5V")))
+V3V3PI = io("3V3PI", Power("3V3PI", voltage=Voltage("3.3V")))
 GND = io("GND", Ground)
 
 SPI = io("SPI", Spi)
@@ -58,7 +58,6 @@ FAN_TACHO = io("FAN_TACHO", Net)
 
 N_PWR_LED = io("N_PWR_LED", Net)
 N_LED_ACTIVITY = io("N_LED_ACTIVITY", Net)
-N_RESET = io("N_RESET", Net)
 PWR_BUT = io("PWR_BUT", Net)
 
 R_LED_ACTIVITY = Net("R_LED_ACTIVITY")
@@ -194,7 +193,6 @@ SN74LVC1G14DRLRG4(
     GND=GND,
     VCC=V5,
     Y=R_LED_PWR,
-    N_C=NotConnected(),
 )
 
 # Resistor(

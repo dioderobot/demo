@@ -5,7 +5,6 @@ Pins = struct(
     COM=io("COM", Net),
     MP1=io("MP1", Net),
     MP2=io("MP2", Net),
-    NC=io("NC", Net),
     NO=io("NO", Net),
 )
 
@@ -18,7 +17,6 @@ Component(
         "COM": Pins.COM,
         "MP1": Pins.MP1,
         "MP2": Pins.MP2,
-        "NC": Pins.NC,
         "NO": Pins.NO,
     },
     properties={
