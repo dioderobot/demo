@@ -22,7 +22,7 @@ host_current = config("host_current", HostCurrent, default=HostCurrent("default"
 VBUS = io(Power("VBUS", voltage=Voltage("4.5 to 5.5V")))
 USB = io("USB", Usb2)
 GND = io(Ground())
-SHIELD = io(Ground(), optional=True)
+SHIELD = io(Ground(GND), optional=True)
 CC1 = io(Net(), optional=True)
 CC2 = io(Net(), optional=True)
 

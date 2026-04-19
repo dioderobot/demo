@@ -1,0 +1,27 @@
+"""TagConnect TC2030-NL connector for SWD interface"""
+
+load("@stdlib/interfaces.zen", "Swd")
+load("@stdlib/checks.zen", "voltage_within")
+
+VSENSE = io(Power, checks=voltage_within("1.2V to 5.5V"))
+GND = io(Ground)
+SWD = io(Swd)
+NRST = io(Net)
+SWO = io(Net)
+
+moved("TAG_CONNECT", "J")
+
+Component(
+    name="J",
+    symbol=Symbol(library="@kicad-symbols/Connector.kicad_sym", name="Conn_ARM_SWD_TagConnect_TC2030-NL"),
+    pins={
+        "VCC": VSENSE,
+        "GND": GND,
+        "SWCLK": SWD.SWCLK,
+        "SWDIO": SWD.SWDIO,
+        "~{RESET}": NRST,
+        "SWO": SWO,
+    },
+    skip_bom=True,
+    skip_pos=True,
+)
