@@ -7,7 +7,7 @@ on:
       - '**'
 
 env:
-  PCB_VERSION: "v0.3.70"
+  PCB_VERSION: "v0.3.71"
 
 permissions:
   contents: read
@@ -61,7 +61,7 @@ jobs:
     needs: detect
     runs-on: ubicloud-standard-30-ubuntu-2404
     container:
-      image: ghcr.io/dioderobot/kicad:53906e16
+      image: kicad/kicad:10.0.0-full
       options: --user root
     strategy:
       fail-fast: false
