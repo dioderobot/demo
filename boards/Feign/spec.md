@@ -32,7 +32,7 @@ Primary use cases:
 | R3 | Enumerate as USB CDC-ACM virtual serial port | P0 |
 | R4 | Enumerate as (or composite with) software FTDI FT232R-equivalent (UART mode) | P0 |
 | R5 | UART signals: TX, RX, plus 2× firmware-defined modem lines, all 3.3 V CMOS | P0 |
-| R6 | VCC output: 5 V, ~500 mA current-limited, firmware-enable, fault flag to MCU | P0 |
+| R6 | VCC output: 5 V, ~400 mA current-limited (USB 500 mA − ~100 mA board), firmware-enable, fault flag to MCU | P0 |
 | R7 | LEDs: power (driven by LDO PG), TX activity, RX activity | P1 |
 | R8 | Firmware update via on-board USB DFU (ROM bootloader) + BOOT0/RESET buttons | P0 |
 | R9 | Tag-Connect SWD footprint (unpopulated) for factory / recovery | P1 |
@@ -67,7 +67,7 @@ P0 = must have. P1 = should have.
  │     ┌────────────┐  ┌────────────────┐    ┌─────────────────┐    │
  │     │  TPS74x01P │  │   TPS2553DRV   │    │ STM32G0B1KxUxN  │    │
  │     │  ULDO 3V3  │  │  load switch   │    │  UFQFPN-32 'N'  │    │
- │     │  + PG out  │  │  500 mA, ARet  │    │  Cortex-M0+     │    │
+ │     │  + PG out  │  │  400 mA, ARet  │    │  Cortex-M0+     │    │
  │     └────────────┘  └────────────────┘    │                 │    │
  │            │                │  │          │   USB PA11/PA12 │    │
  │            ▼                │  ▼          │   UART → header │    │
@@ -120,7 +120,7 @@ non-volatile flag); no board impact.
 |------|---------|--------|--------|
 | VBUS | 5 V (USB) | USB-C, ESD-clamped, VBUS-TVS protected | 500 mA total |
 | 3V3 | 3.3 V ±2% | TPS74x01P ULDO from VBUS | ~30 mA peak |
-| VCC_OUT | 5 V | TPS2553DRV load switch from VBUS | ≤ 500 mA, current-limited |
+| VCC_OUT | 5 V | TPS2553DRV load switch from VBUS | ≤ 400 mA, current-limited |
 
 ### 3 V3 budget
 
@@ -150,7 +150,7 @@ not brown out the host.
 | Switch | TPS2553DRV (auto-retry variant) |
 | Input | VBUS (5 V) |
 | Output | VCC pin on target header |
-| Current limit | ~500 mA (set by ILIM resistor) |
+| Current limit | ~400 mA (set by ILIM resistor; leaves ~100 mA for the board itself within the 500 mA USB budget) |
 | Enable | MCU GPIO (polarity per chosen part) |
 | Fault | Open-drain `/FLT` to MCU GPIO with 10 kΩ pull-up to 3V3 |
 | Soft-start | Built into TPS2553 |
@@ -198,9 +198,10 @@ Notes:
   default firmware role; firmware can reassign to RTS / DSR / DCD / RI /
   plain GPIO at runtime based on CDC modem-line state or pyftdi vendor
   requests.
-- All inputs (RXD, CTS) must be routed to STM32 **FT_c** pins so they
-  tolerate 5 V from an externally-powered target while Feign is unpowered.
-  Plain FT pins are only V_DD + 4 V max, insufficient when V_DD = 0.
+- All inputs (RXD, CTS) are routed to STM32 **FT_c** pins (PD2, PD0).
+  These tolerate 5 V from an externally-powered target while Feign is
+  unpowered. Plain FT pins are only V_DD + 4 V max, insufficient when
+  V_DD = 0.
 - Optional ≈ 100 Ω series resistors on TXD / DTR for short-circuit
   protection — EE judgment.
 
@@ -246,7 +247,7 @@ All via stdlib `Led` generic at ~2 mA each.
 - **BOOT0 pull-down**: 10 kΩ, PA14/BOOT0 → GND.
 - **VBAT tie**: short to VDD; RTC backup unused.
 - **VBUS bulk**: 4.7–10 µF ceramic near USB-C receptacle (USB 2.0 spec, not provided by `UsbCSink16P`).
-- **Load switch support**: 1× ILIM resistor (≈ 47 kΩ → 500 mA), 1× 10 kΩ /FLT pull-up, 1× ≈ 22 µF ceramic on VCC_OUT.
+- **Load switch support**: 1× ILIM resistor (≈ 64.9 kΩ → 400 mA), 1× 100 kΩ /FLT pull-up to 3V3, 1× 100 kΩ EN pull-down to GND (deterministic-off during MCU reset), 1× ≈ 22 µF ceramic on VCC_OUT.
 - **LDO feedback divider**: 2× resistors for 3.3 V (handled by `TPS745x` reference module config).
 - **CC Rd pulldowns**: 2× 5.1 kΩ inside the `UsbCSink16P` footprint, DNP — UCPD dead-battery Rd replaces them.
 
@@ -283,7 +284,7 @@ All via stdlib `Led` generic at ~2 mA each.
 
 ## 10. Open items (non-blocking)
 
-- TPS2553DRV ILIM resistor exact value (≈ 47 kΩ for 500 mA per datasheet curve).
+- TPS2553DRV ILIM resistor exact value (≈ 64.9 kΩ for 400 mA per datasheet R_ILIM = 25.95 kV / I_OS).
 - USART peripheral / pin assignment on the G0B1 — multiple valid options. EE picks during schematic capture, keeping USB on PA11/PA12 and routing length minimal.
 - Whether to populate ~100 Ω series resistors on TXD / DTR for short-circuit protection.
 - VID:PID assignment for production firmware.
@@ -292,7 +293,7 @@ All via stdlib `Led` generic at ~2 mA each.
 
 ## Design notes
 
-1. **Modem lines are firmware-defined.** Pin 2 (CTS silk) and pin 6 (DTR silk) go to plain 3.3 V GPIOs; firmware decides direction and meaning. The default assignment matches the SparkFun FTDI Basic pinout for drop-in FTDI-cable compatibility (and Arduino auto-reset on DTR). Hardware UART CTS/RTS alternate functions on USART1 are multiplexed onto PA11/PA12 (USB) on the 'N' pinout — so hardware flow control, if ever needed, must use a different USART instance (LPUART1 or USART2).
+1. **Modem lines are firmware-defined.** Pin 2 (CTS silk) and pin 6 (DTR silk) go to plain 3.3 V GPIOs (PD0 and PD1); firmware decides direction and meaning. The default assignment matches the SparkFun FTDI Basic pinout for drop-in FTDI-cable compatibility (and Arduino auto-reset on DTR). Hardware UART CTS/RTS is not used on this board — USART5 is plain TX/RX only.
 
 2. **FTDI VID:PID policy.** Released firmware will not ship with VID 0x0403. This is a deliberate trademark / driver-blocklist guardrail. Users can rebuild firmware to use 0x0403 if they need pyftdi to find the device with default settings, or they can pass `--vid/--pid` to pyftdi.
 
@@ -300,7 +301,7 @@ All via stdlib `Led` generic at ~2 mA each.
 
 4. **D+ pull-up.** STM32G0B1 integrates the 1.5 kΩ D+ pull-up on-die (AN4879 §3.1.1). No external pull-up needed.
 
-5. **VBUS sensing skipped.** Bus-powered device. Per AN4879, the VBUS-sensing divider into PA9 is not required in this configuration.
+5. **VBUS sensing skipped.** Bus-powered device. Per AN4879, the VBUS-sensing divider is not required in this configuration.
 
 6. **ESD / VBUS protection.** Fully handled by `UsbCSink16P`: TPD4E05U06 4-channel ESD on D+/D-/CC1/CC2 (IEC 61000-4-2 Level 4: ±8 kV contact / ±15 kV air) plus a VBUS TVS with 5–6 V standoff. This exceeds the G0B1's intrinsic IEC 61000-4-2 Level 2B (≈ ±4 kV) functional EMS rating and brings the port to USB-IF expectations.
 
@@ -308,7 +309,9 @@ All via stdlib `Led` generic at ~2 mA each.
 
 8. **Logic-level vs. signal-level VCC.** VCC pin on the target header is 5 V (VBUS-derived, fused). All UART signals (TX/RX/CTS/DTR) are 3.3 V CMOS. Targets must accept 3.3 V high logic. This matches modern FTDI-cable behavior and `pyftdi` user expectations.
 
-9. **5 V tolerance on inputs.** RX and CTS must be assigned to **FT_c** pins on the G0B1, not plain FT pins. FT_c pins handle up to 5.5 V regardless of V_DD; plain FT pins are only V_DD + 4 V max — insufficient when V_DD = 0 and target is externally driving 5 V.
+9. **5 V tolerance on inputs (FT_c).** RX and CTS are assigned to FT_c pins (PD2 and PD0) so they tolerate up to 5.5 V regardless of V_DD. Plain FT pins are only V_DD + 4 V max — insufficient when V_DD = 0 and target is externally driving 5 V. On the 32-pin 'N' package, only PA8, PB15, PD0, and PD2 are FT_c-class; PA8/PB15 are taken by UCPD CC1/CC2, leaving PD0/PD2 for the user-facing inputs. This forces the UART onto USART5 (PD2 RX, PD3 TX) instead of USART1.
+
+13. **UCPD dead-battery wiring.** Per AN5225 §11.3.1, the dead-battery Rd on PA8/PB15 only exposes itself when the matching DBCC pin is shorted to it externally: PA9 → PA8 (CC1) and PA10 → PB15 (CC2). The schematic implements these shorts. PA9/PA10 are therefore reserved and cannot be used for any other signal. The 5.1 kΩ external CC pull-downs in `UsbCSink16P` are DNP'd (`cc_resistors=False`).
 
 10. **Power LED truthfulness.** Power LED is driven by the TPS74x01P push-pull PG output rather than a 3V3 pull-up, so it lights only when the LDO is in regulation. Saves an MCU GPIO and gives a real "rail healthy" indication.
 

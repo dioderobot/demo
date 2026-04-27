@@ -47,10 +47,10 @@ _SWDIO = Net("SWDIO")
 _PG = Net("PG")  # LDO power-good → power LED
 _VCC_EN = Net("VCC_EN")
 _VCC_FAULT = Net("VCC_FAULT")
-_UART_TX = Net("UART_TX")
-_UART_RX = Net("UART_RX")
-_MODEM_CTS = Net("MODEM_CTS")
-_MODEM_DTR = Net("MODEM_DTR")
+_UART_TX = Net("UART_TX")  # PD3 USART5_TX → header TXD
+_UART_RX = Net("UART_RX")  # PD2 USART5_RX ← header RXD (FT_c, 5V tolerant)
+_MODEM_CTS = Net("MODEM_CTS")  # PD0 (FT_c, 5V tolerant)
+_MODEM_DTR = Net("MODEM_DTR")  # PD1 output
 _LED_TX = Net("LED_TX")
 _LED_RX = Net("LED_RX")
 
@@ -67,8 +67,11 @@ UsbCSink(
     GND=GND,
 )
 
-# VBUS bulk per USB 2.0 (UsbCSink16P does not include this).
-Capacitor(name="C_VBUS_BULK", value="10uF", package="0805", P1=VBUS, P2=GND)
+# VBUS bulk — USB 2.0 §7.2.4.1 caps a FS device at ≤10 µF effective.
+# UsbCSink16P does not include VBUS bulk; the LDO and load-switch packages
+# each add 1 µF C_IN, so total nominal is ~6.7 µF (within USB-spec window
+# after MLCC DC-bias derating).
+Capacitor(name="C_VBUS_BULK", value="4.7uF", package="0805", P1=VBUS, P2=GND)
 
 # ----------------------------------------------------------------------------
 # 3V3 LDO — TPS74x01P (push-pull PG drives power LED directly)
@@ -96,7 +99,7 @@ Resistor(name="R_LED_PWR", value="1kohm", package="0402", P1=_LED_PWR_K, P2=GND)
 
 LoadSwitch(
     name="U_VCC_SW",
-    current_limit="500mA",
+    current_limit="400mA",  # leaves ~100 mA headroom within the USB 500 mA budget
     overcurrent_response="ConstantCurrent",
     VIN=VBUS,
     VOUT=VCC_OUT,
@@ -105,10 +108,14 @@ LoadSwitch(
     FAULT=_VCC_FAULT,
 )
 
-# FAULT open-drain pull-up to 3V3
+# FAULT open-drain pull-up to 3V3.
 Resistor(name="R_VCC_FAULT", value="100kohm", package="0402", P1=_VCC_FAULT, P2=V3V3)
 
-# VCC_OUT bulk
+# EN pull-down keeps the switch deterministically OFF during MCU reset/boot
+# (G0 GPIOs default to high-Z analog input on POR).
+Resistor(name="R_VCC_EN", value="100kohm", package="0402", P1=_VCC_EN, P2=GND)
+
+# VCC_OUT bulk.
 Capacitor(name="C_VCC_OUT", value="22uF", package="0805", P1=VCC_OUT, P2=GND)
 
 # ----------------------------------------------------------------------------
@@ -121,20 +128,29 @@ STM32G0B1(
     VDD=V3V3,
     GND=GND,
     NRST=_NRST,
+    # UCPD with dead-battery: DBCC pins shorted to CC pins per AN5225 §11.3.1.
     PA8=USB_C.CC1,  # UCPD1_CC1
+    PA9=USB_C.CC1,  # UCPD1_DBCC1 — shorted to CC1
     PB15=USB_C.CC2,  # UCPD1_CC2
+    PA10=USB_C.CC2,  # UCPD1_DBCC2 — shorted to CC2
+    # USB FS
     PA11=USB_C.D.N,  # USB D-
     PA12=USB_C.D.P,  # USB D+
+    # SWD
     PA13=_SWDIO,
     PA14=_BOOT0_SWCLK,  # SWCLK + BOOT0
-    PA9=_UART_TX,  # USART1 TX
-    PA10=_UART_RX,  # USART1 RX
+    # USART5 — picked because PD2 (RX) is FT_c (5 V tolerant when VDD=0).
+    # USART1 RX (PA10) was unavailable: PA9/PA10 are reserved for DBCC.
+    PD2=_UART_RX,  # USART5_RX (FT_c)
+    PD3=_UART_TX,  # USART5_TX
+    # Modem GPIOs to header. CTS must be FT_c since the target may drive 5 V.
+    PD0=_MODEM_CTS,  # header pin 2 (FT_c)
+    PD1=_MODEM_DTR,  # header pin 6 (output)
+    # LEDs / VCC switch control
     PA0=_LED_TX,
     PA1=_LED_RX,
     PA2=_VCC_EN,
     PA3=_VCC_FAULT,
-    PA4=_MODEM_CTS,  # header pin 2
-    PA5=_MODEM_DTR,  # header pin 6
 )
 
 # MCU decoupling (VDD/VDDA/VDDIO2 tied internally → single rail, multiple caps)
