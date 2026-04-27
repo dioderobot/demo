@@ -312,4 +312,6 @@ All via stdlib `Led` generic at ~2 mA each.
 
 11. **Firmware update path.** Primary: USB DFU via STM32 system memory bootloader. Hold BOOT0 + tap RESET → host sees an STM32 DFU device → `dfu-util` / `STM32CubeProgrammer` flashes firmware. Tag-Connect SWD is the factory programming and recovery path; no SWD connector populated on shipped boards.
 
+14. **UCPD2 dead-battery firmware mitigation.** PD0/PD1/PD2/PD3 are also UCPD2's CC1/DBCC1/CC2/DBCC2 pins. At reset, UCPD2 hardware can enable a ~5.1 kΩ internal pull-down on PD0 (CTS) or PD2 (RX) when the matching DBCC pin (PD1 / PD3) sees a high level from a powered target. Firmware must release UCPD2 dead-battery early in startup by setting `SYSCFG->CFGR1 |= SYSCFG_CFGR1_UCPD2_STROBE`. Do **not** set `UCPD1_STROBE` until UCPD1 has been brought up properly — that disables the dead-battery Rd we rely on for USB-C presence detection.
+
 12. **GPIO budget.** Used pins: USB (2) + UART TX/RX (2) + 2 modem GPIOs + 3 LEDs + 2 buttons + load-switch EN + load-switch /FLT + LDO PG (sense-only) + UCPD CC1/CC2 + SWD (2) = 18 pins. Comfortable in the UFQFPN-32 'N' package.
