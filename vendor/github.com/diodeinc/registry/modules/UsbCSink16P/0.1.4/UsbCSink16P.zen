@@ -1,0 +1,60 @@
+"""USB Type-C sink (UFP) with 16-pin connector, ESD protection, and VBUS TVS."""
+
+load("@stdlib/checks.zen", "voltage_within")
+load("@stdlib/interfaces.zen", "UsbTypeC")
+
+UsbC = Module("github.com/diodeinc/registry/connectors/UsbC16P/UsbC16P.zen")
+UsbEsd = Module("github.com/diodeinc/registry/components/TPD4E05U06QDQARQ1/TPD4E05U06QDQARQ1.zen")
+Resistor = Module("@stdlib/generics/Resistor.zen")
+Tvs = Module("@stdlib/generics/Tvs.zen")
+
+cc_resistors = config(bool, default=True, optional=True, help="Include 5.1 kΩ CC pull-downs (Rd).")
+tvs = config(bool, default=True, optional=True, help="Include VBUS TVS diode.")
+
+USB_C = io(UsbTypeC)
+VBUS = io(Power, checks=voltage_within("4.5V to 5.5V"))
+GND = io(Ground)
+
+UsbC(
+    name="J_USB",
+    VBUS=VBUS,
+    USB_C=USB_C,
+    GND=GND,
+)
+
+# CC pull-downs — 5.1 kΩ to GND per USB Type-C spec §4.5.1.3.1
+Resistor(name="RCC1", value="5.1kohm 1%", package="0402", P1=USB_C.CC1, P2=GND, dnp=not cc_resistors)
+Resistor(name="RCC2", value="5.1kohm 1%", package="0402", P1=USB_C.CC2, P2=GND, dnp=not cc_resistors)
+
+UsbEsd(
+    name="U_ESD",
+    D1P=USB_C.CC1,
+    D1M=USB_C.D.N,
+    D2P=USB_C.D.P,
+    D2M=USB_C.CC2,
+    GND=GND,
+)
+
+Tvs(
+    name="D_TVS",
+    package="DO-219AB",
+    direction="Unidirectional",
+    reverse_standoff_voltage="5V to 6V",
+    reverse_clamping_voltage="9V to 11V",
+    K=VBUS,
+    A=GND,
+    dnp=not tvs,
+)
+
+Layout(name="UsbCSink16P", path="layout/UsbCSink16P")
+
+# pcb:sch D_TVS.D x=-674.1000 y=-509.0000 rot=-270
+# pcb:sch GND.0 x=-851.9000 y=-26.4000 rot=0
+# pcb:sch GND.1 x=-572.5000 y=-115.3000 rot=0
+# pcb:sch GND.2 x=-648.7000 y=-445.5000 rot=0
+# pcb:sch GND.3 x=-267.7000 y=-153.4000 rot=0
+# pcb:sch J_USB.USB_C x=-940.8000 y=-458.2000 rot=0
+# pcb:sch RCC1.R x=-569.9600 y=-242.3000 rot=0
+# pcb:sch RCC2.R x=-620.7600 y=-267.7000 rot=0
+# pcb:sch U_ESD.TPD4E05U06QDQARQ1.TPD4E05U06QDQARQ1 x=-432.8000 y=-432.8000 rot=0
+# pcb:sch VBUS.0 x=-643.6200 y=-623.3000 rot=0

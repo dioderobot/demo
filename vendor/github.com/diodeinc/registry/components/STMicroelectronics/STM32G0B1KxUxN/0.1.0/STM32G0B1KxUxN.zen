@@ -1,0 +1,176 @@
+"""STM32G0B1 in UFQFPN-32 N-pinout: Cortex-M0+ MCU with USB-C PD (dual-CC UCPD1).
+
+VDDIO2 (pin 20) is tied to VDD inside this module — single 3.3 V rail.
+
+Do NOT add series resistors on USB D+/D-. 90 Ohm differential termination
+is inside the PHY; external resistors break USB compliance (AN4879).
+
+References: docs/DS13560.pdf, docs/AN5096.pdf.
+"""
+
+load("@stdlib/interfaces.zen", "Ground", "Power")
+
+# Generics
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+
+MemorySize = enum("128KB", "256KB", "512KB")
+_MEMORY_KB = {MemorySize("128KB"): 128, MemorySize("256KB"): 256, MemorySize("512KB"): 512}
+
+# (symbol, flash_kb, mpn) — ordered lowest-flash to highest, then by
+# intra-tier preference (85 C tray, 125 C tray, 125 C T&R). For a given
+# `memory_size`, every row with flash_kb >= requested is kept: first row
+# becomes the primary part, remaining rows become BOM alternatives (larger
+# flash drops in electrically, just costs more).
+_PARTS = [
+    ("STM32G0B1KBUxN", 128, "STM32G0B1KBU6N"),
+    ("STM32G0B1KBUxN", 128, "STM32G0B1KBU3N"),
+    ("STM32G0B1KBUxN", 128, "STM32G0B1KBU3NTR"),
+    ("STM32G0B1KCUxN", 256, "STM32G0B1KCU6N"),
+    ("STM32G0B1KEUxN", 512, "STM32G0B1KEU6N"),
+    ("STM32G0B1KEUxN", 512, "STM32G0B1KEU3N"),
+    ("STM32G0B1KEUxN", 512, "STM32G0B1KEU3NTR"),
+]
+
+memory_size = config(MemorySize, default="256KB", help="Minimum flash size. Larger parts are kept as BOM alternatives.")
+_req_kb = _MEMORY_KB[memory_size]
+
+_matches = [(sym, mpn) for sym, kb, mpn in _PARTS if kb >= _req_kb]
+_parts = [Part(mpn=mpn, manufacturer="STMicroelectronics") for _, mpn in _matches]
+
+# Power rails
+VDD = io(Power(voltage="3.3V"), help="3.3 V supply: VDD/VDDA (pin 4) and VDDIO2 (pin 20) tied internally.")
+GND = io(Ground())
+
+# Reset / debug / boot
+NRST = io(
+    Net,
+    optional=True,
+    help="Active-low reset (PF2). Internal pull-up; tie a 100 nF cap close to the pin for noise immunity if needed.",
+)
+PA13 = io(Net, optional=True, help="SWDIO out of reset.")
+PA14 = io(Net, optional=True, help="SWCLK out of reset; also BOOT0 at reset (pull low for flash boot).")
+
+# LSE oscillator pins (usable as GPIOs if LSE not needed)
+PC14 = io(Net, optional=True, help="LSE 32.768 kHz input, or GPIO.")
+PC15 = io(Net, optional=True, help="LSE 32.768 kHz output, or GPIO.")
+
+# Port A — GPIOs PA0..PA12 (PA11/PA12 are remappable to PA9/PA10 in firmware)
+PA0 = io(Net, optional=True)
+PA1 = io(Net, optional=True)
+PA2 = io(Net, optional=True)
+PA3 = io(Net, optional=True)
+PA4 = io(Net, optional=True)
+PA5 = io(Net, optional=True)
+PA6 = io(Net, optional=True)
+PA7 = io(Net, optional=True)
+PA8 = io(Net, optional=True, help="UCPD1_CC1.")
+PA9 = io(Net, optional=True, help="UCPD1 dead-battery CC1 sense (DBCC1).")
+PA10 = io(Net, optional=True, help="UCPD1 dead-battery CC2 sense (DBCC2).")
+PA11 = io(Net, optional=True, help="USB_DM; remappable to PA9 via SYSCFG_CFGR1.PA11_RMP.")
+PA12 = io(Net, optional=True, help="USB_DP; remappable to PA10 via SYSCFG_CFGR1.PA12_RMP.")
+
+# Port B — GPIOs available on UFQFPN-32 N-pinout
+PB0 = io(Net, optional=True)
+PB1 = io(Net, optional=True)
+PB6 = io(Net, optional=True)
+PB7 = io(Net, optional=True)
+PB8 = io(Net, optional=True)
+PB9 = io(Net, optional=True)
+PB15 = io(Net, optional=True, help="UCPD1_CC2.")
+
+# Port D — GPIOs available on UFQFPN-32 N-pinout
+PD0 = io(Net, optional=True)
+PD1 = io(Net, optional=True)
+PD2 = io(Net, optional=True)
+PD3 = io(Net, optional=True)
+
+Component(
+    name="STM32G0B1",
+    symbol=Symbol(library="STM32G0B1KxUxN.kicad_sym", name=_matches[0][0]),
+    footprint=File("QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm.kicad_mod"),
+    part=_parts[0],
+    properties={"alternatives": _parts[1:]},
+    pins={
+        # Power (VSS/VSSA and EP tied to GND; VDD/VDDA combined)
+        "VDD/VDDA": VDD,
+        "VSS/VSSA": GND,
+        "VDDIO2": VDD,
+        "EP": GND,
+        # Reset
+        "PF2-NRST": NRST,
+        # LSE / PC14, PC15
+        "PC14-OSC32_IN": PC14,
+        "PC15-OSC32_OUT": PC15,
+        # Port A
+        "PA0": PA0,
+        "PA1": PA1,
+        "PA2": PA2,
+        "PA3": PA3,
+        "PA4": PA4,
+        "PA5": PA5,
+        "PA6": PA6,
+        "PA7": PA7,
+        "PA8": PA8,
+        "PA9/UCPD1_DBCC1": PA9,
+        "PA10/UCPD1_DBCC2": PA10,
+        "PA9/PA11": PA11,
+        "PA10/PA12": PA12,
+        "PA13": PA13,
+        "PA14-BOOT0": PA14,
+        # Port B
+        "PB0": PB0,
+        "PB1": PB1,
+        "PB6": PB6,
+        "PB7": PB7,
+        "PB8": PB8,
+        "PB9": PB9,
+        "PB15": PB15,
+        # Port D
+        "PD0": PD0,
+        "PD1": PD1,
+        "PD2": PD2,
+        "PD3": PD3,
+    },
+)
+
+# 1 uF 0402 MLCC per power pin: VDD/VDDA (pin 4), VDDIO2 (pin 20).
+Capacitor(name="C_VDD", value="1uF", package="0402", P1=VDD, P2=GND)
+Capacitor(name="C_VDDIO2", value="1uF", package="0402", P1=VDD, P2=GND)
+
+Layout(name="STM32G0B1", path="layout/STM32G0B1KxUxN")
+
+# pcb:sch C_VDD.C x=16.7800 y=-293.1000 rot=0
+# pcb:sch C_VDDIO2.C x=105.6800 y=-293.1000 rot=0
+# pcb:sch GND.1 x=113.3000 y=-191.5000 rot=0
+# pcb:sch GND.2 x=-26.4000 y=443.5000 rot=0
+# pcb:sch NRST.0 x=-406.0432 y=-96.0120 rot=0
+# pcb:sch PA0.0 x=215.6520 y=-96.0120 rot=-180
+# pcb:sch PA1.0 x=215.6520 y=-70.6120 rot=-180
+# pcb:sch PA2.0 x=215.6520 y=-45.2120 rot=-180
+# pcb:sch PA3.0 x=215.6520 y=-19.8120 rot=-180
+# pcb:sch PA4.0 x=215.6520 y=5.5880 rot=-180
+# pcb:sch PA5.0 x=215.6520 y=30.9880 rot=-180
+# pcb:sch PA6.0 x=215.6520 y=56.3880 rot=-180
+# pcb:sch PA7.0 x=215.6520 y=81.7880 rot=-180
+# pcb:sch PA8.0 x=215.6520 y=107.1880 rot=-180
+# pcb:sch PA9.0 x=215.6520 y=157.9880 rot=-180
+# pcb:sch PA10.0 x=203.5568 y=208.7880 rot=-180
+# pcb:sch PA11.0 x=203.5568 y=132.5880 rot=-180
+# pcb:sch PA12.0 x=203.5568 y=183.3880 rot=-180
+# pcb:sch PA13.0 x=203.5568 y=234.1880 rot=-180
+# pcb:sch PA14.0 x=203.5568 y=259.5880 rot=-180
+# pcb:sch PB0.0 x=-395.7622 y=157.9880 rot=0
+# pcb:sch PB1.0 x=-395.7622 y=183.3880 rot=0
+# pcb:sch PB6.0 x=-395.7622 y=208.7880 rot=0
+# pcb:sch PB7.0 x=-395.7622 y=234.1880 rot=0
+# pcb:sch PB8.0 x=-395.7622 y=259.5880 rot=0
+# pcb:sch PB9.0 x=-395.7622 y=284.9880 rot=0
+# pcb:sch PB15.0 x=-407.8575 y=310.3880 rot=0
+# pcb:sch PC14.0 x=-407.8575 y=81.7880 rot=0
+# pcb:sch PC15.0 x=-407.8575 y=107.1880 rot=0
+# pcb:sch PD0.0 x=-395.7622 y=-45.2120 rot=0
+# pcb:sch PD1.0 x=-395.7622 y=-19.8120 rot=0
+# pcb:sch PD2.0 x=-395.7622 y=5.5880 rot=0
+# pcb:sch PD3.0 x=-395.7622 y=30.9880 rot=0
+# pcb:sch U1 x=-318.5000 y=-166.1000 rot=0
+# pcb:sch VDD.0 x=-46.7200 y=-356.6000 rot=0

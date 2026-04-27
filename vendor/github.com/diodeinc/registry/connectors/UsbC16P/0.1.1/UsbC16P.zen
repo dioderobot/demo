@@ -1,0 +1,38 @@
+"""USB Type-C 16-pin receptacle (USB 2.0). Default: GCT USB4105-GF-A."""
+
+load("@stdlib/interfaces.zen", "UsbTypeC")
+
+mpn = config(str, default="USB4105-GF-A", optional=True)
+manufacturer = config(str, default="GCT", optional=True)
+
+VBUS = io(Power)
+USB_C = io(UsbTypeC)
+GND = io(Ground)
+
+Component(
+    name="USB_C",
+    mpn=mpn,
+    manufacturer=manufacturer,
+    type="usb_c_receptacle",
+    symbol=Symbol(library="@kicad-symbols/Connector.kicad_sym", name="USB_C_Receptacle_USB2.0_16P"),
+    footprint=File(
+        "@kicad-footprints/Connector_USB.pretty/USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal.kicad_mod"
+    ),
+    prefix="J",
+    pins={
+        "GND": GND,
+        "VBUS": VBUS,
+        "SHIELD": GND,
+        "D+": USB_C.D.P,
+        "D-": USB_C.D.N,
+        "CC1": USB_C.CC1,
+        "CC2": USB_C.CC2,
+        "SBU1": USB_C.SBU1,
+        "SBU2": USB_C.SBU2,
+    },
+    properties={
+        "value": mpn,
+        "description": "USB-C Receptacle 16P",
+        "alternatives": [{"mpn": "GT-USB-7010ASV", "manufacturer": "G-Switch"}],
+    },
+)
