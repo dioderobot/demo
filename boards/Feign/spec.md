@@ -65,7 +65,7 @@ P0 = must have. P1 = should have.
  │            │          │                           │              │
  │            ▼          ▼                           ▼              │
  │     ┌────────────┐  ┌────────────────┐    ┌─────────────────┐    │
- │     │  TPS745x   │  │  TPS2553DRVR   │    │ STM32G0B1KxUxN  │    │
+ │     │  TPS74x01P │  │   TPS2553DRV   │    │ STM32G0B1KxUxN  │    │
  │     │  ULDO 3V3  │  │  load switch   │    │  UFQFPN-32 'N'  │    │
  │     │  + PG out  │  │  500 mA, ARet  │    │  Cortex-M0+     │    │
  │     └────────────┘  └────────────────┘    │                 │    │
@@ -119,8 +119,8 @@ non-volatile flag); no board impact.
 | Rail | Voltage | Source | Budget |
 |------|---------|--------|--------|
 | VBUS | 5 V (USB) | USB-C, ESD-clamped, VBUS-TVS protected | 500 mA total |
-| 3V3 | 3.3 V ±2% | TPS745x ULDO from VBUS | ~30 mA peak |
-| VCC_OUT | 5 V | TPS2553DRVR load switch from VBUS | ≤ 500 mA, current-limited |
+| 3V3 | 3.3 V ±2% | TPS74x01P ULDO from VBUS | ~30 mA peak |
+| VCC_OUT | 5 V | TPS2553DRV load switch from VBUS | ≤ 500 mA, current-limited |
 
 ### 3 V3 budget
 
@@ -147,7 +147,7 @@ not brown out the host.
 
 | Parameter | Value |
 |---|---|
-| Switch | TPS2553DRVR (auto-retry variant) |
+| Switch | TPS2553DRV (auto-retry variant) |
 | Input | VBUS (5 V) |
 | Output | VCC pin on target header |
 | Current limit | ~500 mA (set by ILIM resistor) |
@@ -218,7 +218,7 @@ Notes:
 
 | LED | Color (suggested) | Driver | Behavior |
 |---|---|---|---|
-| Power | Green | TPS745 PG output (push-pull) directly | Lights only when 3V3 LDO is in regulation |
+| Power | Green | TPS74x01P PG output (push-pull) directly | Lights only when 3V3 LDO is in regulation |
 | TX | Amber | MCU GPIO | Pulsed by firmware on host → target traffic |
 | RX | Blue | MCU GPIO | Pulsed by firmware on target → host traffic |
 
@@ -232,8 +232,8 @@ All via stdlib `Led` generic at ~2 mA each.
 |----------|------|---------|--------|
 | MCU | STM32G0B1 'N' SKU (alt-pinout, UCPD on 32-pin) | UFQFPN-32 | `components/STMicroelectronics/STM32G0B1KxUxN@0.1.0` |
 | USB-C front-end | UsbCSink16P module (connector + ESD + VBUS TVS) | Module | `modules/UsbCSink16P@0.1.4` |
-| 3V3 LDO | TPS74501-Q1 (TPS745x) ULDO, 500 mA, PG output | DRV (SON-6) | `reference/TPS745x@0.3.0` |
-| VCC load switch | TPS2553DRVR, auto-retry, adjustable ILIM | SOT-23-6 | Registry: TBA (placeholder) |
+| 3V3 LDO | TPS74x01P ULDO, adjustable, PG output | DRV (SON-6) | `components/Texas_Instruments/TPS74x01P@0.1.1` |
+| VCC load switch | TPS2553DRV, auto-retry, adjustable ILIM | SOT-23-6 | `components/Texas_Instruments/TPS2553DRV@0.1.0` |
 | Pin header | Harwin M20-8890645 | SMD right-angle | `components/Harwin/M20-8890645` (in-house) |
 | Tactile buttons | Omron B3U-1000P, 1.5 N | SMT | `components/B3U-1000P@0.2.1` |
 | LEDs | stdlib `Led` generic | 0402 | Generic |
@@ -283,7 +283,7 @@ All via stdlib `Led` generic at ~2 mA each.
 
 ## 10. Open items (non-blocking)
 
-- TPS2553 ILIM resistor exact value (≈ 47 kΩ for 500 mA per datasheet curve).
+- TPS2553DRV ILIM resistor exact value (≈ 47 kΩ for 500 mA per datasheet curve).
 - USART peripheral / pin assignment on the G0B1 — multiple valid options. EE picks during schematic capture, keeping USB on PA11/PA12 and routing length minimal.
 - Whether to populate ~100 Ω series resistors on TXD / DTR for short-circuit protection.
 - VID:PID assignment for production firmware.
@@ -310,7 +310,7 @@ All via stdlib `Led` generic at ~2 mA each.
 
 9. **5 V tolerance on inputs.** RX and CTS must be assigned to **FT_c** pins on the G0B1, not plain FT pins. FT_c pins handle up to 5.5 V regardless of V_DD; plain FT pins are only V_DD + 4 V max — insufficient when V_DD = 0 and target is externally driving 5 V.
 
-10. **Power LED truthfulness.** Power LED is driven by the TPS745 push-pull PG output rather than a 3V3 pull-up, so it lights only when the LDO is in regulation. Saves an MCU GPIO and gives a real "rail healthy" indication.
+10. **Power LED truthfulness.** Power LED is driven by the TPS74x01P push-pull PG output rather than a 3V3 pull-up, so it lights only when the LDO is in regulation. Saves an MCU GPIO and gives a real "rail healthy" indication.
 
 11. **Firmware update path.** Primary: USB DFU via STM32 system memory bootloader. Hold BOOT0 + tap RESET → host sees an STM32 DFU device → `dfu-util` / `STM32CubeProgrammer` flashes firmware. Tag-Connect SWD is the factory programming and recovery path; no SWD connector populated on shipped boards.
 

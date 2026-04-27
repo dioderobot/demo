@@ -3,7 +3,8 @@ name = "Feign"
 description = "USB-C to UART bridge (DM0004). STM32G0B1-based FTDI clone."
 
 [dependencies]
-"github.com/diodeinc/registry/modules/UsbCSink16P" = "0.1.4"
-"github.com/diodeinc/registry/components/STMicroelectronics/STM32G0B1KxUxN" = "0.1.0"
 "github.com/diodeinc/registry/components/B3U-1000P" = "0.2.1"
-"github.com/diodeinc/registry/reference/TPS745x" = "0.3.0"
+"github.com/diodeinc/registry/components/STMicroelectronics/STM32G0B1KxUxN" = "0.1.2"
+"github.com/diodeinc/registry/components/Texas_Instruments/TPS2553DRV" = "0.1.0"
+"github.com/diodeinc/registry/components/Texas_Instruments/TPS74x01P" = "0.1.1"
+"github.com/diodeinc/registry/modules/UsbCSink16P" = "0.1.5"

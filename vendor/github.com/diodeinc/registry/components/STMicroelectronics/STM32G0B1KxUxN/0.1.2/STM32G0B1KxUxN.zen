@@ -87,7 +87,6 @@ PD3 = io(Net, optional=True)
 Component(
     name="STM32G0B1",
     symbol=Symbol(library="STM32G0B1KxUxN.kicad_sym", name=_matches[0][0]),
-    footprint=File("QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm.kicad_mod"),
     part=_parts[0],
     properties={"alternatives": _parts[1:]},
     pins={
@@ -172,5 +171,5 @@ Layout(name="STM32G0B1", path="layout/STM32G0B1KxUxN")
 # pcb:sch PD1.0 x=-395.7622 y=-19.8120 rot=0
 # pcb:sch PD2.0 x=-395.7622 y=5.5880 rot=0
 # pcb:sch PD3.0 x=-395.7622 y=30.9880 rot=0
-# pcb:sch U1 x=-318.5000 y=-166.1000 rot=0
+# pcb:sch STM32G0B1 x=-318.5000 y=-166.1000 rot=0
 # pcb:sch VDD.0 x=-46.7200 y=-356.6000 rot=0

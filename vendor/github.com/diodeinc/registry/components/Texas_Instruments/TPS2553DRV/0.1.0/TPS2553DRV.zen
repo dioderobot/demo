@@ -1,0 +1,156 @@
+"""TPS2553DRV — TI TPS2553 family general-purpose current-limited high-side load switch (WSON-6 DRV).
+
+2.5–6.5 V input, active-high enable, 75 mA – 1.7 A adjustable current
+limit, 85 mΩ typ. Rds(on), built-in soft-start, thermal shutdown,
+reverse-current protection, open-drain FAULT.
+
+General-purpose load switch — works for USB host VBUS, switched rails
+to subsystems, downstream-port protection, etc. For USB SDP/CDP host
+applications the downstream port also requires ≥120 µF bulk capacitance
+at the connector (datasheet Figure 29); add it at the system level.
+
+Part selection by `overcurrent_response`:
+
+    overcurrent_response   MPN               Carrier
+    --------------------   ---------------   -----------
+    ConstantCurrent        TPS2553DRVR       3000 reel
+    ConstantCurrent        TPS2553DRVT       250 reel
+    LatchOff               TPS2553DRVR-1     3000 reel
+    LatchOff               TPS2553DRVT-1     250 reel
+
+First row of the filtered block becomes the primary `part`; the
+remaining row is added as a BOM alternative.
+
+Circuit
+- C_IN / C_OUT 1 µF ceramic decoupling per datasheet §10.2.3.
+- R_ILIM to GND sets I_OS per datasheet §8.1 Eq 5: R_ILIM = 25.95 kV /
+  I_OS, E96-rounded. Valid for 15 kΩ ≤ R_ILIM ≤ 232 kΩ (datasheet
+  §9.5.1), which maps to roughly 120 mA – 1.7 A. The lower 75 mA
+  "ILIM tied to IN" mode is intentionally not supported — use a
+  different part if you need <120 mA.
+- Optional R_EN 100 kΩ pull-up to VIN keeps the switch on by default
+  (datasheet §10.2.2; EN must not be left floating). DNP via
+  `enable_pullup=False` when EN is driven externally.
+- FAULT is open-drain. No internal pull-up — wire one externally to
+  the desired logic rail (typically 100 kΩ to 3.3 V or VIN).
+"""
+
+load("@stdlib/units.zen", "Current", "Voltage")
+load("@stdlib/utils.zen", "e96")
+
+Resistor = Module("@stdlib/generics/Resistor.zen")
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+
+OvercurrentResponse = enum("ConstantCurrent", "LatchOff")
+
+# Datasheet §8.1 Eq 5: I_OS × R_ILIM ≈ 25.95 kV (typical).
+_K_ILIM = Voltage("25.95kV")
+
+# (mpn, symbol_name, overcurrent_response) — filtered block's first row
+# becomes part=; remaining rows become BOM alternatives.
+_FAMILY = [
+    ("TPS2553DRVR", "TPS2553", OvercurrentResponse("ConstantCurrent")),
+    ("TPS2553DRVT", "TPS2553", OvercurrentResponse("ConstantCurrent")),
+    ("TPS2553DRVR-1", "TPS2553-1", OvercurrentResponse("LatchOff")),
+    ("TPS2553DRVT-1", "TPS2553-1", OvercurrentResponse("LatchOff")),
+]
+
+
+_I_MIN = Current("120mA")
+_I_MAX = Current("1.7A")
+
+
+def _check_current(i):
+    check(i >= _I_MIN, "current_limit must be ≥ 120 mA (R_ILIM ≤ 232 kΩ), got " + str(i))
+    check(i <= _I_MAX, "current_limit must be ≤ 1.7 A (R_ILIM ≥ 15 kΩ), got " + str(i))
+
+
+def _r_ilim(i):
+    """Datasheet §8.1 Eq 5: R_ILIM = K_ILIM / I_OS, snapped to E96."""
+    return e96(_K_ILIM / i)
+
+
+current_limit = config(
+    Current,
+    default="600mA",
+    checks=_check_current,
+    help="I_OS current-limit threshold (typ).",
+    optional=False,
+)
+
+overcurrent_response = config(
+    OvercurrentResponse,
+    default="ConstantCurrent",
+    help="ConstantCurrent auto-recovers; LatchOff requires EN cycle to re-enable.",
+)
+
+enable_pullup = config(
+    bool,
+    default=False,
+    help="100 kΩ EN-to-VIN pull-up. Set False for MCU-driven EN.",
+)
+
+VIN = io(Power(voltage="2.5V to 6.5V"))
+VOUT = io(Power(voltage="2.5V to 6.5V"))
+GND = io(Ground)
+EN = io(Net, optional=True, help="Active-high enable.")
+FAULT = io(Net(NotConnected()), optional=True, help="Open-drain fault flag (active low).")
+
+_ILIM = Net()
+
+_matches = [(mpn, sym) for mpn, sym, ov in _FAMILY if ov == overcurrent_response]
+_parts = [Part(mpn=mpn, manufacturer="Texas Instruments") for mpn, _ in _matches]
+
+Component(
+    name="TPS2553",
+    symbol=Symbol(library="TPS2553DRV.kicad_sym", name=_matches[0][1]),
+    part=_parts[0],
+    properties={"alternatives": _parts[1:]},
+    pins={
+        "IN": VIN,
+        "OUT": VOUT,
+        "GND": GND,
+        "EP": GND,
+        "EN": EN,
+        "ILIM": _ILIM,
+        "~{FAULT}": FAULT,
+    },
+)
+
+# Current-limit resistor — datasheet §8.1 Eq 5
+Resistor(
+    name="R_ILIM",
+    value=_r_ilim(current_limit).with_tolerance("1%"),
+    package="0402",
+    P1=_ILIM,
+    P2=GND,
+)
+
+# Optional EN pull-up keeps the switch on by default (datasheet §10.2.2)
+Resistor(
+    name="R_EN",
+    value="100kohm",
+    package="0402",
+    dnp=not enable_pullup,
+    P1=EN,
+    P2=VIN,
+)
+
+# Input / output decoupling (datasheet §10.2.3)
+Capacitor(name="C_IN", value="1uF", package="0402", voltage="10V", P1=VIN, P2=GND)
+Capacitor(name="C_OUT", value="1uF", package="0402", voltage="10V", P1=VOUT, P2=GND)
+
+Layout(name="TPS2553DRV", path="layout/TPS2553DRV")
+
+# pcb:sch C_IN.C x=-465.8200 y=-216.9000 rot=0
+# pcb:sch C_OUT.C x=67.5800 y=-216.9000 rot=0
+# pcb:sch EN.0 x=-370.3622 y=-134.1120 rot=0
+# pcb:sch FAULT.0 x=-95.8003 y=-184.9120 rot=-180
+# pcb:sch GND.0 x=-128.0000 y=11.7000 rot=0
+# pcb:sch GND.1 x=-458.2000 y=-115.3000 rot=0
+# pcb:sch GND.3 x=75.2000 y=-115.3000 rot=0
+# pcb:sch R_EN.R x=-290.5600 y=-216.9000 rot=-180
+# pcb:sch R_ILIM.R x=-277.8600 y=-89.9000 rot=0
+# pcb:sch TPS2553 x=-255.0000 y=-255.0000 rot=0
+# pcb:sch VIN.0 x=-453.1200 y=-280.4000 rot=0
+# pcb:sch VOUT.0 x=80.2800 y=-280.4000 rot=0
