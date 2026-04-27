@@ -13,7 +13,7 @@ LDO = Module("github.com/diodeinc/registry/components/Texas_Instruments/TPS74x01
 LoadSwitch = Module("github.com/diodeinc/registry/components/Texas_Instruments/TPS2553DRV/TPS2553DRV.zen")
 Button = Module("github.com/diodeinc/registry/components/B3U-1000P/B3U-1000P.zen")
 PinHeader = Module("github.com/diodeinc/registry/components/Harwin_Inc/M20-889xx45/M20-889xx45.zen")
-TagConnect = Module("github.com/diodeinc/registry/connectors/TagConnect/TC2030_SWD.zen")
+TagConnect = Module("github.com/diodeinc/registry/connectors/TagConnect/TC2030-NL_SWD.zen")
 
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
@@ -156,7 +156,7 @@ PinHeader(
     P6=MODEM_DTR,
 )
 
-Board(name="Feign", layout_path="layout", layers=2)
+Board(name="Feign", layout_path="layout", layers=4)
 
 # pcb:sch D_PWR.LED x=-102.6000 y=44.7200 rot=-180
 # pcb:sch D_RX.LED x=-102.6000 y=146.3200 rot=-180
