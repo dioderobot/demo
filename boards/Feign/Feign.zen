@@ -54,12 +54,6 @@ UsbCSink(
     GND=GND,
 )
 
-# VBUS bulk — USB 2.0 §7.2.4.1 caps a FS device at ≤10 µF effective.
-# UsbCSink16P does not include VBUS bulk; the LDO and load-switch packages
-# each add 1 µF C_IN, so total nominal is ~6.7 µF (within USB-spec window
-# after MLCC DC-bias derating).
-Capacitor(name="C_VBUS_BULK", value="4.7uF", package="0805", P1=VBUS, P2=GND)
-
 # 3V3 LDO — TPS74x01P (push-pull PG drives power LED directly)
 LDO(
     name="U_LDO",
@@ -72,8 +66,13 @@ LDO(
     PG=PG,
 )
 
+# LED brightness equalization (≈ 10 mcd typ each at 3.3 V):
+# - green (VLMG1500): Vf 1.9 V → 6.4 mA → 11 mcd typ
+# - yellow (LTST-C281KSKT): Vf 1.75 V → 1.9 mA → 10 mcd typ
+# - blue (VLMB1500): Vf 2.6 V → 1.8 mA → 10 mcd typ
+
 # Power LED — on when LDO PG asserted (rail healthy)
-led("PWR", PG, "green", "1kohm")
+led("PWR", PG, "green", "220ohm")
 
 LoadSwitch(
     name="U_VCC_SW",
@@ -142,8 +141,8 @@ TagConnect(
 )
 
 # Activity LEDs — driven by MCU GPIO (current-sourced)
-led("TX", LED_TX, "yellow", "1kohm")
-led("RX", LED_RX, "blue", "1kohm")
+led("TX", LED_TX, "yellow", "820ohm")
+led("RX", LED_RX, "blue", "390ohm")
 
 # Target header — 1×6 SMD right-angle (SparkFun FTDI Basic pinout)
 # Pin 1: GND  | Pin 2: CTS  | Pin 3: VCC
