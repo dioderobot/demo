@@ -1,9 +1,209 @@
 """
-Feign
+Feign — DM0004 — USB-C to UART bridge.
+
+STM32G0B1-based software FTDI clone. Bus-powered, crystal-less USB
+(HSI48 + CRS). Composite CDC-ACM + FTDI UART-mode emulation.
+
+See spec.md for design rationale.
 """
+
+load("@stdlib/interfaces.zen", "Ground", "Power", "Swd", "UsbTypeC")
+load("@stdlib/board_config.zen", "Board")
+
+# ----------------------------------------------------------------------------
+# Component modules
+# ----------------------------------------------------------------------------
+
+UsbCSink = Module("github.com/diodeinc/registry/modules/UsbCSink16P/UsbCSink16P.zen")
+STM32G0B1 = Module("github.com/diodeinc/registry/components/STMicroelectronics/STM32G0B1KxUxN/STM32G0B1KxUxN.zen")
+LDO = Module("github.com/diodeinc/registry/components/Texas_Instruments/TPS74x01P/TPS74x01P.zen")
+LoadSwitch = Module("github.com/diodeinc/registry/components/Texas_Instruments/TPS2553DRV/TPS2553DRV.zen")
+Button = Module("github.com/diodeinc/registry/components/B3U-1000P/B3U-1000P.zen")
+PinHeader = Module("github.com/diodeinc/registry/components/Harwin_Inc/M20-889xx45/M20-889xx45.zen")
+TagConnect = Module("github.com/diodeinc/registry/connectors/TagConnect/TC2030_SWD.zen")
+
+Resistor = Module("@stdlib/generics/Resistor.zen")
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+Led = Module("@stdlib/generics/Led.zen")
+
+# ----------------------------------------------------------------------------
+# Power rails
+# ----------------------------------------------------------------------------
+
+VBUS = Power("VBUS", voltage="4.5V to 5.5V")
+V3V3 = Power("3V3", voltage="3.3V")
+VCC_OUT = Power("VCC_OUT", voltage="4.5V to 5.5V")
+GND = Ground()
+
+# ----------------------------------------------------------------------------
+# Internal nets
+# ----------------------------------------------------------------------------
+
+USB_C = UsbTypeC("USB_C")
+
+_NRST = Net("NRST")
+_BOOT0_SWCLK = Net("BOOT0_SWCLK")  # PA14: SWCLK + BOOT0 share the pin
+_SWDIO = Net("SWDIO")
+_PG = Net("PG")  # LDO power-good → power LED
+_VCC_EN = Net("VCC_EN")
+_VCC_FAULT = Net("VCC_FAULT")
+_UART_TX = Net("UART_TX")
+_UART_RX = Net("UART_RX")
+_MODEM_CTS = Net("MODEM_CTS")
+_MODEM_DTR = Net("MODEM_DTR")
+_LED_TX = Net("LED_TX")
+_LED_RX = Net("LED_RX")
+
+# ----------------------------------------------------------------------------
+# USB-C front-end (connector + ESD + VBUS TVS, CC pulldowns DNP)
+# ----------------------------------------------------------------------------
+
+UsbCSink(
+    name="J_USB",
+    cc_resistors=False,  # STM32G0B1 UCPD dead-battery Rd handles termination
+    tvs=True,
+    USB_C=USB_C,
+    VBUS=VBUS,
+    GND=GND,
+)
+
+# VBUS bulk per USB 2.0 (UsbCSink16P does not include this).
+Capacitor(name="C_VBUS_BULK", value="10uF", package="0805", P1=VBUS, P2=GND)
+
+# ----------------------------------------------------------------------------
+# 3V3 LDO — TPS74x01P (push-pull PG drives power LED directly)
+# ----------------------------------------------------------------------------
+
+LDO(
+    name="U_LDO",
+    output_voltage="3.3V",
+    output_current="500mA",
+    pg_type="PushPull",
+    VIN=VBUS,
+    VOUT=V3V3,
+    GND=GND,
+    PG=_PG,
+)
+
+# Power LED — on when LDO PG asserted (rail healthy)
+_LED_PWR_K = Net("LED_PWR_K")
+Led(name="D_PWR", color="green", package="0402", A=_PG, K=_LED_PWR_K)
+Resistor(name="R_LED_PWR", value="1kohm", package="0402", P1=_LED_PWR_K, P2=GND)
+
+# ----------------------------------------------------------------------------
+# 5V VCC_OUT load switch — TPS2553DRV (auto-retry, ~500 mA)
+# ----------------------------------------------------------------------------
+
+LoadSwitch(
+    name="U_VCC_SW",
+    current_limit="500mA",
+    overcurrent_response="ConstantCurrent",
+    VIN=VBUS,
+    VOUT=VCC_OUT,
+    GND=GND,
+    EN=_VCC_EN,
+    FAULT=_VCC_FAULT,
+)
+
+# FAULT open-drain pull-up to 3V3
+Resistor(name="R_VCC_FAULT", value="100kohm", package="0402", P1=_VCC_FAULT, P2=V3V3)
+
+# VCC_OUT bulk
+Capacitor(name="C_VCC_OUT", value="22uF", package="0805", P1=VCC_OUT, P2=GND)
+
+# ----------------------------------------------------------------------------
+# MCU — STM32G0B1KxUxN (UFQFPN-32 N-pinout, UCPD with dead-battery Rd)
+# ----------------------------------------------------------------------------
+
+STM32G0B1(
+    name="U_MCU",
+    memory_size="128KB",
+    VDD=V3V3,
+    GND=GND,
+    NRST=_NRST,
+    PA8=USB_C.CC1,  # UCPD1_CC1
+    PB15=USB_C.CC2,  # UCPD1_CC2
+    PA11=USB_C.D.N,  # USB D-
+    PA12=USB_C.D.P,  # USB D+
+    PA13=_SWDIO,
+    PA14=_BOOT0_SWCLK,  # SWCLK + BOOT0
+    PA9=_UART_TX,  # USART1 TX
+    PA10=_UART_RX,  # USART1 RX
+    PA0=_LED_TX,
+    PA1=_LED_RX,
+    PA2=_VCC_EN,
+    PA3=_VCC_FAULT,
+    PA4=_MODEM_CTS,  # header pin 2
+    PA5=_MODEM_DTR,  # header pin 6
+)
+
+# MCU decoupling (VDD/VDDA/VDDIO2 tied internally → single rail, multiple caps)
+Capacitor(name="C_VDD_1", value="100nF", package="0402", P1=V3V3, P2=GND)
+Capacitor(name="C_VDD_2", value="100nF", package="0402", P1=V3V3, P2=GND)
+Capacitor(name="C_VDD_3", value="100nF", package="0402", P1=V3V3, P2=GND)
+Capacitor(name="C_VDD_BULK", value="1uF", package="0402", P1=V3V3, P2=GND)
+
+# NRST glitch filter (AN4879)
+Capacitor(name="C_NRST", value="100nF", package="0402", P1=_NRST, P2=GND)
+
+# BOOT0 / SWCLK pull-down — keeps PA14 low at reset (boot from flash)
+Resistor(name="R_BOOT0", value="10kohm", package="0402", P1=_BOOT0_SWCLK, P2=GND)
+
+# ----------------------------------------------------------------------------
+# Buttons — RESET (NRST → GND) and BOOT0 (PA14 → V3V3)
+# ----------------------------------------------------------------------------
+
+Button(name="SW_RESET", P1=_NRST, P2=GND)
+Button(name="SW_BOOT0", P1=_BOOT0_SWCLK, P2=V3V3)
+
+# ----------------------------------------------------------------------------
+# SWD — Tag-Connect TC2030 (footprint only, no part populated)
+# ----------------------------------------------------------------------------
+
+TagConnect(
+    name="J_SWD",
+    VSENSE=V3V3,
+    GND=GND,
+    SWD=Swd("SWD", SWDIO=_SWDIO, SWCLK=_BOOT0_SWCLK),
+    NRST=_NRST,
+    SWO=Net("SWO_NC"),  # Cortex-M0+ has no SWO
+)
+
+# ----------------------------------------------------------------------------
+# Activity LEDs — driven by MCU GPIO (current-sourced)
+# ----------------------------------------------------------------------------
+
+_LED_TX_K = Net("LED_TX_K")
+Led(name="D_TX", color="yellow", package="0402", A=_LED_TX, K=_LED_TX_K)
+Resistor(name="R_LED_TX", value="1kohm", package="0402", P1=_LED_TX_K, P2=GND)
+
+_LED_RX_K = Net("LED_RX_K")
+Led(name="D_RX", color="blue", package="0402", A=_LED_RX, K=_LED_RX_K)
+Resistor(name="R_LED_RX", value="1kohm", package="0402", P1=_LED_RX_K, P2=GND)
+
+# ----------------------------------------------------------------------------
+# Target header — 1×6 SMD right-angle (SparkFun FTDI Basic pinout)
+# ----------------------------------------------------------------------------
+# Pin 1: GND  | Pin 2: CTS  | Pin 3: VCC
+# Pin 4: TXD  | Pin 5: RXD  | Pin 6: DTR
+
+PinHeader(
+    name="J_HDR",
+    positions=6,
+    P1=GND,
+    P2=_MODEM_CTS,
+    P3=VCC_OUT,
+    P4=_UART_TX,
+    P5=_UART_RX,
+    P6=_MODEM_DTR,
+)
+
+# ----------------------------------------------------------------------------
+# Board
+# ----------------------------------------------------------------------------
 
 Board(
     name="Feign",
     layout_path="layout",
-    layers=4,
+    layers=2,
 )
