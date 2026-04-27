@@ -1,0 +1,35 @@
+"""
+Harwin M20-889xx45 single-row 2.54mm SMT right-angle pin header.
+
+`positions` selects the pin count and the matching M20-889NN45R variant.
+"""
+
+positions = config(int, default=3, optional=False, allowed=[2, 3, 4, 5, 6, 8, 10])
+
+_pins = {}
+if positions >= 1:
+    _pins["1"] = io("P1", Net)
+if positions >= 2:
+    _pins["2"] = io("P2", Net)
+if positions >= 3:
+    _pins["3"] = io("P3", Net)
+if positions >= 4:
+    _pins["4"] = io("P4", Net)
+if positions >= 5:
+    _pins["5"] = io("P5", Net)
+if positions >= 6:
+    _pins["6"] = io("P6", Net)
+if positions >= 8:
+    _pins["7"] = io("P7", Net)
+    _pins["8"] = io("P8", Net)
+if positions >= 10:
+    _pins["9"] = io("P9", Net)
+    _pins["10"] = io("P10", Net)
+
+_variant = "M20-889" + ("0" + str(positions) if positions < 10 else str(positions)) + "45"
+
+Component(
+    name=_variant,
+    symbol=Symbol(library=_variant + ".kicad_sym"),
+    pins=_pins,
+)

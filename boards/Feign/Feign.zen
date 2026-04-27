@@ -1,0 +1,204 @@
+"""
+Feign — USB-C to UART bridge.
+
+STM32G0B1-based, bus-powered, crystal-less USB (HSI48 + CRS). Enumerates
+as USB CDC-ACM with optional software FTDI UART-mode emulation.
+"""
+
+load("@stdlib/interfaces.zen", "NotConnected", "Swd", "Uart", "UsbTypeC")
+
+UsbCSink = Module("github.com/diodeinc/registry/modules/UsbCSink16P/UsbCSink16P.zen")
+STM32G0B1 = Module("github.com/diodeinc/registry/components/STMicroelectronics/STM32G0B1KxUxN/STM32G0B1KxUxN.zen")
+LDO = Module("github.com/diodeinc/registry/components/Texas_Instruments/TPS74x01P/TPS74x01P.zen")
+LoadSwitch = Module("github.com/diodeinc/registry/components/Texas_Instruments/TPS2553DRV/TPS2553DRV.zen")
+Button = Module("github.com/diodeinc/registry/components/B3U-1000P/B3U-1000P.zen")
+PinHeader = Module("github.com/diodeinc/registry/components/Harwin_Inc/M20-889xx45/M20-889xx45.zen")
+TagConnect = Module("github.com/diodeinc/registry/connectors/TagConnect/TC2030-NL_SWD.zen")
+Logo = Module("github.com/diodeinc/registry/modules/Logo/Logo.zen")
+
+Resistor = Module("@stdlib/generics/Resistor.zen")
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+Led = Module("@stdlib/generics/Led.zen")
+Fiducial = Module("@stdlib/generics/Fiducial.zen")
+Version = Module("@stdlib/generics/Version.zen")
+
+
+def led(name, anode, color, resistance):
+    """LED + series current-limit resistor to GND. `anode` drives the LED high."""
+    K = Net("LED_" + name + "_K")
+    Led(name="D_" + name, color=color, package="0402", A=anode, K=K)
+    Resistor(name="R_" + name, value=resistance, package="0402", P1=K, P2=GND)
+
+
+VBUS = Power(voltage="4.5V to 5.5V (5V nom.)")
+V3V3 = Power(voltage="3.3V")
+VCC_OUT = Power(voltage="4.5V to 5.5V (5V nom.)")
+GND = Ground()
+
+USB_C = UsbTypeC()
+UART = Uart()  # PD3 TX → header TXD ; PD2 RX ← header RXD (FT_c, 5V tolerant)
+SWD = Swd()  # PA13 SWDIO ; PA14 SWCLK (also BOOT0)
+
+NRST = Net()
+VCC_EN = Net()
+VCC_FAULT = Net()
+MODEM_CTS = Net()  # PD0 (FT_c, 5V tolerant)
+MODEM_DTR = Net()  # PD1 output
+LED_TX = Net()
+LED_RX = Net()
+
+# USB-C front-end (connector + ESD + VBUS TVS, CC pulldowns DNP)
+UsbCSink(
+    name="J_USB",
+    cc_resistors=False,  # STM32G0B1 UCPD dead-battery Rd handles termination
+    tvs=True,
+    USB_C=USB_C,
+    VBUS=VBUS,
+    GND=GND,
+)
+
+# 3V3 LDO — TPS74x01P. PG unused (not sequencing); default open-drain SKU is
+# cheaper than push-pull. Power LED runs straight off V3V3.
+LDO(
+    name="U_LDO",
+    output_voltage="3.3V",
+    output_current="500mA",
+    VIN=VBUS,
+    VOUT=V3V3,
+    GND=GND,
+)
+
+# LED brightness equalization (≈ 10 mcd typ each at 3.3 V):
+# - green (VLMG1500): Vf 1.9 V → 6.4 mA → 11 mcd typ
+# - yellow (LTST-C281KSKT): Vf 1.75 V → 1.9 mA → 10 mcd typ
+# - blue (VLMB1500): Vf 2.6 V → 1.8 mA → 10 mcd typ
+
+# Power LED — on whenever V3V3 is up
+led("PWR", V3V3, "green", "220ohm")
+
+LoadSwitch(
+    name="U_VCC_SW",
+    current_limit="400mA",  # leaves ~100 mA headroom within the USB 500 mA budget
+    overcurrent_response="ConstantCurrent",
+    VIN=VBUS,
+    VOUT=VCC_OUT,
+    GND=GND,
+    EN=VCC_EN,
+    FAULT=VCC_FAULT,
+)
+
+# FAULT open-drain pull-up to 3V3.
+Resistor(name="R_VCC_FAULT", value="100kohm", package="0402", P1=VCC_FAULT, P2=V3V3)
+
+# EN pull-down keeps the switch deterministically OFF during MCU reset/boot
+# (G0 GPIOs default to high-Z analog input on POR).
+Resistor(name="R_VCC_EN", value="100kohm", package="0402", P1=VCC_EN, P2=GND)
+
+# MCU — STM32G0B1KxUxN (UFQFPN-32 N-pinout, UCPD with dead-battery Rd)
+STM32G0B1(
+    name="U_MCU",
+    memory_size="128KB",
+    VDD=V3V3,
+    GND=GND,
+    NRST=NRST,
+    # UCPD with dead-battery: DBCC pins shorted to CC pins per AN5225 §11.3.1.
+    PA8=USB_C.CC1,  # UCPD1_CC1
+    PA9=USB_C.CC1,  # UCPD1_DBCC1 — shorted to CC1
+    PB15=USB_C.CC2,  # UCPD1_CC2
+    PA10=USB_C.CC2,  # UCPD1_DBCC2 — shorted to CC2
+    # USB FS
+    PA11=USB_C.D.N,  # USB D-
+    PA12=USB_C.D.P,  # USB D+
+    # SWD (PA14 doubles as BOOT0)
+    PA13=SWD.SWDIO,
+    PA14=SWD.SWCLK,
+    # USART5 — picked because PD2 (RX) is FT_c (5 V tolerant when VDD=0).
+    # USART1 RX (PA10) was unavailable: PA9/PA10 are reserved for DBCC.
+    PD2=UART.RX,  # USART5_RX (FT_c)
+    PD3=UART.TX,  # USART5_TX
+    # Modem GPIOs to header. CTS must be FT_c since the target may drive 5 V.
+    PD0=MODEM_CTS,  # header pin 2 (FT_c)
+    PD1=MODEM_DTR,  # header pin 6 (output)
+    # LEDs / VCC switch control
+    PA0=LED_TX,
+    PA1=LED_RX,
+    PA2=VCC_EN,
+    PA3=VCC_FAULT,
+)
+
+# BOOT0 / SWCLK pull-down — keeps PA14 low at reset (boot from flash)
+Resistor(name="R_BOOT0", value="10kohm", package="0402", P1=SWD.SWCLK, P2=GND)
+
+# Buttons — RESET (NRST → GND) and BOOT0 (PA14 → V3V3)
+Button(name="SW_RESET", P1=NRST, P2=GND)
+Button(name="SW_BOOT0", P1=SWD.SWCLK, P2=V3V3)
+
+TagConnect(
+    name="J_SWD",
+    VSENSE=V3V3,
+    GND=GND,
+    SWD=SWD,
+    NRST=NRST,
+    SWO=NotConnected(),  # Cortex-M0+ has no SWO
+)
+
+# Activity LEDs — driven by MCU GPIO (current-sourced)
+led("TX", LED_TX, "yellow", "820ohm")
+led("RX", LED_RX, "blue", "390ohm")
+
+# Target header — 1×6 SMD right-angle, SparkFun FTDI Basic pinout
+# Pin 1: GND  | Pin 2: CTS  | Pin 3: VCC
+# Pin 4: TXD  | Pin 5: RXD  | Pin 6: DTR
+PinHeader(
+    name="J_HDR",
+    positions=6,
+    P1=GND,
+    P2=MODEM_CTS,
+    P3=VCC_OUT,
+    P4=UART.TX,
+    P5=UART.RX,
+    P6=MODEM_DTR,
+)
+
+# Front-side fiducials for assembly machine vision
+Fiducial(name="FID1")
+Fiducial(name="FID2")
+Fiducial(name="FID3")
+
+# Silkscreen version stamp + Diode logo
+Version(name="VER")
+Logo(name="LOGO")
+
+Board(name="Feign", layout_path="layout", layers=4)
+
+# pcb:sch D_PWR.LED x=-102.6000 y=44.7200 rot=-180
+# pcb:sch D_RX.LED x=-102.6000 y=146.3200 rot=-180
+# pcb:sch D_TX.LED x=-102.6000 y=120.9200 rot=-180
+# pcb:sch FID1.FID x=-1042.4000 y=875.3000 rot=0
+# pcb:sch FID2.FID x=-915.4000 y=875.3000 rot=0
+# pcb:sch FID3.FID x=-801.1000 y=875.3000 rot=0
+# pcb:sch GND.0 x=-940.8000 y=354.6000 rot=0
+# pcb:sch GND.1 x=176.8000 y=570.5000 rot=0
+# pcb:sch GND.2 x=24.4000 y=265.7000 rot=-180
+# pcb:sch GND.3 x=-39.1000 y=621.3000 rot=0
+# pcb:sch GND.4 x=126.0000 y=176.8000 rot=0
+# pcb:sch GND.6 x=-1931.4000 y=1078.5000 rot=0
+# pcb:sch J_HDR.M20-8890645 x=-940.8000 y=176.8000 rot=0 mirror=y
+# pcb:sch J_SWD.J x=113.3000 y=341.9000 rot=0 mirror=y
+# pcb:sch J_USB x=-2197.1000 y=-63.5000 rot=0
+# pcb:sch R_BOOT0.R x=-36.5600 y=519.7000 rot=0
+# pcb:sch R_PWR.R x=65.0400 y=24.4000 rot=-90
+# pcb:sch R_RX.R x=65.0400 y=126.0000 rot=-90
+# pcb:sch R_TX.R x=65.0400 y=100.6000 rot=-90
+# pcb:sch R_VCC_EN.R x=-1928.8600 y=976.9000 rot=0
+# pcb:sch R_VCC_FAULT.R x=-1636.7600 y=748.3000 rot=-180
+# pcb:sch SW_BOOT0.B3U-1000P x=-77.2000 y=298.7200 rot=-90
+# pcb:sch SW_RESET.B3U-1000P x=-13.7000 y=298.7200 rot=-90
+# pcb:sch U_LDO x=-2260.6000 y=-469.9000 rot=0
+# pcb:sch U_MCU x=-876.3000 y=-177.8000 rot=0
+# pcb:sch U_VCC_SW x=-2108.2000 y=736.6000 rot=0
+# pcb:sch V3V3.0 x=181.8800 y=303.8000 rot=0
+# pcb:sch V3V3.1 x=-34.0200 y=240.3000 rot=0
+# pcb:sch V3V3.2 x=-1634.2200 y=697.5000 rot=0
+# pcb:sch V3V3.3 x=-148.3200 y=-1.0000 rot=0
+# pcb:sch VCC_OUT.0 x=-923.0200 y=126.0000 rot=0

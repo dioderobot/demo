@@ -1,0 +1,22 @@
+"""TPD4E05U06QDQARQ1 Component"""
+
+Pins = struct(
+    D1M=io("D1M", Net),
+    D1P=io("D1P", Net),
+    D2M=io("D2M", Net),
+    D2P=io("D2P", Net),
+    GND=io("GND", Net),
+)
+
+moved("TPD4E05U06QDQARQ1.TPD4E05U06QDQARQ1", "TPD4E05U06QDQARQ1")
+Component(
+    name="TPD4E05U06QDQARQ1",
+    symbol=Symbol(library="TPD4E05U06QDQARQ1.kicad_sym"),
+    pins={
+        "D1-": Pins.D1M,
+        "D1+": Pins.D1P,
+        "D2-": Pins.D2M,
+        "D2+": Pins.D2P,
+        "GND": Pins.GND,
+    },
+)

@@ -1,0 +1,194 @@
+"""TPS74x01P — TI TPS74501P (500 mA) and TPS74601P (1 A) automotive LDOs (WSON-6 DRV).
+
+Adjustable-output typical-application reference design. Covers the three
+power-good variants (P, PB, PC) across both current tiers, sharing the
+same 6-pin WSON pinout, 1.5–6 V input, and 0.55–5.5 V adjustable output.
+TPS74501P per TPS745-Q1 datasheet; TPS74601P per TPS746-Q1 datasheet.
+
+Part selection by (`pg_type`, `output_current`) — higher-current parts
+satisfy lower-current requests:
+
+    pg_type      I_max   MPN                   PG delay  AEC-Q100
+    ---------    -----   --------------------  --------  --------
+    OpenDrain    500 mA  TPS74501PDRVR         150 µs    —
+                 500 mA  TPS74501PDRVT         150 µs    —
+                 500 mA  TPS74501PQWDRVRQ1     150 µs    ✓
+                 500 mA  TPS74501PBQWDRVRQ1    5 ms      ✓
+                 1 A     TPS74601PDRVR         150 µs    —
+                 1 A     TPS74601PDRVT         150 µs    —
+                 1 A     TPS74601PQWDRVRQ1     150 µs    ✓
+                 1 A     TPS74601PBDRVR        5 ms      —
+                 1 A     TPS74601PBDRVT        5 ms      —
+                 1 A     TPS74601PBQWDRVRQ1    5 ms      ✓
+    PushPull     500 mA  TPS74501PCQWDRVRQ1    150 µs    ✓
+                 1 A     TPS74601PCQWDRVRQ1    150 µs    ✓
+
+First row of the filtered block becomes the primary `part`; remaining
+rows become BOM alternatives.
+
+Circuit
+- C_IN / C_OUT ceramic decoupling per datasheet §8.1.2 and §6.3
+  recommended operating conditions (C_IN ≥ 1 µF, C_OUT 1 µF–220 µF,
+  0.47 µF derated minimum for stability). X7R keeps derating bounded
+  across VIN/VOUT range.
+- Adjustable feedback divider per §8.1.1 Eq 2:
+  V_OUT = V_FB × (1 + R1/R2), V_FB = 0.55 V. R2 fixed at 51 kΩ to
+  satisfy Eq 3 (R1+R2 ≤ V_OUT/(I_FB × 100)) for any V_OUT in range
+  while keeping divider current near 10 µA.
+- Optional 10 nF feed-forward cap on FB (§7.3.6) improves transient,
+  noise, and PSRR performance. When using an open-drain PG variant,
+  see §7.3.5 for the C_FF / PG-delay mismatch workaround.
+- R_EN 100 kΩ pull-up to VIN keeps the LDO enabled by default
+  (§7.3.3). DNP via `pullup_en=False` when EN is driven externally.
+  Per §8.1 start-up sequencing, EN must not be left floating.
+- Open-drain PG variants need an external pull-up at the PG net when
+  the signal is used; push-pull drives both rails.
+"""
+
+load("@stdlib/checks.zen", "voltage_within")
+load("@stdlib/units.zen", "Current", "Resistance", "Voltage")
+load("@stdlib/utils.zen", "e96")
+
+Resistor = Module("@stdlib/generics/Resistor.zen")
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+
+_V_FB = Voltage("0.55V")
+_R_FB_BOT_VAL = Resistance("51kohm")
+
+
+def _fb_top(v_out):
+    """Datasheet §8.1.1 Eq 2: V_OUT = V_FB × (1 + R1/R2)."""
+    return e96(_R_FB_BOT_VAL * (v_out / _V_FB - 1))
+
+
+PgType = enum("OpenDrain", "PushPull")
+
+# (mpn, symbol, pg_type, i_max, qualifications) — filtered block's first
+# row becomes part=; remaining rows become BOM alternatives. Ordered so
+# the cheapest commercial non-Q1 part of the smallest sufficient family
+# is primary; Q1 parts and the next current tier follow.
+_FAMILY = [
+    ("TPS74501PDRVR", "TPS74501P", PgType("OpenDrain"), Current("500mA"), []),
+    ("TPS74501PDRVT", "TPS74501P", PgType("OpenDrain"), Current("500mA"), []),
+    ("TPS74501PQWDRVRQ1", "TPS74501P", PgType("OpenDrain"), Current("500mA"), ["AEC-Q100"]),
+    ("TPS74501PBQWDRVRQ1", "TPS74501P", PgType("OpenDrain"), Current("500mA"), ["AEC-Q100"]),
+    ("TPS74601PDRVR", "TPS74601P", PgType("OpenDrain"), Current("1A"), []),
+    ("TPS74601PDRVT", "TPS74601P", PgType("OpenDrain"), Current("1A"), []),
+    ("TPS74601PQWDRVRQ1", "TPS74601P", PgType("OpenDrain"), Current("1A"), ["AEC-Q100"]),
+    ("TPS74601PBDRVR", "TPS74601P", PgType("OpenDrain"), Current("1A"), []),
+    ("TPS74601PBDRVT", "TPS74601P", PgType("OpenDrain"), Current("1A"), []),
+    ("TPS74601PBQWDRVRQ1", "TPS74601P", PgType("OpenDrain"), Current("1A"), ["AEC-Q100"]),
+    ("TPS74501PCQWDRVRQ1", "TPS74501P", PgType("PushPull"), Current("500mA"), ["AEC-Q100"]),
+    ("TPS74601PCQWDRVRQ1", "TPS74601P", PgType("PushPull"), Current("1A"), ["AEC-Q100"]),
+]
+
+
+def _check_current(i):
+    check(i <= Current("1A"), "output_current must be ≤ 1 A (family max), got " + str(i))
+
+
+output_voltage = config(
+    Voltage,
+    default="3.3V",
+    checks=voltage_within("0.55V to 5.5V"),
+    optional=False,
+)
+
+output_current = config(
+    Current,
+    default="500mA",
+    checks=_check_current,
+    help="Minimum I_OUT capability. Higher-current family members also match.",
+)
+
+pg_type = config(PgType, default="OpenDrain")
+
+enable_cff = config(
+    bool,
+    default=False,
+    help="10 nF feed-forward cap on FB (improves PSRR, noise, transient response).",
+)
+
+pullup_en = config(
+    bool,
+    default=True,
+    help="100 kΩ EN-to-VIN pull-up. Disable to drive EN externally.",
+)
+
+_matches = [(mpn, sym, quals) for mpn, sym, pg, i_max, quals in _FAMILY if pg == pg_type and i_max >= output_current]
+_parts = [Part(mpn=mpn, manufacturer="Texas Instruments", qualifications=quals) for mpn, _, quals in _matches]
+
+VIN = io(Power(voltage="1.5V to 6V"))
+VOUT = io(Power(voltage=output_voltage))
+GND = io(Ground)
+EN = io(Net, optional=True)
+PG = io(Net(NotConnected()), optional=True)
+
+_FB = Net()
+
+Component(
+    name="U1",
+    symbol=Symbol(library="TPS74x01P.kicad_sym", name=_matches[0][1]),
+    part=_parts[0],
+    properties={"alternatives": _parts[1:]},
+    pins={
+        "IN": VIN,
+        "OUT": VOUT,
+        "GND": GND,
+        "EP": GND,
+        "EN": EN,
+        "FB": _FB,
+        "PG": PG,
+    },
+)
+
+# Input / output decoupling (datasheet §8.1.2)
+Capacitor(name="C_IN", value="1uF", package="0402", voltage="10V", P1=VIN, P2=GND)
+Capacitor(name="C_OUT", value="1uF", package="0402", voltage="10V", P1=VOUT, P2=GND)
+
+# EN pull-up to VIN keeps LDO enabled by default (datasheet §7.3.3).
+Resistor(name="R_EN", value="100kohm", package="0402", dnp=not pullup_en, P1=VIN, P2=EN)
+
+# Feedback divider — VOUT → _FB → GND (datasheet §8.1.1, Eq 2)
+Resistor(
+    name="R_FB_TOP",
+    value=_fb_top(output_voltage).with_tolerance("1%"),
+    package="0402",
+    P1=VOUT,
+    P2=_FB,
+)
+Resistor(
+    name="R_FB_BOT",
+    value=_R_FB_BOT_VAL.with_tolerance("1%"),
+    package="0402",
+    P1=_FB,
+    P2=GND,
+)
+
+# Optional feed-forward cap on FB (datasheet §7.3.6, C_FF = 10 nF nominal)
+Capacitor(
+    name="C_FF",
+    value="10nF",
+    package="0402",
+    dnp=not enable_cff,
+    P1=VOUT,
+    P2=_FB,
+)
+
+Layout(name="TPS74x01P", path="layout/TPS74x01P")
+
+# pcb:sch C_FF.C x=194.5800 y=-343.9000 rot=0
+# pcb:sch C_IN.C x=-313.4200 y=-343.9000 rot=0
+# pcb:sch C_OUT.C x=397.7800 y=-343.9000 rot=0
+# pcb:sch EN.0 x=-154.4622 y=-311.9120 rot=-90
+# pcb:sch GND.0 x=-13.7000 y=-140.7000 rot=0
+# pcb:sch GND.1 x=291.1000 y=-128.0000 rot=0
+# pcb:sch GND.2 x=405.4000 y=-255.0000 rot=0
+# pcb:sch GND.3 x=-305.8000 y=-255.0000 rot=0
+# pcb:sch PG.0 x=73.5330 y=-337.3120 rot=-180
+# pcb:sch R_EN.R x=-201.6600 y=-369.3000 rot=-90
+# pcb:sch R_FB_BOT.R x=293.6400 y=-229.6000 rot=0
+# pcb:sch R_FB_TOP.R x=293.6400 y=-343.9000 rot=0
+# pcb:sch U1 x=-89.9000 y=-382.0000 rot=0
+# pcb:sch VIN.0 x=-300.7200 y=-394.7000 rot=0
+# pcb:sch VOUT.0 x=410.4800 y=-394.7000 rot=0

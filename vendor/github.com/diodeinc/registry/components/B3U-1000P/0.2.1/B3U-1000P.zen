@@ -1,0 +1,10 @@
+"""B3U-1000P"""
+
+P1 = io(Net)
+P2 = io(Net)
+
+Component(
+    name="B3U-1000P",
+    symbol=Symbol(library="B3U-1000P.kicad_sym"),
+    pins={"1": P1, "2": P2},
+)
