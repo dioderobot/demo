@@ -13948,7 +13948,7 @@
 	(zone
 		(net 7)
 		(net_name "GND")
-		(layers "F.Cu" "B.Cu" "In2.Cu")
+		(layers "F.Cu" "B.Cu" "In1.Cu")
 		(uuid "1d4481b4-ec47-426c-9a61-e62356185de0")
 		(hatch edge 0.5)
 		(connect_pads
@@ -15161,7 +15161,7 @@
 			)
 		)
 		(filled_polygon
-			(layer "In2.Cu")
+			(layer "In1.Cu")
 			(pts
 				(xy 158.992539 100.760185) (xy 159.038294 100.812989) (xy 159.0495 100.8645) (xy 159.0495 117.0155)
 				(xy 159.029815 117.082539) (xy 158.977011 117.128294) (xy 158.9255 117.1395) (xy 125.4745 117.1395)
@@ -15463,7 +15463,7 @@
 	(zone
 		(net 2)
 		(net_name "V3V3")
-		(layer "In1.Cu")
+		(layer "In2.Cu")
 		(uuid "85e103f0-2af4-4d28-87e7-ce778166dd06")
 		(hatch edge 0.5)
 		(connect_pads
@@ -15481,7 +15481,7 @@
 			)
 		)
 		(filled_polygon
-			(layer "In1.Cu")
+			(layer "In2.Cu")
 			(pts
 				(xy 158.992539 100.760185) (xy 159.038294 100.812989) (xy 159.0495 100.8645) (xy 159.0495 117.0155)
 				(xy 159.029815 117.082539) (xy 158.977011 117.128294) (xy 158.9255 117.1395) (xy 125.4745 117.1395)
