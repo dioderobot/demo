@@ -1,8 +1,8 @@
 """
-Feign — DM0004 — USB-C to UART bridge.
+Feign — USB-C to UART bridge.
 
-STM32G0B1-based software FTDI clone. Bus-powered, crystal-less USB
-(HSI48 + CRS). Composite CDC-ACM + FTDI UART-mode emulation.
+STM32G0B1-based, bus-powered, crystal-less USB (HSI48 + CRS). Enumerates
+as USB CDC-ACM with optional software FTDI UART-mode emulation.
 """
 
 load("@stdlib/interfaces.zen", "NotConnected", "Swd", "Uart", "UsbTypeC")
@@ -142,7 +142,7 @@ TagConnect(
 led("TX", LED_TX, "yellow", "820ohm")
 led("RX", LED_RX, "blue", "390ohm")
 
-# Target header — 1×6 SMD right-angle (SparkFun FTDI Basic pinout)
+# Target header — 1×6 SMD right-angle, SparkFun FTDI Basic pinout
 # Pin 1: GND  | Pin 2: CTS  | Pin 3: VCC
 # Pin 4: TXD  | Pin 5: RXD  | Pin 6: DTR
 PinHeader(

@@ -1,24 +1,22 @@
 # Feign (DM0004) — Design Specification
 
-A compact USB-C to UART bridge built on the STM32G0B1. Enumerates as
-both a standard USB CDC-ACM virtual serial port and a software-emulated
-FTDI FT232-style device, so it works with `pyserial` and `pyftdi` out
-of the box.
+A compact USB-C to UART bridge built on the STM32G0B1. Enumerates as a
+standard USB CDC-ACM virtual serial port; an optional firmware build
+adds software FTDI UART-mode emulation for `pyftdi` compatibility.
 
 ---
 
 ## 1. Purpose
 
-A USB-C to 3.3 V UART bridge with FTDI UART-mode protocol emulation,
-replacing common FT232R / CP2102 / CH340 cables with an open-firmware
-alternative. A Cortex-M0+ runs both the USB device stack and the
-protocol translator; no FTDI silicon is used.
+A USB-C to 3.3 V UART bridge replacing common FT232R / CP2102 / CH340
+cables with an open-firmware alternative. A Cortex-M0+ runs the USB
+device stack and the protocol translator.
 
 Primary use cases:
 
-1. Plug into a dev board's FTDI header and open a serial terminal.
-2. Be opened by `pyftdi` / `libftdi` as if it were an FT232R.
-3. Power the attached target from USB VBUS (5 V, current-limited).
+1. Plug into a dev board's serial header and open a terminal.
+2. Power the attached target from USB VBUS (5 V, current-limited).
+3. Toggle modem-control lines (DTR / RTS) for boards that auto-reset.
 4. Be reflashed in-system over USB via the STM32 ROM DFU bootloader.
 
 ---
@@ -30,7 +28,7 @@ Primary use cases:
 | R1 | USB 2.0 FS device, bus-powered, USB-C receptacle | P0 |
 | R2 | Crystal-less USB via HSI48 + CRS | P0 |
 | R3 | Enumerate as USB CDC-ACM virtual serial port | P0 |
-| R4 | Enumerate as (or composite with) software FTDI FT232R-equivalent (UART mode) | P0 |
+| R4 | Optional firmware: software FTDI UART-mode emulation for `pyftdi` | P1 |
 | R5 | UART signals: TX, RX, plus 2× firmware-defined modem lines, all 3.3 V CMOS | P0 |
 | R6 | VCC output: 5 V, ~400 mA current-limited (USB 500 mA − ~100 mA board), firmware-enable, fault flag to MCU | P0 |
 | R7 | LEDs: power (driven by LDO PG), TX activity, RX activity | P1 |
@@ -40,7 +38,7 @@ Primary use cases:
 | R11 | CC termination via STM32G0B1 UCPD dead-battery Rd (no external 5.1 kΩ) | P0 |
 | R12 | Load-switch fault behavior: auto-retry | P0 |
 | R13 | Single channel, single UART (no MPSSE, no multi-channel) | P0 |
-| R14 | 1×6 SMD right-angle pin header, SparkFun FTDI Basic pinout | P0 |
+| R14 | 1×6 SMD right-angle pin header, SparkFun FTDI Basic pinout (legacy compatibility) | P0 |
 
 P0 = must have. P1 = should have.
 
@@ -93,14 +91,11 @@ P0 = must have. P1 = should have.
 
 ### USB enumeration
 
-Composite device exposing either:
+Default firmware: **CDC-ACM** single virtual serial port.
 
-- **CDC-ACM** single virtual serial port (default), or
-- **Vendor-class FTDI-compatible** interface emulating the FT232R UART
-  mode for `pyftdi` / `libftdi`.
-
-Mode selection is a firmware concern (`SET_CONFIGURATION` and/or a
-non-volatile flag); no board impact.
+Optional firmware build: vendor-class interface emulating the FTDI
+UART-mode protocol. Mode selection is a firmware concern; no board
+impact.
 
 ---
 
@@ -179,24 +174,24 @@ D+/D- routed as 90 Ω differential to the STM32 (PA11/PA12).
 
 **1×6 male SMD right-angle pin header**, pins exiting the short edge
 opposite the USB-C receptacle. Part: **Harwin M20-8890645** (registry,
-in-house). Pinout matches SparkFun FTDI Basic / Adafruit FTDI Friend
-convention so a stock FTDI cable or an Arduino with an FTDI header
-plugs in as-is:
+in-house). Pinout matches the SparkFun FTDI Basic / Adafruit FTDI
+Friend convention for drop-in compatibility with existing dev-board
+headers:
 
 | Pin | Silk | Default function | Direction (default) |
 |----:|------|------------------|---------------------|
 | 1 | GND | Ground | — |
-| 2 | CTS | Firmware-defined GPIO; default = FTDI CTS | Input |
+| 2 | CTS | Firmware-defined GPIO; default = CTS | Input |
 | 3 | VCC | 5 V, current-limited, firmware-enabled | Output |
 | 4 | TXD | UART TX from board → target RX | Output |
 | 5 | RXD | UART RX to board ← target TX | Input |
-| 6 | DTR | Firmware-defined GPIO; default = FTDI DTR (Arduino auto-reset) | Output |
+| 6 | DTR | Firmware-defined GPIO; default = DTR (Arduino auto-reset) | Output |
 
 Notes:
 
 - Pins 2 and 6 are plain 3.3 V GPIOs. Silkscreen labels reflect the
   default firmware role; firmware can reassign to RTS / DSR / DCD / RI /
-  plain GPIO at runtime based on CDC modem-line state or pyftdi vendor
+  plain GPIO at runtime based on CDC modem-line state or vendor
   requests.
 - All inputs (RXD, CTS) are routed to STM32 **FT_c** pins (PD2, PD0).
   These tolerate 5 V from an externally-powered target while Feign is
@@ -278,7 +273,7 @@ All via stdlib `Led` generic at ~2 mA each.
 
 - Not a sold product; FCC / CE / UL not targeted.
 - USB-IF certification: not pursued. Device will not claim USB-IF logo compliance.
-- FTDI VID (0x0403) **not used**. Default firmware uses a development VID:PID (e.g. pid.codes); users wanting to talk to pyftdi against the stock FTDI VID rebuild firmware locally.
+- FTDI VID (0x0403) **not used**. Default firmware uses a development VID:PID (e.g. pid.codes). Users who need stock pyftdi bindings can either pass `--vid/--pid` to pyftdi or rebuild firmware locally.
 
 ---
 
@@ -293,9 +288,9 @@ All via stdlib `Led` generic at ~2 mA each.
 
 ## Design notes
 
-1. **Modem lines are firmware-defined.** Pin 2 (CTS silk) and pin 6 (DTR silk) go to plain 3.3 V GPIOs (PD0 and PD1); firmware decides direction and meaning. The default assignment matches the SparkFun FTDI Basic pinout for drop-in FTDI-cable compatibility (and Arduino auto-reset on DTR). Hardware UART CTS/RTS is not used on this board — USART5 is plain TX/RX only.
+1. **Modem lines are firmware-defined.** Pin 2 (CTS silk) and pin 6 (DTR silk) go to plain 3.3 V GPIOs (PD0 and PD1); firmware decides direction and meaning. The default assignment matches the SparkFun FTDI Basic pinout for cable-level drop-in compatibility (and Arduino auto-reset on DTR). Hardware UART CTS/RTS is not used on this board — USART5 is plain TX/RX only.
 
-2. **FTDI VID:PID policy.** Released firmware will not ship with VID 0x0403. This is a deliberate trademark / driver-blocklist guardrail. Users can rebuild firmware to use 0x0403 if they need pyftdi to find the device with default settings, or they can pass `--vid/--pid` to pyftdi.
+2. **VID:PID policy.** Released firmware will not ship with the FTDI VID (0x0403). This is a deliberate trademark / driver-blocklist guardrail. Users who need stock pyftdi bindings can either pass `--vid/--pid` or rebuild firmware locally.
 
 3. **Crystal-less USB.** STM32G0B1 integrates HSI48 + CRS. CRS trims HSI48 against USB SOF packets to well under USB 2.0 FS's ±500 ppm requirement and far exceeds UART accuracy needs. No HSE crystal on the BOM.
 
@@ -307,7 +302,7 @@ All via stdlib `Led` generic at ~2 mA each.
 
 7. **CC termination via UCPD dead-battery Rd.** STM32G0B1 'N' variant has UCPD with dead-battery Rd active from POR — host sees a sink before firmware boots. External 5.1 kΩ Rd resistors in the `UsbCSink16P` module are DNP'd (`cc_resistors=False`). Firmware must not disable dead-battery Rd at runtime unless explicitly configuring UCPD as a sink.
 
-8. **Logic-level vs. signal-level VCC.** VCC pin on the target header is 5 V (VBUS-derived, fused). All UART signals (TX/RX/CTS/DTR) are 3.3 V CMOS. Targets must accept 3.3 V high logic. This matches modern FTDI-cable behavior and `pyftdi` user expectations.
+8. **Logic-level vs. signal-level VCC.** VCC pin on the target header is 5 V (VBUS-derived, fused). All UART signals (TX/RX/CTS/DTR) are 3.3 V CMOS. Targets must accept 3.3 V high logic — same as modern serial-cable conventions.
 
 9. **5 V tolerance on inputs (FT_c).** RX and CTS are assigned to FT_c pins (PD2 and PD0) so they tolerate up to 5.5 V regardless of V_DD. Plain FT pins are only V_DD + 4 V max — insufficient when V_DD = 0 and target is externally driving 5 V. On the 32-pin 'N' package, only PA8, PB15, PD0, and PD2 are FT_c-class; PA8/PB15 are taken by UCPD CC1/CC2, leaving PD0/PD2 for the user-facing inputs. This forces the UART onto USART5 (PD2 RX, PD3 TX) instead of USART1.
 
