@@ -18,6 +18,7 @@ TagConnect = Module("github.com/diodeinc/registry/connectors/TagConnect/TC2030-N
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 Led = Module("@stdlib/generics/Led.zen")
+Fiducial = Module("@stdlib/generics/Fiducial.zen")
 
 
 def led(name, anode, color, resistance):
@@ -156,11 +157,19 @@ PinHeader(
     P6=MODEM_DTR,
 )
 
+# Front-side fiducials for assembly machine vision
+Fiducial(name="FID1")
+Fiducial(name="FID2")
+Fiducial(name="FID3")
+
 Board(name="Feign", layout_path="layout", layers=4)
 
 # pcb:sch D_PWR.LED x=-102.6000 y=44.7200 rot=-180
 # pcb:sch D_RX.LED x=-102.6000 y=146.3200 rot=-180
 # pcb:sch D_TX.LED x=-102.6000 y=120.9200 rot=-180
+# pcb:sch FID1.FID x=-1042.4000 y=875.3000 rot=0
+# pcb:sch FID2.FID x=-915.4000 y=875.3000 rot=0
+# pcb:sch FID3.FID x=-801.1000 y=875.3000 rot=0
 # pcb:sch GND.0 x=-940.8000 y=354.6000 rot=0
 # pcb:sch GND.1 x=176.8000 y=570.5000 rot=0
 # pcb:sch GND.2 x=24.4000 y=265.7000 rot=-180
@@ -185,4 +194,4 @@ Board(name="Feign", layout_path="layout", layers=4)
 # pcb:sch V3V3.1 x=-34.0200 y=240.3000 rot=0
 # pcb:sch V3V3.2 x=-1634.2200 y=697.5000 rot=0
 # pcb:sch V3V3.3 x=-148.3200 y=-1.0000 rot=0
-# pcb:sch VCC_OUT.0 x=-910.3200 y=113.3000 rot=0
+# pcb:sch VCC_OUT.0 x=-923.0200 y=126.0000 rot=0
