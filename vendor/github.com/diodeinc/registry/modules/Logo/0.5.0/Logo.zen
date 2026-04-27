@@ -1,0 +1,12 @@
+"""
+Diode Logo
+"""
+
+Component(
+    name="GL",
+    symbol=Symbol("./diode.kicad_sym"),
+    pins={},
+    dnp=True,
+    skip_bom=True,
+    skip_pos=True,
+)

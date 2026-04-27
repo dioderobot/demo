@@ -14,11 +14,13 @@ LoadSwitch = Module("github.com/diodeinc/registry/components/Texas_Instruments/T
 Button = Module("github.com/diodeinc/registry/components/B3U-1000P/B3U-1000P.zen")
 PinHeader = Module("github.com/diodeinc/registry/components/Harwin_Inc/M20-889xx45/M20-889xx45.zen")
 TagConnect = Module("github.com/diodeinc/registry/connectors/TagConnect/TC2030-NL_SWD.zen")
+Logo = Module("github.com/diodeinc/registry/modules/Logo/Logo.zen")
 
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 Led = Module("@stdlib/generics/Led.zen")
 Fiducial = Module("@stdlib/generics/Fiducial.zen")
+Version = Module("@stdlib/generics/Version.zen")
 
 
 def led(name, anode, color, resistance):
@@ -27,6 +29,7 @@ def led(name, anode, color, resistance):
     Led(name="D_" + name, color=color, package="0402", A=anode, K=K)
     Resistor(name="R_" + name, value=resistance, package="0402", P1=K, P2=GND)
 
+
 VBUS = Power(voltage="4.5V to 5.5V (5V nom.)")
 V3V3 = Power(voltage="3.3V")
 VCC_OUT = Power(voltage="4.5V to 5.5V (5V nom.)")
@@ -34,7 +37,7 @@ GND = Ground()
 
 USB_C = UsbTypeC()
 UART = Uart()  # PD3 TX → header TXD ; PD2 RX ← header RXD (FT_c, 5V tolerant)
-SWD = Swd()    # PA13 SWDIO ; PA14 SWCLK (also BOOT0)
+SWD = Swd()  # PA13 SWDIO ; PA14 SWCLK (also BOOT0)
 
 NRST = Net()
 VCC_EN = Net()
@@ -161,6 +164,10 @@ PinHeader(
 Fiducial(name="FID1")
 Fiducial(name="FID2")
 Fiducial(name="FID3")
+
+# Silkscreen version stamp + Diode logo
+Version(name="VER")
+Logo(name="LOGO")
 
 Board(name="Feign", layout_path="layout", layers=4)
 
