@@ -55,11 +55,12 @@ RDSon-vs-VGS curve.
   unless that reference doesn't expose OVLO/ILIM config nicely.**
 
 ### Current / voltage sensing — NO chip needed
-- **No new part needed.** Earlier drafts called for an INA236 over I²C;
-  current design uses a low-side 5 mΩ shunt + a single-supply RRIO
-  op-amp from the registry (`modules/TLV9001.zen`) feeding an MCU
-  ADC channel. VBUS is sensed via a ÷10 resistor divider into a
-  second ADC channel. No I²C bus, simpler BOM, no librarian work.
+- **No new part needed.** Earlier drafts called for an INA236 over I²C,
+  then a low-side shunt + RRIO op-amp; both have been **dropped
+  entirely**. Current/power telemetry is delegated to an external
+  smart load (DC e-load, USB-PD analyzer) attached at the WAGO
+  terminals. **VBUS voltage** is still measured on-board via a
+  ÷10 resistor divider → MCU ADC — just a resistor pair, no chip.
 
 ### Buck (VBUS → 5 V) — integrated-inductor module
 - **TPSM33606S5QRDNRQ1** — TI, 36 V Vin, 0.6 A, fixed 5 V output,
@@ -76,13 +77,15 @@ RDSon-vs-VGS curve.
 - Registry has `components/Texas_Instruments/TPS74x01P@0.1.1` — should
   cover this directly. **No new part needed.**
 
-### Addressable LEDs (V & I bargraph)
+### Addressable LEDs (V bargraph)
 - **IN-PI15TAT5R5G5B** — **Inolux**, 1.5×1.5 mm WS2812-protocol
   addressable RGB LED, top-emitting, 5 mA per channel, integrated
   controller, transparent lens. Slightly larger and more visible than
   the 1010 alternative and friendlier for AOI / PnP yield on a sprawling
   bench board. Replaces the previously-suggested `XL-1010RGBC-WS2812B`.
-- Quantity needed per board: TBD in spec (~20–24).
+- Quantity needed per board: **8** (V bargraph only — the I bargraph
+  was dropped along with on-board current sensing).
+  Original count was 16 (V + I bargraphs).
 
 ### Test-load output connector
 - **WAGO 2060-452/998-404** — 2-pole, 4 mm pitch, push-in cage clamp,

@@ -6,10 +6,13 @@
 > this directory. Major changes vs this exploration:
 >
 > - MCU is **STM32G0B1KxUxN (UFQFPN-32)** with `memory_size="512KB"`
->   config (reuses existing registry package). 18 of ~20 GPIOs used.
-> - **No INA236, no I²C bus.** Current sense is a low-side 5 mΩ shunt
->   + TLV9001 op-amp (registry) → MCU ADC. Voltage sense is the ÷10
->   VBUS divider → MCU ADC.
+>   config (reuses existing registry package). ~17 GPIOs used.
+> - **No on-board current measurement.** All current/power telemetry
+>   is delegated to an external smart load attached at the WAGO
+>   terminals. INA236 + I²C bus and the later op-amp + shunt + ADC
+>   plan are both dropped.
+> - **VBUS voltage** is still measured on-board via a ÷10 resistor
+>   divider → MCU ADC (free, useful for AN4879 attach detection).
 > - **DIP switch dropped from 8 to 4 positions**, direct-driven on MCU
 >   GPIOs (no PCA9554A expander — the I²C bus has no peripherals).
 > - **VBUS gate FET** is CSD17318Q2 in 2×2 WSON-6 (not the 3×3
@@ -20,8 +23,12 @@
 >   pattern), 3 GPIO-driven (PD_CONTRACT, USB_ENUM, HEARTBEAT).
 > - Single SCOPE_MARKER (was 2).
 > - Probe surface is **two side-by-side 2×4 0.1″ headers** (8 signal
->   lines), not a single 2×9. Header B carries ADC_I/ADC_V/FLT/FLG
->   instead of I²C.
+>   lines), not a single 2×9. Header B carries ADC_V + FLT/ + FLG/
+>   (no current sense).
+> - **V bargraph only (8 IN-PI15 LEDs)** — the I bargraph went away
+>   with on-board current sensing.
+> - eFuse IMON pin still exposed at a test pad as a free analog
+>   current scope point for users wanting a quick visual.
 > - Test points are **flat SMD pads** (`Pad_1.5x1.5mm`), not Keystone
 >   solder loops.
 > - Power-rail LEDs are **rail-direct**, not driven by LDO PG / buck
@@ -46,12 +53,14 @@
   host (DFU + CDC trace optional). UART is the primary independent debug.
 - **Power:** **TPSM33606S5** module (VBUS→5 V, integrated inductor,
   HotRod QFN) → **TPS74x01P** LDO 5 V→3 V3 (registry).
-- **Current sense:** low-side 5 mΩ ±1 % 2512 shunt + TLV9001 op-amp
-  (gain ~50) → MCU ADC. *(Was originally INA236A over I²C; switched
-  to op-amp + ADC because INA236 doesn't come in QFN and the
-  I²C-bus complexity wasn't earning its keep once we accepted
-  low-side sensing.)*
-- **Voltage sense:** VBUS_OUT ÷10 divider → MCU ADC.
+- **No on-board current sensing.** Current/power telemetry is the
+  external smart load's job. *(Was originally INA236A over I²C, then
+  briefly a low-side shunt + TLV9001 op-amp + MCU ADC; both dropped
+  because power instrumentation isn't this board's job — it's a PD
+  firmware development platform, and external smart loads do better
+  measurement anyway.)*
+- **Voltage sense:** VBUS_OUT ÷10 divider → MCU ADC (one resistor
+  pair, useful for AN4879 attach detection).
 - **Load eFuse:** **TPS25948x** (registry `reference/TPS25948x@0.3.1`),
   programmed for **EN default-OFF, latch-off on fault**, with optional
   DNP cap footprint to convert to auto-retry (silk-labeled).

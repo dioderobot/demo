@@ -26,9 +26,11 @@ Primary use cases:
    contracts up to 20 V / 5 A (60 W maximum design point).
 2. Observe the BMC traffic on CC1/CC2 in real time on a Saleae Logic Pro 8
    (analog inputs).
-3. Watch live VBUS voltage and current on two 8-LED RGB bargraphs without
-   external instruments.
-4. Reconfigure firmware behavior at runtime via 8 DIP switches without
+3. Watch live VBUS voltage on an 8-LED RGB bargraph without external
+   instruments. Current measurement is intentionally **not on this
+   board** — use an external smart load (DC e-load, USB-PD analyzer,
+   etc.) for current/power telemetry.
+4. Reconfigure firmware behavior at runtime via 4 DIP switches without
    reflashing.
 5. Stress-test firmware by intentionally crashing it mid-negotiation —
    the board's hardware OVP and load-side eFuse protect both the
@@ -49,8 +51,8 @@ Primary use cases:
 | R5  | Hardware VBUS OVP threshold = 22 V; CC OVP = 6 V (TCPP01-M12 internal) | P0 |
 | R6  | Load-side TPS25948x eFuse with EN default-low, OVLO = 22 V, latch-on-fault | P0 |
 | R7  | Auto-retry mode for eFuse selectable via DNP cap footprint (silk-labeled) | P1 |
-| R8  | Low-side 5 mΩ shunt + RRIO op-amp (gain ~50) → MCU ADC for current; VBUS÷10 divider → MCU ADC for voltage | P0 |
-| R9  | Two 8-segment RGB bargraphs (V: 0–20 V, I: 0–5 A) using IN-PI15 LEDs | P0 |
+| R8  | VBUS÷10 divider → MCU ADC for voltage. **No on-board current measurement** — user supplies external smart load if current/power telemetry is needed. | P0 |
+| R9  | One 8-segment RGB bargraph (V: 0–20 V) using IN-PI15 LEDs | P0 |
 | R10 | 7 discrete 0603 status LEDs: 2 rail-direct (5V, 3V3), 2 hardware-driven from open-drain fault pins (TCPP01_FLG, eFuse_FLT), 3 MCU GPIO-driven (PD_CONTRACT, USB_ENUM, HEARTBEAT) | P0 |
 | R11 | 4-position SMD DIP switch direct-driven on MCU GPIOs (no I²C expander) | P0 |
 | R12 | Two side-by-side Saleae-friendly 2×4 0.1″ probe headers (8 signal lines total) | P0 |
@@ -91,28 +93,20 @@ USB-C 16P (sink, 5–20 V / 0–5 A)
 D+/D-   │                        │                           │
   │  TPD4E05U06 ──► STM32 USB FS                             │
   │  (IEC ESD L4)                                            │
-  │                             │                            │
-  │                             │           ┌── TLV9001 ──┐  │
-  │                             │           │  RRIO       │  │
-  │                             │           │  op-amp     │──┼─► ADC_I
-  │                             │           │  gain ~50   │  │
-  │                             │           └────┬────────┘  │
-  │                             ▼                │ senses    │
-  │                  ┌──────────────────┐        │           │
-  │                  │ TPS259482 eFuse  │ ÷10    │           │
-  │                  │ 3.5–23 V, 8 A    │────────┼─► ADC_V   │
-  │                  │ EN default low   │        │           │
-  │                  │ OVLO 22 V        │        │           │
-  │                  │ ILIM ~6 A        │        │           │
-  │                  │ FLT/ OD →LED+MCU │        │           │
-  │                  └────────┬─────────┘        │           │
-  │                           │ VBUS_OUT         │           │
-  │                           ▼                  │           │
-  │                       load+ ──────────────────────────►  │
-  │                       load− ──[shunt 5 mΩ]── system GND  │
-  │                       (WAGO 2060-452)        ▲           │
-  │                                              │           │
-  │                                              op-amp inputs
+  │                             ▼                            │
+  │                  ┌──────────────────┐                    │
+  │                  │ TPS259482 eFuse  │  VBUS_OUT_DIV (÷10)│
+  │                  │ 3.5–23 V, 8 A    │───────────────────►├─► ADC_V
+  │                  │ EN default low   │                    │
+  │                  │ OVLO 22 V        │                    │
+  │                  │ ILIM ~6 A        │                    │
+  │                  │ FLT/ OD →LED+MCU │                    │
+  │                  └────────┬─────────┘                    │
+  │                           │ VBUS_OUT                     │
+  │                           ▼                              │
+  │                       load+ ──────► WAGO 2060-452 ──► load
+  │                       load− ──────► WAGO 2060-452 ──► load
+  │                       (current/power telemetry: external smart load)
   │                                                          │
   └─── BOOT0 button ──► PA14 (BOOT0)   SWD: PA13/PA14/PA15  │
        RESET button ──► NRST           UART: TX, RX (header)│
@@ -123,7 +117,7 @@ D+/D-   │                        │                           │
          - TCPP01_FLG_LED, eFuse_FLT_LED: hardware-driven   │
            from open-drain pins                             │
          - PD_CONTRACT, USB_ENUM, HEARTBEAT: MCU GPIO       │
-       2 bargraphs (8+8 IN-PI15 WS2812 RGB) → SPI MOSI ────┘
+       1 V-bargraph (8× IN-PI15 WS2812 RGB) → SPI MOSI ─────┘
        Probe headers (2× 2×4) — see §5
        UART header (1×4), Tag-Connect SWD pads, SMD test pads
 ```
@@ -138,7 +132,7 @@ D+/D-   │                        │                           │
 |-----------|-------|
 | Source | USB VBUS via USB-C receptacle (sink role) |
 | Voltage | 5 V default; up to 20 V after PD negotiation |
-| Maximum draw | 5 A continuous (limited by FET / shunt / eFuse rating, not USB-PD) |
+| Maximum draw | 5 A continuous (limited by FET / eFuse rating, not USB-PD) |
 | Worst-case OVP backstop | 22 V at TCPP01-M12 (hardware), 22 V at TPS25948x OVLO |
 
 ### Rails
@@ -154,7 +148,7 @@ D+/D-   │                        │                           │
 ### Budgets
 
 **5 V rail**:
-- 16× WS2812 LEDs (V + I bargraphs): peak ~240 mA at full white, but
+- 8× WS2812 LEDs (V bargraph only): peak ~120 mA at full white, but
   firmware caps brightness ≤ 30 % → ~75 mA typical.
 - LDO input: ~80 mA (×3.3/5 ÷ η ≈ 60 mA).
 - **Total**: ~135 mA typical, ~320 mA peak. TPSM33606S5 0.6 A part has
@@ -163,7 +157,7 @@ D+/D-   │                        │                           │
 **3V3 rail**:
 - STM32G0B1KEU6N @ 64 MHz with USB peripheral: ~25 mA peak.
 - 7× discrete status LEDs @ 2 mA (3 GPIO + 2 rail-direct + 2 hw-driven): 14 mA.
-- TLV9001 op-amp + TCPP01 VCC + pull-ups + button pull-ups: ~5 mA.
+- TCPP01 VCC + pull-ups + button pull-ups: ~5 mA.
 - **Total**: ~45 mA peak. TPS74x01P (500 mA capable) has ~11× margin.
 
 ### MCU survives 22 V VBUS via the 5 V rail
@@ -231,13 +225,13 @@ header.
 | 7 | (spare) | DNF — routed to a spare MCU GPIO pad |
 | 8 | GND | |
 
-**Header B — "POWER" (analog + digital fault flags)**
+**Header B — "POWER" (analog VBUS sense + digital fault flags)**
 
 | Pin | Signal | Notes |
 |---|---|---|
-| 1 | ADC_I | Op-amp output (current via 5 mΩ shunt × ~50). Scope-friendly. |
+| 1 | ADC_V | VBUS_OUT ÷10 divider, 0–2 V analog |
 | 2 | GND | |
-| 3 | ADC_V | VBUS_OUT ÷10 divider, 0–2 V analog |
+| 3 | (spare) | DNF — routed to a spare MCU GPIO pad for future expansion |
 | 4 | GND | |
 | 5 | eFuse FLT/ | TPS25948x fault edges (open-drain) |
 | 6 | GND | |
@@ -245,9 +239,9 @@ header.
 | 8 | GND | |
 
 Header A signals belong on Saleae **analog** inputs (CC swing is ~1.2 V,
-below standard digital threshold). Header B mixes analog (ADC_I, ADC_V)
-and digital open-drain (FLT/, FLG/) signals; both work on Saleae analog
-channels, fault flags also fine on digital channels.
+below standard digital threshold). Header B carries one analog signal
+(ADC_V) and two digital open-drain signals (FLT/, FLG/); all three
+work on either Saleae analog or digital channels.
 
 ### UART debug header
 
@@ -302,7 +296,7 @@ Minimum set (silkscreen labels per pad):
 | TP8 | 3V3 | none |
 | TP9 | TCPP01_VCC | none (also TCPP01 enable) |
 | TP10 | eFuse_EN | none |
-| TP11 | eFuse IMON | analog out (not routed to MCU; available as scope point) |
+| TP11 | eFuse IMON | analog out (not routed to MCU; free scope point provided by the eFuse for users wanting on-board current visibility) |
 | TP12–15 | GND | none (distributed for probe clips) |
 
 HV pads should be physically separated from low-voltage pads so a probe
@@ -316,7 +310,6 @@ clip can't accidentally bridge VBUS to GND or to a 3V3 net.
 | RESET button | Tactile, pulls NRST low |
 | 4-pos DIP switch | Direct-driven on 4 MCU GPIOs; semantics firmware-defined |
 | V bargraph | 8 IN-PI15 LEDs, addressable, 0–20 V at 2.5 V/LED |
-| I bargraph | 8 IN-PI15 LEDs, addressable, 0–5 A at 0.625 A/LED |
 | Status LEDs | 7 discrete 0603 (see below) — 2 rail-direct + 2 hardware-driven from FLG//FLT/ + 3 MCU GPIO-driven |
 
 ### Status LEDs
@@ -365,11 +358,9 @@ resistors (~330 Ω for ~2 mA at VOL ≈ 0).
 | VBUS gating FET | CSD17318Q2 | WSON-6 (2×2) | Librarian (new) |
 | Buck (VBUS→5 V) | TPSM33606S5QRDNRQ1 | HotRod QFN module | Librarian (new) |
 | LDO (5 V→3.3 V) | TPS74x01P | DRV (SON-6) | `components/Texas_Instruments/TPS74x01P` |
-| Current sense op-amp | TLV9001 (RRIO single-supply) | SOT-23-5 | `modules/TLV9001.zen` (registry) |
-| Shunt | 5 mΩ ±1 % 1 W | 2512 | Generic |
 | Load eFuse | TPS259482AYWPR | LQFN-23 | `reference/TPS25948x` |
 | DIP switch | 4-pos SMD DIP, 2.54 mm pitch | SMT | `components/DS04-254-1-04BK-SMT` (registry) |
-| Bargraph LEDs | IN-PI15TAT5R5G5B (×16) | 1.5×1.5 mm 4-pad | Librarian (new) |
+| V-bargraph LEDs | IN-PI15TAT5R5G5B (×8) | 1.5×1.5 mm 4-pad | Librarian (new) |
 | Status LEDs | Generic 0603 (7× — green ×2, red ×2, blue ×2, white ×1) | 0603 | Generic |
 | Buttons | Omron B3U-1000P | SMT tactile | `components/B3U-1000P` |
 | SWD | Tag-Connect TC2030-IDC-NL | Pads only | `connectors/TagConnect` |
@@ -407,15 +398,9 @@ resistors (~330 Ω for ~2 mA at VOL ≈ 0).
 - **DIP-switch pull-ups**: 100 kΩ each to 3V3 (or use MCU internal
   pull-ups if firmware enables them — EE choice). Switch shorts to GND
   when closed.
-- **Op-amp circuit (low-side current sense)**:
-  - Shunt placed in load GND return path (load − → shunt → system GND).
-  - TLV9001 in non-inverting config: V+ on shunt high side, V− on
-    `R_g`/`R_f` divider. Target gain ~50 (e.g. R_g = 1 kΩ, R_f = 49 kΩ
-    at E96 → R_f = 49.9 kΩ).
-  - 100 nF op-amp Vcc decoupling.
-  - Optional 100 Ω + 1 nF RC filter on the ADC pin to reduce noise.
 - **VBUS_OUT_DIV ÷10**: 90 kΩ + 10 kΩ from VBUS_OUT to GND — routed to
-  an MCU ADC channel (ADC_V) and exposed at TP4.
+  an MCU ADC channel (ADC_V) and exposed at TP4 + Header B pin 1.
+  Optional 100 Ω + 1 nF RC filter on the ADC tap to attenuate noise.
 
 ---
 
@@ -445,8 +430,8 @@ resistors (~330 Ω for ~2 mA at VOL ≈ 0).
 
 - Layer count: **4**.
 - Min trace/space: 6/6 mil. Min via: 0.25 mm finished.
-- Min package: 0402 passives, SOT-23-5 op-amp (TLV9001), UFQFPN-32 MCU,
-  1.5×1.5 mm RGB LEDs, QFN-12 (TCPP01-M12), 2×2 WSON-6 (CSD17318Q2).
+- Min package: 0402 passives, UFQFPN-32 MCU, 1.5×1.5 mm RGB LEDs,
+  QFN-12 (TCPP01-M12), 2×2 WSON-6 (CSD17318Q2).
 - Assembly: in-house, single-pass SMT reflow. **No through-hole / hand-
   solder steps.** All connectors (USB-C, WAGO, pin headers) are SMT.
 - Prototype quantity: ~5–10.
@@ -478,8 +463,21 @@ resistors (~330 Ω for ~2 mA at VOL ≈ 0).
     USART2 (PA2/PA3) or LPUART1 (PA2/PA3 alt) are the leading
     candidates; final pick by EE.
   - SWD on PA13/PA14, SWO on PA15.
-  - GPIO budget: 18 of ~20 free GPIOs used. 2 spare. See architecture
-    diagram §3 for the demand list.
+  - I/O-pin demand against the 32-pin G0B1's user pins
+    (after VDD/VSS/SWD/NRST/BOOT0/UCPD1 dead-battery overlap):
+    - **Alt-func, mandatory**: UCPD1 (CC1, CC2, DBCC1, DBCC2),
+      USB FS (DM, DP via PA11/PA12 remap), USART (TX, RX),
+      SPI MOSI → WS2812.
+    - **Analog**: 1× ADC for ADC_V.
+    - **Timer alt-func**: 1× SCOPE_MARKER output.
+    - **GPIO inputs (6)**: 4× DIP switch, TCPP01 FLG/, eFuse FLT/.
+    - **GPIO outputs (6)**: TCPP01 VCC, TCPP01 DB, eFuse EN,
+      PD_CONTRACT LED, USB_ENUM LED, HEARTBEAT LED.
+  - EE confirms during pin assignment that the multiplexing fits,
+    using the dead-battery release strobe (SYSCFG) per AN5225
+    so DBCC pins free up post-startup. If the budget is tight,
+    the candidate cuts in priority order are: SCOPE_MARKER,
+    HEARTBEAT LED, TCPP01 DB pin (use FLG/ alone).
   - FT_c 5-V-tolerant pins (PA8, PB15, PD0, PD2) are not strictly
     required for any Renfield net (no externally-powered targets), but
     EE may still prefer FT_c for fault-flag inputs as cheap insurance.
@@ -509,23 +507,23 @@ resistors (~330 Ω for ~2 mA at VOL ≈ 0).
 
 1a. **Why the 32-pin part.** The 32-pin UFQFPN-32 N-pinout
     (`STM32G0B1KxUxN` already in registry) supports everything
-    Renfield needs with 2 GPIOs of headroom. The 48-pin part offered
+    Renfield needs with 3 GPIOs of headroom. The 48-pin part offered
     no functional advantage for this board — only more spares — and
     keeping the 32-pin part means we reuse a vendored package that
     Feign already validates. Cuts vs an unconstrained design that
-    fit it into 32 pins: dropped INA236 + I²C bus (replaced by op-amp
-    + 2 ADC channels), dropped PCA9554A (DIP switch reduced to 4 pos
-    direct-driven), dropped one of two scope markers, dropped
-    GPIO-driven FAULT LED (replaced by hardware-driven LEDs off
-    open-drain FLG//FLT/ pins). All cuts are functionally equivalent
-    or better.
+    fit it into 32 pins: dropped INA236 + I²C bus (current sensing
+    moved off-board entirely — see note 4), dropped PCA9554A (DIP
+    switch reduced to 4 pos direct-driven), dropped one of two scope
+    markers, dropped GPIO-driven FAULT LED (replaced by hardware-
+    driven LEDs off open-drain FLG//FLT/ pins). All cuts are
+    functionally equivalent or better.
 
 2. **The 5 V rail exists for the WS2812 LEDs.** It is not strictly
    needed by anything else. We don't power the MCU from 5 V because
    the LDO needs at least 1 V of headroom — the TPS74x01P from 5 V
    to 3.3 V is well within spec at all loads.
 
-3. **Why the bargraphs are addressable but the status LEDs are not.**
+3. **Why the V bargraph is addressable but the status LEDs are not.**
    The two technologies are intentionally split: the bargraph display
    is an *information* surface where we want richness (color zones,
    brightness, animation), while the status LEDs are *diagnostic* —
@@ -539,81 +537,93 @@ resistors (~330 Ω for ~2 mA at VOL ≈ 0).
    parallel for software handling. Latching faults that survive an
    MCU crash are the most useful kind to be visually obvious.
 
-4. **Why direct-driven 4-pos DIP, not an I²C expander.** An earlier
-   draft had 8 DIP switches behind a PCA9554A I²C expander. Once we
-   decided on shunt + ADC for current sensing (instead of INA236 over
-   I²C), the I²C bus had no peripherals on it, and 4 DIP positions
-   covers the realistic PD-profile-selection use cases (max V, max
-   I, role flag). Direct GPIO is simpler and fits within the 32-pin
-   GPIO budget without adding a chip.
+4. **No on-board current measurement.** Earlier drafts had INA236
+   over I²C, then a low-side shunt + RRIO op-amp into an MCU ADC.
+   Both were dropped: the INA236 doesn't come in a QFN package, and
+   the op-amp + shunt path was an awkward amount of analog circuitry
+   to validate on a board whose primary purpose is firmware
+   development on the *PD stack*, not power instrumentation. Users
+   who need current/power telemetry attach an external smart load
+   (DC e-load, USB-PD analyzer like the Total Phase Power Delivery
+   Analyzer, etc.) at the WAGO terminals — those instruments do
+   higher-quality measurement than anything we'd put on a 4-layer
+   bench board. **VBUS voltage** is still measured on-board via
+   the existing VBUS_OUT ÷10 divider → ADC_V (free, one resistor
+   pair, useful for AN4879 attach detection — see note 13). The
+   eFuse's IMON pin is exposed on a test pad as a free analog
+   current scope point for users who want a quick visual.
 
-5. **Latch-off by default, auto-retry by re-stuff.** TPS25948x latches
+5. **Why direct-driven 4-pos DIP, not an I²C expander.** Once INA236
+   was dropped, the I²C bus had no peripherals on it, so a PCA9554A
+   expander to read 8 DIP switches stopped earning its keep. Four
+   DIP positions cover realistic PD-profile-selection use cases
+   (max V, max I, role flag, spare). Direct GPIO is simpler and
+   fits within the 32-pin GPIO budget without adding a chip.
+
+6. **Latch-off by default, auto-retry by re-stuff.** TPS25948x latches
    off on fault by default, requiring firmware to re-enable. This is
    the correct dev-board behavior: a fault during firmware development
    should stop the world, not silently retry. We provide a **DNP cap
    footprint** silk-labeled `POPULATE FOR AUTO-RETRY` so the auto-retry
    variant is one rework away when needed.
 
-6. **Hardware OVP at 22 V is the absolute backstop.** TCPP01-M12's OVP
+7. **Hardware OVP at 22 V is the absolute backstop.** TCPP01-M12's OVP
    threshold and the eFuse OVLO are fixed by external resistor dividers
    to 22 V. This allows full-spec 20 V negotiation with 2 V margin and
    protects against a defective source delivering more than 20 V on
    VBUS without firmware involvement. A buggy firmware request for >22 V
    would simply be clamped by the hardware.
 
-7. **eFuse defaults to off.** EN is pulled to GND so the load output
+8. **eFuse defaults to off.** EN is pulled to GND so the load output
    is dead until firmware explicitly turns it on. This avoids the
    "stick a load in, plug in USB, and immediately get 5 V at the load"
    behavior — which sounds friendly but is wrong for a board that will
    be intentionally crashed. The board should not deliver power to its
    output without the firmware affirmatively asking it to.
 
-8. **VBUS not on probe headers, divided-down sense IS.** The high-side
+9. **VBUS not on probe headers, divided-down sense IS.** The high-side
    VBUS rails (RAW/PROT/OUT) stay off the probe headers — they go to
    silk-warned test pads only. Header B *does* carry the safe ÷10
-   ADC_V analog signal, the op-amp ADC_I current signal, and both
-   fault flags. Keeping the high-current noisy nets off the probe-
-   header GND grommet preserves CC1/CC2 BMC capture quality on
-   Header A.
+   ADC_V analog signal and both open-drain fault flags. Keeping the
+   high-current noisy nets off the probe-header GND grommet preserves
+   CC1/CC2 BMC capture quality on Header A.
 
-9. **CC1_RAW / CC2_RAW are exposed as test loops, deliberately.** A
+10. **CC1_RAW / CC2_RAW are exposed as test loops, deliberately.** A
    PD developer occasionally wants to see what the source is putting
    on the CC line *before* TCPP01-M12 clamps it — for example to
    diagnose a defective source. The raw CC test loops are silk-labeled
    `HV — UP TO 22 V` so probe-tip choice is informed.
 
-10. **UCPD2 is unused** but its pins (PD0/PD1/PD2/PD3) may carry a
+11. **UCPD2 is unused** but its pins (PD0/PD1/PD2/PD3) may carry a
     dead-battery Rd at boot per Feign §10 design note 14. Firmware
     must release UCPD2 dead-battery early in startup
     (`SYSCFG->CFGR1 |= UCPD2_STROBE`) before those pins can be used
     for anything else, regardless of whether we end up using them.
 
-11. **Crystalless USB.** STM32G0B1 integrates HSI48 + CRS, trimming
+12. **Crystalless USB.** STM32G0B1 integrates HSI48 + CRS, trimming
     HSI48 against USB SOF. No HSE crystal on the BOM. Same as Feign.
 
-12. **D+ pull-up is on-die.** STM32G0B1 has the 1.5 kΩ D+ pull-up
+13. **D+ pull-up is on-die.** STM32G0B1 has the 1.5 kΩ D+ pull-up
     integrated. No external pull-up.
 
-13. **VBUS sensing via divider.** Per AN4879 §3.2, a VBUS divider into
+14. **VBUS sensing via divider.** Per AN4879 §3.2, a VBUS divider into
     an MCU ADC is recommended for proper attach detection. Renfield's
     `VBUS_OUT_DIV` (÷10) is routed to MCU ADC_V and also exposed at
-    TP4 for analog scope observation. This replaces the I²C-based
-    voltage telemetry the earlier INA236 plan would have provided.
+    TP4 + Header B pin 1 for analog scope observation.
 
-14. **Tag-Connect over a populated SWD header** because the board is
+15. **Tag-Connect over a populated SWD header** because the board is
     deliberately small (A7 = 74×105 mm) and SWD is a one-off
     programming step. Anyone doing serious SWD work plugs in the
     Tag-Connect cable; nobody needs a 10-pin Cortex header sticking
     up off the board permanently.
 
-15. **No external flash.** Sink-only PD firmware fits comfortably in
+16. **No external flash.** Sink-only PD firmware fits comfortably in
     G0B1's 512 KB internal flash with room for trace buffers and
     DFU dual-bank.
 
-16. **The board has no fan, no heatsink, no thermal mat.** Steady-state
+17. **The board has no fan, no heatsink, no thermal mat.** Steady-state
     dissipation at 5 A continuous worst case (TPSM33606S5 ~150 mW +
-    CSD17318Q2 ~500 mW + 5 mΩ shunt 125 mW + TPS25948x ~830 mW +
-    TPS74x01P ~140 mW + LEDs + MCU + op-amp = ~1.8 W absolute worst
-    case) is fine in a 4-layer A7 board with reasonable copper
-    pours. This is the bound; a typical session at 9 V × 1 A is well
-    under 0.5 W board-wide.
+    CSD17318Q2 ~500 mW + TPS25948x ~830 mW + TPS74x01P ~140 mW +
+    LEDs + MCU = ~1.7 W absolute worst case) is fine in a 4-layer A7
+    board with reasonable copper pours. This is the bound; a typical
+    session at 9 V × 1 A is well under 0.5 W board-wide.
