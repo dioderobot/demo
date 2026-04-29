@@ -24,8 +24,12 @@
 ### Architecture
 - **Role:** PD **sink** only. No DRP/source. No PPS for now.
 - **MCU:** **STM32G0B1CEU6** — UFQFPN-48, 512 KB flash, 144 KB RAM.
-- **Port protection:** **TCPP01-M12** + external **CSD17578Q3A** NexFET
-  (30 V, 3×3 SON-8, 4 mΩ @ VGS=10 V) sized for 5 A continuous.
+- **Port protection:** **TCPP01-M12** + external **CSD17318Q2** NexFET
+  (30 V, 2×2 WSON-6, 25 A rated, ~20 mΩ at TCPP01's regulated VGS≈5.5 V)
+  sized for 5 A continuous. *(Was originally CSD17578Q3A in 3×3; swapped
+  to 2×2 once the TCPP01-M12 datasheet confirmed VGS is regulated to
+  5–6 V regardless of VBUS, making the smaller package's higher RDSon
+  irrelevant.)*
 - **USB-C strategy:** single connector for both PD-under-test and USB
   host (DFU + CDC trace optional). UART is the primary independent debug.
 - **Power:** **TPSM33606S5** module (VBUS→5 V, integrated inductor,
@@ -447,7 +451,7 @@ pinmap / firmware concerns that the spec will lock in writing.
 | LED bargraph | 2× 8 IN-PI15 addressable RGB |
 | Status LEDs | 6 discrete 0603 (2 rail-direct, 4 GPIO-driven) |
 | Form factor | A7 (74×105 mm), 4-layer |
-| FET | CSD17578Q3A (3×3 SON-8, 5 A continuous) |
+| FET | CSD17318Q2 (2×2 WSON-6, 25 A rated, ~500 mW at 5 A cont) |
 | OVP threshold | 22 V on both TCPP01 and eFuse OVLO |
 | eFuse default | EN low (off until firmware enables), latch-off, DNP cap for auto-retry |
 | Probe headers | 2× side-by-side 2×4 0.1″ (8 signal lines total) |

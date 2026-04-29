@@ -31,16 +31,22 @@ part exists in multiple options, and confirm sourcing on Digi-Key + Mouser
   Sourcing: 14 k+ stocked at Digi-Key, ~$0.50/100.
 
 ### VBUS gating MOSFET (driven by TCPP01-M12)
-User preference: **TI NexFET**. Sized for **5 A continuous through-current**.
+User preference: **TI NexFET, 2×2 package**. Sized for **5 A continuous
+through-current**.
 
-- **CSD17578Q3A** — TI NexFET, 30 V, **3×3 SON-8 ("Q3A")**, 4 mΩ @
-  VGS=10 V, 5.6 mΩ @ VGS=4.5 V. At 5 A cont → 100 mW dissipation, stays
-  cool. ~$0.65 / 100. **Default pick.**
-- Compact alt if we ever ship a smaller variant: **CSD17312Q2** (2×2
-  SON-6) — 18 mΩ / 26 mΩ — hits ~450 mW at 5 A cont, marginal thermals.
+- **CSD17318Q2** — TI NexFET, 30 V, **2×2 WSON-6 ("Q2")**, 25 A rated.
+  Spec'd 15.1 mΩ @ VGS=8 V; effective ~20 mΩ at TCPP01's regulated
+  VGS ≈ 5.5 V. At 5 A continuous → ~500 mW dissipation in a 16 W (Tc)
+  package. ±10 V VGS rating is fine — TCPP01-M12 caps gate drive at
+  6 V max per DS12900 Table 6. ~$0.50 / 100, ~9 k stocked at Digi-Key.
+  **Default pick.**
 
-Gate is driven by TCPP01-M12's internal charge pump (VGS ≈ Vbus + 4–5 V),
-so VGS=10 V Rds(on) is the relevant number once VBUS ≥ ~6 V.
+Note on gate drive: per the TCPP01-M12 datasheet (DS12900 Rev 7,
+Table 6), VGS is **internally regulated** to typ 5.5 V (5.0–6.0 V max)
+regardless of VBUS level — it's a regulated gate driver, not a
+"VBUS+5 V" charge pump. Pick FETs spec'd for low RDSon at VGS=4.5 V,
+or confirm enhancement-region behaviour at VGS≈5.5 V from the FET's
+RDSon-vs-VGS curve.
 
 ### Load-side eFuse
 - The registry already has `reference/TPS25948x@0.3.1` covering a TPS25948

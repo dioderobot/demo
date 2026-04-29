@@ -84,8 +84,8 @@ P0 = must have. P1 = should have.
  │   │ CC OVP 6 V    │  gate         │                                  │
  │   │ VBUS OVP 22 V │  driver       │  D+/D-                           │
  │   │ ESD L4 (CC)   │  ┌────────────▼────────────┐                     │
- │   │ Dead-batt Rd  ├─►│  CSD17578Q3A (3×3 SON)  │  VBUS_PROT          │
- │   │ FLG/          │  │  N-FET, 4 mΩ @ 10 V     ├────┬────────────►   │
+ │   │ Dead-batt Rd  ├─►│  CSD17318Q2 (2×2 WSON-6) │  VBUS_PROT         │
+ │   │ FLG/          │  │  N-FET, ~20 mΩ @ 5.5 V │────┬────────────►   │
  │   └───┬───────────┘  └─────────────────────────┘    │                │
  │       │                                             │                │
  │       │           D+/D- ──► TPD4E05U06 ──► STM32 USB FS              │
@@ -386,7 +386,7 @@ resistors (~330 Ω for ~2 mA at VOL ≈ 0).
 | USB-C connector | GCT USB4105-GF-A | 16-pin USB-2.0 receptacle | `connectors/UsbC16P` |
 | USB-C port protection (CC + VBUS) | TCPP01-M12 | QFN-12 (3×3) | Librarian (new) |
 | D+/D- ESD | TPD4E05U06QDQARQ1 | DQA USON-10 | `components/TPD4E05U06QDQARQ1` (registry, vendored) |
-| VBUS gating FET | CSD17578Q3A | SON-8 (3×3) | Librarian (new) |
+| VBUS gating FET | CSD17318Q2 | WSON-6 (2×2) | Librarian (new) |
 | Buck (VBUS→5 V) | TPSM33606S5QRDNRQ1 | HotRod QFN module | Librarian (new) |
 | LDO (5 V→3.3 V) | TPS74x01P | DRV (SON-6) | `components/Texas_Instruments/TPS74x01P` |
 | V/I monitor | INA236A | WSON-10 | Librarian (new) |
@@ -620,7 +620,7 @@ resistors (~330 Ω for ~2 mA at VOL ≈ 0).
     DFU dual-bank.
 
 16. **The board has no fan, no heatsink, no thermal mat.** Steady-state
-    dissipation (TPSM33606S5 ~150 mW + CSD17578Q3A ~100 mW + TPS25948x
+    dissipation (TPSM33606S5 ~150 mW + CSD17318Q2 ~500 mW + TPS25948x
     ~830 mW + TPS74x01P ~140 mW + LEDs + MCU = ~1.5 W absolute worst
     case) is fine in a 4-layer A7 board with reasonable copper
     pours. This is the bound; a typical session at 9 V × 1 A is well
