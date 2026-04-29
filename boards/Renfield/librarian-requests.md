@@ -54,12 +54,12 @@ RDSon-vs-VGS curve.
   3.5–22 V, 5 A, programmable OVLO + ILIM use case. **No new part needed
   unless that reference doesn't expose OVLO/ILIM config nicely.**
 
-### V/I monitor
-- **INA236AIDSGR** — TI, 48 V, 16-bit, I²C bidirectional current/power
-  monitor, **WSON-10 (1.4×1.8 mm, QFN-equivalent)**. DigiKey
-  296-INA236AIDSGRCT-ND. Replaces our use of the 20-bit INA228 (vendored
-  INA228 is fine to keep; add INA236 alongside as the smaller, cheaper
-  option for visualization-grade measurement).
+### Current / voltage sensing — NO chip needed
+- **No new part needed.** Earlier drafts called for an INA236 over I²C;
+  current design uses a low-side 5 mΩ shunt + a single-supply RRIO
+  op-amp from the registry (`modules/TLV9001.zen`) feeding an MCU
+  ADC channel. VBUS is sensed via a ÷10 resistor divider into a
+  second ADC channel. No I²C bus, simpler BOM, no librarian work.
 
 ### Buck (VBUS → 5 V) — integrated-inductor module
 - **TPSM33606S5QRDNRQ1** — TI, 36 V Vin, 0.6 A, fixed 5 V output,
@@ -108,22 +108,12 @@ RDSon-vs-VGS curve.
 - **No new part needed.** 1×4 0.1″ pin header (GND, TX, RX, 3V3).
   Stdlib generic.
 
-### DIP switch — **8-pos** (upgrade from 4)
-- Need an **8-position SMT DIP switch**, 2.54 mm or 1.27 mm pitch,
-  T&R packed, reflow-rated. Suggested candidates:
-  - **CTS Electrocomponents 219-8MSTR** (8-pos, 2.54 mm SMT)
-  - **C&K SDA08H1SBR** (8-pos, 1.27 mm SMT)
-  - **Same Sky DSHP08TSGER** (8-pos, 2.54 mm SMT)
-  - Librarian: pick a well-stocked Digi-Key part; we don't care about
-    pitch as long as it's SMT/T&R.
-
-### I²C GPIO expander (DIP-switch reader)
-- **PCA9554APWR** or **PCA9554ABS** — NXP / TI, **8-bit I²C GPIO
-  expander**. Preferred package: **HVQFN-16 (4×4 mm)** if available
-  (PCA9554ABS), else TSSOP-16 (PCA9554APWR). 8 hardware-selectable
-  addresses. Reads the 8 DIP switches over the same I²C bus that runs
-  INA236 — zero extra MCU GPIOs.
-  - DigiKey 568-1077-1-ND (PCA9554APWR, TSSOP).
+### DIP switch
+- **No new part needed.** Use registry's
+  `components/DS04-254-1-04BK-SMT@0.3.7` — 4-position SMT DIP, 2.54 mm
+  pitch. Direct-driven on 4 MCU GPIOs (no I²C expander). Earlier draft
+  had 8 positions behind a PCA9554A; that's been cut now that the I²C
+  bus has no other peripherals.
 
 ### Tactile buttons (RESET, BOOT0)
 - Registry has `components/B3U-1000P@0.2.1` (Omron, SMT). **No new part

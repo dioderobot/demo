@@ -6,10 +6,22 @@
 > this directory. Major changes vs this exploration:
 >
 > - MCU is **STM32G0B1KxUxN (UFQFPN-32)** with `memory_size="512KB"`
->   config (reuses existing registry package). Status-LED count and
->   MCU-side ADC channels were cut to fit the 32-pin GPIO budget.
+>   config (reuses existing registry package). 18 of ~20 GPIOs used.
+> - **No INA236, no I²C bus.** Current sense is a low-side 5 mΩ shunt
+>   + TLV9001 op-amp (registry) → MCU ADC. Voltage sense is the ÷10
+>   VBUS divider → MCU ADC.
+> - **DIP switch dropped from 8 to 4 positions**, direct-driven on MCU
+>   GPIOs (no PCA9554A expander — the I²C bus has no peripherals).
+> - **VBUS gate FET** is CSD17318Q2 in 2×2 WSON-6 (not the 3×3
+>   CSD17578Q3A originally listed) — TCPP01-M12 datasheet confirmed
+>   regulated VGS ≈5.5 V so the smaller FET works fine.
+> - **7 status LEDs total**: 2 rail-direct, **2 hardware-driven** off
+>   open-drain FLG//FLT/ pins (latching-fault-survives-MCU-crash
+>   pattern), 3 GPIO-driven (PD_CONTRACT, USB_ENUM, HEARTBEAT).
+> - Single SCOPE_MARKER (was 2).
 > - Probe surface is **two side-by-side 2×4 0.1″ headers** (8 signal
->   lines), not a single 2×9.
+>   lines), not a single 2×9. Header B carries ADC_I/ADC_V/FLT/FLG
+>   instead of I²C.
 > - Test points are **flat SMD pads** (`Pad_1.5x1.5mm`), not Keystone
 >   solder loops.
 > - Power-rail LEDs are **rail-direct**, not driven by LDO PG / buck
@@ -34,12 +46,19 @@
   host (DFU + CDC trace optional). UART is the primary independent debug.
 - **Power:** **TPSM33606S5** module (VBUS→5 V, integrated inductor,
   HotRod QFN) → **TPS74x01P** LDO 5 V→3 V3 (registry).
-- **V/I monitor:** **INA236A** + 5 mΩ ±1 % 2512 shunt.
+- **Current sense:** low-side 5 mΩ ±1 % 2512 shunt + TLV9001 op-amp
+  (gain ~50) → MCU ADC. *(Was originally INA236A over I²C; switched
+  to op-amp + ADC because INA236 doesn't come in QFN and the
+  I²C-bus complexity wasn't earning its keep once we accepted
+  low-side sensing.)*
+- **Voltage sense:** VBUS_OUT ÷10 divider → MCU ADC.
 - **Load eFuse:** **TPS25948x** (registry `reference/TPS25948x@0.3.1`),
   programmed for **EN default-OFF, latch-off on fault**, with optional
   DNP cap footprint to convert to auto-retry (silk-labeled).
-- **DIP switch:** **8-pos** read via **PCA9554A** I²C expander
-  (zero extra GPIOs). Switch semantics deferred to firmware.
+- **DIP switch:** **4-pos** SMT, direct-driven on MCU GPIOs. Switch
+  semantics deferred to firmware. *(Was 8-pos behind a PCA9554A I²C
+  expander; cut once INA236 was dropped and the I²C bus became
+  empty — 4 positions cover realistic profile-selection use cases.)*
 - **Form factor:** **A7 (74×105 mm)**, 4-layer.
 
 ### LEDs
