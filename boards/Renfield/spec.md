@@ -45,7 +45,7 @@ Primary use cases:
 | ID  | Requirement | Priority |
 |-----|-------------|----------|
 | R1  | USB-C 16P receptacle, sink role, supports negotiated 5/9/15/20 V at up to 5 A | P0 |
-| R2  | STM32G0B1KxUxN (UFQFPN-32 N-pinout, `memory_size="512KB"` → STM32G0B1KEU6N) runs the entire PD sink stack on UCPD1 | P0 |
+| R2  | STM32G0B1KEU6N (UFQFPN-32, N-pinout, 512 KB flash) runs the entire PD sink stack on UCPD1 | P0 |
 | R3  | TCPP01-M12 + external NexFET on VBUS provide hardware OVP/CC OVP/IEC ESD on CC + VBUS | P0 |
 | R4  | TPD4E05U06QDQARQ1 provides IEC 61000-4-2 L4 ESD on D+/D- (TCPP01-M12 covers CC only) | P0 |
 | R5  | Hardware VBUS OVP threshold = 22 V; CC OVP = 6 V (TCPP01-M12 internal) | P0 |
@@ -187,8 +187,8 @@ exposed pad on standard copper. No heat-sinking required.
 
 ### USB-C (input side)
 
-GCT USB4105-GF-A 16-pin USB-2.0 USB-C (registry `connectors/UsbC16P`).
-Data role is **DFP-data-capable** so we can do USB DFU / CDC over the
+GCT USB4105-GF-A, 16-pin USB-2.0 USB-C receptacle. Data role is
+**DFP-data-capable** so we can do USB DFU / CDC over the
 same connector — but power role is sink-only and dead-battery Rd is
 controlled exclusively by the STM32G0B1 UCPD peripheral. No external
 5.1 kΩ Rd resistors (UCPD dead-battery does it).
@@ -277,10 +277,10 @@ without the USB or UART being involved.
 
 ### Test pads
 
-**Flat SMD test pads** (stdlib `TestPoint` generic, `Pad_1.5x1.5mm`
-variant) for nets that aren't on a probe header but still want a clean
-probe-tip touchpoint. Silk labels nearby; **no colored solder loops**
-(no Keystone parts — too much BOM pain for the value).
+**Flat SMD test pads** (~1.5 × 1.5 mm) for nets that aren't on a probe
+header but still want a clean probe-tip touchpoint. Silk labels nearby;
+**no colored solder loops** (no Keystone parts — too much BOM pain for
+the value).
 
 Minimum set (silkscreen labels per pad):
 
@@ -349,25 +349,25 @@ resistors (~330 Ω for ~2 mA at VOL ≈ 0).
 
 ## 6. Key components
 
-| Function | Part | Package | Source |
-|----------|------|---------|--------|
-| MCU | STM32G0B1KxUxN (`memory_size="512KB"` → STM32G0B1KEU6N) | UFQFPN-32 N-pinout | `components/STMicroelectronics/STM32G0B1KxUxN` (registry) |
-| USB-C connector | GCT USB4105-GF-A | 16-pin USB-2.0 receptacle | `connectors/UsbC16P` |
-| USB-C port protection (CC + VBUS) | TCPP01-M12 | QFN-12 (3×3) | Librarian (new) |
-| D+/D- ESD | TPD4E05U06QDQARQ1 | DQA USON-10 | `components/TPD4E05U06QDQARQ1` (registry, vendored) |
-| VBUS gating FET | CSD17318Q2 | WSON-6 (2×2) | Librarian (new) |
-| Buck (VBUS→5 V) | TPSM33606S5QRDNRQ1 | HotRod QFN module | Librarian (new) |
-| LDO (5 V→3.3 V) | TPS74x01P | DRV (SON-6) | `components/Texas_Instruments/TPS74x01P` |
-| Load eFuse | TPS259482AYWPR | LQFN-23 | `reference/TPS25948x` |
-| DIP switch | 4-pos SMD DIP, 2.54 mm pitch | SMT | `components/DS04-254-1-04BK-SMT` (registry) |
-| V-bargraph LEDs | IN-PI15TAT5R5G5B (×8) | 1.5×1.5 mm 4-pad | Librarian (new) |
-| Status LEDs | Generic 0603 (7× — green ×2, red ×2, blue ×2, white ×1) | 0603 | Generic |
-| Buttons | Omron B3U-1000P | SMT tactile | `components/B3U-1000P` |
-| SWD | Tag-Connect TC2030-IDC-NL | Pads only | `connectors/TagConnect` |
-| Test pads | stdlib `TestPoint` generic, `Pad_1.5x1.5mm` variant | flat SMD pad | stdlib |
-| Load output | WAGO 2060-452/998-404 | SMD push-in 2-pole | Librarian (new) |
-| Probe headers | 2× side-by-side 2×4 0.1″ pin headers (stdlib generic) | SMT or THT | stdlib |
-| UART header | 1×4 0.1″ pin header (stdlib generic) | SMT or THT | stdlib |
+| Function | Part | Package |
+|----------|------|---------|
+| MCU | STMicroelectronics STM32G0B1KEU6N | UFQFPN-32, N-pinout |
+| USB-C connector | GCT USB4105-GF-A | 16-pin USB-2.0 receptacle |
+| USB-C port protection (CC + VBUS) | STMicroelectronics TCPP01-M12 | QFN-12 (3×3) |
+| D+/D- ESD | TI TPD4E05U06QDQARQ1 | USON-10 |
+| VBUS gating FET | TI CSD17318Q2 NexFET | WSON-6 (2×2) |
+| Buck (VBUS→5 V) | TI TPSM33606S5QRDNRQ1 | HotRod QFN module, integrated inductor |
+| LDO (5 V→3.3 V) | TI TPS74x01P | SON-6 |
+| Load eFuse | TI TPS259482AYWPR | POWERWCSP (YWP), DSBGA-12 |
+| DIP switch | DS04-254-1-04BK-SMT, 4-pos | SMT, 2.54 mm pitch |
+| V-bargraph LEDs | Inolux IN-PI15TAT5R5G5B (×8) | 1.5×1.5 mm, 4-pad |
+| Status LEDs | 7× generic 0603 (green ×2, red ×2, blue ×2, white ×1) | 0603 |
+| Buttons | Omron B3U-1000P (×2) | SMT tactile |
+| SWD | Tag-Connect TC2030-IDC-NL | pads only, no connector |
+| Test pads | flat SMD pad (~1.5×1.5 mm) | SMT |
+| Load output | WAGO 2060-452/998-404 | SMD push-in, 2-pole, 4 mm pitch |
+| Probe headers | 2× 2×4 0.1″ pin header | SMT or THT |
+| UART header | 1×4 0.1″ pin header | SMT or THT |
 
 ### Support passives (commodity, must be present)
 
@@ -431,7 +431,9 @@ resistors (~330 Ω for ~2 mA at VOL ≈ 0).
 - Layer count: **4**.
 - Min trace/space: 6/6 mil. Min via: 0.25 mm finished.
 - Min package: 0402 passives, UFQFPN-32 MCU, 1.5×1.5 mm RGB LEDs,
-  QFN-12 (TCPP01-M12), 2×2 WSON-6 (CSD17318Q2).
+  QFN-12 (TCPP01-M12), 2×2 WSON-6 (CSD17318Q2). The TPS259482
+  POWERWCSP (12-bump, 0.5 mm pitch) is the only BGA-style part on
+  the board; standard reflow handles it.
 - Assembly: in-house, single-pass SMT reflow. **No through-hole / hand-
   solder steps.** All connectors (USB-C, WAGO, pin headers) are SMT.
 - Prototype quantity: ~5–10.
@@ -452,8 +454,8 @@ resistors (~330 Ω for ~2 mA at VOL ≈ 0).
 ## 10. Open items (non-blocking, deferred to capture / firmware)
 
 - **Pin assignment** is deliberately not specified. EE picks during
-  schematic capture against the G0B1KxUxN 32-pin N-pinout, with the
-  constraints that:
+  schematic capture against the STM32G0B1KEU6N (UFQFPN-32, N-pinout),
+  with the constraints that:
   - **UCPD1 dead-battery wiring** per AN5225 §11.3.1: PA9-physical
     shorted to PA8 (CC1), PA10-physical shorted to PB15 (CC2). These
     physical pins also carry USB DM/DP after firmware sets the
