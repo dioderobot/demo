@@ -498,132 +498,98 @@ resistors (~330 Ω for ~2 mA at VOL ≈ 0).
 
 ## 11. Design notes
 
-1. **Why the STM32 runs the PD stack itself.** Using the G0B1's UCPD
+1. **The STM32 runs the PD stack itself.** Using the G0B1's UCPD
    peripheral instead of a dedicated PD controller IC (TPS25750,
-   TPS26750, etc.) is the explicit point of the board. Renfield is
-   the platform on which we develop UCPD-based firmware, so any
-   integrated controller would defeat the purpose. The TCPP01-M12 is
-   a *protection* chip, not a PD controller.
+   TPS26750, etc.) is the explicit point of the board. The
+   TCPP01-M12 is a *protection* chip, not a PD controller.
 
-1a. **Why the 32-pin part.** The 32-pin UFQFPN-32 N-pinout
-    (`STM32G0B1KxUxN` already in registry) supports everything
-    Renfield needs with 3 GPIOs of headroom. The 48-pin part offered
-    no functional advantage for this board — only more spares — and
-    keeping the 32-pin part means we reuse a vendored package that
-    Feign already validates. Cuts vs an unconstrained design that
-    fit it into 32 pins: dropped INA236 + I²C bus (current sensing
-    moved off-board entirely — see note 4), dropped PCA9554A (DIP
-    switch reduced to 4 pos direct-driven), dropped one of two scope
-    markers, dropped GPIO-driven FAULT LED (replaced by hardware-
-    driven LEDs off open-drain FLG//FLT/ pins). All cuts are
-    functionally equivalent or better.
+2. **No on-board current measurement.** Current/power telemetry is
+   delegated to an external smart load (DC e-load, USB-PD analyzer
+   like the Total Phase Power Delivery Analyzer, etc.) at the WAGO
+   terminals — those instruments do higher-quality measurement than
+   anything reasonable on a 4-layer bench board, and Renfield's job
+   is PD-stack firmware development, not power instrumentation.
+   **VBUS voltage** is still measured on-board via the VBUS_OUT ÷10
+   divider → ADC_V (one resistor pair, useful for AN4879 attach
+   detection). The eFuse's IMON pin is exposed at TP11 as a free
+   analog scope point for users wanting a quick current visual.
 
-2. **The 5 V rail exists for the WS2812 LEDs.** It is not strictly
+3. **The 5 V rail exists for the WS2812 LEDs.** It is not strictly
    needed by anything else. We don't power the MCU from 5 V because
-   the LDO needs at least 1 V of headroom — the TPS74x01P from 5 V
-   to 3.3 V is well within spec at all loads.
+   the LDO needs at least 1 V of headroom — TPS74x01P from 5 V to
+   3.3 V is well within spec at all loads.
 
-3. **Why the V bargraph is addressable but the status LEDs are not.**
-   The two technologies are intentionally split: the bargraph display
-   is an *information* surface where we want richness (color zones,
-   brightness, animation), while the status LEDs are *diagnostic* —
-   they must continue to work when firmware is broken. A blown WS2812
-   driver, a corrupted DMA buffer, or a stuck SPI clock would silently
-   break a unified RGB ladder. A GPIO and a 0603 LED won't. Going
-   further: the **rail LEDs are wired straight to the rails** and the
-   **fault LEDs are wired straight off the open-drain fault pins** —
-   no MCU, no PG pin, no firmware involvement. Both light correctly
-   when the MCU is dead. The MCU still gets fault edges as inputs in
-   parallel for software handling. Latching faults that survive an
-   MCU crash are the most useful kind to be visually obvious.
+4. **The V bargraph is addressable, the status LEDs are not.**
+   The two technologies are intentionally split. The bargraph is an
+   *information* surface where richness matters (color zones,
+   brightness, animation). The status LEDs are *diagnostic* — they
+   must work when firmware is broken. A stuck DMA buffer or a blown
+   WS2812 silently breaks a unified RGB ladder; a GPIO and a 0603
+   LED won't. The **rail LEDs are wired straight to the rails** and
+   the **fault LEDs are wired straight off the open-drain fault
+   pins** — no MCU, no PG pin, no firmware involvement. The MCU
+   reads the fault edges in parallel for software handling.
+   Latching faults that survive an MCU crash are the most useful
+   kind to be visually obvious.
 
-4. **No on-board current measurement.** Earlier drafts had INA236
-   over I²C, then a low-side shunt + RRIO op-amp into an MCU ADC.
-   Both were dropped: the INA236 doesn't come in a QFN package, and
-   the op-amp + shunt path was an awkward amount of analog circuitry
-   to validate on a board whose primary purpose is firmware
-   development on the *PD stack*, not power instrumentation. Users
-   who need current/power telemetry attach an external smart load
-   (DC e-load, USB-PD analyzer like the Total Phase Power Delivery
-   Analyzer, etc.) at the WAGO terminals — those instruments do
-   higher-quality measurement than anything we'd put on a 4-layer
-   bench board. **VBUS voltage** is still measured on-board via
-   the existing VBUS_OUT ÷10 divider → ADC_V (free, one resistor
-   pair, useful for AN4879 attach detection — see note 13). The
-   eFuse's IMON pin is exposed on a test pad as a free analog
-   current scope point for users who want a quick visual.
-
-5. **Why direct-driven 4-pos DIP, not an I²C expander.** Once INA236
-   was dropped, the I²C bus had no peripherals on it, so a PCA9554A
-   expander to read 8 DIP switches stopped earning its keep. Four
-   DIP positions cover realistic PD-profile-selection use cases
-   (max V, max I, role flag, spare). Direct GPIO is simpler and
-   fits within the 32-pin GPIO budget without adding a chip.
-
-6. **Latch-off by default, auto-retry by re-stuff.** TPS25948x latches
+5. **Latch-off by default, auto-retry by re-stuff.** TPS25948x latches
    off on fault by default, requiring firmware to re-enable. This is
    the correct dev-board behavior: a fault during firmware development
    should stop the world, not silently retry. We provide a **DNP cap
    footprint** silk-labeled `POPULATE FOR AUTO-RETRY` so the auto-retry
    variant is one rework away when needed.
 
-7. **Hardware OVP at 22 V is the absolute backstop.** TCPP01-M12's OVP
+6. **Hardware OVP at 22 V is the absolute backstop.** TCPP01-M12's OVP
    threshold and the eFuse OVLO are fixed by external resistor dividers
    to 22 V. This allows full-spec 20 V negotiation with 2 V margin and
    protects against a defective source delivering more than 20 V on
    VBUS without firmware involvement. A buggy firmware request for >22 V
    would simply be clamped by the hardware.
 
-8. **eFuse defaults to off.** EN is pulled to GND so the load output
+7. **eFuse defaults to off.** EN is pulled to GND so the load output
    is dead until firmware explicitly turns it on. This avoids the
    "stick a load in, plug in USB, and immediately get 5 V at the load"
    behavior — which sounds friendly but is wrong for a board that will
    be intentionally crashed. The board should not deliver power to its
    output without the firmware affirmatively asking it to.
 
-9. **VBUS not on probe headers, divided-down sense IS.** The high-side
+8. **VBUS not on probe headers, divided-down sense IS.** The high-side
    VBUS rails (RAW/PROT/OUT) stay off the probe headers — they go to
-   silk-warned test pads only. Header B *does* carry the safe ÷10
-   ADC_V analog signal and both open-drain fault flags. Keeping the
+   silk-warned test pads only. Header B carries the safe ÷10 ADC_V
+   analog signal and both open-drain fault flags. Keeping the
    high-current noisy nets off the probe-header GND grommet preserves
    CC1/CC2 BMC capture quality on Header A.
 
-10. **CC1_RAW / CC2_RAW are exposed as test loops, deliberately.** A
+9. **CC1_RAW / CC2_RAW are exposed as test loops, deliberately.** A
    PD developer occasionally wants to see what the source is putting
-   on the CC line *before* TCPP01-M12 clamps it — for example to
-   diagnose a defective source. The raw CC test loops are silk-labeled
+   on the CC line *before* TCPP01-M12 clamps it — e.g. to diagnose
+   a defective source. The raw CC test loops are silk-labeled
    `HV — UP TO 22 V` so probe-tip choice is informed.
 
-11. **UCPD2 is unused** but its pins (PD0/PD1/PD2/PD3) may carry a
+10. **UCPD2 is unused** but its pins (PD0/PD1/PD2/PD3) may carry a
     dead-battery Rd at boot per Feign §10 design note 14. Firmware
     must release UCPD2 dead-battery early in startup
     (`SYSCFG->CFGR1 |= UCPD2_STROBE`) before those pins can be used
-    for anything else, regardless of whether we end up using them.
+    for anything else.
 
-12. **Crystalless USB.** STM32G0B1 integrates HSI48 + CRS, trimming
+11. **Crystalless USB.** STM32G0B1 integrates HSI48 + CRS, trimming
     HSI48 against USB SOF. No HSE crystal on the BOM. Same as Feign.
 
-13. **D+ pull-up is on-die.** STM32G0B1 has the 1.5 kΩ D+ pull-up
+12. **D+ pull-up is on-die.** STM32G0B1 has the 1.5 kΩ D+ pull-up
     integrated. No external pull-up.
 
-14. **VBUS sensing via divider.** Per AN4879 §3.2, a VBUS divider into
-    an MCU ADC is recommended for proper attach detection. Renfield's
-    `VBUS_OUT_DIV` (÷10) is routed to MCU ADC_V and also exposed at
-    TP4 + Header B pin 1 for analog scope observation.
-
-15. **Tag-Connect over a populated SWD header** because the board is
+13. **Tag-Connect over a populated SWD header** because the board is
     deliberately small (A7 = 74×105 mm) and SWD is a one-off
     programming step. Anyone doing serious SWD work plugs in the
     Tag-Connect cable; nobody needs a 10-pin Cortex header sticking
     up off the board permanently.
 
-16. **No external flash.** Sink-only PD firmware fits comfortably in
+14. **No external flash.** Sink-only PD firmware fits comfortably in
     G0B1's 512 KB internal flash with room for trace buffers and
     DFU dual-bank.
 
-17. **The board has no fan, no heatsink, no thermal mat.** Steady-state
-    dissipation at 5 A continuous worst case (TPSM33606S5 ~150 mW +
-    CSD17318Q2 ~500 mW + TPS25948x ~830 mW + TPS74x01P ~140 mW +
-    LEDs + MCU = ~1.7 W absolute worst case) is fine in a 4-layer A7
-    board with reasonable copper pours. This is the bound; a typical
-    session at 9 V × 1 A is well under 0.5 W board-wide.
+15. **No active cooling.** Steady-state dissipation at 5 A worst
+    case (TPSM33606S5 ~150 mW + CSD17318Q2 ~500 mW + TPS25948x
+    ~830 mW + TPS74x01P ~140 mW + LEDs + MCU ≈ 1.7 W) is fine in a
+    4-layer A7 board with reasonable copper pours. A typical session
+    at 9 V × 1 A is well under 0.5 W board-wide.
