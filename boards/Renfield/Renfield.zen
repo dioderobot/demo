@@ -65,19 +65,19 @@ GND = Ground()
 USB_C = UsbTypeC()  # USB-C signal bundle (CC1/CC2/D+/D-/SBU)
 
 # Post-TCPP01 CC nets (system-side CC out of TCPP01, into MCU UCPD1).
-CC1_MCU = Net("CC1_MCU")
-CC2_MCU = Net("CC2_MCU")
+CC1_MCU = Net()
+CC2_MCU = Net()
 
 # TCPP01 control / status. VCC is Power-typed because it IS the chip's
 # 3.3 V supply; routing it through PB0 lets firmware power-cycle the
 # IC and keeps standby Iq at 0 nA per DS12900 §6.7.
-TCPP01_VCC = Power("TCPP01_VCC", voltage="3.3V")  # MCU PB0 → TCPP01 VCC
-TCPP01_DB = Net("TCPP01_DB")  # MCU PB1 → TCPP01 DB/
-TCPP01_FLT = Net("TCPP01_FLT")  # TCPP01 FLT/ → MCU PB6
-TCPP01_VBUS_CTRL = Net("TCPP01_VBUS_CTRL")  # OVP threshold divider tap
+TCPP01_VCC = Power(voltage="3.3V")  # MCU PB0 → TCPP01 VCC
+TCPP01_DB = Net()  # MCU PB1 → TCPP01 DB/
+TCPP01_FLT = Net()  # TCPP01 FLT/ → MCU PB6
+TCPP01_VBUS_CTRL = Net()  # OVP threshold divider tap
 
 # External FET gate, driven by TCPP01 GATE pin.
-FET_GATE = Net("FET_GATE")
+FET_GATE = Net()
 
 # USB-C receptacle ---------------------------------------------------------
 UsbC16P(
