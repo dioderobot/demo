@@ -62,7 +62,7 @@ STM32G0B1 = Module("github.com/diodeinc/registry/components/STMicroelectronics/S
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 
-# Top-level rails / nets ---------------------------------------------------
+# Top-level rails / nets
 VBUS_RAW = Power(voltage="5V to 22V")  # USB-C VBUS, FET drain, TCPP01 IN_GD
 VBUS_PROT = Power(voltage="5V to 22V")  # FET source, TCPP01 SOURCE, OVP-clamped
 V5V = Power(voltage="5V")  # buck output, LDO + (future) WS2812 chain input
@@ -86,7 +86,7 @@ TCPP01_VBUS_CTRL = Net()  # OVP threshold divider tap
 # External FET gate, driven by TCPP01 GATE pin.
 FET_GATE = Net()
 
-# USB-C receptacle ---------------------------------------------------------
+# USB-C receptacle
 UsbC16P(
     name="J_USB",
     VBUS=VBUS_RAW,
