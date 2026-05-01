@@ -49,15 +49,15 @@ Primary use cases:
 | R3  | TCPP01-M12 + external NexFET on VBUS provide hardware OVP/CC OVP/IEC ESD on CC + VBUS | P0 |
 | R4  | TPD4E05U06QDQARQ1 provides IEC 61000-4-2 L4 ESD on D+/D- (TCPP01-M12 covers CC only) | P0 |
 | R5  | Hardware VBUS OVP threshold = 22 V; CC OVP = 6 V (TCPP01-M12 internal) | P0 |
-| R6  | Load-side TPS25948x eFuse with EN default-low, OVLO = 22 V, latch-on-fault | P0 |
-| R7  | Auto-retry mode for eFuse selectable via DNP cap footprint (silk-labeled) | P1 |
+| R6  | Load-side TPS259482L (LatchOff) eFuse with EN default-low, OVLO = 22 V, ILIM = 6 A, UVLO = 6 V | P0 |
+| R7  | Auto-retry behavior available by swapping to TPS259482A (drop-in same package) — silicon SKU choice | P1 |
 | R8  | VBUS÷10 divider → MCU ADC for voltage. **No on-board current measurement** — user supplies external smart load if current/power telemetry is needed. | P0 |
 | R9  | One 8-segment RGB bargraph (V: 0–20 V) using IN-PI15 LEDs | P0 |
-| R10 | 7 discrete 0603 status LEDs: 2 rail-direct (5V, 3V3), 2 hardware-driven from open-drain fault pins (TCPP01_FLG, eFuse_FLT), 3 MCU GPIO-driven (PD_CONTRACT, USB_ENUM, HEARTBEAT) | P0 |
+| R10 | 7 discrete 0603 status LEDs: 2 rail-direct (5V, 3V3), 2 hardware-driven from open-drain fault pins (TCPP01 FLT, TPS259482 SPLYGD), 3 MCU GPIO-driven (PD_CONTRACT, USB_ENUM, HEARTBEAT) | P0 |
 | R11 | 4-position SMD DIP switch direct-driven on MCU GPIOs (no I²C expander) | P0 |
 | R12 | Two side-by-side Saleae-friendly 2×4 0.1″ probe headers (8 signal lines total) | P0 |
 | R13 | Dedicated 1×4 0.1″ UART debug header (GND/TX/RX/3V3) | P0 |
-| R14 | Tag-Connect TC2030-IDC-NL SWD pads with SWO trace (no connector populated) | P0 |
+| R14 | Tag-Connect TC2030-IDC-NL SWD pads (no connector populated; Cortex-M0+ has no SWO — pin 6 is NC) | P0 |
 | R15 | SMD test pads for nets not on a probe/UART header (no Keystone loops) | P0 |
 | R16 | USB DFU bootloader entry via BOOT0 + RESET tactile buttons | P0 |
 | R17 | Crystal-less USB via HSI48 + CRS (no HSE) | P0 |
@@ -79,15 +79,15 @@ USB-C 16P (sink, 5–20 V / 0–5 A)
    │ VBUS  D+  D-  CC1  CC2  GND
    ▼
 ┌──────────────────┐                       ┌─────────────────┐
-│   TCPP01-M12     │  CC1, CC2 ──────────► │  STM32G0B1KxUxN │
-│   - CC OVP 6 V   │                       │  UFQFPN-32, 512K│
-│   - VBUS OVP 22V │  GATE→ ┌──────────┐   │  N-pinout       │
+│   TCPP01-M12     │  CC1, CC2 ──────────► │ STM32G0B1KEU6N  │
+│   - CC OVP 6 V   │                       │ UFQFPN-32, 512K │
+│   - VBUS OVP 22V │  GATE→ ┌──────────┐   │ N-pinout        │
 │   - ESD L4 (CC)  │ ──────►│CSD17318Q2│   │                 │
-│   - Dead-batt Rd │        │ N-FET 2x2│   │  Peripherals    │
-│   - FLG/ OD      │ ──────►│ ~20 mΩ   │   │  (pin assign    │
-└──────────────────┘        └────┬─────┘   │   deferred to   │
-        │                        │ VBUS_PROT│  capture):     │
-        │ FLG/ → LED + MCU       │          │                 │
+│   - Dead-batt Rd │        │ N-FET 2x2│   │ Pinout: see §7  │
+│   - FLT  OD      │ ──────►│ ~20 mΩ   │   │                 │
+└──────────────────┘        └────┬─────┘   │                 │
+        │                        │ VBUS_PROT│                │
+        │ FLT → LED + MCU        │          │                 │
         │                        ├──► to buck (TPSM33606S5)  │
         │                        │      → 5V → LDO → 3V3    │
 D+/D-   │                        │                           │
@@ -100,7 +100,7 @@ D+/D-   │                        │                           │
   │                  │ EN default low   │                    │
   │                  │ OVLO 22 V        │                    │
   │                  │ ILIM ~6 A        │                    │
-  │                  │ FLT/ OD →LED+MCU │                    │
+  │                  │ SPLYGD OD→LED+MCU│                    │
   │                  └────────┬─────────┘                    │
   │                           │ VBUS_OUT                     │
   │                           ▼                              │
@@ -108,14 +108,14 @@ D+/D-   │                        │                           │
   │                       load− ──────► WAGO 2060-452 ──► load
   │                       (current/power telemetry: external smart load)
   │                                                          │
-  └─── BOOT0 button ──► PA14 (BOOT0)   SWD: PA13/PA14/PA15  │
+  └─── BOOT0 button ──► PA14 (BOOT0)   SWD: PA13/PA14         │
        RESET button ──► NRST           UART: TX, RX (header)│
                                                             │
        4-pos DIP ────────────────► 4× GPIO inputs           │
        7 status LEDs:                                       │
          - 5V_RAIL, 3V3_RAIL: rail-direct                   │
-         - TCPP01_FLG_LED, eFuse_FLT_LED: hardware-driven   │
-           from open-drain pins                             │
+         - TCPP01_FLT_LED, eFuse_FLT_LED: hardware-driven   │
+           from TCPP01 FLT and eFuse SPLYGD open-drain pins │
          - PD_CONTRACT, USB_ENUM, HEARTBEAT: MCU GPIO       │
        1 V-bargraph (8× IN-PI15 WS2812 RGB) → SPI MOSI ─────┘
        Probe headers (2× 2×4) — see §5
@@ -133,7 +133,7 @@ D+/D-   │                        │                           │
 | Source | USB VBUS via USB-C receptacle (sink role) |
 | Voltage | 5 V default; up to 20 V after PD negotiation |
 | Maximum draw | 5 A continuous (limited by FET / eFuse rating, not USB-PD) |
-| Worst-case OVP backstop | 22 V at TCPP01-M12 (hardware), 22 V at TPS25948x OVLO |
+| Worst-case OVP backstop | 22 V at TCPP01-M12 (hardware), 22 V at TPS259482 OVLO |
 
 ### Rails
 
@@ -141,7 +141,7 @@ D+/D-   │                        │                           │
 |------|---------|--------|--------|
 | VBUS_RAW | 5–20 V | USB-C, before TCPP01 | up to 5 A |
 | VBUS_PROT | 5–20 V | After TCPP01-M12 + NexFET, OVP-clamped at 22 V | up to 5 A |
-| VBUS_OUT | 5–20 V | After TPS25948x eFuse (current-limited, OVLO-protected) | up to 5 A |
+| VBUS_OUT | 5–20 V | After TPS259482 eFuse (current-limited, OVLO-protected) | up to 5 A |
 | 5V | 5 V ±2 % | TPSM33606S5 module from VBUS_PROT | ~250 mA peak |
 | 3V3 | 3.3 V ±2 % | TPS74x01P LDO from 5 V | ~80 mA peak |
 
@@ -177,7 +177,7 @@ exposed pad on standard copper. No heat-sinking required.
    per AN5225 strobe sequence, starts PD stack.
 7. Firmware reads DIP switches directly via 4 GPIO inputs, decides PDO
    request strategy.
-8. Firmware enables TPS25948x eFuse (default-disabled at boot).
+8. Firmware enables TPS259482 eFuse (default-disabled at boot).
 9. PD contract → VBUS goes to negotiated voltage → eFuse passes it to
    the WAGO output → bargraphs light up.
 
@@ -233,14 +233,14 @@ header.
 | 2 | GND | |
 | 3 | (spare) | DNF — routed to a spare MCU GPIO pad for future expansion |
 | 4 | GND | |
-| 5 | eFuse FLT/ | TPS25948x fault edges (open-drain) |
+| 5 | eFuse SPLYGD | TPS259482 supply-good edges (open-drain, active-low) |
 | 6 | GND | |
-| 7 | TCPP01 FLG/ | TCPP01-M12 fault edges (open-drain) |
+| 7 | TCPP01 FLT | TCPP01-M12 fault edges (open-drain, active-low) |
 | 8 | GND | |
 
 Header A signals belong on Saleae **analog** inputs (CC swing is ~1.2 V,
 below standard digital threshold). Header B carries one analog signal
-(ADC_V) and two digital open-drain signals (FLT/, FLG/); all three
+(ADC_V) and two digital open-drain signals (TCPP01 FLT, eFuse SPLYGD); all three
 work on either Saleae analog or digital channels.
 
 ### UART debug header
@@ -258,7 +258,7 @@ Pinout chosen so a stock FTDI USB-to-UART cable's GND/TX/RX/VCC mate
 directly. Header is intended for printf-trace only — modem lines are
 firmware-defined GPIOs at best, not provided here.
 
-### SWD / SWO
+### SWD
 
 Tag-Connect TC2030-IDC-NL footprint, **pads only**, no connector
 populated. Six-pin Tag-Connect signal mapping:
@@ -266,14 +266,13 @@ populated. Six-pin Tag-Connect signal mapping:
 | Tag-Connect pin | Signal |
 |---|---|
 | 1 (Vcc ref) | 3V3 |
-| 2 (TMS / SWDIO) | SWDIO |
+| 2 (TMS / SWDIO) | SWDIO (PA13) |
 | 3 (NRST) | NRST |
-| 4 (TCK / SWCLK) | SWCLK |
+| 4 (TCK / SWCLK) | SWCLK (PA14) |
 | 5 (GND) | GND |
-| 6 (TDO / SWO) | SWO |
+| 6 (TDO / SWO) | NC — Cortex-M0+ has no SWO/ITM trace |
 
-The G0B1 supports SWO via SWO pin (PA15 default), giving live ITM trace
-without the USB or UART being involved.
+Debug is single-wire (SWD) only; printf-trace is over the UART header.
 
 ### Test pads
 
@@ -310,7 +309,7 @@ clip can't accidentally bridge VBUS to GND or to a 3V3 net.
 | RESET button | Tactile, pulls NRST low |
 | 4-pos DIP switch | Direct-driven on 4 MCU GPIOs; semantics firmware-defined |
 | V bargraph | 8 IN-PI15 LEDs, addressable, 0–20 V at 2.5 V/LED |
-| Status LEDs | 7 discrete 0603 (see below) — 2 rail-direct + 2 hardware-driven from FLG//FLT/ + 3 MCU GPIO-driven |
+| Status LEDs | 7 discrete 0603 (see below) — 2 rail-direct + 2 hardware-driven from TCPP01 FLT / eFuse SPLYGD + 3 MCU GPIO-driven |
 
 ### Status LEDs
 
@@ -321,8 +320,8 @@ Seven 0603 LEDs total, three driver styles.
 |-----|-------|--------|----------|
 | 5V_RAIL | Green | **Rail-direct** (5 V → R → LED → GND) | On whenever 5 V is present |
 | 3V3_RAIL | Green | **Rail-direct** (3V3 → R → LED → GND) | On whenever 3V3 is present |
-| TCPP01_FLG_LED | Red | **Hardware-driven** (3V3 → R → LED → FLG/ open-drain) | On when TCPP01-M12 latches a fault |
-| eFuse_FLT_LED | Red | **Hardware-driven** (3V3 → R → LED → FLT/ open-drain) | On when TPS259482 latches a fault |
+| TCPP01_FLT_LED | Red | **Hardware-driven** (3V3 → R → LED → FLT open-drain) | On when TCPP01-M12 latches a fault |
+| eFuse_FLT_LED | Red | **Hardware-driven** (3V3 → R → LED → SPLYGD open-drain) | On when TPS259482 latches a fault (supply-not-good) |
 | PD_CONTRACT | Blue | MCU GPIO | Contract negotiated and held |
 | USB_ENUM | Blue | MCU GPIO | USB host has enumerated us |
 | HEARTBEAT | White | MCU GPIO | Slow blink = MCU alive |
@@ -334,8 +333,10 @@ mixing the two patterns is confusing. Driving both rail LEDs from the
 rail itself through a current-limit resistor gives consistent "rail is
 up" telemetry with no PG-pin sourcing concerns.
 
-**Why hardware-driven fault LEDs.** Both TCPP01-M12 FLG/ and TPS259482
-FLT/ are open-drain outputs that go low on a latched fault. Wiring an
+**Why hardware-driven fault LEDs.** Both TCPP01-M12 FLT and TPS259482
+SPLYGD are open-drain outputs that pull low on a latched fault
+(SPLYGD is active-low supply-good, so a fault makes the LED light).
+Wiring an
 LED between 3V3 and the fault pin (with a current-limit resistor)
 gives a per-chip latched-fault indicator that's independent of MCU
 state — the LED lights even if firmware has crashed. The MCU reads
@@ -381,14 +382,21 @@ resistors (~330 Ω for ~2 mA at VOL ≈ 0).
 - **VBUS_PROT bulk**: 22 µF X7R ceramic, 50 V (eFuse app-note value).
 - **VBUS_OUT bulk**: 22 µF X7R ceramic, 50 V (eFuse app-note value).
 - **TCPP01 OVP divider**: external resistor pair sets 22 V threshold.
-- **TPS25948x OVLO divider**: external resistor pair sets 22 V threshold.
-- **TPS25948x ILIM resistor**: sized for ~6 A current limit (1.2× the
-  5 A continuous spec).
-- **TPS25948x RETRY pin**: pulled to GND through 0 Ω resistor (latch-off
-  by default). **Footprint for an alternative cap to GND is provided
-  but DNP**, silkscreened "POPULATE FOR AUTO-RETRY" per R7.
-- **TPS25948x EN pull-down**: 100 kΩ to GND (default-off).
-- **TCPP01 FLG/, eFuse FLT/ pulled to 3V3 via the status LED**: each
+- **TPS259482 UVLO/OVLO divider**: 3-resistor combined divider sets
+  UVLO = 6 V and OVLO = 22 V per datasheet §8.3. Threshold values
+  drop into the registry component as `uvlo_threshold=6V`,
+  `ovlo_threshold=22V`.
+- **TPS259482 ILIM resistor**: sized for ~6 A current limit (1.2× the
+  5 A continuous spec); registry config `current_limit=6A`.
+- **TPS259482 dV/dt cap**: 1 nF default (~4 ms output rise at 20 V) is
+  fine for Renfield's load profile; tune if downstream bulk demands.
+- **Latch-off vs auto-retry is a SKU choice**, not a passive: load the
+  TPS259482L variant for default "stop the world on fault" dev-board
+  behavior; TPS259482A (drop-in) gives auto-retry. Set the registry
+  component `fault_response` accordingly.
+- **TPS259482 EN pull-down**: 100 kΩ to GND so the rail is
+  default-off until firmware drives EN_FUSE high.
+- **TCPP01 FLT, eFuse SPLYGD pulled to 3V3 via the status LED**: each
   open-drain pin sees `3V3 → R (~1.5 kΩ) → LED → pin`. The series R
   doubles as both the fault-LED current limit and the open-drain
   pull-up the MCU input needs. EE may add a parallel high-Z pull-up
@@ -404,7 +412,93 @@ resistors (~330 Ω for ~2 mA at VOL ≈ 0).
 
 ---
 
-## 7. Mechanical & environmental
+## 7. Pinout (STM32G0B1KEU6N, UFQFPN-32, N-pinout)
+
+Fixed-function pins (UCPD1, USB FS, SWD, power, reset) follow the
+N-pinout silicon and AN5225 §11.3.1 dead-battery wiring. Free pins
+are assigned per the constraints in this spec.
+
+| Pin | Net          | Function                              | AF / I/O type  |
+|---:|---------------|---------------------------------------|----------------|
+|  1 | —             | spare — expose as test pad             | PB9, FT_f      |
+|  2 | —             | spare — expose as test pad             | PC14, FT (LSE) |
+|  3 | —             | spare — expose as test pad             | PC15, FT (LSE) |
+|  4 | 3V3           | VDD / VDDA                            | supply         |
+|  5 | GND           | VSS / VSSA                            | supply         |
+|  6 | NRST          | reset (button + 100 nF + Tag-Connect) | NRST           |
+|  7 | ADC_V         | VBUS_OUT ÷10 sense                    | PA0  / ADC1_IN0 (FT_a)         |
+|  8 | HEARTBEAT_LED | MCU "alive" indicator                 | PA1  / GPIO out (FT_ea)        |
+|  9 | UART_TX       | debug printf out                      | PA2  / USART2_TX  AF1 (FT_a)   |
+| 10 | UART_RX       | debug input                           | PA3  / USART2_RX  AF1 (FT_ea)  |
+| 11 | PD_CONTRACT_LED | contract-held indicator             | PA4  / GPIO out (TT_a)         |
+| 12 | USB_ENUM_LED  | USB-enumerated indicator              | PA5  / GPIO out (TT_ea)        |
+| 13 | SCOPE_MARKER  | hardware scope-trigger output         | PA6  / TIM3_CH1   AF1 (FT_ea)  |
+| 14 | WS2812_DATA   | V-bargraph serial out                 | PA7  / SPI1_MOSI  AF0 (FT_a)   |
+| 15 | TCPP01_VCC_EN | TCPP01 VCC supply (drives chip)       | PB0  / GPIO out (FT_ea)        |
+| 16 | TCPP01_DB     | TCPP01 dead-battery release (active-high) | PB1 / GPIO out (FT_ea)     |
+| 17 | UCPD1_CC2     | post-TCPP01 CC2                       | PB15 / UCPD1_CC2  (FT_fcs)     |
+| 18 | UCPD1_CC1     | post-TCPP01 CC1                       | PA8  / UCPD1_CC1  (FT_fcs)     |
+| 19 | UCPD1_DBCC1   | dead-battery sense — short ext. to PA8 (CC1) | PA9 / UCPD1_DBCC1 (FT_fds) |
+| 20 | 3V3           | VDDIO2                                | supply         |
+| 21 | UCPD1_DBCC2   | dead-battery sense — short ext. to PB15 (CC2) | PA10 / UCPD1_DBCC2 (FT_fds) |
+| 22 | USB_DM        | post-TPD4E05 D−                       | PA11 / USB_DM     (FT_fus, no remap) |
+| 23 | USB_DP        | post-TPD4E05 D+                       | PA12 / USB_DP     (FT_fus, no remap) |
+| 24 | SWDIO         | Tag-Connect pin 2                     | PA13 / SWDIO      (FT_es)      |
+| 25 | SWCLK / BOOT0 | Tag-Connect pin 4 + BOOT0 button + 10 kΩ pull-down | PA14 / SWCLK / BOOT0 (FT_s) |
+| 26 | DIP_SW1       | DIP pos 1, GND-close, internal pull-up | PD0 / GPIO in    (FT_cs, UCPD2 strobe) |
+| 27 | DIP_SW2       | DIP pos 2                             | PD1  / GPIO in    (FT_ds, UCPD2 strobe) |
+| 28 | DIP_SW3       | DIP pos 3                             | PD2  / GPIO in    (FT_cs, UCPD2 strobe) |
+| 29 | DIP_SW4       | DIP pos 4                             | PD3  / GPIO in    (FT_ds, UCPD2 strobe) |
+| 30 | TCPP01_FLT    | TCPP01 fault flag (open-drain, LED-pulled) | PB6 / GPIO in (FT_fa)      |
+| 31 | EFUSE_SPLYGD  | TPS259482 supply-good (open-drain, LED-pulled) | PB7 / GPIO in (FT_fa)  |
+| 32 | EFUSE_EN      | TPS259482 enable (default-low at boot) | PB8  / GPIO out (FT_f)        |
+
+*EP (exposed thermal pad on package underside) ties to GND.*
+
+### Notes
+
+- **UCPD1 dead-battery wiring (AN5225 §11.3.1).** PA9 is shorted to PA8
+  on the PCB so the dead-battery sense circuit on PA9 sees the same
+  potential as the CC1 line (PA8). PA10 is shorted to PB15 for CC2.
+  The UCPD peripheral drives an internal Rd at boot until firmware
+  releases dead-battery via `SYSCFG->CFGR1 |= UCPD1_STROBE`.
+- **USB FS without remap.** PA11/PA12 carry USB DM/DP at their native
+  pin positions (22, 23). The PA11_RMP / PA12_RMP bits are *not*
+  needed because PA9 / PA10 are already used as dedicated UCPD1 DBCC
+  pins; the 32-pin N-pinout brings both pin pairs out separately.
+- **UCPD2 strobe on PD0–PD3.** Per datasheet note 4, PD0 / PD2 carry an
+  internal Rd to GND at reset (FT_cs), and PD1 / PD3 are DBCC sense
+  pins. Firmware must write `SYSCFG->CFGR1 |= UCPD2_STROBE` early in
+  startup before reading the DIP switches; without it, PD0 / PD2 would
+  read low even with the DIP open.
+- **PB6 / PB7 (FT_fa) are FM+ I²C tolerant** — reserved here as inputs
+  for the open-drain fault flags so the inevitable I²C-on-PB6/PB7
+  re-spin remains a one-line firmware change rather than a board
+  change.
+- **PC14 / PC15 (LSE pins)** are usable as GPIO since Renfield has no
+  LSE crystal, but per datasheet notes 1–2 they're current-limited
+  (sink-only, ≤2 MHz, ≤30 pF). Useful as inputs / spare test pads;
+  unsuitable as LED drivers or signal outputs.
+- **No SWO.** Cortex-M0+ has no ITM / TPIU — trace must go over UART
+  or USB CDC.
+
+### GPIO budget
+
+| Class | Used | Pins |
+|---|---|---|
+| Fixed peripherals (UCPD1 / USB / SWD) | 8 | PA8, PA9, PA10, PA11, PA12, PA13, PA14, PB15 |
+| ADC analog | 1 | PA0 |
+| USART | 2 | PA2, PA3 |
+| SPI MOSI (WS2812) | 1 | PA7 |
+| Timer (SCOPE_MARKER) | 1 | PA6 |
+| GPIO outputs | 6 | PA1, PA4, PA5, PB0, PB1, PB8 |
+| GPIO inputs | 6 | PB6, PB7, PD0, PD1, PD2, PD3 |
+| **Total user-pin GPIOs used** | **17 / 20** | |
+| Spare | 3 | PB9, PC14, PC15 |
+
+---
+
+## 8. Mechanical & environmental
 
 - **Form factor**: A7 (74 × 105 mm), single rectangular outline.
 - **Stack-up**: 1.6 mm FR4, **4 layers**, 1 oz copper.
@@ -426,7 +520,7 @@ resistors (~330 Ω for ~2 mA at VOL ≈ 0).
 
 ---
 
-## 8. Manufacturing & assembly
+## 9. Manufacturing & assembly
 
 - Layer count: **4**.
 - Min trace/space: 6/6 mil. Min via: 0.25 mm finished.
@@ -441,7 +535,7 @@ resistors (~330 Ω for ~2 mA at VOL ≈ 0).
 
 ---
 
-## 9. Regulatory & compliance
+## 10. Regulatory & compliance
 
 - Not a sold product; FCC / CE / UL not targeted.
 - USB-IF certification not pursued. Device will not claim USB-IF logo
@@ -451,43 +545,13 @@ resistors (~330 Ω for ~2 mA at VOL ≈ 0).
 
 ---
 
-## 10. Open items (non-blocking, deferred to capture / firmware)
+## 11. Open items (non-blocking, deferred to capture / firmware)
 
-- **Pin assignment** is deliberately not specified. EE picks during
-  schematic capture against the STM32G0B1KEU6N (UFQFPN-32, N-pinout),
-  with the constraints that:
-  - **UCPD1 dead-battery wiring** per AN5225 §11.3.1: PA9-physical
-    shorted to PA8 (CC1), PA10-physical shorted to PB15 (CC2). These
-    physical pins also carry USB DM/DP after firmware sets the
-    `SYSCFG_CFGR1.PA11_RMP / PA12_RMP` bits, so PA9/PA10 cannot be
-    used as general GPIOs.
-  - The chosen USART must not collide with USB FS, DBCC, or UCPD pins.
-    USART2 (PA2/PA3) or LPUART1 (PA2/PA3 alt) are the leading
-    candidates; final pick by EE.
-  - SWD on PA13/PA14, SWO on PA15.
-  - I/O-pin demand against the 32-pin G0B1's user pins
-    (after VDD/VSS/SWD/NRST/BOOT0/UCPD1 dead-battery overlap):
-    - **Alt-func, mandatory**: UCPD1 (CC1, CC2, DBCC1, DBCC2),
-      USB FS (DM, DP via PA11/PA12 remap), USART (TX, RX),
-      SPI MOSI → WS2812.
-    - **Analog**: 1× ADC for ADC_V.
-    - **Timer alt-func**: 1× SCOPE_MARKER output.
-    - **GPIO inputs (6)**: 4× DIP switch, TCPP01 FLG/, eFuse FLT/.
-    - **GPIO outputs (6)**: TCPP01 VCC, TCPP01 DB, eFuse EN,
-      PD_CONTRACT LED, USB_ENUM LED, HEARTBEAT LED.
-  - EE confirms during pin assignment that the multiplexing fits,
-    using the dead-battery release strobe (SYSCFG) per AN5225
-    so DBCC pins free up post-startup. If the budget is tight,
-    the candidate cuts in priority order are: SCOPE_MARKER,
-    HEARTBEAT LED, TCPP01 DB pin (use FLG/ alone).
-  - FT_c 5-V-tolerant pins (PA8, PB15, PD0, PD2) are not strictly
-    required for any Renfield net (no externally-powered targets), but
-    EE may still prefer FT_c for fault-flag inputs as cheap insurance.
 - **DIP-switch semantics** are firmware concerns (which bit means what)
   and are not specified in the hardware spec.
 - **PD PDO advertisement** content is firmware concern.
 - **Default LED brightness / animation** is firmware concern.
-- **TPS25948x exact ILIM resistor value** — EE selects per datasheet
+- **TPS259482 exact ILIM resistor value** — EE selects per datasheet
   using a target of ~6 A current limit.
 - **TCPP01 OVP divider exact resistor values** — EE selects per
   datasheet for 22 V threshold.
@@ -498,7 +562,7 @@ resistors (~330 Ω for ~2 mA at VOL ≈ 0).
 
 ---
 
-## 11. Design notes
+## 12. Design notes
 
 1. **The STM32 runs the PD stack itself.** Using the G0B1's UCPD
    peripheral instead of a dedicated PD controller IC (TPS25750,
@@ -534,12 +598,13 @@ resistors (~330 Ω for ~2 mA at VOL ≈ 0).
    Latching faults that survive an MCU crash are the most useful
    kind to be visually obvious.
 
-5. **Latch-off by default, auto-retry by re-stuff.** TPS25948x latches
-   off on fault by default, requiring firmware to re-enable. This is
-   the correct dev-board behavior: a fault during firmware development
-   should stop the world, not silently retry. We provide a **DNP cap
-   footprint** silk-labeled `POPULATE FOR AUTO-RETRY` so the auto-retry
-   variant is one rework away when needed.
+5. **Latch-off by default; auto-retry by silicon swap.** TPS259482L
+   latches off on fault and requires firmware (or a power cycle) to
+   re-enable. This is the correct dev-board behavior: a fault during
+   firmware development should stop the world, not silently retry. The
+   TPS259482A (auto-retry) variant is a drop-in same-package SKU swap
+   for users who want hands-off recovery; on TPS259482 the retry
+   behavior is baked into the silicon, not selectable via a passive.
 
 6. **Hardware OVP at 22 V is the absolute backstop.** TCPP01-M12's OVP
    threshold and the eFuse OVLO are fixed by external resistor dividers
@@ -591,7 +656,7 @@ resistors (~330 Ω for ~2 mA at VOL ≈ 0).
     DFU dual-bank.
 
 15. **No active cooling.** Steady-state dissipation at 5 A worst
-    case (TPSM33606S5 ~150 mW + CSD17318Q2 ~500 mW + TPS25948x
+    case (TPSM33606S5 ~150 mW + CSD17318Q2 ~500 mW + TPS259482
     ~830 mW + TPS74x01P ~140 mW + LEDs + MCU ≈ 1.7 W) is fine in a
     4-layer A7 board with reasonable copper pours. A typical session
     at 9 V × 1 A is well under 0.5 W board-wide.
