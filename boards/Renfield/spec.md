@@ -172,9 +172,10 @@ exposed pad on standard copper. No heat-sinking required.
 2. TCPP01-M12 dead-battery Rd makes the source see a sink.
 3. TCPP01-M12 charge pump turns on the NexFET (5 V is below OVP).
 4. VBUS_PROT goes live → TPSM33606S5 starts → 5 V rail up.
-5. TPS74x01P starts → 3V3 rail up → MCU comes out of reset.
-6. MCU asserts TCPP01_VCC, takes UCPD1 control, releases dead-battery Rd
-   per AN5225 strobe sequence, starts PD stack.
+5. TPS74x01P starts → 3V3 rail up → MCU comes out of reset and TCPP01
+   VCC powers up at the same time (VCC tied directly to V3V3).
+6. MCU takes UCPD1 control, releases dead-battery Rd per AN5225 strobe
+   sequence, drives TCPP01 DB/ high, starts PD stack.
 7. Firmware reads DIP switches directly via 4 GPIO inputs, decides PDO
    request strategy.
 8. Firmware enables TPS259482 eFuse (default-disabled at boot).
@@ -293,7 +294,7 @@ Minimum set (silkscreen labels per pad):
 | TP6 | CC2_RAW (pre-TCPP01) | `HV ≤ 22V` |
 | TP7 | 5V | none |
 | TP8 | 3V3 | none |
-| TP9 | TCPP01_VCC | none (also TCPP01 enable) |
+| TP9 | TCPP01_VCC (= 3V3) | none |
 | TP10 | eFuse_EN | none |
 | TP11 | eFuse IMON | analog out (not routed to MCU; free scope point provided by the eFuse for users wanting on-board current visibility) |
 | TP12–15 | GND | none (distributed for probe clips) |
@@ -434,7 +435,7 @@ are assigned per the constraints in this spec.
 | 12 | USB_ENUM_LED  | USB-enumerated indicator              | PA5  / GPIO out (TT_ea)        |
 | 13 | SCOPE_MARKER  | hardware scope-trigger output         | PA6  / TIM3_CH1   AF1 (FT_ea)  |
 | 14 | WS2812_DATA   | V-bargraph serial out                 | PA7  / SPI1_MOSI  AF0 (FT_a)   |
-| 15 | TCPP01_VCC_EN | TCPP01 VCC supply (drives chip)       | PB0  / GPIO out (FT_ea)        |
+| 15 | —             | spare — expose as test pad             | PB0  / GPIO (FT_ea)            |
 | 16 | TCPP01_DB     | TCPP01 dead-battery release (active-high) | PB1 / GPIO out (FT_ea)     |
 | 17 | UCPD1_CC2     | post-TCPP01 CC2                       | PB15 / UCPD1_CC2  (FT_fcs)     |
 | 18 | UCPD1_CC1     | post-TCPP01 CC1                       | PA8  / UCPD1_CC1  (FT_fcs)     |
@@ -491,10 +492,10 @@ are assigned per the constraints in this spec.
 | USART | 2 | PA2, PA3 |
 | SPI MOSI (WS2812) | 1 | PA7 |
 | Timer (SCOPE_MARKER) | 1 | PA6 |
-| GPIO outputs | 6 | PA1, PA4, PA5, PB0, PB1, PB8 |
+| GPIO outputs | 5 | PA1, PA4, PA5, PB1, PB8 |
 | GPIO inputs | 6 | PB6, PB7, PD0, PD1, PD2, PD3 |
-| **Total user-pin GPIOs used** | **17 / 20** | |
-| Spare | 3 | PB9, PC14, PC15 |
+| **Total user-pin GPIOs used** | **16 / 20** | |
+| Spare | 4 | PB0, PB9, PC14, PC15 |
 
 ---
 

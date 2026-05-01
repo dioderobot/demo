@@ -44,7 +44,7 @@ Rail subsystem:
                               TPS74501P LDO  →  V3V3 (3.3 V, 500 mA)
                                           │
                                           ▼
-                              MCU VDD/VDDA/VDDIO2 + TCPP01 VCC (via PB0)
+                              MCU VDD/VDDA/VDDIO2 + TCPP01 VCC
 
 Pinout: see boards/Renfield/spec.md §7.
 References: ST DS12900 (TCPP01-M12), ST AN5225 (UCPD), TI CSD17318Q2 DS.
@@ -75,10 +75,9 @@ USB_C = UsbTypeC()  # USB-C signal bundle (CC1/CC2/D+/D-/SBU)
 CC1_MCU = Net()
 CC2_MCU = Net()
 
-# TCPP01 control / status. VCC is Power-typed because it IS the chip's
-# 3.3 V supply; routing it through PB0 lets firmware power-cycle the
-# IC and keeps standby Iq at 0 nA per DS12900 §6.7.
-TCPP01_VCC = Power(voltage="3.3V")  # MCU PB0 → TCPP01 VCC
+# TCPP01 control / status. VCC ties straight to V3V3 — the GPIO-as-VCC
+# trick (DS12900 §6.7) only buys 0-Iq standby on battery-powered sinks,
+# and Renfield is USB-only.
 TCPP01_DB = Net()  # MCU PB1 → TCPP01 DB/
 TCPP01_FLT = Net()  # TCPP01 FLT/ → MCU PB6
 TCPP01_VBUS_CTRL = Net()  # OVP threshold divider tap
@@ -97,7 +96,7 @@ UsbC16P(
 # TCPP01-M12 — CC OVP, VBUS OVP via external N-FET, dead-battery management
 TCPP01(
     name="U_TCPP01",
-    VCC=TCPP01_VCC,
+    VCC=V3V3,
     GND=GND,
     # Connector-side: CC + VBUS straight from the receptacle.
     CC1C=USB_C.CC1,
@@ -120,7 +119,7 @@ TCPP01(
 Capacitor(name="C_VBUS_RAW", value="4.7uF", voltage="50V", package="0805", P1=VBUS_RAW, P2=GND)
 
 # TCPP01 VCC bypass cap (DS12900 §6.4: 100 nF/50 V on the bias node).
-Capacitor(name="C_TCPP01_VCC", value="100nF", package="0402", P1=TCPP01_VCC, P2=GND)
+Capacitor(name="C_TCPP01_VCC", value="100nF", package="0402", P1=V3V3, P2=GND)
 
 # VBUS OVP threshold divider — 22 V trip per DS12900 §6.6.5.
 # V_OVP(typ) = 1.27 V × (1 + R1/R2); 165 k / 10 k → 22.2 V typ.
@@ -176,9 +175,11 @@ STM32G0B1(
     PB15=CC2_MCU,  # UCPD1_CC2
     PA10=CC2_MCU,  # UCPD1_DBCC2 — shorted to CC2 on PCB
     # TCPP01 control / status.
-    PB0=TCPP01_VCC,  # GPIO output: drives TCPP01 VCC (3.3 V or 0 V for 0-Iq standby)
     PB1=TCPP01_DB,  # GPIO output: TCPP01 dead-battery release (active-high)
     PB6=TCPP01_FLT,  # GPIO input:  TCPP01 fault flag (open-drain, FT_fa)
 )
 
 Board(name="Renfield", layout_path="layout", layers=4)
+
+# pcb:sch U_MCU x=-203.2000 y=-279.4000 rot=0
+# pcb:sch U_TCPP01.U x=672.1000 y=240.3000 rot=0 mirror=y
