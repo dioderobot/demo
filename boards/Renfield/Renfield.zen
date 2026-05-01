@@ -1,10 +1,10 @@
 """Renfield (DM0005) — USB-C PD sink dev board for STM32G0B1 UCPD firmware.
 
-This file currently captures only the core PD power-input chain plus
-the STM32G0B1's UCPD1 wiring. Downstream of the FET (eFuse, buck, LDO,
-load output) and observability (LEDs, DIP switches, buttons, probe
-headers, test pads, debug header, USB-data ESD) are deferred to
-follow-up commits.
+This file currently captures the core PD power-input chain, the
+STM32G0B1 UCPD1 wiring, and the rail subsystem that boots the MCU.
+Load-side eFuse, WAGO output, and observability (LEDs, DIP switches,
+buttons, probe headers, test pads, debug header, USB-data ESD) are
+deferred to follow-up commits.
 
 Power flow:
     USB-C VBUS  →  TCPP01-M12 IN_GD  →  CSD17318Q2 (drain)
@@ -37,10 +37,14 @@ Hardware OVP:
     typ trip 22.2 V (range 21.0–23.45 V over the 1.20–1.34 V
     threshold spec). FET turns off above the threshold.
 
-V3V3 is exposed as a top-level rail and is NOT YET SOURCED in this
-slice — the MCU rail will be driven by the TPSM33606 buck → TPS74x01P
-LDO chain in a follow-up commit. `pcb build` succeeds; the board
-won't boot until the rail subsystem lands.
+Rail subsystem:
+    VBUS_PROT  →  TPSM33606S5 buck  →  V5V (5 V, 0.6 A)
+                                          │
+                                          ▼
+                              TPS74501P LDO  →  V3V3 (3.3 V, 500 mA)
+                                          │
+                                          ▼
+                              MCU VDD/VDDA/VDDIO2 + TCPP01 VCC (via PB0)
 
 Pinout: see boards/Renfield/spec.md §7.
 References: ST DS12900 (TCPP01-M12), ST AN5225 (UCPD), TI CSD17318Q2 DS.
@@ -51,6 +55,8 @@ load("@stdlib/interfaces.zen", "Ground", "Power", "UsbTypeC")
 UsbC16P = Module("github.com/diodeinc/registry/connectors/UsbC16P/UsbC16P.zen")
 TCPP01 = Module("github.com/diodeinc/registry/components/STMicroelectronics/TCPP01-M12/TCPP01-M12.zen")
 NFET = Module("github.com/diodeinc/registry/components/Texas_Instruments/CSD1731xQ2/CSD1731xQ2.zen")
+Buck = Module("github.com/diodeinc/registry/components/Texas_Instruments/TPSM336xx-Q1/TPSM336xx-Q1.zen")
+LDO = Module("github.com/diodeinc/registry/components/Texas_Instruments/TPS74x01P/TPS74x01P.zen")
 STM32G0B1 = Module("github.com/diodeinc/registry/components/STMicroelectronics/STM32G0B1KxUxN/STM32G0B1KxUxN.zen")
 
 Resistor = Module("@stdlib/generics/Resistor.zen")
@@ -59,7 +65,8 @@ Capacitor = Module("@stdlib/generics/Capacitor.zen")
 # Top-level rails / nets ---------------------------------------------------
 VBUS_RAW = Power(voltage="5V to 22V")  # USB-C VBUS, FET drain, TCPP01 IN_GD
 VBUS_PROT = Power(voltage="5V to 22V")  # FET source, TCPP01 SOURCE, OVP-clamped
-V3V3 = Power(voltage="3.3V")  # MCU rail — TBD in a follow-up
+V5V = Power(voltage="5V")  # buck output, LDO + (future) WS2812 chain input
+V3V3 = Power(voltage="3.3V")  # MCU + TCPP01 VCC
 GND = Ground()
 
 USB_C = UsbTypeC()  # USB-C signal bundle (CC1/CC2/D+/D-/SBU)
@@ -129,6 +136,30 @@ NFET(
     D=VBUS_RAW,
     S=VBUS_PROT,
     G=FET_GATE,
+)
+
+# Buck — TPSM33606S5 (5 V fixed, 0.6 A, integrated inductor, HotRod QFN).
+# VBUS_PROT (5–20 V) → V5V. EN auto-on via internal pull-up to VIN; PGOOD
+# and MODE_SYNC strap left to component defaults (AUTO/PFM at light load).
+Buck(
+    name="U_BUCK",
+    output_voltage="5V",
+    output_current="0.6A",
+    VIN=VBUS_PROT,
+    VOUT=V5V,
+    GND=GND,
+)
+
+# LDO — TPS74501P (3.3 V, 500 mA, WSON-6 DRV). 5 V → 3V3 with the
+# 1.7 V headroom the part needs at full load. EN auto-on via internal
+# pull-up to VIN; open-drain PG left unconnected (no rail sequencing).
+LDO(
+    name="U_LDO",
+    output_voltage="3.3V",
+    output_current="500mA",
+    VIN=V5V,
+    VOUT=V3V3,
+    GND=GND,
 )
 
 # MCU — STM32G0B1KEU6N (UFQFPN-32 N-pinout, 512 KB flash). UCPD1 dead-battery
