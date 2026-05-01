@@ -1,0 +1,62 @@
+"""TCPP01-M12: USB Type-C port protection for sink applications, QFN-12L 3x3 mm.
+
+Single-chip Type-C port protection from STMicroelectronics:
+- 22 V tolerant ESD (IEC 61000-4-2 Level 4, ±8 kV contact / ±15 kV air) on
+  CC1, CC2 and VBUS connector lines.
+- 22 V short-to-VBUS OVP on CC lines (internal back-to-back FETs from
+  CCx_c -> CCx).
+- Externally programmable VBUS OVP via an N-MOSFET pass switch driven by
+  GATE / monitored via SOURCE and VBUS_CTRL.
+- "Dead-battery" management on DB/ for USB-PD compliant attach.
+- Open-drain FLT/ for OVP/OTP/UVLO fault reporting.
+
+This package only provides the raw IC component (symbol, footprint, sourcing).
+Reference application circuitry (CBIAS cap, VBUS_CTRL divider, dead-battery
+network, external N-MOSFET) is left to integrators.
+
+Reference: ST DS12900 Rev 7 (https://www.st.com/resource/en/datasheet/tcpp01-m12.pdf).
+"""
+
+# Power
+VCC = io(Power(voltage="3.3V"), help="3.3 V supply (pin 12). Tie LOW to fully power down the IC (zero Iq).")
+GND = io(Ground(), help="Device ground (pin 2 and exposed pad).")
+
+# Connector-side (USB-C receptacle) pins
+CC1C = io(Net, help="Connector-side CC1 (pin 7). Wire directly to USB-C CC1.")
+CC2C = io(Net, help="Connector-side CC2 (pin 9). Wire directly to USB-C CC2.")
+IN_GD = io(Power(), help="Connector-side VBUS (pin 8). Tie to USB-C VBUS at the connector; voltage range 0–22 V.")
+
+# System-side CC pins (after internal back-to-back OVP FETs)
+CC1 = io(Net, help="System-side CC1 (pin 3). Connect to MCU/UCPD CC1.")
+CC2 = io(Net, help="System-side CC2 (pin 1). Connect to MCU/UCPD CC2.")
+
+# External VBUS pass-MOSFET driver
+SOURCE = io(Net, help="External NMOS source sense (pin 4). System-side VBUS rail.")
+GATE = io(Net, help="External NMOS gate drive (pin 5).")
+VBUS_CTRL = io(Net, help="VBUS OVP threshold sense (pin 6). Set by external resistor divider from VBUS.")
+
+# Control / status
+DB = io(Net, help="Dead-battery network (pin 10). Pull-down resistor enables Rd advertisement at unpowered attach.")
+FLT = io(Net, help="Open-drain fault flag (pin 11). Asserted low on OVP/OTP/UVLO.")
+
+Component(
+    name="U",
+    symbol=Symbol(library="TCPP01-M12.kicad_sym", name="TCPP01-M12"),
+    footprint=File("QFN-12-1EP_3x3mm_P0.5mm_EP1.45x1.45mm.kicad_mod"),
+    part=Part(mpn="TCPP01-M12", manufacturer="STMicroelectronics"),
+    pins={
+        "VCC": VCC,
+        "GND": GND,
+        "EP": GND,
+        "CC1_{c}": CC1C,
+        "CC2_{c}": CC2C,
+        "IN_{GD}": IN_GD,
+        "CC1": CC1,
+        "CC2": CC2,
+        "SOURCE": SOURCE,
+        "GATE": GATE,
+        "VBUS_{CTRL}": VBUS_CTRL,
+        "DB/": DB,
+        "FLT/": FLT,
+    },
+)

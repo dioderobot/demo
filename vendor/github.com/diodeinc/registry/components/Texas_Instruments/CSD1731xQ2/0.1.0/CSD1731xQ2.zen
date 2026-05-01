@@ -1,0 +1,57 @@
+"""CSD1731xQ2 — TI 30 V N-channel NexFET power MOSFETs in WSON-6 (DQK) 2x2 mm.
+
+Pin-compatible 30 V N-channel NexFETs sharing the DQK body. Select by
+`current_rating` (silicon-limited continuous Id at T_C = 25 °C):
+
+    current_rating   MPN            Carrier         R_DS(on) max @ 8 V
+    --------------   ------------   -------------   ------------------
+    5A               CSD17313Q2     3000 reel       30 mΩ
+    5A               CSD17313Q2T    250 reel        30 mΩ
+    25A              CSD17318Q2     3000 reel       15.1 mΩ
+    25A              CSD17318Q2T    250 reel        15.1 mΩ
+
+First row of the filtered block becomes the primary `part`; the remaining
+row(s) become BOM alternatives (T = small-reel tape variant).
+
+Both dice are logic-level (5 V gate drive) and share the DQK pinout:
+pin 3 = G; pin 4 + small source pad 7 = S; pins 1, 2, 5, 6 + thermal pad
+8 = D. The thermal pad is the drain — solder it for thermal and
+electrical performance.
+"""
+
+load("@stdlib/units.zen", "Current")
+
+# (mpn, symbol_name, current_rating) — filtered block's first row
+# becomes part=; remaining rows become BOM alternatives.
+_FAMILY = [
+    ("CSD17313Q2", "CSD17313Q2", Current("5A")),
+    ("CSD17313Q2T", "CSD17313Q2", Current("5A")),
+    ("CSD17318Q2", "CSD17318Q2", Current("25A")),
+    ("CSD17318Q2T", "CSD17318Q2", Current("25A")),
+]
+
+current_rating = config(
+    Current,
+    default="25A",
+    allowed=["5A", "25A"],
+    help="Silicon-limited continuous drain current (T_C = 25 °C). Selects the die.",
+)
+
+_matches = [(mpn, sym) for mpn, sym, i in _FAMILY if i == current_rating]
+_parts = [Part(mpn=mpn, manufacturer="Texas Instruments") for mpn, _ in _matches]
+
+D = io(Net)
+G = io(Net)
+S = io(Net)
+
+Component(
+    name="Q1",
+    symbol=Symbol(library="CSD1731xQ2.kicad_sym", name=_matches[0][1]),
+    part=_parts[0],
+    properties={"alternatives": _parts[1:]},
+    pins={
+        "G": G,
+        "D": D,
+        "S": S,
+    },
+)

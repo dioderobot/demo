@@ -1,0 +1,153 @@
+"""Renfield (DM0005) — USB-C PD sink dev board for STM32G0B1 UCPD firmware.
+
+This file currently captures only the core PD power-input chain plus
+the STM32G0B1's UCPD1 wiring. Downstream of the FET (eFuse, buck, LDO,
+load output) and observability (LEDs, DIP switches, buttons, probe
+headers, test pads, debug header, USB-data ESD) are deferred to
+follow-up commits.
+
+Power flow:
+    USB-C VBUS  →  TCPP01-M12 IN_GD  →  CSD17318Q2 (drain)
+                                              │
+                                       gate driven by
+                                       TCPP01 GATE pin
+                                       (VGS regulated 5–6 V)
+                                              │
+                                          (source)  →  VBUS_PROT
+                                              │
+                                       monitored by
+                                       TCPP01 SOURCE pin
+
+CC negotiation:
+    USB-C CC1/CC2  →  TCPP01 CCxc  →  internal back-to-back OVP FETs
+                                          │
+                                          ▼
+                                       TCPP01 CC1/CC2 (system side)
+                                          │
+                                          ▼
+                                       MCU PA8 (CC1) / PB15 (CC2)
+                                       — plus PA9/PA10 shorted to
+                                       PA8/PB15 on the PCB for the
+                                       UCPD1 dead-battery sense (DBCC1
+                                       / DBCC2) per AN5225 §11.3.1.
+
+Hardware OVP:
+    R_OVP_HI / R_OVP_LO divide VBUS_RAW to TCPP01 VBUS_CTRL.
+    Vovp_th(typ) = 1.27 V × (1 + R1/R2). With R1=165 kΩ, R2=10 kΩ →
+    typ trip 22.2 V (range 21.0–23.45 V over the 1.20–1.34 V
+    threshold spec). FET turns off above the threshold.
+
+V3V3 is exposed as a top-level rail and is NOT YET SOURCED in this
+slice — the MCU rail will be driven by the TPSM33606 buck → TPS74x01P
+LDO chain in a follow-up commit. `pcb build` succeeds; the board
+won't boot until the rail subsystem lands.
+
+Pinout: see boards/Renfield/spec.md §7.
+References: ST DS12900 (TCPP01-M12), ST AN5225 (UCPD), TI CSD17318Q2 DS.
+"""
+
+load("@stdlib/interfaces.zen", "Ground", "Power", "UsbTypeC")
+
+UsbC16P = Module("github.com/diodeinc/registry/connectors/UsbC16P/UsbC16P.zen")
+TCPP01 = Module("github.com/diodeinc/registry/components/STMicroelectronics/TCPP01-M12/TCPP01-M12.zen")
+NFET = Module("github.com/diodeinc/registry/components/Texas_Instruments/CSD1731xQ2/CSD1731xQ2.zen")
+STM32G0B1 = Module("github.com/diodeinc/registry/components/STMicroelectronics/STM32G0B1KxUxN/STM32G0B1KxUxN.zen")
+
+Resistor = Module("@stdlib/generics/Resistor.zen")
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+
+# Top-level rails / nets ---------------------------------------------------
+VBUS_RAW = Power(voltage="5V to 22V")  # USB-C VBUS, FET drain, TCPP01 IN_GD
+VBUS_PROT = Power(voltage="5V to 22V")  # FET source, TCPP01 SOURCE, OVP-clamped
+V3V3 = Power(voltage="3.3V")  # MCU rail — TBD in a follow-up
+GND = Ground()
+
+USB_C = UsbTypeC()  # USB-C signal bundle (CC1/CC2/D+/D-/SBU)
+
+# Post-TCPP01 CC nets (system-side CC out of TCPP01, into MCU UCPD1).
+CC1_MCU = Net("CC1_MCU")
+CC2_MCU = Net("CC2_MCU")
+
+# TCPP01 control / status. VCC is Power-typed because it IS the chip's
+# 3.3 V supply; routing it through PB0 lets firmware power-cycle the
+# IC and keeps standby Iq at 0 nA per DS12900 §6.7.
+TCPP01_VCC = Power("TCPP01_VCC", voltage="3.3V")  # MCU PB0 → TCPP01 VCC
+TCPP01_DB = Net("TCPP01_DB")  # MCU PB1 → TCPP01 DB/
+TCPP01_FLT = Net("TCPP01_FLT")  # TCPP01 FLT/ → MCU PB6
+TCPP01_VBUS_CTRL = Net("TCPP01_VBUS_CTRL")  # OVP threshold divider tap
+
+# External FET gate, driven by TCPP01 GATE pin.
+FET_GATE = Net("FET_GATE")
+
+# USB-C receptacle ---------------------------------------------------------
+UsbC16P(
+    name="J_USB",
+    VBUS=VBUS_RAW,
+    USB_C=USB_C,
+    GND=GND,
+)
+
+# TCPP01-M12 — CC OVP, VBUS OVP via external N-FET, dead-battery management
+TCPP01(
+    name="U_TCPP01",
+    VCC=TCPP01_VCC,
+    GND=GND,
+    # Connector-side: CC + VBUS straight from the receptacle.
+    CC1C=USB_C.CC1,
+    CC2C=USB_C.CC2,
+    IN_GD=VBUS_RAW,
+    # System-side CC out of internal back-to-back OVP FETs → MCU UCPD1.
+    CC1=CC1_MCU,
+    CC2=CC2_MCU,
+    # External NMOS pass switch driver.
+    GATE=FET_GATE,
+    SOURCE=VBUS_PROT,
+    VBUS_CTRL=TCPP01_VBUS_CTRL,
+    # Control / status.
+    DB=TCPP01_DB,
+    FLT=TCPP01_FLT,
+)
+
+# VBUS_RAW bulk — USB-C compliance (DS12900 §6.6.3 calls for ≥2.2 µF /
+# 50 V on VBUS). House cap is 4.7 µF X7R / 50 V / 0805.
+Capacitor(name="C_VBUS_RAW", value="4.7uF", voltage="50V", package="0805", P1=VBUS_RAW, P2=GND)
+
+# TCPP01 VCC bypass cap (DS12900 §6.4: 100 nF/50 V on the bias node).
+Capacitor(name="C_TCPP01_VCC", value="100nF", package="0402", P1=TCPP01_VCC, P2=GND)
+
+# VBUS OVP threshold divider — 22 V trip per DS12900 §6.6.5.
+# V_OVP(typ) = 1.27 V × (1 + R1/R2); 165 k / 10 k → 22.2 V typ.
+Resistor(name="R_OVP_HI", value="165kohm", package="0402", P1=VBUS_RAW, P2=TCPP01_VBUS_CTRL)
+Resistor(name="R_OVP_LO", value="10kohm", package="0402", P1=TCPP01_VBUS_CTRL, P2=GND)
+
+# Pass FET — 30 V N-channel NexFET, 25 A silicon, WSON-6 2×2 (CSD17318Q2).
+# Drain = VBUS_RAW (also TCPP01 IN_GD); Source = VBUS_PROT (also TCPP01 SOURCE);
+# Gate = TCPP01 GATE (5–6 V regulated VGS per DS12900 Table 6).
+NFET(
+    name="Q_VBUS",
+    current_rating="25A",
+    D=VBUS_RAW,
+    S=VBUS_PROT,
+    G=FET_GATE,
+)
+
+# MCU — STM32G0B1KEU6N (UFQFPN-32 N-pinout, 512 KB flash). UCPD1 dead-battery
+# wiring per AN5225 §11.3.1: PA9 (DBCC1) is shorted to PA8 (CC1), PA10 (DBCC2)
+# to PB15 (CC2). Handled here by passing the same net to both MCU pins.
+STM32G0B1(
+    name="U_MCU",
+    memory_size="512KB",
+    VDD=V3V3,
+    GND=GND,
+    # UCPD1 — CC + DBCC dead-battery sense.
+    PA8=CC1_MCU,  # UCPD1_CC1
+    PA9=CC1_MCU,  # UCPD1_DBCC1 — shorted to CC1 on PCB
+    PB15=CC2_MCU,  # UCPD1_CC2
+    PA10=CC2_MCU,  # UCPD1_DBCC2 — shorted to CC2 on PCB
+    # TCPP01 control / status.
+    PB0=TCPP01_VCC,  # GPIO output: drives TCPP01 VCC (3.3 V or 0 V for 0-Iq standby)
+    PB1=TCPP01_DB,  # GPIO output: TCPP01 dead-battery release (active-high)
+    PB6=TCPP01_FLT,  # GPIO input:  TCPP01 fault flag (open-drain, FT_fa)
+)
+
+Board(name="Renfield", layout_path="layout", layers=4)
