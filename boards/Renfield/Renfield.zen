@@ -86,12 +86,7 @@ TCPP01_VBUS_CTRL = Net()  # OVP threshold divider tap
 FET_GATE = Net()
 
 # USB-C receptacle
-UsbC16P(
-    name="J_USB",
-    VBUS=VBUS_RAW,
-    USB_C=USB_C,
-    GND=GND,
-)
+UsbC16P(name="J_USB", VBUS=VBUS_RAW, USB_C=USB_C, GND=GND)
 
 # TCPP01-M12 — CC OVP, VBUS OVP via external N-FET, dead-battery management
 TCPP01(
@@ -119,23 +114,17 @@ TCPP01(
 Capacitor(name="C_VBUS_RAW", value="4.7uF", voltage="50V", package="0805", P1=VBUS_RAW, P2=GND)
 
 # TCPP01 VCC bypass cap (DS12900 §6.4: 100 nF/50 V on the bias node).
-Capacitor(name="C_TCPP01_VCC", value="100nF", package="0402", P1=V3V3, P2=GND)
+Capacitor(name="C_TCPP01_VCC", value="1uF", package="0402", P1=V3V3, P2=GND)
 
 # VBUS OVP threshold divider — 22 V trip per DS12900 §6.6.5.
 # V_OVP(typ) = 1.27 V × (1 + R1/R2); 165 k / 10 k → 22.2 V typ.
-Resistor(name="R_OVP_HI", value="165kohm", package="0402", P1=VBUS_RAW, P2=TCPP01_VBUS_CTRL)
+Resistor(name="R_OVP_HI", value="165kohm", voltage="50V", package="0402", P1=VBUS_RAW, P2=TCPP01_VBUS_CTRL)
 Resistor(name="R_OVP_LO", value="10kohm", package="0402", P1=TCPP01_VBUS_CTRL, P2=GND)
 
 # Pass FET — 30 V N-channel NexFET, 25 A silicon, WSON-6 2×2 (CSD17318Q2).
 # Drain = VBUS_RAW (also TCPP01 IN_GD); Source = VBUS_PROT (also TCPP01 SOURCE);
 # Gate = TCPP01 GATE (5–6 V regulated VGS per DS12900 Table 6).
-NFET(
-    name="Q_VBUS",
-    current_rating="25A",
-    D=VBUS_RAW,
-    S=VBUS_PROT,
-    G=FET_GATE,
-)
+NFET(name="Q_VBUS", current_rating="25A", D=VBUS_RAW, S=VBUS_PROT, G=FET_GATE)
 
 # Buck — TPSM33606S5 (5 V fixed, 0.6 A, integrated inductor, HotRod QFN).
 # VBUS_PROT (5–20 V) → V5V. EN auto-on via internal pull-up to VIN; PGOOD
