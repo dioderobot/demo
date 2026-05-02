@@ -4,9 +4,9 @@ This file currently captures the core PD power-input chain, the
 STM32G0B1 UCPD1 wiring, the rail subsystem that boots the MCU, the
 load-output path (eFuse + WAGO + ADC sense), USB-data ESD, the
 bring-up kit (RESET/BOOT0 buttons, Tag-Connect SWD pads), all 7
-status LEDs, and the 8-pixel WS2812 V-bargraph. Remaining I/O (DIP
-switches, probe headers, UART header, test pads) is deferred to
-follow-up commits.
+status LEDs, the 8-pixel WS2812 V-bargraph, the 4-pos DIP switch,
+and the UART debug header. Remaining I/O (probe headers, test pads)
+is deferred to follow-up commits.
 
 Power flow:
     USB-C VBUS  →  TCPP01-M12 IN_GD  →  CSD17318Q2 (drain)
@@ -63,7 +63,7 @@ Pinout: see boards/Renfield/spec.md §7.
 References: ST DS12900 (TCPP01-M12), ST AN5225 (UCPD), TI CSD17318Q2 DS.
 """
 
-load("@stdlib/interfaces.zen", "Ground", "NotConnected", "Power", "Swd", "UsbTypeC")
+load("@stdlib/interfaces.zen", "Ground", "NotConnected", "Power", "Swd", "Uart", "UsbTypeC")
 
 UsbC16P = Module("github.com/diodeinc/registry/connectors/UsbC16P/UsbC16P.zen")
 TCPP01 = Module("github.com/diodeinc/registry/components/STMicroelectronics/TCPP01-M12/TCPP01-M12.zen")
@@ -77,11 +77,13 @@ TPD4E05 = Module("github.com/diodeinc/registry/components/TPD4E05U06QDQARQ1/TPD4
 Button = Module("github.com/diodeinc/registry/components/B3U-1000P/B3U-1000P.zen")
 TagConnect = Module("github.com/diodeinc/registry/connectors/TagConnect/TC2030-NL_SWD.zen")
 WS2812 = Module("github.com/diodeinc/registry/components/Inolux/IN-PI15TAT5R5G5B/IN-PI15TAT5R5G5B.zen")
+DipSwitch = Module("github.com/diodeinc/registry/components/DS04-254-1-04BK-SMT/DS04-254-1-04BK-SMT.zen")
 STM32G0B1 = Module("github.com/diodeinc/registry/components/STMicroelectronics/STM32G0B1KxUxN/STM32G0B1KxUxN.zen")
 
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 Led = Module("@stdlib/generics/Led.zen")
+PinHeader = Module("@stdlib/generics/PinHeader.zen")
 
 
 def led(name, anode, color, resistance):
@@ -108,6 +110,7 @@ GND = Ground()
 
 USB_C = UsbTypeC()  # USB-C signal bundle (CC1/CC2/D+/D-/SBU)
 SWD = Swd()  # PA13 SWDIO ; PA14 SWCLK (also BOOT0)
+UART = Uart()  # PA2 TX / PA3 RX — USART2 AF1 to UART header
 NRST = Net()  # shared between RESET button, Tag-Connect pin 3, MCU NRST, filter cap
 
 # Post-TCPP01 CC nets (system-side CC out of TCPP01, into MCU UCPD1).
@@ -139,6 +142,15 @@ USB_ENUM_LED = Net()  # PA5
 # over SPI MOSI with appropriate clock timing.
 WS2812_DATA = Net()  # PA7 side
 WS2812_DIN1 = Net()  # post-R, first pixel's DIN
+
+# 4-pos DIP switch on PD0–PD3. COM → MCU GPIO + 100 kΩ to 3V3; NO → GND.
+# Closed switch reads LOW, open reads HIGH. External pull-ups give a
+# defined state even before firmware enables internal pulls — and before
+# firmware releases the UCPD2 dead-battery Rd on PD0/PD2 (FT_cs pins).
+DIP_SW1 = Net()  # PD0
+DIP_SW2 = Net()  # PD1
+DIP_SW3 = Net()  # PD2
+DIP_SW4 = Net()  # PD3
 
 # USB-C receptacle
 UsbC16P(name="J_USB", VBUS=VBUS_RAW, USB_C=USB_C, GND=GND)
@@ -232,14 +244,7 @@ Capacitor(name="C_CC2", value="220pF", voltage="25V", package="0402", P1=CC2_MCU
 # but not the D+/D- pair; this sits inline on those two nets (pass-through
 # footprint). Unused second channel (D2) tied to GND. 0.2 pF line capacitance
 # is fine for USB 2.0 FS; part is overkill (5 Gbps rated) but cheap and stocked.
-TPD4E05(
-    name="U_USBESD",
-    D1P=USB_C.D.P,  # D+
-    D1M=USB_C.D.N,  # D−
-    D2P=GND,
-    D2M=GND,
-    GND=GND,
-)
+TPD4E05(name="U_USBESD", D1P=USB_C.D.P, D1M=USB_C.D.N, D2P=GND, D2M=GND, GND=GND)
 
 # VBUS_OUT ÷10 divider for ADC sense. At 22 V max, ADC sees 2.18 V; at 5 V,
 # 0.50 V. 10 nF tap-to-GND filter rolls off above f_c ≈ 1.7 kHz to keep ADC
@@ -276,6 +281,14 @@ STM32G0B1(
     PA4=PD_CONTRACT_LED,  # PD contract held
     PA5=USB_ENUM_LED,  # USB host enumerated
     PA7=WS2812_DATA,  # SPI1_MOSI → WS2812 V-bargraph data in
+    # USART2 debug header (FTDI-basic pinout).
+    PA2=UART.TX,  # USART2_TX AF1
+    PA3=UART.RX,  # USART2_RX AF1
+    # 4-pos DIP switch — firmware-defined semantics.
+    PD0=DIP_SW1,
+    PD1=DIP_SW2,
+    PD2=DIP_SW3,
+    PD3=DIP_SW4,
     # eFuse control / status + VBUS_OUT analog sense.
     PA0=ADC_VBUS_OUT,  # ADC_IN0: VBUS_OUT ÷10 divider tap
     PB7=EFUSE_SPLYGD,  # GPIO input:  TPS259482 SPLYGD (open-drain, FT_fa)
@@ -338,13 +351,30 @@ Resistor(name="R_WS2812", value="470ohm", package="0402", P1=WS2812_DATA, P2=WS2
 _prev = WS2812_DIN1
 for i in range(8):
     _next = Net("WS2812_D" + str(i + 1))
-    WS2812(
-        name="D_BAR" + str(i + 1),
-        VDD=V5V,
-        GND=GND,
-        DIN=_prev,
-        DOUT=_next,
-    )
+    WS2812(name="D_BAR" + str(i + 1), VDD=V5V, GND=GND, DIN=_prev, DOUT=_next)
     _prev = _next
+
+# 4-pos DIP switch — each NO to GND, each COM to the MCU pin with a
+# 100 kΩ pull-up to 3V3. Closed switch pulls the MCU input LOW.
+DipSwitch(
+    name="SW_DIP",
+    NO_1=GND,
+    NO_2=GND,
+    NO_3=GND,
+    NO_4=GND,
+    COM_1=DIP_SW1,
+    COM_2=DIP_SW2,
+    COM_3=DIP_SW3,
+    COM_4=DIP_SW4,
+)
+Resistor(name="R_DIP1", value="100kohm", package="0402", P1=DIP_SW1, P2=V3V3)
+Resistor(name="R_DIP2", value="100kohm", package="0402", P1=DIP_SW2, P2=V3V3)
+Resistor(name="R_DIP3", value="100kohm", package="0402", P1=DIP_SW3, P2=V3V3)
+Resistor(name="R_DIP4", value="100kohm", package="0402", P1=DIP_SW4, P2=V3V3)
+
+# UART debug header — 1×4 2.54 mm SMT vertical male pin header (stdlib
+# generic). FTDI-basic pinout so a stock FTDI cable mates directly:
+#   Pin 1: GND | Pin 2: TX (MCU out) | Pin 3: RX (MCU in) | Pin 4: 3V3
+PinHeader(name="J_UART", pins=4, P1=GND, P2=UART.TX, P3=UART.RX, P4=V3V3)
 
 Board(name="Renfield", layout_path="layout", layers=4)
