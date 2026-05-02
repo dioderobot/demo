@@ -3,10 +3,10 @@
 This file currently captures the core PD power-input chain, the
 STM32G0B1 UCPD1 wiring, the rail subsystem that boots the MCU, the
 load-output path (eFuse + WAGO + ADC sense), USB-data ESD, the
-bring-up kit (RESET/BOOT0 buttons, Tag-Connect SWD pads), and all
-7 status LEDs (2 rail, 2 fault, 3 firmware-driven). Remaining
-observability (WS2812 V-bargraph, DIP switches, probe headers, UART
-header, test pads) is deferred to follow-up commits.
+bring-up kit (RESET/BOOT0 buttons, Tag-Connect SWD pads), all 7
+status LEDs, and the 8-pixel WS2812 V-bargraph. Remaining I/O (DIP
+switches, probe headers, UART header, test pads) is deferred to
+follow-up commits.
 
 Power flow:
     USB-C VBUS  →  TCPP01-M12 IN_GD  →  CSD17318Q2 (drain)
@@ -76,6 +76,7 @@ Wago = Module("github.com/diodeinc/registry/components/Wago/2060-4xx_998-404/206
 TPD4E05 = Module("github.com/diodeinc/registry/components/TPD4E05U06QDQARQ1/TPD4E05U06QDQARQ1.zen")
 Button = Module("github.com/diodeinc/registry/components/B3U-1000P/B3U-1000P.zen")
 TagConnect = Module("github.com/diodeinc/registry/connectors/TagConnect/TC2030-NL_SWD.zen")
+WS2812 = Module("github.com/diodeinc/registry/components/Inolux/IN-PI15TAT5R5G5B/IN-PI15TAT5R5G5B.zen")
 STM32G0B1 = Module("github.com/diodeinc/registry/components/STMicroelectronics/STM32G0B1KxUxN/STM32G0B1KxUxN.zen")
 
 Resistor = Module("@stdlib/generics/Resistor.zen")
@@ -132,6 +133,12 @@ ADC_VBUS_OUT = Net()  # VBUS_OUT ÷10 divider tap → MCU PA0 (ADC)
 HEARTBEAT_LED = Net()  # PA1
 PD_CONTRACT_LED = Net()  # PA4
 USB_ENUM_LED = Net()  # PA5
+
+# WS2812 V-bargraph data line — MCU PA7 (SPI1_MOSI AF0) → series R →
+# first pixel's DIN. Firmware bit-bangs the 800 kHz NeoPixel protocol
+# over SPI MOSI with appropriate clock timing.
+WS2812_DATA = Net()  # PA7 side
+WS2812_DIN1 = Net()  # post-R, first pixel's DIN
 
 # USB-C receptacle
 UsbC16P(name="J_USB", VBUS=VBUS_RAW, USB_C=USB_C, GND=GND)
@@ -268,6 +275,7 @@ STM32G0B1(
     PA1=HEARTBEAT_LED,  # slow blink = MCU alive
     PA4=PD_CONTRACT_LED,  # PD contract held
     PA5=USB_ENUM_LED,  # USB host enumerated
+    PA7=WS2812_DATA,  # SPI1_MOSI → WS2812 V-bargraph data in
     # eFuse control / status + VBUS_OUT analog sense.
     PA0=ADC_VBUS_OUT,  # ADC_IN0: VBUS_OUT ÷10 divider tap
     PB7=EFUSE_SPLYGD,  # GPIO input:  TPS259482 SPLYGD (open-drain, FT_fa)
@@ -313,5 +321,30 @@ fault_led("EFUSE_FLT", EFUSE_SPLYGD, "red", "470ohm")
 led("HEARTBEAT", HEARTBEAT_LED, "yellow", "820ohm")
 led("PD_CONTRACT", PD_CONTRACT_LED, "blue", "390ohm")
 led("USB_ENUM", USB_ENUM_LED, "blue", "390ohm")
+
+# WS2812 V-bargraph — 8x Inolux IN-PI15 addressable RGB (1515, 800 kHz
+# NeoPixel-class). Firmware caps brightness to ~30 % so peak draw stays
+# well under the TPSM33606 0.6 A budget (~150 mA typical, ~480 mA worst
+# case at full white). Per-pixel 1 µF ceramic bypass is supplied by the
+# IN-PI15 component module.
+#
+# Chain-head passive: 470 Ω series R on DIN protects the first pixel
+# from reflected edges on the PA7 data trace and matches 800 kHz
+# edge-rate expectations (per IN-PI15 zen docstring). No separate V5V
+# bulk cap — the 8×1 µF distributed per-pixel bypass (supplied by the
+# IN-PI15 module) handles step-load droop well within V5V tolerance.
+Resistor(name="R_WS2812", value="470ohm", package="0402", P1=WS2812_DATA, P2=WS2812_DIN1)
+
+_prev = WS2812_DIN1
+for i in range(8):
+    _next = Net("WS2812_D" + str(i + 1))
+    WS2812(
+        name="D_BAR" + str(i + 1),
+        VDD=V5V,
+        GND=GND,
+        DIN=_prev,
+        DOUT=_next,
+    )
+    _prev = _next
 
 Board(name="Renfield", layout_path="layout", layers=4)
