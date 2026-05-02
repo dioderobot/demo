@@ -52,7 +52,7 @@ Load output:
                                           │
                                           ▼
                               R_VOUT_DIV_HI/LO ÷10 → PA0 ADC sense
-    Faults latch off; SPLYGD open-drain reported on PB7. Current limit 6 A;
+    Faults latch off; supply-good (active-high) reported on PB7. Current limit 6 A;
     UVLO 4.5 V (lets 5 V USB-C default pass); OVLO 22 V (redundant with TCPP01).
     Firmware kill switch: PB8 → on-board CSD13380F3 NFET shunt on EN/UVLO
     (drive HIGH to disable; default-low via 100 kΩ pull-down). Push-pull GPIO
@@ -132,7 +132,12 @@ FET_GATE = Net()
 # eFuse control / status + analog VBUS_OUT sense.
 EFUSE_EN = Net()  # TPS259482 EN/UVLO analog node — NFET shunts to GND when DISABLE is high
 EFUSE_DISABLE = Net()  # MCU PB8 → NFET gate (active-high kill switch, default-low via pull-down)
-EFUSE_SPLYGD = Net()  # TPS259482 SPLYGD (open-drain) → MCU PB7
+EFUSE_SPLY_GOOD_N = Net()  # TPS259482 SPLYGD open-drain → MCU PB7.
+                            # Active-high supply-good (DS §7.3.8 / Table 7-3):
+                            # de-asserts (pulls LOW) on UVLO / OVLO / inrush
+                            # only. Load-side faults (OC, SC, OTP, reverse)
+                            # do NOT de-assert SPLYGD — this is NOT a
+                            # general load-fault indicator.
 ADC_VBUS_OUT = Net()  # VBUS_OUT ÷10 divider tap → MCU PA0 (ADC)
 
 # GPIO-driven status LED anodes (MCU pin → R → LED → GND).
@@ -226,7 +231,7 @@ EFuse(
     VOUT=VBUS_OUT,
     GND=GND,
     EN=EFUSE_EN,
-    SPLYGD=EFUSE_SPLYGD,
+    SPLYGD=EFUSE_SPLY_GOOD_N,
     ILM_MON=EFUSE_IMON,
 )
 
@@ -245,7 +250,7 @@ Capacitor(name="C_VBUS_OUT", value="4.7uF", voltage="50V", package="0805", P1=VB
 
 # SPLYGD pull-up — open-drain per DS §7.3.8. Pull to V3V3 so PB7 reads valid
 # logic at MCU reset before firmware configures the internal pull-up.
-Resistor(name="R_SPLYGD_PU", value="100kohm", package="0402", P1=EFUSE_SPLYGD, P2=V3V3)
+Resistor(name="R_SPLY_GOOD_PU", value="100kohm", package="0402", P1=EFUSE_SPLY_GOOD_N, P2=V3V3)
 
 # CC line capacitors — USB PD §5.8.6 / DS12900 §6.6.4 mandate 200–600 pF total
 # CC receiver capacitance for correct BMC edge shaping. 220 pF external lands
@@ -305,7 +310,7 @@ STM32G0B1(
     PD3=DIP_SW4,
     # eFuse control / status + VBUS_OUT analog sense.
     PA0=ADC_VBUS_OUT,  # ADC_IN0: VBUS_OUT ÷10 divider tap
-    PB7=EFUSE_SPLYGD,  # GPIO input:  TPS259482 SPLYGD (open-drain, FT_fa)
+    PB7=EFUSE_SPLY_GOOD_N,  # GPIO input: TPS259482 supply-not-good (LOW on UVLO/OVLO/inrush; NOT a load-fault indicator)
     PB8=EFUSE_DISABLE,  # GPIO output: TPS259482 kill switch (active-high; NFET shunt on EN)
 )
 
@@ -331,14 +336,19 @@ TagConnect(name="J_SWD", VSENSE=V3V3, GND=GND, SWD=SWD, NRST=NRST, SWO=NotConnec
 led("5V_RAIL", V5V, "green", "1.5kohm")
 led("3V3_RAIL", V3V3, "green", "680ohm")
 
-# Hardware-driven fault LEDs — light when the open-drain fault pin
-# pulls low. Firmware-independent; latched faults stay visible even
-# after an MCU crash. Red VLMS1500 is ~2.2 mcd/mA (vs ~3.5 for green,
-# ~6 for blue), so 470 Ω at ~3 mA brings these in line with the rest
-# at ~6 mcd. The 470 Ω only burns current when the pin is LOW (fault);
-# in normal Hi-Z state the 100 kΩ / chip-internal pull-up dominates.
+# Hardware-driven status LEDs — light when the open-drain source pulls
+# low. Firmware-independent; rail-good state stays visible even after
+# an MCU crash. Red VLMS1500 is ~2.2 mcd/mA (vs ~3.5 for green, ~6 for
+# blue), so 470 Ω at ~3 mA brings these in line with the rest at ~6 mcd.
+# The 470 Ω only burns current when the source pin is LOW; in the good
+# state the 100 kΩ / chip-internal pull-up dominates.
+#
+# TCPP01_FLT lights on any TCPP01 latched fault (CC OVP, VBUS OVP, OTP).
+# EFUSE_NOT_GOOD lights when the TPS259482 rail is not good (UVLO /
+# OVLO / inrush in progress). It does NOT light on load-side faults
+# (OC / SC / OTP / reverse) — those leave SPLYGD high per DS Table 7-3.
 fault_led("TCPP01_FLT", TCPP01_FLT, "red", "470ohm")
-fault_led("EFUSE_FLT", EFUSE_SPLYGD, "red", "470ohm")
+fault_led("EFUSE_NOT_GOOD", EFUSE_SPLY_GOOD_N, "red", "470ohm")
 
 # GPIO-driven status LEDs — firmware indicators, sized to match the
 # ~7 mcd rail/fault brightness. Blue VLMB1500 is efficient (~6 mcd/mA)
@@ -398,7 +408,7 @@ PinHeader(name="J_UART", pins=4, P1=GND, P2=UART.TX, P3=UART.RX, P4=V3V3)
 #   1: CC1_MCU (BMC)       5: GND
 #   2: CC2_MCU (BMC)       6: SCOPE_MARKER
 #   3: ADC_V (VBUS÷10)     7: TCPP01 FLT (OD)
-#   4: GND                 8: eFuse SPLYGD (OD)
+#   4: GND                 8: eFuse SPLYGD (supply-good, not load-fault)
 PinHeader(
     name="J_PROBE",
     pins=4,
@@ -410,7 +420,7 @@ PinHeader(
     P5=GND,
     P6=SCOPE_MARKER,
     P7=TCPP01_FLT,
-    P8=EFUSE_SPLYGD,
+    P8=EFUSE_SPLY_GOOD_N,
 )
 
 # Flat SMD test pads (1.5×1.5 mm, stdlib generic). Minimal high-value
