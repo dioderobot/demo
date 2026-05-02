@@ -49,7 +49,7 @@ Primary use cases:
 | R3  | TCPP01-M12 + external NexFET on VBUS provide hardware OVP/CC OVP/IEC ESD on CC + VBUS | P0 |
 | R4  | TPD4E05U06QDQARQ1 provides IEC 61000-4-2 L4 ESD on D+/D- (TCPP01-M12 covers CC only) | P0 |
 | R5  | Hardware VBUS OVP threshold = 22 V; CC OVP = 6 V (TCPP01-M12 internal) | P0 |
-| R6  | Load-side TPS259482L (LatchOff) eFuse with EN default-low, OVLO = 22 V, ILIM = 6 A, UVLO = 6 V | P0 |
+| R6  | Load-side TPS259482L (LatchOff) eFuse, self-enabling via UVLO/OVLO divider (UVLO = 4.5 V, OVLO = 22 V, ILIM = 6 A), with firmware kill switch via active-high DISABLE input | P0 |
 | R7  | Auto-retry behavior available by swapping to TPS259482A (drop-in same package) — silicon SKU choice | P1 |
 | R8  | VBUS÷10 divider → MCU ADC for voltage. **No on-board current measurement** — user supplies external smart load if current/power telemetry is needed. | P0 |
 | R9  | One 8-segment RGB bargraph (V: 0–20 V) using IN-PI15 LEDs | P0 |
@@ -178,9 +178,13 @@ exposed pad on standard copper. No heat-sinking required.
    sequence, drives TCPP01 DB/ high, starts PD stack.
 7. Firmware reads DIP switches directly via 4 GPIO inputs, decides PDO
    request strategy.
-8. Firmware enables TPS259482 eFuse (default-disabled at boot).
-9. PD contract → VBUS goes to negotiated voltage → eFuse passes it to
-   the WAGO output → bargraphs light up.
+8. VBUS_PROT → TPS259482 UVLO (4.5 V) crosses → eFuse self-enables
+   autonomously, passes VBUS to the WAGO output.
+9. PD contract → VBUS steps to negotiated voltage → eFuse continues
+   passing it (still within OVLO = 22 V) → load is live.
+10. Firmware may at any time drive PB8 (EFUSE_DISABLE) high to force
+    the eFuse off — useful for clearing a LatchOff trip (toggle high
+    then low) or for test automation.
 
 ---
 
@@ -295,7 +299,7 @@ Minimum set (silkscreen labels per pad):
 | TP7 | 5V | none |
 | TP8 | 3V3 | none |
 | TP9 | TCPP01_VCC (= 3V3) | none |
-| TP10 | eFuse_EN | none |
+| TP10 | eFuse_DISABLE | none |
 | TP11 | eFuse IMON | analog out (not routed to MCU; free scope point provided by the eFuse for users wanting on-board current visibility) |
 | TP12–15 | GND | none (distributed for probe clips) |
 
@@ -384,8 +388,11 @@ resistors (~330 Ω for ~2 mA at VOL ≈ 0).
 - **VBUS_OUT bulk**: 22 µF X7R ceramic, 50 V (eFuse app-note value).
 - **TCPP01 OVP divider**: external resistor pair sets 22 V threshold.
 - **TPS259482 UVLO/OVLO divider**: 3-resistor combined divider sets
-  UVLO = 6 V and OVLO = 22 V per datasheet §8.3. Threshold values
-  drop into the registry component as `uvlo_threshold=6V`,
+  UVLO = 4.5 V and OVLO = 22 V per datasheet §8.3. UVLO = 4.5 V (rather
+  than the more conservative 5 V) passes the USB-C default 5 V attach
+  cleanly while keeping V_EN ≤ 6.5 V abs max at the 22 V VBUS_PROT
+  ceiling (V_EN_max = 22 × 1.2 / 4.5 = 5.87 V). Threshold values drop
+  into the registry component as `uvlo_threshold=4.5V`,
   `ovlo_threshold=22V`.
 - **TPS259482 ILIM resistor**: sized for ~6 A current limit (1.2× the
   5 A continuous spec); registry config `current_limit=6A`.
@@ -395,8 +402,16 @@ resistors (~330 Ω for ~2 mA at VOL ≈ 0).
   TPS259482L variant for default "stop the world on fault" dev-board
   behavior; TPS259482A (drop-in) gives auto-retry. Set the registry
   component `fault_response` accordingly.
-- **TPS259482 EN pull-down**: 100 kΩ to GND so the rail is
-  default-off until firmware drives EN_FUSE high.
+- **TPS259482 DISABLE kill switch**: the eFuse self-enables whenever
+  VBUS_PROT is in the UVLO/OVLO window. Firmware can assert the
+  DISABLE signal (active-high) to force the output off. Implemented
+  on-board via a small-signal N-channel FET (CSD13380F3 FemtoFET):
+  drain on the TPS259482 EN/UVLO node, source to GND, gate driven by
+  PB8 with a 100 kΩ pull-down to GND. Default state is NFET off
+  (MCU HiZ at reset → divider self-gates the eFuse). Driving PB8 high
+  clamps EN to GND and disables the eFuse. This geometry is required
+  because push-pull GPIO directly on EN/UVLO would clamp the analog
+  divider and defeat OVLO (TPS259482 DS §7.1, §8.1.2.1).
 - **TCPP01 FLT, eFuse SPLYGD pulled to 3V3 via the status LED**: each
   open-drain pin sees `3V3 → R (~1.5 kΩ) → LED → pin`. The series R
   doubles as both the fault-LED current limit and the open-drain
@@ -452,7 +467,7 @@ are assigned per the constraints in this spec.
 | 29 | DIP_SW4       | DIP pos 4                             | PD3  / GPIO in    (FT_ds, UCPD2 strobe) |
 | 30 | TCPP01_FLT    | TCPP01 fault flag (open-drain, LED-pulled) | PB6 / GPIO in (FT_fa)      |
 | 31 | EFUSE_SPLYGD  | TPS259482 supply-good (open-drain, LED-pulled) | PB7 / GPIO in (FT_fa)  |
-| 32 | EFUSE_EN      | TPS259482 enable (default-low at boot) | PB8  / GPIO out (FT_f)        |
+| 32 | EFUSE_DISABLE | TPS259482 kill switch (active-high, default-low via on-board NFET shunt on EN/UVLO) | PB8  / GPIO out (FT_f)        |
 
 *EP (exposed thermal pad on package underside) ties to GND.*
 
@@ -614,12 +629,18 @@ are assigned per the constraints in this spec.
    VBUS without firmware involvement. A buggy firmware request for >22 V
    would simply be clamped by the hardware.
 
-7. **eFuse defaults to off.** EN is pulled to GND so the load output
-   is dead until firmware explicitly turns it on. This avoids the
-   "stick a load in, plug in USB, and immediately get 5 V at the load"
-   behavior — which sounds friendly but is wrong for a board that will
-   be intentionally crashed. The board should not deliver power to its
-   output without the firmware affirmatively asking it to.
+7. **eFuse self-enables; firmware holds a kill switch.** The eFuse is
+   a protection IC — its UVLO/OVLO divider is the enable logic by
+   design. Gating it behind a firmware vote would leave the rail
+   unprotected whenever firmware is crashed, stalled, or unflashed.
+   Upstream of the eFuse, VBUS_PROT is already OVP-clamped at 22 V by
+   TCPP01-M12 + the external FET, so the eFuse is defense-in-depth on
+   the load path, not the master on/off switch. Firmware retains an
+   active-high DISABLE input (PB8) wired through an on-board NFET
+   shunt on the EN/UVLO node to force the output off on demand —
+   primarily for clearing a TPS259482L LatchOff trip without
+   unplugging the USB cable. Driving the EN/UVLO pin directly from a
+   push-pull GPIO would defeat OVLO, hence the NFET-shunt geometry.
 
 8. **VBUS not on probe headers, divided-down sense IS.** The high-side
    VBUS rails (RAW/PROT/OUT) stay off the probe headers — they go to

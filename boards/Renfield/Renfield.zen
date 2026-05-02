@@ -47,12 +47,15 @@ Rail subsystem:
                               MCU VDD/VDDA/VDDIO2 + TCPP01 VCC
 
 Load output:
-    VBUS_PROT  →  TPS259482L eFuse (firmware-gated EN)  →  VBUS_OUT  →  WAGO 2060-452
+    VBUS_PROT  →  TPS259482L eFuse (self-gated via UVLO/OVLO)  →  VBUS_OUT  →  WAGO 2060-452
                                           │
                                           ▼
                               R_VOUT_DIV_HI/LO ÷10 → PA0 ADC sense
     Faults latch off; SPLYGD open-drain reported on PB7. Current limit 6 A;
     UVLO 4.5 V (lets 5 V USB-C default pass); OVLO 22 V (redundant with TCPP01).
+    Firmware kill switch: PB8 → on-board CSD13380F3 NFET shunt on EN/UVLO
+    (drive HIGH to disable; default-low via 100 kΩ pull-down). Push-pull GPIO
+    cannot drive EN/UVLO directly — that would defeat OVLO (DS §7.1).
 
 Pinout: see boards/Renfield/spec.md §7.
 References: ST DS12900 (TCPP01-M12), ST AN5225 (UCPD), TI CSD17318Q2 DS.
@@ -66,6 +69,7 @@ NFET = Module("github.com/diodeinc/registry/components/Texas_Instruments/CSD1731
 Buck = Module("github.com/diodeinc/registry/components/Texas_Instruments/TPSM336xx-Q1/TPSM336xx-Q1.zen")
 LDO = Module("github.com/diodeinc/registry/components/Texas_Instruments/TPS74x01P/TPS74x01P.zen")
 EFuse = Module("github.com/diodeinc/registry/components/Texas_Instruments/TPS259482/TPS259482.zen")
+NfetSmall = Module("github.com/diodeinc/registry/components/Texas_Instruments/CSDxxxxxF3/CSDxxxxxF3.zen")
 Wago = Module("github.com/diodeinc/registry/components/Wago/2060-4xx_998-404/2060-4xx_998-404.zen")
 STM32G0B1 = Module("github.com/diodeinc/registry/components/STMicroelectronics/STM32G0B1KxUxN/STM32G0B1KxUxN.zen")
 
@@ -96,9 +100,10 @@ TCPP01_FLT = Net()  # TCPP01 FLT/ → MCU PB6 (chip provides internal pull-up to
 FET_GATE = Net()
 
 # eFuse control / status + analog VBUS_OUT sense.
-EFUSE_EN = Net()       # MCU PB8 → TPS259482 EN (default-low at boot)
-EFUSE_SPLYGD = Net()   # TPS259482 SPLYGD (open-drain) → MCU PB7
-ADC_VBUS_OUT = Net()   # VBUS_OUT ÷10 divider tap → MCU PA0 (ADC)
+EFUSE_EN = Net()  # TPS259482 EN/UVLO analog node — NFET shunts to GND when DISABLE is high
+EFUSE_DISABLE = Net()  # MCU PB8 → NFET gate (active-high kill switch, default-low via pull-down)
+EFUSE_SPLYGD = Net()  # TPS259482 SPLYGD (open-drain) → MCU PB7
+ADC_VBUS_OUT = Net()  # VBUS_OUT ÷10 divider tap → MCU PA0 (ADC)
 
 # USB-C receptacle
 UsbC16P(name="J_USB", VBUS=VBUS_RAW, USB_C=USB_C, GND=GND)
@@ -168,8 +173,9 @@ LDO(
 #                so 5 V USB-C default attach passes UVLO.
 #   ovlo=22V   — redundant with TCPP01 OVP at the same threshold.
 #   ilim=6A   — covers 60 W max contract (12V×5A or 20V×3A) with headroom.
-# EN held low by MCU at boot (PB8 = GPIO out, default-low); firmware enables
-# after UVLO is satisfied and the PD contract is held.
+# EN/UVLO is the combined analog enable node: push-pull GPIO on this pin
+# would clamp the divider and defeat OVLO (TPS259482 DS §7.1, §8.1.2.1).
+# Instead we expose a DISABLE input via a small-signal NFET shunt (below).
 EFuse(
     name="U_EFUSE",
     fault_response="LatchOff",
@@ -182,6 +188,23 @@ EFuse(
     EN=EFUSE_EN,
     SPLYGD=EFUSE_SPLYGD,
 )
+
+# eFuse DISABLE shunt — CSD13380F3 FemtoFET N-channel (12V, 76 mΩ @ 4.5V,
+# PICOSTAR YJM). Drain = eFuse EN/UVLO analog node; source = GND; gate =
+# EFUSE_DISABLE. When MCU PB8 is HiZ at reset, the 100 kΩ pull-down holds
+# the gate LOW → NFET off → EN/UVLO divider self-gates the eFuse normally.
+# Driving PB8 HIGH (≥1 V) turns the NFET on, clamping EN to GND and forcing
+# the eFuse off — used to clear a LatchOff trip (HIGH→delay→LOW) or as a
+# firmware kill switch.
+NfetSmall(
+    name="Q_EFUSE_DISABLE",
+    channel="N",
+    vds="12V",
+    D=EFUSE_EN,
+    G=EFUSE_DISABLE,
+    S=GND,
+)
+Resistor(name="R_EFUSE_DISABLE_PD", value="100kohm", package="0402", P1=EFUSE_DISABLE, P2=GND)
 
 # Output terminal block — WAGO 2060-452 (2-pos, white, push-in cage clamp).
 Wago(
@@ -216,9 +239,9 @@ STM32G0B1(
     PB1=TCPP01_DB,  # GPIO output: TCPP01 dead-battery release (active-high)
     PB6=TCPP01_FLT,  # GPIO input:  TCPP01 fault flag (open-drain, FT_fa)
     # eFuse control / status + VBUS_OUT analog sense.
-    PA0=ADC_VBUS_OUT,    # ADC_IN0: VBUS_OUT ÷10 divider tap
-    PB7=EFUSE_SPLYGD,    # GPIO input:  TPS259482 SPLYGD (open-drain, FT_fa)
-    PB8=EFUSE_EN,        # GPIO output: TPS259482 enable (default-low at boot)
+    PA0=ADC_VBUS_OUT,  # ADC_IN0: VBUS_OUT ÷10 divider tap
+    PB7=EFUSE_SPLYGD,  # GPIO input:  TPS259482 SPLYGD (open-drain, FT_fa)
+    PB8=EFUSE_DISABLE,  # GPIO output: TPS259482 kill switch (active-high; NFET shunt on EN)
 )
 
 Board(name="Renfield", layout_path="layout", layers=4)
