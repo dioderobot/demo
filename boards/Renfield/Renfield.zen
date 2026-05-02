@@ -2,11 +2,11 @@
 
 This file currently captures the core PD power-input chain, the
 STM32G0B1 UCPD1 wiring, the rail subsystem that boots the MCU, the
-load-output path (eFuse + WAGO + ADC sense), USB-data ESD, and the
-bring-up kit (RESET/BOOT0 buttons, Tag-Connect SWD pads, rail LEDs).
-Remaining observability (status/fault LEDs, WS2812 bargraph, DIP
-switches, probe headers, UART header, test pads) is deferred to
-follow-up commits.
+load-output path (eFuse + WAGO + ADC sense), USB-data ESD, the
+bring-up kit (RESET/BOOT0 buttons, Tag-Connect SWD pads), and all
+7 status LEDs (2 rail, 2 fault, 3 firmware-driven). Remaining
+observability (WS2812 V-bargraph, DIP switches, probe headers, UART
+header, test pads) is deferred to follow-up commits.
 
 Power flow:
     USB-C VBUS  →  TCPP01-M12 IN_GD  →  CSD17318Q2 (drain)
@@ -90,6 +90,13 @@ def led(name, anode, color, resistance):
     Resistor(name="R_" + name, value=resistance, package="0402", P1=K, P2=GND)
 
 
+def fault_led(name, od_pin, color, resistance):
+    """LED + series R from V3V3 → open-drain `od_pin`. Lights when pin pulls low."""
+    A = Net("LED_" + name + "_A")
+    Resistor(name="R_" + name, value=resistance, package="0402", P1=V3V3, P2=A)
+    Led(name="D_" + name, color=color, package="0402", A=A, K=od_pin)
+
+
 # Top-level rails / nets
 VBUS_RAW = Power(voltage="5V to 22V")  # USB-C VBUS, FET drain, TCPP01 IN_GD
 VBUS_PROT = Power(voltage="5V to 22V")  # FET source, TCPP01 SOURCE, OVP-clamped
@@ -120,6 +127,11 @@ EFUSE_EN = Net()  # TPS259482 EN/UVLO analog node — NFET shunts to GND when DI
 EFUSE_DISABLE = Net()  # MCU PB8 → NFET gate (active-high kill switch, default-low via pull-down)
 EFUSE_SPLYGD = Net()  # TPS259482 SPLYGD (open-drain) → MCU PB7
 ADC_VBUS_OUT = Net()  # VBUS_OUT ÷10 divider tap → MCU PA0 (ADC)
+
+# GPIO-driven status LED anodes (MCU pin → R → LED → GND).
+HEARTBEAT_LED = Net()  # PA1
+PD_CONTRACT_LED = Net()  # PA4
+USB_ENUM_LED = Net()  # PA5
 
 # USB-C receptacle
 UsbC16P(name="J_USB", VBUS=VBUS_RAW, USB_C=USB_C, GND=GND)
@@ -252,6 +264,10 @@ STM32G0B1(
     # SWD — PA14 doubles as BOOT0 at reset.
     PA13=SWD.SWDIO,
     PA14=SWD.SWCLK,
+    # GPIO-driven status LEDs (source current, LED to GND).
+    PA1=HEARTBEAT_LED,  # slow blink = MCU alive
+    PA4=PD_CONTRACT_LED,  # PD contract held
+    PA5=USB_ENUM_LED,  # USB host enumerated
     # eFuse control / status + VBUS_OUT analog sense.
     PA0=ADC_VBUS_OUT,  # ADC_IN0: VBUS_OUT ÷10 divider tap
     PB7=EFUSE_SPLYGD,  # GPIO input:  TPS259482 SPLYGD (open-drain, FT_fa)
@@ -271,19 +287,31 @@ Button(name="SW_BOOT0", P1=SWD.SWCLK, P2=V3V3)
 
 # Tag-Connect TC2030-IDC-NL SWD pads (no connector populated).
 # Cortex-M0+ has no SWO/ITM — SWO pin is NC.
-TagConnect(
-    name="J_SWD",
-    VSENSE=V3V3,
-    GND=GND,
-    SWD=SWD,
-    NRST=NRST,
-    SWO=NotConnected(),
-)
+TagConnect(name="J_SWD", VSENSE=V3V3, GND=GND, SWD=SWD, NRST=NRST, SWO=NotConnected())
 
 # Rail LEDs — on whenever the rail is live; firmware-independent so they
-# work during first bring-up before any code is flashed. ~2 mA each for
-# comparable brightness across both rails.
+# work during first bring-up before any code is flashed. Target ~7 mcd:
+# green VLMG1500 at ~2 mA gives even brightness on both rails (R sized
+# for the source voltage).
 led("5V_RAIL", V5V, "green", "1.5kohm")
 led("3V3_RAIL", V3V3, "green", "680ohm")
+
+# Hardware-driven fault LEDs — light when the open-drain fault pin
+# pulls low. Firmware-independent; latched faults stay visible even
+# after an MCU crash. Red VLMS1500 is ~2.2 mcd/mA (vs ~3.5 for green,
+# ~6 for blue), so 470 Ω at ~3 mA brings these in line with the rest
+# at ~6 mcd. The 470 Ω only burns current when the pin is LOW (fault);
+# in normal Hi-Z state the 100 kΩ / chip-internal pull-up dominates.
+fault_led("TCPP01_FLT", TCPP01_FLT, "red", "470ohm")
+fault_led("EFUSE_FLT", EFUSE_SPLYGD, "red", "470ohm")
+
+# GPIO-driven status LEDs — firmware indicators, sized to match the
+# ~7 mcd rail/fault brightness. Blue VLMB1500 is efficient (~6 mcd/mA)
+# so 390 Ω / 1.3 mA is plenty; yellow LTST-C281KSKT at 820 Ω / 1.6 mA
+# is the Feign-validated value. HEARTBEAT is spec'd white; swapped to
+# yellow (no white 0402 in house catalog; any color blinks).
+led("HEARTBEAT", HEARTBEAT_LED, "yellow", "820ohm")
+led("PD_CONTRACT", PD_CONTRACT_LED, "blue", "390ohm")
+led("USB_ENUM", USB_ENUM_LED, "blue", "390ohm")
 
 Board(name="Renfield", layout_path="layout", layers=4)
