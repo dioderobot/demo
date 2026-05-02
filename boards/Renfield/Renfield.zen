@@ -2,9 +2,11 @@
 
 This file currently captures the core PD power-input chain, the
 STM32G0B1 UCPD1 wiring, the rail subsystem that boots the MCU, the
-load-output path (eFuse + WAGO + ADC sense), and USB-data ESD
-protection. Observability (LEDs, DIP switches, buttons, probe headers,
-test pads, debug header) is deferred to follow-up commits.
+load-output path (eFuse + WAGO + ADC sense), USB-data ESD, and the
+bring-up kit (RESET/BOOT0 buttons, Tag-Connect SWD pads, rail LEDs).
+Remaining observability (status/fault LEDs, WS2812 bargraph, DIP
+switches, probe headers, UART header, test pads) is deferred to
+follow-up commits.
 
 Power flow:
     USB-C VBUS  →  TCPP01-M12 IN_GD  →  CSD17318Q2 (drain)
@@ -61,7 +63,7 @@ Pinout: see boards/Renfield/spec.md §7.
 References: ST DS12900 (TCPP01-M12), ST AN5225 (UCPD), TI CSD17318Q2 DS.
 """
 
-load("@stdlib/interfaces.zen", "Ground", "Power", "UsbTypeC")
+load("@stdlib/interfaces.zen", "Ground", "NotConnected", "Power", "Swd", "UsbTypeC")
 
 UsbC16P = Module("github.com/diodeinc/registry/connectors/UsbC16P/UsbC16P.zen")
 TCPP01 = Module("github.com/diodeinc/registry/components/STMicroelectronics/TCPP01-M12/TCPP01-M12.zen")
@@ -72,10 +74,21 @@ EFuse = Module("github.com/diodeinc/registry/components/Texas_Instruments/TPS259
 NfetSmall = Module("github.com/diodeinc/registry/components/Texas_Instruments/CSDxxxxxF3/CSDxxxxxF3.zen")
 Wago = Module("github.com/diodeinc/registry/components/Wago/2060-4xx_998-404/2060-4xx_998-404.zen")
 TPD4E05 = Module("github.com/diodeinc/registry/components/TPD4E05U06QDQARQ1/TPD4E05U06QDQARQ1.zen")
+Button = Module("github.com/diodeinc/registry/components/B3U-1000P/B3U-1000P.zen")
+TagConnect = Module("github.com/diodeinc/registry/connectors/TagConnect/TC2030-NL_SWD.zen")
 STM32G0B1 = Module("github.com/diodeinc/registry/components/STMicroelectronics/STM32G0B1KxUxN/STM32G0B1KxUxN.zen")
 
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
+Led = Module("@stdlib/generics/Led.zen")
+
+
+def led(name, anode, color, resistance):
+    """LED + series current-limit resistor to GND. `anode` drives the LED high."""
+    K = Net("LED_" + name + "_K")
+    Led(name="D_" + name, color=color, package="0402", A=anode, K=K)
+    Resistor(name="R_" + name, value=resistance, package="0402", P1=K, P2=GND)
+
 
 # Top-level rails / nets
 VBUS_RAW = Power(voltage="5V to 22V")  # USB-C VBUS, FET drain, TCPP01 IN_GD
@@ -86,6 +99,8 @@ VBUS_OUT = Power(voltage="5V to 22V")  # eFuse output → WAGO terminal
 GND = Ground()
 
 USB_C = UsbTypeC()  # USB-C signal bundle (CC1/CC2/D+/D-/SBU)
+SWD = Swd()  # PA13 SWDIO ; PA14 SWCLK (also BOOT0)
+NRST = Net()  # shared between RESET button, Tag-Connect pin 3, MCU NRST, filter cap
 
 # Post-TCPP01 CC nets (system-side CC out of TCPP01, into MCU UCPD1).
 CC1_MCU = Net()
@@ -222,6 +237,7 @@ STM32G0B1(
     memory_size="512KB",
     VDD=V3V3,
     GND=GND,
+    NRST=NRST,
     # UCPD1 — CC + DBCC dead-battery sense.
     PA8=CC1_MCU,  # UCPD1_CC1
     PA9=CC1_MCU,  # UCPD1_DBCC1 — shorted to CC1 on PCB
@@ -233,10 +249,41 @@ STM32G0B1(
     # USB 2.0 FS — native PA11/PA12 (no remap).
     PA11=USB_C.D.N,  # USB D− (post-TPD4E05 on the same net)
     PA12=USB_C.D.P,  # USB D+ (post-TPD4E05 on the same net)
+    # SWD — PA14 doubles as BOOT0 at reset.
+    PA13=SWD.SWDIO,
+    PA14=SWD.SWCLK,
     # eFuse control / status + VBUS_OUT analog sense.
     PA0=ADC_VBUS_OUT,  # ADC_IN0: VBUS_OUT ÷10 divider tap
     PB7=EFUSE_SPLYGD,  # GPIO input:  TPS259482 SPLYGD (open-drain, FT_fa)
     PB8=EFUSE_DISABLE,  # GPIO output: TPS259482 kill switch (active-high; NFET shunt on EN)
 )
+
+# NRST noise filter — 100 nF close to the MCU NRST pin (RM0444 recommends).
+Capacitor(name="C_NRST", value="100nF", package="0402", P1=NRST, P2=GND)
+
+# BOOT0 pull-down — PA14 doubles as BOOT0 at reset. Pulled low by default
+# so the chip boots from flash; BOOT0 button pulls it high for DFU entry.
+Resistor(name="R_BOOT0", value="10kohm", package="0402", P1=SWD.SWCLK, P2=GND)
+
+# RESET + BOOT0 tactile buttons (Omron B3U-1000P SMT).
+Button(name="SW_RESET", P1=NRST, P2=GND)
+Button(name="SW_BOOT0", P1=SWD.SWCLK, P2=V3V3)
+
+# Tag-Connect TC2030-IDC-NL SWD pads (no connector populated).
+# Cortex-M0+ has no SWO/ITM — SWO pin is NC.
+TagConnect(
+    name="J_SWD",
+    VSENSE=V3V3,
+    GND=GND,
+    SWD=SWD,
+    NRST=NRST,
+    SWO=NotConnected(),
+)
+
+# Rail LEDs — on whenever the rail is live; firmware-independent so they
+# work during first bring-up before any code is flashed. ~2 mA each for
+# comparable brightness across both rails.
+led("5V_RAIL", V5V, "green", "1.5kohm")
+led("3V3_RAIL", V3V3, "green", "680ohm")
 
 Board(name="Renfield", layout_path="layout", layers=4)

@@ -3,6 +3,7 @@ name = "Renfield"
 description = "USB-C PD sink dev board for STM32G0B1 UCPD firmware development."
 
 [dependencies]
+"github.com/diodeinc/registry/components/B3U-1000P" = "0.2.1"
 "github.com/diodeinc/registry/components/STMicroelectronics/STM32G0B1KxUxN" = "0.1.4"
 "github.com/diodeinc/registry/components/STMicroelectronics/TCPP01-M12" = "0.1.1"
 "github.com/diodeinc/registry/components/Texas_Instruments/CSD1731xQ2" = "0.1.0"
@@ -12,4 +13,5 @@ description = "USB-C PD sink dev board for STM32G0B1 UCPD firmware development."
 "github.com/diodeinc/registry/components/Texas_Instruments/TPSM336xx-Q1" = "0.1.0"
 "github.com/diodeinc/registry/components/TPD4E05U06QDQARQ1" = "0.4.5"
 "github.com/diodeinc/registry/components/Wago/2060-4xx_998-404" = "0.1.0"
+"github.com/diodeinc/registry/connectors/TagConnect" = "0.1.4"
 "github.com/diodeinc/registry/connectors/UsbC16P" = "0.1.1"
