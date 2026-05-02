@@ -1,12 +1,11 @@
 """Renfield (DM0005) — USB-C PD sink dev board for STM32G0B1 UCPD firmware.
 
-This file currently captures the core PD power-input chain, the
-STM32G0B1 UCPD1 wiring, the rail subsystem that boots the MCU, the
-load-output path (eFuse + WAGO + ADC sense), USB-data ESD, the
-bring-up kit (RESET/BOOT0 buttons, Tag-Connect SWD pads), all 7
-status LEDs, the 8-pixel WS2812 V-bargraph, the 4-pos DIP switch,
-the UART debug header, and the PD-dev probe header. Remaining I/O
-(test pads) is deferred to follow-up commits.
+This file captures the full Renfield design per spec: PD power-input
+chain, STM32G0B1 UCPD1 wiring, rail subsystem, load-output path (eFuse
++ WAGO + ADC sense), USB-data ESD, bring-up kit (RESET/BOOT0 buttons,
+Tag-Connect SWD pads), all 7 status LEDs, 8-pixel WS2812 V-bargraph,
+4-pos DIP switch, UART debug header, 2×4 PD-dev probe header, and
+SMD test pads.
 
 Power flow:
     USB-C VBUS  →  TCPP01-M12 IN_GD  →  CSD17318Q2 (drain)
@@ -84,6 +83,10 @@ Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 Led = Module("@stdlib/generics/Led.zen")
 PinHeader = Module("@stdlib/generics/PinHeader.zen")
+TestPoint = Module("@stdlib/generics/TestPoint.zen")
+Fiducial = Module("@stdlib/generics/Fiducial.zen")
+Version = Module("@stdlib/generics/Version.zen")
+Logo = Module("github.com/diodeinc/registry/modules/Logo/Logo.zen")
 
 
 def led(name, anode, color, resistance):
@@ -140,6 +143,11 @@ USB_ENUM_LED = Net()  # PA5
 # Firmware-driven scope trigger — toggle PA6 (TIM3_CH1 AF1) at any PD
 # state transition so the Saleae/scope can trigger on it.
 SCOPE_MARKER = Net()  # PA6
+
+# Analog current-monitor tap off the TPS259482 ILM/ILIM pin. Same net as
+# the internal R_ILM setpoint resistor; voltage ≈ 3 V per amp of I_OUT.
+# Exposed only for the test pad.
+EFUSE_IMON = Net()
 
 # WS2812 V-bargraph data line — MCU PA7 (SPI1_MOSI AF0) → series R →
 # first pixel's DIN. Firmware bit-bangs the 800 kHz NeoPixel protocol
@@ -219,6 +227,7 @@ EFuse(
     GND=GND,
     EN=EFUSE_EN,
     SPLYGD=EFUSE_SPLYGD,
+    ILM_MON=EFUSE_IMON,
 )
 
 # eFuse DISABLE shunt — CSD13380F3 FemtoFET N-channel. PB8 HiZ/LOW (default
@@ -403,5 +412,28 @@ PinHeader(
     P7=TCPP01_FLT,
     P8=EFUSE_SPLYGD,
 )
+
+# Flat SMD test pads (1.5×1.5 mm, stdlib generic). Minimal high-value
+# set — only nets that can't be reached via the probe header, UART
+# header, Tag-Connect, or WAGO. Two GND pads co-located with the HV
+# and LV clusters so a scope ground pigtail lands close to the signal.
+# Flat SMD test pads (1.5×1.5 mm, stdlib generic). Minimal high-value
+# set — only nets that can't be reached via the probe header, UART
+# header, Tag-Connect, or WAGO. Two GND pads co-located with the HV
+# and LV clusters so a scope ground pigtail lands close to the signal.
+TestPoint(name="TP_VBUS_RAW", variant="Pad_1.5x1.5mm", P1=VBUS_RAW)
+TestPoint(name="TP_VBUS_PROT", variant="Pad_1.5x1.5mm", P1=VBUS_PROT)
+TestPoint(name="TP_FET_GATE", variant="Pad_1.5x1.5mm", P1=FET_GATE)
+TestPoint(name="TP_EFUSE_IMON", variant="Pad_1.5x1.5mm", P1=EFUSE_IMON)
+TestPoint(name="TP_GND_HV", variant="Pad_1.5x1.5mm", P1=GND)
+TestPoint(name="TP_GND_LV", variant="Pad_1.5x1.5mm", P1=GND)
+
+# Manufacturing: 3 front-side fiducials for P&P vision, silkscreen
+# version stamp, and Diode logo.
+Fiducial(name="FID1")
+Fiducial(name="FID2")
+Fiducial(name="FID3")
+Version(name="VER")
+Logo(name="LOGO")
 
 Board(name="Renfield", layout_path="layout", layers=4)
