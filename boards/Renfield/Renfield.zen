@@ -1,10 +1,10 @@
 """Renfield (DM0005) — USB-C PD sink dev board for STM32G0B1 UCPD firmware.
 
 This file currently captures the core PD power-input chain, the
-STM32G0B1 UCPD1 wiring, and the rail subsystem that boots the MCU.
-Load-side eFuse, WAGO output, and observability (LEDs, DIP switches,
-buttons, probe headers, test pads, debug header, USB-data ESD) are
-deferred to follow-up commits.
+STM32G0B1 UCPD1 wiring, the rail subsystem that boots the MCU, and
+the load-output path (eFuse + WAGO + ADC sense). Observability
+(LEDs, DIP switches, buttons, probe headers, test pads, debug header,
+USB-data ESD) is deferred to follow-up commits.
 
 Power flow:
     USB-C VBUS  →  TCPP01-M12 IN_GD  →  CSD17318Q2 (drain)
@@ -32,10 +32,10 @@ CC negotiation:
                                        / DBCC2) per AN5225 §11.3.1.
 
 Hardware OVP:
-    R_OVP_HI / R_OVP_LO divide VBUS_RAW to TCPP01 VBUS_CTRL.
-    Vovp_th(typ) = 1.27 V × (1 + R1/R2). With R1=165 kΩ, R2=10 kΩ →
-    typ trip 22.2 V (range 21.0–23.45 V over the 1.20–1.34 V
-    threshold spec). FET turns off above the threshold.
+    Programmed inside the TCPP01 module via `vbus_ovp_threshold="22V"`.
+    The chip's internal divider (R_OVP_TOP computed, R_OVP_BOT = 18 kΩ)
+    targets V_ovp_th = 1.27 V typ → 22 V trip. FET turns off above the
+    threshold.
 
 Rail subsystem:
     VBUS_PROT  →  TPSM33606S5 buck  →  V5V (5 V, 0.6 A)
@@ -45,6 +45,14 @@ Rail subsystem:
                                           │
                                           ▼
                               MCU VDD/VDDA/VDDIO2 + TCPP01 VCC
+
+Load output:
+    VBUS_PROT  →  TPS259482L eFuse (firmware-gated EN)  →  VBUS_OUT  →  WAGO 2060-452
+                                          │
+                                          ▼
+                              R_VOUT_DIV_HI/LO ÷10 → PA0 ADC sense
+    Faults latch off; SPLYGD open-drain reported on PB7. Current limit 6 A;
+    UVLO 4.5 V (lets 5 V USB-C default pass); OVLO 22 V (redundant with TCPP01).
 
 Pinout: see boards/Renfield/spec.md §7.
 References: ST DS12900 (TCPP01-M12), ST AN5225 (UCPD), TI CSD17318Q2 DS.
@@ -57,6 +65,8 @@ TCPP01 = Module("github.com/diodeinc/registry/components/STMicroelectronics/TCPP
 NFET = Module("github.com/diodeinc/registry/components/Texas_Instruments/CSD1731xQ2/CSD1731xQ2.zen")
 Buck = Module("github.com/diodeinc/registry/components/Texas_Instruments/TPSM336xx-Q1/TPSM336xx-Q1.zen")
 LDO = Module("github.com/diodeinc/registry/components/Texas_Instruments/TPS74x01P/TPS74x01P.zen")
+EFuse = Module("github.com/diodeinc/registry/components/Texas_Instruments/TPS259482/TPS259482.zen")
+Wago = Module("github.com/diodeinc/registry/components/Wago/2060-4xx_998-404/2060-4xx_998-404.zen")
 STM32G0B1 = Module("github.com/diodeinc/registry/components/STMicroelectronics/STM32G0B1KxUxN/STM32G0B1KxUxN.zen")
 
 Resistor = Module("@stdlib/generics/Resistor.zen")
@@ -67,6 +77,7 @@ VBUS_RAW = Power(voltage="5V to 22V")  # USB-C VBUS, FET drain, TCPP01 IN_GD
 VBUS_PROT = Power(voltage="5V to 22V")  # FET source, TCPP01 SOURCE, OVP-clamped
 V5V = Power(voltage="5V")  # buck output, LDO + (future) WS2812 chain input
 V3V3 = Power(voltage="3.3V")  # MCU + TCPP01 VCC
+VBUS_OUT = Power(voltage="5V to 22V")  # eFuse output → WAGO terminal
 GND = Ground()
 
 USB_C = UsbTypeC()  # USB-C signal bundle (CC1/CC2/D+/D-/SBU)
@@ -79,18 +90,25 @@ CC2_MCU = Net()
 # trick (DS12900 §6.7) only buys 0-Iq standby on battery-powered sinks,
 # and Renfield is USB-only.
 TCPP01_DB = Net()  # MCU PB1 → TCPP01 DB/
-TCPP01_FLT = Net()  # TCPP01 FLT/ → MCU PB6
-TCPP01_VBUS_CTRL = Net()  # OVP threshold divider tap
+TCPP01_FLT = Net()  # TCPP01 FLT/ → MCU PB6 (chip provides internal pull-up to VCC)
 
 # External FET gate, driven by TCPP01 GATE pin.
 FET_GATE = Net()
 
+# eFuse control / status + analog VBUS_OUT sense.
+EFUSE_EN = Net()       # MCU PB8 → TPS259482 EN (default-low at boot)
+EFUSE_SPLYGD = Net()   # TPS259482 SPLYGD (open-drain) → MCU PB7
+ADC_VBUS_OUT = Net()   # VBUS_OUT ÷10 divider tap → MCU PA0 (ADC)
+
 # USB-C receptacle
 UsbC16P(name="J_USB", VBUS=VBUS_RAW, USB_C=USB_C, GND=GND)
 
-# TCPP01-M12 — CC OVP, VBUS OVP via external N-FET, dead-battery management
+# TCPP01-M12 — CC OVP, VBUS OVP via external N-FET, dead-battery management.
+# Reference passives (VCC bypass, IN_GD ESD shunt, OVP divider, FLT pull-up)
+# are provided by the component module.
 TCPP01(
     name="U_TCPP01",
+    vbus_ovp_threshold="22V",
     VCC=V3V3,
     GND=GND,
     # Connector-side: CC + VBUS straight from the receptacle.
@@ -103,23 +121,16 @@ TCPP01(
     # External NMOS pass switch driver.
     GATE=FET_GATE,
     SOURCE=VBUS_PROT,
-    VBUS_CTRL=TCPP01_VBUS_CTRL,
+    VBUS_CTRL=Net("VBUS_OVP_SENSE"),  # internal divider biases this; not routed to MCU
     # Control / status.
     DB=TCPP01_DB,
     FLT=TCPP01_FLT,
 )
 
 # VBUS_RAW bulk — USB-C compliance (DS12900 §6.6.3 calls for ≥2.2 µF /
-# 50 V on VBUS). House cap is 4.7 µF X7R / 50 V / 0805.
+# 50 V on VBUS). House cap is 4.7 µF X7R / 50 V / 0805. (The chip's
+# C_ESD on IN_GD is 100 nF — small, for ESD; this is the bulk.)
 Capacitor(name="C_VBUS_RAW", value="4.7uF", voltage="50V", package="0805", P1=VBUS_RAW, P2=GND)
-
-# TCPP01 VCC bypass cap (DS12900 §6.4: 100 nF/50 V on the bias node).
-Capacitor(name="C_TCPP01_VCC", value="1uF", package="0402", P1=V3V3, P2=GND)
-
-# VBUS OVP threshold divider — 22 V trip per DS12900 §6.6.5.
-# V_OVP(typ) = 1.27 V × (1 + R1/R2); 165 k / 10 k → 22.2 V typ.
-Resistor(name="R_OVP_HI", value="165kohm", voltage="50V", package="0402", P1=VBUS_RAW, P2=TCPP01_VBUS_CTRL)
-Resistor(name="R_OVP_LO", value="10kohm", package="0402", P1=TCPP01_VBUS_CTRL, P2=GND)
 
 # Pass FET — 30 V N-channel NexFET, 25 A silicon, WSON-6 2×2 (CSD17318Q2).
 # Drain = VBUS_RAW (also TCPP01 IN_GD); Source = VBUS_PROT (also TCPP01 SOURCE);
@@ -150,6 +161,44 @@ LDO(
     GND=GND,
 )
 
+# eFuse — TPS259482L (LatchOff variant: dev board should stop on fault).
+# 12-ball PowerWCSP YWP, 12.2 mΩ, 8 A capable. Configured for:
+#   uvlo=4.5V — V_EN at VBUS_PROT.max=22V is 22×1.2/4.5 = 5.87 V ≤ 6.5 V abs;
+#                at 5 V passthrough V_EN = 1.33 V > 1.2 V trip threshold,
+#                so 5 V USB-C default attach passes UVLO.
+#   ovlo=22V   — redundant with TCPP01 OVP at the same threshold.
+#   ilim=6A   — covers 60 W max contract (12V×5A or 20V×3A) with headroom.
+# EN held low by MCU at boot (PB8 = GPIO out, default-low); firmware enables
+# after UVLO is satisfied and the PD contract is held.
+EFuse(
+    name="U_EFUSE",
+    fault_response="LatchOff",
+    current_limit="6A",
+    uvlo_threshold="4.5V",
+    ovlo_threshold="22V",
+    VIN=VBUS_PROT,
+    VOUT=VBUS_OUT,
+    GND=GND,
+    EN=EFUSE_EN,
+    SPLYGD=EFUSE_SPLYGD,
+)
+
+# Output terminal block — WAGO 2060-452 (2-pos, white, push-in cage clamp).
+Wago(
+    name="J_OUT",
+    positions=2,
+    color="white",
+    P1=VBUS_OUT,
+    P2=GND,
+)
+
+# VBUS_OUT ÷10 divider for ADC sense. At 22 V max, ADC sees 2.18 V; at 5 V,
+# 0.50 V. 10 nF tap-to-GND filter rolls off above f_c ≈ 1.7 kHz to keep ADC
+# noise low (R_th = R_top || R_bot ≈ 9 kΩ).
+Resistor(name="R_VOUT_DIV_HI", value="90.9kohm", voltage="50V", package="0402", P1=VBUS_OUT, P2=ADC_VBUS_OUT)
+Resistor(name="R_VOUT_DIV_LO", value="10.0kohm", package="0402", P1=ADC_VBUS_OUT, P2=GND)
+Capacitor(name="C_VOUT_ADC", value="10nF", package="0402", P1=ADC_VBUS_OUT, P2=GND)
+
 # MCU — STM32G0B1KEU6N (UFQFPN-32 N-pinout, 512 KB flash). UCPD1 dead-battery
 # wiring per AN5225 §11.3.1: PA9 (DBCC1) is shorted to PA8 (CC1), PA10 (DBCC2)
 # to PB15 (CC2). Handled here by passing the same net to both MCU pins.
@@ -166,6 +215,10 @@ STM32G0B1(
     # TCPP01 control / status.
     PB1=TCPP01_DB,  # GPIO output: TCPP01 dead-battery release (active-high)
     PB6=TCPP01_FLT,  # GPIO input:  TCPP01 fault flag (open-drain, FT_fa)
+    # eFuse control / status + VBUS_OUT analog sense.
+    PA0=ADC_VBUS_OUT,    # ADC_IN0: VBUS_OUT ÷10 divider tap
+    PB7=EFUSE_SPLYGD,    # GPIO input:  TPS259482 SPLYGD (open-drain, FT_fa)
+    PB8=EFUSE_EN,        # GPIO output: TPS259482 enable (default-low at boot)
 )
 
 Board(name="Renfield", layout_path="layout", layers=4)

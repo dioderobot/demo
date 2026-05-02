@@ -1,0 +1,145 @@
+"""TCPP01-M12: USB Type-C port protection for sink applications with reference circuit.
+
+Single-chip Type-C port protection from STMicroelectronics in a QFN-12L
+3x3 mm package:
+
+- 22 V tolerant ESD (IEC 61000-4-2 Level 4, ±8 kV contact / ±15 kV air) on
+  CC1, CC2 and VBUS connector lines.
+- 22 V short-to-VBUS OVP on CC lines (internal back-to-back FETs from
+  CCx_c -> CCx).
+- Externally programmable VBUS OVP via an N-MOSFET pass switch driven by
+  GATE / monitored via VBUS_CTRL.
+- "Dead-battery" management on DB/ for USB-PD compliant attach.
+- Open-drain FLT/ for OVP/OTP/UVLO fault reporting.
+
+Reference circuitry included (always-on):
+
+- `C_VCC` (100 nF, 0402): VCC decoupling on pin 12.
+- `C_ESD` (100 nF, 0402, 50 V X7R): IN_GD ESD shunt. Datasheet §6.6.1 makes
+  this mandatory for the IC's advertised ±8 kV contact / IEC 61000-4-2 L4
+  rating. Size ≤ 0603 is called out for low ESL; 0402 is preferred.
+- `R_OVP_TOP` / `R_OVP_BOT`: VBUS_CTRL divider that programs the external
+  N-MOSFET OVP trip via the internal reference V_ovp_th = 1.27 V typ
+  (§3 Table 6). R_BOT fixed at 18 kΩ; R_TOP computed from
+  `vbus_ovp_threshold`. Default 22 V covers full PD range (VBUS_abs_max);
+  set to ~6 V for 5 V-only sinks (§6.7).
+- `R_FLT` (100 kΩ): pull-up on the open-drain FLT/ flag to VCC.
+
+Not included (use-case specific, left to the integrator):
+
+- External N-MOSFET on VBUS (GATE/SOURCE) — driven to 5–6 V Vgs; choose per
+  load current (up to 5 A), Vgs rating, and R_DS(on) budget (§6.6.7).
+- Dead-battery network on DB/ — handled by the MCU GPIO or tied low; the
+  IC provides an internal 5 kΩ pull-down.
+- CC line EMI capacitors — required only for USB-PD (§6.6.4); value must be
+  budgeted against the downstream MCU's CC pin capacitance.
+- VBUS bulk cap (2.2 µF min) and VBUS TVS (e.g. ESDA25P35-1U1M) — system-
+  level, not protection-IC-level.
+
+Reference: ST DS12900 Rev 7 (https://www.st.com/resource/en/datasheet/tcpp01-m12.pdf).
+"""
+
+load("@stdlib/units.zen", "Voltage", "Resistance")
+load("@stdlib/utils.zen", "e96")
+
+Resistor = Module("@stdlib/generics/Resistor.zen")
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+
+# Power
+VCC = io(Power(voltage="3.0V to 3.6V"), help="3.3 V supply. Tie LOW to fully power down the IC (zero Iq).")
+GND = io(Ground(), help="Device ground and exposed pad.")
+
+# Connector-side (USB-C receptacle) pins
+CC1C = io(Net, help="Connector-side CC1. Wire directly to USB-C CC1.")
+CC2C = io(Net, help="Connector-side CC2. Wire directly to USB-C CC2.")
+IN_GD = io(Power(voltage="0V to 22V"), help="Connector-side VBUS. Tie to USB-C VBUS at the connector.")
+
+# System-side CC pins (after internal back-to-back OVP FETs)
+CC1 = io(Net, help="System-side CC1. Connect to MCU/UCPD CC1.")
+CC2 = io(Net, help="System-side CC2. Connect to MCU/UCPD CC2.")
+
+# External VBUS pass-MOSFET driver
+SOURCE = io(Power(voltage="0V to 22V"), help="External NMOS source. System-side VBUS rail after the protection FET.")
+GATE = io(Net, help="External NMOS gate drive.")
+VBUS_CTRL = io(Net, help="VBUS OVP sense. MCU can force FET off by driving '1'.")
+
+# Control / status
+DB = io(Net, help="Dead-battery network. Pull-down resistor enables Rd advertisement at unpowered attach.")
+FLT = io(Net, help="Open-drain fault flag. Asserted low on OVP/OTP/UVLO.")
+
+vbus_ovp_threshold = config(Voltage, default="22V", help="VBUS OVP trip. 22V = full PD; 6V = 5V-only.")
+add_flt_pullup = config(bool, default=True, help="Populate the FLT/ pull-up to VCC.")
+
+
+def vbus_divider(v_trip):
+    """§3 Table 6: V_ovp_th = 1.27 V typ. R_BOT fixed at 18 kΩ (≈70 µA at 22 V)."""
+    V_TH = Voltage("1.27V")
+    r_bot = Resistance("18kohm")
+    r_top = r_bot * (v_trip / V_TH - 1)
+    return e96(r_top), r_bot
+
+
+_R_OVP_TOP, _R_OVP_BOT = vbus_divider(vbus_ovp_threshold)
+
+Component(
+    name="U",
+    symbol=Symbol(library="TCPP01-M12.kicad_sym", name="TCPP01-M12"),
+    footprint=File("QFN-12-1EP_3x3mm_P0.5mm_EP1.45x1.45mm.kicad_mod"),
+    part=Part(mpn="TCPP01-M12", manufacturer="STMicroelectronics"),
+    pins={
+        "VCC": VCC,
+        "GND": GND,
+        "EP": GND,
+        "CC1_{c}": CC1C,
+        "CC2_{c}": CC2C,
+        "IN_{GD}": IN_GD,
+        "CC1": CC1,
+        "CC2": CC2,
+        "SOURCE": SOURCE,
+        "GATE": GATE,
+        "VBUS_{CTRL}": VBUS_CTRL,
+        "DB/": DB,
+        "FLT/": FLT,
+    },
+)
+
+# VCC decoupling (pin 12).
+Capacitor(name="C_VCC", value="100nF", package="0402", P1=VCC, P2=GND)
+
+# IN_GD ESD shunt — datasheet §6.6.1. Mandatory for the IC's ±8 kV contact
+# IEC 61000-4-2 L4 rating. 50 V X7R, ≤0603 for low ESL (0402 preferred).
+Capacitor(name="C_ESD", value="100nF", package="0402", voltage="50V", P1=IN_GD, P2=GND)
+
+# VBUS_CTRL OVP divider. R_TOP computed so V(VBUS_CTRL) = 1.27 V at the
+# chosen VBUS trip point. MCU GPIO on VBUS_CTRL can still override (HighZ
+# for normal, drive '1' to force the external NMOS off) — §6.6.7.
+Resistor(name="R_OVP_TOP", value=_R_OVP_TOP, package="0402", P1=IN_GD, P2=VBUS_CTRL)
+Resistor(name="R_OVP_BOT", value=_R_OVP_BOT, package="0402", P1=VBUS_CTRL, P2=GND)
+
+# FLT/ is open-drain (§1 Table 1); pull up to VCC for a readable logic level.
+Resistor(name="R_FLT", value="100kohm", package="0402", dnp=not add_flt_pullup, P1=FLT, P2=VCC)
+
+Layout(name="TCPP01-M12", path="layout/TCPP01-M12")
+
+# pcb:sch CC1.0 x=-27.4622 y=5.5880 rot=-180
+# pcb:sch CC1C.0 x=-319.5622 y=5.5880 rot=0
+# pcb:sch CC2.0 x=-27.4622 y=30.9880 rot=-180
+# pcb:sch CC2C.0 x=-319.5622 y=30.9880 rot=0
+# pcb:sch C_ESD.C x=-427.7200 y=-89.9000 rot=0
+# pcb:sch C_VCC.C x=-173.7200 y=-242.3000 rot=0
+# pcb:sch DB.0 x=-15.3670 y=132.5880 rot=-180
+# pcb:sch FLT.0 x=118.8901 y=157.9880 rot=-180
+# pcb:sch GATE.0 x=-314.1194 y=-45.2120 rot=0
+# pcb:sch GND.0 x=-128.0000 y=278.4000 rot=0
+# pcb:sch GND.1 x=-420.1000 y=11.7000 rot=0
+# pcb:sch GND.2 x=-356.6000 y=240.3000 rot=0
+# pcb:sch GND.3 x=-166.1000 y=-153.4000 rot=0
+# pcb:sch IN_GD.0 x=-351.5200 y=-140.7000 rot=0
+# pcb:sch R_FLT.R x=128.5400 y=75.2000 rot=-180
+# pcb:sch R_OVP_BOT.R x=-354.0600 y=151.4000 rot=0
+# pcb:sch R_OVP_TOP.R x=-354.0600 y=49.8000 rot=0
+# pcb:sch SOURCE.0 x=42.1800 y=-102.6000 rot=0
+# pcb:sch U x=-229.6000 y=-128.0000 rot=0
+# pcb:sch VBUS_CTRL.0 x=-487.6860 y=132.5880 rot=0
+# pcb:sch VCC.0 x=-122.9200 y=-293.1000 rot=0
+# pcb:sch VCC.1 x=131.0800 y=37.1000 rot=0

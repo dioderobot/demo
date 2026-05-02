@@ -1,0 +1,47 @@
+"""WAGO 2060 series — SMD push-in CAGE CLAMP terminal block, 4 mm pitch, T&R.
+
+Family: ``2060-4{C}{N}/998-404`` where ``C`` selects color (5 = white,
+7 = black) and ``N`` is the position count. Push-in CAGE CLAMP® with push-button
+actuation, 0.2…0.75 mm² (24…18 AWG) solid or fine-stranded conductors. Just
+4.5 mm tall, in tape-and-reel packaging. Side-entry (0° conductor entry).
+
+Each pole has two SMD solder tabs (one wide, one narrow) that share a common
+electrical potential inside the part. The footprint reflects this by giving
+both tabs of pole *N* the same pad number *N*, so a single ``Net`` per pole
+(``P1``, ``P2``, ``P3``) lands on both tabs.
+
+Variants covered (selected by ``positions`` × ``color``):
+
+| MPN              | Poles | Color |
+|------------------|-------|-------|
+| 2060-451/998-404 |   1   | white |
+| 2060-452/998-404 |   2   | white |
+| 2060-453/998-404 |   3   | white |
+| 2060-471/998-404 |   1   | black |
+| 2060-472/998-404 |   2   | black |
+| 2060-473/998-404 |   3   | black |
+
+Ratings: 9 A / 320 V (IEC, OVC II/2), 600 V / 9 A (UL 1977),
+2.5 kV impulse withstand. Operating temperature -60 °C to +105 °C.
+
+The footprint geometry is identical across colors; only the embedded
+STEP model differs (white STEP for white variants, black STEP for black).
+"""
+
+Color = enum("white", "black")
+
+positions = config(int, default=2, allowed=[1, 2, 3])
+color = config(Color, default=Color("white"))
+
+_color_digit = "5" if color == Color("white") else "7"
+_sym_name = "2060-4" + _color_digit + str(positions) + "_998-404"
+
+# One Net io per pole; the footprint shares the pad number across both SMD
+# tabs of each pole, so a single net lands on both tabs.
+_pins = {"P{}".format(p): io("P{}".format(p), Net) for p in range(1, positions + 1)}
+
+Component(
+    name="WAGO_2060",
+    symbol=Symbol(library="2060-4xx_998-404.kicad_sym", name=_sym_name),
+    pins=_pins,
+)
