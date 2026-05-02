@@ -53,9 +53,9 @@ Primary use cases:
 | R7  | Auto-retry behavior available by swapping to TPS259482A (drop-in same package) — silicon SKU choice | P1 |
 | R8  | VBUS÷10 divider → MCU ADC for voltage. **No on-board current measurement** — user supplies external smart load if current/power telemetry is needed. | P0 |
 | R9  | One 8-segment RGB bargraph (V: 0–20 V) using IN-PI15 LEDs | P0 |
-| R10 | 7 discrete 0603 status LEDs: 2 rail-direct (5V, 3V3), 2 hardware-driven from open-drain fault pins (TCPP01 FLT, TPS259482 SPLYGD), 3 MCU GPIO-driven (PD_CONTRACT, USB_ENUM, HEARTBEAT) | P0 |
+| R10 | 7 discrete 0402 status LEDs: 2 rail-direct (5V, 3V3), 2 hardware-driven from open-drain pins (TCPP01 FLT, TPS259482 SPLYGD), 3 MCU GPIO-driven (PD_CONTRACT, USB_ENUM, HEARTBEAT) | P0 |
 | R11 | 4-position SMD DIP switch direct-driven on MCU GPIOs (no I²C expander) | P0 |
-| R12 | Two side-by-side Saleae-friendly 2×4 0.1″ probe headers (8 signal lines total) | P0 |
+| R12 | One 2×4 2.54 mm SMT header for PD-dev signals (CC1/CC2/ADC_V/SCOPE_MARKER + 2 fault flags + 2 GND) — hookup-wire breakout to Saleae Logic Pro 8 | P0 |
 | R13 | Dedicated 1×4 0.1″ UART debug header (GND/TX/RX/3V3) | P0 |
 | R14 | Tag-Connect TC2030-IDC-NL SWD pads (no connector populated; Cortex-M0+ has no SWO — pin 6 is NC) | P0 |
 | R15 | SMD test pads for nets not on a probe/UART header (no Keystone loops) | P0 |
@@ -114,11 +114,11 @@ D+/D-   │                        │                           │
        4-pos DIP ────────────────► 4× GPIO inputs           │
        7 status LEDs:                                       │
          - 5V_RAIL, 3V3_RAIL: rail-direct                   │
-         - TCPP01_FLT_LED, eFuse_FLT_LED: hardware-driven   │
+         - TCPP01_FLT_LED, EFUSE_NOT_GOOD_LED: hardware-driven   │
            from TCPP01 FLT and eFuse SPLYGD open-drain pins │
          - PD_CONTRACT, USB_ENUM, HEARTBEAT: MCU GPIO       │
        1 V-bargraph (8× IN-PI15 WS2812 RGB) → SPI MOSI ─────┘
-       Probe headers (2× 2×4) — see §5
+       Probe header (2×4) — see §5
        UART header (1×4), Tag-Connect SWD pads, SMD test pads
 ```
 
@@ -211,42 +211,27 @@ and push it in — no soldering required.
 
 Silk: `LOAD +` and `LOAD −` arrows, plus a polarity warning rectangle.
 
-### Main probe headers (Saleae Logic Pro 8 grommets)
+### PD-dev probe header
 
-**Two 2×4 0.1″ vertical pin headers**, side by side, signal-and-GND
-alternating columns. One Saleae 8-channel grommet plugs onto each
-header.
-
-**Header A — "PD" (analog-friendly)**
+**One 2×4 2.54 mm SMT vertical male pin header.** Designed for
+hookup-wire breakout to Saleae Logic Pro 8 (not the 2-row grommet —
+we trade strict signal/GND alternation for an extra signal lane).
 
 | Pin | Signal | Notes |
 |---|---|---|
 | 1 | CC1_MCU (post-TCPP01) | Primary BMC capture, ~1.2 V analog |
-| 2 | GND | |
-| 3 | CC2_MCU (post-TCPP01) | Other CC line |
+| 2 | CC2_MCU (post-TCPP01) | Orientation-dependent CC line |
+| 3 | ADC_V | VBUS_OUT ÷10 divider, 0–2.2 V analog |
 | 4 | GND | |
-| 5 | SCOPE_MARKER | Firmware-toggled trigger output |
-| 6 | GND | |
-| 7 | (spare) | DNF — routed to a spare MCU GPIO pad |
-| 8 | GND | |
-
-**Header B — "POWER" (analog VBUS sense + digital fault flags)**
-
-| Pin | Signal | Notes |
-|---|---|---|
-| 1 | ADC_V | VBUS_OUT ÷10 divider, 0–2 V analog |
-| 2 | GND | |
-| 3 | (spare) | DNF — routed to a spare MCU GPIO pad for future expansion |
-| 4 | GND | |
-| 5 | eFuse SPLYGD | TPS259482 supply-good edges (open-drain, active-low) |
-| 6 | GND | |
+| 5 | GND | |
+| 6 | SCOPE_MARKER | Firmware-toggled trigger (PA6 / TIM3_CH1) |
 | 7 | TCPP01 FLT | TCPP01-M12 fault edges (open-drain, active-low) |
-| 8 | GND | |
+| 8 | eFuse SPLYGD | TPS259482 supply-good (active-high; LOW on UVLO/OVLO/inrush only — NOT a load-fault flag) |
 
-Header A signals belong on Saleae **analog** inputs (CC swing is ~1.2 V,
-below standard digital threshold). Header B carries one analog signal
-(ADC_V) and two digital open-drain signals (TCPP01 FLT, eFuse SPLYGD); all three
-work on either Saleae analog or digital channels.
+Analog-class signals (CC1, CC2, ADC_V) grouped on pins 1–3 next to a
+GND on pin 4; digital signals (SCOPE_MARKER, fault flags) grouped on
+pins 6–8 next to a GND on pin 5. Layout should keep this
+analog/digital separation across the trace runs.
 
 ### UART debug header
 
@@ -286,25 +271,26 @@ header but still want a clean probe-tip touchpoint. Silk labels nearby;
 **no colored solder loops** (no Keystone parts — too much BOM pain for
 the value).
 
-Minimum set (silkscreen labels per pad):
+Minimum set:
 
-| Pad | Net | Silk warning |
+| Pad | Net | Silk |
 |---|---|---|
-| TP1 | VBUS_RAW | `HV ≤ 22V` |
-| TP2 | VBUS_PROT | `HV ≤ 22V` |
-| TP3 | VBUS_OUT | `HV ≤ 22V` |
-| TP4 | VBUS_OUT_DIV (÷10) | none (safe analog) |
-| TP5 | CC1_RAW (pre-TCPP01) | `HV ≤ 22V` |
-| TP6 | CC2_RAW (pre-TCPP01) | `HV ≤ 22V` |
-| TP7 | 5V | none |
-| TP8 | 3V3 | none |
-| TP9 | TCPP01_VCC (= 3V3) | none |
-| TP10 | eFuse_DISABLE | none |
-| TP11 | eFuse IMON | analog out (not routed to MCU; free scope point provided by the eFuse for users wanting on-board current visibility) |
-| TP12–15 | GND | none (distributed for probe clips) |
+| TP_VBUS_RAW | VBUS_RAW | `HV ≤ 22V` |
+| TP_VBUS_PROT | VBUS_PROT | `HV ≤ 22V` |
+| TP_FET_GATE | FET_GATE (TCPP01 GATE pin) | `≤ 28V` — rides to VBUS_PROT + VGS |
+| TP_EFUSE_IMON | TPS259482 ILM pin | analog current monitor, ~3 V/A |
+| TP_GND_HV | GND | near the HV cluster for scope return |
+| TP_GND_LV | GND | near the LV area for scope return |
 
-HV pads should be physically separated from low-voltage pads so a probe
-clip can't accidentally bridge VBUS to GND or to a 3V3 net.
+Other candidate signals (VBUS_OUT, V5V, V3V3, NRST, EFUSE_EN/DISABLE,
+TCPP01_DB, CC1_RAW / CC2_RAW) are deliberately **not** pads — each is
+already reachable via another header, the WAGO terminal, or the MCU
+pin directly. Keep pads sparse; add more during layout if a specific
+debug case earns one.
+
+HV pads should be physically separated from low-voltage pads so a
+scope tip or flying-wire clip can't accidentally bridge VBUS to GND
+or to a 3V3 net.
 
 ### User I/O
 
@@ -314,42 +300,39 @@ clip can't accidentally bridge VBUS to GND or to a 3V3 net.
 | RESET button | Tactile, pulls NRST low |
 | 4-pos DIP switch | Direct-driven on 4 MCU GPIOs; semantics firmware-defined |
 | V bargraph | 8 IN-PI15 LEDs, addressable, 0–20 V at 2.5 V/LED |
-| Status LEDs | 7 discrete 0603 (see below) — 2 rail-direct + 2 hardware-driven from TCPP01 FLT / eFuse SPLYGD + 3 MCU GPIO-driven |
+| Status LEDs | 7 discrete 0402 (see below) — 2 rail-direct + 2 hardware-driven on TCPP01 FLT / eFuse SPLYGD + 3 MCU GPIO-driven |
 
 ### Status LEDs
 
 Never on the WS2812 chain so they remain useful when firmware is broken.
-Seven 0603 LEDs total, three driver styles.
+Seven 0402 LEDs, three driver styles. Current-limit resistors chosen
+in the `.zen` to land each LED at comparable brightness.
 
 | LED | Color | Driver | Behavior |
 |-----|-------|--------|----------|
-| 5V_RAIL | Green | **Rail-direct** (5 V → R → LED → GND) | On whenever 5 V is present |
-| 3V3_RAIL | Green | **Rail-direct** (3V3 → R → LED → GND) | On whenever 3V3 is present |
-| TCPP01_FLT_LED | Red | **Hardware-driven** (3V3 → R → LED → FLT open-drain) | On when TCPP01-M12 latches a fault |
-| eFuse_FLT_LED | Red | **Hardware-driven** (3V3 → R → LED → SPLYGD open-drain) | On when TPS259482 latches a fault (supply-not-good) |
+| 5V_RAIL | Green | Rail-direct (5 V → R → LED → GND) | On whenever 5 V is present |
+| 3V3_RAIL | Green | Rail-direct (3V3 → R → LED → GND) | On whenever 3V3 is present |
+| TCPP01_FLT | Red | 3V3 → R → LED → FLT (open-drain) | On when TCPP01-M12 latches a fault |
+| EFUSE_NOT_GOOD | Red | 3V3 → R → LED → SPLYGD (open-drain) | On when the rail is not good (UVLO / OVLO / inrush). **Not** a load-fault indicator. |
 | PD_CONTRACT | Blue | MCU GPIO | Contract negotiated and held |
 | USB_ENUM | Blue | MCU GPIO | USB host has enumerated us |
-| HEARTBEAT | White | MCU GPIO | Slow blink = MCU alive |
+| HEARTBEAT | Yellow | MCU GPIO | Slow blink = MCU alive |
 
-**Why rail-direct, not PG-direct.** The TPSM33606S5 PGOOD pin is
-open-drain — it would need an external pull-up and would drive an LED
-on *fault*, not on *good*. The TPS74x01P LDO has push-pull PG, but
-mixing the two patterns is confusing. Driving both rail LEDs from the
-rail itself through a current-limit resistor gives consistent "rail is
-up" telemetry with no PG-pin sourcing concerns.
+**Why rail-direct, not PG-direct.** The buck's PGOOD is open-drain
+(would need an external pull-up and drive on *fault*); the LDO's PG is
+push-pull. Mixing conventions is confusing. Rail-direct gives a
+consistent "rail is up" LED with no PG-pin quirks.
 
-**Why hardware-driven fault LEDs.** Both TCPP01-M12 FLT and TPS259482
-SPLYGD are open-drain outputs that pull low on a latched fault
-(SPLYGD is active-low supply-good, so a fault makes the LED light).
-Wiring an
-LED between 3V3 and the fault pin (with a current-limit resistor)
-gives a per-chip latched-fault indicator that's independent of MCU
-state — the LED lights even if firmware has crashed. The MCU reads
-the same pin in parallel for software fault handling. Standard
-latching-fault pattern.
+**Why hardware-driven fault LEDs.** Driving the LED directly from the
+open-drain fault pin gives a firmware-independent latched indicator
+— the LED lights even if firmware has crashed. The MCU reads the same
+pin in parallel for software handling.
 
-The three GPIO-driven status LEDs are 0603 with discrete current-limit
-resistors (~330 Ω for ~2 mA at VOL ≈ 0).
+**SPLYGD caveat.** TPS25948 SPLYGD reports rail-good, not load-fault.
+Load-side events (overcurrent, short-circuit, overtemperature,
+reverse current) leave SPLYGD high. Those events show up instead via
+LatchOff behavior (VBUS_OUT drops to 0, firmware sees ADC_V = 0).
+Named `EFUSE_NOT_GOOD` rather than `EFUSE_FLT` to reflect this.
 
 ---
 
@@ -364,67 +347,53 @@ resistors (~330 Ω for ~2 mA at VOL ≈ 0).
 | VBUS gating FET | TI CSD17318Q2 NexFET | WSON-6 (2×2) |
 | Buck (VBUS→5 V) | TI TPSM33606S5QRDNRQ1 | HotRod QFN module, integrated inductor |
 | LDO (5 V→3.3 V) | TI TPS74x01P | SON-6 |
-| Load eFuse | TI TPS259482AYWPR | POWERWCSP (YWP), DSBGA-12 |
+| Load eFuse | TI TPS259482LYWPR (LatchOff primary; TPS259482A drop-in for AutoRetry) | POWERWCSP (YWP), DSBGA-12 |
+| eFuse DISABLE FET | TI CSD13380F3 FemtoFET | 0.6×1.0 mm X2SON-3 |
 | DIP switch | DS04-254-1-04BK-SMT, 4-pos | SMT, 2.54 mm pitch |
 | V-bargraph LEDs | Inolux IN-PI15TAT5R5G5B (×8) | 1.5×1.5 mm, 4-pad |
-| Status LEDs | 7× generic 0603 (green ×2, red ×2, blue ×2, white ×1) | 0603 |
+| Status LEDs | 7× generic 0402 (green ×2, red ×2, blue ×2, yellow ×1) | 0402 |
 | Buttons | Omron B3U-1000P (×2) | SMT tactile |
 | SWD | Tag-Connect TC2030-IDC-NL | pads only, no connector |
-| Test pads | flat SMD pad (~1.5×1.5 mm) | SMT |
+| Test pads | flat SMD pad (~1.5×1.5 mm, stdlib TestPoint) | SMT |
 | Load output | WAGO 2060-452/998-404 | SMD push-in, 2-pole, 4 mm pitch |
-| Probe headers | 2× 2×4 0.1″ pin header | SMT or THT |
-| UART header | 1×4 0.1″ pin header | SMT or THT |
+| Probe header | 1× 2×4 2.54 mm SMT vertical male (stdlib generic) | SMT |
+| UART header | 1×4 2.54 mm SMT vertical male (stdlib generic) | SMT |
+| Fiducials | 3× front-side standard 1 mm fiducials (stdlib generic) | SMT |
 
-### Support passives (commodity, must be present)
+### Support passives
 
-- **MCU decoupling**: 100 nF 0402 on each VDD pin (VDD ×2, VDDA, VDDIO2,
-  VDDUSB) + 1× ≥ 1 µF bulk near MCU.
-- **NRST filter**: 100 nF 0402, NRST → GND.
-- **BOOT0 pull-down**: 10 kΩ (so the button defines the only 1-state).
-- **VBAT tie**: short to VDD; RTC backup unused.
-- **VBUS_RAW bulk**: 4.7–10 µF ceramic near USB-C receptacle (USB 2.0
-  spec).
-- **VBUS_PROT bulk**: 22 µF X7R ceramic, 50 V (eFuse app-note value).
-- **VBUS_OUT bulk**: 22 µF X7R ceramic, 50 V (eFuse app-note value).
-- **TCPP01 OVP divider**: external resistor pair sets 22 V threshold.
-- **TPS259482 UVLO/OVLO divider**: 3-resistor combined divider sets
-  UVLO = 4.5 V and OVLO = 22 V per datasheet §8.3. UVLO = 4.5 V (rather
-  than the more conservative 5 V) passes the USB-C default 5 V attach
-  cleanly while keeping V_EN ≤ 6.5 V abs max at the 22 V VBUS_PROT
-  ceiling (V_EN_max = 22 × 1.2 / 4.5 = 5.87 V). Threshold values drop
-  into the registry component as `uvlo_threshold=4.5V`,
-  `ovlo_threshold=22V`.
-- **TPS259482 ILIM resistor**: sized for ~6 A current limit (1.2× the
-  5 A continuous spec); registry config `current_limit=6A`.
-- **TPS259482 dV/dt cap**: 1 nF default (~4 ms output rise at 20 V) is
-  fine for Renfield's load profile; tune if downstream bulk demands.
-- **Latch-off vs auto-retry is a SKU choice**, not a passive: load the
-  TPS259482L variant for default "stop the world on fault" dev-board
-  behavior; TPS259482A (drop-in) gives auto-retry. Set the registry
-  component `fault_response` accordingly.
-- **TPS259482 DISABLE kill switch**: the eFuse self-enables whenever
-  VBUS_PROT is in the UVLO/OVLO window. Firmware can assert the
-  DISABLE signal (active-high) to force the output off. Implemented
-  on-board via a small-signal N-channel FET (CSD13380F3 FemtoFET):
-  drain on the TPS259482 EN/UVLO node, source to GND, gate driven by
-  PB8 with a 100 kΩ pull-down to GND. Default state is NFET off
-  (MCU HiZ at reset → divider self-gates the eFuse). Driving PB8 high
-  clamps EN to GND and disables the eFuse. This geometry is required
-  because push-pull GPIO directly on EN/UVLO would clamp the analog
-  divider and defeat OVLO (TPS259482 DS §7.1, §8.1.2.1).
-- **TCPP01 FLT, eFuse SPLYGD pulled to 3V3 via the status LED**: each
-  open-drain pin sees `3V3 → R (~1.5 kΩ) → LED → pin`. The series R
-  doubles as both the fault-LED current limit and the open-drain
-  pull-up the MCU input needs. EE may add a parallel high-Z pull-up
-  (e.g. 100 kΩ) if MCU input timing requires faster recovery.
-- **WS2812 chain decoupling**: 100 nF per LED (best practice for
-  addressable RGB chains).
-- **DIP-switch pull-ups**: 100 kΩ each to 3V3 (or use MCU internal
-  pull-ups if firmware enables them — EE choice). Switch shorts to GND
-  when closed.
-- **VBUS_OUT_DIV ÷10**: 90 kΩ + 10 kΩ from VBUS_OUT to GND — routed to
-  an MCU ADC channel (ADC_V) and exposed at TP4 + Header B pin 1.
-  Optional 100 Ω + 1 nF RC filter on the ADC tap to attenuate noise.
+Most reference-design passives (MCU decoupling, TCPP01 VCC bypass +
+ESD shunt + OVP divider + FLT pull-up, buck/LDO input/output caps,
+eFuse UVLO/OVLO divider + ILIM + dVdt cap) are supplied inside their
+respective registry components.
+
+The board-level `.zen` adds only:
+
+- **VBUS_RAW bulk** near the USB-C receptacle (USB-C compliance + plug-
+  event / OVP-trip ride-through).
+- **VBUS_OUT bulk** close to the eFuse output (TPS259482 DS §8.8.1).
+- **CC line caps** on each post-TCPP01 CC net, sized to land in the
+  USB-PD §5.8.6 CC receiver capacitance budget (200–600 pF) once
+  TCPP01 and MCU pad contributions are added.
+- **VBUS_OUT ÷10 divider + RC filter** to the MCU ADC (ADC_V).
+- **NRST 100 nF filter**, **BOOT0 10 kΩ pull-down** on PA14/SWCLK.
+- **SPLYGD pull-up** to 3V3 (defined state before firmware configures
+  the MCU internal pull-up).
+- **DIP-switch pull-ups** to 3V3 (explicit external pulls — defined
+  state before firmware touches the UCPD2 strobe on PD0 / PD2).
+- **WS2812 DIN series R** for edge shaping on the first pixel.
+- **eFuse DISABLE NFET shunt geometry** (CSD13380F3 drain on EN/UVLO,
+  source to GND, PB8 gate drive, 100 kΩ pull-down). Required because
+  a push-pull GPIO directly on EN/UVLO would clamp the analog divider
+  and defeat OVLO (TPS259482 DS §7.1, §8.1.2.1). Default is NFET off;
+  driving PB8 high disables the eFuse.
+- **Latch-off vs auto-retry** is a silicon SKU choice, not a passive:
+  TPS259482L is loaded by default (dev board should stop on fault);
+  TPS259482A is a drop-in for auto-retry via the registry component's
+  `fault_response` config.
+
+Exact values, packages, and voltage ratings are specified in
+`Renfield.zen` — that is the authoritative BOM.
 
 ---
 
@@ -567,16 +536,13 @@ are assigned per the constraints in this spec.
   and are not specified in the hardware spec.
 - **PD PDO advertisement** content is firmware concern.
 - **Default LED brightness / animation** is firmware concern.
-- **TPS259482 exact ILIM resistor value** — EE selects per datasheet
-  using a target of ~6 A current limit.
-- **TCPP01 OVP divider exact resistor values** — EE selects per
-  datasheet for 22 V threshold.
-- **VBUS_OUT_DIV resistor values** — EE selects, target ÷10
-  attenuation for safe analog probing of full-scale VBUS at TP4.
 - **USB DFU VID:PID** — firmware concern; default to a development
   VID:PID (e.g. pid.codes) consistent with Feign.
 
----
+(TPS259482 ILIM resistor, TCPP01 OVP divider, VBUS_OUT_DIV, UVLO/OVLO
+resistors are now resolved: derived inside the registry components from
+the high-level thresholds passed at instantiation. See §6 support
+passives.)
 
 ## 12. Design notes
 
@@ -593,8 +559,9 @@ are assigned per the constraints in this spec.
    is PD-stack firmware development, not power instrumentation.
    **VBUS voltage** is still measured on-board via the VBUS_OUT ÷10
    divider → ADC_V (one resistor pair, useful for AN4879 attach
-   detection). The eFuse's IMON pin is exposed at TP11 as a free
-   analog scope point for users wanting a quick current visual.
+   detection). The eFuse's ILM pin is exposed at TP_EFUSE_IMON as a
+   free analog scope point (~3 V/A) for users wanting a quick current
+   visual.
 
 3. **The 5 V rail exists for the WS2812 LEDs.** It is not strictly
    needed by anything else. We don't power the MCU from 5 V because
@@ -606,7 +573,7 @@ are assigned per the constraints in this spec.
    *information* surface where richness matters (color zones,
    brightness, animation). The status LEDs are *diagnostic* — they
    must work when firmware is broken. A stuck DMA buffer or a blown
-   WS2812 silently breaks a unified RGB ladder; a GPIO and a 0603
+   WS2812 silently breaks a unified RGB ladder; a GPIO and a 0402
    LED won't. The **rail LEDs are wired straight to the rails** and
    the **fault LEDs are wired straight off the open-drain fault
    pins** — no MCU, no PG pin, no firmware involvement. The MCU
@@ -642,12 +609,12 @@ are assigned per the constraints in this spec.
    unplugging the USB cable. Driving the EN/UVLO pin directly from a
    push-pull GPIO would defeat OVLO, hence the NFET-shunt geometry.
 
-8. **VBUS not on probe headers, divided-down sense IS.** The high-side
-   VBUS rails (RAW/PROT/OUT) stay off the probe headers — they go to
-   silk-warned test pads only. Header B carries the safe ÷10 ADC_V
-   analog signal and both open-drain fault flags. Keeping the
-   high-current noisy nets off the probe-header GND grommet preserves
-   CC1/CC2 BMC capture quality on Header A.
+8. **VBUS not on probe header, divided-down sense IS.** The high-side
+   VBUS rails (RAW/PROT) stay off the probe header — they go to
+   silk-warned test pads only. The header carries the safe ÷10 ADC_V
+   analog signal, the CC lines, a firmware scope marker, and two
+   open-drain fault flags. Keeping high-current noisy nets off the
+   probe-header GND pins preserves CC1/CC2 BMC capture quality.
 
 9. **CC1_RAW / CC2_RAW are exposed as test loops, deliberately.** A
    PD developer occasionally wants to see what the source is putting
