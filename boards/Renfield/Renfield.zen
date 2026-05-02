@@ -133,38 +133,22 @@ TCPP01(
 )
 
 # VBUS_RAW bulk — USB-C compliance (DS12900 §6.6.3 calls for ≥2.2 µF /
-# 50 V on VBUS). House cap is 4.7 µF X7R / 50 V / 0805. (The chip's
-# C_ESD on IN_GD is 100 nF — small, for ESD; this is the bulk.)
+# 50 V on VBUS). House cap is 4.7 µF X7R / 50 V / 0805.
 Capacitor(name="C_VBUS_RAW", value="4.7uF", voltage="50V", package="0805", P1=VBUS_RAW, P2=GND)
 
 # Pass FET — 30 V N-channel NexFET, 25 A silicon, WSON-6 2×2 (CSD17318Q2).
-# Drain = VBUS_RAW (also TCPP01 IN_GD); Source = VBUS_PROT (also TCPP01 SOURCE);
-# Gate = TCPP01 GATE (5–6 V regulated VGS per DS12900 Table 6).
+# VGS is regulated 5–6 V by TCPP01 GATE (DS12900 Table 6).
 NFET(name="Q_VBUS", current_rating="25A", D=VBUS_RAW, S=VBUS_PROT, G=FET_GATE)
 
 # Buck — TPSM33606S5 (5 V fixed, 0.6 A, integrated inductor, HotRod QFN).
 # VBUS_PROT (5–20 V) → V5V. EN auto-on via internal pull-up to VIN; PGOOD
 # and MODE_SYNC strap left to component defaults (AUTO/PFM at light load).
-Buck(
-    name="U_BUCK",
-    output_voltage="5V",
-    output_current="0.6A",
-    VIN=VBUS_PROT,
-    VOUT=V5V,
-    GND=GND,
-)
+Buck(name="U_BUCK", output_voltage="5V", output_current="0.6A", VIN=VBUS_PROT, VOUT=V5V, GND=GND)
 
 # LDO — TPS74501P (3.3 V, 500 mA, WSON-6 DRV). 5 V → 3V3 with the
 # 1.7 V headroom the part needs at full load. EN auto-on via internal
 # pull-up to VIN; open-drain PG left unconnected (no rail sequencing).
-LDO(
-    name="U_LDO",
-    output_voltage="3.3V",
-    output_current="500mA",
-    VIN=V5V,
-    VOUT=V3V3,
-    GND=GND,
-)
+LDO(name="U_LDO", output_voltage="3.3V", output_current="500mA", VIN=V5V, VOUT=V3V3, GND=GND)
 
 # eFuse — TPS259482L (LatchOff variant: dev board should stop on fault).
 # 12-ball PowerWCSP YWP, 12.2 mΩ, 8 A capable. Configured for:
@@ -173,9 +157,6 @@ LDO(
 #                so 5 V USB-C default attach passes UVLO.
 #   ovlo=22V   — redundant with TCPP01 OVP at the same threshold.
 #   ilim=6A   — covers 60 W max contract (12V×5A or 20V×3A) with headroom.
-# EN/UVLO is the combined analog enable node: push-pull GPIO on this pin
-# would clamp the divider and defeat OVLO (TPS259482 DS §7.1, §8.1.2.1).
-# Instead we expose a DISABLE input via a small-signal NFET shunt (below).
 EFuse(
     name="U_EFUSE",
     fault_response="LatchOff",
@@ -189,31 +170,28 @@ EFuse(
     SPLYGD=EFUSE_SPLYGD,
 )
 
-# eFuse DISABLE shunt — CSD13380F3 FemtoFET N-channel (12V, 76 mΩ @ 4.5V,
-# PICOSTAR YJM). Drain = eFuse EN/UVLO analog node; source = GND; gate =
-# EFUSE_DISABLE. When MCU PB8 is HiZ at reset, the 100 kΩ pull-down holds
-# the gate LOW → NFET off → EN/UVLO divider self-gates the eFuse normally.
-# Driving PB8 HIGH (≥1 V) turns the NFET on, clamping EN to GND and forcing
-# the eFuse off — used to clear a LatchOff trip (HIGH→delay→LOW) or as a
-# firmware kill switch.
-NfetSmall(
-    name="Q_EFUSE_DISABLE",
-    channel="N",
-    vds="12V",
-    D=EFUSE_EN,
-    G=EFUSE_DISABLE,
-    S=GND,
-)
+# eFuse DISABLE shunt — CSD13380F3 FemtoFET N-channel. PB8 HiZ/LOW (default
+# via 100 kΩ pull-down) leaves the EN/UVLO divider intact; PB8 HIGH clamps
+# EN to GND (firmware kill switch; also used to clear a LatchOff trip).
+NfetSmall(name="Q_EFUSE_DISABLE", channel="N", vds="12V", D=EFUSE_EN, G=EFUSE_DISABLE, S=GND)
 Resistor(name="R_EFUSE_DISABLE_PD", value="100kohm", package="0402", P1=EFUSE_DISABLE, P2=GND)
 
 # Output terminal block — WAGO 2060-452 (2-pos, white, push-in cage clamp).
-Wago(
-    name="J_OUT",
-    positions=2,
-    color="white",
-    P1=VBUS_OUT,
-    P2=GND,
-)
+Wago(name="J_OUT", positions=2, color="white", P1=VBUS_OUT, P2=GND)
+
+# VBUS_OUT local bulk — TPS259482 DS §8.8.1 calls for ≥1 µF low-ESR close to
+# OUT/GND to damp L·dI/dt spikes during short-circuit interruption.
+Capacitor(name="C_VBUS_OUT", value="4.7uF", voltage="50V", package="0805", P1=VBUS_OUT, P2=GND)
+
+# SPLYGD pull-up — open-drain per DS §7.3.8. Pull to V3V3 so PB7 reads valid
+# logic at MCU reset before firmware configures the internal pull-up.
+Resistor(name="R_SPLYGD_PU", value="100kohm", package="0402", P1=EFUSE_SPLYGD, P2=V3V3)
+
+# CC line capacitors — USB PD §5.8.6 / DS12900 §6.6.4 mandate 200–600 pF total
+# CC receiver capacitance for correct BMC edge shaping. 220 pF external lands
+# us mid-band with TCPP01 + STM32 pad contributions.
+Capacitor(name="C_CC1", value="220pF", voltage="25V", package="0402", P1=CC1_MCU, P2=GND)
+Capacitor(name="C_CC2", value="220pF", voltage="25V", package="0402", P1=CC2_MCU, P2=GND)
 
 # VBUS_OUT ÷10 divider for ADC sense. At 22 V max, ADC sees 2.18 V; at 5 V,
 # 0.50 V. 10 nF tap-to-GND filter rolls off above f_c ≈ 1.7 kHz to keep ADC
@@ -245,6 +223,3 @@ STM32G0B1(
 )
 
 Board(name="Renfield", layout_path="layout", layers=4)
-
-# pcb:sch U_MCU x=-203.2000 y=-279.4000 rot=0
-# pcb:sch U_TCPP01.U x=672.1000 y=240.3000 rot=0 mirror=y
