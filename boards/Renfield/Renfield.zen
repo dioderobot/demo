@@ -1,10 +1,10 @@
 """Renfield (DM0005) — USB-C PD sink dev board for STM32G0B1 UCPD firmware.
 
 This file currently captures the core PD power-input chain, the
-STM32G0B1 UCPD1 wiring, the rail subsystem that boots the MCU, and
-the load-output path (eFuse + WAGO + ADC sense). Observability
-(LEDs, DIP switches, buttons, probe headers, test pads, debug header,
-USB-data ESD) is deferred to follow-up commits.
+STM32G0B1 UCPD1 wiring, the rail subsystem that boots the MCU, the
+load-output path (eFuse + WAGO + ADC sense), and USB-data ESD
+protection. Observability (LEDs, DIP switches, buttons, probe headers,
+test pads, debug header) is deferred to follow-up commits.
 
 Power flow:
     USB-C VBUS  →  TCPP01-M12 IN_GD  →  CSD17318Q2 (drain)
@@ -71,6 +71,7 @@ LDO = Module("github.com/diodeinc/registry/components/Texas_Instruments/TPS74x01
 EFuse = Module("github.com/diodeinc/registry/components/Texas_Instruments/TPS259482/TPS259482.zen")
 NfetSmall = Module("github.com/diodeinc/registry/components/Texas_Instruments/CSDxxxxxF3/CSDxxxxxF3.zen")
 Wago = Module("github.com/diodeinc/registry/components/Wago/2060-4xx_998-404/2060-4xx_998-404.zen")
+TPD4E05 = Module("github.com/diodeinc/registry/components/TPD4E05U06QDQARQ1/TPD4E05U06QDQARQ1.zen")
 STM32G0B1 = Module("github.com/diodeinc/registry/components/STMicroelectronics/STM32G0B1KxUxN/STM32G0B1KxUxN.zen")
 
 Resistor = Module("@stdlib/generics/Resistor.zen")
@@ -193,6 +194,19 @@ Resistor(name="R_SPLYGD_PU", value="100kohm", package="0402", P1=EFUSE_SPLYGD, P
 Capacitor(name="C_CC1", value="220pF", voltage="25V", package="0402", P1=CC1_MCU, P2=GND)
 Capacitor(name="C_CC2", value="220pF", voltage="25V", package="0402", P1=CC2_MCU, P2=GND)
 
+# USB-data ESD — TPD4E05U06 4-channel TVS array. TCPP01-M12 protects CC + VBUS
+# but not the D+/D- pair; this sits inline on those two nets (pass-through
+# footprint). Unused second channel (D2) tied to GND. 0.2 pF line capacitance
+# is fine for USB 2.0 FS; part is overkill (5 Gbps rated) but cheap and stocked.
+TPD4E05(
+    name="U_USBESD",
+    D1P=USB_C.D.P,  # D+
+    D1M=USB_C.D.N,  # D−
+    D2P=GND,
+    D2M=GND,
+    GND=GND,
+)
+
 # VBUS_OUT ÷10 divider for ADC sense. At 22 V max, ADC sees 2.18 V; at 5 V,
 # 0.50 V. 10 nF tap-to-GND filter rolls off above f_c ≈ 1.7 kHz to keep ADC
 # noise low (R_th = R_top || R_bot ≈ 9 kΩ).
@@ -216,6 +230,9 @@ STM32G0B1(
     # TCPP01 control / status.
     PB1=TCPP01_DB,  # GPIO output: TCPP01 dead-battery release (active-high)
     PB6=TCPP01_FLT,  # GPIO input:  TCPP01 fault flag (open-drain, FT_fa)
+    # USB 2.0 FS — native PA11/PA12 (no remap).
+    PA11=USB_C.D.N,  # USB D− (post-TPD4E05 on the same net)
+    PA12=USB_C.D.P,  # USB D+ (post-TPD4E05 on the same net)
     # eFuse control / status + VBUS_OUT analog sense.
     PA0=ADC_VBUS_OUT,  # ADC_IN0: VBUS_OUT ÷10 divider tap
     PB7=EFUSE_SPLYGD,  # GPIO input:  TPS259482 SPLYGD (open-drain, FT_fa)
