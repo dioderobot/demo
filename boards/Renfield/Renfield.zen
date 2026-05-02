@@ -5,8 +5,8 @@ STM32G0B1 UCPD1 wiring, the rail subsystem that boots the MCU, the
 load-output path (eFuse + WAGO + ADC sense), USB-data ESD, the
 bring-up kit (RESET/BOOT0 buttons, Tag-Connect SWD pads), all 7
 status LEDs, the 8-pixel WS2812 V-bargraph, the 4-pos DIP switch,
-and the UART debug header. Remaining I/O (probe headers, test pads)
-is deferred to follow-up commits.
+the UART debug header, and the PD-dev probe header. Remaining I/O
+(test pads) is deferred to follow-up commits.
 
 Power flow:
     USB-C VBUS  →  TCPP01-M12 IN_GD  →  CSD17318Q2 (drain)
@@ -136,6 +136,10 @@ ADC_VBUS_OUT = Net()  # VBUS_OUT ÷10 divider tap → MCU PA0 (ADC)
 HEARTBEAT_LED = Net()  # PA1
 PD_CONTRACT_LED = Net()  # PA4
 USB_ENUM_LED = Net()  # PA5
+
+# Firmware-driven scope trigger — toggle PA6 (TIM3_CH1 AF1) at any PD
+# state transition so the Saleae/scope can trigger on it.
+SCOPE_MARKER = Net()  # PA6
 
 # WS2812 V-bargraph data line — MCU PA7 (SPI1_MOSI AF0) → series R →
 # first pixel's DIN. Firmware bit-bangs the 800 kHz NeoPixel protocol
@@ -281,6 +285,7 @@ STM32G0B1(
     PA4=PD_CONTRACT_LED,  # PD contract held
     PA5=USB_ENUM_LED,  # USB host enumerated
     PA7=WS2812_DATA,  # SPI1_MOSI → WS2812 V-bargraph data in
+    PA6=SCOPE_MARKER,  # TIM3_CH1 AF1: firmware scope trigger
     # USART2 debug header (FTDI-basic pinout).
     PA2=UART.TX,  # USART2_TX AF1
     PA3=UART.RX,  # USART2_RX AF1
@@ -376,5 +381,27 @@ Resistor(name="R_DIP4", value="100kohm", package="0402", P1=DIP_SW4, P2=V3V3)
 # generic). FTDI-basic pinout so a stock FTDI cable mates directly:
 #   Pin 1: GND | Pin 2: TX (MCU out) | Pin 3: RX (MCU in) | Pin 4: 3V3
 PinHeader(name="J_UART", pins=4, P1=GND, P2=UART.TX, P3=UART.RX, P4=V3V3)
+
+# PD-dev probe header — 2×4 SMT vertical 2.54 mm male pin header. Sized
+# for hookup-wire breakout to Saleae Logic Pro 8 (not the grommet).
+# Analog-class signals grouped on pins 1–3 next to a GND on pin 4;
+# digital-class signals on pins 6–8 next to a GND on pin 5.
+#   1: CC1_MCU (BMC)       5: GND
+#   2: CC2_MCU (BMC)       6: SCOPE_MARKER
+#   3: ADC_V (VBUS÷10)     7: TCPP01 FLT (OD)
+#   4: GND                 8: eFuse SPLYGD (OD)
+PinHeader(
+    name="J_PROBE",
+    pins=4,
+    rows=2,
+    P1=CC1_MCU,
+    P2=CC2_MCU,
+    P3=ADC_VBUS_OUT,
+    P4=GND,
+    P5=GND,
+    P6=SCOPE_MARKER,
+    P7=TCPP01_FLT,
+    P8=EFUSE_SPLYGD,
+)
 
 Board(name="Renfield", layout_path="layout", layers=4)
