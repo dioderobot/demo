@@ -63,7 +63,7 @@ Primary use cases:
 | R17 | Crystal-less USB via HSI48 + CRS (no HSE) | P0 |
 | R18 | TPSM33606S5 buck (VBUS→5 V, integrated inductor) feeding TPS74x01P LDO (5 V→3V3) | P0 |
 | R19 | WAGO 2060-452 SMD push-in 2-pole terminal block as test-load output | P0 |
-| R20 | A7 form factor (74 × 105 mm), 4-layer board, 4× M3 corner mounting holes | P0 |
+| R20 | A8 form factor (52 × 74 mm), 4-layer board, 4× M3 corner mounting holes | P0 |
 | R21 | Fully SMT, single-pass reflow, all parts T&R, US-stocked | P0 |
 | R22 | 60 W maximum design point (20 V × 3 A or 12 V × 5 A — never both) | P0 |
 
@@ -485,7 +485,7 @@ are assigned per the constraints in this spec.
 
 ## 8. Mechanical & environmental
 
-- **Form factor**: A7 (74 × 105 mm), single rectangular outline.
+- **Form factor**: A8 (52 × 74 mm), single rectangular outline.
 - **Stack-up**: 1.6 mm FR4, **4 layers**, 1 oz copper.
 - **Layer use** (suggested, EE may revise during layout):
   - Top: signal + components
@@ -635,7 +635,7 @@ passives.)
     integrated. No external pull-up.
 
 13. **Tag-Connect over a populated SWD header** because the board is
-    deliberately small (A7 = 74×105 mm) and SWD is a one-off
+    deliberately small (A8 = 52×74 mm) and SWD is a one-off
     programming step. Anyone doing serious SWD work plugs in the
     Tag-Connect cable; nobody needs a 10-pin Cortex header sticking
     up off the board permanently.
@@ -647,5 +647,5 @@ passives.)
 15. **No active cooling.** Steady-state dissipation at 5 A worst
     case (TPSM33606S5 ~150 mW + CSD17318Q2 ~500 mW + TPS259482
     ~830 mW + TPS74x01P ~140 mW + LEDs + MCU ≈ 1.7 W) is fine in a
-    4-layer A7 board with reasonable copper pours. A typical session
+    4-layer A8 board with reasonable copper pours. A typical session
     at 9 V × 1 A is well under 0.5 W board-wide.
