@@ -1,65 +1,22 @@
 """Renfield (DM0005) — USB-C PD sink dev board for STM32G0B1 UCPD firmware.
 
-This file captures the full Renfield design per spec: PD power-input
-chain, STM32G0B1 UCPD1 wiring, rail subsystem, load-output path (eFuse
-+ WAGO + ADC sense), USB-data ESD, bring-up kit (RESET/BOOT0 buttons,
-Tag-Connect SWD pads), all 7 status LEDs, 8-pixel WS2812 V-bargraph,
-4-pos DIP switch, UART debug header, 2×4 PD-dev probe header, and
-SMD test pads.
+Power flow (split MCU / load domain, DS12900 §6.1):
 
-Power flow:
-    USB-C VBUS  →  TCPP01-M12 IN_GD  →  CSD17318Q2 (drain)
-                                              │
-                                       gate driven by
-                                       TCPP01 GATE pin
-                                       (VGS regulated 5–6 V)
-                                              │
-                                          (source)  →  VBUS_PROT
-                                              │
-                                       monitored by
-                                       TCPP01 SOURCE pin
+    USB-C VBUS  ─►  VBUS_RAW  ─┬─►  TPSM33606S3 buck  ─►  V3V3 ─► MCU + TCPP01
+                               │
+                               └─►  TCPP01 IN_GD + CSD17318Q2 (gated)
+                                                            │
+                                                            ▼
+                                                       VBUS_PROT  ─►  WAGO
 
-CC negotiation:
-    USB-C CC1/CC2  →  TCPP01 CCxc  →  internal back-to-back OVP FETs
-                                          │
-                                          ▼
-                                       TCPP01 CC1/CC2 (system side)
-                                          │
-                                          ▼
-                                       MCU PA8 (CC1) / PB15 (CC2)
-                                       — plus PA9/PA10 shorted to
-                                       PA8/PB15 on the PCB for the
-                                       UCPD1 dead-battery sense (DBCC1
-                                       / DBCC2) per AN5225 §11.3.1.
+Buck runs off VBUS_RAW so the MCU boots the moment the cable goes live
+and stays alive through OVP events. TCPP01's VCC therefore has a real
+3.3 V supply when it needs to drive the FET gate (DS12900 conditions
+all VGS specs on VCC = 3.0–3.6 V). The FET gates only the LOAD rail.
 
-Hardware OVP:
-    Programmed inside the TCPP01 module via `vbus_ovp_threshold="22V"`.
-    The chip's internal divider (R_OVP_TOP computed, R_OVP_BOT = 18 kΩ)
-    targets V_ovp_th = 1.27 V typ → 22 V trip. FET turns off above the
-    threshold.
-
-Rail subsystem:
-    VBUS_PROT  →  TPSM33606S5 buck  →  V5V (5 V, 0.6 A)
-                                          │
-                                          ▼
-                              TPS74501P LDO  →  V3V3 (3.3 V, 500 mA)
-                                          │
-                                          ▼
-                              MCU VDD/VDDA/VDDIO2 + TCPP01 VCC
-
-Load output:
-    VBUS_PROT  →  TPS259482L eFuse (self-gated via UVLO/OVLO)  →  VBUS_OUT  →  WAGO 2060-452
-                                          │
-                                          ▼
-                              R_VOUT_DIV_HI/LO ÷10 → PA0 ADC sense
-    Faults latch off; supply-good (active-high) reported on PB7. Current limit 6 A;
-    UVLO 4.5 V (lets 5 V USB-C default pass); OVLO 22 V (redundant with TCPP01).
-    Firmware kill switch: PB8 → on-board CSD13380F3 NFET shunt on EN/UVLO
-    (drive HIGH to disable; default-low via 100 kΩ pull-down). Push-pull GPIO
-    cannot drive EN/UVLO directly — that would defeat OVLO (DS §7.1).
-
-Pinout: see boards/Renfield/spec.md §7.
-References: ST DS12900 (TCPP01-M12), ST AN5225 (UCPD), TI CSD17318Q2 DS.
+CC1/CC2 go through TCPP01's internal OVP FETs to the MCU's UCPD1
+CC1/CC2 pins, with PA9/PA10 shorted to PA8/PB15 on the PCB for the
+DBCC dead-battery sense (AN5225 §11.3.1).
 """
 
 load("@stdlib/interfaces.zen", "Ground", "NotConnected", "Power", "Swd", "Uart", "UsbTypeC")
@@ -68,21 +25,13 @@ UsbC16P = Module("github.com/diodeinc/registry/connectors/UsbC16P/UsbC16P.zen")
 TCPP01 = Module("github.com/diodeinc/registry/components/STMicroelectronics/TCPP01-M12/TCPP01-M12.zen")
 NFET = Module("github.com/diodeinc/registry/components/Texas_Instruments/CSD1731xQ2/CSD1731xQ2.zen")
 Buck = Module("github.com/diodeinc/registry/components/Texas_Instruments/TPSM336xx-Q1/TPSM336xx-Q1.zen")
-LDO = Module("github.com/diodeinc/registry/components/Texas_Instruments/TPS74x01P/TPS74x01P.zen")
-EFuse = Module("github.com/diodeinc/registry/components/Texas_Instruments/TPS259482/TPS259482.zen")
-NfetSmall = Module("github.com/diodeinc/registry/components/Texas_Instruments/CSDxxxxxF3/CSDxxxxxF3.zen")
 Wago = Module("github.com/diodeinc/registry/components/Wago/2060-4xx_998-404/2060-4xx_998-404.zen")
-TPD4E05 = Module("github.com/diodeinc/registry/components/TPD4E05U06QDQARQ1/TPD4E05U06QDQARQ1.zen")
-Button = Module("github.com/diodeinc/registry/components/B3U-1000P/B3U-1000P.zen")
 TagConnect = Module("github.com/diodeinc/registry/connectors/TagConnect/TC2030-NL_SWD.zen")
-WS2812 = Module("github.com/diodeinc/registry/components/Inolux/IN-PI15TAT5R5G5B/IN-PI15TAT5R5G5B.zen")
-DipSwitch = Module("github.com/diodeinc/registry/components/DS04-254-1-04BK-SMT/DS04-254-1-04BK-SMT.zen")
 STM32G0B1 = Module("github.com/diodeinc/registry/components/STMicroelectronics/STM32G0B1KxUxN/STM32G0B1KxUxN.zen")
 
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 Led = Module("@stdlib/generics/Led.zen")
-PinHeader = Module("@stdlib/generics/PinHeader.zen")
 TestPoint = Module("@stdlib/generics/TestPoint.zen")
 Fiducial = Module("@stdlib/generics/Fiducial.zen")
 Version = Module("@stdlib/generics/Version.zen")
@@ -103,343 +52,140 @@ def fault_led(name, od_pin, color, resistance):
     Led(name="D_" + name, color=color, package="0402", A=A, K=od_pin)
 
 
-# Top-level rails / nets
-VBUS_RAW = Power(voltage="5V to 22V")  # USB-C VBUS, FET drain, TCPP01 IN_GD
-VBUS_PROT = Power(voltage="5V to 22V")  # FET source, TCPP01 SOURCE, OVP-clamped
-V5V = Power(voltage="5V")  # buck output, LDO + (future) WS2812 chain input
+# Rails
+VBUS_RAW = Power(voltage="5V to 22V")  # receptacle VBUS, always hot
+VBUS_PROT = Power(voltage="5V to 22V")  # post-FET load rail → WAGO
 V3V3 = Power(voltage="3.3V")  # MCU + TCPP01 VCC
-VBUS_OUT = Power(voltage="5V to 22V")  # eFuse output → WAGO terminal
 GND = Ground()
 
-USB_C = UsbTypeC()  # USB-C signal bundle (CC1/CC2/D+/D-/SBU)
-SWD = Swd()  # PA13 SWDIO ; PA14 SWCLK (also BOOT0)
-UART = Uart()  # PA2 TX / PA3 RX — USART2 AF1 to UART header
-NRST = Net()  # shared between RESET button, Tag-Connect pin 3, MCU NRST, filter cap
-
-# Post-TCPP01 CC nets (system-side CC out of TCPP01, into MCU UCPD1).
+# Buses / signals
+USB_C = UsbTypeC()
+SWD = Swd()
+UART = Uart()
+NRST = Net()
 CC1_MCU = Net()
 CC2_MCU = Net()
-
-# TCPP01 control / status. VCC ties straight to V3V3 — the GPIO-as-VCC
-# trick (DS12900 §6.7) only buys 0-Iq standby on battery-powered sinks,
-# and Renfield is USB-only.
-TCPP01_DB = Net()  # MCU PB1 → TCPP01 DB/
-TCPP01_FLT = Net()  # TCPP01 FLT/ → MCU PB6 (chip provides internal pull-up to VCC)
-
-# External FET gate, driven by TCPP01 GATE pin.
+TCPP01_DB = Net()
+TCPP01_FLT = Net()
 FET_GATE = Net()
-
-# eFuse control / status + analog VBUS_OUT sense.
-EFUSE_EN = Net()  # TPS259482 EN/UVLO analog node — NFET shunts to GND when DISABLE is high
-EFUSE_DISABLE = Net()  # MCU PB8 → NFET gate (active-high kill switch, default-low via pull-down)
-EFUSE_SPLY_GOOD_N = Net()  # TPS259482 SPLYGD open-drain → MCU PB7.
-                            # Active-high supply-good (DS §7.3.8 / Table 7-3):
-                            # de-asserts (pulls LOW) on UVLO / OVLO / inrush
-                            # only. Load-side faults (OC, SC, OTP, reverse)
-                            # do NOT de-assert SPLYGD — this is NOT a
-                            # general load-fault indicator.
-ADC_VBUS_OUT = Net()  # VBUS_OUT ÷10 divider tap → MCU PA0 (ADC)
-
-# GPIO-driven status LED anodes (MCU pin → R → LED → GND).
-HEARTBEAT_LED = Net()  # PA1
-PD_CONTRACT_LED = Net()  # PA4
-USB_ENUM_LED = Net()  # PA5
-
-# Firmware-driven scope trigger — toggle PA6 (TIM3_CH1 AF1) at any PD
-# state transition so the Saleae/scope can trigger on it.
-SCOPE_MARKER = Net()  # PA6
-
-# Analog current-monitor tap off the TPS259482 ILM/ILIM pin. Same net as
-# the internal R_ILM setpoint resistor; voltage ≈ 3 V per amp of I_OUT.
-# Exposed only for the test pad.
-EFUSE_IMON = Net()
-
-# WS2812 V-bargraph data line — MCU PA7 (SPI1_MOSI AF0) → series R →
-# first pixel's DIN. Firmware bit-bangs the 800 kHz NeoPixel protocol
-# over SPI MOSI with appropriate clock timing.
-WS2812_DATA = Net()  # PA7 side
-WS2812_DIN1 = Net()  # post-R, first pixel's DIN
-
-# 4-pos DIP switch on PD0–PD3. COM → MCU GPIO + 100 kΩ to 3V3; NO → GND.
-# Closed switch reads LOW, open reads HIGH. External pull-ups give a
-# defined state even before firmware enables internal pulls — and before
-# firmware releases the UCPD2 dead-battery Rd on PD0/PD2 (FT_cs pins).
-DIP_SW1 = Net()  # PD0
-DIP_SW2 = Net()  # PD1
-DIP_SW3 = Net()  # PD2
-DIP_SW4 = Net()  # PD3
+SCOPE_MARKER = Net()
+HEARTBEAT_LED = Net()
+PD_CONTRACT_LED = Net()
+USB_ENUM_LED = Net()
 
 # USB-C receptacle
 UsbC16P(name="J_USB", VBUS=VBUS_RAW, USB_C=USB_C, GND=GND)
 
-# TCPP01-M12 — CC OVP, VBUS OVP via external N-FET, dead-battery management.
-# Reference passives (VCC bypass, IN_GD ESD shunt, OVP divider, FLT pull-up)
-# are provided by the component module.
+# TCPP01-M12 — CC OVP, VBUS OVP via external N-FET, dead-battery Rd.
+# Reference passives (VCC bypass, IN_GD ESD shunt, OVP divider,
+# FLT pull-up) live inside the component module.
 TCPP01(
     name="U_TCPP01",
     vbus_ovp_threshold="22V",
     VCC=V3V3,
     GND=GND,
-    # Connector-side: CC + VBUS straight from the receptacle.
     CC1C=USB_C.CC1,
     CC2C=USB_C.CC2,
     IN_GD=VBUS_RAW,
-    # System-side CC out of internal back-to-back OVP FETs → MCU UCPD1.
     CC1=CC1_MCU,
     CC2=CC2_MCU,
-    # External NMOS pass switch driver.
     GATE=FET_GATE,
     SOURCE=VBUS_PROT,
-    VBUS_CTRL=Net("VBUS_OVP_SENSE"),  # internal divider biases this; not routed to MCU
-    # Control / status.
+    VBUS_CTRL=Net("VBUS_OVP_SENSE"),  # driven by internal divider
     DB=TCPP01_DB,
     FLT=TCPP01_FLT,
 )
 
-# VBUS_RAW bulk — USB-C compliance (DS12900 §6.6.3 calls for ≥2.2 µF /
-# 50 V on VBUS). House cap is 4.7 µF X7R / 50 V / 0805.
-Capacitor(name="C_VBUS_RAW", value="4.7uF", voltage="50V", package="0805", P1=VBUS_RAW, P2=GND)
+# USB-C sink bulk: buck C_IN1 (4.7 µF) + C_IN2 (100 nF) + TCPP01 C_ESD
+# (100 nF) ≈ 4.9 µF on VBUS_RAW, within the 1–10 µF CSNK window.
 
-# Pass FET — 30 V N-channel NexFET, 25 A silicon, WSON-6 2×2 (CSD17318Q2).
-# VGS is regulated 5–6 V by TCPP01 GATE (DS12900 Table 6).
+# Pass FET — CSD17318Q2 NexFET. Gates the LOAD rail only.
 NFET(name="Q_VBUS", current_rating="25A", D=VBUS_RAW, S=VBUS_PROT, G=FET_GATE)
 
-# Buck — TPSM33606S5 (5 V fixed, 0.6 A, integrated inductor, HotRod QFN).
-# VBUS_PROT (5–20 V) → V5V. EN auto-on via internal pull-up to VIN; PGOOD
-# and MODE_SYNC strap left to component defaults (AUTO/PFM at light load).
-Buck(name="U_BUCK", output_voltage="5V", output_current="0.6A", VIN=VBUS_PROT, VOUT=V5V, GND=GND)
-
-# LDO — TPS74501P (3.3 V, 500 mA, WSON-6 DRV). 5 V → 3V3 with the
-# 1.7 V headroom the part needs at full load. EN auto-on via internal
-# pull-up to VIN; open-drain PG left unconnected (no rail sequencing).
-LDO(name="U_LDO", output_voltage="3.3V", output_current="500mA", VIN=V5V, VOUT=V3V3, GND=GND)
-
-# eFuse — TPS259482L (LatchOff variant: dev board should stop on fault).
-# 12-ball PowerWCSP YWP, 12.2 mΩ, 8 A capable. Configured for:
-#   uvlo=4.5V — V_EN at VBUS_PROT.max=22V is 22×1.2/4.5 = 5.87 V ≤ 6.5 V abs;
-#                at 5 V passthrough V_EN = 1.33 V > 1.2 V trip threshold,
-#                so 5 V USB-C default attach passes UVLO.
-#   ovlo=22V   — redundant with TCPP01 OVP at the same threshold.
-#   ilim=6A   — covers 60 W max contract (12V×5A or 20V×3A) with headroom.
-EFuse(
-    name="U_EFUSE",
-    fault_response="LatchOff",
-    current_limit="6A",
-    uvlo_threshold="4.5V",
-    ovlo_threshold="22V",
-    VIN=VBUS_PROT,
-    VOUT=VBUS_OUT,
+# Buck — TPSM33606S3 (3.3 V fixed trim, 0.6 A, integrated inductor).
+# Starts the moment VBUS appears so TCPP01's VCC is live before the
+# gate driver tries to close the FET.
+Buck(
+    name="U_BUCK",
+    output_voltage="3.3V",
+    output_current="0.6A",
+    VIN=VBUS_RAW,
+    VOUT=V3V3,
     GND=GND,
-    EN=EFUSE_EN,
-    SPLYGD=EFUSE_SPLY_GOOD_N,
-    ILM_MON=EFUSE_IMON,
 )
 
-# eFuse DISABLE shunt — CSD13380F3 FemtoFET N-channel. PB8 HiZ/LOW (default
-# via 100 kΩ pull-down) leaves the EN/UVLO divider intact; PB8 HIGH clamps
-# EN to GND (firmware kill switch; also used to clear a LatchOff trip).
-NfetSmall(name="Q_EFUSE_DISABLE", channel="N", vds="12V", D=EFUSE_EN, G=EFUSE_DISABLE, S=GND)
-Resistor(name="R_EFUSE_DISABLE_PD", value="100kohm", package="0402", P1=EFUSE_DISABLE, P2=GND)
+# Load output — WAGO 2060-452 push-in terminal.
+Wago(name="J_OUT", positions=2, color="white", P1=VBUS_PROT, P2=GND)
 
-# Output terminal block — WAGO 2060-452 (2-pos, white, push-in cage clamp).
-Wago(name="J_OUT", positions=2, color="white", P1=VBUS_OUT, P2=GND)
-
-# VBUS_OUT local bulk — TPS259482 DS §8.8.1 calls for ≥1 µF low-ESR close to
-# OUT/GND to damp L·dI/dt spikes during short-circuit interruption.
-Capacitor(name="C_VBUS_OUT", value="4.7uF", voltage="50V", package="0805", P1=VBUS_OUT, P2=GND)
-
-# SPLYGD pull-up — open-drain per DS §7.3.8. Pull to V3V3 so PB7 reads valid
-# logic at MCU reset before firmware configures the internal pull-up.
-Resistor(name="R_SPLY_GOOD_PU", value="100kohm", package="0402", P1=EFUSE_SPLY_GOOD_N, P2=V3V3)
-
-# CC line capacitors — USB PD §5.8.6 / DS12900 §6.6.4 mandate 200–600 pF total
-# CC receiver capacitance for correct BMC edge shaping. 220 pF external lands
-# us mid-band with TCPP01 + STM32 pad contributions.
+# CC line caps — lands CC receiver C mid-band in the USB-PD §5.8.6
+# 200–600 pF window with TCPP01 + STM32 pad contributions.
 Capacitor(name="C_CC1", value="220pF", voltage="25V", package="0402", P1=CC1_MCU, P2=GND)
 Capacitor(name="C_CC2", value="220pF", voltage="25V", package="0402", P1=CC2_MCU, P2=GND)
 
-# USB-data ESD — TPD4E05U06 4-channel TVS array. TCPP01-M12 protects CC + VBUS
-# but not the D+/D- pair; this sits inline on those two nets (pass-through
-# footprint). Unused second channel (D2) tied to GND. 0.2 pF line capacitance
-# is fine for USB 2.0 FS; part is overkill (5 Gbps rated) but cheap and stocked.
-TPD4E05(name="U_USBESD", D1P=USB_C.D.P, D1M=USB_C.D.N, D2P=GND, D2M=GND, GND=GND)
-
-# VBUS_OUT ÷10 divider for ADC sense. At 22 V max, ADC sees 2.18 V; at 5 V,
-# 0.50 V. 10 nF tap-to-GND filter rolls off above f_c ≈ 1.7 kHz to keep ADC
-# noise low (R_th = R_top || R_bot ≈ 9 kΩ).
-Resistor(name="R_VOUT_DIV_HI", value="90.9kohm", voltage="50V", package="0402", P1=VBUS_OUT, P2=ADC_VBUS_OUT)
-Resistor(name="R_VOUT_DIV_LO", value="10.0kohm", package="0402", P1=ADC_VBUS_OUT, P2=GND)
-Capacitor(name="C_VOUT_ADC", value="10nF", package="0402", P1=ADC_VBUS_OUT, P2=GND)
-
-# MCU — STM32G0B1KEU6N (UFQFPN-32 N-pinout, 512 KB flash). UCPD1 dead-battery
-# wiring per AN5225 §11.3.1: PA9 (DBCC1) is shorted to PA8 (CC1), PA10 (DBCC2)
-# to PB15 (CC2). Handled here by passing the same net to both MCU pins.
+# MCU — STM32G0B1KEU6N (UFQFPN-32 N-pinout, 512 KB flash). UCPD1
+# dead-battery wiring per AN5225 §11.3.1: DBCC1/2 shorted to CC1/2.
 STM32G0B1(
     name="U_MCU",
     memory_size="512KB",
     VDD=V3V3,
     GND=GND,
     NRST=NRST,
-    # UCPD1 — CC + DBCC dead-battery sense.
-    PA8=CC1_MCU,  # UCPD1_CC1
-    PA9=CC1_MCU,  # UCPD1_DBCC1 — shorted to CC1 on PCB
-    PB15=CC2_MCU,  # UCPD1_CC2
-    PA10=CC2_MCU,  # UCPD1_DBCC2 — shorted to CC2 on PCB
-    # TCPP01 control / status.
-    PB1=TCPP01_DB,  # GPIO output: TCPP01 dead-battery release (active-high)
-    PB6=TCPP01_FLT,  # GPIO input:  TCPP01 fault flag (open-drain, FT_fa)
-    # USB 2.0 FS — native PA11/PA12 (no remap).
-    PA11=USB_C.D.N,  # USB D− (post-TPD4E05 on the same net)
-    PA12=USB_C.D.P,  # USB D+ (post-TPD4E05 on the same net)
-    # SWD — PA14 doubles as BOOT0 at reset.
+    # UCPD1
+    PA8=CC1_MCU,
+    PA9=CC1_MCU,  # DBCC1 — shorted to CC1
+    PB15=CC2_MCU,
+    PA10=CC2_MCU,  # DBCC2 — shorted to CC2
+    # TCPP01 control / status
+    PB1=TCPP01_DB,
+    PB6=TCPP01_FLT,
+    # USB FS (native, no remap)
+    PA11=USB_C.D.N,
+    PA12=USB_C.D.P,
+    # SWD (PA14 also BOOT0)
     PA13=SWD.SWDIO,
     PA14=SWD.SWCLK,
-    # GPIO-driven status LEDs (source current, LED to GND).
-    PA1=HEARTBEAT_LED,  # slow blink = MCU alive
-    PA4=PD_CONTRACT_LED,  # PD contract held
-    PA5=USB_ENUM_LED,  # USB host enumerated
-    PA7=WS2812_DATA,  # SPI1_MOSI → WS2812 V-bargraph data in
-    PA6=SCOPE_MARKER,  # TIM3_CH1 AF1: firmware scope trigger
-    # USART2 debug header (FTDI-basic pinout).
-    PA2=UART.TX,  # USART2_TX AF1
-    PA3=UART.RX,  # USART2_RX AF1
-    # 4-pos DIP switch — firmware-defined semantics.
-    PD0=DIP_SW1,
-    PD1=DIP_SW2,
-    PD2=DIP_SW3,
-    PD3=DIP_SW4,
-    # eFuse control / status + VBUS_OUT analog sense.
-    PA0=ADC_VBUS_OUT,  # ADC_IN0: VBUS_OUT ÷10 divider tap
-    PB7=EFUSE_SPLY_GOOD_N,  # GPIO input: TPS259482 supply-not-good (LOW on UVLO/OVLO/inrush; NOT a load-fault indicator)
-    PB8=EFUSE_DISABLE,  # GPIO output: TPS259482 kill switch (active-high; NFET shunt on EN)
+    # Status LEDs
+    PA1=HEARTBEAT_LED,
+    PA4=PD_CONTRACT_LED,
+    PA5=USB_ENUM_LED,
+    PA6=SCOPE_MARKER,  # TIM3_CH1 AF1
+    # USART2 → test pads
+    PA2=UART.TX,
+    PA3=UART.RX,
 )
 
-# NRST noise filter — 100 nF close to the MCU NRST pin (RM0444 recommends).
+# NRST 100 nF filter + BOOT0 pull-down (PA14 doubles as BOOT0 at reset).
 Capacitor(name="C_NRST", value="100nF", package="0402", P1=NRST, P2=GND)
-
-# BOOT0 pull-down — PA14 doubles as BOOT0 at reset. Pulled low by default
-# so the chip boots from flash; BOOT0 button pulls it high for DFU entry.
 Resistor(name="R_BOOT0", value="10kohm", package="0402", P1=SWD.SWCLK, P2=GND)
 
-# RESET + BOOT0 tactile buttons (Omron B3U-1000P SMT).
-Button(name="SW_RESET", P1=NRST, P2=GND)
-Button(name="SW_BOOT0", P1=SWD.SWCLK, P2=V3V3)
-
 # Tag-Connect TC2030-IDC-NL SWD pads (no connector populated).
-# Cortex-M0+ has no SWO/ITM — SWO pin is NC.
+# Cortex-M0+ has no SWO/ITM.
 TagConnect(name="J_SWD", VSENSE=V3V3, GND=GND, SWD=SWD, NRST=NRST, SWO=NotConnected())
 
-# Rail LEDs — on whenever the rail is live; firmware-independent so they
-# work during first bring-up before any code is flashed. Target ~7 mcd:
-# green VLMG1500 at ~2 mA gives even brightness on both rails (R sized
-# for the source voltage).
-led("5V_RAIL", V5V, "green", "1.5kohm")
+# Status LEDs — rail + fault indicators are firmware-independent so
+# they stay useful when firmware is broken or unflashed. Resistors
+# sized for ~2 mA per LED (~7 mcd, comparable brightness across colors).
 led("3V3_RAIL", V3V3, "green", "680ohm")
-
-# Hardware-driven status LEDs — light when the open-drain source pulls
-# low. Firmware-independent; rail-good state stays visible even after
-# an MCU crash. Red VLMS1500 is ~2.2 mcd/mA (vs ~3.5 for green, ~6 for
-# blue), so 470 Ω at ~3 mA brings these in line with the rest at ~6 mcd.
-# The 470 Ω only burns current when the source pin is LOW; in the good
-# state the 100 kΩ / chip-internal pull-up dominates.
-#
-# TCPP01_FLT lights on any TCPP01 latched fault (CC OVP, VBUS OVP, OTP).
-# EFUSE_NOT_GOOD lights when the TPS259482 rail is not good (UVLO /
-# OVLO / inrush in progress). It does NOT light on load-side faults
-# (OC / SC / OTP / reverse) — those leave SPLYGD high per DS Table 7-3.
 fault_led("TCPP01_FLT", TCPP01_FLT, "red", "470ohm")
-fault_led("EFUSE_NOT_GOOD", EFUSE_SPLY_GOOD_N, "red", "470ohm")
-
-# GPIO-driven status LEDs — firmware indicators, sized to match the
-# ~7 mcd rail/fault brightness. Blue VLMB1500 is efficient (~6 mcd/mA)
-# so 390 Ω / 1.3 mA is plenty; yellow LTST-C281KSKT at 820 Ω / 1.6 mA
-# is the Feign-validated value. HEARTBEAT is spec'd white; swapped to
-# yellow (no white 0402 in house catalog; any color blinks).
 led("HEARTBEAT", HEARTBEAT_LED, "yellow", "820ohm")
 led("PD_CONTRACT", PD_CONTRACT_LED, "blue", "390ohm")
 led("USB_ENUM", USB_ENUM_LED, "blue", "390ohm")
 
-# WS2812 V-bargraph — 8x Inolux IN-PI15 addressable RGB (1515, 800 kHz
-# NeoPixel-class). Firmware caps brightness to ~30 % so peak draw stays
-# well under the TPSM33606 0.6 A budget (~150 mA typical, ~480 mA worst
-# case at full white). Per-pixel 1 µF ceramic bypass is supplied by the
-# IN-PI15 component module.
-#
-# Chain-head passive: 470 Ω series R on DIN protects the first pixel
-# from reflected edges on the PA7 data trace and matches 800 kHz
-# edge-rate expectations (per IN-PI15 zen docstring). No separate V5V
-# bulk cap — the 8×1 µF distributed per-pixel bypass (supplied by the
-# IN-PI15 module) handles step-load droop well within V5V tolerance.
-Resistor(name="R_WS2812", value="470ohm", package="0402", P1=WS2812_DATA, P2=WS2812_DIN1)
+# Test pads — round Ø1.0 mm. Two GNDs, one near each cluster.
+TestPoint(name="TP_VBUS_RAW", variant="Pad_D1.0mm", P1=VBUS_RAW)
+TestPoint(name="TP_VBUS_PROT", variant="Pad_D1.0mm", P1=VBUS_PROT)
+TestPoint(name="TP_FET_GATE", variant="Pad_D1.0mm", P1=FET_GATE)
+TestPoint(name="TP_V3V3", variant="Pad_D1.0mm", P1=V3V3)
+TestPoint(name="TP_UART_TX", variant="Pad_D1.0mm", P1=UART.TX)
+TestPoint(name="TP_UART_RX", variant="Pad_D1.0mm", P1=UART.RX)
+TestPoint(name="TP_CC1", variant="Pad_D1.0mm", P1=CC1_MCU)
+TestPoint(name="TP_CC2", variant="Pad_D1.0mm", P1=CC2_MCU)
+TestPoint(name="TP_SCOPE_MARKER", variant="Pad_D1.0mm", P1=SCOPE_MARKER)
+TestPoint(name="TP_TCPP01_FLT", variant="Pad_D1.0mm", P1=TCPP01_FLT)
+TestPoint(name="TP_GND_HV", variant="Pad_D1.0mm", P1=GND)
+TestPoint(name="TP_GND_LV", variant="Pad_D1.0mm", P1=GND)
 
-_prev = WS2812_DIN1
-for i in range(8):
-    _next = Net("WS2812_D" + str(i + 1))
-    WS2812(name="D_BAR" + str(i + 1), VDD=V5V, GND=GND, DIN=_prev, DOUT=_next)
-    _prev = _next
-
-# 4-pos DIP switch — each NO to GND, each COM to the MCU pin with a
-# 100 kΩ pull-up to 3V3. Closed switch pulls the MCU input LOW.
-DipSwitch(
-    name="SW_DIP",
-    NO_1=GND,
-    NO_2=GND,
-    NO_3=GND,
-    NO_4=GND,
-    COM_1=DIP_SW1,
-    COM_2=DIP_SW2,
-    COM_3=DIP_SW3,
-    COM_4=DIP_SW4,
-)
-Resistor(name="R_DIP1", value="100kohm", package="0402", P1=DIP_SW1, P2=V3V3)
-Resistor(name="R_DIP2", value="100kohm", package="0402", P1=DIP_SW2, P2=V3V3)
-Resistor(name="R_DIP3", value="100kohm", package="0402", P1=DIP_SW3, P2=V3V3)
-Resistor(name="R_DIP4", value="100kohm", package="0402", P1=DIP_SW4, P2=V3V3)
-
-# UART debug header — 1×4 2.54 mm SMT vertical male pin header (stdlib
-# generic). FTDI-basic pinout so a stock FTDI cable mates directly:
-#   Pin 1: GND | Pin 2: TX (MCU out) | Pin 3: RX (MCU in) | Pin 4: 3V3
-PinHeader(name="J_UART", pins=4, P1=GND, P2=UART.TX, P3=UART.RX, P4=V3V3)
-
-# PD-dev probe header — 2×4 SMT vertical 2.54 mm male pin header. Sized
-# for hookup-wire breakout to Saleae Logic Pro 8 (not the grommet).
-# Analog-class signals grouped on pins 1–3 next to a GND on pin 4;
-# digital-class signals on pins 6–8 next to a GND on pin 5.
-#   1: CC1_MCU (BMC)       5: GND
-#   2: CC2_MCU (BMC)       6: SCOPE_MARKER
-#   3: ADC_V (VBUS÷10)     7: TCPP01 FLT (OD)
-#   4: GND                 8: eFuse SPLYGD (supply-good, not load-fault)
-PinHeader(
-    name="J_PROBE",
-    pins=4,
-    rows=2,
-    P1=CC1_MCU,
-    P2=CC2_MCU,
-    P3=ADC_VBUS_OUT,
-    P4=GND,
-    P5=GND,
-    P6=SCOPE_MARKER,
-    P7=TCPP01_FLT,
-    P8=EFUSE_SPLY_GOOD_N,
-)
-
-# Flat SMD test pads (1.5×1.5 mm, stdlib generic). Minimal high-value
-# set — only nets that can't be reached via the probe header, UART
-# header, Tag-Connect, or WAGO. Two GND pads co-located with the HV
-# and LV clusters so a scope ground pigtail lands close to the signal.
-# Flat SMD test pads (1.5×1.5 mm, stdlib generic). Minimal high-value
-# set — only nets that can't be reached via the probe header, UART
-# header, Tag-Connect, or WAGO. Two GND pads co-located with the HV
-# and LV clusters so a scope ground pigtail lands close to the signal.
-TestPoint(name="TP_VBUS_RAW", variant="Pad_1.5x1.5mm", P1=VBUS_RAW)
-TestPoint(name="TP_VBUS_PROT", variant="Pad_1.5x1.5mm", P1=VBUS_PROT)
-TestPoint(name="TP_FET_GATE", variant="Pad_1.5x1.5mm", P1=FET_GATE)
-TestPoint(name="TP_EFUSE_IMON", variant="Pad_1.5x1.5mm", P1=EFUSE_IMON)
-TestPoint(name="TP_GND_HV", variant="Pad_1.5x1.5mm", P1=GND)
-TestPoint(name="TP_GND_LV", variant="Pad_1.5x1.5mm", P1=GND)
-
-# Manufacturing: 3 front-side fiducials for P&P vision, silkscreen
-# version stamp, and Diode logo.
+# Manufacturing — fiducials, version stamp, logo.
 Fiducial(name="FID1")
 Fiducial(name="FID2")
 Fiducial(name="FID3")
