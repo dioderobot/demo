@@ -15,8 +15,10 @@ and stays alive through OVP events. TCPP01's VCC therefore has a real
 all VGS specs on VCC = 3.0–3.6 V). The FET gates only the LOAD rail.
 
 CC1/CC2 go through TCPP01's internal OVP FETs to the MCU's UCPD1
-CC1/CC2 pins, with PA9/PA10 shorted to PA8/PB15 on the PCB for the
-DBCC dead-battery sense (AN5225 §11.3.1).
+CC1/CC2 pins. DBCC1/DBCC2 are left unconnected — TCPP01 provides
+connector-side dead-battery Rd, and firmware must release the G0's
+internal Rd via SYSCFG_CFGR1.UCPD1_STROBE before driving TCPP01 DB
+high. PA9/PA10 are reclaimed as spare GPIOs.
 """
 
 load("@stdlib/interfaces.zen", "Ground", "NotConnected", "Power", "Swd", "Uart", "UsbTypeC")
@@ -122,19 +124,20 @@ Wago(name="J_OUT", positions=2, color="white", P1=VBUS_PROT, P2=GND)
 Capacitor(name="C_CC1", value="220pF", voltage="25V", package="0402", P1=CC1_MCU, P2=GND)
 Capacitor(name="C_CC2", value="220pF", voltage="25V", package="0402", P1=CC2_MCU, P2=GND)
 
-# MCU — STM32G0B1KEU6N (UFQFPN-32 N-pinout, 512 KB flash). UCPD1
-# dead-battery wiring per AN5225 §11.3.1: DBCC1/2 shorted to CC1/2.
+# MCU — STM32G0B1KxUxN (UFQFPN-32 N-pinout). PA9/PA10 (DBCC1/DBCC2)
+# unconnected: TCPP01 handles connector-side Rd, and firmware releases
+# the G0's internal Rd via SYSCFG_CFGR1.UCPD1_STROBE.
 STM32G0B1(
     name="U_MCU",
-    memory_size="512KB",
+    memory_size="128KB",
     VDD=V3V3,
     GND=GND,
     NRST=NRST,
-    # UCPD1
-    PA8=CC1_MCU,
-    PA9=CC1_MCU,  # DBCC1 — shorted to CC1
-    PB15=CC2_MCU,
-    PA10=CC2_MCU,  # DBCC2 — shorted to CC2
+    # UCPD1 — CC pair swapped on the TCPP01→MCU side for layout
+    # routing convenience. Safe: the two channels are symmetric and
+    # the orientation bit in UCPD just reports the opposite value.
+    PA8=CC2_MCU,
+    PB15=CC1_MCU,
     # TCPP01 control / status
     PB1=TCPP01_DB,
     PB6=TCPP01_FLT,
@@ -162,10 +165,9 @@ Resistor(name="R_BOOT0", value="10kohm", package="0402", P1=SWD.SWCLK, P2=GND)
 # Cortex-M0+ has no SWO/ITM.
 TagConnect(name="J_SWD", VSENSE=V3V3, GND=GND, SWD=SWD, NRST=NRST, SWO=NotConnected())
 
-# Status LEDs — rail + fault indicators are firmware-independent so
-# they stay useful when firmware is broken or unflashed. Resistors
-# sized for ~2 mA per LED (~7 mcd, comparable brightness across colors).
-led("3V3_RAIL", V3V3, "green", "680ohm")
+# Status LEDs — fault indicator is firmware-independent so it stays
+# useful when firmware is broken or unflashed. Resistors sized for
+# ~2 mA per LED (~7 mcd, comparable brightness across colors).
 fault_led("TCPP01_FLT", TCPP01_FLT, "red", "470ohm")
 led("HEARTBEAT", HEARTBEAT_LED, "yellow", "820ohm")
 led("PD_CONTRACT", PD_CONTRACT_LED, "blue", "390ohm")
