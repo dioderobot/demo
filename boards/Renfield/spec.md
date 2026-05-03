@@ -164,52 +164,31 @@ Silk: `LOAD +` / `LOAD −`.
 ### SWD
 
 Tag-Connect TC2030-IDC-NL footprint, **pads only**, no connector
-populated:
-
-| TC pin | Signal |
-|---|---|
-| 1 (VSENSE) | V3V3 |
-| 2 (SWDIO) | PA13 |
-| 3 (NRST) | NRST |
-| 4 (SWCLK) | PA14 |
-| 5 (GND) | GND |
-| 6 (SWO) | NC — Cortex-M0+ has no SWO/ITM |
-
-Debug is single-wire (SWD) only; printf-trace goes out the UART pads.
+populated. VSENSE tied to V3V3; SWO pad (pin 6) is NC because
+Cortex-M0+ has no ITM / TPIU. Printf-trace goes over the UART test
+pads instead.
 
 ### Test pads
 
-Round Ø1.0 mm SMD pads (stdlib `TestPoint` variant `Pad_D1.0mm`) for
-everything a PD-firmware developer needs to probe:
+Round Ø1.0 mm SMD pads (stdlib `TestPoint` variant `Pad_D1.0mm`)
+expose the signals a PD-firmware developer actually probes: both CC
+lines on the **connector** side (raw BMC capture, before TCPP01's OVP
+switches), UART RX/TX, a firmware-driven hardware scope trigger, and
+the TCPP01 OVP divider tap (`OVP` — scales VBUS by ~1/17, so it's a
+safe 1×-probe point for VBUS events without a HV probe). VBUS_RAW
+and VBUS_PROT are not tapped; probe them via the USB-C housing or
+the WAGO terminal instead.
 
-| Pad | Silk | Net | Notes |
-|---|---|---|---|
-| TP_OVP_SENSE | `OVP` | TCPP01 VBUS_CTRL divider tap | ~VBUS/17; safe 1× probe of the OVP input |
-| TP_UART_TX | `TX` | PA2 (USART2_TX) | debug serial out, 3V3 CMOS |
-| TP_UART_RX | `RX` | PA3 (USART2_RX) | debug serial in, 3V3 CMOS |
-| TP_CC1 | `CC1` | USB_C.CC1 (connector-side) | raw BMC capture |
-| TP_CC2 | `CC2` | USB_C.CC2 (connector-side) | raw BMC capture |
-| TP_SCOPE_MARKER | `TRG` | PD0 (TIM16_CH1) | firmware scope trigger |
-| TP_GND | `GND` | GND | single shared ground |
-
-CC pads are tapped on the **connector** side (before TCPP01's OVP
-switches) so a Logic Pro captures true wire signals — including any
-TCPP01-initiated CC cutoff event. VBUS and VBUS_PROT are not test
-pads; probe them via the USB-C housing or the WAGO terminal instead.
-OVP sense is the safe high-side scope point: it scales 22 V to
-~1.3 V at the divider tap.
+See `Renfield.zen` for the exact net list and silk labels.
 
 ### Status LEDs
 
-Four 0402 LEDs. The fault indicator is firmware-independent so it
-stays useful when firmware is broken.
-
-| LED | Color | Driver | Behavior |
-|---|---|---|---|
-| TCPP01_FLT | Red | 3V3 → R → LED → FLT/ (open-drain from PA9) | On when TCPP01-M12 latches a fault |
-| PD_CONTRACT | Blue | MCU GPIO (PB1) | Contract negotiated and held |
-| USB_ENUM | Blue | MCU GPIO (PA7) | USB host has enumerated us |
-| HEARTBEAT | Yellow | MCU GPIO (PB0) | Slow blink = MCU alive |
+Four 0402 LEDs: red TCPP01 fault (hardware-driven so it works
+regardless of firmware state), blue PD-contract-held, blue
+USB-enumerated, yellow MCU heartbeat. All firmware-driven LEDs sink
+current from a 3V3 pull-up through the MCU GPIO. The fault LED is
+wired `3V3 → R → LED → TCPP01.FLT/` so it lights whenever TCPP01
+latches a fault, independent of firmware.
 
 ---
 
@@ -225,99 +204,13 @@ stays useful when firmware is broken.
 | Load output | WAGO 2060-452/998-404 | SMD push-in, 2-pole, 4 mm pitch |
 | Status LEDs | 4× 0402 (red, yellow, 2× blue) | 0402 |
 | SWD | Tag-Connect TC2030-IDC-NL | pads only |
-| Test pads | stdlib `TestPoint` variant `Pad_D1.0mm` | round, SMT |
-| Fiducials | 3× stdlib `Fiducial` | SMT |
 
-Reference-design passives (MCU decoupling, TCPP01 VCC bypass +
-IN_GD ESD cap + OVP divider + FLT pull-up, LDO input/output,
-NRST filter, CC line caps, BOOT0 pull-down) live inside the
-respective registry components or the board-level `.zen`.
-`Renfield.zen` is the authoritative BOM.
+`Renfield.zen` is the authoritative BOM; all per-part values,
+reference-design passives, and net assignments live there.
 
 ---
 
-## 7. Pinout (STM32G0B1KBU6N, UFQFPN-32, N-pinout)
-
-UCPD1 CC pair is swapped on the TCPP01→MCU side for layout routing
-convenience (the two channels are symmetric; firmware reads the
-orientation bit at runtime). DBCC pins are left unconnected —
-TCPP01 provides connector-side dead-battery Rd, and firmware
-releases the G0's internal Rd via `SYSCFG_CFGR1.UCPD1_STROBE`.
-
-| Pin | Net | Function | I/O |
-|---:|---|---|---|
-| 1 | — | spare | PB9 |
-| 2 | — | spare | PC14 (LSE) |
-| 3 | — | spare | PC15 (LSE) |
-| 4 | V3V3 | VDD / VDDA | supply |
-| 5 | GND | VSS / VSSA | supply |
-| 6 | NRST | reset (Tag-Connect + 100 nF filter) | NRST |
-| 7 | — | spare | PA0 |
-| 8 | — | spare | PA1 |
-| 9 | UART_TX | debug printf out | PA2 / USART2_TX AF1 |
-| 10 | UART_RX | debug input | PA3 / USART2_RX AF1 |
-| 11 | — | spare | PA4 |
-| 12 | — | spare | PA5 |
-| 13 | — | spare | PA6 |
-| 14 | USB_ENUM_LED | USB-enumerated indicator | PA7 / GPIO out |
-| 15 | HEARTBEAT_LED | MCU "alive" indicator | PB0 / GPIO out |
-| 16 | PD_CONTRACT_LED | contract-held indicator | PB1 / GPIO out |
-| 17 | UCPD1_CC2 *(carries connector CC1)* | post-TCPP01, swapped | PB15 / UCPD1_CC2 |
-| 18 | UCPD1_CC1 *(carries connector CC2)* | post-TCPP01, swapped | PA8 / UCPD1_CC1 |
-| 19 | TCPP01_FLT | TCPP01 fault flag (open-drain) | PA9 / GPIO in |
-| 20 | V3V3 | VDDIO2 | supply |
-| 21 | TCPP01_DB | TCPP01 dead-battery release (active-high) | PA10 / GPIO out |
-| 22 | USB_DM | USB D− | PA11 / USB_DM (no remap) |
-| 23 | USB_DP | USB D+ | PA12 / USB_DP (no remap) |
-| 24 | SWDIO | Tag-Connect pin 2 | PA13 / SWDIO |
-| 25 | SWCLK / BOOT0 | Tag-Connect pin 4 + 10 kΩ pull-down | PA14 / SWCLK / BOOT0 |
-| 26 | SCOPE_MARKER | hardware scope-trigger output | PD0 / TIM16_CH1 |
-| 27 | — | spare | PD1 |
-| 28 | — | spare | PD2 |
-| 29 | — | spare | PD3 |
-| 30 | — | spare | PB6 |
-| 31 | — | spare | PB7 |
-| 32 | — | spare | PB8 |
-
-*EP (exposed thermal pad) ties to GND.*
-
-### Notes
-
-- **UCPD1 CC swap (TCPP01→MCU side only).** TCPP01 CC1 drives MCU
-  PB15 (UCPD1_CC2); TCPP01 CC2 drives MCU PA8 (UCPD1_CC1). Saves a
-  trace crossing; safe because CC1/CC2 channels are symmetric and
-  firmware uses the runtime orientation bit anyway. Connector-side
-  labels (silk, test pads) still track the receptacle.
-- **DBCC pins unconnected.** No AN5225 §11.3.1 short-to-CC. TCPP01
-  provides connector-side Rd; firmware must write
-  `SYSCFG_CFGR1.UCPD1_STROBE` before driving TCPP01 DB/ high,
-  otherwise the G0's internal Rd would parallel TCPP01 once the
-  switches close.
-- **USB FS without remap.** PA11 / PA12 carry USB DM / DP at native
-  pin positions; PA11_RMP / PA12_RMP not used.
-- **No SWO.** Cortex-M0+ has no ITM / TPIU — trace goes over UART.
-- **UCPD2 strobe on PD0–PD3.** PD0 is actively used (SCOPE_MARKER /
-  TIM16_CH1), so firmware must write
-  `SYSCFG_CFGR1.UCPD2_STROBE` at boot to release the PD0/PD2
-  internal dead-battery Rd before configuring timer output.
-
-### GPIO usage
-
-| Class | Count | Pins |
-|---|---:|---|
-| UCPD1 CC | 2 | PA8, PB15 |
-| USB FS | 2 | PA11, PA12 |
-| SWD | 2 | PA13, PA14 |
-| USART2 | 2 | PA2, PA3 |
-| Timer (SCOPE_MARKER) | 1 | PD0 |
-| TCPP01 control / status | 2 | PA9 (in), PA10 (out) |
-| GPIO outputs (LEDs) | 3 | PB0, PB1, PA7 |
-| **Used** | **14** | |
-| Spare | 14 | PA0, PA1, PA4, PA5, PA6, PB6–PB9, PC14, PC15, PD1–PD3 |
-
----
-
-## 8. Mechanical & environmental
+## 7. Mechanical & environmental
 
 - **Form factor**: A8 (52 × 74 mm), single rectangular outline.
 - **Stack-up**: 1.6 mm FR4, **4 layers**, 1 oz copper.
@@ -331,7 +224,7 @@ releases the G0's internal Rd via `SYSCFG_CFGR1.UCPD1_STROBE`.
 
 ---
 
-## 9. Manufacturing & assembly
+## 8. Manufacturing & assembly
 
 - **4** layers. Min trace/space: 6/6 mil. Min via: 0.25 mm finished.
 - Min package: 0402 passives, UFQFPN-32 MCU, QFN-12 (TCPP01), WSON-6
@@ -341,13 +234,13 @@ releases the G0's internal Rd via `SYSCFG_CFGR1.UCPD1_STROBE`.
 
 ---
 
-## 10. Regulatory & compliance
+## 9. Regulatory & compliance
 
 Not a sold product. FCC / CE / UL / USB-IF not targeted.
 
 ---
 
-## 11. Design notes
+## 10. Design notes
 
 1. **The STM32 runs the PD stack itself.** Using the G0B1's UCPD
    peripheral instead of a dedicated PD controller IC is the whole
@@ -386,3 +279,27 @@ Not a sold product. FCC / CE / UL / USB-IF not targeted.
 8. **No active cooling.** Worst-case dissipation at 5 A (LDO ~170 mW
    + CSD17318Q2 ~500 mW + MCU + LEDs ≈ 800 mW) is fine on a 4-layer
    board with reasonable copper pours.
+
+### Firmware-facing pinout notes
+
+These are decisions that firmware must be aware of. Exact pin
+assignments live in `Renfield.zen`.
+
+- **UCPD1 CC pair is swapped** on the TCPP01→MCU side for layout
+  routing (TCPP01 CC1 → MCU UCPD1_CC2, TCPP01 CC2 → MCU UCPD1_CC1).
+  Safe because the two channels are symmetric; firmware reads the
+  UCPD orientation bit at runtime regardless. Silk and test pads
+  still track the physical USB-C connector.
+- **DBCC pins unconnected.** TCPP01 provides connector-side
+  dead-battery Rd, so the AN5225 §11.3.1 DBCC-to-CC short is
+  omitted. **Firmware must write `SYSCFG_CFGR1.UCPD1_STROBE`
+  before driving TCPP01 DB/ high**, otherwise the G0's internal Rd
+  would parallel TCPP01's live CC driver after the switches close.
+- **UCPD2 strobe also required.** `SCOPE_MARKER` is on PD0
+  (TIM16_CH1). PD0/PD2 carry an internal Rd at reset, so firmware
+  must write `SYSCFG_CFGR1.UCPD2_STROBE` before configuring the
+  timer output.
+- **No SWO.** Cortex-M0+ has no ITM / TPIU; printf-trace goes over
+  UART.
+- **USB FS without remap.** PA11/PA12 carry USB DM/DP at their
+  native pin positions; PA11_RMP / PA12_RMP bits stay cleared.
