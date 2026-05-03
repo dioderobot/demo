@@ -1,0 +1,93 @@
+"""TPS709-Q1 — TI 30 V, 150 mA low-Iq LDO (AEC-Q100) in WSON-6 (DRV).
+
+Fixed-output-voltage selector for the TPS709-Q1 automotive LDO family.
+All nine orderables share the same pinout, package (DRV / WSON-6, 2×2 mm),
+datasheet, and performance — they differ only in the factory-trim output
+voltage. Select with `output_voltage`; the matching silicon is chosen
+automatically.
+
+    output_voltage  MPN
+    3.3 V           TPS70933QDRVRQ1   (default)
+    5.0 V           TPS70950QDRVRQ1
+    1.2 V           TPS70912QDRVRQ1
+    1.5 V           TPS70915QDRVRQ1
+    1.8 V           TPS70918QDRVRQ1
+    2.5 V           TPS70925QDRVRQ1
+    2.7 V           TPS70927QDRVRQ1
+    2.8 V           TPS70928QDRVRQ1
+    3.0 V           TPS70930QDRVRQ1
+
+Circuit (datasheet §7 Application and Implementation)
+- C_IN: 4.7 µF, 50 V X7R, 0805. §7.1.1 notes the input cap is not required
+  for stability but is strongly recommended for input ripple rejection
+  and transient response. 50 V rating covers the full 30 V Vin range
+  including automotive load-dump transients with DC-bias headroom.
+- C_OUT: 4.7 µF, 16 V X7R, 0603. §7.1.1 stability requirement: effective
+  capacitance ≥ 2 µF for Vout < 1.5 V, ≥ 1.5 µF for Vout ≥ 1.5 V, with
+  ESR 0 Ω–0.2 Ω and ≤ 47 µF. 4.7 µF ±10 % worst-case = 4.23 µF and
+  meets the 2 µF "effective" threshold for the 1.2 V trim even after
+  typical X7R DC-bias / temperature derating. 16 V rating covers all
+  supported Vout up to 5 V.
+
+Pin usage
+- EN: exposed as a raw net. Datasheet §6.4.1 says EN may float to enable
+  the device (internal pull-up); if driven externally, Vin_EN ≤ 6.5 V.
+- NC (pins 2, 5): not connected in the symbol; omitted here.
+- EPAD (pin 7): stacked with pin 3 in the symbol (both named GND); the
+  single "GND" pin mapping wires both to the ground net.
+"""
+
+load("@stdlib/units.zen", "Voltage")
+
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+
+output_voltage = config(
+    Voltage,
+    default="3.3V",
+    allowed=["1.2V", "1.5V", "1.8V", "2.5V", "2.7V", "2.8V", "3V", "3.3V", "5V"],
+    help="Factory-trimmed output voltage.",
+    optional=False,
+)
+
+VIN = io(Power(voltage="2.7V to 30V"))
+VOUT = io(Power(voltage=output_voltage))
+GND = io(Ground())
+EN = io(Net(NotConnected()), optional=True, help="Drive low to shut down; floats high internally. V_EN ≤ 6.5 V.")
+
+# Factory-trimmed silicon selection. Each MPN maps to one fixed output voltage;
+# no alternates (each trim is unique).
+_FAMILY = {
+    Voltage("1.2V"): "TPS70912QDRVRQ1",
+    Voltage("1.5V"): "TPS70915QDRVRQ1",
+    Voltage("1.8V"): "TPS70918QDRVRQ1",
+    Voltage("2.5V"): "TPS70925QDRVRQ1",
+    Voltage("2.7V"): "TPS70927QDRVRQ1",
+    Voltage("2.8V"): "TPS70928QDRVRQ1",
+    Voltage("3V"): "TPS70930QDRVRQ1",
+    Voltage("3.3V"): "TPS70933QDRVRQ1",
+    Voltage("5V"): "TPS70950QDRVRQ1",
+}
+
+_mpn = _FAMILY[output_voltage]
+
+Component(
+    name="U1",
+    symbol=Symbol(library="TPS709-Q1.kicad_sym", name=_mpn),
+    pins={
+        "IN": VIN,
+        "OUT": VOUT,
+        "GND": GND,
+        "EN": EN,
+    },
+)
+
+# Input bypass (datasheet §7.1.1 / §7.2). 50 V covers the full 30 V Vin
+# range including automotive load-dump transients.
+Capacitor(name="C_IN", value="4.7uF", package="0805", voltage="50V", P1=VIN, P2=GND)
+
+# Output bulk required for stability (datasheet §7.1.1). 4.7 µF X7R 16 V
+# comfortably meets the ≥2 µF effective-capacitance requirement for the
+# 1.2 V trim worst case even after tolerance and DC-bias derating.
+Capacitor(name="C_OUT", value="4.7uF", package="0603", voltage="16V", P1=VOUT, P2=GND)
+
+Layout(name="TPS709-Q1", path="layout/TPS709-Q1")

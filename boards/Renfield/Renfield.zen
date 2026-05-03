@@ -2,14 +2,14 @@
 
 Power flow (split MCU / load domain, DS12900 §6.1):
 
-    USB-C VBUS  ─►  VBUS_RAW  ─┬─►  TPSM33606S3 buck  ─►  V3V3 ─► MCU + TCPP01
+    USB-C VBUS  ─►  VBUS_RAW  ─┬─►  TPS70933 LDO   ─►  V3V3 ─► MCU + TCPP01
                                │
                                └─►  TCPP01 IN_GD + CSD17318Q2 (gated)
                                                             │
                                                             ▼
                                                        VBUS_PROT  ─►  WAGO
 
-Buck runs off VBUS_RAW so the MCU boots the moment the cable goes live
+LDO runs off VBUS_RAW so the MCU boots the moment the cable goes live
 and stays alive through OVP events. TCPP01's VCC therefore has a real
 3.3 V supply when it needs to drive the FET gate (DS12900 conditions
 all VGS specs on VCC = 3.0–3.6 V). The FET gates only the LOAD rail.
@@ -26,7 +26,7 @@ load("@stdlib/interfaces.zen", "Ground", "NotConnected", "Power", "Swd", "Uart",
 UsbC16P = Module("github.com/diodeinc/registry/connectors/UsbC16P/UsbC16P.zen")
 TCPP01 = Module("github.com/diodeinc/registry/components/STMicroelectronics/TCPP01-M12/TCPP01-M12.zen")
 NFET = Module("github.com/diodeinc/registry/components/Texas_Instruments/CSD1731xQ2/CSD1731xQ2.zen")
-Buck = Module("github.com/diodeinc/registry/components/Texas_Instruments/TPSM336xx-Q1/TPSM336xx-Q1.zen")
+Ldo = Module("github.com/diodeinc/registry/components/Texas_Instruments/TPS709-Q1/TPS709-Q1.zen")
 Wago = Module("github.com/diodeinc/registry/components/Wago/2060-4xx_998-404/2060-4xx_998-404.zen")
 TagConnect = Module("github.com/diodeinc/registry/connectors/TagConnect/TC2030-NL_SWD.zen")
 STM32G0B1 = Module("github.com/diodeinc/registry/components/STMicroelectronics/STM32G0B1KxUxN/STM32G0B1KxUxN.zen")
@@ -69,6 +69,7 @@ CC1_MCU = Net()
 CC2_MCU = Net()
 TCPP01_DB = Net()
 TCPP01_FLT = Net()
+OVP_SENSE = Net()  # TCPP01 internal VBUS divider tap (~VBUS/17)
 FET_GATE = Net()
 SCOPE_MARKER = Net()
 HEARTBEAT_LED = Net()
@@ -93,24 +94,25 @@ TCPP01(
     CC2=CC2_MCU,
     GATE=FET_GATE,
     SOURCE=VBUS_PROT,
-    VBUS_CTRL=Net("VBUS_OVP_SENSE"),  # driven by internal divider
+    VBUS_CTRL=OVP_SENSE,  # driven by internal divider
     DB=TCPP01_DB,
     FLT=TCPP01_FLT,
 )
 
-# USB-C sink bulk: buck C_IN1 (4.7 µF) + C_IN2 (100 nF) + TCPP01 C_ESD
-# (100 nF) ≈ 4.9 µF on VBUS_RAW, within the 1–10 µF CSNK window.
+# USB-C sink bulk: LDO C_IN (4.7 µF, from TPS709-Q1 reference) +
+# TCPP01 C_ESD (100 nF) ≈ 4.8 µF on VBUS_RAW, within the USB-PD
+# §7.1.2 sink C_SNK window of 1–10 µF.
 
 # Pass FET — CSD17318Q2 NexFET. Gates the LOAD rail only.
 NFET(name="Q_VBUS", current_rating="25A", D=VBUS_RAW, S=VBUS_PROT, G=FET_GATE)
 
-# Buck — TPSM33606S3 (3.3 V fixed trim, 0.6 A, integrated inductor).
-# Starts the moment VBUS appears so TCPP01's VCC is live before the
-# gate driver tries to close the FET.
-Buck(
-    name="U_BUCK",
+# LDO — TPS70933 (3.3 V fixed, 150 mA, 30 V Vin, ~1 µA Iq, WSON-6).
+# At ~10 mA sustained MCU+TCPP01 load the ~170 mW worst-case dissipation
+# at 20 V Vin is fine for the 2×2 mm package. EN floats (internal
+# pull-up enables; DS §6.4.1).
+Ldo(
+    name="U_LDO",
     output_voltage="3.3V",
-    output_current="0.6A",
     VIN=VBUS_RAW,
     VOUT=V3V3,
     GND=GND,
@@ -138,9 +140,10 @@ STM32G0B1(
     # the orientation bit in UCPD just reports the opposite value.
     PA8=CC2_MCU,
     PB15=CC1_MCU,
-    # TCPP01 control / status
-    PB1=TCPP01_DB,
-    PB6=TCPP01_FLT,
+    # TCPP01 control / status — on PA9/PA10 (reclaimed from DBCC) for
+    # shorter routing to the TCPP01 side of the board.
+    PA10=TCPP01_DB,
+    PA9=TCPP01_FLT,
     # USB FS (native, no remap)
     PA11=USB_C.D.N,
     PA12=USB_C.D.P,
@@ -148,10 +151,10 @@ STM32G0B1(
     PA13=SWD.SWDIO,
     PA14=SWD.SWCLK,
     # Status LEDs
-    PA1=HEARTBEAT_LED,
-    PA4=PD_CONTRACT_LED,
-    PA5=USB_ENUM_LED,
-    PA6=SCOPE_MARKER,  # TIM3_CH1 AF1
+    PB0=HEARTBEAT_LED,
+    PB1=PD_CONTRACT_LED,
+    PA7=USB_ENUM_LED,
+    PD0=SCOPE_MARKER,  # TIM16_CH1 (hardware-toggle trigger)
     # USART2 → test pads
     PA2=UART.TX,
     PA3=UART.RX,
@@ -173,19 +176,14 @@ led("HEARTBEAT", HEARTBEAT_LED, "yellow", "820ohm")
 led("PD_CONTRACT", PD_CONTRACT_LED, "blue", "390ohm")
 led("USB_ENUM", USB_ENUM_LED, "blue", "390ohm")
 
-# Test pads — round Ø1.0 mm. Two GNDs, one near each cluster.
-TestPoint(name="TP_VBUS_RAW", variant="Pad_D1.0mm", P1=VBUS_RAW)
-TestPoint(name="TP_VBUS_PROT", variant="Pad_D1.0mm", P1=VBUS_PROT)
-TestPoint(name="TP_FET_GATE", variant="Pad_D1.0mm", P1=FET_GATE)
-TestPoint(name="TP_V3V3", variant="Pad_D1.0mm", P1=V3V3)
+# Test pads — round Ø1.0 mm.
+TestPoint(name="TP_OVP_SENSE", variant="Pad_D1.0mm", P1=OVP_SENSE)
 TestPoint(name="TP_UART_TX", variant="Pad_D1.0mm", P1=UART.TX)
 TestPoint(name="TP_UART_RX", variant="Pad_D1.0mm", P1=UART.RX)
-TestPoint(name="TP_CC1", variant="Pad_D1.0mm", P1=CC1_MCU)
-TestPoint(name="TP_CC2", variant="Pad_D1.0mm", P1=CC2_MCU)
+TestPoint(name="TP_CC1", variant="Pad_D1.0mm", P1=USB_C.CC1)
+TestPoint(name="TP_CC2", variant="Pad_D1.0mm", P1=USB_C.CC2)
 TestPoint(name="TP_SCOPE_MARKER", variant="Pad_D1.0mm", P1=SCOPE_MARKER)
-TestPoint(name="TP_TCPP01_FLT", variant="Pad_D1.0mm", P1=TCPP01_FLT)
-TestPoint(name="TP_GND_HV", variant="Pad_D1.0mm", P1=GND)
-TestPoint(name="TP_GND_LV", variant="Pad_D1.0mm", P1=GND)
+TestPoint(name="TP_GND", variant="Pad_D1.0mm", P1=GND)
 
 # Manufacturing — fiducials, version stamp, logo.
 Fiducial(name="FID1")
