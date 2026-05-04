@@ -3,7 +3,7 @@
 A small, reliable CMSIS-DAP debug probe based on the STM32G0B1. Exposes
 a 10-pin ARM Cortex-Debug target header with bidirectional SWD and an
 integrated UART bridge. Target-side I/O rails auto-range from 1.1 V to
-5.5 V so one probe handles 1.8 V / 3.3 V / 5 V targets.
+5.0 V so one probe handles 1.8 V / 3.3 V / 5 V targets.
 
 ---
 
@@ -35,7 +35,7 @@ victims under methodical, if ineffective, observation.
 | R1 | USB 2.0 FS device, bus-powered, USB-C receptacle | P0 |
 | R2 | Crystal-less USB via HSI48 + CRS | P0 |
 | R3 | Enumerate as CMSIS-DAP v2 (WinUSB) + CDC-ACM composite | P0 |
-| R4 | Target-side I/O rails auto-range over 1.1–5.5 V (VTref-driven) | P0 |
+| R4 | Target-side I/O rails auto-range over 1.1–5.0 V (VTref-driven, nRESET clamp) | P0 |
 | R5 | Bidirectional SWDIO via directional level shifter, firmware-controlled direction | P0 |
 | R6 | Target UART bridge, same voltage range as SWD | P0 |
 | R7 | Target nRESET: open-drain drive, 5 V tolerant when probe is unpowered | P0 |
@@ -89,7 +89,7 @@ P0 = must have, P1 = should have.
  │         │   │  • SWCLK  (DIR = VCCA, A→B)          │                    │
  │         │   │  • UART TX (DIR = VCCA, A→B)         │                    │
  │         │   │  • UART RX (DIR = GND, B→A)          │                    │
- │         │   │  VCCB = VTref (auto 1.1–5.5 V)       │                    │
+ │         │   │  VCCB = VTref (auto 1.1–5.0 V)       │                    │
  │         │   └──────────────┬───────────────────────┘                    │
  │         │                  │ (B-side, target domain)                    │
  │         │                  │    ┌──── nRESET (direct, MCU open-drain,   │
@@ -153,7 +153,7 @@ Composite USB device, single configuration:
 |------|---------|--------|--------|
 | VBUS | 5 V (USB) | USB-C + VBUS TVS + TPD4E05U06 on D+/D-/CC1/CC2 | n/a |
 | 3V3 | 3.3 V ±2% | TPS74x01P ULDO from VBUS | ~30 mA peak |
-| VTref | 1.1–5.5 V | **From target** (header pin 1) | ≤ 100 µA target-sourced |
+| VTref | 1.1–5.0 V | **From target** (header pin 1) | ≤ 100 µA target-sourced |
 
 ### 3 V3 budget
 
@@ -473,12 +473,14 @@ draws < 100 µA from target.
    path from target to probe 3V3 rail when USB is unplugged. No
    bleeder resistor, no PMOS isolator. See §10.
 
-4. **FT_c pin for nRESET.** The target can hold nRESET at up to 5 V
+4. **FT_c pin for nRESET.** The target can hold nRESET at up to 5.0 V
    (weak pull-up on a 5 V target). MCU GPIO on nRESET must tolerate
    5 V even when VDD = 0 (probe unpowered, target live). Only PA8,
-   PB15, PD0, PD2 are FT_c on the UFQFPN-32 'N' package. PA8/PB15 are
-   UCPD CC1/CC2; PD2 is kept as a spare FT_c for future use. **PD0**
-   is assigned to target nRESET.
+   PB15, PD0, PD2 are FT_c / FT_cs on the UFQFPN-32 'N' package.
+   PA8/PB15 are UCPD CC1/CC2; PD2 is kept as a spare FT_c for future
+   use. **PD0** is assigned to target nRESET. DS13560 §6.3.15
+   guarantees operating V_IN from −0.3 V to 5.0 V on FT_c; targets
+   whose nRESET pull-up ties to > 5.0 V (rare) are out of spec.
 
 5. **UCPD dead-battery.** STM32G0B1 'N' variant has UCPD1 dead-battery
    Rd active from POR. External 5.1 kΩ Rd resistors are **not** placed
@@ -491,10 +493,15 @@ draws < 100 µA from target.
    CC/DBCC. PD0 drives the target nRESET line, which a live target
    can hold at VTref while the probe is still running — UCPD2
    hardware may interpret that as a CC wake and engage ~5.1 kΩ
-   internal pull-downs on PD0/PD2 at reset. Firmware must release
-   UCPD2 dead-battery early: `SYSCFG->CFGR1 |= SYSCFG_CFGR1_UCPD2_STROBE`.
-   Do not set `UCPD1_STROBE` unless UCPD1 has been explicitly
-   configured as a sink.
+   internal pull-downs on PD0/PD2 at reset (DS13560 Table 12 note 4:
+   the Rd on PD0 is gated by PD1; the Rd on PD2 is gated by PD3).
+   Hardware mitigation: 100 kΩ pull-downs on PD1 (`R_UCPD2_DBCC1`)
+   and PD3 (`R_UCPD2_DBCC2`) to GND force both DBCC inputs low at
+   POR, so neither internal Rd is enabled. Firmware must still
+   release UCPD2 dead-battery early after boot:
+   `SYSCFG->CFGR1 |= SYSCFG_CFGR1_UCPD2_STROBE`. Do not set
+   `UCPD1_STROBE` unless UCPD1 has been explicitly configured as a
+   sink.
 
 7. **SWD_DIR idle.** `SWD_DIR` is pulled to GND (10 kΩ) at the MCU so,
    during MCU reset, the SWDIO shifter is in B→A (read) mode — Hi-Z

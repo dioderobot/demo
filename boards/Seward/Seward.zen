@@ -1,9 +1,150 @@
 """
-Seward
+Seward — CMSIS-DAP v2 USB debug probe, STM32G0B1-based.
+
+USB-C bus-powered, crystal-less USB (HSI48 + CRS). Exposes a 10-pin
+ARM Cortex-Debug target header with bidirectional SWD, UART bridge, and
+nRESET. Target-side I/O auto-ranges over 1.1–5.0 V via directional
+SN74LXC1T45 level shifters powered from the target's VTref rail.
+
+See `spec.md` for full design rationale, back-feed analysis, pin map,
+and bring-up checklist.
+
+Not yet implemented — pending registry parts:
+- 4× SN74LXC1T45QDRYRQ1 level shifters
+- FTSH-105-01-L-DV-K-A-P-TR 10-pin keyed target header
+The corresponding target-side nets (VTref, SWD_B, SWCLK_B, UART_*_B,
+TGT_NRESET) are named below so the level shifters and header drop in
+without touching MCU-side wiring.
 """
 
-Board(
-    name="Seward",
-    layout_path="layout",
-    layers=4,
+load("@stdlib/interfaces.zen", "NotConnected", "Swd", "Uart", "UsbTypeC")
+
+UsbC = Module("github.com/diodeinc/registry/connectors/UsbC16P/UsbC16P.zen")
+UsbEsd = Module("github.com/diodeinc/registry/components/TPD4E05U06QDQARQ1/TPD4E05U06QDQARQ1.zen")
+STM32G0B1 = Module("github.com/diodeinc/registry/components/STMicroelectronics/STM32G0B1KxUxN/STM32G0B1KxUxN.zen")
+LDO = Module("github.com/diodeinc/registry/components/Texas_Instruments/TPS74x01P/TPS74x01P.zen")
+Button = Module("github.com/diodeinc/registry/components/B3U-1000P/B3U-1000P.zen")
+TagConnect = Module("github.com/diodeinc/registry/connectors/TagConnect/TC2030-NL_SWD.zen")
+
+Resistor = Module("@stdlib/generics/Resistor.zen")
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+Led = Module("@stdlib/generics/Led.zen")
+
+
+def led(name, anode, color, resistance):
+    """LED + 0402 series resistor to GND. `anode` is driven high to light."""
+    K = Net("LED_" + name + "_K")
+    Led(name="D_" + name, color=color, package="0402", A=anode, K=K)
+    Resistor(name="R_" + name, value=resistance, package="0402", P1=K, P2=GND)
+
+
+VBUS = Power(voltage="4.5V to 5.5V (5V nom.)")
+V3V3 = Power(voltage="3.3V")
+GND = Ground()
+
+USB_C = UsbTypeC()
+SWD = Swd()  # MCU self-SWD via Tag-Connect (PA13/PA14)
+SWD_A = Swd()  # MCU-side of target SWD level shifters (PA4/PA5)
+UART_A = Uart()  # MCU-side of target UART level shifters (PB6/PB7)
+
+SWD_DIR = Net()  # PA6 → LS SWDIO DIR; 1 = A→B (write)
+TGT_NRESET = Net()  # PD0 ↔ FTSH pin 10, FT_c open-drain, no LS
+
+LED_STATUS = Net()
+LED_DAP = Net()
+LED_UART_TX = Net()
+LED_UART_RX = Net()
+
+NRST = Net()
+
+UCPD2_DBCC1 = Net()
+UCPD2_DBCC2 = Net()
+
+UsbC(name="J_USB", USB_C=USB_C, VBUS=VBUS, GND=GND)
+
+UsbEsd(name="U_ESD", D1P=USB_C.CC2, D1M=USB_C.CC1, D2M=USB_C.D.P, D2P=USB_C.D.N, GND=GND)
+
+Capacitor(name="C_VBUS", value="4.7uF", package="0805", P1=VBUS.NET, P2=GND)
+
+LDO(name="U_LDO", output_voltage="3.3V", output_current="500mA", VIN=VBUS, VOUT=V3V3, GND=GND)
+
+STM32G0B1(
+    name="U_MCU",
+    memory_size="128KB",
+    VDD=V3V3,
+    GND=GND,
+    NRST=NRST,
+    # UCPD1 dead-battery Rd: DBCC externally shorted to matching CC
+    # (AN5225 §11.3.1) to engage the internal 5.1 kΩ Rd at POR.
+    PA8=USB_C.CC1,
+    PA9=USB_C.CC1,
+    PB15=USB_C.CC2,
+    PA10=USB_C.CC2,
+    PA11=USB_C.D.N,
+    PA12=USB_C.D.P,
+    # Self-SWD (PA14 doubles as BOOT0).
+    PA13=SWD.SWDIO,
+    PA14=SWD.SWCLK,
+    # Target-side of level shifters (VCCA = 3V3, A-port = MCU).
+    PA4=SWD_A.SWDIO,
+    PA5=SWD_A.SWCLK,
+    PA6=SWD_DIR,
+    PB6=UART_A.TX,
+    PB7=UART_A.RX,
+    # Target nRESET direct-drive — FT_c (5 V tolerant at VDD=0).
+    PD0=TGT_NRESET,
+    # PD0 is also UCPD2_CC1 and its dead-battery Rd is gated by
+    # PD1/UCPD2_DBCC1 (DS13560 Table 12 note 4). Tie both DBCC inputs
+    # low via R_UCPD2_DBCC1/2 so UCPD2 does not engage internal
+    # pull-downs on PD0 (TGT_NRESET) or PD2 before firmware strobes
+    # UCPD2_STROBE.
+    PD1=UCPD2_DBCC1,
+    PD3=UCPD2_DBCC2,
+    PA0=LED_STATUS,
+    PA1=LED_DAP,
+    PA2=LED_UART_TX,
+    PA3=LED_UART_RX,
 )
+
+# SWD_DIR idle pull-down → LS defaults to B→A (read) during MCU reset
+# so the target is not back-driven.
+Resistor(name="R_SWD_DIR", value="10kohm", package="0402", P1=SWD_DIR, P2=GND)
+
+Resistor(name="R_UCPD2_DBCC1", value="100kohm", package="0402", P1=UCPD2_DBCC1, P2=GND)
+Resistor(name="R_UCPD2_DBCC2", value="100kohm", package="0402", P1=UCPD2_DBCC2, P2=GND)
+
+# PA14/BOOT0 must be low at POR to boot from flash; SW_BOOT0 overrides.
+Resistor(name="R_BOOT0", value="10kohm", package="0402", P1=SWD.SWCLK, P2=GND)
+
+Button(name="SW_RESET", P1=NRST, P2=GND)
+Button(name="SW_BOOT0", P1=SWD.SWCLK, P2=V3V3)
+
+Capacitor(name="C_NRST", value="100nF", package="0402", P1=NRST, P2=GND)
+
+TagConnect(name="J_SWD", VSENSE=V3V3, GND=GND, SWD=SWD, NRST=NRST, SWO=NotConnected())
+
+# Sizing: (3V3 − Vf) / 2 mA → E24. Green/amber Vf ≈ 1.9 V → 680 Ω; blue Vf ≈ 2.6 V → 330 Ω.
+led("STATUS", LED_STATUS, "green", "680ohm")
+led("DAP", LED_DAP, "yellow", "680ohm")  # amber
+led("UART_TX", LED_UART_TX, "blue", "330ohm")
+led("UART_RX", LED_UART_RX, "blue", "330ohm")
+
+# TODO: add target interface when SN74LXC1T45QDRYRQ1 and
+# FTSH-105-01-L-DV-K-A-P-TR land.
+#
+#   VTREF = Net("VTREF")  # from FTSH pin 1, powers all four LS VCCB rails
+#
+#   # 4× SN74LXC1T45, USON-6; 100 nF on VCCA and VCCB of each.
+#   #   U_LS_SWDIO:   VCCA=V3V3, VCCB=VTREF, A=SWD_A.SWDIO, B=SWDIO_B,   DIR=SWD_DIR
+#   #   U_LS_SWCLK:   VCCA=V3V3, VCCB=VTREF, A=SWD_A.SWCLK, B=SWCLK_B,   DIR=V3V3 (A→B)
+#   #   U_LS_UART_TX: VCCA=V3V3, VCCB=VTREF, A=UART_A.TX,   B=UART_TX_B, DIR=V3V3 (A→B)
+#   #   U_LS_UART_RX: VCCA=V3V3, VCCB=VTREF, A=UART_A.RX,   B=UART_RX_B, DIR=GND  (B→A)
+#   #
+#   # FTSH-105-01-L-DV-K-A-P-TR (1.27 mm, 2×5, shrouded, keyed):
+#   #   1 VTref   2 SWDIO_B
+#   #   3 GND     4 SWCLK_B
+#   #   5 GND     6 UART_RX_B   (SWO position, repurposed)
+#   #   7 KEY     8 UART_TX_B   (TDI position, repurposed)
+#   #   9 GND     10 TGT_NRESET
+
+Board(name="Seward", layout_path="layout", layers=4)
