@@ -26,6 +26,7 @@ load("@stdlib/interfaces.zen", "Ground", "NotConnected", "Power", "Swd", "Uart",
 UsbC16P = Module("github.com/diodeinc/registry/connectors/UsbC16P/UsbC16P.zen")
 TCPP01 = Module("github.com/diodeinc/registry/components/STMicroelectronics/TCPP01-M12/TCPP01-M12.zen")
 NFET = Module("github.com/diodeinc/registry/components/Texas_Instruments/CSD1731xQ2/CSD1731xQ2.zen")
+KillFET = Module("github.com/diodeinc/registry/components/Toshiba/SSM3KxxxCT/SSM3KxxxCT.zen")
 Ldo = Module("github.com/diodeinc/registry/components/Texas_Instruments/TPS709-Q1/TPS709-Q1.zen")
 Wago = Module("github.com/diodeinc/registry/components/Wago/2060-4xx_998-404/2060-4xx_998-404.zen")
 TagConnect = Module("github.com/diodeinc/registry/connectors/TagConnect/TC2030-NL_SWD.zen")
@@ -71,6 +72,9 @@ TCPP01_DB = Net()
 TCPP01_FLT = Net()
 OVP_SENSE = Net()  # TCPP01 internal VBUS divider tap (~VBUS/17)
 FET_GATE = Net()
+LOAD_EN_N = Net()  # MCU GPIO → kill-FET gate. Active-LOW enable:
+#   high / high-Z  → kill-FET ON  → main FET OFF (default at reset)
+#   low            → kill-FET OFF → TCPP01 drives main FET normally
 SCOPE_MARKER = Net()
 HEARTBEAT_LED = Net()
 PD_CONTRACT_LED = Net()
@@ -105,6 +109,15 @@ TCPP01(
 
 # Pass FET — CSD17318Q2 NexFET. Gates the LOAD rail only.
 NFET(name="Q_VBUS", current_rating="25A", D=VBUS_RAW, S=VBUS_PROT, G=FET_GATE)
+
+# Kill FET — firmware-controlled shunt that forces the main FET's
+# gate to GND so the load rail defaults OFF at boot. SSM3K15ACT:
+# 30 V Vds (GATE rides to VBUS_PROT + VGS ≈ 28 V max), logic-level.
+# R_LOAD_EN_PU pulls the kill gate up as V3V3 rises, so the kill FET
+# turns on before TCPP01 exits UVLO — main FET never closes without
+# firmware. Firmware drives LOAD_EN_N low to enable the rail.
+KillFET(name="Q_KILL", vds="30V", drain_current="100mA", D=FET_GATE, S=GND, G=LOAD_EN_N)
+Resistor(name="R_LOAD_EN_PU", value="10kohm", package="0402", P1=V3V3, P2=LOAD_EN_N)
 
 # LDO — TPS70933 (3.3 V fixed, 150 mA, 30 V Vin, ~1 µA Iq, WSON-6).
 # At ~10 mA sustained MCU+TCPP01 load the ~170 mW worst-case dissipation
@@ -155,6 +168,8 @@ STM32G0B1(
     PB1=PD_CONTRACT_LED,
     PA7=USB_ENUM_LED,
     PD0=SCOPE_MARKER,  # TIM16_CH1 (hardware-toggle trigger)
+    # Load-enable: active-LOW (high/high-Z at reset keeps load OFF).
+    PA4=LOAD_EN_N,
     # USART2 → test pads
     PA2=UART.TX,
     PA3=UART.RX,
