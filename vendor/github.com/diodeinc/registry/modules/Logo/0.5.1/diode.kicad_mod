@@ -1,0 +1,153 @@
+(footprint "diode"
+	(version 20241229)
+	(generator "pcbnew")
+	(generator_version "9.0")
+	(layer "F.Cu")
+	(property "Reference" "REF**"
+		(at 0 2.525 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(hide yes)
+		(uuid "ae9308d5-4a02-48c3-907f-2a8e553e2144")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+		)
+	)
+	(property "Value" "Diode Computers, Inc."
+		(at 0 -1.4 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "c3295023-c4c5-4d33-a2b1-7aa9e4cafa4b")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.1)
+				(bold yes)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "d8f49801-9723-43ca-b756-ab9f070ea2a3")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "8136f3da-989d-425a-b5f9-376ba289f64b")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(fp_line
+		(start -1.0084 0.0074)
+		(end -0.5725 0.0074)
+		(stroke
+			(width 0.2007)
+			(type default)
+		)
+		(layer "F.Mask")
+		(uuid "3500ae6b-b5c4-4e30-8a4a-845c5e2f1b51")
+	)
+	(fp_line
+		(start -0.5051 -0.6979)
+		(end -0.5051 0.7106)
+		(stroke
+			(width 0.1895)
+			(type default)
+		)
+		(layer "F.Mask")
+		(uuid "8b29378b-73bc-4c21-8c88-f38bda3ff4cf")
+	)
+	(fp_line
+		(start -0.5046 0.7082)
+		(end 0.4381 0.0227)
+		(stroke
+			(width 0.1895)
+			(type default)
+		)
+		(layer "F.Mask")
+		(uuid "330db8c1-0c5b-4c96-b931-865fb7b54a4b")
+	)
+	(fp_line
+		(start -0.5045 -0.6966)
+		(end 0.4329 0.0011)
+		(stroke
+			(width 0.1895)
+			(type default)
+		)
+		(layer "F.Mask")
+		(uuid "147ce4b0-9909-4e34-b851-cd7d9fe2efa6")
+	)
+	(fp_line
+		(start 0.3309 -0.848)
+		(end 0.5482 -0.7044)
+		(stroke
+			(width 0.2007)
+			(type default)
+		)
+		(layer "F.Mask")
+		(uuid "f94bb76f-b5e5-4d8d-b057-412e0e0b1659")
+	)
+	(fp_line
+		(start 0.5657 -0.6909)
+		(end 0.5657 0.7057)
+		(stroke
+			(width 0.2007)
+			(type default)
+		)
+		(layer "F.Mask")
+		(uuid "0e396df5-4c21-4af3-b253-a55012afad8a")
+	)
+	(fp_line
+		(start 0.5665 0.7051)
+		(end 0.7828 0.848)
+		(stroke
+			(width 0.2007)
+			(type default)
+		)
+		(layer "F.Mask")
+		(uuid "835a3974-f2ed-430e-98ef-a76182999b9c")
+	)
+	(fp_line
+		(start 0.5725 0.0074)
+		(end 1.0084 0.0074)
+		(stroke
+			(width 0.2007)
+			(type default)
+		)
+		(layer "F.Mask")
+		(uuid "cd2cf118-f412-410d-bd02-8ff3babaa850")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0.1 1.5 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "06593fbd-478c-44cb-94da-09903ec510b9")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.1)
+				(bold yes)
+			)
+		)
+	)
+	(embedded_fonts no)
+)

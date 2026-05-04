@@ -90,8 +90,8 @@
 		)
 		(symbol "STM32G0B1KEUxN_0_1"
 			(rectangle
-				(start -25.4 -25.4)
-				(end 25.4 25.4)
+				(start -17.78 -25.4)
+				(end 17.78 25.4)
 				(stroke
 					(width 0.254)
 					(type default)
@@ -103,7 +103,7 @@
 		)
 		(symbol "STM32G0B1KEUxN_1_1"
 			(pin bidirectional line
-				(at -27.94 20.32 0)
+				(at -20.32 20.32 0)
 				(length 2.54)
 				(name "PF2-NRST"
 					(effects
@@ -125,7 +125,7 @@
 				(alternate "RCC_MCO" bidirectional line)
 			)
 			(pin bidirectional line
-				(at -27.94 15.24 0)
+				(at -20.32 15.24 0)
 				(length 2.54)
 				(name "PD0"
 					(effects
@@ -148,7 +148,7 @@
 				(alternate "UCPD2_CC1" bidirectional line)
 			)
 			(pin bidirectional line
-				(at -27.94 12.7 0)
+				(at -20.32 12.7 0)
 				(length 2.54)
 				(name "PD1"
 					(effects
@@ -171,7 +171,7 @@
 				(alternate "UCPD2_DBCC1" bidirectional line)
 			)
 			(pin bidirectional line
-				(at -27.94 10.16 0)
+				(at -20.32 10.16 0)
 				(length 2.54)
 				(name "PD2"
 					(effects
@@ -196,7 +196,7 @@
 				(alternate "USART5_RX" bidirectional line)
 			)
 			(pin bidirectional line
-				(at -27.94 7.62 0)
+				(at -20.32 7.62 0)
 				(length 2.54)
 				(name "PD3"
 					(effects
@@ -221,7 +221,7 @@
 				(alternate "USART5_TX" bidirectional line)
 			)
 			(pin bidirectional line
-				(at -27.94 2.54 0)
+				(at -20.32 2.54 0)
 				(length 2.54)
 				(name "PC14-OSC32_IN"
 					(effects
@@ -242,7 +242,7 @@
 				(alternate "TIM1_BK2" bidirectional line)
 			)
 			(pin bidirectional line
-				(at -27.94 0 0)
+				(at -20.32 0 0)
 				(length 2.54)
 				(name "PC15-OSC32_OUT"
 					(effects
@@ -264,7 +264,7 @@
 				(alternate "TIM15_BK" bidirectional line)
 			)
 			(pin bidirectional line
-				(at -27.94 -5.08 0)
+				(at -20.32 -5.08 0)
 				(length 2.54)
 				(name "PB0"
 					(effects
@@ -296,7 +296,7 @@
 				(alternate "USART5_TX" bidirectional line)
 			)
 			(pin bidirectional line
-				(at -27.94 -7.62 0)
+				(at -20.32 -7.62 0)
 				(length 2.54)
 				(name "PB1"
 					(effects
@@ -330,7 +330,7 @@
 				(alternate "USART5_RX" bidirectional line)
 			)
 			(pin bidirectional line
-				(at -27.94 -10.16 0)
+				(at -20.32 -10.16 0)
 				(length 2.54)
 				(name "PB6"
 					(effects
@@ -361,7 +361,7 @@
 				(alternate "USART5_NSS" bidirectional line)
 			)
 			(pin bidirectional line
-				(at -27.94 -12.7 0)
+				(at -20.32 -12.7 0)
 				(length 2.54)
 				(name "PB7"
 					(effects
@@ -391,7 +391,7 @@
 				(alternate "USART4_NSS" bidirectional line)
 			)
 			(pin bidirectional line
-				(at -27.94 -15.24 0)
+				(at -20.32 -15.24 0)
 				(length 2.54)
 				(name "PB8"
 					(effects
@@ -419,7 +419,7 @@
 				(alternate "USART6_TX" bidirectional line)
 			)
 			(pin bidirectional line
-				(at -27.94 -17.78 0)
+				(at -20.32 -17.78 0)
 				(length 2.54)
 				(name "PB9"
 					(effects
@@ -449,7 +449,7 @@
 				(alternate "USART6_RX" bidirectional line)
 			)
 			(pin bidirectional line
-				(at -27.94 -20.32 0)
+				(at -20.32 -20.32 0)
 				(length 2.54)
 				(name "PB15"
 					(effects
@@ -548,7 +548,7 @@
 				)
 			)
 			(pin bidirectional line
-				(at 27.94 20.32 180)
+				(at 20.32 20.32 180)
 				(length 2.54)
 				(name "PA0"
 					(effects
@@ -581,7 +581,7 @@
 				(alternate "USART4_TX" bidirectional line)
 			)
 			(pin bidirectional line
-				(at 27.94 17.78 180)
+				(at 20.32 17.78 180)
 				(length 2.54)
 				(name "PA1"
 					(effects
@@ -610,7 +610,7 @@
 				(alternate "USART4_RX" bidirectional line)
 			)
 			(pin bidirectional line
-				(at 27.94 15.24 180)
+				(at 20.32 15.24 180)
 				(length 2.54)
 				(name "PA2"
 					(effects
@@ -641,7 +641,7 @@
 				(alternate "USART2_TX" bidirectional line)
 			)
 			(pin bidirectional line
-				(at 27.94 12.7 180)
+				(at 20.32 12.7 180)
 				(length 2.54)
 				(name "PA3"
 					(effects
@@ -669,7 +669,7 @@
 				(alternate "USART2_RX" bidirectional line)
 			)
 			(pin bidirectional line
-				(at 27.94 10.16 180)
+				(at 20.32 10.16 180)
 				(length 2.54)
 				(name "PA4"
 					(effects
@@ -703,7 +703,7 @@
 				(alternate "USB_NOE" bidirectional line)
 			)
 			(pin bidirectional line
-				(at 27.94 7.62 180)
+				(at 20.32 7.62 180)
 				(length 2.54)
 				(name "PA5"
 					(effects
@@ -733,7 +733,7 @@
 				(alternate "USART6_RX" bidirectional line)
 			)
 			(pin bidirectional line
-				(at 27.94 5.08 180)
+				(at 20.32 5.08 180)
 				(length 2.54)
 				(name "PA6"
 					(effects
@@ -765,7 +765,7 @@
 				(alternate "USART6_NSS" bidirectional line)
 			)
 			(pin bidirectional line
-				(at 27.94 2.54 180)
+				(at 20.32 2.54 180)
 				(length 2.54)
 				(name "PA7"
 					(effects
@@ -798,7 +798,7 @@
 				(alternate "USART6_RTS" bidirectional line)
 			)
 			(pin bidirectional line
-				(at 27.94 0 180)
+				(at 20.32 0 180)
 				(length 2.54)
 				(name "PA8"
 					(effects
@@ -824,7 +824,7 @@
 				(alternate "UCPD1_CC1" bidirectional line)
 			)
 			(pin bidirectional line
-				(at 27.94 -2.54 180)
+				(at 20.32 -2.54 180)
 				(length 2.54)
 				(name "PA9/PA11"
 					(effects
@@ -865,7 +865,7 @@
 				(alternate "USB_DM (PA11)" bidirectional line)
 			)
 			(pin bidirectional line
-				(at 27.94 -5.08 180)
+				(at 20.32 -5.08 180)
 				(length 2.54)
 				(name "PA9/UCPD1_DBCC1"
 					(effects
@@ -896,7 +896,7 @@
 				(alternate "USART1_TX (PA9)" bidirectional line)
 			)
 			(pin bidirectional line
-				(at 27.94 -7.62 180)
+				(at 20.32 -7.62 180)
 				(length 2.54)
 				(name "PA10/PA12"
 					(effects
@@ -936,7 +936,7 @@
 				(alternate "USB_DP (PA12)" bidirectional line)
 			)
 			(pin bidirectional line
-				(at 27.94 -10.16 180)
+				(at 20.32 -10.16 180)
 				(length 2.54)
 				(name "PA10/UCPD1_DBCC2"
 					(effects
@@ -966,7 +966,7 @@
 				(alternate "USART1_RX (PA10)" bidirectional line)
 			)
 			(pin bidirectional line
-				(at 27.94 -12.7 180)
+				(at 20.32 -12.7 180)
 				(length 2.54)
 				(name "PA13"
 					(effects
@@ -988,7 +988,7 @@
 				(alternate "USB_NOE" bidirectional line)
 			)
 			(pin bidirectional line
-				(at 27.94 -15.24 180)
+				(at 20.32 -15.24 180)
 				(length 2.54)
 				(name "PA14-BOOT0"
 					(effects

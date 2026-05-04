@@ -8,8 +8,6 @@ is inside the PHY; external resistors break USB compliance (AN4879).
 References: docs/DS13560.pdf, docs/AN5096.pdf.
 """
 
-load("@stdlib/interfaces.zen", "Ground", "Power")
-
 # Generics
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 
@@ -142,34 +140,34 @@ Layout(name="STM32G0B1", path="layout/STM32G0B1KxUxN")
 # pcb:sch C_VDDIO2.C x=105.6800 y=-293.1000 rot=0
 # pcb:sch GND.1 x=113.3000 y=-191.5000 rot=0
 # pcb:sch GND.2 x=-26.4000 y=443.5000 rot=0
-# pcb:sch NRST.0 x=-406.0432 y=-96.0120 rot=0
-# pcb:sch PA0.0 x=215.6520 y=-96.0120 rot=-180
-# pcb:sch PA1.0 x=215.6520 y=-70.6120 rot=-180
-# pcb:sch PA2.0 x=215.6520 y=-45.2120 rot=-180
-# pcb:sch PA3.0 x=215.6520 y=-19.8120 rot=-180
-# pcb:sch PA4.0 x=215.6520 y=5.5880 rot=-180
-# pcb:sch PA5.0 x=215.6520 y=30.9880 rot=-180
-# pcb:sch PA6.0 x=215.6520 y=56.3880 rot=-180
-# pcb:sch PA7.0 x=215.6520 y=81.7880 rot=-180
-# pcb:sch PA8.0 x=215.6520 y=107.1880 rot=-180
-# pcb:sch PA9.0 x=215.6520 y=157.9880 rot=-180
-# pcb:sch PA10.0 x=203.5568 y=208.7880 rot=-180
-# pcb:sch PA11.0 x=203.5568 y=132.5880 rot=-180
-# pcb:sch PA12.0 x=203.5568 y=183.3880 rot=-180
-# pcb:sch PA13.0 x=203.5568 y=234.1880 rot=-180
-# pcb:sch PA14.0 x=203.5568 y=259.5880 rot=-180
-# pcb:sch PB0.0 x=-395.7622 y=157.9880 rot=0
-# pcb:sch PB1.0 x=-395.7622 y=183.3880 rot=0
-# pcb:sch PB6.0 x=-395.7622 y=208.7880 rot=0
-# pcb:sch PB7.0 x=-395.7622 y=234.1880 rot=0
-# pcb:sch PB8.0 x=-395.7622 y=259.5880 rot=0
-# pcb:sch PB9.0 x=-395.7622 y=284.9880 rot=0
-# pcb:sch PB15.0 x=-407.8575 y=310.3880 rot=0
-# pcb:sch PC14.0 x=-407.8575 y=81.7880 rot=0
-# pcb:sch PC15.0 x=-407.8575 y=107.1880 rot=0
-# pcb:sch PD0.0 x=-395.7622 y=-45.2120 rot=0
-# pcb:sch PD1.0 x=-395.7622 y=-19.8120 rot=0
-# pcb:sch PD2.0 x=-395.7622 y=5.5880 rot=0
-# pcb:sch PD3.0 x=-395.7622 y=30.9880 rot=0
-# pcb:sch STM32G0B1 x=-318.5000 y=-166.1000 rot=0
+# pcb:sch NRST.0 x=-329.8432 y=-96.0120 rot=0
+# pcb:sch PA0.0 x=152.1520 y=-96.0120 rot=-180
+# pcb:sch PA1.0 x=152.1520 y=-70.6120 rot=-180
+# pcb:sch PA2.0 x=152.1520 y=-45.2120 rot=-180
+# pcb:sch PA3.0 x=152.1520 y=-19.8120 rot=-180
+# pcb:sch PA4.0 x=152.1520 y=5.5880 rot=-180
+# pcb:sch PA5.0 x=152.1520 y=30.9880 rot=-180
+# pcb:sch PA6.0 x=152.1520 y=56.3880 rot=-180
+# pcb:sch PA7.0 x=152.1520 y=81.7880 rot=-180
+# pcb:sch PA8.0 x=152.1520 y=107.1880 rot=-180
+# pcb:sch PA9.0 x=152.1520 y=157.9880 rot=-180
+# pcb:sch PA10.0 x=140.0568 y=208.7880 rot=-180
+# pcb:sch PA11.0 x=140.0568 y=132.5880 rot=-180
+# pcb:sch PA12.0 x=140.0568 y=183.3880 rot=-180
+# pcb:sch PA13.0 x=140.0568 y=234.1880 rot=-180
+# pcb:sch PA14.0 x=140.0568 y=259.5880 rot=-180
+# pcb:sch PB0.0 x=-319.5622 y=157.9880 rot=0
+# pcb:sch PB1.0 x=-319.5622 y=183.3880 rot=0
+# pcb:sch PB6.0 x=-319.5622 y=208.7880 rot=0
+# pcb:sch PB7.0 x=-319.5622 y=234.1880 rot=0
+# pcb:sch PB8.0 x=-319.5622 y=259.5880 rot=0
+# pcb:sch PB9.0 x=-319.5622 y=284.9880 rot=0
+# pcb:sch PB15.0 x=-331.6575 y=310.3880 rot=0
+# pcb:sch PC14.0 x=-331.6575 y=81.7880 rot=0
+# pcb:sch PC15.0 x=-331.6575 y=107.1880 rot=0
+# pcb:sch PD0.0 x=-319.5622 y=-45.2120 rot=0
+# pcb:sch PD1.0 x=-319.5622 y=-19.8120 rot=0
+# pcb:sch PD2.0 x=-319.5622 y=5.5880 rot=0
+# pcb:sch PD3.0 x=-319.5622 y=30.9880 rot=0
+# pcb:sch STM32G0B1 x=-242.3000 y=-166.1000 rot=0
 # pcb:sch VDD.0 x=-46.7200 y=-356.6000 rot=0

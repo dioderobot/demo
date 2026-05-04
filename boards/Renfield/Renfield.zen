@@ -1,0 +1,210 @@
+"""Renfield (DM0005) — USB-C PD sink dev board for STM32G0B1 UCPD firmware.
+
+Power flow (split MCU / load domain, DS12900 §6.1):
+
+    USB-C VBUS  ─►  VBUS_RAW  ─┬─►  TPS70933 LDO   ─►  V3V3 ─► MCU + TCPP01
+                               │
+                               └─►  TCPP01 IN_GD + CSD17318Q2 (gated)
+                                                            │
+                                                            ▼
+                                                       VBUS_PROT  ─►  WAGO
+
+LDO runs off VBUS_RAW so the MCU boots the moment the cable goes live
+and stays alive through OVP events. TCPP01's VCC therefore has a real
+3.3 V supply when it needs to drive the FET gate (DS12900 conditions
+all VGS specs on VCC = 3.0–3.6 V). The FET gates only the LOAD rail.
+
+CC1/CC2 go through TCPP01's internal OVP FETs to the MCU's UCPD1
+CC1/CC2 pins. DBCC1/DBCC2 are left unconnected — TCPP01 provides
+connector-side dead-battery Rd, and firmware must release the G0's
+internal Rd via SYSCFG_CFGR1.UCPD1_STROBE before driving TCPP01 DB
+high. PA9/PA10 are reclaimed as spare GPIOs.
+"""
+
+load("@stdlib/interfaces.zen", "Ground", "NotConnected", "Power", "Swd", "Uart", "UsbTypeC")
+
+UsbC16P = Module("github.com/diodeinc/registry/connectors/UsbC16P/UsbC16P.zen")
+TCPP01 = Module("github.com/diodeinc/registry/components/STMicroelectronics/TCPP01-M12/TCPP01-M12.zen")
+NFET = Module("github.com/diodeinc/registry/components/Texas_Instruments/CSD1731xQ2/CSD1731xQ2.zen")
+KillFET = Module("github.com/diodeinc/registry/components/Toshiba/SSM3KxxxCT/SSM3KxxxCT.zen")
+Ldo = Module("github.com/diodeinc/registry/components/Texas_Instruments/TPS709-Q1/TPS709-Q1.zen")
+Wago = Module("github.com/diodeinc/registry/components/Wago/2060-4xx_998-404/2060-4xx_998-404.zen")
+TagConnect = Module("github.com/diodeinc/registry/connectors/TagConnect/TC2030-NL_SWD.zen")
+STM32G0B1 = Module("github.com/diodeinc/registry/components/STMicroelectronics/STM32G0B1KxUxN/STM32G0B1KxUxN.zen")
+
+Resistor = Module("@stdlib/generics/Resistor.zen")
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+Led = Module("@stdlib/generics/Led.zen")
+TestPoint = Module("@stdlib/generics/TestPoint.zen")
+Fiducial = Module("@stdlib/generics/Fiducial.zen")
+Version = Module("@stdlib/generics/Version.zen")
+Logo = Module("github.com/diodeinc/registry/modules/Logo/Logo.zen")
+
+
+def led(name, anode, color, resistance):
+    """LED + series current-limit resistor to GND. `anode` drives the LED high."""
+    K = Net("LED_" + name + "_K")
+    Led(name="D_" + name, color=color, package="0402", A=anode, K=K)
+    Resistor(name="R_" + name, value=resistance, package="0402", P1=K, P2=GND)
+
+
+def fault_led(name, od_pin, color, resistance):
+    """LED + series R from V3V3 → open-drain `od_pin`. Lights when pin pulls low."""
+    A = Net("LED_" + name + "_A")
+    Resistor(name="R_" + name, value=resistance, package="0402", P1=V3V3, P2=A)
+    Led(name="D_" + name, color=color, package="0402", A=A, K=od_pin)
+
+
+# Rails
+VBUS_RAW = Power(voltage="5V to 22V")  # receptacle VBUS, always hot
+VBUS_PROT = Power(voltage="5V to 22V")  # post-FET load rail → WAGO
+V3V3 = Power(voltage="3.3V")  # MCU + TCPP01 VCC
+GND = Ground()
+
+# Buses / signals
+USB_C = UsbTypeC()
+SWD = Swd()
+UART = Uart()
+NRST = Net()
+CC1_MCU = Net()
+CC2_MCU = Net()
+TCPP01_DB = Net()
+TCPP01_FLT = Net()
+OVP_SENSE = Net()  # TCPP01 internal VBUS divider tap (~VBUS/17)
+FET_GATE = Net()
+LOAD_EN_N = Net()  # MCU GPIO → kill-FET gate. Active-LOW enable:
+#   high / high-Z  → kill-FET ON  → main FET OFF (default at reset)
+#   low            → kill-FET OFF → TCPP01 drives main FET normally
+SCOPE_MARKER = Net()
+HEARTBEAT_LED = Net()
+PD_CONTRACT_LED = Net()
+USB_ENUM_LED = Net()
+
+# USB-C receptacle
+UsbC16P(name="J_USB", VBUS=VBUS_RAW, USB_C=USB_C, GND=GND)
+
+# TCPP01-M12 — CC OVP, VBUS OVP via external N-FET, dead-battery Rd.
+# Reference passives (VCC bypass, IN_GD ESD shunt, OVP divider,
+# FLT pull-up) live inside the component module.
+TCPP01(
+    name="U_TCPP01",
+    vbus_ovp_threshold="22V",
+    VCC=V3V3,
+    GND=GND,
+    CC1C=USB_C.CC1,
+    CC2C=USB_C.CC2,
+    IN_GD=VBUS_RAW,
+    CC1=CC1_MCU,
+    CC2=CC2_MCU,
+    GATE=FET_GATE,
+    SOURCE=VBUS_PROT,
+    VBUS_CTRL=OVP_SENSE,  # driven by internal divider
+    DB=TCPP01_DB,
+    FLT=TCPP01_FLT,
+)
+
+# USB-C sink bulk: LDO C_IN (4.7 µF, from TPS709-Q1 reference) +
+# TCPP01 C_ESD (100 nF) ≈ 4.8 µF on VBUS_RAW, within the USB-PD
+# §7.1.2 sink C_SNK window of 1–10 µF.
+
+# Pass FET — CSD17318Q2 NexFET. Gates the LOAD rail only.
+NFET(name="Q_VBUS", current_rating="25A", D=VBUS_RAW, S=VBUS_PROT, G=FET_GATE)
+
+# Kill FET — firmware-controlled shunt that forces the main FET's
+# gate to GND so the load rail defaults OFF at boot. SSM3K15ACT:
+# 30 V Vds (GATE rides to VBUS_PROT + VGS ≈ 28 V max), logic-level.
+# R_LOAD_EN_PU pulls the kill gate up as V3V3 rises, so the kill FET
+# turns on before TCPP01 exits UVLO — main FET never closes without
+# firmware. Firmware drives LOAD_EN_N low to enable the rail.
+KillFET(name="Q_KILL", vds="30V", drain_current="100mA", D=FET_GATE, S=GND, G=LOAD_EN_N)
+Resistor(name="R_LOAD_EN_PU", value="10kohm", package="0402", P1=V3V3, P2=LOAD_EN_N)
+
+# LDO — TPS70933 (3.3 V fixed, 150 mA, 30 V Vin, ~1 µA Iq, WSON-6).
+# At ~10 mA sustained MCU+TCPP01 load the ~170 mW worst-case dissipation
+# at 20 V Vin is fine for the 2×2 mm package. EN floats (internal
+# pull-up enables; DS §6.4.1).
+Ldo(
+    name="U_LDO",
+    output_voltage="3.3V",
+    VIN=VBUS_RAW,
+    VOUT=V3V3,
+    GND=GND,
+)
+
+# Load output — WAGO 2060-452 push-in terminal.
+Wago(name="J_OUT", positions=2, color="white", P1=VBUS_PROT, P2=GND)
+
+# CC line caps — lands CC receiver C mid-band in the USB-PD §5.8.6
+# 200–600 pF window with TCPP01 + STM32 pad contributions.
+Capacitor(name="C_CC1", value="220pF", voltage="25V", package="0402", P1=CC1_MCU, P2=GND)
+Capacitor(name="C_CC2", value="220pF", voltage="25V", package="0402", P1=CC2_MCU, P2=GND)
+
+# MCU — STM32G0B1KxUxN (UFQFPN-32 N-pinout). PA9/PA10 (DBCC1/DBCC2)
+# unconnected: TCPP01 handles connector-side Rd, and firmware releases
+# the G0's internal Rd via SYSCFG_CFGR1.UCPD1_STROBE.
+STM32G0B1(
+    name="U_MCU",
+    memory_size="128KB",
+    VDD=V3V3,
+    GND=GND,
+    NRST=NRST,
+    # UCPD1 — CC pair swapped on the TCPP01→MCU side for layout
+    # routing convenience. Safe: the two channels are symmetric and
+    # the orientation bit in UCPD just reports the opposite value.
+    PA8=CC2_MCU,
+    PB15=CC1_MCU,
+    # TCPP01 control / status — on PA9/PA10 (reclaimed from DBCC) for
+    # shorter routing to the TCPP01 side of the board.
+    PA10=TCPP01_DB,
+    PA9=TCPP01_FLT,
+    # USB FS (native, no remap)
+    PA11=USB_C.D.N,
+    PA12=USB_C.D.P,
+    # SWD (PA14 also BOOT0)
+    PA13=SWD.SWDIO,
+    PA14=SWD.SWCLK,
+    # Status LEDs
+    PB0=HEARTBEAT_LED,
+    PB1=PD_CONTRACT_LED,
+    PA7=USB_ENUM_LED,
+    PD0=SCOPE_MARKER,  # TIM16_CH1 (hardware-toggle trigger)
+    # Load-enable: active-LOW (high/high-Z at reset keeps load OFF).
+    PA4=LOAD_EN_N,
+    # USART2 → test pads
+    PA2=UART.TX,
+    PA3=UART.RX,
+)
+
+# NRST 100 nF filter + BOOT0 pull-down (PA14 doubles as BOOT0 at reset).
+Capacitor(name="C_NRST", value="100nF", package="0402", P1=NRST, P2=GND)
+Resistor(name="R_BOOT0", value="10kohm", package="0402", P1=SWD.SWCLK, P2=GND)
+
+# Tag-Connect TC2030-IDC-NL SWD pads (no connector populated).
+# Cortex-M0+ has no SWO/ITM.
+TagConnect(name="J_SWD", VSENSE=V3V3, GND=GND, SWD=SWD, NRST=NRST, SWO=NotConnected())
+
+# Status LEDs — fault indicator is firmware-independent so it stays
+# useful when firmware is broken or unflashed. Resistors sized for
+# ~2 mA per LED (~7 mcd, comparable brightness across colors).
+fault_led("TCPP01_FLT", TCPP01_FLT, "red", "470ohm")
+led("HEARTBEAT", HEARTBEAT_LED, "yellow", "820ohm")
+led("PD_CONTRACT", PD_CONTRACT_LED, "blue", "390ohm")
+led("USB_ENUM", USB_ENUM_LED, "blue", "390ohm")
+
+# Test pads — round Ø1.0 mm.
+TestPoint(name="TP_OVP_SENSE", variant="Pad_D1.0mm", P1=OVP_SENSE)
+TestPoint(name="TP_UART_TX", variant="Pad_D1.0mm", P1=UART.TX)
+TestPoint(name="TP_UART_RX", variant="Pad_D1.0mm", P1=UART.RX)
+TestPoint(name="TP_CC1", variant="Pad_D1.0mm", P1=USB_C.CC1)
+TestPoint(name="TP_CC2", variant="Pad_D1.0mm", P1=USB_C.CC2)
+TestPoint(name="TP_SCOPE_MARKER", variant="Pad_D1.0mm", P1=SCOPE_MARKER)
+TestPoint(name="TP_GND", variant="Pad_D1.0mm", P1=GND)
+
+# Manufacturing — fiducials, version stamp, logo.
+Fiducial(name="FID1")
+Fiducial(name="FID2")
+Fiducial(name="FID3")
+Version(name="VER")
+Logo(name="LOGO")
+
+Board(name="Renfield", layout_path="layout", layers=4)

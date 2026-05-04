@@ -1,9 +1,8 @@
 """TagConnect TC2030-NL connector for SWD interface"""
 
 load("@stdlib/interfaces.zen", "Swd")
-load("@stdlib/checks.zen", "voltage_within")
 
-VSENSE = io(Power, checks=voltage_within("1.2V to 5.5V"))
+VSENSE = io(Power(voltage="1.2V to 5.5V"))
 GND = io(Ground)
 SWD = io(Swd)
 NRST = io(Net)

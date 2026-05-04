@@ -3,12 +3,10 @@
 	(generator "bitmap2component")
 	(generator_version "9.0")
 	(symbol "LOGO"
-		(pin_names
-			(offset 1.016)
-		)
-		(in_bom yes)
+		(exclude_from_sim yes)
+		(in_bom no)
 		(on_board yes)
-		(property "Reference" "#G"
+		(property "Reference" "#LOGO"
 			(at 0 0.178227 0)
 			(effects
 				(font
@@ -36,7 +34,14 @@
 					(size 1.27 1.27)
 				) hide)
 		)
-		(property "Description" "Diode Logo"
+		(property "ki_keywords" "logo artwork graphic mask soldermask"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				) hide)
+		)
+		(property "Description" "Diode Computers logo artwork (soldermask opening on F.Mask)"
 			(at 0 -12.7 0)
 			(effects
 				(font

@@ -1,0 +1,79 @@
+"""SSM3KxxxCT — Toshiba logic-level N-channel MOSFETs in CST3 (SOT-883, 1.0×0.6 mm).
+
+Selector package for Toshiba's small-signal / load-switch N-ch MOSFET family
+in the CST3 (SOT-883, SC-101) package. All six variants share footprint,
+pinout (1=G, 2=S, 3=D), channel type, and ~1 V threshold. Select by `vds`
+and minimum `drain_current`; the smallest-sufficient current tier becomes
+the primary part and larger tiers ship as BOM alternates for sourcing
+flexibility.
+
+ MPN         | Vds  | Id     | Rds(on)                  | Vgs(th) | Note
+ SSM3K16CT   | 20 V | 100 mA | 3.0 Ω  @ 10 mA,  4 V     | 1.1 V   | π-MOSIV small-signal
+ SSM3K35CT   | 20 V | 180 mA | 3.0 Ω  @ 50 mA,  4 V     | 1.0 V   | older small-signal
+ SSM3K37CT   | 20 V | 200 mA | 2.2 Ω  @ 100 mA, 4.5 V   | 1.0 V   | U-MOSIII
+ SSM3K56CT   | 20 V | 800 mA | 235 mΩ @ 800 mA, 4.5 V   | 1.0 V   | U-MOSVII-H load switch
+ SSM3K56ACT  | 20 V | 1.4 A  | 235 mΩ @ 800 mA, 4.5 V   | 1.0 V   | higher-Id bin of K56
+ SSM3K15ACT  | 30 V | 100 mA | 3.6 Ω  @ 10 mA,  4 V     | 1.5 V   | needs ≥2.5 V drive
+
+Package notes
+- CST3 / SOT-883 / SC-101: 1.0 × 0.6 × 0.38 mm, 3 leadless terminals.
+  Not footprint-compatible with Toshiba's shrunk CST3C (0.8 × 0.6 mm) —
+  those live in a separate package. SOT-883 is the JEDEC/JEITA standard
+  and is widely second-sourced.
+- Pin 1 = Gate, Pin 2 = Source, Pin 3 = Drain (flag bar).
+- The land pattern is KiCad's stock SOT-883 (IPC-derived, used across
+  multiple SOT-883 parts). It is slightly more generous than Toshiba's
+  exact CST3 reference pattern (JEITA ET-7501 Level 3) but JEITA-compliant
+  and robust for hand and reflow assembly.
+
+Gate-drive caveat
+- SSM3K15ACT has Vgs(th) up to 1.5 V and RDS(on) spec'd only at Vgs = 4 V
+  and 2.5 V — there is no guaranteed RDS(on) below 2.5 V. It will switch
+  from 3.3 V logic, but do not assume 1.8 V drive is sufficient except at
+  very small currents verified from the C-V curves. All 20 V variants in
+  this family have RDS(on) guaranteed down to 1.2–1.5 V gate drive.
+
+Thermal / high-current caveat
+- `drain_current` selects by datasheet continuous ID at Ta = 25 °C on
+  Toshiba's reference FR4 coupon (25.4 × 25.4 × 1.6 mm, ~645 mm² pad).
+  At the 800 mA / 1.4 A tier (SSM3K56CT / SSM3K56ACT), I²R loss alone
+  approaches or exceeds the 500 mW package PD (1.4 A × 235 mΩ ≈ 460 mW).
+  For sustained currents above ~500 mA verify copper area, gate drive,
+  and Tj against your board's thermal resistance before trusting the
+  selection.
+"""
+
+load("@stdlib/units.zen", "Current", "Voltage")
+
+vds = config(Voltage, default="20V", allowed=["20V", "30V"], help="Drain-to-source voltage rating.")
+drain_current = config(Current, default="100mA", help="Minimum required continuous Id at Ta = 25 °C.")
+
+G = io(Net)
+S = io(Net)
+D = io(Net)
+
+# Ordered by (vds, i_max asc) so the smallest sufficient tier becomes the
+# primary part — matches the sourceability convention in TPSM336xx-Q1.
+_FAMILY = [
+    # (mpn_digikey,     symbol,       vds,              i_max)
+    ("SSM3K16CT,L3F", "SSM3K16CT", Voltage("20V"), Current("100mA")),
+    ("SSM3K35CT,L3F", "SSM3K35CT", Voltage("20V"), Current("180mA")),
+    ("SSM3K37CT,L3F", "SSM3K37CT", Voltage("20V"), Current("200mA")),
+    ("SSM3K56CT,L3F", "SSM3K56CT", Voltage("20V"), Current("800mA")),
+    ("SSM3K56ACT,L3F", "SSM3K56ACT", Voltage("20V"), Current("1.4A")),
+    ("SSM3K15ACT,L3F", "SSM3K15ACT", Voltage("30V"), Current("100mA")),
+]
+
+_matches = [row for row in _FAMILY if row[2] == vds and row[3] >= drain_current]
+check(len(_matches) > 0, "No SSM3KxxxCT variant with vds={} and Id ≥ {}.".format(vds, drain_current))
+
+_primary_mpn, _primary_symbol, _, _ = _matches[0]
+_parts = [Part(mpn=row[0], manufacturer="Toshiba") for row in _matches]
+
+Component(
+    name="Q",
+    symbol=Symbol(library="SSM3KxxxCT.kicad_sym", name=_primary_symbol),
+    part=_parts[0],
+    properties={"alternatives": _parts[1:]},
+    pins={"G": G, "S": S, "D": D},
+)
