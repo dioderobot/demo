@@ -51,14 +51,16 @@
           "min_clearance": 0.15
         }
       },
-      "diff_pair_dimensions": [],
+      "diff_pair_dimensions": [
+        {
+          "gap": 0.0,
+          "via_gap": 0.0,
+          "width": 0.0
+        }
+      ],
       "drc_exclusions": [
         [
           "lib_footprint_mismatch|135439999|100000000|c025172c-c8d0-42b8-b6b5-abf420d2ad2a|00000000-0000-0000-0000-000000000000",
-          ""
-        ],
-        [
-          "lib_footprint_mismatch|149191984|93352392|3d615dce-f070-437b-8043-b9b918f0f6b8|00000000-0000-0000-0000-000000000000",
           ""
         ],
         [
@@ -152,7 +154,7 @@
         "min_microvia_drill": 0.1,
         "min_resolved_spokes": 2,
         "min_silk_clearance": 0.1,
-        "min_text_height": 0.8,
+        "min_text_height": 0.6,
         "min_text_thickness": 0.08,
         "min_through_hole_diameter": 0.15,
         "min_track_width": 0.09,
