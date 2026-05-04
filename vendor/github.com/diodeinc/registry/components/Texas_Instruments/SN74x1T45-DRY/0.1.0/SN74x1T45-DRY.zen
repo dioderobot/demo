@@ -1,0 +1,124 @@
+"""SN74x1T45-DRY — TI single-bit bidirectional level translator family, DRY (USON-6 1.0×1.45 mm).
+
+Voltage-driven selector for TI's 1T45 single-bit direction-controlled
+translators in the DRY 6-pin USON package (1.0 × 1.45 mm, 0.5 mm pitch).
+All variants share pinout (1=VCCA, 2=GND, 3=A, 4=B, 5=DIR, 6=VCCB),
+footprint, and electrical role; they differ in rail range, bus-hold,
+automotive grade, and (for AXCH) package mechanical revision.
+
+Select by `voltage_a` (VCCA rail), `voltage_b` (VCCB rail), and
+`bus_hold`. Variants whose rail range covers both voltages and whose
+bus-hold class matches are candidates; the first becomes the primary
+BOM part, the rest ship as sourcing alternates.
+
+  MPN                  | Rail range   | Rate     | Bus-hold | AEC-Q100
+  SN74LXC1T45DRYR      | 1.1 – 5.5 V  | 420 Mbps | no       | no
+  SN74LXC1T45QDRYRQ1   | 1.1 – 5.5 V  | 420 Mbps | no       | yes
+  SN74LXCH1T45DRYR     | 1.1 – 5.5 V  | 420 Mbps | yes      | no
+  SN74AXC1T45QDRYRQ1   | 0.65 – 3.6 V | 500 Mbps | no       | yes
+  SN74AXCH1T45DRYR     | 0.65 – 3.6 V | 500 Mbps | yes      | no
+  SN74AXCH1T45DRY2     | 0.65 – 3.6 V | 500 Mbps | yes      | no
+  (DRY2 = newer mech revision of DRYR — same die, same land pattern)
+
+Priority: LXC (wider rail range, 5 V tolerant) before AXC (0.65 V
+capable); non-Q1 before Q1.
+
+Decoupling
+- Not instantiated here. TI's DRY0006A layout guidance (AXC §8.4,
+  LXC §11.1) calls for 0.1 µF per rail placed close to the VCC pin,
+  and 1 µF + 0.1 µF if transient response matters. The parent module
+  MUST provide close (<5 mm) per-rail bypass on both VCCA and VCCB
+  — the translator's edge rate is set by its internal CMOS driver
+  (≈ 1–2 ns) regardless of the logical bit rate, so relying on
+  distant board bulk caps is risky.
+
+Pin notes
+- VCCA, VCCB: independent dual supplies; no sequencing constraint
+  (Ioff across the family). No VCCA ≤ VCCB requirement.
+- A, B: bidirectional signal pins, referenced to VCCA / VCCB.
+- DIR: direction control, referenced to VCCA (V_IH/V_IL track VCCA
+  regardless of the physical pin-5 placement next to VCCB). HIGH =
+  A→B (A input, B output); LOW = B→A. AXC/AXCH require DIR driven
+  — floating control inputs are disallowed (datasheet §5.3 note).
+  LXC/LXCH include an integrated ~5 MΩ pull-down on DIR, so a
+  floating DIR defaults to LOW (B→A); don't rely on this unless the
+  default direction is intentional.
+- VCC isolation: if either rail is < 100 mV, both I/O ports go high-Z
+  regardless of DIR.
+- GND: common ground.
+
+Bus-hold (H variants, `bus_hold=True`)
+- AXCH/LXCH add an active bus-hold keeper on A and B to prevent
+  floating inputs. Any external pull-up/pull-down or weak driver must
+  overcome the keeper's overdrive current: up to ~480 µA for AXCH
+  at 3.6 V, up to 900 µA for LXCH at 5.5 V. TI explicitly does NOT
+  recommend pull resistors on bus-hold inputs.
+- Not suitable for open-drain buses (I²C, 1-Wire, SMBus) — the keeper
+  holds the line in whichever state it was last driven, defeating
+  wired-AND bus arbitration.
+
+Not suitable for
+- I²C / SMBus / 1-Wire level shifting: use an auto-direction, open-
+  drain-aware translator (LSF family, TXS family) instead. The 1T45
+  is a push-pull direction-controlled translator.
+- Simultaneous bidirectional drive on A and B (there is no OE pin).
+  When flipping DIR, wait for t_dis / t_en before the opposite side
+  begins driving or you'll get bus contention.
+"""
+
+load("@stdlib/units.zen", "Voltage")
+
+voltage_a = config(Voltage, default="3.3V", help="VCCA rail voltage (A-side reference).")
+voltage_b = config(Voltage, default="5V", help="VCCB rail voltage (B-side reference).")
+bus_hold = config(bool, default=False, help="Select bus-hold variant (AXCH/LXCH) with active input keeper.")
+
+VCCA = io(Power(voltage=voltage_a))
+VCCB = io(Power(voltage=voltage_b))
+GND = io(Ground())
+A = io(Net)
+B = io(Net)
+DIR = io(Net, help="HIGH: A→B. LOW: B→A. Thresholds referenced to VCCA.")
+
+# Ordered selector table.
+# Columns: mpn, rail_range, bus_hold, aec_q100
+# Preference: LXC (1.1–5.5 V, widest) first, then AXC (0.65–3.6 V).
+# Within each family: non-Q1 before Q1. First match = primary BOM part.
+_FAMILY = [
+    ("SN74LXC1T45DRYR", Voltage("1.1V to 5.5V"), False, False),
+    ("SN74LXC1T45QDRYRQ1", Voltage("1.1V to 5.5V"), False, True),
+    ("SN74LXCH1T45DRYR", Voltage("1.1V to 5.5V"), True, False),
+    ("SN74AXC1T45QDRYRQ1", Voltage("0.65V to 3.6V"), False, True),
+    ("SN74AXCH1T45DRYR", Voltage("0.65V to 3.6V"), True, False),
+    ("SN74AXCH1T45DRY2", Voltage("0.65V to 3.6V"), True, False),
+]
+
+_matches = [row for row in _FAMILY if voltage_a in row[1] and voltage_b in row[1] and row[2] == bus_hold]
+
+check(
+    len(_matches) > 0,
+    f"No variant covers VCCA={voltage_a}, VCCB={voltage_b}, bus_hold={bus_hold}. Supported rails: AXC 0.65–3.6 V, LXC 1.1–5.5 V.",
+)
+
+_parts = [
+    Part(
+        mpn=row[0],
+        manufacturer="Texas Instruments",
+        qualifications=["AEC-Q100"] if row[3] else [],
+    )
+    for row in _matches
+]
+
+Component(
+    name="U",
+    symbol=Symbol(library="SN74x1T45-DRY.kicad_sym", name=_matches[0][0]),
+    part=_parts[0],
+    properties={"alternatives": _parts[1:]},
+    pins={
+        "VCCA": VCCA,
+        "GND": GND,
+        "A": A,
+        "B": B,
+        "DIR": DIR,
+        "VCCB": VCCB,
+    },
+)

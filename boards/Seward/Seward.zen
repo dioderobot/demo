@@ -8,13 +8,6 @@ SN74LXC1T45 level shifters powered from the target's VTref rail.
 
 See `spec.md` for full design rationale, back-feed analysis, pin map,
 and bring-up checklist.
-
-Not yet implemented — pending registry parts:
-- 4× SN74LXC1T45QDRYRQ1 level shifters
-- FTSH-105-01-L-DV-K-A-P-TR 10-pin keyed target header
-The corresponding target-side nets (VTref, SWD_B, SWCLK_B, UART_*_B,
-TGT_NRESET) are named below so the level shifters and header drop in
-without touching MCU-side wiring.
 """
 
 load("@stdlib/interfaces.zen", "NotConnected", "Swd", "Uart", "UsbTypeC")
@@ -25,17 +18,15 @@ STM32G0B1 = Module("github.com/diodeinc/registry/components/STMicroelectronics/S
 LDO = Module("github.com/diodeinc/registry/components/Texas_Instruments/TPS74x01P/TPS74x01P.zen")
 Button = Module("github.com/diodeinc/registry/components/B3U-1000P/B3U-1000P.zen")
 TagConnect = Module("github.com/diodeinc/registry/connectors/TagConnect/TC2030-NL_SWD.zen")
+LS = Module("github.com/diodeinc/registry/components/Texas_Instruments/SN74x1T45-DRY/SN74x1T45-DRY.zen")
+Ftsh10 = Module(
+    "github.com/diodeinc/registry/components/Samtec_Inc/FTSH-105-01-L-DV-K-A-P-TR/FTSH-105-01-L-DV-K-A-P-TR.zen"
+)
 
 Resistor = Module("@stdlib/generics/Resistor.zen")
 Capacitor = Module("@stdlib/generics/Capacitor.zen")
 Led = Module("@stdlib/generics/Led.zen")
-
-
-def led(name, anode, color, resistance):
-    """LED + 0402 series resistor to GND. `anode` is driven high to light."""
-    K = Net("LED_" + name + "_K")
-    Led(name="D_" + name, color=color, package="0402", A=anode, K=K)
-    Resistor(name="R_" + name, value=resistance, package="0402", P1=K, P2=GND)
+Tvs = Module("@stdlib/generics/Tvs.zen")
 
 
 VBUS = Power(voltage="4.5V to 5.5V (5V nom.)")
@@ -44,11 +35,17 @@ GND = Ground()
 
 USB_C = UsbTypeC()
 SWD = Swd()  # MCU self-SWD via Tag-Connect (PA13/PA14)
-SWD_A = Swd()  # MCU-side of target SWD level shifters (PA4/PA5)
-UART_A = Uart()  # MCU-side of target UART level shifters (PB6/PB7)
+SWD_A = Swd()  # MCU ↔ LS A-side (PA4/PA5)
+SWD_LS = Swd()  # LS B-side, before series damping
+SWD_B = Swd()  # target header side, after damping
+UART_A = Uart()  # MCU ↔ LS A-side (PB6/PB7)
+UART_B = Uart()  # target header side (post-LS)
 
 SWD_DIR = Net()  # PA6 → LS SWDIO DIR; 1 = A→B (write)
 TGT_NRESET = Net()  # PD0 ↔ FTSH pin 10, FT_c open-drain, no LS
+
+# VTREF is sourced by FTSH pin 1; target-driven rail for the LS VCCB.
+VTREF = Power(voltage="1.1V to 5.0V")
 
 LED_STATUS = Net()
 LED_DAP = Net()
@@ -60,11 +57,41 @@ NRST = Net()
 UCPD2_DBCC1 = Net()
 UCPD2_DBCC2 = Net()
 
+
+def led(name, anode, color, resistance):
+    """LED + 0402 series resistor to GND. `anode` is driven high to light."""
+    K = Net("LED_" + name + "_K")
+    Led(name="D_" + name, color=color, package="0402", A=anode, K=K)
+    Resistor(name="R_" + name, value=resistance, package="0402", P1=K, P2=GND)
+
+
+def level_shifter(name, a, b, dir):
+    """One SN74LXC1T45 (VCCA=V3V3, VCCB=VTREF).
+
+    `dir` is the direction net: `V3V3.NET` forces A→B, `GND` forces B→A,
+    or pass a firmware-driven net for bidirectional use.
+    """
+    LS(
+        name="U_LS_" + name,
+        voltage_a="3.3V",
+        voltage_b="1.1V to 5.0V",
+        VCCA=V3V3,
+        VCCB=VTREF,
+        GND=GND,
+        A=a,
+        B=b,
+        DIR=dir,
+    )
+
+
 UsbC(name="J_USB", USB_C=USB_C, VBUS=VBUS, GND=GND)
 
 UsbEsd(name="U_ESD", D1P=USB_C.CC2, D1M=USB_C.CC1, D2M=USB_C.D.P, D2P=USB_C.D.N, GND=GND)
 
-Capacitor(name="C_VBUS", value="4.7uF", package="0805", P1=VBUS.NET, P2=GND)
+# VBUS TVS — 5–6 V standoff unidirectional, SMF (DO-219AB). Clamps
+# surge events from hot-plug / cable strikes before they reach the LDO
+# or the MCU VDD rail via the USB–LDO path.
+Tvs(name="D_VBUS_TVS", A=GND, K=VBUS)
 
 LDO(name="U_LDO", output_voltage="3.3V", output_current="500mA", VIN=VBUS, VOUT=V3V3, GND=GND)
 
@@ -129,22 +156,63 @@ led("DAP", LED_DAP, "yellow", "680ohm")  # amber
 led("UART_TX", LED_UART_TX, "blue", "330ohm")
 led("UART_RX", LED_UART_RX, "blue", "330ohm")
 
-# TODO: add target interface when SN74LXC1T45QDRYRQ1 and
-# FTSH-105-01-L-DV-K-A-P-TR land.
-#
-#   VTREF = Net("VTREF")  # from FTSH pin 1, powers all four LS VCCB rails
-#
-#   # 4× SN74LXC1T45, USON-6; 100 nF on VCCA and VCCB of each.
-#   #   U_LS_SWDIO:   VCCA=V3V3, VCCB=VTREF, A=SWD_A.SWDIO, B=SWDIO_B,   DIR=SWD_DIR
-#   #   U_LS_SWCLK:   VCCA=V3V3, VCCB=VTREF, A=SWD_A.SWCLK, B=SWCLK_B,   DIR=V3V3 (A→B)
-#   #   U_LS_UART_TX: VCCA=V3V3, VCCB=VTREF, A=UART_A.TX,   B=UART_TX_B, DIR=V3V3 (A→B)
-#   #   U_LS_UART_RX: VCCA=V3V3, VCCB=VTREF, A=UART_A.RX,   B=UART_RX_B, DIR=GND  (B→A)
-#   #
-#   # FTSH-105-01-L-DV-K-A-P-TR (1.27 mm, 2×5, shrouded, keyed):
-#   #   1 VTref   2 SWDIO_B
-#   #   3 GND     4 SWCLK_B
-#   #   5 GND     6 UART_RX_B   (SWO position, repurposed)
-#   #   7 KEY     8 UART_TX_B   (TDI position, repurposed)
-#   #   9 GND     10 TGT_NRESET
+# Target-side level shifters (SN74LXC1T45, USON-6). Directional push-pull
+# translation 1.1–5.5 V both ports. Selector picks LXC over AXC because
+# `voltage_b` goes above AXC's 3.6 V rail cap. DIR tied per spec §12.1:
+#   SWDIO   — firmware toggles direction around ADI v5 turnaround.
+#   SWCLK   — hard A→B (DIR=V3V3).
+#   UART_TX — hard A→B (DIR=V3V3).
+#   UART_RX — hard B→A (DIR=GND).
+level_shifter("SWDIO", SWD_A.SWDIO, SWD_LS.SWDIO, SWD_DIR)
+level_shifter("SWCLK", SWD_A.SWCLK, SWD_LS.SWCLK, V3V3.NET)
+level_shifter("UART_TX", UART_A.TX, UART_B.TX, V3V3.NET)
+level_shifter("UART_RX", UART_A.RX, UART_B.RX, GND)
+
+# Single bulk cap for the LS cluster. Layout: pour VTREF on L3 under
+# all four shifters with a via from each VCCB pad straight down; the
+# cap sits on the same pour. Loop inductance to each VCCB pin is
+# ~1 nH (two short vias + plane spreading) vs. ~4 nH for a trace,
+# enough to keep the worst-case edge-transient dip under ~30 mV. No
+# per-shifter local decoupling is needed at 10 MHz SWCLK into Hi-Z
+# targets. The VCCA (V3V3) pins get the same treatment by via-ing to
+# the existing 3V3 pour; the LDO output cap and MCU VDD cap cover
+# that rail.
+Capacitor(name="C_VTREF", value="1uF", package="0402", P1=VTREF.NET, P2=GND)
+
+# Series damping on SWDIO/SWCLK between LS B-side and the target header.
+# 33 Ω + ~20 Ω LXC driver impedance ≈ 53 Ω, close to typical flying-lead
+# cable impedance — kills ringing/overshoot on fast edges into Hi-Z
+# target inputs. Swap to 0 Ω if bench validation with a short stub shows
+# it's unnecessary.
+Resistor(name="R_SWDIO_SER", value="33ohm", package="0402", P1=SWD_LS.SWDIO, P2=SWD_B.SWDIO)
+Resistor(name="R_SWCLK_SER", value="33ohm", package="0402", P1=SWD_LS.SWCLK, P2=SWD_B.SWCLK)
+
+# Target-side UART_RX idle pull-up to VTREF. UART idles high; with VTref
+# present but target TX Hi-Z (held in reset, unconfigured, disconnected),
+# the LS B-side input would float. 100 kΩ gives a defined idle that
+# passes cleanly through to PB7.
+Resistor(name="R_UART_RX_PU", value="100kohm", package="0402", P1=UART_B.RX, P2=VTREF.NET)
+
+# Target header — Samtec FTSH-105 (2×5, 1.27 mm, shrouded/keyed, SMT
+# with alignment pegs). ARM Cortex Debug 10-pin pinout with the SWO/TDI
+# positions repurposed for UART:
+#   1 VTREF       2 SWDIO_B
+#   3 GND         4 SWCLK_B
+#   5 GND         6 UART_RX_B   (SWO position)
+#   7 KEY         8 UART_TX_B   (TDI position)
+#   9 GND        10 TGT_NRESET
+Ftsh10(
+    name="J_TGT",
+    P1=VTREF.NET,
+    P2=SWD_B.SWDIO,
+    P3=GND,
+    P4=SWD_B.SWCLK,
+    P5=GND,
+    P6=UART_B.RX,
+    P7=Net("KEY"),
+    P8=UART_B.TX,
+    P9=GND,
+    P10=TGT_NRESET,
+)
 
 Board(name="Seward", layout_path="layout", layers=4)

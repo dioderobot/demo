@@ -139,47 +139,15 @@ Composite USB device, single configuration:
 
 ## 4. Power
 
-### Input
-
-| Parameter | Value |
-|-----------|-------|
-| Source | USB VBUS via USB-C receptacle (bus-powered) |
-| Voltage | 4.75 V – 5.25 V |
-| Max draw | ≤ 100 mA (probe only; no target power from probe) |
-
-### Rails
-
 | Rail | Voltage | Source | Budget |
-|------|---------|--------|--------|
-| VBUS | 5 V (USB) | USB-C + VBUS TVS + TPD4E05U06 on D+/D-/CC1/CC2 | n/a |
-| 3V3 | 3.3 V ±2% | TPS74x01P ULDO from VBUS | ~30 mA peak |
-| VTref | 1.1–5.0 V | **From target** (header pin 1) | ≤ 100 µA target-sourced |
+|---|---|---|---|
+| VBUS | 5 V USB | USB-C receptacle | < 100 mA total |
+| 3V3 | 3.3 V | TPS74x01P LDO from VBUS | ~30 mA peak |
+| VTref | 1.1–5.0 V | **Target-driven** (header pin 1) | ≤ 100 µA target-sourced |
 
-### 3 V3 budget
-
-| Consumer | Current |
-|---|---|
-| STM32G0B1 @ 64 MHz + USB | ~20 mA peak |
-| 4× LXC1T45 A-side quiescent | ~40 µA |
-| 4 LEDs @ 2 mA each (typically only one on) | ≤ 8 mA |
-| Pull-ups, LDO IQ | < 1 mA |
-| **Total** | **~25–30 mA peak** |
-
-LDO has >15× margin. Dropout 5 V → 3.3 V at 30 mA dissipates ~50 mW.
-
-### VTref handling
-
-VTref (target VCC sense, pin 1 of the 10-pin header) is wired directly
-to the VCCB rail of each LXC1T45, with a 100 nF 0402 decap per shifter.
-No buffer, no ADC, no regulator. Total target-sourced current is ~40 µA
-quiescent plus transient A→B driver current during activity.
-
-The probe does not measure VTref. Firmware assumes the user configured
-the level shifter for the connected target by virtue of plugging in.
-
-### VBUS sensing
-
-Not implemented — bus-powered device.
+Probe is bus-powered; never sources power onto the target header. VTref
+feeds only the level-shifter VCCB rails — the probe does not sense,
+buffer, or regulate it.
 
 ---
 
@@ -276,9 +244,6 @@ UCPD CC1/CC2, PD2 is reserved as a spare FT_c GPIO, leaving PD0 for
 nRESET. FT_c input voltage limit is 5.0 V regardless of VDD per
 DS13560 §6.3.15.
 
-DNP pull-up (10 kΩ) from header pin 10 to VTref for targets without an
-internal reset pull-up.
-
 ### Debug (probe self-programming)
 
 - **Tag-Connect TC2030-IDC-NL** SWD footprint on the G0B1's SWD
@@ -294,53 +259,33 @@ internal reset pull-up.
 All driven by MCU GPIO (current-sourcing: GPIO → LED anode → series R →
 GND, active-high). Three colors total (no white):
 
-| LED | Color | Function | Default behavior | Typ Vf @ I | Series R |
-|---|---|---|---|---|---|
-| D_STATUS  | green  | Probe alive        | 1 Hz heartbeat         | 1.9 V @ 2 mA | 680 Ω |
-| D_DAP     | amber  | SWD activity       | 5 ms pulse per DAP xfer| 1.9 V @ 2 mA | 680 Ω |
-| D_UART_TX | blue   | Host → target byte | 5 ms pulse per byte    | 2.6 V @ 2 mA | 330 Ω |
-| D_UART_RX | blue   | Target → host byte | 5 ms pulse per byte    | 2.6 V @ 2 mA | 330 Ω |
-
-All resistors 0402, 1 %. Sizing is `(3V3 − Vf) / 2 mA` rounded to E24;
-final values may be trimmed during bringup for equal perceived
-brightness across colors.
-
-Follow the repo's `Led` generic pattern (LED + 0402 series resistor
-per LED).
+| LED | Color | Function |
+|---|---|---|
+| D_STATUS  | green  | Probe heartbeat        |
+| D_DAP     | amber  | SWD activity           |
+| D_UART_TX | blue   | Host → target byte     |
+| D_UART_RX | blue   | Target → host byte     |
 
 ---
 
 ## 6. Key components
 
-| Function | Part | Package | Source |
-|---|---|---|---|
-| MCU | STM32G0B1KBU6N (128 KB, N-pinout) | UFQFPN-32 (5×5) | `components/STMicroelectronics/STM32G0B1KxUxN` |
-| USB-C receptacle | GCT USB4105-GF-A via `UsbC16P` | 16-pin SMT | `connectors/UsbC16P/UsbC16P.zen` |
-| USB/CC ESD | TPD4E05U06QDQARQ1 | USON-10 (2.5×1) | `components/TPD4E05U06QDQARQ1` |
-| VBUS TVS | SMAJ5.0A or equivalent | SMA | stdlib / EE choice |
-| 3V3 LDO | TPS74x01P | SON-6 (DRV) | `components/Texas_Instruments/TPS74x01P` |
-| Level shifters (×4) | SN74LXC1T45QDRYRQ1 | USON-6 (1.45×1) | Not yet in registry — import via `pcb new component` during implementation |
-| Target header | FTSH-105-01-L-DV-K-A-P-TR | SMT, keyed | Registry (to be published by user) |
-| Buttons (×2) | Omron B3U-1000P | SMT | `components/B3U-1000P` |
-| LEDs | stdlib `Led` generic | 0402 | stdlib |
-| SWD footprint | Tag-Connect TC2030-IDC-NL | pads only | `connectors/TagConnect/TC2030-NL_SWD.zen` |
+| Function | Part | Package |
+|---|---|---|
+| MCU | STM32G0B1KBU6N (128 KB, N-pinout) | UFQFPN-32 |
+| USB-C receptacle | GCT USB4105-GF-A via `UsbC16P` | 16-pin SMT |
+| USB/CC ESD | TPD4E05U06QDQARQ1 | USON-10 |
+| VBUS TVS | 5–6 V standoff unidirectional (stdlib `Tvs` generic) | SMF |
+| 3V3 LDO | TPS74x01P | SON-6 |
+| Level shifters (×4) | SN74LXC1T45-family (LXC selected via `SN74x1T45-DRY` module) | USON-6 |
+| Target header | FTSH-105-01-L-DV-K-A-P-TR | SMT, keyed |
+| Buttons (×2) | Omron B3U-1000P | SMT |
+| LEDs | stdlib `Led` generic | 0402 |
+| SWD footprint | Tag-Connect TC2030-IDC-NL | pads only |
 
-### Support passives (commodity, must be on the board)
-
-- **MCU decoupling**: 100 nF 0402 on each VDD pin (VDD ×2, VDDA,
-  VDDIO2/VDDUSB) + 1 × ≥ 1 µF bulk near MCU, per AN4879.
-- **NRST filter**: 100 nF 0402, NRST → GND (AN4879 glitch immunity).
-- **BOOT0 pull-down**: 10 kΩ, PA14/BOOT0 → GND.
-- **VBAT tie**: short VBAT to VDD (no RTC backup).
-- **VBUS bulk**: 4.7–10 µF ceramic near USB-C receptacle.
-- **LXC1T45 decoupling (×4)**: 100 nF 0402 on VCCA and VCCB of each
-  shifter.
-- **SWD_DIR idle state**: 10 kΩ pull-down from `SWD_DIR` to GND so the
-  shifter defaults to B→A (read) when MCU is in reset — neutral state
-  that never back-drives the target.
-- **Target nRESET DNP pull-up**: 10 kΩ header-pin-10 → VTref, DNP.
-- **LED current-limit resistors**: per-color sized in the Zener source
-  for roughly equal brightness at 3.3 V.
+Support passives (pull-ups/downs, decoupling, series damping) are
+managed in `Seward.zen` rather than enumerated here — that file is the
+single source of truth for the parts list.
 
 ---
 
@@ -438,16 +383,10 @@ draws < 100 µA from target.
 
 ## 11. Open items (non-blocking)
 
-- **Series damping on SWDIO/SWCLK**: 33 Ω 0402 footprints in-line
-  between the level-shifter B-side and the header, populated by
-  default. At 5 V B-side the LXC1T45 driver impedance is ~20 Ω; 33 Ω
-  series + typical 10 pF cable gives ~0.4 ns rise-time with minimal
-  ringing for 10–20 cm flying leads. Can be shorted with 0 Ω on bench
-  setups with short stubs.
-- **VBUS TVS part**: SMAJ5.0A (SMA) vs. PESD5V0S1BA (SOD-323). Either
-  satisfies R13; EE picks by layout real-estate.
-- **Production VID:PID**: replace pid.codes default once firmware
-  stabilizes.
+- **Production VID:PID** — firmware currently defaults to pid.codes
+  `0x1209 / 0x0001`. Replace once firmware stabilizes.
+- **Layout-stage controlled-impedance review** — confirm 90 Ω
+  differential USB on L1 after first layout pass.
 
 ---
 
@@ -536,117 +475,34 @@ draws < 100 µA from target.
     SWDIO/SWCLK/SWD_DIR (3) + target UART TX/RX (2) + nRESET (1) +
     4 LEDs + BOOT0 reserved = 19 pins. Comfortable in UFQFPN-32.
 
-14. **SWD bit-bang performance.** CMSIS-DAP over USB FS (12 Mbps) is
-    host-throughput-limited well before MCU bit-bang speed on a
-    64 MHz Cortex-M0+. Target 10 MHz SWCLK out of the level shifter;
-    LXC1T45 supports ≥ 100 MHz push-pull translation. No
-    peripheral-assist (SPI/TIM) required for v1 firmware.
+14. **SWD bit-bang performance / turnaround.** USB FS is the
+    throughput bottleneck long before the Cortex-M0+ bit-bang loop.
+    Target ~10 MHz SWCLK; LXC1T45 supports much faster push-pull
+    translation. `SWD_DIR` toggles in lock-step with the MCU GPIO
+    direction around ADI v5 turnaround cycles to avoid internal LS
+    contention. Firmware concern; no extra silicon.
 
-15. **SWD turnaround sequence.** With `SWD_DIR` as a separate GPIO:
-    - Write: `SWD_DIR = 1` → clock 32 data + 1 parity.
-    - Turnaround: set `SWD_DIR = 0` during the turnaround bit
-      (1 SWCLK cycle) before the read phase.
-    - Read: `SWD_DIR = 0` → sample SWDIO on each SWCLK rising edge.
+15. **No target power from probe.** Seward never sources power onto
+    the 10-pin header. Pin 1 is an *input* (VTref sense) only.
 
-    Matches ADI v5 §4.4 SWD protocol exactly. The MCU's `SWD_A` GPIO
-    must be set to input when `SWD_DIR = 0` (SWDIO sourced by the
-    target through B→A); the LS A-side goes Hi-Z when the B→A driver
-    is inactive which is fine, but leaving the MCU GPIO as an output
-    while DIR=0 causes contention internal to the LXC1T45. Firmware
-    reconfigures the GPIO direction in lock-step with `SWD_DIR`.
-
-16. **No target power from probe.** Unlike Feign (which current-limits
-    5 V to the UART header), Seward never sources power onto the
-    10-pin header. Pin 1 is an *input* (VTref sense) only. Target is
-    always externally powered.
-
-17. **Spare GPIOs broken out to test points.** PA7, PB0, PD1, PD2,
-    PA15, PB3, PB4, PB5 land on L4 pads. Enables future firmware
-    features (current-sense ADC hook, JTAG TDI/TDO, extra LED,
-    LPUART1 modem lines) without re-spinning the board.
+16. **Spare GPIOs.** ~8 unused pins (PA7, PB0, PA15, PB3, PB4, PB5,
+    PD1, PD2) can be broken out to test points for future firmware
+    features. Exact set is at EE discretion during layout.
 
 ---
 
-## 13. Pin assignment (detailed)
+## 13. Bring-up / verification checklist
 
-STM32G0B1KxUxN, UFQFPN-32 'N' variant. Pin numbers per DS13560
-Table 15, LQFP32/UFQFPN32-N column.
+### Power / USB
 
-| # | Port | I/O struct | Net | Role |
-|---:|---|---|---|---|
-| 1 | PC14 | FT | — | Spare (cfg as analog in FW) |
-| 2 | PC15 | FT | — | Spare |
-| 3 | VDD | — | 3V3 | Core + I/O supply |
-| 4 | PF2-NRST | — | NRST | MCU reset (button + 100 nF cap) |
-| 5 | PA0 | FT | LED_STATUS | Active-high green LED |
-| 6 | PA1 | FT | LED_DAP | Active-high amber LED |
-| 7 | PA2 | FT_a | LED_UART_TX | Active-high blue LED |
-| 8 | PA3 | FT_ea | LED_UART_RX | Active-high blue LED |
-| 9 | PA4 | FT_a | SWD_A | SWDIO A-side to U_LS_SWDIO |
-| 10 | PA5 | FT_a | SWCLK_A | SWCLK A-side to U_LS_SWCLK |
-| 11 | PA6 | FT_a | SWD_DIR | Direction control for U_LS_SWDIO |
-| 12 | PA7 | FT_fa | — | Spare → TP |
-| 13 | PB0 | FT_fa | — | Spare → TP |
-| 14 | VDDA/VSSA | — | 3V3 / GND | Tie VDDA to 3V3 through a BLM15 ferrite; VSSA to GND |
-| 15 | PA8 | FT_c | USB_C.CC1 | UCPD1_CC1 |
-| 16 | PA9 | FT_a | USB_C.CC1 | UCPD1_DBCC1, shorted to PA8 |
-| 17 | PA10 | FT_a | USB_C.CC2 | UCPD1_DBCC2, shorted to PB15 |
-| 18 | PA11 | FT | USB_C.D.N | USB_DM |
-| 19 | PA12 | FT | USB_C.D.P | USB_DP |
-| 20 | PA13 | FT_a | SWD.SWDIO | MCU self-SWD (Tag-Connect) |
-| 21 | PA14/BOOT0 | FT_a | SWD.SWCLK / BOOT0 | SWCLK + BOOT0 button |
-| 22 | PA15 | FT_fa | — | Spare → TP |
-| 23 | PB3 | FT_fa | — | Spare → TP |
-| 24 | PB4 | FT_fa | — | Spare → TP |
-| 25 | PB5 | FT_fa | — | Spare → TP |
-| 26 | PD0 | FT_cs | TGT_nRESET | Target nRESET, open-drain, **5 V tolerant** |
-| 27 | PD1 | FT | — | Spare → TP |
-| 28 | PD2 | FT_cs | — | Spare (reserve FT_c for future) → TP |
-| 29 | PB6 | FT_fa | UART_TX_A | USART1_TX to U_LS_UTX |
-| 30 | PB7 | FT_fa | UART_RX_A | USART1_RX from U_LS_URX |
-| 31 | PB15 | FT_c | USB_C.CC2 | UCPD1_CC2 |
-| 32 | VSS + EP | — | GND | Ground + exposed pad (thermal + electrical) |
+- [ ] VBUS = 5 V ± 5 %, 3V3 = 3.30 V ± 2 %, USB idle < 30 mA.
+- [ ] D_STATUS green LED heartbeating.
+- [ ] Host enumerates Vendor + CDC-ACM composite; WinUSB auto-binds.
+- [ ] `pyOCD list` / `probe-rs list` shows a unique serial (G0B1 UID).
 
-### Decoupling (per AN4879 §3.2)
+### Target header, no target
 
-| Pin | Cap |
-|---|---|
-| VDD × {each instance} | 100 nF 0402 within 2 mm |
-| VDDA | 100 nF 0402 + 1 µF 0603, tied to 3V3 through BLM15 ferrite |
-| 3V3 bulk | 4.7 µF 0805 near LDO output + 1 µF 0603 near MCU |
-| VBUS | 4.7 µF 0805 ceramic near USB-C receptacle |
-| LXC1T45 VCCA (×4) | 100 nF 0402 each, placed on the MCU side of the LS |
-| LXC1T45 VCCB (×4) | 100 nF 0402 each, placed on the target side of the LS |
-
----
-
-## 14. Bring-up / verification checklist
-
-### Visual / continuity (no power)
-
-- [ ] VBUS / 3V3 / GND not shorted to each other.
-- [ ] CC1/CC2 not shorted to GND (no 5.1 kΩ populated).
-- [ ] Header pin 1 (VTref) isolated from 3V3.
-- [ ] Header pin 7 (key) not connected to a signal.
-
-### Power-up (USB, no target)
-
-- [ ] VBUS = 5 V ± 5 %.
-- [ ] 3V3 = 3.30 V ± 2 %.
-- [ ] USB idle current < 30 mA.
-- [ ] D_STATUS green LED begins heartbeat blink.
-
-### USB enumeration
-
-- [ ] Host enumerates Vendor + CDC-ACM composite device.
-- [ ] Windows auto-binds WinUSB via MS OS 2.0 descriptors.
-- [ ] `pyOCD list` / `probe-rs list` shows a unique serial.
-
-### Target header, no target connected
-
-- [ ] All B-side signals float (Hi-Z on DMM).
-- [ ] VTref = 0 V (no back-feed from probe).
-- [ ] nRESET floats (PD0 input mode).
+- [ ] All B-side signals float, VTref = 0 V, nRESET floats.
 
 ### Back-feed test (R8 verification)
 
@@ -657,50 +513,15 @@ Table 15, LQFP32/UFQFPN32-N column.
 5. Bench supply current < 200 µA.
 6. Repeat at VTref = 5.0 V — same pass criteria.
 
-### SWD functional at 3.3 V
+### SWD / UART at 1.8 V, 3.3 V, 5 V targets
 
-- [ ] Known Cortex-M target: `pyOCD cmd` returns correct IDCODE.
-- [ ] Scope SWCLK: 10 MHz, full 3.3 V p-p during DAP transactions.
-- [ ] Scope SWDIO: bidirectional, no contention spikes at turnaround.
-- [ ] Flash a test blob, read back, verify.
-
-### SWD at 1.8 V and 5 V
-
-- [ ] 1.8 V target: SWCLK amplitude = 1.8 V p-p, IDCODE correct.
-- [ ] 5 V target: SWCLK amplitude = 5 V p-p, IDCODE correct.
-
-### UART bridge
-
-- [ ] `/dev/ttyACM*` enumerates alongside CMSIS-DAP.
-- [ ] Loopback jumper at header pins 6–8: echoed bytes at 115200 and
-      921600 bps.
-- [ ] Verify amplitude translation at 1.8 V, 3.3 V, 5 V VTref.
+- [ ] Known Cortex-M target: correct IDCODE; scope SWCLK full p-p at
+      VTref; flash + readback round-trip OK.
+- [ ] UART loopback at 115200 and 921600 bps.
 
 ### Self-programming
 
 - [ ] Hold BOOT0 + tap NRST → STM32 DFU enumerates at `0483:df11`.
-- [ ] Flash a blink test via `dfu-util`.
+- [ ] `dfu-util` flashes a blink test.
 
 ---
-
-## 15. Test points
-
-0.8 mm L4 pads, labelled in silk:
-
-| Net | Label | Purpose |
-|---|---|---|
-| VBUS | TP_VBUS | USB 5 V sanity |
-| 3V3 | TP_3V3 | Probe rail |
-| GND | TP_GND | DMM / scope return |
-| VTref | TP_VTREF | Target rail sense |
-| SWDIO (B) | TP_SWDIO | Scope / protocol analyzer on target side |
-| SWCLK (B) | TP_SWCLK | Scope |
-| SWD_DIR | TP_DIR | Watch DIR toggling during bringup |
-| nRESET | TP_nRST | Target reset line |
-| UART_TX (B) | TP_UTX | Target-side UART |
-| UART_RX (B) | TP_URX | Target-side UART |
-
-Plus spare-GPIO test points PA7, PB0, PA15, PB3, PB4, PB5, PD1, PD2.
-
----
-
