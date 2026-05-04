@@ -45,7 +45,7 @@ SWD_DIR = Net()  # PA6 → LS SWDIO DIR; 1 = A→B (write)
 TGT_NRESET = Net()  # PD0 ↔ FTSH pin 10, FT_c open-drain, no LS
 
 # VTREF is sourced by FTSH pin 1; target-driven rail for the LS VCCB.
-VTREF = Power(voltage="1.1V to 5.0V")
+VTREF = Power(voltage="1.8V to 5.0V")
 
 LED_STATUS = Net()
 LED_DAP = Net()
@@ -74,7 +74,7 @@ def level_shifter(name, a, b, dir):
     LS(
         name="U_LS_" + name,
         voltage_a="3.3V",
-        voltage_b="1.1V to 5.0V",
+        voltage_b="1.8V to 5.0V",
         VCCA=V3V3,
         VCCB=VTREF,
         GND=GND,
@@ -88,9 +88,11 @@ UsbC(name="J_USB", USB_C=USB_C, VBUS=VBUS, GND=GND)
 
 UsbEsd(name="U_ESD", D1P=USB_C.CC2, D1M=USB_C.CC1, D2M=USB_C.D.P, D2P=USB_C.D.N, GND=GND)
 
-# VBUS TVS — 5–6 V standoff unidirectional, SMF (DO-219AB). Clamps
-# surge events from hot-plug / cable strikes before they reach the LDO
-# or the MCU VDD rail via the USB–LDO path.
+# VBUS TVS — 5 V standoff unidirectional, SMF (SMF5V0A). USB-C vSafe5V
+# sits at 4.75–5.25 V nominal, up to 5.5 V worst-case; at 5.5 V the
+# TVS is still subthreshold (V_BR min ≈ 6.4 V), leaking tens of µA at
+# worst. Clamps surge events from hot-plug / cable strikes at ~9.2 V
+# before they reach the LDO.
 Tvs(name="D_VBUS_TVS", A=GND, K=VBUS)
 
 LDO(name="U_LDO", output_voltage="3.3V", output_current="500mA", VIN=VBUS, VOUT=V3V3, GND=GND)

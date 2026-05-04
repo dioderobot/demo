@@ -2,8 +2,8 @@
 
 A small, reliable CMSIS-DAP debug probe based on the STM32G0B1. Exposes
 a 10-pin ARM Cortex-Debug target header with bidirectional SWD and an
-integrated UART bridge. Target-side I/O rails auto-range from 1.1 V to
-5.0 V so one probe handles 1.8 V / 3.3 V / 5 V targets.
+integrated UART bridge. Target-side I/O rails auto-range to support
+1.8 V, 3.3 V, and 5 V targets on a single probe.
 
 ---
 
@@ -35,7 +35,7 @@ victims under methodical, if ineffective, observation.
 | R1 | USB 2.0 FS device, bus-powered, USB-C receptacle | P0 |
 | R2 | Crystal-less USB via HSI48 + CRS | P0 |
 | R3 | Enumerate as CMSIS-DAP v2 (WinUSB) + CDC-ACM composite | P0 |
-| R4 | Target-side I/O rails auto-range over 1.1–5.0 V (VTref-driven, nRESET clamp) | P0 |
+| R4 | Target-side I/O rails auto-range over 1.8–5.0 V (VTref-driven, nRESET clamp) | P0 |
 | R5 | Bidirectional SWDIO via directional level shifter, firmware-controlled direction | P0 |
 | R6 | Target UART bridge, same voltage range as SWD | P0 |
 | R7 | Target nRESET: open-drain drive, 5 V tolerant when probe is unpowered | P0 |
@@ -89,7 +89,7 @@ P0 = must have, P1 = should have.
  │         │   │  • SWCLK  (DIR = VCCA, A→B)          │                    │
  │         │   │  • UART TX (DIR = VCCA, A→B)         │                    │
  │         │   │  • UART RX (DIR = GND, B→A)          │                    │
- │         │   │  VCCB = VTref (auto 1.1–5.0 V)       │                    │
+ │         │   │  VCCB = VTref (auto 1.8–5.0 V)       │                    │
  │         │   └──────────────┬───────────────────────┘                    │
  │         │                  │ (B-side, target domain)                    │
  │         │                  │    ┌──── nRESET (direct, MCU open-drain,   │
@@ -143,7 +143,7 @@ Composite USB device, single configuration:
 |---|---|---|---|
 | VBUS | 5 V USB | USB-C receptacle | < 100 mA total |
 | 3V3 | 3.3 V | TPS74x01P LDO from VBUS | ~30 mA peak |
-| VTref | 1.1–5.0 V | **Target-driven** (header pin 1) | ≤ 100 µA target-sourced |
+| VTref | 1.8–5.0 V | **Target-driven** (header pin 1) | ≤ 100 µA target-sourced |
 
 Probe is bus-powered; never sources power onto the target header. VTref
 feeds only the level-shifter VCCB rails — the probe does not sense,
@@ -206,7 +206,7 @@ probes with integrated serial):
 | 7 | NC (key) | — | Polarization |
 | 8 | UART_TX | probe → target | Via LXC1T45, DIR = VCCA (A→B) |
 | 9 | GNDDetect | — | Short to GND on the probe |
-| 10 | nRESET | bidirectional open-drain | **Direct to MCU FT_c GPIO**, no shifter |
+| 10 | nRESET | probe → target (open-drain) | **Direct to MCU FT_c GPIO**, no shifter; drive-only |
 
 ### Level shifter bank
 
@@ -233,10 +233,11 @@ is a trivial bit-bang sequence in the CMSIS-DAP SWD loop.
 ### nRESET handling
 
 No level shifter. MCU drives header pin 10 directly from a **FT_c**
-(5 V tolerant regardless of VDD) GPIO, configured as:
-- **Output**: open-drain, drive low to hold target in reset; Hi-Z
-  otherwise.
-- **Input**: read to observe external resets.
+(5 V tolerant regardless of VDD) GPIO as open-drain: drive low to hold
+target in reset, Hi-Z otherwise. The probe does not read target nRESET
+state — the MCU input threshold is referenced to the 3V3 probe rail,
+which wouldn't register a 1.1/1.8 V target-driven high. CMSIS-DAP only
+needs to assert/release reset.
 
 FT_c pin assignment: **PD0**. Only four FT_c pins on the UFQFPN-32
 'N' package (PA8, PB15, PD0, PD2, per DS13560 Table 15); PA8/PB15 are
