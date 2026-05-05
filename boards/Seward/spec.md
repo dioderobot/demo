@@ -2,7 +2,7 @@
 
 A small, reliable CMSIS-DAP debug probe based on the STM32G0B1. Exposes
 a 10-pin ARM Cortex-Debug target header with bidirectional SWD and an
-integrated UART bridge. Target-side I/O rails auto-range to support
+integrated SWO capture. Target-side I/O rails auto-range to support
 1.8 V, 3.3 V, and 5 V targets on a single probe.
 
 ---
@@ -16,12 +16,13 @@ Primary use cases:
 
 1. Host-side CMSIS-DAP v2 (WinUSB bulk) over USB-C for `pyOCD` /
    `OpenOCD` / `probe-rs` / `Keil` / IAR.
-2. USB-CDC virtual UART for target serial console, independent from SWD.
+2. USB-CDC virtual serial port exposing captured SWO trace bytes to
+   the host (target → probe only; no host-to-target path).
 3. Power-off target while probe remains plugged into USB (target
    powered externally) without back-feed from probe into target.
 4. Probe itself is reprogrammable over USB DFU (STM32 ROM bootloader)
-   via a BOOT0 + RESET button combination; a Tag-Connect footprint is
-   available for factory/recovery SWD.
+   via a BOOT0 button + USB cycle (or firmware-triggered DFU jump);
+   a Tag-Connect footprint is available for factory/recovery SWD.
 
 Named for Dr. John Seward — the asylum director who kept Dracula's
 victims under methodical, if ineffective, observation.
@@ -37,12 +38,12 @@ victims under methodical, if ineffective, observation.
 | R3 | Enumerate as CMSIS-DAP v2 (WinUSB) + CDC-ACM composite | P0 |
 | R4 | Target-side I/O rails auto-range over 1.8–5.0 V (VTref-driven, nRESET clamp) | P0 |
 | R5 | Bidirectional SWDIO via directional level shifter, firmware-controlled direction | P0 |
-| R6 | Target UART bridge, same voltage range as SWD | P0 |
+| R6 | Target SWO (TPIU NRZ) capture, same voltage range as SWD | P0 |
 | R7 | Target nRESET: open-drain drive, 5 V tolerant when probe is unpowered | P0 |
 | R8 | No back-feed from target into probe when USB is disconnected | P0 |
 | R9 | 10-pin 0.05" ARM Cortex-Debug target header, keyed/shrouded | P0 |
 | R10 | Four status LEDs (activity / heartbeat); none on power rails | P0 |
-| R11 | Probe self-flashable via USB DFU (BOOT0 + RESET buttons) | P0 |
+| R11 | Probe self-flashable via USB DFU (BOOT0 button + USB cycle or firmware-triggered jump) | P0 |
 | R12 | Tag-Connect SWD footprint (unpopulated) for factory / recovery | P1 |
 | R13 | ESD: IEC 61000-4-2 Level 4 on D+/D-/CC1/CC2 + VBUS TVS | P0 |
 | R14 | CC termination via STM32G0B1 UCPD dead-battery Rd (no external 5.1 kΩ) | P0 |
@@ -75,20 +76,18 @@ P0 = must have, P1 = should have.
  │         │         │ CMSIS-DAP v2 firmware  │                            │
  │         │         │                        │                            │
  │         │         │ SWD_A   SWCLK_A        │                            │
- │         │         │ SWD_DIR                │                            │
- │         │         │ UART_TX_A UART_RX_A    │                            │
+ │         │         │ SWD_DIR  SWO_A         │                            │
  │         │         │ nRST (FT_c, 5V tol.)   │                            │
- │         │         │ 4× LED GPIOs           │                            │
- │         │         │ BOOT0, NRST buttons    │                            │
+ │         │         │ 3× LED GPIOs           │                            │
+ │         │         │ BOOT0 button           │                            │
  │         │         └─┬──────────────────────┘                            │
  │         │           │ (3V3 A-side)                                      │
  │         │           ▼                                                   │
  │         │   ┌──────────────────────────────────────┐                    │
- │         │   │ 4× SN74LXC1T45QDRYRQ1 (USON)        │                    │
+ │         │   │ 3× SN74LXC1T45QDRYRQ1 (USON)         │                    │
  │         │   │  • SWDIO  (DIR = SWD_DIR, firmware)  │                    │
  │         │   │  • SWCLK  (DIR = VCCA, A→B)          │                    │
- │         │   │  • UART TX (DIR = VCCA, A→B)         │                    │
- │         │   │  • UART RX (DIR = GND, B→A)          │                    │
+ │         │   │  • SWO    (DIR = GND, B→A)           │                    │
  │         │   │  VCCB = VTref (auto 1.8–5.0 V)       │                    │
  │         │   └──────────────┬───────────────────────┘                    │
  │         │                  │ (B-side, target domain)                    │
@@ -98,17 +97,16 @@ P0 = must have, P1 = should have.
  │  ┌───────────────────────────────────────────────────────┐              │
  │  │  Samtec FTSH-105-01-L-DV-K-A-P-TR  (10-pin, keyed)    │              │
  │  │   1:VTref  2:SWDIO  3:GND  4:SWCLK  5:GND             │              │
- │  │   6:UART_RX  7:NC(key)  8:UART_TX  9:GNDDetect 10:nRST│              │
+ │  │   6:SWO     7:NC(key)  8:NC     9:GNDDetect 10:nRST    │              │
  │  └───────────────────────────────────────────────────────┘              │
  │                                                                         │
- │  Buttons: BOOT0 (PA14/BOOT0 → 3V3)  RESET (NRST → GND)                  │
+ │  Button: BOOT0 (PA14/BOOT0 → 3V3). NRST via Tag-Connect only.           │
  │  Tag-Connect TC2030-IDC-NL: SWD of the G0B1 itself (unpopulated)        │
  │                                                                         │
  │  LEDs (all GPIO-driven, 3 colors):                                      │
  │    STATUS (green, heartbeat)                                            │
  │    DAP    (amber, SWD activity)                                         │
- │    UART_TX (blue, host→target byte)                                     │
- │    UART_RX (blue, target→host byte)                                     │
+ │    SWO    (blue, target SWO activity)                                   │
  └─────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -120,7 +118,7 @@ Composite USB device, single configuration:
 |---|---|---|---|
 | 0 | Vendor (WinUSB, MS OS 2.0 descriptors) | `EP1 IN bulk`, `EP1 OUT bulk`, optional `EP2 IN bulk` (SWO) | CMSIS-DAP v2 |
 | 1 | CDC-ACM control | `EP3 IN interrupt` | CDC notifications |
-| 2 | CDC-ACM data | `EP4 IN bulk`, `EP4 OUT bulk` | Target UART |
+| 2 | CDC-ACM data | `EP4 IN bulk` | Captured SWO byte stream (read-only on host) |
 
 - VID:PID: `0x1209 / 0x0001` (pid.codes community default) during
   bringup; production PID assignment tracked in §11.
@@ -188,12 +186,11 @@ sink (see Design Note 5).
 
 D+/D- routed 90 Ω differential to PA11/PA12.
 
-### Target header (10-pin Cortex-Debug, modified for UART)
+### Target header (10-pin ARM Cortex-Debug, SWD + SWO)
 
 **Samtec FTSH-105-01-L-DV-K-A-P-TR** — 2×5, 0.05" pitch, keyed/shrouded,
-SMT, reuses the DM0002 package. Pinout matches the ARM Cortex Debug
-standard with SWO/TDI repurposed for UART RX/TX (common convention on
-probes with integrated serial):
+SMT. Standard ARM Cortex Debug 10-pin pinout; no non-standard
+repurposing.
 
 | Pin | Function | Direction | Notes |
 |----:|---|---|---|
@@ -202,26 +199,26 @@ probes with integrated serial):
 | 3 | GND | — | |
 | 4 | SWCLK | probe → target | Via LXC1T45, DIR = VCCA (always A→B) |
 | 5 | GND | — | |
-| 6 | UART_RX | target → probe | Via LXC1T45, DIR = GND (B→A) |
+| 6 | SWO | target → probe | Via LXC1T45, DIR = GND (B→A) |
 | 7 | NC (key) | — | Polarization |
-| 8 | UART_TX | probe → target | Via LXC1T45, DIR = VCCA (A→B) |
+| 8 | NC (TDI slot) | — | Unused in SWD mode |
 | 9 | GNDDetect | — | Short to GND on the probe |
 | 10 | nRESET | probe → target (open-drain) | **Direct to MCU FT_c GPIO**, no shifter; drive-only |
 
 ### Level shifter bank
 
-Four `SN74LXC1T45QDRYRQ1` (USON-6, 1.45×1 mm, Ioff + V₀₀ disconnect,
+Three `SN74LXC1T45QDRYRQ1` (USON-6, 1.45×1 mm, Ioff + V₀₀ disconnect,
 1.1–5.5 V both ports). All share:
 - VCCA = 3V3 (probe side)
 - VCCB = VTref (target side)
-- 100 nF 0402 on each VCCA and VCCB pin
+- one 1 µF bulk cap on VTREF at the cluster; V3V3 decoupled upstream
 
 | Shifter | DIR wiring | A (MCU side) | B (target side) |
 |---|---|---|---|
-| U_LS_SWDIO | GPIO `SWD_DIR` | PA4 (`SWD_A`) | Header pin 2 |
-| U_LS_SWCLK | tied to VCCA (always A→B) | PA5 (`SWCLK_A`) | Header pin 4 |
-| U_LS_UTX | tied to VCCA (always A→B) | PB6 (USART1_TX) | Header pin 8 |
-| U_LS_URX | tied to GND (always B→A) | PB7 (USART1_RX) | Header pin 6 |
+| U_LS_SWDIO | GPIO `SWD_DIR` (PB7) | PB6 | Header pin 2 |
+| U_LS_SWCLK | tied to VCCA (always A→B) | PB8 | Header pin 4 |
+| U_LS_SWO   | tied to GND (always B→A)   | PB9 (USART3_RX) | Header pin 6 |
+| U_LS_URX | tied to GND (always B→A) | PB9 (USART3_RX) | Header pin 6 |
 
 Firmware controls `SWD_DIR`:
 - High → MCU drives SWDIO (write/address phase).
@@ -249,11 +246,13 @@ DS13560 §6.3.15.
 
 - **Tag-Connect TC2030-IDC-NL** SWD footprint on the G0B1's SWD
   (PA13/PA14). Unpopulated; pads only.
-- **NRST button** (B3U-1000P): NRST → GND. 100 nF filter cap NRST→GND
-  per AN4879.
+- **NRST filter cap** (100 nF 0402 NRST→GND) for AN4879 glitch
+  immunity. NRST itself is driven only by the Tag-Connect footprint
+  (external SWD probe) — no on-board reset button.
 - **BOOT0 button** (B3U-1000P): PA14/BOOT0 → 3V3 with 10 kΩ pull-down
-  keeping the pin low when released. Hold BOOT0 + tap NRST → STM32 ROM
-  USB DFU bootloader for self-reflash.
+  keeping the pin low when released. Hold BOOT0 and re-plug USB (or
+  jump to bootloader in firmware) → STM32 ROM USB DFU bootloader for
+  self-reflash.
 
 ### User I/O — LEDs
 
@@ -264,8 +263,7 @@ GND, active-high). Three colors total (no white):
 |---|---|---|
 | D_STATUS  | green  | Probe heartbeat        |
 | D_DAP     | amber  | SWD activity           |
-| D_UART_TX | blue   | Host → target byte     |
-| D_UART_RX | blue   | Target → host byte     |
+| D_SWO     | blue   | Target SWO activity    |
 
 ---
 
@@ -367,7 +365,7 @@ Audit of every target → probe path:
 |---|---|
 | VTref → LXC1T45 VCCB | Shifter draws ~10 µA quiescent per chip = ~40 µA total. Acceptable target load. No path into probe 3V3 because VCCA is 0 V on all four shifters. |
 | SWDIO (target out) → MCU GPIO | LXC1T45 has **Ioff + V₀₀ disconnect**: when VCCA drops below 100 mV, the A-side I/O is briefly pulled low then goes Hi-Z. No back-drive into MCU or 3V3. |
-| SWCLK / UART / SWD_DIR | Shifters Ioff for A-side; direction is MCU→target so target never drives these B-sides in the first place. |
+| SWCLK / SWO / SWD_DIR | Shifters Ioff for A-side; SWCLK/SWD_DIR are probe→target (target never drives these B-sides), SWO is target→probe (LS A-side Hi-Z via Ioff when VCCA=0). |
 | nRESET → MCU PD0 | PD0 is **FT_c** (5 V tolerant regardless of VDD per DS13557 §6.3.15) — no ESD clamp to VDD, so a target-driven high on nRESET does not charge 3V3. |
 | VTref → 3V3 rail | No direct electrical path. No op-amp, no voltage divider, no diode. |
 | USB D+/D- | USB disconnected; no path. |
@@ -397,9 +395,9 @@ draws < 100 µA from target.
    with an external DIR pin, 1.1–5.5 V on both VCCA and VCCB (covers
    1.8 V / 3.3 V / 5 V targets in one part). For SWDIO we route DIR to
    a dedicated GPIO (`SWD_DIR`) that firmware toggles around SWD
-   turnaround phases per ADI v5. For SWCLK and UART_TX, DIR is
-   hard-tied to VCCA (permanently A→B). For UART_RX, DIR is
-   hard-tied to GND (permanently B→A). This gives deterministic,
+   turnaround phases per ADI v5. For SWCLK, DIR is hard-tied to VCCA
+   (permanently A→B). For SWO, DIR is hard-tied to GND (permanently
+   B→A — only the target drives SWO per ARM spec). This gives deterministic,
    high-bandwidth, push-pull level translation with none of the
    flakiness of auto-direction parts (TXB/TXS series).
 
@@ -443,11 +441,11 @@ draws < 100 µA from target.
    `UCPD1_STROBE` unless UCPD1 has been explicitly configured as a
    sink.
 
-7. **SWD_DIR idle.** `SWD_DIR` is pulled to GND (10 kΩ) at the MCU so,
-   during MCU reset, the SWDIO shifter is in B→A (read) mode — Hi-Z
-   on the target side (A-side Ioff during reset is N/A because VCCA
-   is present; but with DIR = B→A the A-side is an input and the
-   B-side output is effectively Hi-Z with respect to a driven target).
+7. **SWD_DIR idle.** The SN74LXC1T45 has an integrated ~5 MΩ
+   pull-down on DIR, so a floating DIR defaults to LOW (B→A read).
+   During MCU reset, PB6 is Hi-Z and the LS SWDIO shifter stays in
+   read mode — MCU A-side is an input, target-side driver disabled
+   — without an external pull-down.
 
 8. **No BSS138 on nRESET.** DM0002 uses a BSS138 FET shifter for
    nRESET. Seward eliminates it by using an FT_c MCU GPIO directly in
@@ -468,13 +466,14 @@ draws < 100 µA from target.
     just that a rail is up.
 
 12. **Firmware update path.** Primary: USB DFU via STM32 system memory
-    bootloader. Hold BOOT0 + tap NRST → host sees STM32 DFU device →
-    `dfu-util` / `STM32CubeProgrammer`. Tag-Connect SWD is factory /
-    recovery only; no connector populated on shipped boards.
+    bootloader. Hold BOOT0 and re-plug USB (or firmware jump to system
+    memory) → host sees STM32 DFU device → `dfu-util` /
+    `STM32CubeProgrammer`. Tag-Connect SWD is factory / recovery only;
+    no connector populated on shipped boards.
 
 13. **GPIO budget.** USB (2) + UCPD CC/DBCC (4) + SWD (2) + target
-    SWDIO/SWCLK/SWD_DIR (3) + target UART TX/RX (2) + nRESET (1) +
-    4 LEDs + BOOT0 reserved = 19 pins. Comfortable in UFQFPN-32.
+    SWDIO/SWCLK/SWD_DIR (3) + SWO (1) + nRESET (1) + 3 LEDs +
+    BOOT0 reserved = 16 pins. Comfortable in UFQFPN-32.
 
 14. **SWD bit-bang performance / turnaround.** USB FS is the
     throughput bottleneck long before the Cortex-M0+ bit-bang loop.
@@ -514,15 +513,16 @@ draws < 100 µA from target.
 5. Bench supply current < 200 µA.
 6. Repeat at VTref = 5.0 V — same pass criteria.
 
-### SWD / UART at 1.8 V, 3.3 V, 5 V targets
+### SWD / SWO at 1.8 V, 3.3 V, 5 V targets
 
 - [ ] Known Cortex-M target: correct IDCODE; scope SWCLK full p-p at
       VTref; flash + readback round-trip OK.
-- [ ] UART loopback at 115200 and 921600 bps.
+- [ ] Enable ITM/TPIU on a Cortex-M3/M4/M7 target; verify
+      `/dev/ttyACM*` receives the SWO byte stream at configured baud.
 
 ### Self-programming
 
-- [ ] Hold BOOT0 + tap NRST → STM32 DFU enumerates at `0483:df11`.
+- [ ] Hold BOOT0 + re-plug USB → STM32 DFU enumerates at `0483:df11`.
 - [ ] `dfu-util` flashes a blink test.
 
 ---

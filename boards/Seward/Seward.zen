@@ -2,15 +2,15 @@
 Seward — CMSIS-DAP v2 USB debug probe, STM32G0B1-based.
 
 USB-C bus-powered, crystal-less USB (HSI48 + CRS). Exposes a 10-pin
-ARM Cortex-Debug target header with bidirectional SWD, UART bridge, and
-nRESET. Target-side I/O auto-ranges over 1.1–5.0 V via directional
+ARM Cortex-Debug target header with bidirectional SWD, SWO capture, and
+nRESET drive. Target-side I/O auto-ranges over 1.1–5.0 V via directional
 SN74LXC1T45 level shifters powered from the target's VTref rail.
 
 See `spec.md` for full design rationale, back-feed analysis, pin map,
 and bring-up checklist.
 """
 
-load("@stdlib/interfaces.zen", "NotConnected", "Swd", "Uart", "UsbTypeC")
+load("@stdlib/interfaces.zen", "NotConnected", "Swd", "UsbTypeC")
 
 UsbC = Module("github.com/diodeinc/registry/connectors/UsbC16P/UsbC16P.zen")
 UsbEsd = Module("github.com/diodeinc/registry/components/TPD4E05U06QDQARQ1/TPD4E05U06QDQARQ1.zen")
@@ -38,8 +38,8 @@ SWD = Swd()  # MCU self-SWD via Tag-Connect (PA13/PA14)
 SWD_A = Swd()  # MCU ↔ LS A-side (PA4/PA5)
 SWD_LS = Swd()  # LS B-side, before series damping
 SWD_B = Swd()  # target header side, after damping
-UART_A = Uart()  # MCU ↔ LS A-side (PB6/PB7)
-UART_B = Uart()  # target header side (post-LS)
+SWO_A = Net()  # MCU ← LS A-side (PB9)
+SWO_B = Net()  # target header side (pin 6)
 
 SWD_DIR = Net()  # PA6 → LS SWDIO DIR; 1 = A→B (write)
 TGT_NRESET = Net()  # PD0 ↔ FTSH pin 10, FT_c open-drain, no LS
@@ -49,8 +49,7 @@ VTREF = Power(voltage="1.8V to 5.0V")
 
 LED_STATUS = Net()
 LED_DAP = Net()
-LED_UART_TX = Net()
-LED_UART_RX = Net()
+LED_SWO = Net()
 
 NRST = Net()
 
@@ -115,11 +114,11 @@ STM32G0B1(
     PA13=SWD.SWDIO,
     PA14=SWD.SWCLK,
     # Target-side of level shifters (VCCA = 3V3, A-port = MCU).
-    PA4=SWD_A.SWDIO,
-    PA5=SWD_A.SWCLK,
-    PA6=SWD_DIR,
-    PB6=UART_A.TX,
-    PB7=UART_A.RX,
+    PB6=SWD_A.SWDIO,
+    PB7=SWD_DIR,
+    PB8=SWD_A.SWCLK,
+    # Target SWO capture (USART3_RX reads target TPIU NRZ output).
+    PB9=SWO_A,
     # Target nRESET direct-drive — FT_c (5 V tolerant at VDD=0).
     PD0=TGT_NRESET,
     # PD0 is also UCPD2_CC1 and its dead-battery Rd is gated by
@@ -129,15 +128,10 @@ STM32G0B1(
     # UCPD2_STROBE.
     PD1=UCPD2_DBCC1,
     PD3=UCPD2_DBCC2,
-    PA0=LED_STATUS,
+    PB1=LED_STATUS,
     PA1=LED_DAP,
-    PA2=LED_UART_TX,
-    PA3=LED_UART_RX,
+    PA2=LED_SWO,
 )
-
-# SWD_DIR idle pull-down → LS defaults to B→A (read) during MCU reset
-# so the target is not back-driven.
-Resistor(name="R_SWD_DIR", value="10kohm", package="0402", P1=SWD_DIR, P2=GND)
 
 Resistor(name="R_UCPD2_DBCC1", value="100kohm", package="0402", P1=UCPD2_DBCC1, P2=GND)
 Resistor(name="R_UCPD2_DBCC2", value="100kohm", package="0402", P1=UCPD2_DBCC2, P2=GND)
@@ -145,7 +139,6 @@ Resistor(name="R_UCPD2_DBCC2", value="100kohm", package="0402", P1=UCPD2_DBCC2, 
 # PA14/BOOT0 must be low at POR to boot from flash; SW_BOOT0 overrides.
 Resistor(name="R_BOOT0", value="10kohm", package="0402", P1=SWD.SWCLK, P2=GND)
 
-Button(name="SW_RESET", P1=NRST, P2=GND)
 Button(name="SW_BOOT0", P1=SWD.SWCLK, P2=V3V3)
 
 Capacitor(name="C_NRST", value="100nF", package="0402", P1=NRST, P2=GND)
@@ -155,31 +148,31 @@ TagConnect(name="J_SWD", VSENSE=V3V3, GND=GND, SWD=SWD, NRST=NRST, SWO=NotConnec
 # Sizing: (3V3 − Vf) / 2 mA → E24. Green/amber Vf ≈ 1.9 V → 680 Ω; blue Vf ≈ 2.6 V → 330 Ω.
 led("STATUS", LED_STATUS, "green", "680ohm")
 led("DAP", LED_DAP, "yellow", "680ohm")  # amber
-led("UART_TX", LED_UART_TX, "blue", "330ohm")
-led("UART_RX", LED_UART_RX, "blue", "330ohm")
+led("SWO", LED_SWO, "blue", "330ohm")
 
 # Target-side level shifters (SN74LXC1T45, USON-6). Directional push-pull
 # translation 1.1–5.5 V both ports. Selector picks LXC over AXC because
 # `voltage_b` goes above AXC's 3.6 V rail cap. DIR tied per spec §12.1:
-#   SWDIO   — firmware toggles direction around ADI v5 turnaround.
-#   SWCLK   — hard A→B (DIR=V3V3).
-#   UART_TX — hard A→B (DIR=V3V3).
-#   UART_RX — hard B→A (DIR=GND).
+#   SWDIO — firmware toggles direction around ADI v5 turnaround.
+#   SWCLK — hard A→B (DIR=V3V3).
+#   SWO   — hard B→A (DIR=GND); target-only per ARM spec.
 level_shifter("SWDIO", SWD_A.SWDIO, SWD_LS.SWDIO, SWD_DIR)
 level_shifter("SWCLK", SWD_A.SWCLK, SWD_LS.SWCLK, V3V3.NET)
-level_shifter("UART_TX", UART_A.TX, UART_B.TX, V3V3.NET)
-level_shifter("UART_RX", UART_A.RX, UART_B.RX, GND)
+level_shifter("SWO", SWO_A, SWO_B, GND)
 
-# Single bulk cap for the LS cluster. Layout: pour VTREF on L3 under
-# all four shifters with a via from each VCCB pad straight down; the
-# cap sits on the same pour. Loop inductance to each VCCB pin is
-# ~1 nH (two short vias + plane spreading) vs. ~4 nH for a trace,
-# enough to keep the worst-case edge-transient dip under ~30 mV. No
-# per-shifter local decoupling is needed at 10 MHz SWCLK into Hi-Z
-# targets. The VCCA (V3V3) pins get the same treatment by via-ing to
-# the existing 3V3 pour; the LDO output cap and MCU VDD cap cover
-# that rail.
-Capacitor(name="C_VTREF", value="1uF", package="0402", P1=VTREF.NET, P2=GND)
+# Two 1 µF bulk caps on VTREF, one on each side of the LS cluster
+# (halves the effective loop inductance per shifter via parallel
+# paths through the pour).
+# Layout: pour VTREF on L3 under all three shifters with a via from
+# each VCCB pad straight down; the caps sit on the same pour. Loop
+# inductance to each VCCB pin is ~1 nH (two short vias + plane
+# spreading) vs. ~4 nH for a trace, enough to keep the worst-case
+# edge-transient dip under ~30 mV. No per-shifter local decoupling
+# is needed at 10 MHz SWCLK into Hi-Z targets. The VCCA (V3V3) pins
+# get the same treatment by via-ing to the existing 3V3 pour; the
+# LDO output cap and MCU VDD cap cover that rail.
+Capacitor(name="C_VTREF1", value="1uF", package="0402", P1=VTREF.NET, P2=GND)
+Capacitor(name="C_VTREF2", value="1uF", package="0402", P1=VTREF.NET, P2=GND)
 
 # Series damping on SWDIO/SWCLK between LS B-side and the target header.
 # 33 Ω + ~20 Ω LXC driver impedance ≈ 53 Ω, close to typical flying-lead
@@ -189,19 +182,18 @@ Capacitor(name="C_VTREF", value="1uF", package="0402", P1=VTREF.NET, P2=GND)
 Resistor(name="R_SWDIO_SER", value="33ohm", package="0402", P1=SWD_LS.SWDIO, P2=SWD_B.SWDIO)
 Resistor(name="R_SWCLK_SER", value="33ohm", package="0402", P1=SWD_LS.SWCLK, P2=SWD_B.SWCLK)
 
-# Target-side UART_RX idle pull-up to VTREF. UART idles high; with VTref
-# present but target TX Hi-Z (held in reset, unconfigured, disconnected),
-# the LS B-side input would float. 100 kΩ gives a defined idle that
-# passes cleanly through to PB7.
-Resistor(name="R_UART_RX_PU", value="100kohm", package="0402", P1=UART_B.RX, P2=VTREF.NET)
+# Target-side SWO idle pull-up to VTREF. SWO idles high (NRZ convention);
+# with VTref present but target TPIU not enabled or target held in
+# reset, the LS B-side input would float. 100 kΩ gives a defined idle
+# that passes cleanly through to PB9.
+Resistor(name="R_SWO_PU", value="100kohm", package="0402", P1=SWO_B, P2=VTREF.NET)
 
 # Target header — Samtec FTSH-105 (2×5, 1.27 mm, shrouded/keyed, SMT
-# with alignment pegs). ARM Cortex Debug 10-pin pinout with the SWO/TDI
-# positions repurposed for UART:
+# with alignment pegs). Standard ARM Cortex Debug 10-pin pinout:
 #   1 VTREF       2 SWDIO_B
 #   3 GND         4 SWCLK_B
-#   5 GND         6 UART_RX_B   (SWO position)
-#   7 KEY         8 UART_TX_B   (TDI position)
+#   5 GND         6 SWO_B
+#   7 KEY         8 NC (TDI position, unused in SWD mode)
 #   9 GND        10 TGT_NRESET
 Ftsh10(
     name="J_TGT",
@@ -210,9 +202,9 @@ Ftsh10(
     P3=GND,
     P4=SWD_B.SWCLK,
     P5=GND,
-    P6=UART_B.RX,
+    P6=SWO_B,
     P7=Net("KEY"),
-    P8=UART_B.TX,
+    P8=Net("NC_TDI"),
     P9=GND,
     P10=TGT_NRESET,
 )
