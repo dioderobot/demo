@@ -1,0 +1,181 @@
+"""
+Seward — CMSIS-DAP v2 USB debug probe, STM32G0B1-based.
+
+USB-C bus-powered, crystal-less USB (HSI48 + CRS). Exposes a 10-pin
+ARM Cortex-Debug target header with bidirectional SWD, SWO capture, and
+nRESET drive. Target-side I/O auto-ranges over 1.1–5.0 V via directional
+SN74LXC1T45 level shifters powered from the target's VTref rail.
+
+See `spec.md` for full design rationale, back-feed analysis, pin map,
+and bring-up checklist.
+"""
+
+load("@stdlib/interfaces.zen", "NotConnected", "Swd", "UsbTypeC")
+
+UsbC = Module("github.com/diodeinc/registry/connectors/UsbC16P/UsbC16P.zen")
+UsbEsd = Module("github.com/diodeinc/registry/components/TPD4E05U06QDQARQ1/TPD4E05U06QDQARQ1.zen")
+STM32G0B1 = Module("github.com/diodeinc/registry/components/STMicroelectronics/STM32G0B1KxUxN/STM32G0B1KxUxN.zen")
+LDO = Module("github.com/diodeinc/registry/components/Texas_Instruments/TPS74x01P/TPS74x01P.zen")
+Button = Module("github.com/diodeinc/registry/components/B3U-1000P/B3U-1000P.zen")
+TagConnect = Module("github.com/diodeinc/registry/connectors/TagConnect/TC2030-NL_SWD.zen")
+LS = Module("github.com/diodeinc/registry/components/Texas_Instruments/SN74x1T45-DRY/SN74x1T45-DRY.zen")
+Ftsh10 = Module(
+    "github.com/diodeinc/registry/components/Samtec_Inc/FTSH-105-01-L-DV-K-A-P-TR/FTSH-105-01-L-DV-K-A-P-TR.zen"
+)
+
+Resistor = Module("@stdlib/generics/Resistor.zen")
+Capacitor = Module("@stdlib/generics/Capacitor.zen")
+Led = Module("@stdlib/generics/Led.zen")
+Tvs = Module("@stdlib/generics/Tvs.zen")
+
+
+VBUS = Power(voltage="4.5V to 5.5V (5V nom.)")
+V3V3 = Power(voltage="3.3V")
+GND = Ground()
+
+USB_C = UsbTypeC()
+SWD = Swd()  # MCU self-SWD via Tag-Connect (PA13/PA14)
+SWD_A = Swd()  # MCU ↔ LS A-side (PB6/PB8)
+SWD_LS = Swd()  # LS B-side, before series damping
+SWD_B = Swd()  # target header side, after damping
+SWO_A = Net()  # MCU ← LS A-side (PB9)
+SWO_B = Net()  # target header side (pin 6)
+
+SWD_DIR = Net()  # PB7 → LS SWDIO DIR; 1 = A→B (write)
+TGT_NRESET = Net()  # PD0 → FTSH pin 10, FT_c open-drain, drive-only
+
+# VTREF is sourced by FTSH pin 1; target-driven rail for the LS VCCB.
+VTREF = Power(voltage="1.8V to 5.0V")
+
+LED_STATUS = Net()
+LED_DAP = Net()
+LED_SWO = Net()
+
+NRST = Net()
+
+UCPD2_DBCC1 = Net()
+UCPD2_DBCC2 = Net()
+
+
+def led(name, anode, color, resistance):
+    """LED + 0402 series resistor to GND. `anode` is driven high to light."""
+    K = Net("LED_" + name + "_K")
+    Led(name="D_" + name, color=color, package="0402", A=anode, K=K)
+    Resistor(name="R_" + name, value=resistance, package="0402", P1=K, P2=GND)
+
+
+def level_shifter(name, a, b, dir):
+    """One SN74LXC1T45 (VCCA=V3V3, VCCB=VTREF).
+
+    `dir` is the direction net: `V3V3.NET` forces A→B, `GND` forces B→A,
+    or pass a firmware-driven net for bidirectional use.
+    """
+    LS(
+        name="U_LS_" + name,
+        voltage_a="3.3V",
+        voltage_b="1.8V to 5.0V",
+        VCCA=V3V3,
+        VCCB=VTREF,
+        GND=GND,
+        A=a,
+        B=b,
+        DIR=dir,
+    )
+
+
+UsbC(name="J_USB", USB_C=USB_C, VBUS=VBUS, GND=GND)
+
+UsbEsd(name="U_ESD", D1P=USB_C.CC2, D1M=USB_C.CC1, D2M=USB_C.D.P, D2P=USB_C.D.N, GND=GND)
+
+# 5 V standoff TVS across VBUS; subthreshold at USB-C 5.5 V max, clamps
+# hot-plug transients ~9.2 V.
+Tvs(name="D_VBUS_TVS", A=GND, K=VBUS)
+
+LDO(name="U_LDO", output_voltage="3.3V", output_current="500mA", VIN=VBUS, VOUT=V3V3, GND=GND)
+
+STM32G0B1(
+    name="U_MCU",
+    memory_size="128KB",
+    VDD=V3V3,
+    GND=GND,
+    NRST=NRST,
+    # UCPD1 dead-battery Rd: DBCC shorted to matching CC (AN5225 §11.3.1).
+    PA8=USB_C.CC1,
+    PA9=USB_C.CC1,
+    PB15=USB_C.CC2,
+    PA10=USB_C.CC2,
+    PA11=USB_C.D.N,
+    PA12=USB_C.D.P,
+    # Self-SWD (PA14 doubles as BOOT0).
+    PA13=SWD.SWDIO,
+    PA14=SWD.SWCLK,
+    # Target-side of level shifters (VCCA = 3V3, A-port = MCU).
+    PB6=SWD_A.SWDIO,
+    PB7=SWD_DIR,
+    PB8=SWD_A.SWCLK,
+    # Target SWO capture (USART3_RX reads target TPIU NRZ output).
+    PB9=SWO_A,
+    # Target nRESET direct-drive — FT_c (5 V tolerant at VDD=0).
+    PD0=TGT_NRESET,
+    # UCPD2 dead-battery suppression: see spec §12.6. PD1/PD3 pulled
+    # low via R_UCPD2_DBCC1/2 so internal Rd does not engage on PD0
+    # (nRESET) or PD2 at POR.
+    PD1=UCPD2_DBCC1,
+    PD3=UCPD2_DBCC2,
+    PB1=LED_STATUS,
+    PA1=LED_DAP,
+    PA2=LED_SWO,
+)
+
+Resistor(name="R_UCPD2_DBCC1", value="100kohm", package="0402", P1=UCPD2_DBCC1, P2=GND)
+Resistor(name="R_UCPD2_DBCC2", value="100kohm", package="0402", P1=UCPD2_DBCC2, P2=GND)
+
+# PA14/BOOT0 must be low at POR to boot from flash; SW_BOOT0 overrides.
+Resistor(name="R_BOOT0", value="10kohm", package="0402", P1=SWD.SWCLK, P2=GND)
+
+Button(name="SW_BOOT0", P1=SWD.SWCLK, P2=V3V3)
+
+Capacitor(name="C_NRST", value="100nF", package="0402", P1=NRST, P2=GND)
+
+TagConnect(name="J_SWD", VSENSE=V3V3, GND=GND, SWD=SWD, NRST=NRST, SWO=NotConnected())
+
+# LED current sizing: (3V3 − Vf) / 2 mA.
+led("STATUS", LED_STATUS, "green", "680ohm")
+led("DAP", LED_DAP, "yellow", "680ohm")  # amber
+led("SWO", LED_SWO, "blue", "330ohm")
+
+# Target-side level shifters. DIR per spec §12.1: SWDIO = firmware,
+# SWCLK = A→B, SWO = B→A.
+level_shifter("SWDIO", SWD_A.SWDIO, SWD_LS.SWDIO, SWD_DIR)
+level_shifter("SWCLK", SWD_A.SWCLK, SWD_LS.SWCLK, V3V3.NET)
+level_shifter("SWO", SWO_A, SWO_B, GND)
+
+# Two VTREF bulk caps straddling the LS cluster; see spec §5.
+Capacitor(name="C_VTREF1", value="1uF", package="0402", P1=VTREF.NET, P2=GND)
+Capacitor(name="C_VTREF2", value="1uF", package="0402", P1=VTREF.NET, P2=GND)
+
+# SWDIO/SWCLK series damping: 33 Ω + ~20 Ω LXC driver ≈ 53 Ω, roughly
+# matched to flying-lead cable; kills ringing into Hi-Z target inputs.
+Resistor(name="R_SWDIO_SER", value="33ohm", package="0402", P1=SWD_LS.SWDIO, P2=SWD_B.SWDIO)
+Resistor(name="R_SWCLK_SER", value="33ohm", package="0402", P1=SWD_LS.SWCLK, P2=SWD_B.SWCLK)
+
+# SWO idle pull-up to VTREF — defined logic high when target TPIU is off
+# or target is in reset, otherwise LS B-side input floats.
+Resistor(name="R_SWO_PU", value="100kohm", package="0402", P1=SWO_B, P2=VTREF.NET)
+
+# Target header — standard ARM Cortex Debug 10-pin. See spec §5.
+Ftsh10(
+    name="J_TGT",
+    P1=VTREF.NET,
+    P2=SWD_B.SWDIO,
+    P3=GND,
+    P4=SWD_B.SWCLK,
+    P5=GND,
+    P6=SWO_B,
+    P7=Net("KEY"),
+    P8=Net("NC_TDI"),
+    P9=GND,
+    P10=TGT_NRESET,
+)
+
+Board(name="Seward", layout_path="layout", layers=4)

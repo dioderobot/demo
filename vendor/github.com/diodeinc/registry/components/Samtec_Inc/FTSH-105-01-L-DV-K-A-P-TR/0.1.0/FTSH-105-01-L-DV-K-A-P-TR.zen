@@ -1,0 +1,59 @@
+"""FTSH-105-01-L-DV-K-A-P-TR — Samtec 2x5 1.27 mm SMD pin header with alignment pegs.
+
+Generic 10-pin (2 rows × 5 positions) surface-mount pin header on 1.27 mm
+(0.050") pitch, widely used as the ARM Cortex Debug / SWD+JTAG connector
+and other keyed 10-pin interfaces.
+
+Suffix decode (Samtec FTSH-105-01-L-DV-K-A-P-TR)
+  FTSH  0.050" terminal strip, SMD pin header
+  105   5 pins per row (10 pins total)
+  01    (3.05 mm) .120" post (mates with FFSD-series socket)
+  L     0.160" nominal mating post height variant
+  DV    double-row, vertical (SMT)
+  K     keying shroud (plastic polarizer for mating with FFSD)
+  A     alignment pin (the two mechanical through-hole pegs)
+  P     molded pick-&-place pad on the top of the shroud
+  -TR   tape and reel
+
+Mechanical
+- Two NPTH alignment holes at x = ±1.90 mm (1.1 mm drill) accept the
+  "-A" alignment pegs. They are mechanical only — leave unconnected.
+- Pin numbering: odd pins on one row (1, 3, 5, 7, 9), even pins on the
+  other (2, 4, 6, 8, 10). Pin 1 is marked with a small filled triangle
+  on F.SilkS next to pad 1.
+
+Cortex Debug (ARM 10-pin) mapping, for reference:
+    1 VTref       2 SWDIO/TMS
+    3 GND         4 SWCLK/TCK
+    5 GND         6 SWO/TDO
+    7 KEY(NC)     8 NC/TDI
+    9 GNDDetect  10 nRESET
+"""
+
+P1 = io(Net)
+P2 = io(Net)
+P3 = io(Net)
+P4 = io(Net)
+P5 = io(Net)
+P6 = io(Net)
+P7 = io(Net)
+P8 = io(Net)
+P9 = io(Net)
+P10 = io(Net)
+
+Component(
+    name="J",
+    symbol=Symbol(library="FTSH-105-01-L-DV-K-A-P-TR.kicad_sym"),
+    pins={
+        "1": P1,
+        "2": P2,
+        "3": P3,
+        "4": P4,
+        "5": P5,
+        "6": P6,
+        "7": P7,
+        "8": P8,
+        "9": P9,
+        "10": P10,
+    },
+)
