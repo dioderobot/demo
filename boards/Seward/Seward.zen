@@ -35,14 +35,14 @@ GND = Ground()
 
 USB_C = UsbTypeC()
 SWD = Swd()  # MCU self-SWD via Tag-Connect (PA13/PA14)
-SWD_A = Swd()  # MCU ↔ LS A-side (PA4/PA5)
+SWD_A = Swd()  # MCU ↔ LS A-side (PB6/PB8)
 SWD_LS = Swd()  # LS B-side, before series damping
 SWD_B = Swd()  # target header side, after damping
 SWO_A = Net()  # MCU ← LS A-side (PB9)
 SWO_B = Net()  # target header side (pin 6)
 
-SWD_DIR = Net()  # PA6 → LS SWDIO DIR; 1 = A→B (write)
-TGT_NRESET = Net()  # PD0 ↔ FTSH pin 10, FT_c open-drain, no LS
+SWD_DIR = Net()  # PB7 → LS SWDIO DIR; 1 = A→B (write)
+TGT_NRESET = Net()  # PD0 → FTSH pin 10, FT_c open-drain, drive-only
 
 # VTREF is sourced by FTSH pin 1; target-driven rail for the LS VCCB.
 VTREF = Power(voltage="1.8V to 5.0V")
@@ -87,11 +87,8 @@ UsbC(name="J_USB", USB_C=USB_C, VBUS=VBUS, GND=GND)
 
 UsbEsd(name="U_ESD", D1P=USB_C.CC2, D1M=USB_C.CC1, D2M=USB_C.D.P, D2P=USB_C.D.N, GND=GND)
 
-# VBUS TVS — 5 V standoff unidirectional, SMF (SMF5V0A). USB-C vSafe5V
-# sits at 4.75–5.25 V nominal, up to 5.5 V worst-case; at 5.5 V the
-# TVS is still subthreshold (V_BR min ≈ 6.4 V), leaking tens of µA at
-# worst. Clamps surge events from hot-plug / cable strikes at ~9.2 V
-# before they reach the LDO.
+# 5 V standoff TVS across VBUS; subthreshold at USB-C 5.5 V max, clamps
+# hot-plug transients ~9.2 V.
 Tvs(name="D_VBUS_TVS", A=GND, K=VBUS)
 
 LDO(name="U_LDO", output_voltage="3.3V", output_current="500mA", VIN=VBUS, VOUT=V3V3, GND=GND)
@@ -102,8 +99,7 @@ STM32G0B1(
     VDD=V3V3,
     GND=GND,
     NRST=NRST,
-    # UCPD1 dead-battery Rd: DBCC externally shorted to matching CC
-    # (AN5225 §11.3.1) to engage the internal 5.1 kΩ Rd at POR.
+    # UCPD1 dead-battery Rd: DBCC shorted to matching CC (AN5225 §11.3.1).
     PA8=USB_C.CC1,
     PA9=USB_C.CC1,
     PB15=USB_C.CC2,
@@ -121,11 +117,9 @@ STM32G0B1(
     PB9=SWO_A,
     # Target nRESET direct-drive — FT_c (5 V tolerant at VDD=0).
     PD0=TGT_NRESET,
-    # PD0 is also UCPD2_CC1 and its dead-battery Rd is gated by
-    # PD1/UCPD2_DBCC1 (DS13560 Table 12 note 4). Tie both DBCC inputs
-    # low via R_UCPD2_DBCC1/2 so UCPD2 does not engage internal
-    # pull-downs on PD0 (TGT_NRESET) or PD2 before firmware strobes
-    # UCPD2_STROBE.
+    # UCPD2 dead-battery suppression: see spec §12.6. PD1/PD3 pulled
+    # low via R_UCPD2_DBCC1/2 so internal Rd does not engage on PD0
+    # (nRESET) or PD2 at POR.
     PD1=UCPD2_DBCC1,
     PD3=UCPD2_DBCC2,
     PB1=LED_STATUS,
@@ -145,56 +139,31 @@ Capacitor(name="C_NRST", value="100nF", package="0402", P1=NRST, P2=GND)
 
 TagConnect(name="J_SWD", VSENSE=V3V3, GND=GND, SWD=SWD, NRST=NRST, SWO=NotConnected())
 
-# Sizing: (3V3 − Vf) / 2 mA → E24. Green/amber Vf ≈ 1.9 V → 680 Ω; blue Vf ≈ 2.6 V → 330 Ω.
+# LED current sizing: (3V3 − Vf) / 2 mA.
 led("STATUS", LED_STATUS, "green", "680ohm")
 led("DAP", LED_DAP, "yellow", "680ohm")  # amber
 led("SWO", LED_SWO, "blue", "330ohm")
 
-# Target-side level shifters (SN74LXC1T45, USON-6). Directional push-pull
-# translation 1.1–5.5 V both ports. Selector picks LXC over AXC because
-# `voltage_b` goes above AXC's 3.6 V rail cap. DIR tied per spec §12.1:
-#   SWDIO — firmware toggles direction around ADI v5 turnaround.
-#   SWCLK — hard A→B (DIR=V3V3).
-#   SWO   — hard B→A (DIR=GND); target-only per ARM spec.
+# Target-side level shifters. DIR per spec §12.1: SWDIO = firmware,
+# SWCLK = A→B, SWO = B→A.
 level_shifter("SWDIO", SWD_A.SWDIO, SWD_LS.SWDIO, SWD_DIR)
 level_shifter("SWCLK", SWD_A.SWCLK, SWD_LS.SWCLK, V3V3.NET)
 level_shifter("SWO", SWO_A, SWO_B, GND)
 
-# Two 1 µF bulk caps on VTREF, one on each side of the LS cluster
-# (halves the effective loop inductance per shifter via parallel
-# paths through the pour).
-# Layout: pour VTREF on L3 under all three shifters with a via from
-# each VCCB pad straight down; the caps sit on the same pour. Loop
-# inductance to each VCCB pin is ~1 nH (two short vias + plane
-# spreading) vs. ~4 nH for a trace, enough to keep the worst-case
-# edge-transient dip under ~30 mV. No per-shifter local decoupling
-# is needed at 10 MHz SWCLK into Hi-Z targets. The VCCA (V3V3) pins
-# get the same treatment by via-ing to the existing 3V3 pour; the
-# LDO output cap and MCU VDD cap cover that rail.
+# Two VTREF bulk caps straddling the LS cluster; see spec §5.
 Capacitor(name="C_VTREF1", value="1uF", package="0402", P1=VTREF.NET, P2=GND)
 Capacitor(name="C_VTREF2", value="1uF", package="0402", P1=VTREF.NET, P2=GND)
 
-# Series damping on SWDIO/SWCLK between LS B-side and the target header.
-# 33 Ω + ~20 Ω LXC driver impedance ≈ 53 Ω, close to typical flying-lead
-# cable impedance — kills ringing/overshoot on fast edges into Hi-Z
-# target inputs. Swap to 0 Ω if bench validation with a short stub shows
-# it's unnecessary.
+# SWDIO/SWCLK series damping: 33 Ω + ~20 Ω LXC driver ≈ 53 Ω, roughly
+# matched to flying-lead cable; kills ringing into Hi-Z target inputs.
 Resistor(name="R_SWDIO_SER", value="33ohm", package="0402", P1=SWD_LS.SWDIO, P2=SWD_B.SWDIO)
 Resistor(name="R_SWCLK_SER", value="33ohm", package="0402", P1=SWD_LS.SWCLK, P2=SWD_B.SWCLK)
 
-# Target-side SWO idle pull-up to VTREF. SWO idles high (NRZ convention);
-# with VTref present but target TPIU not enabled or target held in
-# reset, the LS B-side input would float. 100 kΩ gives a defined idle
-# that passes cleanly through to PB9.
+# SWO idle pull-up to VTREF — defined logic high when target TPIU is off
+# or target is in reset, otherwise LS B-side input floats.
 Resistor(name="R_SWO_PU", value="100kohm", package="0402", P1=SWO_B, P2=VTREF.NET)
 
-# Target header — Samtec FTSH-105 (2×5, 1.27 mm, shrouded/keyed, SMT
-# with alignment pegs). Standard ARM Cortex Debug 10-pin pinout:
-#   1 VTREF       2 SWDIO_B
-#   3 GND         4 SWCLK_B
-#   5 GND         6 SWO_B
-#   7 KEY         8 NC (TDI position, unused in SWD mode)
-#   9 GND        10 TGT_NRESET
+# Target header — standard ARM Cortex Debug 10-pin. See spec §5.
 Ftsh10(
     name="J_TGT",
     P1=VTREF.NET,

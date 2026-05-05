@@ -36,13 +36,13 @@ victims under methodical, if ineffective, observation.
 | R1 | USB 2.0 FS device, bus-powered, USB-C receptacle | P0 |
 | R2 | Crystal-less USB via HSI48 + CRS | P0 |
 | R3 | Enumerate as CMSIS-DAP v2 (WinUSB) + CDC-ACM composite | P0 |
-| R4 | Target-side I/O rails auto-range over 1.8–5.0 V (VTref-driven, nRESET clamp) | P0 |
+| R4 | Target-side I/O rails auto-range over 1.8–5.0 V (VTref-driven) | P0 |
 | R5 | Bidirectional SWDIO via directional level shifter, firmware-controlled direction | P0 |
 | R6 | Target SWO (TPIU NRZ) capture, same voltage range as SWD | P0 |
 | R7 | Target nRESET: open-drain drive, 5 V tolerant when probe is unpowered | P0 |
 | R8 | No back-feed from target into probe when USB is disconnected | P0 |
 | R9 | 10-pin 0.05" ARM Cortex-Debug target header, keyed/shrouded | P0 |
-| R10 | Four status LEDs (activity / heartbeat); none on power rails | P0 |
+| R10 | Three status LEDs (activity / heartbeat); none on power rails | P0 |
 | R11 | Probe self-flashable via USB DFU (BOOT0 button + USB cycle or firmware-triggered jump) | P0 |
 | R12 | Tag-Connect SWD footprint (unpopulated) for factory / recovery | P1 |
 | R13 | ESD: IEC 61000-4-2 Level 4 on D+/D-/CC1/CC2 + VBUS TVS | P0 |
@@ -128,10 +128,8 @@ Composite USB device, single configuration:
 - iSerialNumber derived from G0B1 96-bit UID → 16-char ASCII so
   `pyOCD list` / `probe-rs list` distinguish multiple probes.
 - The SWO streaming endpoint (EP2 IN bulk) is reserved in the
-  descriptor but Cortex-M0+ has no SWO output, so it's a no-op in
-  this firmware build.
-- Firmware concern; no board impact beyond USB D+ pull-up (on-die,
-  see Design Note 10).
+  descriptor; Cortex-M0+ has no SWO output so it's a no-op in this
+  firmware build.
 
 ---
 
@@ -159,7 +157,7 @@ Direct instantiation of:
   receptacle.
 - `components/TPD4E05U06QDQARQ1/TPD4E05U06QDQARQ1.zen` — 4-channel TVS.
 
-Wiring (per explicit user requirement):
+TVS wiring (per explicit user requirement):
 
 | TPD4E05U06 pin | Net |
 |----------------|-----|
@@ -168,12 +166,10 @@ Wiring (per explicit user requirement):
 | D1P | USB_C.CC2 |
 | D1M | USB_C.CC1 |
 
-VBUS bulk: 4.7–10 µF ceramic near the receptacle (USB 2.0 spec; not
-provided by the raw `UsbC16P` connector module — it's part of the host
-design, unlike `UsbCSink16P`).
-
-VBUS TVS: 1 × SMAJ5.0A (or equivalent 5 V standoff TVS) across VBUS/GND
-near the receptacle.
+VBUS TVS: stdlib `Tvs` generic, 5 V standoff unidirectional (resolves
+to SMF5V0A). Clamps hot-plug transients upstream of the LDO. No
+separate VBUS bulk cap — the `TPS74x01P` LDO module provides its own
+1 µF C_IN.
 
 **CC resistors**: not placed. STM32G0B1 'N' variant UCPD dead-battery Rd
 provides the Rd termination from POR. Per AN5225 §11.3.1, DBCC pins are
@@ -211,14 +207,14 @@ Three `SN74LXC1T45QDRYRQ1` (USON-6, 1.45×1 mm, Ioff + V₀₀ disconnect,
 1.1–5.5 V both ports). All share:
 - VCCA = 3V3 (probe side)
 - VCCB = VTref (target side)
-- one 1 µF bulk cap on VTREF at the cluster; V3V3 decoupled upstream
+- two 1 µF bulk caps on VTREF at the cluster (one per end); V3V3
+  decoupled upstream.
 
 | Shifter | DIR wiring | A (MCU side) | B (target side) |
 |---|---|---|---|
 | U_LS_SWDIO | GPIO `SWD_DIR` (PB7) | PB6 | Header pin 2 |
 | U_LS_SWCLK | tied to VCCA (always A→B) | PB8 | Header pin 4 |
 | U_LS_SWO   | tied to GND (always B→A)   | PB9 (USART3_RX) | Header pin 6 |
-| U_LS_URX | tied to GND (always B→A) | PB9 (USART3_RX) | Header pin 6 |
 
 Firmware controls `SWD_DIR`:
 - High → MCU drives SWDIO (write/address phase).
@@ -276,7 +272,7 @@ GND, active-high). Three colors total (no white):
 | USB/CC ESD | TPD4E05U06QDQARQ1 | USON-10 |
 | VBUS TVS | 5–6 V standoff unidirectional (stdlib `Tvs` generic) | SMF |
 | 3V3 LDO | TPS74x01P | SON-6 |
-| Level shifters (×4) | SN74LXC1T45-family (LXC selected via `SN74x1T45-DRY` module) | USON-6 |
+| Level shifters (×3) | SN74LXC1T45-family (via `SN74x1T45-DRY` module) | USON-6 |
 | Target header | FTSH-105-01-L-DV-K-A-P-TR | SMT, keyed |
 | Buttons (×2) | Omron B3U-1000P | SMT |
 | LEDs | stdlib `Led` generic | 0402 |
@@ -366,7 +362,7 @@ Audit of every target → probe path:
 | VTref → LXC1T45 VCCB | Shifter draws ~10 µA quiescent per chip = ~40 µA total. Acceptable target load. No path into probe 3V3 because VCCA is 0 V on all four shifters. |
 | SWDIO (target out) → MCU GPIO | LXC1T45 has **Ioff + V₀₀ disconnect**: when VCCA drops below 100 mV, the A-side I/O is briefly pulled low then goes Hi-Z. No back-drive into MCU or 3V3. |
 | SWCLK / SWO / SWD_DIR | Shifters Ioff for A-side; SWCLK/SWD_DIR are probe→target (target never drives these B-sides), SWO is target→probe (LS A-side Hi-Z via Ioff when VCCA=0). |
-| nRESET → MCU PD0 | PD0 is **FT_c** (5 V tolerant regardless of VDD per DS13557 §6.3.15) — no ESD clamp to VDD, so a target-driven high on nRESET does not charge 3V3. |
+| nRESET → MCU PD0 | PD0 is **FT_c** (5 V tolerant regardless of VDD per DS13560 §6.3.15) — no ESD clamp to VDD, so a target-driven high on nRESET does not charge 3V3. |
 | VTref → 3V3 rail | No direct electrical path. No op-amp, no voltage divider, no diode. |
 | USB D+/D- | USB disconnected; no path. |
 
@@ -382,8 +378,8 @@ draws < 100 µA from target.
 
 ## 11. Open items (non-blocking)
 
-- **Production VID:PID** — firmware currently defaults to pid.codes
-  `0x1209 / 0x0001`. Replace once firmware stabilizes.
+- **Production VID:PID** — firmware defaults to pid.codes `0x1209 /
+  0x0001` during bringup.
 - **Layout-stage controlled-impedance review** — confirm 90 Ω
   differential USB on L1 after first layout pass.
 
@@ -443,7 +439,7 @@ draws < 100 µA from target.
 
 7. **SWD_DIR idle.** The SN74LXC1T45 has an integrated ~5 MΩ
    pull-down on DIR, so a floating DIR defaults to LOW (B→A read).
-   During MCU reset, PB6 is Hi-Z and the LS SWDIO shifter stays in
+   During MCU reset, PB7 is Hi-Z and the LS SWDIO shifter stays in
    read mode — MCU A-side is an input, target-side driver disabled
    — without an external pull-down.
 
@@ -485,9 +481,9 @@ draws < 100 µA from target.
 15. **No target power from probe.** Seward never sources power onto
     the 10-pin header. Pin 1 is an *input* (VTref sense) only.
 
-16. **Spare GPIOs.** ~8 unused pins (PA7, PB0, PA15, PB3, PB4, PB5,
-    PD1, PD2) can be broken out to test points for future firmware
-    features. Exact set is at EE discretion during layout.
+16. **Spare GPIOs.** PA0, PA3–PA7, PB0, PD2 are unused on the
+    UFQFPN-32 'N' pinout and can be broken out to test points for
+    future firmware features. Exact set is at EE discretion.
 
 ---
 
