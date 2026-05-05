@@ -24,9 +24,6 @@ Primary use cases:
    via a BOOT0 button + USB cycle (or firmware-triggered DFU jump);
    a Tag-Connect footprint is available for factory/recovery SWD.
 
-Named for Dr. John Seward — the asylum director who kept Dracula's
-victims under methodical, if ineffective, observation.
-
 ---
 
 ## 2. Requirements summary
